@@ -1,0 +1,15 @@
+current directory: /Users/arnonhongklay/Documents/Repositories/Daydash/web/vendor/bundle/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+/Users/arnonhongklay/.rbenv/versions/2.3.0/bin/ruby -r ./siteconf20160514-25918-6i3leg.rb extconf.rb
+creating Makefile
+
+current directory: /Users/arnonhongklay/Documents/Repositories/Daydash/web/vendor/bundle/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR=" clean
+
+current directory: /Users/arnonhongklay/Documents/Repositories/Daydash/web/vendor/bundle/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR="
+compiling debug_inspector.c
+linking shared-object debug_inspector.bundle
+
+current directory: /Users/arnonhongklay/Documents/Repositories/Daydash/web/vendor/bundle/ruby/2.3.0/gems/debug_inspector-0.0.2/ext/debug_inspector
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 debug_inspector.bundle ./.gem.20160514-25918-15fnerz

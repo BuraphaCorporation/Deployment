@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   get 'organizer/index'
 
   namespace :admin do
-    get 'dashboard/index'
+    get '/', to: 'portal#index'
+    get 'dashboard', to: 'dashboard#index'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

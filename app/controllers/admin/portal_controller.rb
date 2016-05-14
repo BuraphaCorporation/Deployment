@@ -1,6 +1,6 @@
 class Admin::PortalController < ApplicationController
   layout 'admin'
-  
+
   def index
 
   end

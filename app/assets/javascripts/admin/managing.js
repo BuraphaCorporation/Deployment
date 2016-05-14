@@ -1,3 +1,5 @@
 
-// = require bootstrap/dist/js/bootstrap.min
+// = require js/vendor
+// = require js/app
 // = require_tree .
+// = require_self

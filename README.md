@@ -50,3 +50,11 @@ ln -sfv /usr/local/opt/postgresql/*plist ~/Library/LaunchAgents
 # Then to load postgresql now:
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 ```
+
+### How to setup local 
+
+```
+bundle install --path vendor/bundle
+bundle exec rake bower:install
+bundle exec rake db:setup db:seed
+```

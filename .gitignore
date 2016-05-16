@@ -12,5 +12,6 @@
 !/log/.keep
 /tmp
 
+vendor/assets/admin
 vendor/assets/bower_components
 vendor/bundle

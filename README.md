@@ -20,6 +20,14 @@ source ~/.bash_profile
 rbenv install 2.3.0
 rbenv global 2.3.0
 ruby -v
+
+# Install Bundle
+gem install bundle
+gem install rails -v 4.2.5
+```
+and 
+```
+bundle install
 ```
 
 ## Configuring Git
@@ -35,9 +43,6 @@ ssh-keygen -t rsa -C "arnon@hongklay.com"
 cat ~/.ssh/id_rsa.pub
 ```
 
-```
-gem install rails -v 4.2.5
-```
 
 ## PostgreSQL
 

@@ -7,10 +7,13 @@
 # Ignore bundler config.
 # /.bundle
 
+.DS_Store
+
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
 /tmp
 
+vendor/assets/admin
 vendor/assets/bower_components
 vendor/bundle

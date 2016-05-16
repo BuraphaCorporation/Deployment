@@ -3,8 +3,7 @@ ruby '2.3.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'
-# Use postgresql as the database for Active Record
-gem 'pg', '~> 0.15'
+
 # Use SCSS for stylesheets
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -32,26 +31,53 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'capistrano', '~> 3.1.0'
-gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-rails', '~> 1.1.1'
-gem 'capistrano-rbenv', github: "capistrano/rbenv"
-
 
 gem 'devise'
 gem 'omniauth-facebook'
 
 gem "bower-rails"
 
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-end
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+  gem 'pry'
+  # gem 'rspec-rails'
+  # %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+  #   gem lib, :git => "git://github.com/rspec/#{lib}.git", :branch => 'master'
+  # end
+  # gem 'factory_girl_rails'
+  # gem 'capybara'
+  # gem 'capybara-webkit'
+  # gem 'shoulda'
+  # gem 'guard'
+  # gem 'guard-rspec'
+  # gem 'database_cleaner'
+end
+
+group :development do
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
+
+  # gem 'capistrano'
+  # gem 'capistrano_colors'
+  # gem 'quiet_assets'
+  # gem 'guard-livereload', require: false
+  # gem 'rack-livereload'
+  # gem 'rb-fsevent', require: false
+
+  gem 'capistrano', '~> 3.1'
+  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rbenv', github: 'capistrano/rbenv'
+  gem 'capistrano-rails-console'
+end
+
+platform :ruby do
+  # gem 'mysql2', '>= 0.3.13', '< 0.5'
+  gem 'pg'
+  gem 'unicorn'
+end
+
+group :production do
+  gem 'rails_12factor'
+  gem 'aws-sdk'
 end

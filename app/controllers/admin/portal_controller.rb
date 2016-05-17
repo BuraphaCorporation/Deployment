@@ -1,5 +1,6 @@
 class Admin::PortalController < ApplicationController
-  # before_action :is_admin?
+  before_action :authenticate_user!
+
   layout 'admin'
 
   def index

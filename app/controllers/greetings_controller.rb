@@ -4,5 +4,4 @@ class GreetingsController < ApplicationController
   def hello
     @user = current_user
   end
-
 end

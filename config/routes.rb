@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
 
   devise_for :users
+  # devise_for :users,
+  #   # class_name: Users,
+  #   controllers: {
+  #     registrations: "registrations",
+  #     sessions: ''
+  #   } do
+  #   get "private_customer/sign_up" => "users/registrations#new"
+  #   get "private_customer/sign_in" => "users/sessions#index"
+  # end
 
   root 'greetings#hello'
 

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.0'
+ruby '2.3.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.2'
@@ -40,17 +40,14 @@ gem "bower-rails"
 
 group :development, :test do
   gem 'pry'
-  # gem 'rspec-rails'
-  # %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-  #   gem lib, :git => "git://github.com/rspec/#{lib}.git", :branch => 'master'
-  # end
-  # gem 'factory_girl_rails'
-  # gem 'capybara'
-  # gem 'capybara-webkit'
-  # gem 'shoulda'
-  # gem 'guard'
-  # gem 'guard-rspec'
-  # gem 'database_cleaner'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'shoulda'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'database_cleaner'
 end
 
 group :development do

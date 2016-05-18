@@ -17,15 +17,15 @@ echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_pr
 source ~/.bash_profile
 
 # Install Ruby
-rbenv install 2.3.0
-rbenv global 2.3.0
+rbenv install 2.3.1
+rbenv global 2.3.1
 ruby -v
 
 # Install Bundle
 gem install bundle
 gem install rails -v 4.2.5
 ```
-and 
+and
 ```
 bundle install
 ```
@@ -56,7 +56,7 @@ ln -sfv /usr/local/opt/postgresql/*plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 ```
 
-### How to setup local 
+### How to setup local
 
 ```
 bundle install --path vendor/bundle

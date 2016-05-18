@@ -5,12 +5,5 @@ class CreateTags < ActiveRecord::Migration
       t.index :name, unique: true
       t.timestamps null: false
     end
-
-    create_table :tagging do |t|
-      t.references :events, index: true
-      t.references :tags, index: true
-
-      t.timestamps null: false
-    end
   end
 end

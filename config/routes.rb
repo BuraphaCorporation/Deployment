@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   root 'greetings#hello'
 
   namespace :admin do
-    # get '/', to: 'portal#index'
-    get '/event', to: 'event#index'
-    get '/dashboard', to: 'dashboard#index'
+    get '/', to: 'dashboard#index'
+    resources :events, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :users, only: [:index]
   end
 
   namespace :organizers do

@@ -7,9 +7,15 @@ class Admin::UsersController < Admin::PortalController
   end
 
   def new
+    @user = User.new
   end
 
   def create
+    if @user = User.create(user_params)
+      redirect_to admin_users_path, flash: { notice: "Success!" }
+    else
+      redirect_to admin_users_path, flash: { error: @user.errors.full_messages }
+    end
   end
 
   def edit
@@ -30,6 +36,6 @@ class Admin::UsersController < Admin::PortalController
     end
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :birthday, :company, :url, :interesting, :short_description, :avatar)
+      params.require(:user).permit(:email, :password, :first_name, :last_name, :birthday, :company, :url, :interesting, :short_description, :avatar)
     end
 end

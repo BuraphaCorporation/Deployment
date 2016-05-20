@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/', to: 'dashboard#index'
     resources :events
-    resources :users
+    resources :users, except: :show
   end
 
   namespace :organizers do

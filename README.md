@@ -59,6 +59,12 @@ brew install qt55
 brew link --force qt55
 ```
 
+## Install Imagemagick
+
+```
+brew install imagemagick
+```
+
 and
 
 ### Setup local

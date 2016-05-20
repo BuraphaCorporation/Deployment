@@ -30,6 +30,6 @@ class Admin::UsersController < Admin::PortalController
     end
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :birthday, :company, :url, :interesting, :short_description)
+      params.require(:user).permit(:first_name, :last_name, :birthday, :company, :url, :interesting, :short_description, :avatar)
     end
 end

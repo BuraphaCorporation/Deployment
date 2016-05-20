@@ -8,6 +8,13 @@ class User < ActiveRecord::Base
   belongs_to :role
   before_create :set_default_role
 
+  enum gender: { male: 1, female: 0 }
+
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100#" },
+                    default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :avatar,
+                                    content_type: /\Aimage\/.*\Z/
+
   def admin?
     role.name == 'admin'
   end

@@ -17,3 +17,5 @@
 vendor/assets/admin
 vendor/assets/bower_components
 vendor/bundle
+
+public/system/

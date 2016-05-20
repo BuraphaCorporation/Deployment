@@ -11,51 +11,50 @@
       <div class="col-md-12">
         <div class="card card-block sameheight-item">
           <div class="title-block">
-            <h3 class="title">
+<!--             <h3 class="title">
               Underlined Inputs
-            </h3>
+            </h3> -->
           </div>
           <form role="form">
-
+          <%= form_for @user, url: edit_admin_user_path(@user) do |f| %>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="control-label">First name</label>
-                  <input type="text" class="form-control underlined">
+                  <%= f.label :first_name, class: 'control-label' %>
+                  <%= f.text_field :first_name, class: 'form-control underlined', autofocus: true  %>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="control-label">Last name</label>
-                  <input type="text" class="form-control underlined">
+                  <%= f.label :last_name, class: 'control-label' %>
+                  <%= f.text_field :last_name, class: 'form-control underlined', autofocus: true  %>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="control-label">Gender</label>
-
-                  <select>
-                    <option value="F">Option one</option>
-                    <option value="M">Option two</option>
-                  </select>
+                  <%= f.label :gender %>
+                  <%= f.radio_button :gemder, :male %>
+                  <%= label :gender, :male %>
+                  <%= f.radio_button :gemder, :female %>
+                  <%= label :gender, :female %>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="control-label">Birthday</label>
-                  <input type="text" class="form-control underlined">
+                  <%= f.label :birthday %>
+                  <%= f.date_select :birthday %>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="control-label">Company</label>
-                  <input type="text" class="form-control underlined">
+                  <%= f.label :company, class: 'control-label' %>
+                  <%= f.text_field :company, class: 'form-control underlined', autofocus: true  %>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label class="control-label">Interesting</label>
-                  <input type="text" class="form-control underlined">
+                  <%= f.label :interesting, class: 'control-label' %>
+                  <%= f.text_field :interesting, class: 'form-control underlined', autofocus: true  %>
                 </div>
               </div>
               <div class="col-md-6">
@@ -97,7 +96,8 @@
               <label class="control-label">Textarea</label>
               <textarea rows="3" class="form-control underlined"></textarea>
             </div> -->
-          </form>
+          <!-- </form> -->
+          <% end %>
         </div>
       </div>
     </div>

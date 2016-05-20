@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-  # devise_for :users,
-  #   # class_name: Users,
-  #   controllers: {
-  #     registrations: "registrations",
-  #     sessions: ''
-  #   } do
-  #   get "private_customer/sign_up" => "users/registrations#new"
-  #   get "private_customer/sign_in" => "users/sessions#index"
+  # devise_for :users
+  devise_for :users,
+    path: 'auth',
+    # class_name: Users,
+    controllers: {
+      confirmations:      'users/confirmations',
+      omniauth_callbacks: 'users/omniauth_callbacks',
+      passwords:          'users/passwords',
+      registrations:      'users/registrations',
+      sessions:           'users/sessions',
+      unlocks:            'users/unlocks',
+    }
+    # do
+    # get "private_customer/sign_up" => "users/registrations#new"
+    # get "private_customer/sign_in" => "users/sessions#index"
   # end
 
   root 'greetings#hello'

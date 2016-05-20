@@ -11,4 +11,5 @@ Rails.application.config.assets.paths << Rails.root.join('bower_components', 'ad
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w(
   admin/portal.js admin/portal.css
+  users.css users.js
 )

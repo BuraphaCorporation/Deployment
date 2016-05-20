@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::PortalController
 
-  before_action :event, only: [:edit, :update, :destroy]
+  before_action :user, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all
@@ -10,14 +10,14 @@ class Admin::UsersController < Admin::PortalController
   end
 
   def create
-
   end
 
   def edit
-
   end
 
   def update
+    @user.update(user_params)
+    redirect_to :back
   end
 
   def destroy
@@ -25,7 +25,11 @@ class Admin::UsersController < Admin::PortalController
   end
 
   private
-    def event
-      @user = params[:id]
+    def user
+      @user = User.find(params[:id])
+    end
+
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :birthday, :company, :url, :interesting, :short_description)
     end
 end

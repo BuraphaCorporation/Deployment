@@ -1,22 +1,16 @@
 <article class="content forms-page">
   <div class="title-block">
     <h3 class="title">
-      Forms
+      Edit Users
     </h3>
-    <p class="title-description"> Sample form elements </p>
+    <!-- <p class="title-description"> Sample form elements </p> -->
   </div>
 
   <section class="section">
     <div class="row sameheight-container">
       <div class="col-md-12">
         <div class="card card-block sameheight-item">
-          <div class="title-block">
-<!--             <h3 class="title">
-              Underlined Inputs
-            </h3> -->
-          </div>
-          <form role="form">
-          <%= form_for @user, url: edit_admin_user_path(@user) do |f| %>
+          <%= form_for @user, url: admin_user_path(@user), method: :put do |f| %>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group">
@@ -33,16 +27,16 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <%= f.label :gender %>
-                  <%= f.radio_button :gemder, :male %>
+                  <%= f.radio_button :gender, :male %>
                   <%= label :gender, :male %>
-                  <%= f.radio_button :gemder, :female %>
+                  <%= f.radio_button :gender, :female %>
                   <%= label :gender, :female %>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
                   <%= f.label :birthday %>
-                  <%= f.date_select :birthday %>
+                  <%= f.date_select :birthday, order: [:day, :month, :year], start_year: 1900 %>
                 </div>
               </div>
               <div class="col-md-6">
@@ -53,50 +47,28 @@
               </div>
               <div class="col-md-6">
                 <div class="form-group">
+                  <%= f.label :url, class: 'control-label' %>
+                  <%= f.text_field :url, class: 'form-control underlined', autofocus: true, placeholder: 'https://domain.com'  %>
+                </div>
+              </div>
+              <div class="col-md-6 offset-6">
+                <div class="form-group">
                   <%= f.label :interesting, class: 'control-label' %>
                   <%= f.text_field :interesting, class: 'form-control underlined', autofocus: true  %>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="control-label">URL:</label>
-                  <input type="text" class="form-control underlined" placeholder="https://domain.com">
-                </div>
-              </div>
               <div class="col-md-12">
                 <div class="form-group">
-                  <label class="control-label">Short description</label>
-                  <textarea rows="3" class="form-control underlined"></textarea>
+                  <%= f.label :short_description, class: 'control-label' %>
+                  <%= f.text_area :short_description, class: 'form-control underlined', rows: 3 %>
+                </div>
+              </div>
+              <div class="col-md-3 offset-9">
+                <div class="form-group">
+                  <%= f.submit "Submit", class: 'btn btn-block btn-primary' %>
                 </div>
               </div>
             </div>
-
-            <!--
-            <div class="form-group">
-              <label class="control-label">Input Password</label>
-              <input type="password" class="form-control underlined">
-            </div>
-            <div class="form-group">
-              <label class="control-label">Placeholder Input</label>
-              <input type="text" class="form-control underlined" placeholder="Placeholder text">
-            </div>
-            <div class="form-group">
-              <label class="control-label">Disabled Input</label>
-              <input type="text" disabled="disabled" class="form-control underlined" placeholder="Disabled input text">
-            </div>
-            <div class="form-group">
-              <label class="control-label">Static control</label>
-              <p class="form-control-static underlined">email@example.com</p>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Readonly Input</label>
-              <input type="text" readonly="readonly" class="form-control underlined" value="Readonly input text">
-            </div>
-            <div class="form-group">
-              <label class="control-label">Textarea</label>
-              <textarea rows="3" class="form-control underlined"></textarea>
-            </div> -->
-          <!-- </form> -->
           <% end %>
         </div>
       </div>

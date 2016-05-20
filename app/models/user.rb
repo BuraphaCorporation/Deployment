@@ -8,13 +8,12 @@ class User < ActiveRecord::Base
   belongs_to :role
   before_create :set_default_role
 
-
   def admin?
     role.name == 'admin'
   end
 
-  def super_admin?
-    role.name == 'super_admin'
+  def moderator?
+    role.name == 'moderator'
   end
 
   def organizer?

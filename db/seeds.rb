@@ -9,6 +9,7 @@ User.create do |user|
   user.password              = '1234567890'
   user.password_confirmation = '1234567890'
   user.confirmed_at          = Time.zone.now
+  user.role_id               = Role.find_by_name('admin').id
 end
 
 User.create do |user|
@@ -16,6 +17,7 @@ User.create do |user|
   user.password              = 'ddaSh#2020'
   user.password_confirmation = 'ddaSh#2020'
   user.confirmed_at          = Time.zone.now
+  user.role_id               = Role.find_by_name('moderator').id
 end
 
 User.create do |user|
@@ -23,4 +25,5 @@ User.create do |user|
   user.password              = 'ddaSh#2020'
   user.password_confirmation = 'ddaSh#2020'
   user.confirmed_at          = Time.zone.now
+  user.role_id               = Role.find_by_name('organizer').id
 end

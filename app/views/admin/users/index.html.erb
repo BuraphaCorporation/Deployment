@@ -1,135 +1,55 @@
 <article class="content items-list-page">
-    <div class="title-search-block">
-        <div class="title-block">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 class="title">
-                        Users
-                        <%= link_to "Add New", new_admin_event_path, class: 'btn btn-primary btn-sm rounded-s' %>
-                    </h3>
-                </div>
-            </div>
+  <div class="title-search-block">
+    <div class="title-block">
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="title">
+            Users
+            <%= link_to "Add New", new_admin_event_path, class: 'btn btn-primary btn-sm rounded-s' %>
+          </h3>
         </div>
-        <div class="items-search">
-            <form class="form-inline">
-                <div class="input-group">
-                    <input type="text" class="form-control boxed rounded-s" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-secondary rounded-s" type="button">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </span>
-                </div>
-            </form>
+      </div>
+    </div>
+    <div class="items-search">
+      <form class="form-inline">
+        <div class="input-group">
+          <input type="text" class="form-control boxed rounded-s" placeholder="Search for...">
+          <span class="input-group-btn">
+          <button class="btn btn-secondary rounded-s" type="button">
+            <i class="fa fa-search"></i>
+          </button>
+          </span>
         </div>
+      </form>
     </div>
-    <div class="card items">
-        <ul class="item-list striped">
-            <li class="item item-list-header hidden-sm-down">
-                <div class="item-row">
-                    <div class="item-col fixed item-col-check">
-                        <label class="item-check" id="select-all-items">
-                            <input type="checkbox" class="checkbox">
-                            <span></span>
-                        </label>
-                    </div>
-                    <div class="item-col item-col-header fixed item-col-img md">
-                        <div>
-                            <span>Picture</span>
-                        </div>
-                    </div>
-                    <div class="item-col item-col-header item-col-title">
-                        <div>
-                            <span>Name</span>
-                        </div>
-                    </div>
-                    <div class="item-col item-col-header item-col-sales">
-                        <div>
-                            <span>Gender</span>
-                        </div>
-                    </div>
-                    <div class="item-col item-col-header item-col-stats">
-                        <div class="no-overflow">
-                            <span>Role</span>
-                        </div>
-                    </div>
-                    <div class="item-col item-col-header item-col-date">
-                        <div>
-                            <span>Joined At</span>
-                        </div>
-                    </div>
-                    <div class="item-col item-col-header fixed item-col-actions-dropdown"></div>
-                </div>
-            </li>
+  </div>
+  <div class="card items">
 
-            <li class="item">
-                <div class="item-row">
-                    <div class="item-col fixed item-col-check">
-                        <label class="item-check" id="select-all-items">
-                            <input type="checkbox" class="checkbox">
-                            <span></span>
-                        </label>
-                    </div>
-                    <div class="item-col fixed item-col-img md">
-                        <a href="item-editor.html">
-                            <div class="item-img rounded" style="background-image: url(https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg)"></div>
-                        </a>
-                    </div>
-                    <div class="item-col fixed pull-left item-col-title">
-                        <div class="item-heading">Name</div>
-                        <div>
-                            <a href="item-editor.html" class="">
-                                <h4 class="item-title">
-                                    12 Myths Uncovered About IT &amp; Software
-                                </h4>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="item-col item-col-author">
-                        <div class="item-heading">Author</div>
-                        <div class="no-overflow">
-                            <a href="">Meadow Katheryne</a>
-                        </div>
-                    </div>
-                    <div class="item-col item-col-date">
-                        <div class="item-heading">Published</div>
-                        <div class="no-overflow">
-                            21 SEP 10:45
-                        </div>
-                    </div>
-<!--                     <div class="item-col fixed item-col-actions-dropdown">
-                        <div class="item-actions-dropdown">
-                            <a class="item-actions-toggle-btn">
-                                <span class="inactive">
-                                    <i class="fa fa-cog"></i>
-                                </span>
-                                <span class="active">
-                                    <i class="fa fa-chevron-circle-right"></i>
-                                </span>
-                            </a>
-                            <div class="item-actions-block">
-                                <ul class="item-actions-list">
-                                    <li>
-
-                                        <a class="remove" href="#" data-toggle="modal" data-target="#confirm-modal">
-                                            <i class="fa fa-trash-o "></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="edit" href="item-editor.html">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> -->
-                </div>
-            </li>
-
-        </ul>
+    <div class="panel panel-default">
+      <table class="table table-striped">
+        <tr>
+          <th>Picture</th>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Role</th>
+          <th>Joined At</th>
+          <th>Action</th>
+        </tr>
+        <% @users.each do |user| %>
+        <tr>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= user.gender %></td>
+          <td><%= user.role.name %></td>
+          <td><%= user.created_at %></td>
+          <td><%= link_to "Edit", edit_admin_user_path(user.id) %></td>
+        </tr>
+        <% end %>
+      </table>
     </div>
-    <!--
+
+  </div>
+
     <nav class="text-xs-right">
         <ul class="pagination">
             <li class="page-item">
@@ -168,5 +88,5 @@
                 </a>
             </li>
         </ul>
-    </nav> -->
+    </nav>
 </article>

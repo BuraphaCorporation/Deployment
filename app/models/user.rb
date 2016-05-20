@@ -9,7 +9,20 @@ class User < ActiveRecord::Base
   before_create :set_default_role
 
 
+  def admin?
+    role.name == 'admin'
+  end
+
+  def super_admin?
+    role.name == 'super_admin'
+  end
+
+  def organizer?
+    role.name == 'organizer'
+  end
+
 protected
+
   def confirmation_required?
     false
   end

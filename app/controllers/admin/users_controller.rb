@@ -1,6 +1,6 @@
 class Admin::UsersController < Admin::PortalController
 
-  before_action :user, only: [:edit, :update, :destroy]
+  before_action :event, only: [:edit, :update, :destroy]
 
   def index
     @users = User.all

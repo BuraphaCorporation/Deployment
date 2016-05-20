@@ -49,11 +49,12 @@
           <li class="active">
             <%= link_to 'Home', root_path %>
           </li>
-          <!--
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li> -->
-          <li><%= link_to 'Organizer', organizers_index_path %></li>
-          <li><%= link_to 'Organizer', organizers_index_path %></li>
+          <li>
+            <%= link_to 'Organizer', organizers_index_path if current_user.organizer? %>
+          </li>
+          <li>
+            <%= link_to 'Admin', admin_path if current_user.admin? or current_user.super_admin? %>
+          </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="active">

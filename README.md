@@ -7,6 +7,19 @@
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
+## Configuring Git
+
+```
+git config --global color.ui true
+git config --global user.name "Arnon Hongklay"
+git config --global user.email "arnon@hongklay.com"
+ssh-keygen -t rsa -C "arnon@hongklay.com"
+```
+
+```
+cat ~/.ssh/id_rsa.pub
+```
+
 ## Installing Ruby
 
 ```
@@ -25,26 +38,8 @@ ruby -v
 gem install bundle
 gem install rails -v 4.2.5
 ```
-and
-```
-bundle install
-```
 
-## Configuring Git
-
-```
-git config --global color.ui true
-git config --global user.name "Arnon Hongklay"
-git config --global user.email "arnon@hongklay.com"
-ssh-keygen -t rsa -C "arnon@hongklay.com"
-```
-
-```
-cat ~/.ssh/id_rsa.pub
-```
-
-
-## PostgreSQL
+## Install PostgreSQL
 
 ```
 brew install postgresql
@@ -56,7 +51,17 @@ ln -sfv /usr/local/opt/postgresql/*plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 ```
 
-### How to setup local
+## Install QT
+
+```
+brew tap homebrew/versions
+brew install qt55
+brew link --force qt55
+```
+
+and
+
+### Setup local
 
 ```
 bundle install --path vendor/bundle

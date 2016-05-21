@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
+  has_many :events
   belongs_to :role
-  before_create :set_default_role
 
   enum gender: { male: 1, female: 0 }
 
@@ -14,6 +14,9 @@ class User < ActiveRecord::Base
                     default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar,
                                     content_type: /\Aimage\/.*\Z/
+
+  before_create :set_default_role
+
 
   def admin?
     role.name == 'admin'

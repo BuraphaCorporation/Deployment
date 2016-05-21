@@ -1,8 +1,8 @@
 class CreateTaggings < ActiveRecord::Migration
   def change
     create_table :taggings do |t|
-      t.references :events, index: true
-      t.references :tags, index: true
+      t.references :event, index: true, foreign_key: true
+      t.references :tag, index: true, foreign_key: true
 
       t.timestamps null: false
     end

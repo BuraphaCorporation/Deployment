@@ -5,6 +5,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string   :title, unique: true
       t.text     :description
       t.integer  :price
+      t.attachment :cover
       t.datetime :from_to
       t.string   :location
       t.decimal  :latitude, precision: 10, scale: 6

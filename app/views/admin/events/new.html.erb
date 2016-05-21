@@ -4,7 +4,7 @@
       Add new event <span class="sparkline bar" data-type="bar"></span>
     </h3>
   </div>
-  <%= form_for @event, url: admin_events_path, medthod: :post  do |f| %>
+  <%= form_for @event, url: admin_events_path, medthod: :post do |f| %>
     <div class="card card-block">
       <div class="form-group row">
         <%= f.label :title, class: 'col-sm-2 form-control-label text-xs-right' %>
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="form-group row">
-        <%= f.label :content, class: 'col-sm-2 form-control-label text-xs-right' %>
+        <%= f.label :description, class: 'col-sm-2 form-control-label text-xs-right' %>
 
         <div class="col-sm-10">
           <div class="wyswyg">
@@ -121,20 +121,63 @@
               </span>
             </div>
             <!-- Create the editor container -->
-            <div class="editor"> Hello World </div>
+            <div class="editor"></div>
+            <%= f.text_area :description, style: 'display: none', rows: 3 %>
           </div>
         </div>
       </div>
+
       <div class="form-group row">
         <%= f.label :category, class: 'col-sm-2 form-control-label text-xs-right' %>
         <div class="col-sm-10">
-          <%= f.select :category, options_for_select(@categories.collect{ |c| [c.title, c.id] }, "Select Category") %>
+          <%= f.select :category, options_for_select(@categories.collect{ |c| [c.name, c.id] }) %>
         </div>
       </div>
+
+      <div class="form-group row">
+        <%= f.label :price, class: 'col-sm-2 form-control-label text-xs-right' %>
+        <div class="col-sm-10">
+          <%= f.text_field :price %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :cover, class: 'col-sm-2 form-control-label text-xs-right' %>
+        <div class="col-sm-10">
+          <%= f.file_field :cover %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :location, class: 'col-sm-2 form-control-label text-xs-right' %>
+        <div class="col-sm-10">
+          <%= f.text_field :location %>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <%= f.label :organizer, class: 'col-sm-2 form-control-label text-xs-right' %>
+        <div class="col-sm-10">
+          <%= f.select :user, options_for_select(@users.collect{ |u| ["#{u.first_name} #{u.last_name}", u.id] }) %>
+        </div>
+      </div>
+
+      <pre>
+        coming soon!
+        - upload multi image
+        - google api
+      </pre>
+
       <div class="form-group row">
         <label class="col-sm-2 form-control-label text-xs-right"> Images: </label>
         <div class="col-sm-10">
           <div class="images-container">
+            <a href="#" class="add-image" data-toggle="modal" data-target="#modal-media">
+              <div class="image-container new">
+                <div class="image"> <i class="fa fa-plus"></i> </div>
+              </div>
+            </a>
             <div class="image-container">
               <div class="controls">
                 <a href="" class="control-btn move"> <i class="fa fa-arrows"></i> </a>
@@ -146,11 +189,7 @@
             <div class="image-container">
               <div class="controls">
                 <a href="" class="control-btn move"> <i class="fa fa-arrows"></i> </a>
-                <!--
-                  -->
                 <a href="" class="control-btn star"> <i class="fa"></i> </a>
-                <!--
-                  -->
                 <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal"> <i class="fa fa-trash-o"></i> </a>
               </div>
               <div class="image" style="background-image:url('https://s3.amazonaws.com/uifaces/faces/twitter/_everaldo/128.jpg')"></div>
@@ -158,20 +197,12 @@
             <div class="image-container">
               <div class="controls">
                 <a href="" class="control-btn move"> <i class="fa fa-arrows"></i> </a>
-                <!--
-                  -->
                 <a href="" class="control-btn star"> <i class="fa"></i> </a>
-                <!--
-                  -->
+
                 <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal"> <i class="fa fa-trash-o"></i> </a>
               </div>
               <div class="image" style="background-image:url('https://s3.amazonaws.com/uifaces/faces/twitter/eduardo_olv/128.jpg')"></div>
             </div>
-            <a href="#" class="add-image" data-toggle="modal" data-target="#modal-media">
-              <div class="image-container new">
-                <div class="image"> <i class="fa fa-plus"></i> </div>
-              </div>
-            </a>
           </div>
         </div>
       </div>

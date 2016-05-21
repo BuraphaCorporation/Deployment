@@ -39,10 +39,10 @@
         <tr>
           <td><%= event.title %></td>
           <td><%= event.description %></td>
-          <td><%= event.user.name %></td>
-          <td><%= event.category.title %></td>
+          <td><%= "#{event.user.first_name} #{event.user.last_name}" %></td>
+          <td><%= event.category.name %></td>
           <td><%= event.price %></td>
-          <td><%= link_to "Edit", edit_admin_user_path(user.id) %></td>
+          <td><%= link_to "Edit", edit_admin_event_path(event.id) %></td>
         </tr>
         <% end %>
       </table>

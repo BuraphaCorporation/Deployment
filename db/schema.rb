@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20160521005504) do
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string   "title"
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,12 +39,16 @@ ActiveRecord::Schema.define(version: 20160521005504) do
     t.string   "title"
     t.text     "description"
     t.integer  "price"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
     t.datetime "from_to"
     t.string   "location"
-    t.decimal  "latitude",    precision: 10, scale: 6
-    t.decimal  "longitude",   precision: 10, scale: 6
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.decimal  "latitude",           precision: 10, scale: 6
+    t.decimal  "longitude",          precision: 10, scale: 6
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.integer  "category_id"
   end
 

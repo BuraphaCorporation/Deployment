@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
 
   before_create :set_default_role
 
-
   def admin?
     role.name == 'admin'
   end

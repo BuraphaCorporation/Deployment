@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160521002353) do
+ActiveRecord::Schema.define(version: 20160521005504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "event_attachments", force: :cascade do |t|
     t.integer  "event_id"
@@ -29,19 +35,20 @@ ActiveRecord::Schema.define(version: 20160521002353) do
   add_index "event_attachments", ["event_id"], name: "index_event_attachments_on_event_id", using: :btree
 
   create_table "events", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
     t.integer  "user_id"
+    t.string   "title"
+    t.text     "description"
+    t.integer  "price"
     t.datetime "from_to"
     t.string   "location"
     t.decimal  "latitude",    precision: 10, scale: 6
     t.decimal  "longitude",   precision: 10, scale: 6
-    t.string   "categories"
-    t.integer  "price"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.integer  "category_id"
   end
 
+  add_index "events", ["category_id"], name: "index_events_on_category_id", using: :btree
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "from_to_dates", force: :cascade do |t|
@@ -157,6 +164,7 @@ ActiveRecord::Schema.define(version: 20160521002353) do
   add_index "wishlists", ["user_id"], name: "index_wishlists_on_user_id", using: :btree
 
   add_foreign_key "event_attachments", "events"
+  add_foreign_key "events", "categories"
   add_foreign_key "events", "users"
   add_foreign_key "from_to_dates", "events"
   add_foreign_key "payments", "events"

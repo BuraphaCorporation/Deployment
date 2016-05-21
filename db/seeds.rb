@@ -27,3 +27,7 @@ User.create do |user|
   user.confirmed_at          = Time.zone.now
   user.role_id               = Role.find_by_name('organizer').id
 end
+
+['Nightlife / Entertainment', 'Art & Culture', 'Sport & Wellness', 'Food & Drink'].each do |category|
+  Category.find_or_create_by({title: category})
+end

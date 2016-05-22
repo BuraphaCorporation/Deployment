@@ -36,7 +36,6 @@ gem 'devise'
 gem 'omniauth-facebook'
 
 gem 'bower-rails'
-gem 'breadcrumbs_on_rails'
 
 
 group :development, :test do

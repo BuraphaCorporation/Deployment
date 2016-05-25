@@ -36,6 +36,7 @@ gem 'devise'
 gem 'omniauth-facebook'
 
 gem 'bower-rails'
+gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
 
 
 group :development, :test do

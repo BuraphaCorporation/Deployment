@@ -36,7 +36,6 @@ gem 'devise'
 gem 'omniauth-facebook'
 
 gem 'bower-rails'
-gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
 
 
 group :development, :test do
@@ -73,6 +72,7 @@ platform :ruby do
   # gem 'mysql2', '>= 0.3.13', '< 0.5'
   gem 'pg'
   gem 'unicorn'
+  gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
 end
 
 group :production do

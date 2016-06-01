@@ -50,10 +50,10 @@
             <%= link_to 'Home', root_path %>
           </li>
           <li>
-            <%= link_to 'Organizer', organizers_index_path if current_user.organizer? %>
+            <%= link_to 'Organizer', organizers_index_path %>
           </li>
           <li>
-            <%= link_to 'Admin', admin_path if current_user.admin? or current_user.super_admin? %>
+            <%= link_to 'Admin', admin_path %>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

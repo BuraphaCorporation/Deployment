@@ -37,6 +37,7 @@ gem 'omniauth-facebook'
 
 gem "bower-rails"
 
+gem 'grape'
 
 group :development, :test do
   gem 'pry'

@@ -1,0 +1,16 @@
+
+# default: &default
+#   region: 'th'
+#   version: 'master'
+
+# development:
+#   <<: *default
+#   environment: 'development'
+
+# production:
+#   <<: *default
+#   environment: 'production'
+
+region: 'th'
+version: 'master'
+environment: 'development'

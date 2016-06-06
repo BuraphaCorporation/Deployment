@@ -52,8 +52,8 @@ group :development do
 end
 
 platform :ruby do
-  # gem 'mysql2', '>= 0.3.13', '< 0.5'
   gem 'pg'
+  gem 'firebase'
   gem 'unicorn'
   gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
 end

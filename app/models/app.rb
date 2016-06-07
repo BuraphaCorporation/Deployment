@@ -14,6 +14,22 @@ class App < Struct.new(:region, :environment, :version)
     attrs.each_pair { |k, v| self[k] = v.inquiry }
   end
 
+  def root
+    protocol + '//' + host
+  end
+
+  def protocol
+    region.th? && environment.production? ? 'https:' : 'http:'
+  end
+
+  def mail_from_no_reply
+    'no-reply@daydash.co'
+  end
+
+  def db_settings
+
+  end
+
   def firebase
     base_uri = case environment
     when 'production'
@@ -25,6 +41,14 @@ class App < Struct.new(:region, :environment, :version)
     end
 
     Firebase::Client.new(base_uri)
+  end
+
+  def redis_settings
+    { host: 'redis.daydash.co', port: 6379, timeout: 25 }
+  end
+
+  def method_name
+
   end
 
   class << self

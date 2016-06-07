@@ -15,7 +15,14 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def firebase
-    base_uri = 'https://daydash.firebaseio.com/'
+    base_uri = case environment
+    when 'production'
+      'https://daydash.firebaseio.com/'
+    when 'staging'
+      'https://daydash-staging.firebaseio.com/'
+    else
+      'https://daydash-development.firebaseio.com/'
+    end
 
     Firebase::Client.new(base_uri)
   end

@@ -31,6 +31,7 @@ config/secrets.yml
 .rvmrc
 
 # if using bower-rails ignore default bower_components path bower.json files
+/vendor/assets/admin
 /vendor/assets/bower_components
 *.bowerrc
 bower.json
@@ -40,3 +41,5 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+
+.DS_Store

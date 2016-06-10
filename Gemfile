@@ -3,6 +3,8 @@ ruby '2.3.1'
 
 gem 'rails', '4.2.5.2'
 
+gem "sprockets"
+gem "sprockets-es6"
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'

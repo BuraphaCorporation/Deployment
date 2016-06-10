@@ -1,4 +1,5 @@
 var restify = require('restify');
+var winston = require('winston');
 
 var server = restify.createServer({
   name: 'myapp',

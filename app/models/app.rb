@@ -47,7 +47,7 @@ class App < Struct.new(:region, :environment, :version)
   #   region.th? && environment.production? ? 'https:' : 'http:'
   # end
 
-  def mail_from_no_reply
+  def no_reply
     'no-reply@daydash.co'
   end
 

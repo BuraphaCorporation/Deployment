@@ -1,10 +1,9 @@
-# require 'yaml'
-# require 'active_support/core_ext/string/inquiry'
-# require 'active_support/core_ext/hash/indifferent_access'
 
-# Public: allows app instance-specific config to be retrieved.
-# Most methods can be called on App and it will delegate to App.current.
 class App < Struct.new(:region, :environment, :version)
+  def xxx
+    'xxxx'
+  end
+
   def initialize(attrs = {})
     defaults              = YAML.load_file('config/instance.yml') rescue nil
     attrs                 = (defaults || {}).with_indifferent_access.merge(attrs)
@@ -14,42 +13,44 @@ class App < Struct.new(:region, :environment, :version)
     attrs.each_pair { |k, v| self[k] = v.inquiry }
   end
 
-  def root
-    protocol + '//' + host
+  def configure
+    config = OpenStruct.new
+
+    case environment
+    when 'production'
+      config.firebase = 'https://daydash.firebaseio.com/'
+      config.redis    = { host: 'redis.daydash.co', port: 6379, timeout: 25 }
+    when 'staging'
+      config.firebase = 'https://daydash-staging.firebaseio.com/'
+      config.redis    = { host: 'redis-staging.daydash.co', port: 6379, timeout: 25 }
+    else
+      config.firebase = 'https://daydash-development.firebaseio.com/'
+      config.redis    = { host: '127.0.0.1', port: 6379, timeout: 25 }
+    end
+
+    return config
   end
 
-  def protocol
-    region.th? && environment.production? ? 'https:' : 'http:'
+  def firebase
+    Firebase::Client.new(configure.firebase)
   end
+
+  def redis
+    Redis.new(configure.redis)
+  end
+
+  # def root
+  #   protocol + '//' + host
+  # end
+
+  # def protocol
+  #   region.th? && environment.production? ? 'https:' : 'http:'
+  # end
 
   def mail_from_no_reply
     'no-reply@daydash.co'
   end
 
-  def db_settings
-
-  end
-
-  def firebase
-    base_uri = case environment
-    when 'production'
-      'https://daydash.firebaseio.com/'
-    when 'staging'
-      'https://daydash-staging.firebaseio.com/'
-    else
-      'https://daydash-development.firebaseio.com/'
-    end
-
-    Firebase::Client.new(base_uri)
-  end
-
-  def redis_settings
-    { host: 'redis.daydash.co', port: 6379, timeout: 25 }
-  end
-
-  def method_name
-
-  end
 
   class << self
     attr_accessor :current

@@ -1,0 +1,25 @@
+{
+  "name": "daydash-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "loopback.js",
+  "dependencies": {
+    "restify": "^4.1.0",
+    "strongloop": "^6.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-preset-es2015": "^6.9.0",
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "mocha": "^2.5.3",
+    "sinon": "^1.17.4",
+    "winston": "^2.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

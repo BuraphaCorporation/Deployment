@@ -8,11 +8,13 @@ gem "sprockets-es6"
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
+gem 'react-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'bower-rails'
-
 gem 'bcrypt', '~> 3.1.7'
+
+
 gem 'devise'
 gem 'omniauth-facebook'
 
@@ -33,9 +35,6 @@ group :development, :test do
 end
 
 group :development do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', '~> 0.4.0', group: :doc
-
   gem 'web-console', '~> 2.0'
   gem 'spring'
 
@@ -65,4 +64,3 @@ group :production do
   gem 'rails_12factor'
   gem 'aws-sdk'
 end
-

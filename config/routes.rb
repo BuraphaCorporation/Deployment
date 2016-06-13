@@ -13,13 +13,18 @@ Rails.application.routes.draw do
 
   root 'greetings#hello'
 
-  namespace :admin do
+  namespace :greetings, path: '', only: [] do
+    get '/content', to: '#content'
+  end
+
+  resources :admin do
     get '/', to: 'dashboard#index'
     resources :events
     resources :users, except: :show
   end
 
-  namespace :organizers do
+  resources :organizers do
     get '/index', to: 'portal#index'
   end
+
 end

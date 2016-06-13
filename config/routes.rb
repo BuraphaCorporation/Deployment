@@ -12,10 +12,7 @@ Rails.application.routes.draw do
     }
 
   root 'greetings#hello'
-
-  namespace :greetings, path: '', only: [] do
-    get '/content', to: '#content'
-  end
+  get '/content', to: 'greetings#content'
 
   resources :admin do
     get '/', to: 'dashboard#index'

@@ -5,7 +5,7 @@ class GreetingsController < ApplicationController
   def hello
   end
 
-  def content
+  def events
 
   end
 end

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     }
 
   root 'greetings#hello'
-  get '/content', to: 'greetings#content'
+  get '/events', to: 'greetings#events'
 
   resources :admin do
     get '/', to: 'dashboard#index'

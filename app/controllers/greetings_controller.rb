@@ -6,6 +6,6 @@ class GreetingsController < ApplicationController
   end
 
   def events
-
+    Event.last(6)
   end
 end

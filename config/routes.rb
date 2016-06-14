@@ -14,13 +14,13 @@ Rails.application.routes.draw do
   root 'greetings#hello'
   get '/events', to: 'greetings#events'
 
-  resources :admin do
+  namespace :admin do
     get '/', to: 'dashboard#index'
     resources :events
     resources :users, except: :show
   end
 
-  resources :organizers do
+  namespace :organizers do
     get '/index', to: 'portal#index'
   end
 

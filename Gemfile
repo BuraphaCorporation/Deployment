@@ -21,6 +21,8 @@ gem 'omniauth-facebook'
 gem 'paperclip'
 
 gem 'grape'
+gem 'grape-entity'
+gem 'grape-swagger'
 gem 'hashie-forbidden_attributes'
 
 group :development, :test do

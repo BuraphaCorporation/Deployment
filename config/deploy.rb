@@ -1,4 +1,3 @@
-
 set :application, 'Daydash'
 set :repo_url, 'git@github.com:nonmadden/daydash-web.git'
 

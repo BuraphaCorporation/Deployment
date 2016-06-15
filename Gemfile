@@ -3,8 +3,8 @@ ruby '2.3.1'
 
 gem 'rails', '4.2.5.2'
 
-gem "sprockets"
-gem "sprockets-es6"
+gem 'sprockets'
+gem 'sprockets-es6'
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
@@ -13,7 +13,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'bower-rails'
 gem 'bcrypt', '~> 3.1.7'
-
 
 gem 'devise'
 gem 'omniauth-facebook'
@@ -41,18 +40,13 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
 
-  # gem 'capistrano'
-  # gem 'capistrano_colors'
-  # gem 'quiet_assets'
-  # gem 'guard-livereload', require: false
-  # gem 'rack-livereload'
-  # gem 'rb-fsevent', require: false
-
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rbenv', github: 'capistrano/rbenv'
   gem 'capistrano-rails-console'
+
+  gem 'airbrussh', require: false
 end
 
 platform :ruby do

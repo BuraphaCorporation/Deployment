@@ -24,5 +24,5 @@ Rails.application.routes.draw do
     get '/index', to: 'portal#index'
   end
 
-  mount Daydash::API => '/'
+  # mount Daydash::API => '/'
 end

@@ -19,15 +19,17 @@ gem 'omniauth-facebook'
 
 gem 'paperclip'
 
-gem 'grape'
-gem 'grape-entity'
-gem 'grape-swagger'
-gem 'hashie-forbidden_attributes'
+# gem 'grape'
+# gem 'grape-entity'
+# gem 'grape-swagger'
+# gem 'hashie-forbidden_attributes'
+gem 'active_model_serializers'
 
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
+  gem 'ffaker'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'shoulda'

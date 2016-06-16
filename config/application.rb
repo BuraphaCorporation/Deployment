@@ -34,8 +34,6 @@ module Daydash
 
     config.assets.initialize_on_precompile = false
 
-    config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
-
+    config.autoload_paths += %W(\#{config.root}/lib)
   end
 end

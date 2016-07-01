@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require material-design-lite/material.min
 //= require react
 //= require react_ujs
 //= require components
-//= require_tree .

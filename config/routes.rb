@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     }
 
   root 'greetings#hello'
+  get '/events', to: 'greetings#events'
 
   namespace :admin do
     get '/', to: 'dashboard#index'
@@ -22,4 +23,19 @@ Rails.application.routes.draw do
   namespace :organizers do
     get '/index', to: 'portal#index'
   end
+
+  # mount Daydash::API => '/'
 end
+
+# require 'api_constraints'
+#
+# MarketPlaceApi::Application.routes.draw do
+#   # Api definition
+#   namespace :api, defaults: { format: :json },
+#                               constraints: { subdomain: 'api' }, path: '/'  do
+#     scope module: :v1,
+#               constraints: ApiConstraints.new(version: 1, default: true) do
+#       # We are going to list our resources here
+#     end
+#   end
+# end

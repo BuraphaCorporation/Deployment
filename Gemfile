@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '4.2.5.2'
+gem 'rails', '5.0'
 
 gem 'sprockets'
 gem 'sprockets-es6'
@@ -20,6 +20,8 @@ gem 'omniauth-facebook'
 gem 'paperclip'
 
 gem 'active_model_serializers'
+gem 'rails-controller-testing'
+gem 'activemodel-serializers-xml'
 
 group :development, :test do
   gem 'pry'

@@ -51,4 +51,7 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.facebook_app_id = '259929777688738'
+  config.facebook_app_secret = 'bdaef0f0beb25366bef19febf2366312'
 end

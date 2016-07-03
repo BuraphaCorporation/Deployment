@@ -21,8 +21,11 @@ gem 'omniauth-facebook'
 gem 'paperclip'
 
 gem 'active_model_serializers'
-gem 'rails-controller-testing'
 gem 'activemodel-serializers-xml'
+gem 'rails-controller-testing'
+gem 'rack-cors'
+gem 'rack-attack'
+gem 'open_uri_redirections'
 
 group :development, :test do
   gem 'pry'

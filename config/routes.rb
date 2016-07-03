@@ -25,11 +25,11 @@ Rails.application.routes.draw do
     get '/index', to: 'portal#index'
   end
 
-  constraints subdomain: 'api' do
+  # constraints subdomain: 'api' do
     scope module: 'api' do
       namespace :v1 do
         resources :users
       end
     end
-  end
+  # end
 end

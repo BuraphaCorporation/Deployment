@@ -1,4 +1,4 @@
-class Admin::DashboardController < Admin::PortalController
+class Admin::DashboardController < Admin::CoreController
 
   def index
 

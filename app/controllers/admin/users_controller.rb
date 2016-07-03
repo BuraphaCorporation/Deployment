@@ -1,4 +1,4 @@
-class Admin::UsersController < Admin::PortalController
+class Admin::UsersController < Admin::CoreController
 
   before_action :user, only: [:edit, :update, :destroy]
 

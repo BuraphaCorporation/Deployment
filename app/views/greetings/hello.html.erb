@@ -1,6 +1,7 @@
 <h1>Greetings#hello</h1>
-<p>Find me in app/views/greetings/hello.html.erb</p>
-
-
-<%= @user.inspect %>
-
+<% if user_signed_in? %>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+<% else %>
+  <%= link_to('Login', new_user_session_path)  %>
+<% end %>
+<br> <%= current_user.inspect %>

@@ -1,6 +1,17 @@
 
+<style>
+  .facebook-social {
+    border-radius: 50px;
+    background: #000;
+    color: #fff;
+    padding: 10px 20px;
+    display: inherit;
+    text-align: center;
+  }
+</style>
+
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %><br />
+    <%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider), class: 'facebook-social' %><br />
   <% end -%>
 <% end -%>

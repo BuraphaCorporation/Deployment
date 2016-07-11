@@ -1,7 +1,4 @@
 class Event < ActiveRecord::Base
-
-  has_many :event_attachments
-
   belongs_to :user
   belongs_to :category
 
@@ -9,7 +6,7 @@ class Event < ActiveRecord::Base
                     default_url: "/images/:style/missing.png"
   validates_attachment_content_type :cover,
                                     content_type: /\Aimage\/.*\Z/
-
+  has_many :event_attachments, dependent: :destroy
 
   after_create :set_organizer
 

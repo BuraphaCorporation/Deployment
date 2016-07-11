@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  # mount GrapeSwaggerRails::Engine => '/api'
+  mount API::Base, at: "/"
+  mount GrapeSwaggerRails::Engine, at: "/documentation"
+
+
   devise_for :users,
     path: 'auth',
     controllers: {
@@ -26,11 +31,11 @@ Rails.application.routes.draw do
   end
 
   # constraints subdomain: 'api' do
-    scope module: 'api' do
-      namespace :v1 do
-        resources :users
-        resources :events
-      end
-    end
+    # scope module: 'api' do
+    #   namespace :v1 do
+    #     resources :users
+    #     resources :events
+    #   end
+    # end
   # end
 end

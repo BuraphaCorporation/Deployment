@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def generate_password
+    (0...8).map { ('a'..'z').to_a[rand(26)] }.join
+  end
+
   def admin?
     role.name == 'admin'
   end

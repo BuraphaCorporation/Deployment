@@ -6,10 +6,10 @@ module API
 
       add_swagger_documentation(
         api_version: "mobile",
-        hide_documentation_path: true,
         base_path: "/api",
-        mount_path: "/api/mobile",
-        hide_format: true
+        mount_path: "/mobile",
+        hide_format: true,
+        hide_documentation_path: true
       )
     end
   end

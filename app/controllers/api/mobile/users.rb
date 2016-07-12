@@ -6,8 +6,8 @@ module API
 
       resources :users do
         desc "Return all users"
-        get "", root: :users do
-          User.all
+        get "/", root: :users do
+          present :users, User.all
         end
 
         # desc "Return a user" do

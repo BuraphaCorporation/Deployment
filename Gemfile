@@ -23,14 +23,15 @@ gem 'paperclip'
 gem 'active_model_serializers'
 gem 'activemodel-serializers-xml'
 gem 'rails-controller-testing'
+gem 'rack-cors'
 gem 'rack-attack'
 gem 'open_uri_redirections'
 
 gem 'grape'
-gem 'rack-cors'
-gem 'grape-active_model_serializers'
-gem 'grape-swagger-rails'
+gem 'grape-entity'
 gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-active_model_serializers'
 
 group :development, :test do
   gem 'pry'

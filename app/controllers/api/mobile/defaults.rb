@@ -5,7 +5,7 @@ module API
       extend ActiveSupport::Concern
 
       included do
-        prefix "api"
+        prefix "mobile"
         version "mobile", using: :hedaer, vendor: 'api'
         default_format :json
         format :json

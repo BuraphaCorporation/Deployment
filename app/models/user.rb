@@ -18,13 +18,13 @@ class User < ActiveRecord::Base
   before_create :set_default_role
 
   before_create do |user|
-    user.api_key = user.generate_api_key
+    user.token = user.generate_token
   end
 
-  def generate_api_key
+  def generate_token
     loop do
       token = SecureRandom.base64.tr('+/=', 'Qrt')
-      break token unless User.exists?(api_key: token)
+      break token unless User.exists?(token: token)
     end
   end
 

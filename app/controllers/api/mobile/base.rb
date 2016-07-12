@@ -2,7 +2,7 @@
 module API
   module Mobile
     class Base < Grape::API
-      mount API::Mobile::Auth
+      mount API::Mobile::Authentication
       mount API::Mobile::Users
       mount API::Mobile::Events
 

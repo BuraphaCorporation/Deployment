@@ -4,23 +4,33 @@ module API
     class Users < Grape::API
       include API::Mobile::Defaults
 
-      resources :users do
-        # desc "Return all users when you have permissions"
-        # get "/", root: :users do
-        #   present :users, User.all
+      resources :user do
+        desc "Return a user"
+        # params do
+        #   requires :user_token, type: Integer, desc: "id of the user"
         # end
+        # get '/' do
+        #   { status: :success, data: User.find(params[:user_token]), message: nil }
+        # end
+
         desc "return a user"
         params do
-          requires :token, type: String, desc: "token of the user"
+          requires :user_token, type: String, desc: "token of the user"
         end
-        post '/' do
-          # binding.pry
-          user = User.where(id: params[:token])
+        get '/' do
+          user = User.where(token: params[:user_token])
           if user.present?
-            { status: :success, message: user }
+            { status: :success, data: user, message: nil }
           else
-            { status: :error, message: "The token is expired!" }
+            { status: :error, data: nil, message: "The token is expired!" }
           end
+        end
+      end
+
+      resources :users do
+        desc "Return all users when you have permissions"
+        get "/" do
+          { status: :success, data: User.all, message: nil}
         end
       end
     end

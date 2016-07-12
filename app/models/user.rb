@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :events
+  has_many :events, dependent: :destroy
   belongs_to :role
 
   enum gender: { male: 1, female: 0 }
@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
                                     content_type: /\Aimage\/.*\Z/
 
   before_create :set_default_role
-
   before_create do |user|
     user.token = user.generate_token
   end

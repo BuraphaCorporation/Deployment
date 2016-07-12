@@ -18,6 +18,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'omniauth-facebook'
 
+gem 'koala'
+
 gem 'paperclip'
 
 gem 'active_model_serializers'

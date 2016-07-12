@@ -212,6 +212,10 @@ GEM
       json (~> 1.8)
     jwt (1.5.4)
     kgio (2.10.0)
+    koala (2.3.0)
+      addressable
+      faraday
+      multi_json
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -439,6 +443,7 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 2.5)
   jquery-rails
+  koala
   listen (~> 3.0.5)
   omniauth-facebook
   open_uri_redirections

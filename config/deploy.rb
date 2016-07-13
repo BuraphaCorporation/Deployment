@@ -6,6 +6,8 @@ set :deploy_to, '/home/deploy/daydash'
 set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
+set :branch, ENV['BRANCH'] || "master"
+
 namespace :deploy do
 
   desc 'Restart application'

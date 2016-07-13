@@ -1,5 +1,5 @@
 set :application, 'Daydash'
-set :repo_url, 'git@github.com:nonmadden/daydash-web.git'
+set :repo_url, 'git@github.com:Hongklay/Daydash.git'
 
 set :deploy_to, '/home/deploy/daydash'
 

@@ -83,7 +83,6 @@ GEM
       babel-source (>= 4.0, < 6)
       execjs (~> 2.0)
     bcrypt (3.1.11)
-    bower-rails (0.10.0)
     builder (3.2.2)
     capistrano (3.5.0)
       airbrussh (>= 1.0.0)
@@ -420,7 +419,6 @@ DEPENDENCIES
   airbrussh
   aws-sdk
   bcrypt (~> 3.1.7)
-  bower-rails
   capistrano (~> 3.1)
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1)

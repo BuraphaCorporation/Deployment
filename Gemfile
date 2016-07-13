@@ -1,27 +1,45 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '4.2.5.2'
+gem 'rails', '5.0'
 
 gem 'sass-rails'
 gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
+# gem 'sprockets'
+# gem 'sprockets-es6'
+gem 'react-rails'
+gem 'turbolinks', '~> 5'
+gem 'jbuilder', '~> 2.5'
 gem 'bower-rails'
-
 gem 'bcrypt', '~> 3.1.7'
+
 gem 'devise'
 gem 'omniauth-facebook'
 
+gem 'koala'
+
 gem 'paperclip'
 
+gem 'active_model_serializers'
+gem 'activemodel-serializers-xml'
+gem 'rails-controller-testing'
+gem 'rack-cors'
+gem 'rack-attack'
+gem 'open_uri_redirections'
+
 gem 'grape'
+gem 'grape-entity'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-active_model_serializers'
 
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
+  gem 'ffaker'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'shoulda'
@@ -31,28 +49,29 @@ group :development, :test do
 end
 
 group :development do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', '~> 0.4.0', group: :doc
-
-  gem 'web-console', '~> 2.0'
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-
-  # gem 'capistrano'
-  # gem 'capistrano_colors'
-  # gem 'quiet_assets'
-  # gem 'guard-livereload', require: false
-  # gem 'rack-livereload'
-  # gem 'rb-fsevent', require: false
+  gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-rbenv', github: 'capistrano/rbenv'
   gem 'capistrano-rails-console'
+
+  gem 'airbrussh', require: false
 end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 platform :ruby do
   gem 'pg'
+  gem 'puma'
+  gem 'redis'
   gem 'firebase'
   gem 'unicorn'
   gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
@@ -62,4 +81,3 @@ group :production do
   gem 'rails_12factor'
   gem 'aws-sdk'
 end
-

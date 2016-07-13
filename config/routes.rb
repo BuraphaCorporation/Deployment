@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # mount GrapeSwaggerRails::Engine => '/api'
+  mount API::Base, at: "/api"
+  mount GrapeSwaggerRails::Engine, at: "/documentation"
+
 
   devise_for :users,
     path: 'auth',
@@ -12,6 +18,7 @@ Rails.application.routes.draw do
     }
 
   root 'greetings#hello'
+  get '/events', to: 'greetings#events'
 
   namespace :admin do
     get '/', to: 'dashboard#index'
@@ -22,4 +29,13 @@ Rails.application.routes.draw do
   namespace :organizers do
     get '/index', to: 'portal#index'
   end
+
+  # constraints subdomain: 'api' do
+    # scope module: 'api' do
+    #   namespace :v1 do
+    #     resources :users
+    #     resources :events
+    #   end
+    # end
+  # end
 end

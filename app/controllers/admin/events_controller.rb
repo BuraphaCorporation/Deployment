@@ -1,4 +1,4 @@
-class Admin::EventsController < Admin::PortalController
+class Admin::EventsController < Admin::CoreController
 
   before_action :event, only: [:edit, :update, :destroy]
   before_action :all_categories, only: [:new, :edit]

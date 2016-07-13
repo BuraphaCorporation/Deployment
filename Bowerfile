@@ -1,2 +1,5 @@
 
+asset 'material-design-lite'
 asset 'bootstrap'
+asset 'bootstrap-sweetalert'
+asset 'switchery'

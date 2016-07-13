@@ -1,6 +1,8 @@
 {
   "name": "dsl-generated dependencies",
   "dependencies": {
-    "bootstrap": "latest"
+    "material-design-lite": "latest",
+    "bootstrap": "latest",
+    "bootstrap-sweetalert": "latest"
   }
 }

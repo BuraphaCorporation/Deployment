@@ -2,7 +2,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: 5
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
@@ -14,7 +14,10 @@ test:
 
 production:
   <<: *default
-  # database: Daydash_production
-  # username: Daydash
-  # password: <%= ENV['DAYDASH_DATABASE_PASSWORD'] %>
   url: "postgres://deploy:Arnon007@localhost/daydash"
+
+# production:
+#   <<: *default
+#   database: daydash_production
+#   username: daydash
+#   password: <%= ENV['DAYDASH_DATABASE_PASSWORD'] %>

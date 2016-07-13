@@ -460,7 +460,7 @@ DEPENDENCIES
   react-rails
   redis
   rspec-rails (~> 3.0)
-  sass-rails
+  sass-rails (~> 5.0)
   shoulda
   spring
   spring-watcher-listen (~> 2.0.0)

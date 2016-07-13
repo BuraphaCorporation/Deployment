@@ -13,7 +13,7 @@ module Api::V1
 
       def authenticate_token
         authenticate_with_http_token do |token, options|
-          @current_user = User.find_by(api_key: token)
+          @current_user = User.find_by(token: token)
         end
       end
 

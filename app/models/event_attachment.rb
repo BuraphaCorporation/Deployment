@@ -2,10 +2,9 @@ class EventAttachment < ActiveRecord::Base
 
   belongs_to :event
 
-  has_attached_file :media, styles: { medium: "300x300>", thumb: "100x100#" }
-                    # ,
-                    # default_url: "/images/:style/missing.png"
-  # validates_attachment_content_type :media
-  # # ,
-  # #                                   content_type: /\Aimage\/.*\Z/
+  has_attached_file :image,
+    :path => ":rails_root/public/images/:id/:filename",
+    :url  => "/images/:id/:filename"
+
+  do_not_validate_attachment_file_type :image
 end

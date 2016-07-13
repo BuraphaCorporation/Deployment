@@ -18,6 +18,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'devise'
 gem 'omniauth-facebook'
 
+gem 'koala'
+
 gem 'paperclip'
 
 gem 'active_model_serializers'
@@ -26,6 +28,12 @@ gem 'rails-controller-testing'
 gem 'rack-cors'
 gem 'rack-attack'
 gem 'open_uri_redirections'
+
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-active_model_serializers'
 
 group :development, :test do
   gem 'pry'

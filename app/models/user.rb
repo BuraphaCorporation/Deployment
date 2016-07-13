@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :events
+  has_many :events, dependent: :destroy
   belongs_to :role
 
   enum gender: { male: 1, female: 0 }
@@ -16,16 +16,19 @@ class User < ActiveRecord::Base
                                     content_type: /\Aimage\/.*\Z/
 
   before_create :set_default_role
-
   before_create do |user|
-    user.api_key = user.generate_api_key
+    user.token = user.generate_token
   end
 
-  def generate_api_key
+  def generate_token
     loop do
       token = SecureRandom.base64.tr('+/=', 'Qrt')
-      break token unless User.exists?(api_key: token)
+      break token unless User.exists?(token: token)
     end
+  end
+
+  def generate_password
+    (0...8).map { ('a'..'z').to_a[rand(26)] }.join
   end
 
   def admin?

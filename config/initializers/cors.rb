@@ -1,6 +1,6 @@
 
-config.active_record.raise_in_transactional_callbacks = true
-config.middleware.use Rack::Attack
+Rails.application.config.active_record.raise_in_transactional_callbacks = true
+Rails.application.config.middleware.use Rack::Attack
 
 # Avoid CORS issues when API is called from the frontend app
 # Handle Cross-Origin Resource Sharing (CORS) in order to accept cross-origin AJAX requests

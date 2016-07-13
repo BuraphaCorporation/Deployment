@@ -8,6 +8,8 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 set :branch, fetch(:branch, "develop")
 
+set :stages, ["staging", "production"]
+set :default_stage, "staging"
 
 namespace :deploy do
 

@@ -1,16 +1,21 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  constraints subdomain: 'api' do
+  # if Rails.env.production?
     mount API::Base, at: "/api"
     mount GrapeSwaggerRails::Engine, at: "/documentation"
-    # scope module: 'api' do
-    #   namespace :v1 do
-    #     resources :users
-    #     resources :events
-    #   end
-    # end
-  end
+  # else
+  #   constraints subdomain: 'api' do
+  #     mount API::Base, at: "/"
+  #     mount GrapeSwaggerRails::Engine, at: "/documentation"
+  #     # scope module: 'api' do
+  #     #   namespace :v1 do
+  #     #     resources :users
+  #     #     resources :events
+  #     #   end
+  #     # end
+  #   end
+  # end
 
 
   devise_for :users,

@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card-box">
+      <h4 class="m-t-0 header-title"><b>Responsive tables</b></h4>
+      <p class="text-muted font-13 m-b-25">
+          Create responsive tables by wrapping any <code>.table</code> in <code>.table-responsive</code>
+          to make them scroll horizontally on small devices (under 768px).
+      </p>
+      <%= link_to "Add", new_admin_event_path, target: '_self', class: 'btn btn-primary btn-custom waves-effect w-md waves-light m-b-5' %>
+
+      <div class="table-responsive">
+        <table class="table m-0">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>From to</th>
+              <th>Location</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+              <td>Table cell</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Parsleyjs -->
+<script type="text/javascript" src="/assets/plugins/parsleyjs/dist/parsley.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('form').parsley();
+  });
+</script>

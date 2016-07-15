@@ -28,6 +28,8 @@
     <![endif]-->
     <script src="/assets/js/modernizr.min.js"></script>
 
+    <link href="/assets/plugins/dropzone/dist/dropzone.css" rel="stylesheet" type="text/css" />
+
     <%= stylesheet_link_tag    'management', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag "management", "data-turbolinks-track" => true %>
   </head>
@@ -37,27 +39,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
+
+                    <script src="/assets/js/jquery.min.js"></script>
+                    <script src="/assets/js/bootstrap.min.js"></script>
+                    <script src="/assets/js/detect.js"></script>
+                    <script src="/assets/js/fastclick.js"></script>
+                    <script src="/assets/js/jquery.blockUI.js"></script>
+                    <script src="/assets/js/waves.js"></script>
+                    <script src="/assets/js/wow.min.js"></script>
+                    <script src="/assets/js/jquery.nicescroll.js"></script>
+                    <script src="/assets/js/jquery.scrollTo.min.js"></script>
+
                     <%= yield %>
                 </div>
             </div>
             <%= render partial: "admin/footer" %>
         </div>
     </div>
-
-    <script src="/assets/js/jquery.min.js"></script>
-    <script src="/assets/js/bootstrap.min.js"></script>
-    <script src="/assets/js/detect.js"></script>
-    <script src="/assets/js/fastclick.js"></script>
-    <script src="/assets/js/jquery.blockUI.js"></script>
-    <script src="/assets/js/waves.js"></script>
-    <script src="/assets/js/wow.min.js"></script>
-    <script src="/assets/js/jquery.nicescroll.js"></script>
-    <script src="/assets/js/jquery.scrollTo.min.js"></script>
-
     <!-- Custom main Js -->
     <script src="/assets/js/jquery.core.js"></script>
     <script src="/assets/js/jquery.app.js"></script>
-
 
   </body>
 </html>

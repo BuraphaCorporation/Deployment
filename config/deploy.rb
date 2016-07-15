@@ -45,14 +45,14 @@ namespace :deploy do
   end
 end
 
-namespace :deploy do
-  desc 'Says a message when deployment is completed'
-  task :say do
-    system("\\say Capistrano Deployment Completed! Good Job!")
-  end
-end
-
-after :finished, 'deploy:say'
+# namespace :deploy do
+#   desc 'Says a message when deployment is completed'
+#   task :say do
+#     system("\\say Capistrano Deployment Completed! Good Job!")
+#   end
+# end
+#
+# after :finished, 'deploy:say'
 # namespace :bower do
 #   desc 'Install bower'
 #   task :install do

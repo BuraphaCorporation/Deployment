@@ -21,7 +21,8 @@
           <p class="text-muted font-13 m-b-30">
             Your awesome text goes here.
           </p>
-          <%= form_for @event, url: admin_events_path, medthod: :post, html: { class: 'form-horizontal group-border-dashed' } do |f| %>
+
+          <%= form_for @event, url: admin_event_path(@event), medthod: :post, html: { class: 'form-horizontal group-border-dashed' } do |f| %>
             <div class="form-group">
               <%= f.label :organizer, class: 'col-sm-3 control-label' %>
               <div class="col-sm-6">

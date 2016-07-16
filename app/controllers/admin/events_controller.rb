@@ -34,6 +34,17 @@ class Admin::EventsController < Admin::CoreController
     @event.destroy
   end
 
+  def upload
+    uploaded_io = params[:file]
+    event = params[:event_id]
+
+    EventAttachment.create(event_id: event.to_i, media: uploaded_io)
+    # File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+    #   file.write(uploaded_io.read)
+    # end
+
+  end
+
   private
     def event
       @event = Event.find(params[:id])

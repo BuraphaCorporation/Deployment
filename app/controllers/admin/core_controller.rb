@@ -4,6 +4,5 @@ class Admin::CoreController < ApplicationController
   layout 'management'
 
   def index
-
   end
 end

@@ -23,7 +23,7 @@
 
 set :stage, :production
 
-server 'nonmadden.com', user: 'deploy', roles: %w{web app}
+server 'brick.daydash.co', user: 'deploy', roles: %w{web app}
 
 
 # Configuration

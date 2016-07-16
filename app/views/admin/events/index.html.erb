@@ -12,6 +12,7 @@
         <table class="table m-0">
           <thead>
             <tr>
+              <th></th>
               <th>Title</th>
               <th>Category</th>
               <td>Organizer</td>
@@ -24,6 +25,7 @@
           <tbody>
             <% @events.each do |event| %>
               <tr>
+                <td><%= image_tag event.cover(:thumb) %></td>
                 <td><%= event.title %></td>
                 <td><%= event.category.try(:name) %></td>
                 <td><%= "#{event.user.try(:first_name)} #{event.user.try(:last_name)}" %></td>

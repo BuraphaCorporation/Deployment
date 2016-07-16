@@ -14,19 +14,25 @@
             <tr>
               <th>Title</th>
               <th>Category</th>
+              <td>Organizer</td>
               <th>From to</th>
               <th>Location</th>
               <th>Price</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-              <td>Table cell</td>
-            </tr>
+            <% @events.each do |event| %>
+              <tr>
+                <td><%= event.title %></td>
+                <td><%= event.category.try(:name) %></td>
+                <td><%= "#{event.user.try(:first_name)} #{event.user.try(:last_name)}" %></td>
+                <td><%= event.from_to %></td>
+                <td><%= event.location %></td>
+                <td><%= event.price %></td>
+                <td><%= link_to "Edit", edit_admin_event_path(event.id) %></td>
+              </tr>
+            <% end %>
           </tbody>
         </table>
       </div>

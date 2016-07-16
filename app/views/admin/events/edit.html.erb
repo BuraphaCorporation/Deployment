@@ -1,216 +1,238 @@
-<article class="content item-editor-page">
-  <div class="title-block">
-    <h3 class="title">
-      Add new event <span class="sparkline bar" data-type="bar"></span>
-    </h3>
-  </div>
-  <%= form_for @event, url: admin_event_path(@event), medthod: :post do |f| %>
-    <div class="card card-block">
-      <div class="form-group row">
-        <%= f.label :title, class: 'col-sm-2 form-control-label text-xs-right' %>
-        <div class="col-sm-10">
-          <%= f.text_field :title, class: 'form-control boxed', autofocus: true  %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card-box">
+      <h4 class="m-t-0 m-b-30 header-title"><b>Fields validation</b></h4>
+
+      <div class="row">
+        <div class="col-lg-12 text-right">
+          <button id="submitForm" type="submit" class="btn btn-primary waves-effect waves-light">
+            Add
+          </button>
+          <button id="resetForm" type="reset" class="btn btn-default waves-effect waves-light m-l-5">
+            Cancel
+          </button>
         </div>
       </div>
-      <div class="form-group row">
-        <%= f.label :description, class: 'col-sm-2 form-control-label text-xs-right' %>
 
-        <div class="col-sm-10">
-          <div class="wyswyg">
-            <div class="toolbar">
-              <span class="ql-format-group">
-                <select title="Size" class="ql-size">
-                  <option value="10px">Small</option>
-                  <option value="13px" selected>Normal</option>
-                  <option value="18px">Large</option>
-                  <option value="32px">Huge</option>
-                </select>
-              </span>
-              <span class="ql-format-group">
-              <span title="Bold" class="ql-format-button ql-bold"></span> <span class="ql-format-separator"></span> <span title="Italic" class="ql-format-button ql-italic"></span> <span class="ql-format-separator"></span> <span title="Underline" class="ql-format-button ql-underline"></span>                                            <span class="ql-format-separator"></span> <span title="Strikethrough" class="ql-format-button ql-strike"></span> </span>
-              <span class="ql-format-group">
-                <select title="Text Color" class="ql-color">
-                  <option value="rgb(0, 0, 0)" label="rgb(0, 0, 0)" selected></option>
-                  <option value="rgb(230, 0, 0)" label="rgb(230, 0, 0)"></option>
-                  <option value="rgb(255, 153, 0)" label="rgb(255, 153, 0)"></option>
-                  <option value="rgb(255, 255, 0)" label="rgb(255, 255, 0)"></option>
-                  <option value="rgb(0, 138, 0)" label="rgb(0, 138, 0)"></option>
-                  <option value="rgb(0, 102, 204)" label="rgb(0, 102, 204)"></option>
-                  <option value="rgb(153, 51, 255)" label="rgb(153, 51, 255)"></option>
-                  <option value="rgb(255, 255, 255)" label="rgb(255, 255, 255)"></option>
-                  <option value="rgb(250, 204, 204)" label="rgb(250, 204, 204)"></option>
-                  <option value="rgb(255, 235, 204)" label="rgb(255, 235, 204)"></option>
-                  <option value="rgb(255, 255, 204)" label="rgb(255, 255, 204)"></option>
-                  <option value="rgb(204, 232, 204)" label="rgb(204, 232, 204)"></option>
-                  <option value="rgb(204, 224, 245)" label="rgb(204, 224, 245)"></option>
-                  <option value="rgb(235, 214, 255)" label="rgb(235, 214, 255)"></option>
-                  <option value="rgb(187, 187, 187)" label="rgb(187, 187, 187)"></option>
-                  <option value="rgb(240, 102, 102)" label="rgb(240, 102, 102)"></option>
-                  <option value="rgb(255, 194, 102)" label="rgb(255, 194, 102)"></option>
-                  <option value="rgb(255, 255, 102)" label="rgb(255, 255, 102)"></option>
-                  <option value="rgb(102, 185, 102)" label="rgb(102, 185, 102)"></option>
-                  <option value="rgb(102, 163, 224)" label="rgb(102, 163, 224)"></option>
-                  <option value="rgb(194, 133, 255)" label="rgb(194, 133, 255)"></option>
-                  <option value="rgb(136, 136, 136)" label="rgb(136, 136, 136)"></option>
-                  <option value="rgb(161, 0, 0)" label="rgb(161, 0, 0)"></option>
-                  <option value="rgb(178, 107, 0)" label="rgb(178, 107, 0)"></option>
-                  <option value="rgb(178, 178, 0)" label="rgb(178, 178, 0)"></option>
-                  <option value="rgb(0, 97, 0)" label="rgb(0, 97, 0)"></option>
-                  <option value="rgb(0, 71, 178)" label="rgb(0, 71, 178)"></option>
-                  <option value="rgb(107, 36, 178)" label="rgb(107, 36, 178)"></option>
-                  <option value="rgb(68, 68, 68)" label="rgb(68, 68, 68)"></option>
-                  <option value="rgb(92, 0, 0)" label="rgb(92, 0, 0)"></option>
-                  <option value="rgb(102, 61, 0)" label="rgb(102, 61, 0)"></option>
-                  <option value="rgb(102, 102, 0)" label="rgb(102, 102, 0)"></option>
-                  <option value="rgb(0, 55, 0)" label="rgb(0, 55, 0)"></option>
-                  <option value="rgb(0, 41, 102)" label="rgb(0, 41, 102)"></option>
-                  <option value="rgb(61, 20, 102)" label="rgb(61, 20, 102)"></option>
-                </select>
-                <span class="ql-format-separator"></span>
-                <select title="Background Color" class="ql-background">
-                  <option value="rgb(0, 0, 0)" label="rgb(0, 0, 0)"></option>
-                  <option value="rgb(230, 0, 0)" label="rgb(230, 0, 0)"></option>
-                  <option value="rgb(255, 153, 0)" label="rgb(255, 153, 0)"></option>
-                  <option value="rgb(255, 255, 0)" label="rgb(255, 255, 0)"></option>
-                  <option value="rgb(0, 138, 0)" label="rgb(0, 138, 0)"></option>
-                  <option value="rgb(0, 102, 204)" label="rgb(0, 102, 204)"></option>
-                  <option value="rgb(153, 51, 255)" label="rgb(153, 51, 255)"></option>
-                  <option value="rgb(255, 255, 255)" label="rgb(255, 255, 255)" selected></option>
-                  <option value="rgb(250, 204, 204)" label="rgb(250, 204, 204)"></option>
-                  <option value="rgb(255, 235, 204)" label="rgb(255, 235, 204)"></option>
-                  <option value="rgb(255, 255, 204)" label="rgb(255, 255, 204)"></option>
-                  <option value="rgb(204, 232, 204)" label="rgb(204, 232, 204)"></option>
-                  <option value="rgb(204, 224, 245)" label="rgb(204, 224, 245)"></option>
-                  <option value="rgb(235, 214, 255)" label="rgb(235, 214, 255)"></option>
-                  <option value="rgb(187, 187, 187)" label="rgb(187, 187, 187)"></option>
-                  <option value="rgb(240, 102, 102)" label="rgb(240, 102, 102)"></option>
-                  <option value="rgb(255, 194, 102)" label="rgb(255, 194, 102)"></option>
-                  <option value="rgb(255, 255, 102)" label="rgb(255, 255, 102)"></option>
-                  <option value="rgb(102, 185, 102)" label="rgb(102, 185, 102)"></option>
-                  <option value="rgb(102, 163, 224)" label="rgb(102, 163, 224)"></option>
-                  <option value="rgb(194, 133, 255)" label="rgb(194, 133, 255)"></option>
-                  <option value="rgb(136, 136, 136)" label="rgb(136, 136, 136)"></option>
-                  <option value="rgb(161, 0, 0)" label="rgb(161, 0, 0)"></option>
-                  <option value="rgb(178, 107, 0)" label="rgb(178, 107, 0)"></option>
-                  <option value="rgb(178, 178, 0)" label="rgb(178, 178, 0)"></option>
-                  <option value="rgb(0, 97, 0)" label="rgb(0, 97, 0)"></option>
-                  <option value="rgb(0, 71, 178)" label="rgb(0, 71, 178)"></option>
-                  <option value="rgb(107, 36, 178)" label="rgb(107, 36, 178)"></option>
-                  <option value="rgb(68, 68, 68)" label="rgb(68, 68, 68)"></option>
-                  <option value="rgb(92, 0, 0)" label="rgb(92, 0, 0)"></option>
-                  <option value="rgb(102, 61, 0)" label="rgb(102, 61, 0)"></option>
-                  <option value="rgb(102, 102, 0)" label="rgb(102, 102, 0)"></option>
-                  <option value="rgb(0, 55, 0)" label="rgb(0, 55, 0)"></option>
-                  <option value="rgb(0, 41, 102)" label="rgb(0, 41, 102)"></option>
-                  <option value="rgb(61, 20, 102)" label="rgb(61, 20, 102)"></option>
-                </select>
-              </span>
-              <span class="ql-format-group">
-                <span title="List" class="ql-format-button ql-list"></span> <span class="ql-format-separator"></span> <span title="Bullet" class="ql-format-button ql-bullet"></span> <span class="ql-format-separator"></span>
-                <select title="Text Alignment" class="ql-align">
-                  <option value="left" label="Left" selected></option>
-                  <option value="center" label="Center"></option>
-                  <option value="right" label="Right"></option>
-                  <option value="justify" label="Justify"></option>
-                </select>
-              </span>
-              <span class="ql-format-group">
-              <span title="Link" class="ql-format-button ql-link"></span> <span class="ql-format-separator"></span>
-              <button type="button" title="Image" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modal-media"> <i class="fa fa-image"></i> Media </button>
-              </span> <span class="ql-format-group">
-              </span>
+      <div class="row">
+        <div class="col-lg-6">
+          <h5><b>Validation type</b></h5>
+          <p class="text-muted font-13 m-b-30">
+            Your awesome text goes here.
+          </p>
+
+          <%= form_for @event, url: admin_events_path, medthod: :post, html: { class: 'form-horizontal group-border-dashed' } do |f| %>
+            <div class="form-group">
+              <%= f.label :organizer, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-6">
+                <%= f.select :user, options_for_select(@users.collect{ |u| ["#{u.first_name} #{u.last_name}", u.id] }), {}, { class: 'form-control select2' } %>
+              </div>
             </div>
-            <!-- Create the editor container -->
-            <div class="editor"><%= @event.description %></div>
-            <%= f.text_area :description, style: 'display: none', rows: 3 %>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <%= f.label :category, class: 'col-sm-2 form-control-label text-xs-right' %>
-        <div class="col-sm-10">
-          <%= f.select :category, options_for_select(@categories.collect{ |c| [c.name, c.id] }) %>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <%= f.label :price, class: 'col-sm-2 form-control-label text-xs-right' %>
-        <div class="col-sm-10">
-          <%= f.text_field :price %>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <%= f.label :cover, class: 'col-sm-2 form-control-label text-xs-right' %>
-        <div class="col-sm-10">
-          <%= f.file_field :cover %>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <%= f.label :location, class: 'col-sm-2 form-control-label text-xs-right' %>
-        <div class="col-sm-10">
-          <%= f.text_field :location %>
-        </div>
-      </div>
-
-
-      <div class="form-group row">
-        <%= f.label :organizer, class: 'col-sm-2 form-control-label text-xs-right' %>
-        <div class="col-sm-10">
-          <%= f.select :user, options_for_select(@users.collect{ |u| ["#{u.first_name} #{u.last_name}", u.id] }) %>
-        </div>
-      </div>
-
-      <pre>
-        coming soon!
-        - upload multi image
-        - google api
-      </pre>
-
-      <div class="form-group row">
-        <label class="col-sm-2 form-control-label text-xs-right"> Images: </label>
-        <div class="col-sm-10">
-          <div class="images-container">
-            <a href="#" class="add-image" data-toggle="modal" data-target="#modal-media">
-              <div class="image-container new">
-                <div class="image"> <i class="fa fa-plus"></i> </div>
+            <div class="form-group">
+              <%= f.label :title, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-6">
+                <%= f.text_field :title, class: 'form-control', autofocus: true, required: true, placeholder: 'Type something'  %>
               </div>
-            </a>
-            <div class="image-container">
-              <div class="controls">
-                <a href="" class="control-btn move"> <i class="fa fa-arrows"></i> </a>
-                <a href="" class="control-btn star"> <i class="fa"></i> </a>
-                <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal"> <i class="fa fa-trash-o"></i> </a>
-              </div>
-              <div class="image" style="background-image:url('https://s3.amazonaws.com/uifaces/faces/twitter/brad_frost/128.jpg')"></div>
             </div>
-            <div class="image-container">
-              <div class="controls">
-                <a href="" class="control-btn move"> <i class="fa fa-arrows"></i> </a>
-                <a href="" class="control-btn star"> <i class="fa"></i> </a>
-                <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal"> <i class="fa fa-trash-o"></i> </a>
-              </div>
-              <div class="image" style="background-image:url('https://s3.amazonaws.com/uifaces/faces/twitter/_everaldo/128.jpg')"></div>
-            </div>
-            <div class="image-container">
-              <div class="controls">
-                <a href="" class="control-btn move"> <i class="fa fa-arrows"></i> </a>
-                <a href="" class="control-btn star"> <i class="fa"></i> </a>
 
-                <a href="#" class="control-btn remove" data-toggle="modal" data-target="#confirm-modal"> <i class="fa fa-trash-o"></i> </a>
+            <div class="form-group">
+              <%= f.label :description, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-6">
+                <%= f.text_area :description, class: 'form-control', rows: 3, required: true %>
               </div>
-              <div class="image" style="background-image:url('https://s3.amazonaws.com/uifaces/faces/twitter/eduardo_olv/128.jpg')"></div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :price, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-6">
+                <div class="input-group">
+                  <%= f.text_field :description, class: 'form-control', rows: 3, required: true, placeholder: "Enter only numbers", "data-parsley-type": "number"%>
+                  <span class="input-group-addon">.00</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :from_to, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-6">
+                <div class="input-group">
+                  <%= f.text_field :from_to, class: 'form-control', autofocus: true, required: true, placeholder: "dd/mm/yyyy", id: "datepicker-autoclose", "date-format": "dd/mm/yyyy" %>
+                  <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :location, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-6">
+                <%= f.text_field :location, class: 'form-control', autofocus: true, required: true, placeholder: 'Type something'  %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :category, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-6">
+                <%= f.select :category, options_for_select(@categories.collect{ |c| [c.name, c.id] }), {}, { class: 'form-control select2' } %>
+              </div>
+            </div>
+        </div>
+        <% end %>
+
+        <div class="col-lg-6">
+          <h5><b>Cover Image</b></h5>
+          <div class="row">
+            <div class="col-md-12 portlets">
+              <div class="m-b-30">
+                <form action="#" class="dropzone" id="dropzone">
+                  <div class="fallback">
+                    <input name="file" type="file" multiple />
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-sm-10 col-sm-offset-2">
-          <button type="submit" class="btn btn-primary"> Submit </button>
+          <div class="card-box">
+            <h4 class="m-t-0 m-b-20 header-title"><b>Location</b></h4>
+            <div class="row form-group">
+              <div class="col-sm-6">
+                <input type="search" class="form-control" id="location-address">
+              </div>
+              <div class="col-sm-6">
+                <a class="btn btn-primary waves-effect waves-light" id="search-map">Search</a>
+                <a class="btn btn-primary waves-effect waves-light" id="search-geolocation">Get location</a>
+              </div>
+            </div>
+
+            <div id="gmaps-overlay" class="gmaps"></div>
+          </div>
         </div>
       </div>
     </div>
-  <% end %>
-</article>
+  </div>
+</div>
+
+
+<%= javascript_include_tag 'switchery/switchery.min', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'bootstrap-tagsinput/dist/bootstrap-tagsinput.min', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'multiselect/js/jquery.multi-select', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'jquery-quicksearch/jquery.quicksearch', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'select2/select2.min', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'bootstrap-inputmask/bootstrap-inputmask.min', 'data-turbolinks-track' => true %>
+
+<%#= javascript_include_tag 'moment/moment', 'data-turbolinks-track' => true %>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+
+<%= javascript_include_tag 'timepicker/bootstrap-timepicker.min', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'bootstrap-daterangepicker/daterangepicker', 'data-turbolinks-track' => true %>
+
+<script>
+  jQuery('#datepicker-autoclose').datepicker({
+    autoclose: true,
+    format: "dd/mm/yyyy",
+    todayHighlight: true
+  });
+</script>
+
+<!-- Parsleyjs -->
+<%#= javascript_include_tag 'parsleyjs/dist/parsley.min', 'data-turbolinks-track' => true %>
+<script type="text/javascript" src="//cdn.bootcss.com/parsley.js/2.4.3/parsley.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('form').parsley();
+
+    $('#submitForm').on('click', function(){
+      $('#new_event').submit();
+    });
+  });
+</script>
+<!-- google maps api -->
+<%= javascript_include_tag 'http://maps.google.com/maps/api/js?sensor=true', 'data-turbolinks-track' => true %>
+<!-- Gmaps file -->
+<%= javascript_include_tag 'gmaps/gmaps.min', 'data-turbolinks-track' => true %>
+<script type="text/javascript">
+
+!function($) {
+  "use strict";
+
+  var GoogleMap = function() {};
+
+  //creates map with overlay
+  GoogleMap.prototype.createWithOverlay = function ($container) {
+    var map = new GMaps({
+      div: $container,
+      zoom: 16,
+      lat: 13.7563309,
+      lng: 100.50176510000006,
+      click: function(e) {
+        map.removeMarkers()
+        map.addMarker({
+          lat: map.getCenter().lat(),
+          lng: map.getCenter().lng(),
+          draggable: true
+        });
+      },
+    });
+
+    $('#search-geolocation').on('click', function(){
+      GMaps.geolocate({
+        success: function(position) {
+          map.setCenter(position.coords.latitude, position.coords.longitude);
+        },
+        error: function(error) {
+          alert('Geolocation failed: '+error.message);
+        },
+        not_supported: function() {
+          alert("Your browser does not support geolocation");
+        },
+        always: function() {
+          // alert("Done!");
+        }
+      });
+    });
+
+    $('#search-map').on('click', function(){
+      GMaps.geocode({
+        address: $('#location-address').val().trim(),
+        callback: function(results, status){
+          if(status=='OK'){
+            var latlng = results[0].geometry.location;
+            map.setCenter(latlng.lat(), latlng.lng());
+            map.removeMarkers()
+            map.addMarker({
+              lat: map.getCenter().lat(),
+              lng: map.getCenter().lng(),
+              draggable: true
+            });
+          }
+        }
+      });
+    });
+
+    return map;
+  },
+
+  //init
+  GoogleMap.prototype.init = function() {
+    var $this = this;
+    $(document).ready(function(){
+      //with sample markers
+      $this.createWithOverlay('#gmaps-overlay');
+    });
+  },
+
+  //init
+  $.GoogleMap = new GoogleMap, $.GoogleMap.Constructor = GoogleMap
+}(window.jQuery),
+
+//initializing
+function($) {
+  "use strict";
+  $.GoogleMap.init()
+}(window.jQuery);
+
+</script>
+<!-- Dropzone js -->
+<%= javascript_include_tag 'dropzone/dist/dropzone', 'data-turbolinks-track' => true %>

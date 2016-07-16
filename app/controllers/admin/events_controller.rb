@@ -14,7 +14,8 @@ class Admin::EventsController < Admin::CoreController
 
   def create
     if @event = Event.create(event_params)
-      @event.update(category_id: params[:event][:category].to_i, user_id: params[:event][:user].to_i)
+      user_id = params[:event][:user].to_i.eql?(0) ? current_user.id : params[:event][:user].to_i
+      @event.update(category_id: params[:event][:category].to_i, user_id: user_id)
       redirect_to admin_events_path, flash: { notice: "Success!" }
     else
       redirect_to admin_events_path, flash: { error: @event.errors.full_messages }
@@ -39,7 +40,7 @@ class Admin::EventsController < Admin::CoreController
     end
 
     def event_params
-      params.require(:event).permit(:title, :description, :price, :cover, :location)
+      params.require(:event).permit(:title, :description, :price, :cover, :location, :from_to)
     end
 
     def all_categories

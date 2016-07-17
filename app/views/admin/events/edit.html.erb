@@ -128,7 +128,7 @@
           <div class="row">
             <div class="col-md-12">
               <% @event.event_attachments.each do |e|%>
-                <%= image_tag e.media(:medium) %>
+                <%= image_tag e.media(:thumb) %>
               <% end %>
             </div>
           </div>

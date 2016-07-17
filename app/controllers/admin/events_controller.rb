@@ -5,7 +5,7 @@ class Admin::EventsController < Admin::CoreController
   before_action :all_users, only: [:new, :edit]
 
   def index
-    @events = Event.all.includes(:user, :category)
+    @events = Event.all.includes(:user, :category).order(created_at: :desc)
   end
 
   def new
@@ -13,9 +13,15 @@ class Admin::EventsController < Admin::CoreController
   end
 
   def create
+    binding.pry
     if @event = Event.create(event_params)
       user_id = params[:event][:user].to_i.eql?(0) ? current_user.id : params[:event][:user].to_i
       @event.update(category_id: params[:event][:category].to_i, user_id: user_id)
+
+      params[:event][:attachments].each do |attachments|
+        EventAttachment.create(event_id: @event.id, media: attachments)
+      end
+
       redirect_to admin_events_path, flash: { notice: "Success!" }
     else
       redirect_to admin_events_path, flash: { error: @event.errors.full_messages }
@@ -32,17 +38,6 @@ class Admin::EventsController < Admin::CoreController
 
   def destroy
     @event.destroy
-  end
-
-  def upload
-    uploaded_io = params[:file]
-    event = params[:event_id]
-
-    EventAttachment.create(event_id: event.to_i, media: uploaded_io)
-    # File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-    #   file.write(uploaded_io.read)
-    # end
-
   end
 
   private

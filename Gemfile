@@ -21,6 +21,7 @@ gem 'omniauth-facebook'
 gem 'koala'
 
 gem 'paperclip'
+gem 'aws-sdk', '>= 2.0.34'
 
 gem 'active_model_serializers'
 gem 'activemodel-serializers-xml'
@@ -79,5 +80,4 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem 'aws-sdk'
 end

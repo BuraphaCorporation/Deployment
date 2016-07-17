@@ -417,7 +417,7 @@ DEPENDENCIES
   active_model_serializers
   activemodel-serializers-xml
   airbrussh
-  aws-sdk
+  aws-sdk (>= 2.0.34)
   bcrypt (~> 3.1.7)
   capistrano (~> 3.1)
   capistrano-bundler (~> 1.1.2)

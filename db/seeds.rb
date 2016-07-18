@@ -4,15 +4,19 @@
   Role.find_or_create_by({name: role})
 end
 
-User.create do |user|
-  user.email                 = 'arnon@hongklay.com'
-  user.first_name            = 'Arnon'
-  user.last_name             = 'Hongklay'
-  user.password              = '1234567890'
-  user.password_confirmation = '1234567890'
-  user.confirmed_at          = Time.zone.now
-  user.role_id               = Role.find_by_name('admin').id
+['Nightlife / Entertainment', 'Art & Culture', 'Sport & Wellness', 'Food & Drink'].each do |category|
+  Category.find_or_create_by({name: category})
 end
+
+# User.create do |user|
+#   user.email                 = 'arnon@hongklay.com'
+#   user.first_name            = 'Arnon'
+#   user.last_name             = 'Hongklay'
+#   user.password              = '1234567890'
+#   user.password_confirmation = '1234567890'
+#   user.confirmed_at          = Time.zone.now
+#   user.role_id               = Role.find_by_name('admin').id
+# end
 
 # User.create do |user|
 #   user.email                 = 'hello@daydash.co'
@@ -33,7 +37,3 @@ end
 #   user.confirmed_at          = Time.zone.now
 #   user.role_id               = Role.find_by_name('organizer').id
 # end
-
-['Nightlife / Entertainment', 'Art & Culture', 'Sport & Wellness', 'Food & Drink'].each do |category|
-  Category.find_or_create_by({name: category})
-end

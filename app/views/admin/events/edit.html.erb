@@ -44,27 +44,27 @@
             </div>
 
             <div class="form-group section">
-              <div class="section-wrap clearfix">
-                <%= f.label :ticket, class: 'col-sm-3 control-label' %>
-                <div class="col-sm-2 ticket-name">
-                  <%= f.text_field :ticket_name, multiple: true, class: 'form-control', placeholder: 'Ticket name', autofocus: true, required: true %>
-                </div>
-                <div class="col-sm-2 ticket-price">
-                  <%= f.text_field :ticket_price, multiple: true, class: 'form-control', placeholder: 'Ticket price', autofocus: true, required: true, "data-parsley-type": "number", "data-parsley-maxlength": "7" %>
-                </div>
-                <div class="col-sm-2 ticket-date">
-                  <%= f.text_field :ticket_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy" %>
-                </div>
-                <div class="col-sm-2 ticket-time">
-                  <div class="input-group">
-                    <div class="bootstrap-timepicker">
-                      <%= f.text_field :ticket_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00" %>
+              <% @event.tickets.each do |ticket| %>
+                <div class="section-wrap clearfix m-b-10">
+                  <%= f.label :ticket, class: 'col-sm-3 control-label' %>
+                  <div class="col-sm-2 ticket-name">
+                    <%= f.text_field :ticket_name, multiple: true, class: 'form-control', placeholder: 'Ticket name', autofocus: true, required: true, value: ticket.title %>
+                  </div>
+                  <div class="col-sm-2 ticket-price">
+                    <%= f.text_field :ticket_price, multiple: true, class: 'form-control', placeholder: 'Ticket price', autofocus: true, required: true, "data-parsley-type": "number", "data-parsley-maxlength": "7", value: ticket.price %>
+                  </div>
+                  <div class="col-sm-2 ticket-date">
+                    <%= f.text_field :ticket_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy" %>
+                  </div>
+                  <div class="col-sm-2 ticket-time">
+                    <div class="input-group">
+                      <div class="bootstrap-timepicker">
+                        <%= f.text_field :ticket_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00" %>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <br>
-                <br>
-              </div>
+              <% end %>
             </div>
 
             <div class="form-group">
@@ -92,7 +92,6 @@
               </div>
             </div>
 
-
             <style>
               /*html, body {
                 height: 100%;
@@ -100,8 +99,11 @@
                 padding: 0;
               }*/
               #map {
+                width: 100%;
+                min-height: 300px;
                 height: 100%;
               }
+
               .controls {
                 margin-top: 10px;
                 border: 1px solid transparent;
@@ -148,35 +150,61 @@
               }
             </style>
             <div class="row">
-              <div class="col-sm-offset-2 col-sm-7">
+              <div class="col-sm-12">
                 <div class="card-box">
                   <h4 class="m-t-0 m-b-20 header-title"><b>Map</b></h4>
                   <!-- <div id="gmaps-overlay" class="gmaps"></div> -->
-
                   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
                   <div id="map"></div>
+                  <div id="capture"></div>
                   <%= f.hidden_field :latitude %>
                   <%= f.hidden_field :longitude %>
                 </div>
               </div>
             </div>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHPaxmNLV9tKDLpmwZbAWBVmBTxGfWjq8&libraries=places&callback=initAutocomplete" async defer></script>
 
             <script type="text/javascript">
-
-              // This example adds a search box to a map, using the Google Place Autocomplete
-              // feature. People can enter geographical searches. The search box will return a
-              // pick list containing a mix of places and predicted search terms.
-
-              // This example requires the Places library. Include the libraries=places
-              // parameter when you first load the API. For example:
-              // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+              // var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+              // var labelIndex = 0;
+              //
+              // function initMarker() {
+              //   var bangalore = { lat: 12.97, lng: 77.59 };
+              //   var map = new google.maps.Map(document.getElementById('map'), {
+              //     zoom: 12,
+              //     center: bangalore
+              //   });
+              //
+              //   // This event listener calls addMarker() when the map is clicked.
+              //   google.maps.event.addListener(map, 'click', function(event) {
+              //     addMarker(event.latLng, map);
+              //   });
+              //
+              //   // Add a marker at the center of the map.
+              //   addMarker(bangalore, map);
+              // }
+              //
+              // function addMarker(location, map) {
+              //   // Add the marker at the clicked location, and add the next-available label
+              //   // from the array of alphabetical characters.
+              //   var marker = new google.maps.Marker({
+              //     position: location,
+              //     label: labels[labelIndex++ % labels.length],
+              //     map: map,
+              //     draggable: true
+              //   });
+              // }
+              // google.maps.event.addDomListener(window, 'load', initialize);
 
               function initAutocomplete() {
+
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  center: {lat: -33.8688, lng: 151.2195},
+                  center: {lat: 13.7563309, lng: 100.50176510000006},
                   zoom: 13,
                   mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
+
+                var markers = [];
 
                 // Create the search box and link it to the UI element.
                 var input = document.getElementById('pac-input');
@@ -188,7 +216,24 @@
                   searchBox.setBounds(map.getBounds());
                 });
 
-                var markers = [];
+                map.addListener('click', function(event) {
+                  addMarker(event.latLng);
+                });
+
+                function addMarker(location) {
+                  var marker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    draggable: true
+                  });
+                  // markers.push(marker);
+                  updateLatLng(location.lat(), location.lng());
+
+                  marker.addListener('dragend', function(event) {
+                    updateLatLng(event.latLng.lat(), event.latLng.lng());
+                  });
+                }
+
                 // Listen for the event fired when the user selects a prediction and retrieve
                 // more details for that place.
                 searchBox.addListener('places_changed', function() {
@@ -199,10 +244,10 @@
                   }
 
                   // Clear out the old markers.
-                  markers.forEach(function(marker) {
-                    marker.setMap(null);
-                  });
-                  markers = [];
+                  // markers.forEach(function(marker) {
+                  //   marker.setMap(null);
+                  // });
+                  // markers = [];
 
                   // For each place, get the icon, name and location.
                   var bounds = new google.maps.LatLngBounds();
@@ -215,13 +260,14 @@
                       scaledSize: new google.maps.Size(25, 25)
                     };
 
+                    addMarker(place.geometry.location);
                     // Create a marker for each place.
-                    markers.push(new google.maps.Marker({
-                      map: map,
-                      icon: icon,
-                      title: place.name,
-                      position: place.geometry.location
-                    }));
+                    // markers.push(new google.maps.Marker({
+                    //   map: map,
+                    //   title: place.name,
+                    //   position: place.geometry.location,
+                    //   draggable: true
+                    // }));
 
                     if (place.geometry.viewport) {
                       // Only geocodes have viewport.
@@ -234,25 +280,37 @@
                 });
               }
 
+              function updateLatLng(lat, lng) {
+                $("#event_latitude").val(lat);
+                $("#event_longitude").val(lng);
+              }
             </script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTlGsBy3HKyv4QpO0TT0OzhjtS4nFQK68&libraries=places&callback=initAutocomplete" async defer></script>
-
           <% end %>
         </div>
         <div class="col-md-4">
-            <h5><b>True multi value</b></h5>
-            <p class="text-muted m-b-30 font-13">
-                  Use a <code>&lt;select multiple /&gt;</code> as your input element for a tags input, to gain true multivalue support.
-                   Instead of a comma separated string, the values will be set in an array. Existing <code>&lt;option /&gt;</code>
-                   elements will automatically be set as tags. This makes it also possible to create tags containing a comma.
-            </p>
-            <div class="m-b-0">
-                <select multiple data-role="tagsinput">
-                    <option value="Amsterdam">Amsterdam</option>
-                    <option value="Washington">Washington</option>
-                    <option value="Sydney">Sydney</option>
-                </select>
+          <!-- <h5><b>True multi value</b></h5>
+          <p class="text-muted m-b-30 font-13">
+                Use a <code>&lt;select multiple /&gt;</code> as your input element for a tags input, to gain true multivalue support.
+                 Instead of a comma separated string, the values will be set in an array. Existing <code>&lt;option /&gt;</code>
+                 elements will automatically be set as tags. This makes it also possible to create tags containing a comma.
+          </p>
+          <div class="m-b-0">
+              <select multiple data-role="tagsinput">
+                  <option value="Amsterdam">Amsterdam</option>
+                  <option value="Washington">Washington</option>
+                  <option value="Sydney">Sydney</option>
+              </select>
+          </div> -->
+          <h5><b>Cover photo</b></h5>
+          <div class="m-t-20">
+            <%= image_tag @event.cover(:thumb2x), width: '100%' %>
+          </div>
+          <% @event.galleries.each do |g| %>
+            <div class="m-t-10">
+              <%= image_tag g.media(:thumb2x), width: '100%' %>
             </div>
+          <% end %>
+          <div class="m-b-20"></div>
         </div>
       </div>
 

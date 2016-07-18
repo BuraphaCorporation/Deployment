@@ -13,7 +13,6 @@ class Admin::EventsController < Admin::CoreController
   end
 
   def create
-    binding.pry
     if @event = Event.create(event_params)
       user_id = params[:event][:user].to_i.eql?(0) ? current_user.id : params[:event][:user].to_i
       @event.update(category_id: params[:event][:category].to_i, user_id: user_id)
@@ -31,7 +30,7 @@ class Admin::EventsController < Admin::CoreController
         end
       end
 
-      redirect_to admin_events_path, flash: { notice: "Success!" }
+      redirect_to edit_admin_event_path(@event.id), flash: { notice: "Success!" }
     else
       redirect_to admin_events_path, flash: { error: @event.errors.full_messages }
     end

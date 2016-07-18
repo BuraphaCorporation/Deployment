@@ -352,7 +352,7 @@
         x++; //text box increment
         // $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
 
-        $(wrapper).clone().appendTo($('.section'));
+        $(wrapper).clone().appendTo($('.section:last'));
 
         picker_init();
       }

@@ -56,12 +56,12 @@
                     <%= f.text_field :ticket_price, multiple: true, class: 'form-control', placeholder: 'Ticket price', autofocus: true, required: true, "data-parsley-type": "number", "data-parsley-maxlength": "7", value: ticket.price %>
                   </div>
                   <div class="col-sm-2 ticket-date">
-                    <%= f.text_field :ticket_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy" %>
+                    <%= f.text_field :ticket_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy", value: ticket.from_to_date.strftime('%d/%m/%Y') %>
                   </div>
                   <div class="col-sm-2 ticket-time">
                     <div class="input-group">
                       <div class="bootstrap-timepicker">
-                        <%= f.text_field :ticket_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00" %>
+                        <%= f.text_field :ticket_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00", value: ticket.from_to_time %>
                       </div>
                     </div>
                   </div>
@@ -366,7 +366,7 @@
   jQuery(document).ready(function() {
 
     var max_fields      = 10; //maximum input boxes allowed
-    var wrapper         = $(".section-wrap"); //Fields wrapper
+    var wrapper         = $(".section-wrap:last"); //Fields wrapper
     var add_button      = $("#add-more-field"); //Add button ID
     var ticketName      = $(".ticket-name");
     var ticketPrice     = $(".ticket-price");
@@ -379,9 +379,8 @@
       if(x < max_fields){ //max input box allowed
         x++; //text box increment
         // $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
-
-        $(wrapper).clone().appendTo($('.section'));
-
+        $(wrapper).clone().appendTo($('.section:last'));
+        // $(wrapper).append('<div class="col-sm-1"><a href="#" class="remove_field">X</a></div>');
         picker_init();
       }
     });

@@ -201,7 +201,7 @@
               function initAutocomplete() {
 
                 var map = new google.maps.Map(document.getElementById('map'), {
-                  center: {lat: 13.7563309, lng: 100.50176510000006},
+                  center: { lat: 13.7563309, lng: 100.50176510000006 },
                   zoom: 13,
                   mapTypeId: google.maps.MapTypeId.ROADMAP
                 });
@@ -410,6 +410,11 @@
 <!-- Parsleyjs -->
 <%#= javascript_include_tag 'parsleyjs/dist/parsley.min', 'data-turbolinks-track' => true %>
 <script type="text/javascript" src="//cdn.bootcss.com/parsley.js/2.4.3/parsley.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('form').parsley();
+  });
+</script>
 
 <!-- Dropzone js -->
 <%#= javascript_include_tag 'dropzone/dist/dropzone', 'data-turbolinks-track' => true %>

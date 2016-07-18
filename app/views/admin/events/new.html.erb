@@ -219,13 +219,27 @@
                   addMarker(event.latLng);
                 });
 
+                function setMarkers() {
+                  for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(yourMap); //Add the marker to the map
+                  }
+                }
+
+                function hideMarkers() {
+                  for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(null); //Remove the marker from the map
+                  }
+                }
+
                 function addMarker(location) {
+                  hideMarkers();
+                  markers = [];
                   var marker = new google.maps.Marker({
                     position: location,
                     map: map,
                     draggable: true
                   });
-                  // markers.push(marker);
+                  markers.push(marker);
                   updateLatLng(location.lat(), location.lng());
 
                   marker.addListener('dragend', function(event) {

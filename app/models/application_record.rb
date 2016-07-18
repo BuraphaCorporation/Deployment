@@ -1,4 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
-  # self.abstract_class = true
-  abstract_class = true
+  # if Rails.env.production?
+  #   abstract_class = true
+  # else
+  self.abstract_class = true
+  # end
 end

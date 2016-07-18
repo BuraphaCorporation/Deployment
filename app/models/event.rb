@@ -1,8 +1,8 @@
 class Event < ActiveRecord::Base
   belongs_to :user
   belongs_to :category
-  has_many :event_attachments, dependent: :destroy
-  has_many :event_tickets, dependent: :destroy
+  has_many :galleries, dependent: :destroy
+  has_many :tickets, dependent: :destroy
 
   has_attached_file :cover,
     styles: { full: "1600x555#", normal2x: "750x590#", normal3x: "1125x885#", thumb2x: "750x450#", thumb3x: "1125x675#", thumb: '800x500#', facebook: "1200x630" },

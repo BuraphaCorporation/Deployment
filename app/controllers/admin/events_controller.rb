@@ -19,7 +19,16 @@ class Admin::EventsController < Admin::CoreController
       @event.update(category_id: params[:event][:category].to_i, user_id: user_id)
 
       params[:event][:attachments].each do |attachments|
-        EventAttachment.create(event_id: @event.id, media: attachments)
+        Gallery.create(event_id: @event.id, media: attachments)
+      end
+
+      (0..params[:event][:ticket_name].count - 1).each do |i|
+        Ticket.create do |t|
+          t.event_id = @event.id
+          t.title = params[:event][:ticket_name][i]
+          t.price = params[:event][:ticket_price][i]
+          t.from_to = params[:event][:ticket_date][i] + params[:event][:ticket_time][i]
+        end
       end
 
       redirect_to admin_events_path, flash: { notice: "Success!" }

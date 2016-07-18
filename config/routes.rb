@@ -34,9 +34,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'dashboard#index'
-    resources :events do
-      patch '/upload', to: 'events#upload'
-    end
+    resources :events
     resources :users, except: :show
   end
 

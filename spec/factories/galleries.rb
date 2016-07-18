@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :from_to_date do
+  factory :gallery do
     
   end
 end

@@ -1,8 +1,8 @@
-class CreateFromToDates < ActiveRecord::Migration
+class CreateGalleries < ActiveRecord::Migration[5.0]
   def change
-    create_table :from_to_dates do |t|
+    create_table :galleries do |t|
       t.references :event, index: true, foreign_key: true
-      t.datetime :from_to
+      t.attachment :media
 
       t.timestamps null: false
     end

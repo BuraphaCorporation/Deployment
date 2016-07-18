@@ -22,6 +22,9 @@ gem 'koala'
 
 gem 'paperclip'
 gem 'aws-sdk', '>= 2.0.34'
+gem 'gcloud'
+
+gem "intercom-rails"
 
 gem 'active_model_serializers'
 gem 'activemodel-serializers-xml'

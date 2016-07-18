@@ -2,129 +2,268 @@
   <div class="col-sm-12">
     <div class="card-box">
       <h4 class="m-t-0 m-b-30 header-title"><b>Fields validation</b></h4>
-
-
       <div class="row">
-        <div class="col-lg-12 text-right">
-          <button id="submitForm" type="submit" class="btn btn-primary waves-effect waves-light">
-            Add
-          </button>
-          <button id="resetForm" type="reset" class="btn btn-default waves-effect waves-light m-l-5">
-            Cancel
-          </button>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-6">
+        <div class="col-md-8">
           <h5><b>Validation type</b></h5>
           <p class="text-muted font-13 m-b-30">
             Your awesome text goes here.
           </p>
-
-          <%= form_for @event, url: admin_event_path(@event), medthod: :post, html: { class: 'form-horizontal group-border-dashed', id: 'edit_event' } do |f| %>
+          <%= form_for @event, url: admin_event_path(@event), medthod: :post, html: { class: 'form-horizontal group-border-dashed' } do |f| %>
             <div class="form-group">
               <%= f.label :organizer, class: 'col-sm-3 control-label' %>
-              <div class="col-sm-6">
+              <div class="col-sm-8">
                 <%= f.select :user, options_for_select(@users.collect{ |u| ["#{u.first_name} #{u.last_name}", u.id] }), {}, { class: 'form-control select2' } %>
               </div>
             </div>
+
+            <div class="form-group">
+              <%= f.label :category, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-8">
+                <%= f.select :category, options_for_select(@categories.collect{ |c| [c.name, c.id] }), {}, { class: 'form-control select2' } %>
+              </div>
+            </div>
+
             <div class="form-group">
               <%= f.label :title, class: 'col-sm-3 control-label' %>
-              <div class="col-sm-6">
+              <div class="col-sm-8">
                 <%= f.text_field :title, class: 'form-control', autofocus: true, required: true, placeholder: 'Type something'  %>
               </div>
             </div>
 
             <div class="form-group">
               <%= f.label :description, class: 'col-sm-3 control-label' %>
-              <div class="col-sm-6">
+              <div class="col-sm-8">
                 <%= f.text_area :description, class: 'form-control', rows: 3, required: true %>
               </div>
             </div>
 
+            <div class="row">
+              <div class="col-sm-offset-3 col-sm-8">
+                <a id="add-more-field" href="javascript:;" target="_self">Add more</a>
+              </div>
+            </div>
+
+            <div class="form-group section">
+              <div class="section-wrap clearfix">
+                <%= f.label :ticket, class: 'col-sm-3 control-label' %>
+                <div class="col-sm-2 ticket-name">
+                  <%= f.text_field :ticket_name, multiple: true, class: 'form-control', placeholder: 'Ticket name', autofocus: true, required: true %>
+                </div>
+                <div class="col-sm-2 ticket-price">
+                  <%= f.text_field :ticket_price, multiple: true, class: 'form-control', placeholder: 'Ticket price', autofocus: true, required: true, "data-parsley-type": "number", "data-parsley-maxlength": "7" %>
+                </div>
+                <div class="col-sm-2 ticket-date">
+                  <%= f.text_field :ticket_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy" %>
+                </div>
+                <div class="col-sm-2 ticket-time">
+                  <div class="input-group">
+                    <div class="bootstrap-timepicker">
+                      <%= f.text_field :ticket_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00" %>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <br>
+              </div>
+            </div>
+
             <div class="form-group">
-              <%= f.label :price, class: 'col-sm-3 control-label' %>
-              <div class="col-sm-6">
-                <div class="input-group">
-                  <%= f.text_field :price, class: 'form-control', rows: 3, required: true, placeholder: "Enter only numbers", "data-parsley-type": "number"%>
-                  <span class="input-group-addon">.00</span>
+              <%= f.label :corver_photo, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-8">
+                <div class="form-control">
+                  <%= f.file_field :cover, type: :file, required: true %>
                 </div>
               </div>
             </div>
 
             <div class="form-group">
-              <%= f.label :from_to, class: 'col-sm-3 control-label' %>
-              <div class="col-sm-6">
-                <div class="input-group">
-                  <%= f.text_field :from_to, class: 'form-control', autofocus: true, required: true, placeholder: "dd/mm/yyyy", id: "datepicker-autoclose", "date-format": "dd/mm/yyyy" %>
-                  <span class="input-group-addon bg-primary b-0 text-white"><i class="ion-calendar"></i></span>
+              <%= f.label :attachments, class: 'col-sm-3 control-label' %>
+              <div class="col-sm-8">
+                <div class="form-control">
+                  <%= f.file_field :attachments, type: :file, required: true, multiple: true %>
                 </div>
               </div>
             </div>
 
             <div class="form-group">
               <%= f.label :location, class: 'col-sm-3 control-label' %>
-              <div class="col-sm-6">
-                <%= f.text_field :location, class: 'form-control', autofocus: true, required: true, placeholder: 'Type something'  %>
+              <div class="col-sm-8">
+                <%= f.text_field :location, class: 'form-control', autofocus: true, required: true, placeholder: 'ชื่อสถานที่, ถนน, ซอย'  %>
               </div>
             </div>
 
-            <div class="form-group">
-              <%= f.label :category, class: 'col-sm-3 control-label' %>
-              <div class="col-sm-6">
-                <%= f.select :category, options_for_select(@categories.collect{ |c| [c.name, c.id] }), {}, { class: 'form-control select2' } %>
+
+            <style>
+              /*html, body {
+                height: 100%;
+                margin: 0;
+                padding: 0;
+              }*/
+              #map {
+                height: 100%;
+              }
+              .controls {
+                margin-top: 10px;
+                border: 1px solid transparent;
+                border-radius: 2px 0 0 2px;
+                box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                height: 32px;
+                outline: none;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+              }
+
+              #pac-input {
+                background-color: #fff;
+                font-family: Roboto;
+                font-size: 15px;
+                font-weight: 300;
+                margin-left: 12px;
+                padding: 0 11px 0 13px;
+                text-overflow: ellipsis;
+                width: 300px;
+              }
+
+              #pac-input:focus {
+                border-color: #4d90fe;
+              }
+
+              .pac-container {
+                font-family: Roboto;
+              }
+
+              #type-selector {
+                color: #fff;
+                background-color: #4d90fe;
+                padding: 5px 11px 0px 11px;
+              }
+
+              #type-selector label {
+                font-family: Roboto;
+                font-size: 13px;
+                font-weight: 300;
+              }
+              #target {
+                width: 345px;
+              }
+            </style>
+            <div class="row">
+              <div class="col-sm-offset-2 col-sm-7">
+                <div class="card-box">
+                  <h4 class="m-t-0 m-b-20 header-title"><b>Map</b></h4>
+                  <!-- <div id="gmaps-overlay" class="gmaps"></div> -->
+
+                  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                  <div id="map"></div>
+                  <%= f.hidden_field :latitude %>
+                  <%= f.hidden_field :longitude %>
+                </div>
               </div>
             </div>
 
-            <div class="card-box">
-              <h4 class="m-t-0 m-b-20 header-title"><b>Location</b></h4>
-              <div class="row form-group">
-                <div class="col-sm-6">
-                  <input type="search" class="form-control" id="location-address">
-                </div>
-                <div class="col-sm-6">
-                  <a class="btn btn-primary waves-effect waves-light" id="search-map">Search</a>
-                  <a class="btn btn-primary waves-effect waves-light" id="search-geolocation">Get location</a>
-                </div>
-              </div>
-              <div id="gmaps-overlay" class="gmaps"></div>
-            </div>
+            <script type="text/javascript">
+
+              // This example adds a search box to a map, using the Google Place Autocomplete
+              // feature. People can enter geographical searches. The search box will return a
+              // pick list containing a mix of places and predicted search terms.
+
+              // This example requires the Places library. Include the libraries=places
+              // parameter when you first load the API. For example:
+              // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+              function initAutocomplete() {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  center: {lat: -33.8688, lng: 151.2195},
+                  zoom: 13,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                // Create the search box and link it to the UI element.
+                var input = document.getElementById('pac-input');
+                var searchBox = new google.maps.places.SearchBox(input);
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                // Bias the SearchBox results towards current map's viewport.
+                map.addListener('bounds_changed', function() {
+                  searchBox.setBounds(map.getBounds());
+                });
+
+                var markers = [];
+                // Listen for the event fired when the user selects a prediction and retrieve
+                // more details for that place.
+                searchBox.addListener('places_changed', function() {
+                  var places = searchBox.getPlaces();
+
+                  if (places.length == 0) {
+                    return;
+                  }
+
+                  // Clear out the old markers.
+                  markers.forEach(function(marker) {
+                    marker.setMap(null);
+                  });
+                  markers = [];
+
+                  // For each place, get the icon, name and location.
+                  var bounds = new google.maps.LatLngBounds();
+                  places.forEach(function(place) {
+                    var icon = {
+                      url: place.icon,
+                      size: new google.maps.Size(71, 71),
+                      origin: new google.maps.Point(0, 0),
+                      anchor: new google.maps.Point(17, 34),
+                      scaledSize: new google.maps.Size(25, 25)
+                    };
+
+                    // Create a marker for each place.
+                    markers.push(new google.maps.Marker({
+                      map: map,
+                      icon: icon,
+                      title: place.name,
+                      position: place.geometry.location
+                    }));
+
+                    if (place.geometry.viewport) {
+                      // Only geocodes have viewport.
+                      bounds.union(place.geometry.viewport);
+                    } else {
+                      bounds.extend(place.geometry.location);
+                    }
+                  });
+                  map.fitBounds(bounds);
+                });
+              }
+
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTlGsBy3HKyv4QpO0TT0OzhjtS4nFQK68&libraries=places&callback=initAutocomplete" async defer></script>
+
           <% end %>
         </div>
-
-        <div class="col-lg-6">
-          <h5><b>Cover Image</b></h5>
-          <div class="row">
-            <div class="col-md-12 portlets">
-              <div class="m-b-30">
-
-                <!-- <form action="#" class="dropzone" id="dropzone">
-                  <div class="fallback">
-                    <input name="file" type="file" multiple />
-                  </div>
-                </form> -->
-              </div>
+        <div class="col-md-4">
+            <h5><b>True multi value</b></h5>
+            <p class="text-muted m-b-30 font-13">
+                  Use a <code>&lt;select multiple /&gt;</code> as your input element for a tags input, to gain true multivalue support.
+                   Instead of a comma separated string, the values will be set in an array. Existing <code>&lt;option /&gt;</code>
+                   elements will automatically be set as tags. This makes it also possible to create tags containing a comma.
+            </p>
+            <div class="m-b-0">
+                <select multiple data-role="tagsinput">
+                    <option value="Amsterdam">Amsterdam</option>
+                    <option value="Washington">Washington</option>
+                    <option value="Sydney">Sydney</option>
+                </select>
             </div>
-          </div>
+        </div>
+      </div>
 
-          <div class="row">
-            <div class="col-md-12">
-              thumb2x<%= image_tag @event.cover(:thumb2x) %> <br>
-              thumb3x<%= image_tag @event.cover(:thumb3x) %> <br>
-              normal2x<%= image_tag @event.cover(:normal2x) %> <br>
-              normal3x<%= image_tag @event.cover(:normal3x) %> <br>
-              thumb<%= image_tag @event.cover(:thumb) %> <br>
-              full<%= image_tag @event.cover(:full) %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-12">
-              <% @event.galleries.each do |e|%>
-                <%= image_tag e.media(:thumb) %>
-              <% end %>
-            </div>
-          </div>
+      <div class="row">
+        <div class="col-lg-12 text-right">
+          <button id="submitForm" type="submit" class="btn btn-primary waves-effect waves-light">
+            Sumit
+          </button>
+          <button id="resetForm" type="reset" class="btn btn-default waves-effect waves-light m-l-5">
+            Cancel
+          </button>
         </div>
       </div>
     </div>
@@ -149,11 +288,50 @@
 <%= javascript_include_tag 'bootstrap-daterangepicker/daterangepicker', 'data-turbolinks-track' => true %>
 
 <script>
-  jQuery('#datepicker-autoclose').datepicker({
-    autoclose: true,
-    format: "dd/mm/yyyy",
-    todayHighlight: true
+
+  jQuery(document).ready(function() {
+
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".section-wrap"); //Fields wrapper
+    var add_button      = $("#add-more-field"); //Add button ID
+    var ticketName      = $(".ticket-name");
+    var ticketPrice     = $(".ticket-price");
+    var ticketDate      = $(".ticket-date");
+    var ticketTime      = $(".ticket-time");
+
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+      e.preventDefault();
+      if(x < max_fields){ //max input box allowed
+        x++; //text box increment
+        // $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>'); //add input box
+
+        $(wrapper).clone().appendTo($('.section'));
+
+        picker_init();
+      }
+    });
+
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+      e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+
+    picker_init();
   });
+
+  function picker_init(){
+    jQuery('.event-datepicker').datepicker({
+      autoclose: true,
+      format: "dd/mm/yyyy",
+      todayHighlight: true
+    });
+
+    jQuery('.event-timepicker').timepicker({
+      showMeridian : false,
+      minuteStep : 15
+    });
+  }
+
 </script>
 
 <!-- Parsleyjs -->
@@ -164,171 +342,17 @@
     $('form').parsley();
 
     $('#submitForm').on('click', function(){
-      $('#edit_event').submit();
+      $('#new_event').submit();
     });
   });
 </script>
-<!-- google maps api -->
-<%= javascript_include_tag '//maps.google.com/maps/api/js?sensor=true', 'data-turbolinks-track' => true %>
-<!-- Gmaps file -->
-<%= javascript_include_tag 'gmaps/gmaps.min', 'data-turbolinks-track' => true %>
-<script type="text/javascript">
 
-!function($) {
-  "use strict";
-
-  var GoogleMap = function() {};
-
-  //creates map with overlay
-  GoogleMap.prototype.createWithOverlay = function ($container) {
-    var map = new GMaps({
-      div: $container,
-      zoom: 16,
-      lat: 13.7563309,
-      lng: 100.50176510000006,
-      click: function(e) {
-        map.removeMarkers()
-        map.addMarker({
-          lat: map.getCenter().lat(),
-          lng: map.getCenter().lng(),
-          draggable: true
-        });
-      },
-    });
-
-    $('#search-geolocation').on('click', function(){
-      GMaps.geolocate({
-        success: function(position) {
-          map.setCenter(position.coords.latitude, position.coords.longitude);
-        },
-        error: function(error) {
-          alert('Geolocation failed: '+error.message);
-        },
-        not_supported: function() {
-          alert("Your browser does not support geolocation");
-        },
-        always: function() {
-          // alert("Done!");
-        }
-      });
-    });
-
-    $('#search-map').on('click', function(){
-      GMaps.geocode({
-        address: $('#location-address').val().trim(),
-        callback: function(results, status){
-          if(status=='OK'){
-            var latlng = results[0].geometry.location;
-            map.setCenter(latlng.lat(), latlng.lng());
-            map.removeMarkers()
-            map.addMarker({
-              lat: map.getCenter().lat(),
-              lng: map.getCenter().lng(),
-              draggable: true
-            });
-          }
-        }
-      });
-    });
-
-    return map;
-  },
-
-  //init
-  GoogleMap.prototype.init = function() {
-    var $this = this;
-    $(document).ready(function(){
-      //with sample markers
-      $this.createWithOverlay('#gmaps-overlay');
-    });
-  },
-
-  //init
-  $.GoogleMap = new GoogleMap, $.GoogleMap.Constructor = GoogleMap
-}(window.jQuery),
-
-//initializing
-function($) {
-  "use strict";
-  $.GoogleMap.init()
-}(window.jQuery);
-
-</script>
 <!-- Dropzone js -->
-<%= javascript_include_tag 'dropzone/dist/dropzone', 'data-turbolinks-track' => true %>
-
-
-<script>
-  // This example adds a search box to a map, using the Google Place Autocomplete
-  // feature. People can enter geographical searches. The search box will return a
-  // pick list containing a mix of places and predicted search terms.
-
-  // This example requires the Places library. Include the libraries=places
-  // parameter when you first load the API. For example:
-  // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-  function initAutocomplete() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -33.8688, lng: 151.2195},
-      zoom: 13,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    // Create the search box and link it to the UI element.
-    var input = document.getElementById('pac-input');
-    var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-    // Bias the SearchBox results towards current map's viewport.
-    map.addListener('bounds_changed', function() {
-      searchBox.setBounds(map.getBounds());
-    });
-
-    var markers = [];
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
-    searchBox.addListener('places_changed', function() {
-      var places = searchBox.getPlaces();
-
-      if (places.length == 0) {
-        return;
-      }
-
-      // Clear out the old markers.
-      markers.forEach(function(marker) {
-        marker.setMap(null);
-      });
-      markers = [];
-
-      // For each place, get the icon, name and location.
-      var bounds = new google.maps.LatLngBounds();
-      places.forEach(function(place) {
-        var icon = {
-          url: place.icon,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(25, 25)
-        };
-
-        // Create a marker for each place.
-        markers.push(new google.maps.Marker({
-          map: map,
-          icon: icon,
-          title: place.name,
-          position: place.geometry.location
-        }));
-
-        if (place.geometry.viewport) {
-          // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-      map.fitBounds(bounds);
-    });
-  }
-
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initAutocomplete" async defer></script>
+<%#= javascript_include_tag 'dropzone/dist/dropzone', 'data-turbolinks-track' => true %>
+<!--
+<script type="text/javascript">
+  var uploader = new Dropzone('#event_attachments');
+  uploader.on('success', function( file, resp ){
+    console.log(file)
+  });
+</script> -->

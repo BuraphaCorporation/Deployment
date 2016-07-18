@@ -55,7 +55,7 @@ class Admin::EventsController < Admin::CoreController
     end
 
     def event_params
-      params.require(:event).permit(:title, :description, :price, :cover, :location, :from_to)
+      params.require(:event).permit(:title, :description, :price, :cover, :location, :from_to, :latitude, :longitude)
     end
 
     def all_categories

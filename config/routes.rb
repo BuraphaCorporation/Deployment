@@ -12,9 +12,7 @@ Rails.application.routes.draw do
       unlocks:            'users/unlocks',
     }
 
-  root 'greetings#hello'
-
-  get 'events/index'
+  root 'events#index'
 
   namespace :admin do
     get '/', to: 'dashboard#index'

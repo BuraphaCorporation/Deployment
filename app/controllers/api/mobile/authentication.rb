@@ -3,6 +3,7 @@ module API
   module Mobile
     class Authentication < Grape::API
       include API::Mobile::Defaults
+      include API::Mobile::Entities
 
       resources :auth do
         desc "Return a user token from signup successfully"

@@ -80,7 +80,7 @@ module API
         desc "return categories"
         get "/categories" do
           present :status, :success
-          present :data, Category.all, with: API::Mobile::Entities::Cate
+          present :data, Category.all, with: API::Mobile::Entities::Category
         end
       end
     end

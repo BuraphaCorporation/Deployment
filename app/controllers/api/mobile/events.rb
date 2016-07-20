@@ -20,13 +20,8 @@ module API
 
       resources :events do
         desc "Return all events"
-        params { optional :category, type: String, desc: "Category field" }
         get "/" do
-          if params[:category].present?
-            { status: :success, data: Event.find(params[:category]), message: nil }
-          else
-            { status: :error, data: nil, message: "We don't have events by #{params[:title]}" }
-          end
+          { status: :success, data: Event.all, message: nil }
         end
 
         desc "Return events today"

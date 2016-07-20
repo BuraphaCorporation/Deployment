@@ -1,3 +1,4 @@
+
 class Organizers::CoreController < ApplicationController
   before_action :authenticate_user!
 

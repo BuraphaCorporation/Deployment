@@ -1,3 +1,4 @@
+
 class Admin::EventsController < Admin::CoreController
 
   before_action :event, only: [:edit, :update, :destroy]

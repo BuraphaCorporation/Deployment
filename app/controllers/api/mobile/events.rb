@@ -4,44 +4,48 @@ module API
     class Events < Grape::API
       include API::Mobile::Defaults
 
-      resources :event do
-        desc "Return a event"
-        params do
-          requires :event_id, type: Integer, desc: "slug of event"
-        end
-        get "/" do
-          if params[:event_id].present?
-            { status: :success, data: Event.find(params[:event_id]), message: nil }
-          else
-            { status: :success, data: Event.all, message: nil }
-          end
-        end
-      end
-
       resources :events do
         desc "Return all events"
-        params { optional :category, type: String, desc: "Category field" }
         get "/" do
-          if params[:category].present?
-            { status: :success, data: Event.find(params[:category]), message: nil }
-          else
-            { status: :error, data: nil, message: "We don't have events by #{params[:title]}" }
-          end
+          present :status, :success
+          present :data, Event.all
         end
+
 
         desc "Return events today"
         get "/today" do
-          { status: :success, data: Event.where(from_to: Date.today), message: nil }
+          events_today = Event.today
+          # if events_today.present?
+            present :status, :success
+            present :data, events_today, with: API::Mobile::Entities::Event
+          # else
+          #   present :status, :error
+          #   present :data, :error
+          # end
         end
 
         desc "Return events tomorrow"
         get "/tomorrow" do
-          { status: :success, data: Event.where(from_to: Date.tomorrow), message: nil }
+          events_tomorrow = Event.tomorrow
+          # if events_tomorrow.present?
+            present :status, :success
+            present :data, events_tomorrow, with: API::Mobile::Entities::Event
+          # else
+          #   present :status, :error
+          #   present :data, :error
+          # end
         end
 
         desc "Return events upcoming"
         get "/upcoming" do
-          { status: :success, data: Event.where('DATE(from_to) > ?', Date.tomorrow), message: nil }
+          events_upcoming = Event.upcoming
+          # if events_upcoming.present?
+            present :status, :success
+            present :data, events_upcoming, with: API::Mobile::Entities::Event
+          # else
+          #   present :status, :error
+          #   present :data, :error
+          # end
         end
 
         desc "Return events by category"
@@ -49,10 +53,34 @@ module API
         get "/category" do
           category = Category.where(name: params[:title])
           if category.present?
-            { status: :success, data: category.events, message: "Successfully" }
+            present :status, :success
+            present :data, category.events, with: API::Mobile::Entities::Event
           else
-            { status: :error, data: nil, message: "We don't have events by #{params[:title]}" }
+            present :status, :error
+            present :data, "error"
           end
+        end
+      end
+
+      resources :event do
+        desc "Return a event"
+        params do
+          requires :event_id, type: Integer, desc: "slug of event"
+        end
+        get "/" do
+          if params[:event_id].present?
+            present :status, :success
+            present :data, Event.find(params[:event_id]), with: API::Mobile::Entities::Event
+          else
+            present :status, :error
+            present :data, "id not found"
+          end
+        end
+
+        desc "return categories"
+        get "/categories" do
+          present :status, :success
+          present :data, Category.all, with: API::Mobile::Entities::Category
         end
       end
     end

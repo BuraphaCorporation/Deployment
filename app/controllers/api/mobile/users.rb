@@ -5,14 +5,6 @@ module API
       include API::Mobile::Defaults
 
       resources :user do
-        desc "Return a user"
-        # params do
-        #   requires :user_token, type: Integer, desc: "id of the user"
-        # end
-        # get '/' do
-        #   { status: :success, data: User.find(params[:user_token]), message: nil }
-        # end
-
         desc "return a user"
         params do
           requires :user_token, type: String, desc: "token of the user"
@@ -27,12 +19,12 @@ module API
         end
       end
 
-      resources :users do
-        desc "Return all users when you have permissions"
-        get "/" do
-          { status: :success, data: User.all, message: nil}
-        end
-      end
+      # resources :users do
+      #   desc "Return all users when you have permissions"
+      #   get "/" do
+      #     { status: :success, data: User.all, message: nil}
+      #   end
+      # end
     end
   end
 end

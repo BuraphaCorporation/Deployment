@@ -1,3 +1,4 @@
+
 class Admin::EventsController < Admin::CoreController
 
   before_action :event, only: [:edit, :update, :destroy]
@@ -21,12 +22,12 @@ class Admin::EventsController < Admin::CoreController
         Gallery.create(event_id: @event.id, media: attachments)
       end
 
-      binding.pry
       (0..params[:event][:ticket_name].count - 1).each do |i|
         Ticket.create do |t|
           t.event_id = @event.id
           t.title = params[:event][:ticket_name][i]
           t.price = params[:event][:ticket_price][i]
+          t.from_to = params[:event][:ticket_date][i]
           # params[:event][:ticket_date][i] + params[:event][:ticket_time][i]
         end
       end
@@ -55,7 +56,7 @@ class Admin::EventsController < Admin::CoreController
     end
 
     def event_params
-      params.require(:event).permit(:title, :description, :price, :cover, :location, :from_to, :latitude, :longitude)
+      params.require(:event).permit(:title, :description, :location, :latitude, :longitude)
     end
 
     def all_categories

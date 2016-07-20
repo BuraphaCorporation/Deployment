@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:facebook]
 
   has_many :events, dependent: :destroy
+  has_many :wishlists, dependent: :destroy
   belongs_to :role
 
   enum gender: { male: 1, female: 0 }

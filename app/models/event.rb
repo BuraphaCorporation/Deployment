@@ -12,6 +12,10 @@ class Event < ActiveRecord::Base
 
   attr_accessor :ticket_name, :ticket_price, :ticket_date, :ticket_time
 
+  scope :today, -> { joins(:tickets).where("tickets.from_to": Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
+  scope :tomorrow, -> { joins(:tickets).where("tickets.from_to": Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
+  scope :upcoming, -> { joins(:tickets).where('DATE(tickets.from_to) > ?', Time.zone.tomorrow) }
+
   after_create :set_organizer
 
   private

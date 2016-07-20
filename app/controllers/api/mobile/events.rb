@@ -31,41 +31,38 @@ module API
 
         desc "Return events today"
         get "/today" do
-
-          events_today = []
-          Event.includes(:tickets, :galleries).each do |event|
-            if event.tickets.where(from_to: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).present?
-              events_today.push([event, event.tickets, event.galleries])
-            end
-          end
-
-          { status: :success, data: events_today, message: nil }
+          events_today = Event.today
+          # if events_today.present?
+            present :status, :success
+            present :data, events_today, with: API::Mobile::Entities::Event
+          # else
+          #   present :status, :error
+          #   present :data, :error
+          # end
         end
 
         desc "Return events tomorrow"
         get "/tomorrow" do
-
-          events_tomorrow = []
-          Event.includes(:tickets, :galleries).each do |event|
-            if event.tickets.where(from_to: Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day).present?
-              events_tomorrow.push([event, event.tickets, event.galleries])
-            end
-          end
-
-          { status: :success, data: events_tomorrow, message: nil }
+          events_tomorrow = Event.tomorrow
+          # if events_tomorrow.present?
+            present :status, :success
+            present :data, events_tomorrow, with: API::Mobile::Entities::Event
+          # else
+          #   present :status, :error
+          #   present :data, :error
+          # end
         end
 
         desc "Return events upcoming"
         get "/upcoming" do
-
-          events_upcoming = []
-          Event.includes(:tickets, :galleries).each do |event|
-            if event.tickets.where('DATE(from_to) > ?', Time.zone.tomorrow).present?
-              events_upcoming.push([event, event.tickets, event.galleries])
-            end
-          end
-
-          { status: :success, data: events_upcoming, message: nil }
+          events_upcoming = Event.upcoming
+          # if events_upcoming.present?
+            present :status, :success
+            present :data, events_upcoming, with: API::Mobile::Entities::Event
+          # else
+          #   present :status, :error
+          #   present :data, :error
+          # end
         end
 
         desc "Return events by category"
@@ -73,9 +70,11 @@ module API
         get "/category" do
           category = Category.where(name: params[:title])
           if category.present?
-            { status: :success, data: category.events, message: "Successfully" }
+            present :status, :success
+            present :data, category.events, with: API::Mobile::Entities::Event
           else
-            { status: :error, data: nil, message: "We don't have events by #{params[:title]}" }
+            present :status, :error
+            present :data, "error"
           end
         end
       end

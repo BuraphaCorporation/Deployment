@@ -28,6 +28,7 @@ module API
           def authenticate!
             error!('401 Unauthorized', 401) unless current_user
           end
+
         end
 
         rescue_from ActiveRecord::RecordNotFound do |e|
@@ -37,6 +38,39 @@ module API
         rescue_from ActiveRecord::RecordInvalid do |e|
           error_response(message: e.message, status: 422)
         end
+      end
+    end
+
+    module Entities
+
+      class Gallery < Grape::Entity
+        expose :media, as: :src do |item, options|
+          "#{item.media(:thumb)}"
+        end
+      end
+
+      class Ticket < Grape::Entity
+        expose :title
+        expose :price
+        expose :from_to
+      end
+
+      class Event < Grape::Entity
+        expose :id
+        expose :title
+        expose :description
+        expose :latitude
+        expose :longitude
+        expose :category do |item, options|
+          "#{item.category.name}"
+        end
+
+        expose :cover, as: :main_cover do |item, options|
+          "#{item.cover(:thumb)}"
+        end
+        expose :galleries, as: :covers, using: API::Mobile::Entities::Gallery
+
+        expose :tickets, as: :tickets, using: API::Mobile::Entities::Ticket
       end
     end
   end

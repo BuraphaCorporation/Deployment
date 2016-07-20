@@ -33,10 +33,9 @@ module API
         get "/today" do
 
           events_today = []
-          Event.includes(:tickets).each do |event|
-            ticket_today = []
+          Event.includes(:tickets, :galleries).each do |event|
             if event.tickets.where(from_to: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).present?
-              events_today.push([event, event.tickets])
+              events_today.push([event, event.tickets, event.galleries])
             end
           end
 
@@ -47,10 +46,9 @@ module API
         get "/tomorrow" do
 
           events_tomorrow = []
-          Event.includes(:tickets).each do |event|
-            ticket_today = []
+          Event.includes(:tickets, :galleries).each do |event|
             if event.tickets.where(from_to: Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day).present?
-              events_tomorrow.push([event, event.tickets])
+              events_tomorrow.push([event, event.tickets, event.galleries])
             end
           end
 
@@ -61,10 +59,9 @@ module API
         get "/upcoming" do
 
           events_upcoming = []
-          Event.includes(:tickets).each do |event|
-            ticket_today = []
+          Event.includes(:tickets, :galleries).each do |event|
             if event.tickets.where('DATE(from_to) > ?', Time.zone.tomorrow).present?
-              events_upcoming.push([event, event.tickets])
+              events_upcoming.push([event, event.tickets, event.galleries])
             end
           end
 

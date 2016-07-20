@@ -6,31 +6,37 @@
     <title>Daydash.co</title>
     <%= csrf_meta_tags %>
 
+    <%= stylesheet_link_tag 'bootstrap.min', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'core', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'components', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'icons', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'pages', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'menu', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'responsive', media: 'all', 'data-turbolinks-track' => true %>
+
+    <link rel="stylesheet" href="http://v4-alpha.getbootstrap.com/examples/carousel/carousel.css" media="screen" title="no title" charset="utf-8">
+
     <%= stylesheet_link_tag    'main', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'main', 'data-turbolinks-track' => true %>
-    <link rel="stylesheet" href="http://v4-alpha.getbootstrap.com/examples/carousel/carousel.css" media="screen" title="no title" charset="utf-8">
+
   </head>
   <body>
 
-    <nav class="navbar navbar-static-top navbar-light bg-faded">
-      <a href="#" class="navbar-brand">Carousel</a>
-      <ul class="nav navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-      </ul>
-    </nav>
+  <header id="topnav">
+    <div class="navbar-custom">
+      <div class="container">
+        <div id="navigation">
+          <ul class="navigation-menu">
+            <li class="has-submenu">
+              <a href="/admin">Dashboard</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <%= yield %>
+  <%= yield %>
 
   </body>
 </html>

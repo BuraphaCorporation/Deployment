@@ -308,9 +308,6 @@
               </select>
           </div> -->
           <h5><b>Cover photo</b></h5>
-          <div class="m-t-20">
-            <%= image_tag @event.cover(:thumb2x), width: '100%' %>
-          </div>
           <% @event.galleries.each do |g| %>
             <div class="m-t-10">
               <%= image_tag g.media(:thumb2x), width: '100%' %>

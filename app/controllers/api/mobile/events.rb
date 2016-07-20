@@ -4,28 +4,11 @@ module API
     class Events < Grape::API
       include API::Mobile::Defaults
 
-      resources :event do
-        desc "Return a event"
-        params do
-          requires :event_id, type: Integer, desc: "slug of event"
-        end
-        get "/" do
-          if params[:event_id].present?
-            { status: :success, data: Event.find(params[:event_id]), message: nil }
-          else
-            { status: :success, data: Event.all, message: nil }
-          end
-        end
-      end
-
       resources :events do
         desc "Return all events"
         get "/" do
-          {
-            status: :success,
-            data: Event.all,
-            message: nil
-          }
+          present :status, :success
+          present :data, Event.all
         end
 
 
@@ -76,6 +59,28 @@ module API
             present :status, :error
             present :data, "error"
           end
+        end
+      end
+
+      resources :event do
+        desc "Return a event"
+        params do
+          requires :event_id, type: Integer, desc: "slug of event"
+        end
+        get "/" do
+          if params[:event_id].present?
+            present :status, :success
+            present :data, Event.find(params[:event_id]), with: API::Mobile::Entities::Event
+          else
+            present :status, :error
+            present :data, "id not found"
+          end
+        end
+
+        desc "return categories"
+        get "/categories" do
+          present :status, :success
+          present :data, Category.all, with: API::Mobile::Entities::Cate
         end
       end
     end

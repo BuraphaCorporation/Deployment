@@ -27,12 +27,12 @@ module API
         end
       end
 
-      resources :users do
-        desc "Return all users when you have permissions"
-        get "/" do
-          { status: :success, data: User.all, message: nil}
-        end
-      end
+      # resources :users do
+      #   desc "Return all users when you have permissions"
+      #   get "/" do
+      #     { status: :success, data: User.all, message: nil}
+      #   end
+      # end
     end
   end
 end

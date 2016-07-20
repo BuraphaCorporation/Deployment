@@ -43,11 +43,17 @@ module API
 
     module Entities
 
+      class Cate < Grape::Entity
+        expose :id
+        expose :name
+      end
+
       class Gallery < Grape::Entity
         expose :media, as: :src do |item, options|
           "#{item.media(:thumb)}"
         end
       end
+
 
       class Ticket < Grape::Entity
         expose :title

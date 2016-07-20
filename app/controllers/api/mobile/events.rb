@@ -21,22 +21,54 @@ module API
       resources :events do
         desc "Return all events"
         get "/" do
-          { status: :success, data: Event.all, message: nil }
+          {
+            status: :success,
+            data: Event.all,
+            message: nil
+          }
         end
+
 
         desc "Return events today"
         get "/today" do
-          { status: :success, data: Event.where(from_to: Date.today), message: nil }
+
+          events_today = []
+          Event.includes(:tickets).each do |event|
+            ticket_today = []
+            if event.tickets.where(from_to: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).present?
+              events_today.push([event, event.tickets])
+            end
+          end
+
+          { status: :success, data: events_today, message: nil }
         end
 
         desc "Return events tomorrow"
         get "/tomorrow" do
-          { status: :success, data: Event.where(from_to: Date.tomorrow), message: nil }
+
+          events_tomorrow = []
+          Event.includes(:tickets).each do |event|
+            ticket_today = []
+            if event.tickets.where(from_to: Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day).present?
+              events_tomorrow.push([event, event.tickets])
+            end
+          end
+
+          { status: :success, data: events_tomorrow, message: nil }
         end
 
         desc "Return events upcoming"
         get "/upcoming" do
-          { status: :success, data: Event.where('DATE(from_to) > ?', Date.tomorrow), message: nil }
+
+          events_upcoming = []
+          Event.includes(:tickets).each do |event|
+            ticket_today = []
+            if event.tickets.where('DATE(from_to) > ?', Time.zone.tomorrow).present?
+              events_upcoming.push([event, event.tickets])
+            end
+          end
+
+          { status: :success, data: events_upcoming, message: nil }
         end
 
         desc "Return events by category"

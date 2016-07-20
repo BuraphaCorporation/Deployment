@@ -56,12 +56,12 @@
                     <%= f.text_field :ticket_price, multiple: true, class: 'form-control', placeholder: 'Ticket price', autofocus: true, required: true, "data-parsley-type": "number", "data-parsley-maxlength": "7", value: ticket.price %>
                   </div>
                   <div class="col-sm-2 ticket-date">
-                    <%= f.text_field :ticket_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy", value: ticket.from_to_date.strftime('%d/%m/%Y') %>
+                    <%= f.text_field :ticket_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy", value: ticket.from_to.strftime('%d/%m/%Y') %>
                   </div>
                   <div class="col-sm-2 ticket-time">
                     <div class="input-group">
                       <div class="bootstrap-timepicker">
-                        <%= f.text_field :ticket_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00", value: ticket.from_to_time %>
+                        <%= f.text_field :ticket_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00", value: ticket.from_to %>
                       </div>
                     </div>
                   </div>

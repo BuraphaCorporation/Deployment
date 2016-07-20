@@ -90,10 +90,9 @@ ActiveRecord::Schema.define(version: 20160718021020) do
     t.integer  "event_id"
     t.string   "title"
     t.integer  "price"
-    t.date     "from_to_date"
-    t.time     "from_to_time"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "from_to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_tickets_on_event_id", using: :btree
   end
 

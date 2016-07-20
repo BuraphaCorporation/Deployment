@@ -22,12 +22,12 @@ class Admin::EventsController < Admin::CoreController
         Gallery.create(event_id: @event.id, media: attachments)
       end
 
-      binding.pry
       (0..params[:event][:ticket_name].count - 1).each do |i|
         Ticket.create do |t|
           t.event_id = @event.id
           t.title = params[:event][:ticket_name][i]
           t.price = params[:event][:ticket_price][i]
+          t.from_to = params[:event][:ticket_date][i]
           # params[:event][:ticket_date][i] + params[:event][:ticket_time][i]
         end
       end

@@ -7,9 +7,6 @@
         <div class="row">
           <div class="col-md-7">
             <h4>Event Details</h4>
-<!--             <p class="text-muted font-13 m-b-30">
-              Your awesome text goes here.
-            </p> -->
 
             <div class="form-group">
               <%= f.label :title, class: 'col-sm-2 control-label' %>
@@ -18,18 +15,11 @@
               </div>
             </div>
 
-<!--             <div class="form-group">
-              <%= f.label :organizer, class: 'col-sm-2 control-label' %>
-              <div class="col-sm-6">
-                <%= f.select :user, options_for_select(@users.collect{ |u| ["#{u.first_name} #{u.last_name}", u.id] }), {}, { class: 'form-control select2' } %>
-              </div>
-            </div>
- -->
 
             <div class="form-group">
               <%= f.label :categories, class: 'col-sm-2 control-label' %>
               <div class="col-sm-6">
-                <%= f.collection_check_boxes :category, @categories, :id, :title do |c| %>
+                <%= f.collection_check_boxes :category_ids, @categories, :id, :title do |c| %>
                   <div class="checkbox">
                     <%= c.check_box %>
                     <%= c.label %>
@@ -37,13 +27,6 @@
                 <% end %>
               </div>
             </div>
-
-<!--             <div class="form-group">
-              <%= f.label :category, class: 'col-sm-2 control-label' %>
-              <div class="col-sm-6">
-                <%= f.select :category, options_for_select(@categories.collect{ |c| [c.name, c.id] }), {}, { class: 'form-control select2' } %>
-              </div>
-            </div> -->
 
             <div class="form-group">
               <%= f.label :description, class: 'col-sm-2 control-label' %>

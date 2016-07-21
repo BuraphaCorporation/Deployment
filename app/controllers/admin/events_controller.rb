@@ -15,7 +15,7 @@ class Admin::EventsController < Admin::CoreController
 
   def create
     if @event = Event.create(event_params)
-      serialize_data
+      serialize_data_create
 
       redirect_to edit_admin_event_path(@event.id), flash: { notice: "Success!" }
     else
@@ -24,16 +24,22 @@ class Admin::EventsController < Admin::CoreController
   end
 
   def edit
+    @category_id = @event.categories.pluck(:id)
   end
 
   def update
     @event.update(event_params)
-    serialize_data
+    serialize_data_update
     redirect_to :back
   end
 
   def destroy
     @event.destroy
+  end
+
+  def delete_attachment
+    @event.galleries.where(id: params[:id])
+    redirect_to :back
   end
 
   private
@@ -43,32 +49,40 @@ class Admin::EventsController < Admin::CoreController
       @event.update(user_id: user_id)
 
       params[:event][:category].each do |category|
+        CategoriesEvent.create(category: category, event: @event) if category.present?
+      end
+
+      params[:event][:attachments].each do |attachments|
+        Gallery.create(event: @event, media: attachments)
+      end
+
+      params[:event][:sections_attributes].each do |section|
+        event_time = DateTime.parse("#{params[:event][:sections_attributes][section][:section_event_date].first} #{params[:event][:sections_attributes][section][:section_event_time].first}")
+        end_time   = DateTime.parse("#{params[:event][:sections_attributes][section][:section_end_date].first} #{params[:event][:sections_attributes][section][:section_end_time].first}")
+
+        Section.create do |s|
+          s.event_id    = @event.id
+          s.title       = params[:event][:sections_attributes][section][:section_name].first
+          s.avaliable   = params[:event][:sections_attributes][section][:section_avaliable].first
+          s.price       = params[:event][:sections_attributes][section][:section_price].first
+          s.event_time  = event_time
+          s.end_time    = end_time
+        end
+      end
+    end
+
+    def serialize_data_update
+      category = params[:event][:category].reject { |c| c.empty? }
+      CategoriesEvent.where(event: @event).where.not(category: category).delete_all
+      params[:event][:category].each do |category|
         CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
       end
 
       params[:event][:attachments].each do |attachments|
-        Gallery.create(event_id: @event.id, media: attachments)
-      end
-      binding.pry
+        Gallery.create(event: @event, media: attachments)
+      end unless params[:event][:attachments].nil?
 
-      # params[:event][:sections_attributes].first.second[:section_name]
 
-      # params[:event][:sections_attributes].each do |section|
-      #   p section.first
-      # end
-
-      #   event_time = DateTime.parse("#{section.second[:section_event_date].first} #{section.second[:section_event_time].first}")
-      #   end_time   = DateTime.parse("#{section.second[:section_end_date].first} #{section.second[:section_end_time].first}")
-
-      #   Section.create do |s|
-      #     s.event_id    = @event.id
-      #     s.title       = section.second[:section_name]
-      #     s.avaliable   = section.second[:section_avaliable]
-      #     s.price       = section.second[:section_price]
-      #     s.event_time  = event_time
-      #     s.end_time    = end_time
-      #   end
-      # end
     end
 
     def event

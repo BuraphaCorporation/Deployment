@@ -16,7 +16,11 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/', to: 'dashboard#index'
-    resources :events
+    resources :events do
+      collection do
+        delete 'media/:id', to: 'events#delete_attachment', as: :delete_attachment
+      end
+    end
     resources :users, except: :show
   end
 

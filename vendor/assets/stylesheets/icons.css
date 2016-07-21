@@ -11,13 +11,13 @@ File: Icons
  */
 /* FONT PATH
  * -------------------------- */
-@font-face {
+/*@font-face {
   font-family: 'FontAwesome';
   src: url('../fonts/fontawesome-webfont.eot?v=4.5.0');
   src: url('../fonts/fontawesome-webfont.eot?#iefix&v=4.5.0') format('embedded-opentype'), url('../fonts/fontawesome-webfont.woff2?v=4.5.0') format('woff2'), url('../fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'), url('../fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'), url('../fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');
   font-weight: normal;
   font-style: normal;
-}
+}*/
 .fa {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -2095,13 +2095,13 @@ File: Icons
  *  Material Design Iconic Font 1.0.1 by Sergey Kupletsky (@zavoloklom) - http://zavoloklom.github.io/material-design-iconic-font/
  *  License - https://github.com/zavoloklom/material-design-iconic-font/blob/gh-pages/License.md (Attribution-ShareAlike 4.0 International license)
  */
-@font-face {
+/*@font-face {
   font-family: 'Material Design Iconic Font';
   src: url('../fonts/Material-Design-Iconic-Font.eot?v=1.0.1');
   src: url('../fonts/Material-Design-Iconic-Font.eot?#iefix&v=1.0.1') format('embedded-opentype'), url('../fonts/Material-Design-Iconic-Font.woff?v=1.0.1') format('woff'), url('../fonts/Material-Design-Iconic-Font.ttf?v=1.0.1') format('truetype'), url('../fonts/Material-Design-Iconic-Font.svg?v=1.0.1#Material-Design-Iconic-Font') format('svg');
   font-weight: normal;
   font-style: normal;
-}
+}*/
 [class^="md-"],
 [class*=" md-"] {
   display: inline-block;
@@ -4479,13 +4479,13 @@ Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
 https://twitter.com/benjsperry  https://twitter.com/ionicframework
 MIT License: https://github.com/driftyco/ionicons
 */
-@font-face {
+/*@font-face {
   font-family: "Ionicons";
   src: url("../fonts/ionicons.eot?v=1.5.0");
   src: url("../fonts/ionicons.eot?v=1.5.0#iefix") format("embedded-opentype"), url("../fonts/ionicons.ttf?v=1.5.0") format("truetype"), url("../fonts/ionicons.woff?v=1.5.0") format("woff"), url("../fonts/ionicons.svg?v=1.5.0#Ionicons") format("svg");
   font-weight: normal;
   font-style: normal;
-}
+}*/
 .ion,
 .ion-loading-a,
 .ion-loading-b,
@@ -6969,13 +6969,13 @@ MIT License: https://github.com/driftyco/ionicons
 .ion-xbox:before {
   content: "\f30c";
 }
-@font-face {
+/*@font-face {
   font-family: 'themify';
   src: url('../fonts/themify.eot?-fvbane');
   src: url('../fonts/themify.eot?#iefix-fvbane') format('embedded-opentype'), url('../fonts/themify.woff?-fvbane') format('woff'), url('../fonts/themify.ttf?-fvbane') format('truetype'), url('../fonts/themify.svg?-fvbane#themify') format('svg');
   font-weight: normal;
   font-style: normal;
-}
+}*/
 [class^="ti-"],
 [class*=" ti-"] {
   font-family: 'themify';
@@ -8066,13 +8066,13 @@ MIT License: https://github.com/driftyco/ionicons
  *  - Inspired by and works great as a companion with Font Awesome
  *    "Font Awesome by Dave Gandy - http://fontawesome.io"
  */
-@font-face {
+/*@font-face {
   font-family: 'weathericons';
   src: url('../fonts/weathericons-regular-webfont.eot');
   src: url('../fonts/weathericons-regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/weathericons-regular-webfont.woff2') format('woff2'), url('../fonts/weathericons-regular-webfont.woff') format('woff'), url('../fonts/weathericons-regular-webfont.ttf') format('truetype'), url('../fonts/weathericons-regular-webfont.svg#weather_iconsregular') format('svg');
   font-weight: normal;
   font-style: normal;
-}
+}*/
 .wi {
   display: inline-block;
   font-family: 'weathericons';

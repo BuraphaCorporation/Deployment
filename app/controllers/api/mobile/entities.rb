@@ -3,24 +3,37 @@ module API
   module Mobile
     module Entities
 
-      class Category < Grape::Entity
+      class UserExpose < Grape::Entity
+        expose :email
+        expose :first_name
+        expose :last_name
+        expose :gender
+        expose :birthday
+        expose :phone
+        # expose :avatar do |a|
+        #   a.avatar(:medium)
+        # end
+      end
+
+      class CategoryExpose < Grape::Entity
         expose :id
         expose :name
       end
 
-      class Gallery < Grape::Entity
+      class GalleryExpose < Grape::Entity
         expose :media, as: :src do |item, options|
           "#{item.media(:thumb)}"
         end
       end
 
-      class Ticket < Grape::Entity
+      class TicketExpose < Grape::Entity
         expose :title
         expose :price
-        expose :from_to
+        expose :event_time
+        expose :end_time
       end
 
-      class Event < Grape::Entity
+      class EventExpose < Grape::Entity
         expose :id
         expose :title
         expose :description
@@ -33,9 +46,9 @@ module API
         expose :cover, as: :main_cover do |item, options|
           "#{item.cover(:thumb)}"
         end
-        expose :galleries, as: :covers, using: API::Mobile::Entities::Gallery
+        expose :galleries, as: :covers, using: API::Mobile::Entities::GalleryExpose
 
-        expose :tickets, as: :tickets, using: API::Mobile::Entities::Ticket
+        expose :tickets, as: :tickets, using: API::Mobile::Entities::TicketExpose
       end
     end
   end

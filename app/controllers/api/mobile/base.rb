@@ -3,10 +3,9 @@ module API
   module Mobile
     class Base < Grape::API
       mount API::Mobile::Authentication
+      mount API::Mobile::Tags
       mount API::Mobile::Users
       mount API::Mobile::Events
-      mount API::Mobile::Wishlists
-      mount API::Mobile::Tags
 
       add_swagger_documentation(
         api_version: "mobile",

@@ -3,6 +3,7 @@ module API
   module Mobile
     class Events < Grape::API
       include API::Mobile::Defaults
+      include API::Mobile::Entities
 
       resources :events do
         desc "Return all events"
@@ -17,7 +18,7 @@ module API
           events_today = Event.today
           # if events_today.present?
             present :status, :success
-            present :data, events_today, with: API::Mobile::Entities::Event
+            present :data, events_today, with: API::Mobile::Entities::EventExpose
           # else
           #   present :status, :error
           #   present :data, :error
@@ -29,7 +30,7 @@ module API
           events_tomorrow = Event.tomorrow
           # if events_tomorrow.present?
             present :status, :success
-            present :data, events_tomorrow, with: API::Mobile::Entities::Event
+            present :data, events_tomorrow, with: API::Mobile::Entities::EventExpose
           # else
           #   present :status, :error
           #   present :data, :error
@@ -41,7 +42,7 @@ module API
           events_upcoming = Event.upcoming
           # if events_upcoming.present?
             present :status, :success
-            present :data, events_upcoming, with: API::Mobile::Entities::Event
+            present :data, events_upcoming, with: API::Mobile::Entities::EventExpose
           # else
           #   present :status, :error
           #   present :data, :error
@@ -54,7 +55,7 @@ module API
           category = Category.where(name: params[:title])
           if category.present?
             present :status, :success
-            present :data, category.events, with: API::Mobile::Entities::Event
+            present :data, category.events, with: API::Mobile::Entities::EventExpose
           else
             present :status, :error
             present :data, "error"
@@ -70,7 +71,7 @@ module API
         get "/" do
           if params[:event_id].present?
             present :status, :success
-            present :data, Event.find(params[:event_id]), with: API::Mobile::Entities::Event
+            present :data, Event.find(params[:event_id]), with: API::Mobile::Entities::EventExpose
           else
             present :status, :error
             present :data, "id not found"
@@ -80,7 +81,7 @@ module API
         desc "return categories"
         get "/categories" do
           present :status, :success
-          present :data, Category.all, with: API::Mobile::Entities::Category
+          present :data, Category.all, with: API::Mobile::Entities::CategoryExpose
         end
       end
     end

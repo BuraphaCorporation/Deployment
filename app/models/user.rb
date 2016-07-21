@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   has_many :events, dependent: :destroy
   has_many :wishlists, dependent: :destroy
+  has_many :tickets, dependent: :destroy
+
   belongs_to :role
 
   enum gender: { male: 1, female: 0 }

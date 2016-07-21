@@ -113,6 +113,7 @@ GEM
       activesupport (>= 3.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
+    cocoon (1.2.9)
     coderay (1.1.1)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
@@ -271,6 +272,9 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
+    paperclip-ffmpeg (1.2.0)
+      paperclip (>= 2.5.2)
+      rails
     pg (0.18.4)
     pkg-config (1.1.7)
     pry (0.10.3)
@@ -429,6 +433,7 @@ DEPENDENCIES
   capistrano-rbenv!
   capybara
   capybara-webkit
+  cocoon
   coffee-rails (~> 4.2)
   database_cleaner
   devise
@@ -451,6 +456,7 @@ DEPENDENCIES
   omniauth-facebook
   open_uri_redirections
   paperclip
+  paperclip-ffmpeg
   parse-ruby-client!
   pg
   pry

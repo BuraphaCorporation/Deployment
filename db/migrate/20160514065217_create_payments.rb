@@ -10,5 +10,7 @@ class CreatePayments < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_reference :tickets, :payment, index: true, foreign_key: true
   end
 end

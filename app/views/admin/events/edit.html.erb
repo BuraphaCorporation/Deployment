@@ -46,22 +46,22 @@
             </div>
 
             <div class="form-group section">
-              <% @event.tickets.each do |ticket| %>
+              <% @event.sections.each do |section| %>
                 <div class="section-wrap clearfix m-b-10">
-                  <%= f.label :ticket, class: 'col-sm-3 control-label' %>
-                  <div class="col-sm-2 ticket-name">
-                    <%= f.text_field :ticket_name, multiple: true, class: 'form-control', placeholder: 'Ticket name', autofocus: true, required: true, value: ticket.title %>
+                  <%= f.label :section, class: 'col-sm-3 control-label' %>
+                  <div class="col-sm-2 section-name">
+                    <%= f.text_field :section_name, multiple: true, class: 'form-control', placeholder: 'Section name', autofocus: true, required: true, value: section.title %>
                   </div>
-                  <div class="col-sm-2 ticket-price">
-                    <%= f.text_field :ticket_price, multiple: true, class: 'form-control', placeholder: 'Ticket price', autofocus: true, required: true, "data-parsley-type": "number", "data-parsley-maxlength": "7", value: ticket.price %>
+                  <div class="col-sm-2 section-price">
+                    <%= f.text_field :section_price, multiple: true, class: 'form-control', placeholder: 'Section price', autofocus: true, required: true, "data-parsley-type": "number", "data-parsley-maxlength": "7", value: section.price %>
                   </div>
-                  <div class="col-sm-2 ticket-date">
-                    <%= f.text_field :ticket_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy", value: ticket.from_to.strftime('%d/%m/%Y') %>
+                  <div class="col-sm-2 section-date">
+                    <%= f.text_field :section_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy", value: section.event_time.strftime('%d/%m/%Y') %>
                   </div>
-                  <div class="col-sm-2 ticket-time">
+                  <div class="col-sm-2 section-time">
                     <div class="input-group">
                       <div class="bootstrap-timepicker">
-                        <%= f.text_field :ticket_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00", value: ticket.from_to %>
+                        <%= f.text_field :section_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00", value: section.event_time %>
                       </div>
                     </div>
                   </div>
@@ -356,10 +356,10 @@
     var max_fields      = 10; //maximum input boxes allowed
     var wrapper         = $(".section-wrap:last"); //Fields wrapper
     var add_button      = $("#add-more-field"); //Add button ID
-    var ticketName      = $(".ticket-name");
-    var ticketPrice     = $(".ticket-price");
-    var ticketDate      = $(".ticket-date");
-    var ticketTime      = $(".ticket-time");
+    var sectionName      = $(".section-name");
+    var sectionPrice     = $(".section-price");
+    var sectionDate      = $(".section-date");
+    var sectionTime      = $(".section-time");
 
     var x = 1; //initlal text box count
     $(add_button).click(function(e){ //on add input button click

@@ -14,6 +14,7 @@ gem 'react-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
+gem "cocoon"
 
 gem 'devise'
 gem 'omniauth-facebook'
@@ -21,10 +22,11 @@ gem 'omniauth-facebook'
 gem 'koala'
 
 gem 'paperclip'
+gem 'paperclip-ffmpeg'
 gem 'aws-sdk', '>= 2.0.34'
 gem 'gcloud'
 
-gem "intercom-rails"
+gem 'intercom-rails'
 
 gem 'active_model_serializers'
 gem 'activemodel-serializers-xml'

@@ -1,0 +1,47 @@
+  <div class="section">
+    <hr>
+    <div class="form-group">
+      <div class="section-wrap clearfix m-b-10">
+        <div class="row m-b-10">
+          <%= f.label :section, class: 'col-sm-1 control-label' %>
+          <div class="col-sm-3">
+            <%= f.text_field :section_name, multiple: true, class: 'form-control', placeholder: 'Up to 50 Characters', autofocus: true, required: true %>
+          </div>
+          <div class="col-sm-2">
+            <%= f.text_field :section_avaliable, multiple: true, class: 'form-control', placeholder: 'Section avaliable', autofocus: true, required: true, "data-parsley-type": "number", "data-parsley-maxlength": "7" %>
+          </div>
+          <div class="col-sm-2">
+            <%= f.text_field :section_price, multiple: true, class: 'form-control', placeholder: 'in THB', autofocus: true, required: true, "data-parsley-type": "number", "data-parsley-maxlength": "7" %>
+          </div>
+        </div>
+
+        <div class="row m-b-10">
+          <%= f.label :event_time, class: 'col-sm-1 control-label' %>
+          <div class="col-sm-2">
+            <%= f.text_field :section_event_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy" %>
+          </div>
+          <div class="col-sm-1">
+            <div class="input-group">
+              <div class="bootstrap-timepicker">
+                <%= f.text_field :section_event_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-2">
+            <%= f.text_field :section_end_date, multiple: true, class: 'form-control event-datepicker', autofocus: true, required: true, placeholder: "dd/mm/yyyy", "date-format": "dd/mm/yyyy" %>
+          </div>
+          <div class="col-sm-1">
+            <div class="input-group">
+              <div class="bootstrap-timepicker">
+                <%= f.text_field :section_end_time, multiple: true, class: 'form-control event-timepicker', autofocus: true, required: true, placeholder: "9:00" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row text-right">
+          <dir class="col-sm-10"><%= link_to_remove_association "remove task", f %></dir>
+        </div>
+      </div>
+    </div>
+  </div>
+

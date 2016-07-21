@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160718021020) do
+ActiveRecord::Schema.define(version: 20160720151847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 20160718021020) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "categories_events", id: false, force: :cascade do |t|
+    t.integer "category_id", null: false
+    t.integer "event_id",    null: false
+    t.index ["category_id", "event_id"], name: "index_categories_events_on_category_id_and_event_id", using: :btree
+    t.index ["event_id", "category_id"], name: "index_categories_events_on_event_id_and_category_id", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -30,8 +37,6 @@ ActiveRecord::Schema.define(version: 20160718021020) do
     t.decimal  "longitude",   precision: 10, scale: 6
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.integer  "category_id"
-    t.index ["category_id"], name: "index_events_on_category_id", using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
 
@@ -64,6 +69,20 @@ ActiveRecord::Schema.define(version: 20160718021020) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "sections", force: :cascade do |t|
+    t.integer  "status",     default: 0
+    t.integer  "event_id"
+    t.string   "title"
+    t.datetime "event_time"
+    t.datetime "end_time"
+    t.integer  "price"
+    t.integer  "avaliable",  default: 0
+    t.integer  "bought",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["event_id"], name: "index_sections_on_event_id", using: :btree
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "event_id"
     t.integer  "tag_id"
@@ -81,13 +100,16 @@ ActiveRecord::Schema.define(version: 20160718021020) do
   end
 
   create_table "tickets", force: :cascade do |t|
+    t.integer  "status",     default: 0
+    t.integer  "user_id"
     t.integer  "event_id"
-    t.string   "title"
-    t.integer  "price"
-    t.datetime "from_to"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "code"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "payment_id"
     t.index ["event_id"], name: "index_tickets_on_event_id", using: :btree
+    t.index ["payment_id"], name: "index_tickets_on_payment_id", using: :btree
+    t.index ["user_id"], name: "index_tickets_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -143,14 +165,16 @@ ActiveRecord::Schema.define(version: 20160718021020) do
     t.index ["user_id"], name: "index_wishlists_on_user_id", using: :btree
   end
 
-  add_foreign_key "events", "categories"
   add_foreign_key "events", "users"
   add_foreign_key "galleries", "events"
   add_foreign_key "payments", "events"
   add_foreign_key "payments", "users"
+  add_foreign_key "sections", "events"
   add_foreign_key "taggings", "events"
   add_foreign_key "taggings", "tags"
   add_foreign_key "tickets", "events"
+  add_foreign_key "tickets", "payments"
+  add_foreign_key "tickets", "users"
   add_foreign_key "users", "roles"
   add_foreign_key "wishlists", "events"
   add_foreign_key "wishlists", "users"

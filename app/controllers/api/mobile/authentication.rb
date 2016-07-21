@@ -6,6 +6,7 @@ module API
       include API::Mobile::Entities
 
       resources :auth do
+
         desc "Return a user token from signup successfully"
         params do
           requires :email,    type: String, desc: "email of the user"
@@ -13,12 +14,15 @@ module API
         end
         post "/signup" do #, root: "user" do
           if User.where(email: params[:email]).present?
-            { status: :failure, data: nil, message: "we have that email in our system"}
+            present :status, :failure
           else
             user = User.create!(email: params[:email], password: params[:password])
-            { status: :success, data: user.token, message: nil }
+            present :status, :success
           end
+          present :data, user.token
         end
+
+
 
         desc "Return a user token from login"
         params do
@@ -28,11 +32,13 @@ module API
         post "/login" do
           user = User.find_by_email(params[:email])
           if user.present? and user.valid_password?(params[:password])
-            { status: :success, data: user.token, message: nil }
+            present :status, :success
           else
-            { status: :error, data: nil, message: "Wrong input! or not match in database" }
+            present :status, :failure
           end
+          present :data, user.token
         end
+
 
         desc "Return a user token from signup or login with Facebook"
         params do
@@ -43,7 +49,8 @@ module API
           graph = Koala::Facebook::API.new(token)
           profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
 
-          unless profile.nil?
+          if profile.present?
+
             user = User.where(email: profile['email']).first_or_create do |u|
               u.email       = profile["email"]
               u.password    = '123456'
@@ -55,7 +62,11 @@ module API
               u.provider    = 'facebook'
             end
 
-            { user_token: user.token }
+            present :status, :success
+            present :data, user.token
+          else
+            present :status, :failure
+            present :data, ""
           end
         end
       end

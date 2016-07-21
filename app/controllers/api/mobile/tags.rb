@@ -5,19 +5,13 @@ module API
       include API::Mobile::Defaults
 
       resources :tags do
-        desc "return all tags"
-        get '/' do
-          present :tags, Tag.all
+        desc "Return all events"
+        get "/" do
+          present :status, :success
+          present :data, Tag.all
         end
-      end
-
-      resources :tag do
-        desc "return event by tag"
-        get '/' do
-          "V2"
-        end
-
       end
     end
   end
 end
+

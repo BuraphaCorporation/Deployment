@@ -17,7 +17,7 @@ module API
 
       class CategoryExpose < Grape::Entity
         expose :id
-        expose :name
+        expose :title
       end
 
       class GalleryExpose < Grape::Entity
@@ -39,16 +39,14 @@ module API
         expose :description
         expose :latitude
         expose :longitude
-        expose :category do |item, options|
-          "#{item.category.name}"
-        end
+        expose :categories, using: API::Mobile::Entities::CategoryExpose
 
-        expose :cover, as: :main_cover do |item, options|
-          "#{item.cover(:thumb)}"
-        end
+        # expose :cover, as: :main_cover do |item, options|
+        #   "#{item.cover(:thumb)}"
+        # end
         expose :galleries, as: :covers, using: API::Mobile::Entities::GalleryExpose
 
-        expose :tickets, as: :tickets, using: API::Mobile::Entities::TicketExpose
+        expose :sections, as: :tickets, using: API::Mobile::Entities::TicketExpose
       end
     end
   end

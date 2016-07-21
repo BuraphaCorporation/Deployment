@@ -21,12 +21,38 @@ module API
           present :data, user, with: API::Mobile::Entities::UserExpose
         end
 
+        desc "details of user"
+        params do
+          requires :user_token, type: String, desc: "token of the user"
+          # requires :email, type: String, desc: 'email'
+          requires :first_name, type: String, desc: 'first name'
+          requires :last_name, type: String, desc: 'last_name'
+          requires :phone, type: String, desc: 'phone'
+          requires :birthday, type: String, desc: 'birthday'
+          requires :gender, type: String, desc: 'male, female input'
+        end
+        put '/' do
+          user = User.find_by_token(params[:user_token])
+          if user.present?
+            if params[:gender] == 'male' or params[:gender] == 'female'
+              user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender])
+              present :status, :success
+              present :data, user, with: API::Mobile::Entities::UserExpose
+            else
+              present :status, :error
+              present :data, "gender has male or female not #{params[:gender]}"
+            end
+          else
+            present :status, :failure
+          end
+        end
+
         desc "return event by tag"
         params do
           requires :user_token, type: String, desc: "token of the user"
         end
         get '/tickets' do
-          tickets = User.find_by_token(params[:user_token]).tickets
+          tickets = User.find_by_token(params[:user_token]).tags
           if tickets.present?
             present :status, :success
             present :data, tickets

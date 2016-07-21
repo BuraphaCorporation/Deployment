@@ -30,13 +30,14 @@ module API
           requires :password, type: String, desc: "password of the user"
         end
         post "/login" do
-          user = User.find_by_email(params[:email])
-          if user.present? and user.valid_password?(params[:password])
+          user = User.where(email: params[:email])
+          if user.present? and user.valid_signup?(params[:email], params[:password])
             present :status, :success
+            present :data, user.first.token
           else
             present :status, :failure
+            present :data, []
           end
-          present :data, user.token
         end
 
 

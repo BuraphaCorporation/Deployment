@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     user.token = user.generate_token
   end
 
+  def self.valid_signup?(email, password)
+    User.find_by_email(email).valid_password?(password)
+  end
+
   def generate_token
     loop do
       token = SecureRandom.base64.tr('+/=', 'Qrt')

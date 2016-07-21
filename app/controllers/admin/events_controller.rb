@@ -1,7 +1,7 @@
 
 class Admin::EventsController < Admin::CoreController
 
-  before_action :event, only: [:edit, :update, :destroy]
+  before_action :event, only: [:edit, :update, :destroy, :delete_attachment]
   before_action :all_categories, only: [:new, :edit]
   before_action :all_users, only: [:new, :edit]
 
@@ -38,7 +38,7 @@ class Admin::EventsController < Admin::CoreController
   end
 
   def delete_attachment
-    @event.galleries.where(id: params[:id])
+    @event.galleries.where(id: params[:media_id]).destroy_all
     redirect_to :back
   end
 
@@ -81,8 +81,6 @@ class Admin::EventsController < Admin::CoreController
       params[:event][:attachments].each do |attachments|
         Gallery.create(event: @event, media: attachments)
       end unless params[:event][:attachments].nil?
-
-
     end
 
     def event

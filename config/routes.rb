@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index'
     resources :events do
       collection do
-        delete 'media/:id', to: 'events#delete_attachment', as: :delete_attachment
+        delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
       end
     end
     resources :users, except: :show

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     }
 
   root 'events#index'
+  resources :events
 
   namespace :admin do
     get '/', to: 'dashboard#index'

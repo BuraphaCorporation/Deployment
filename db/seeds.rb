@@ -1,11 +1,11 @@
 
 # role of user
 ['user', 'organizer', 'moderator', 'admin'].each do |role|
-  Role.find_or_create_by({name: role})
+  Role.find_or_create_by({title: role})
 end
 
 ['Nightlife / Entertainment', 'Art & Culture', 'Sport & Wellness', 'Food & Drink'].each do |category|
-  Category.find_or_create_by({name: category})
+  Category.find_or_create_by({title: category})
 end
 
 # User.create do |user|

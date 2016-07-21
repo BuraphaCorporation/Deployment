@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20160720151847) do
   enable_extension "plpgsql"
 
   create_table "categories", force: :cascade do |t|
-    t.string   "name"
+    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20160720151847) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name"
+    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -93,10 +93,10 @@ ActiveRecord::Schema.define(version: 20160720151847) do
   end
 
   create_table "tags", force: :cascade do |t|
-    t.string   "name"
+    t.string   "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_tags_on_name", unique: true, using: :btree
+    t.index ["title"], name: "index_tags_on_title", unique: true, using: :btree
   end
 
   create_table "tickets", force: :cascade do |t|

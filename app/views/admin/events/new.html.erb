@@ -29,7 +29,7 @@
             <div class="form-group">
               <%= f.label :categories, class: 'col-sm-2 control-label' %>
               <div class="col-sm-6">
-                <%= f.collection_check_boxes :category, @categories, :id, :name do |c| %>
+                <%= f.collection_check_boxes :category, @categories, :id, :title do |c| %>
                   <div class="checkbox">
                     <%= c.check_box %>
                     <%= c.label %>

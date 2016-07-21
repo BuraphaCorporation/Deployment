@@ -8,6 +8,10 @@ end
   Category.find_or_create_by({title: category})
 end
 
+['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5', 'Tag 6', 'Tag 7', 'Tag 8', 'Tag 9', 'Tag 10', 'Tag 11'].each do |tag|
+  Tag.find_or_create_by({title: tag})
+end
+
 # User.create do |user|
 #   user.email                 = 'arnon@hongklay.com'
 #   user.first_name            = 'Arnon'

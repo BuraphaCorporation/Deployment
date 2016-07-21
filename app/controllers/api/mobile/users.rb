@@ -67,6 +67,15 @@ module API
           present :tags, Tag.all
         end
 
+        desc "action tag"
+        params do
+          requires :tag_id, type: Integer, desc: "tag_id"
+          requires :user_id, type: Integer, desc: "tag_id"
+        end
+        post '/tag' do
+          present :status, 'wating'
+        end
+
         desc "return all wishlist by user"
         params do
           requires :user_id, type: Integer, desc: "user_id"

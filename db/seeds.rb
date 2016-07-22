@@ -8,9 +8,11 @@ end
   Category.find_or_create_by({title: category})
 end
 
-['Tag 1', 'Tag 2', 'Tag 3', 'Tag 4', 'Tag 5', 'Tag 6', 'Tag 7', 'Tag 8', 'Tag 9', 'Tag 10', 'Tag 11'].each do |tag|
+['food', 'music', 'theatre', 'movies', 'bars', 'party', 'comedy', 'shows', 'live', 'beer', 'wine', 'drinks dance', 'dj', 'jazz', 'adventure', 'sports', 'fitness', 'festival', 'outdoors', 'gym', 'culture', 'performance', 'film', 'hipster', 'art', 'design', 'exhibition', 'photography', 'wellness', 'healthy', 'games', 'extreme', 'relaxing',
+ 'afterwork', 'family', 'date', 'romantic', 'group', 'popup', 'trip', 'workshop', 'class', 'training', 'single', 'night', 'day'].each do |tag|
   Tag.find_or_create_by({title: tag})
 end
+
 
 # User.create do |user|
 #   user.email                 = 'arnon@hongklay.com'

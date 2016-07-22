@@ -6,7 +6,7 @@ class Gallery < ApplicationRecord
     styles: lambda { |a|
       if a.instance.is_image?
         {
-          full:     "1600x555#",
+          full:     "1600x650#",
           normal2x: "750x590#",
           normal3x: "1125x885#",
           thumb2x:  "750x450#",

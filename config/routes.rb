@@ -29,20 +29,21 @@ Rails.application.routes.draw do
     get '/index', to: 'portal#index'
   end
 
-  # if Rails.env.production?
-  mount API::Base, at: "/api"
-  mount GrapeSwaggerRails::Engine, at: "/documentation"
-  # else
-  #   constraints subdomain: 'api' do
-  #     mount API::Base, at: "/"
-  #     mount GrapeSwaggerRails::Engine, at: "/documentation"
-  #     # scope module: 'api' do
-  #     #   namespace :v1 do
-  #     #     resources :users
-  #     #     resources :events
-  #     #   end
-  #     # end
-  #   end
-  # end
-
+  if ['production', 'staging'].include?(App.environment)
+    constraints subdomain: 'api' do
+      mount API::Base, at: "/"
+      mount GrapeSwaggerRails::Engine, at: "/documentation"
+    end
+  else
+    constraints subdomain: 'dev-api' do
+      mount API::Base, at: "/"
+      mount GrapeSwaggerRails::Engine, at: "/documentation"
+      # scope module: 'api' do
+      #   namespace :v1 do
+      #     resources :users
+      #     resources :events
+      #   end
+      # end
+    end
+  end
 end

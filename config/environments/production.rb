@@ -76,14 +76,21 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
-    logger.formatter = config.log_formatter
-    config.logger = ActiveSupport::TaggedLogging.new(logger)
+    logger            = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter  = config.log_formatter
+    config.logger     = ActiveSupport::TaggedLogging.new(logger)
   end
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.facebook_app_id = '259929777688738'
-  config.facebook_app_secret = 'bdaef0f0beb25366bef19febf2366312'
+  config.paperclib_defaults = {
+    storage: :s3,
+    s3_credentials: {
+      bucket: 'daydash',
+      access_key_id: 'AKIAJ3CURNBFIHWRY2WQ',
+      secret_access_key: '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',
+      s3_region: 'ap-southeast-1',
+    }
+  }
 end

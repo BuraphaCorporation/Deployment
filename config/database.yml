@@ -12,12 +12,11 @@ test:
   <<: *default
   database: Daydash_test
 
-production:
-  <<: *default
-  url: "postgres://deploy:Arnon007@localhost/daydash"
-
 # production:
 #   <<: *default
-#   database: daydash_production
-#   username: daydash
-#   password: <%= ENV['DAYDASH_DATABASE_PASSWORD'] %>
+
+production:
+  <<: *default
+  database: daydash_production
+  username: daydash
+  password: <%= ENV['DAYDASH_DATABASE_PASSWORD'] %>

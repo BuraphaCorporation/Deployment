@@ -9,7 +9,7 @@ module API
 
       add_swagger_documentation(
         api_version: "mobile",
-        base_path: "/api",
+        base_path: "/",
         mount_path: "/mobile",
         hide_format: true,
         hide_documentation_path: true

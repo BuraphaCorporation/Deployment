@@ -52,9 +52,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.facebook_app_id = '286214348393614'
-  config.facebook_app_secret = 'fe56812591fad8625997a9ceecc133bf'
-
   config.app_domain = 'somedomain.com'
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true

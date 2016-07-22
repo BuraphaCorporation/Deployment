@@ -22,6 +22,7 @@ require 'capistrano/rails'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
 require 'capistrano/rails/console'
+require 'capistrano/puma'
 
 require "airbrussh/capistrano"
 

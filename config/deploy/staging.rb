@@ -1,7 +1,7 @@
 
 set :stage, :production
 
-server 'brick.daydash.co', user: 'deploy', roles: %w{web app db}
+server 'staging.daydash.co', user: 'deploy', roles: %w{web app db}
 
 # Bonus! Colors are pretty!
 def red(str)

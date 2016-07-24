@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   namespace :client, path: '' do
     resources :events, only: [:index, :show] do
       get '/payment', to: 'events#payment'
+      post '/checkout', to: 'events#checkout'
     end
     # resources :payment, only: [:index, :show, :create, :new]
   end

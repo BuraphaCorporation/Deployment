@@ -22,6 +22,13 @@
   </head>
   <body>
     <%= render partial: "layouts/parts/nav" %>
+    <% if params[:controller].eql?('client/events') %>
+      <% if params[:action].eql?('index') %>
+        <%= render partial: "layouts/parts/carousel_index" %>
+      <% else %>
+        <%= render partial: "layouts/parts/carousel_show" %>
+      <% end %>
+    <% end %>
     <div class="wrapper">
       <div class="container">
         <%= javascript_include_tag 'components/core', 'data-turbolinks-track' => true %>

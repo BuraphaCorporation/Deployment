@@ -10,15 +10,26 @@
 #   stripe_api_key: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
 #   stripe_publishable_key: pk_live_9lcthxpSIHbGwmdO941O1XVU
 
+
+default: &default
+  S3_BUCKET_NAME: 'daydash-development'
+  AWS_ACCESS_KEY_ID: 'AKIAJ3CURNBFIHWRY2WQ'
+  AWS_SECRET_ACCESS_KEY: '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'
+  AWS_REGION: 'ap-southeast-1'
+
+
 development:
+  <<: *default
   HELLO: developers
   S3_BUCKET_NAME: 'daydash-development'
   AWS_ACCESS_KEY_ID: 'AKIAJ3CURNBFIHWRY2WQ'
   AWS_SECRET_ACCESS_KEY: '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'
   AWS_REGION: 'ap-southeast-1'
+
 production:
+  <<: *default
   HELLO: users
-  S3_BUCKET_NAME: 'daydash'
-  AWS_ACCESS_KEY_ID: 'AKIAJ3CURNBFIHWRY2WQ'
-  AWS_SECRET_ACCESS_KEY: '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'
-  AWS_REGION: 'ap-southeast-1'
+
+test:
+  <<: *default
+  HELLO: rspec

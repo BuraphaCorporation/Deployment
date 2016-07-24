@@ -12,9 +12,6 @@ test:
   <<: *default
   database: Daydash_test
 
-# production:
-#   <<: *default
-
 production:
   <<: *default
   database: daydash_production

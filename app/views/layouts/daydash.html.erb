@@ -22,7 +22,12 @@
   </head>
   <body>
     <%= render partial: "layouts/parts/nav" %>
-    <%= javascript_include_tag 'components/core', 'data-turbolinks-track' => true %>
-    <%= yield %>
+    <div class="wrapper">
+      <div class="container">
+        <%= javascript_include_tag 'components/core', 'data-turbolinks-track' => true %>
+        <%= yield %>
+      </div>
+    </div>
+    <%= render partial: "layouts/parts/footer" %>
   </body>
 </html>

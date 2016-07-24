@@ -84,13 +84,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.paperclib_defaults = {
-    storage: :s3,
-    s3_credentials: {
-      bucket: 'daydash',
-      access_key_id: 'AKIAJ3CURNBFIHWRY2WQ',
-      secret_access_key: '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',
-      s3_region: 'ap-southeast-1',
-    }
-  }
+  config.react.variant = :production
 end

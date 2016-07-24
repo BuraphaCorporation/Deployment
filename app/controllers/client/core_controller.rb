@@ -5,14 +5,6 @@ class Client::CoreController < ApplicationController
 
   layout "daydash"
 
-  def index
-    @events = Event.includes(:galleries)
-  end
-
-  def show
-    @event = Event.last
-  end
-
   private
     def management!
       $management = false

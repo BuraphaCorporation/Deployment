@@ -64,17 +64,17 @@
         <div id="navigation">
           <ul class="navigation-menu">
             <li class="has-submenu">
-              <%= link_to management_path do %>
+              <%= link_to management_path, target: '_self' do %>
               <i class="md md-dashboard"></i>Dashboard
               <% end %>
             </li>
             <li class="has-submenu">
-              <%= link_to management_events_path do %>
+              <%= link_to management_events_path, target: '_self' do %>
               <i class="md md-event"></i>Event
               <% end %>
             </li>
             <li class="has-submenu">
-              <%= link_to management_users_path do %>
+              <%= link_to management_users_path, target: '_self' do %>
               <i class="md md-person"></i>User
               <% end %>
             </li>

@@ -65,4 +65,6 @@ Rails.application.configure do
     authentication: :plain,
     domain: 'somedomain.com'
   }
+
+  config.react.variant = :development
 end

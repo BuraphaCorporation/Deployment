@@ -9,4 +9,3 @@
 #= require jquery.scrollTo.min
 
 #= require_tree ./libs
-#= require ./app

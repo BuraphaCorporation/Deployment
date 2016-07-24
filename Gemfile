@@ -15,6 +15,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'rack-attack'
+gem 'dalli', '~> 2.7.4'
+
 gem "cocoon"
 
 gem 'devise'

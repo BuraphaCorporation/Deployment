@@ -12,10 +12,10 @@ Rails.application.routes.draw do
       unlocks:            'users/unlocks',
     }
 
-  root 'events#index'
-  resources :events
+  root 'client#index'
+  resources :client
 
-  namespace :admin do
+  namespace :management do
     get '/', to: 'dashboard#index'
     resources :events do
       collection do

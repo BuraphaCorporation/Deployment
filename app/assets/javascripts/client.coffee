@@ -3,6 +3,4 @@
 #= require turbolinks
 #= require react
 #= require react_ujs
-#= require cocoon
-
-#= require modernizr.min
+#= require bootstrap-4.0.0-alpha.2/js/bootstrap

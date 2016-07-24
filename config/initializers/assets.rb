@@ -12,6 +12,6 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.paths << Rails.root.join("vendor/plugins")
 
 
-Rails.application.config.assets.precompile += %w( *.js *.css .svg .eot .woff .ttf)
+Rails.application.config.assets.precompile += %w( *.js *.css .svg .eot .woff .ttf .map)
 
 Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/

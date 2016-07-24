@@ -12,21 +12,17 @@ Rails.application.routes.draw do
       unlocks:            'users/unlocks',
     }
 
-  root 'client#index'
-  resources :client
+  root 'client/core#index'
+  # namespace :client
 
   namespace :management do
-    get '/', to: 'dashboard#index'
+    get '/', to: 'events#index'
     resources :events do
       collection do
         delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
       end
     end
     resources :users, except: :show
-  end
-
-  namespace :organizers do
-    get '/index', to: 'portal#index'
   end
 
   if ['production', 'staging'].include?(App.environment)

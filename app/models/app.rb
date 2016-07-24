@@ -31,6 +31,10 @@ class App < Struct.new(:region, :environment, :version)
   #   }
   # }
 
+  def is_management?
+    $management
+  end
+
   def configure
     config = OpenStruct.new
 

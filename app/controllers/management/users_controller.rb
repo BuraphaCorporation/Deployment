@@ -1,6 +1,5 @@
 
 class Management::UsersController < Management::CoreController
-
   before_action :user, only: [:edit, :update, :destroy]
 
   def index

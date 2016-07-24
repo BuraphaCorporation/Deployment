@@ -29,13 +29,8 @@ Rails.application.routes.draw do
     get '/index', to: 'portal#index'
   end
 
-  if App.environment.eql? 'production'
+  if ['production', 'staging'].include?(App.environment)
     constraints subdomain: 'api' do
-      mount API::Base, at: "/"
-      mount GrapeSwaggerRails::Engine, at: "/documentation"
-    end
-  elsif App.environment.eql? 'staging'
-    constraints subdomain: 'staging-api' do
       mount API::Base, at: "/"
       mount GrapeSwaggerRails::Engine, at: "/documentation"
     end

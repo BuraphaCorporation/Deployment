@@ -12,6 +12,7 @@
 
 
 default: &default
+  HELLO: developers
   S3_BUCKET_NAME: 'daydash-development'
   AWS_ACCESS_KEY_ID: 'AKIAJ3CURNBFIHWRY2WQ'
   AWS_SECRET_ACCESS_KEY: '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'
@@ -22,14 +23,13 @@ development:
   <<: *default
   HELLO: developers
   S3_BUCKET_NAME: 'daydash-development'
-  AWS_ACCESS_KEY_ID: 'AKIAJ3CURNBFIHWRY2WQ'
-  AWS_SECRET_ACCESS_KEY: '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'
-  AWS_REGION: 'ap-southeast-1'
 
 production:
   <<: *default
   HELLO: users
+  S3_BUCKET_NAME: 'daydash'
 
 test:
   <<: *default
   HELLO: rspec
+  S3_BUCKET_NAME: 'daydash-test'

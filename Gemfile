@@ -24,6 +24,8 @@ gem 'omniauth-facebook'
 
 gem 'koala'
 
+gem 'omise'
+
 gem 'paperclip'
 gem 'paperclip-ffmpeg'
 gem 'aws-sdk', '>= 2.0.34'

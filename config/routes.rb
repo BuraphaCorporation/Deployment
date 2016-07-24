@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  namespace :client do
-    get 'events/index'
-  end
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   devise_for :users,
     path: 'auth',
     controllers: {
@@ -18,7 +13,10 @@ Rails.application.routes.draw do
 
   root 'client/events#index'
   namespace :client, path: '' do
-    resources :events, only: [:index, :show]
+    resources :events, only: [:index, :show] do
+      get '/payment', to: 'events#payment'
+    end
+    # resources :payment, only: [:index, :show, :create, :new]
   end
 
   namespace :management do

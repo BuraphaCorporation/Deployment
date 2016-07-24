@@ -68,7 +68,7 @@ class Admin::EventsController < Admin::CoreController
           s.event_time  = event_time
           s.end_time    = end_time
         end
-      end
+      end unless params[:event][:sections_attributes].nil?
     end
 
     def serialize_data_update

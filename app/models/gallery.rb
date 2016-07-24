@@ -23,9 +23,9 @@ class Gallery < ApplicationRecord
     },
     processors: lambda { |a|
       a.is_image? ? [ :ffmpeg ] : [ :thumbnail ]
-    },
-    path: ":rails_root/public/images/:id/:filename",
-    url: "/images/:id/:filename"
+    }
+    # path: ":rails_root/public/images/:id/:filename",
+    # url: "/images/:id/:filename"
 
   do_not_validate_attachment_file_type :media
 

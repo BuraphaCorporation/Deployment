@@ -1,4 +1,6 @@
 
+Rails.application.config.middleware.use Rack::Attack
+
 class Rack::Attack
 
   # `Rack::Attack` is configured to use the `Rails.cache` value by default,

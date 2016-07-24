@@ -3863,7 +3863,7 @@ if (typeof jQuery === 'undefined') {
          * - Valid: 756.1234.5678.95, 7561234567895
          *
          * @see http://en.wikipedia.org/wiki/National_identification_number#Switzerland
-         * @see http://www.bsv.management.ch/themen/ahv/00011/02185/index.html?lang=de
+         * @see http://www.bsv.admin.ch/themen/ahv/00011/02185/index.html?lang=de
          * @param {String} value The ID
          * @returns {Boolean}
          */
@@ -3919,20 +3919,20 @@ if (typeof jQuery === 'undefined') {
          *
          * Rules:
          * - For current 18-digit system (since 1st Oct 1999, defined by GB11643—1999 national standard):
-         *     - Digit 0-5: Must be a valid managementistrative division code of China PR.
+         *     - Digit 0-5: Must be a valid administrative division code of China PR.
          *     - Digit 6-13: Must be a valid YYYYMMDD date of birth. A future date is tolerated.
          *     - Digit 14-16: Order code, any integer.
          *     - Digit 17: An ISO 7064:1983, MOD 11-2 checksum.
          *       Both upper/lower case of X are tolerated.
          * - For deprecated 15-digit system:
-         *     - Digit 0-5: Must be a valid managementistrative division code of China PR.
+         *     - Digit 0-5: Must be a valid administrative division code of China PR.
          *     - Digit 6-11: Must be a valid YYMMDD date of birth, indicating the year of 19XX.
          *     - Digit 12-14: Order code, any integer.
-         * Lists of valid managementistrative division codes of China PR can be seen here:
+         * Lists of valid administrative division codes of China PR can be seen here:
          * <http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/>
          * Published and maintained by National Bureau of Statistics of China PR.
          * NOTE: Current and deprecated codes MUST BOTH be considered valid.
-         * Many Chinese citizens born in once existed managementistrative divisions!
+         * Many Chinese citizens born in once existed administrative divisions!
          *
          * @see http://en.wikipedia.org/wiki/Resident_Identity_Card#Identity_card_number
          * @param {String} value The ID
@@ -3946,7 +3946,7 @@ if (typeof jQuery === 'undefined') {
             }
             
             // Check China PR Administrative division code
-            var managementDivisionCodes = {
+            var adminDivisionCodes = {
                 11: {
                     0: [0],
                     1: [[0, 9], [11, 17]],
@@ -4403,11 +4403,11 @@ if (typeof jQuery === 'undefined') {
                 prefectural = parseInt(value.substr(2, 2), 10),
                 county      = parseInt(value.substr(4, 2), 10);
             
-            if (!managementDivisionCodes[provincial] || !managementDivisionCodes[provincial][prefectural]) {
+            if (!adminDivisionCodes[provincial] || !adminDivisionCodes[provincial][prefectural]) {
                 return false;
             }
             var inRange  = false,
-                rangeDef = managementDivisionCodes[provincial][prefectural];
+                rangeDef = adminDivisionCodes[provincial][prefectural];
             for (var i = 0; i < rangeDef.length; i++) {
                 if (($.isArray(rangeDef[i]) && rangeDef[i][0] <= county && county <= rangeDef[i][1])
                     || (!$.isArray(rangeDef[i]) && county === rangeDef[i]))

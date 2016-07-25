@@ -63,6 +63,26 @@ namespace :deploy do
   end
 end
 
+namespace :rails do
+  desc 'Console to production'
+  task :console do
+    on roles(:web) do
+      within current_path do
+        execute :rails, 'console production'
+      end
+    end
+  end
+
+  desc "Task log"
+  task :log do
+    on roles(:web) do
+      within current_path do
+        execute :tail, '-f log/puma_error.log'
+      end
+    end
+  end
+end
+
 # namespace :deploy do
 #   desc 'Says a message when deployment is completed'
 #   task :say do

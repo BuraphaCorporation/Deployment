@@ -170,6 +170,8 @@ GEM
       httpclient
       json
     formatador (0.2.5)
+    friendly_id (5.1.0)
+      activerecord (>= 4.0.0)
     gcloud (0.11.0)
       digest-crc (~> 0.4)
       google-api-client (~> 0.8.3)
@@ -510,6 +512,7 @@ DEPENDENCIES
   ffaker
   figaro
   firebase
+  friendly_id (~> 5.1.0)
   gcloud
   grape
   grape-active_model_serializers

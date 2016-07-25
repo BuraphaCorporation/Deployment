@@ -494,5 +494,5 @@ Tabs
   };
 
   $(document).ready(function(){
-    $('ul.tabs').tabs();
+    // $('ul.tabs').tabs();
   });

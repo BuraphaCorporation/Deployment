@@ -30,7 +30,12 @@ Rails.application.routes.draw do
     resources :users, except: :show
   end
 
-  if ['production', 'staging'].include?(App.environment)
+  if App.environment.eql?('production')
+    constraints subdomain: 'api' do
+      mount API::Base, at: "/"
+      mount GrapeSwaggerRails::Engine, at: "/documentation"
+    end
+  elsif App.environment.eql?('staging')
     constraints subdomain: 'api' do
       mount API::Base, at: "/"
       mount GrapeSwaggerRails::Engine, at: "/documentation"

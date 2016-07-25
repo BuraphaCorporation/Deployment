@@ -267,15 +267,22 @@
 
       <div class="row">
         <div class="col-md-12">
-          <h4>2. Ticket Detail</h4>
+          <h4>2. Ticket Detail
 
-          <div id="ticket">
+          <%= link_to_add_association 'Add Ticket', f, :sections,
+                                    {
+                                      'data-association-insertion-node': '.tickets',
+                                      'data-association-insertion-method': :append,
+                                      partial: 'section_fields',
+                                      id: 'addTickets'
+                                    }
+                                    %>
+         </h4>
+
+          <div class="tickets">
             <%= f.fields_for :sections do |section| %>
               <%= render 'section_fields', f: section %>
             <% end %>
-            <div class="links">
-              <%= link_to_add_association 'Add Ticket', f, :sections %>
-            </div>
           </div>
         </div>
       </div>
@@ -291,69 +298,3 @@
     </div>
   </div>
 </div>
-
-
-<%= javascript_include_tag 'switchery/switchery.min', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'bootstrap-tagsinput/dist/bootstrap-tagsinput.min', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'multiselect/js/jquery.multi-select', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'jquery-quicksearch/jquery.quicksearch', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'select2/select2.min', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'bootstrap-inputmask/bootstrap-inputmask.min', 'data-turbolinks-track' => true %>
-
-<%#= javascript_include_tag 'moment/moment', 'data-turbolinks-track' => true %>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
-
-<%= javascript_include_tag 'timepicker/bootstrap-timepicker.min', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'mjolnic-bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'bootstrap-datepicker/dist/js/bootstrap-datepicker.min', 'data-turbolinks-track' => true %>
-<%= javascript_include_tag 'bootstrap-daterangepicker/daterangepicker', 'data-turbolinks-track' => true %>
-
-<!-- Parsleyjs -->
-<%= javascript_include_tag 'components/libs/parsley', 'data-turbolinks-track' => true %>
-
-<!-- Dropzone js -->
-<%#= javascript_include_tag 'dropzone/dist/dropzone', 'data-turbolinks-track' => true %>
-<!--
-<script type="text/javascript">
-  var uploader = new Dropzone('#event_attachments');
-  uploader.on('success', function( file, resp ){
-    console.log(file)
-  });
-</script> -->
-<script type="text/javascript">
-
-  jQuery(document).ready(function() {
-
-    $('form').parsley();
-    picker_init();
-
-    $('.remove_fields').click(function(){
-      alert("xxx");
-      setTimeout(function(){
-        picker_init();
-      }, 0);
-    });
-
-    $('.add_fields').click(function(){
-      setTimeout(function(){
-        picker_init();
-      }, 0);
-    });
-
-  });
-
-  function picker_init(){
-    jQuery('.event-datepicker').datepicker({
-      autoclose: true,
-      format: "dd/mm/yyyy",
-      todayHighlight: true
-    });
-
-    jQuery('.event-timepicker').timepicker({
-      showMeridian : false,
-      minuteStep : 15
-    });
-  }
-
-</script>

@@ -36,7 +36,7 @@ Rails.application.routes.draw do
       mount GrapeSwaggerRails::Engine, at: "/documentation"
     end
   elsif App.environment.eql?('staging')
-    constraints subdomain: 'api' do
+    constraints subdomain: 'staging-api' do
       mount API::Base, at: "/"
       mount GrapeSwaggerRails::Engine, at: "/documentation"
     end

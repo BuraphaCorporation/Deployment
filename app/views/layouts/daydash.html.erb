@@ -19,6 +19,17 @@
 
     <%= stylesheet_link_tag    'daydash', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'daydash', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'components/core', 'data-turbolinks-track' => true %>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
+
+    <% if App.is_management? %>
+      <%= stylesheet_link_tag    'management/core', media: 'all', 'data-turbolinks-track' => true  %>
+      <%= javascript_include_tag 'management/core', 'data-turbolinks-track' => true %>
+    <% else %>
+      <%= stylesheet_link_tag    'client/core', media: 'all', 'data-turbolinks-track' => true  %>
+      <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
+    <% end %>
   </head>
   <body>
     <%= render partial: "layouts/parts/nav" %>
@@ -31,7 +42,6 @@
     <% end %>
     <div class="wrapper">
       <div class="container">
-        <%= javascript_include_tag 'components/core', 'data-turbolinks-track' => true %>
         <%= yield %>
       </div>
     </div>

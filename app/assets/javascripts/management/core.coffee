@@ -17,25 +17,27 @@
 
 #= require dropzone/dist/dropzone
 
-picker_init = ->
-  jQuery('.event-datepicker').datepicker
-    autoclose: true
-    format: 'dd/mm/yyyy'
-    todayHighlight: true
-  jQuery('.event-timepicker').timepicker
-    showMeridian: false
-    minuteStep: 15
-  return
+#= require_self
 
-jQuery(document).ready ->
+$(document).ready ->
+
+  picker_init = ->
+    jQuery('.event-datepicker').datepicker
+      autoclose: true
+      format: 'dd/mm/yyyy'
+      todayHighlight: true
+    jQuery('.event-timepicker').timepicker
+      showMeridian: false
+      minuteStep: 15
+  #
+  # if $('.nested-fields').length == 0
+  #   document.getElementById('addTickets').click();
+  #   picker_init()
+  #   $('body').click();
+
   $('form').parsley()
   picker_init()
-  if $('.nested-fields').length == 0
-    document.getElementById('addTickets').click();
 
-
-
-  $("#owner a.add_fields").data("association-insertion-method", 'before').data("association-insertion-node", 'this')
   $('.remove_fields').click ->
     setTimeout (->
       picker_init()
@@ -48,4 +50,3 @@ jQuery(document).ready ->
       return
     ), 0
     return
-  return

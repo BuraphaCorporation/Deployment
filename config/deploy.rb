@@ -4,6 +4,8 @@ set :branch, :master
 
 set :deploy_to, '/home/deploy/daydash'
 
+set :format, :pretty
+# set :log_level, :debug
 set :pty, true
 
 set :linked_files, %w{config/database.yml config/application.yml config/instance.yml}

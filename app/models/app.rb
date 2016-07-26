@@ -10,6 +10,15 @@ class App < Struct.new(:region, :environment, :version)
     attrs.each_pair { |k, v| self[k] = v.inquiry }
   end
 
+  def host
+    case environment
+    when 'production'
+
+    when 'staging'
+    when 'development'
+    else
+  end
+
   def API
     case environment
     when 'production'

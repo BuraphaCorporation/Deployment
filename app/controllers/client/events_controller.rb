@@ -19,7 +19,7 @@ class Client::EventsController < Client::CoreController
       # description: inv,
       card: params[:omise_token]
     })
-
-    binding.pry
+    #
+    # binding.pry
   end
 end

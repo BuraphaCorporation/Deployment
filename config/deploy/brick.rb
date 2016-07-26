@@ -1,5 +1,5 @@
 
-set :stage, :production
+set :stage, :brick
 
 server 'staging.daydash.co', user: 'deploy', roles: %w{web app db}
 

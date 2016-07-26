@@ -29,6 +29,12 @@ set :puma_preload_app, false
 set :stages, [:staging, :production]
 set :default_stage, :staging
 
+set :slackistrano, {
+ channel: '#web',
+ webhook: 'https://hooks.slack.com/services/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'
+}
+
+
 namespace :deploy do
 
   desc 'Restart application'

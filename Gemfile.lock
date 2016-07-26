@@ -436,6 +436,9 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
+    slackistrano (3.0.1)
+      capistrano (>= 3.5.0)
+      json
     slop (3.6.0)
     spring (1.7.2)
     spring-watcher-listen (2.0.0)
@@ -545,6 +548,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   shoulda
+  slackistrano
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (~> 5)

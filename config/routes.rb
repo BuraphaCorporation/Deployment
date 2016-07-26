@@ -40,6 +40,10 @@ Rails.application.routes.draw do
       mount API::Base, at: "/"
       mount GrapeSwaggerRails::Engine, at: "/documentation"
     end
+    constraints subdomain: 'staging-api' do
+      mount API::Base, at: "/"
+      mount GrapeSwaggerRails::Engine, at: "/documentation"
+    end
   else
     constraints subdomain: 'dev-api' do
       mount API::Base, at: "/"

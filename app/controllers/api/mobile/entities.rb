@@ -15,6 +15,10 @@ module API
         # end
       end
 
+      class TagExpose < Grape::Entity
+        expose :title
+      end
+
       class CategoryExpose < Grape::Entity
         expose :id
         expose :title

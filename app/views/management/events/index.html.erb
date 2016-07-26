@@ -1,0 +1,44 @@
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card-box">
+          <h4 class="m-t-0 header-title"><b>Responsive tables</b></h4>
+          <p class="text-muted font-13 m-b-25">
+              Create responsive tables by wrapping any <code>.table</code> in <code>.table-responsive</code>
+              to make them scroll horizontally on small devices (under 768px).
+          </p>
+          <%= link_to "Add", new_management_event_path, target: '_self', class: 'btn btn-primary btn-custom waves-effect w-md waves-light m-b-5' %>
+
+          <div class="table-responsive">
+            <table class="table m-0">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Title</th>
+                  <th>Category</th>
+                  <th>Organizer</th>
+                  <th>Location</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @events.each do |event| %>
+                  <tr>
+                    <td>
+                      <% if event.galleries.present? %>
+                        <%= link_to (image_tag event.galleries.first.try(:media, :thumb), width: '100'), edit_management_event_path(event.id), target: '_self' %>
+                      <% else %>
+                        NULL
+                      <% end %>
+                    </td>
+                    <td><%= link_to event.title, edit_management_event_path(event.id), target: '_self' %></td>
+                    <td><%= event.category.try(:title) %></td>
+                    <td><%= "#{event.user.try(:first_name)} #{event.user.try(:last_name)}" %></td>
+                    <td><%= event.location %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -7,7 +7,7 @@ set :deploy_to, '/home/deploy/daydash'
 set :pty, true
 
 set :linked_files, %w{config/database.yml config/application.yml config/instance.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 
 set :keep_releases, 5
 
@@ -59,6 +59,26 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
+end
+
+namespace :rails do
+  desc 'Console to production'
+  task :console do
+    on roles(:web) do
+      within current_path do
+        execute :rails, 'console production'
+      end
+    end
+  end
+
+  desc "Task log"
+  task :log do
+    on roles(:web) do
+      within current_path do
+        execute :tail, '-f log/puma_error.log'
+      end
     end
   end
 end

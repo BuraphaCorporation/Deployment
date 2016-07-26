@@ -27,7 +27,9 @@ production:
   <<: *default
   HELLO: users
   S3_BUCKET_NAME: 'daydash'
+
   SECRET_KEY_BASE: "630e224e6202ec1d1756ef4318dd216cc1fe1f700f06ffd1fd1168d926d909167e40f1e3c25b97e8aadff8f54910d830ecbb8946b8382792f23450b4298064d3"
+  DATABASE_PASSWORD:
 
 test:
   <<: *default

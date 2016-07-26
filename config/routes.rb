@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   devise_for :users,
     path: 'auth',
     controllers: {
@@ -12,11 +11,17 @@ Rails.application.routes.draw do
       unlocks:            'users/unlocks',
     }
 
-  root 'events#index'
-  resources :events
+  root 'client/events#index'
+  namespace :client, path: '' do
+    resources :events, only: [:index, :show] do
+      get '/payment', to: 'events#payment'
+      post '/checkout', to: 'events#checkout'
+    end
+    # resources :payment, only: [:index, :show, :create, :new]
+  end
 
-  namespace :admin do
-    get '/', to: 'dashboard#index'
+  namespace :management do
+    get '/', to: 'events#index'
     resources :events do
       collection do
         delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
@@ -25,12 +30,13 @@ Rails.application.routes.draw do
     resources :users, except: :show
   end
 
-  namespace :organizers do
-    get '/index', to: 'portal#index'
-  end
-
-  if ['production', 'staging'].include?(App.environment)
+  if App.environment.eql?('production')
     constraints subdomain: 'api' do
+      mount API::Base, at: "/"
+      mount GrapeSwaggerRails::Engine, at: "/documentation"
+    end
+  elsif App.environment.eql?('staging')
+    constraints subdomain: 'brick-api' do
       mount API::Base, at: "/"
       mount GrapeSwaggerRails::Engine, at: "/documentation"
     end

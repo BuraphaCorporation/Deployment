@@ -1,7 +1,9 @@
 class Client::EventsController < Client::CoreController
 
   def index
-    @events = Event.includes(:galleries)
+    @events = Event.all
+
+    @galleries = Gallery.all.shuffle.first(5)
   end
 
   def show

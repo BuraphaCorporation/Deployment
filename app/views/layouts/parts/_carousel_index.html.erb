@@ -96,16 +96,11 @@
            <div style="position:absolute;display:block;background:url('img/loading.gif') no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
        </div>
        <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 1300px; height: 500px; overflow: hidden;">
-           <div data-p="225.00" style="display: none;">
-               <img data-u="image" src="<%= @events.first.galleries.first.try(:media, :full) %>" />
-           </div>
-           <div data-p="225.00" style="display: none;">
-               <img data-u="image" src="<%= @events.second.galleries.first.try(:media, :full) %>" />
-           </div>
-           <div data-p="225.00" data-po="80% 55%" style="display: none;">
-               <img data-u="image" src="<%= @events.third.galleries.first.try(:media, :full) %>" />
-           </div>
-
+         <% @galleries.each do |gallery| %>
+         <div data-p="225.00" style="display: none;">
+           <%= image_tag gallery.try(:media, :full), 'data-u': 'images' %>
+         </div>
+         <% end %>
        </div>
        <!-- Bullet Navigator -->
        <div data-u="navigator" class="jssorb05" style="bottom:16px;right:16px;" data-autocenter="1">

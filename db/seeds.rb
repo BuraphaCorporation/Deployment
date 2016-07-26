@@ -13,7 +13,6 @@ end
   Tag.find_or_create_by({title: tag})
 end
 
-
 # User.create do |user|
 #   user.email                 = 'arnon@hongklay.com'
 #   user.first_name            = 'Arnon'

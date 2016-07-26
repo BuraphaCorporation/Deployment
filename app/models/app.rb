@@ -10,35 +10,48 @@ class App < Struct.new(:region, :environment, :version)
     attrs.each_pair { |k, v| self[k] = v.inquiry }
   end
 
-  def host
-    case environment
-    when 'production'
-
-    when 'staging'
-    when 'development'
-    else
+  def domain(subdomain=nil)
+    protocol + '//' + case subdomain
+                      when 'api'
+                        "#{api_host}.#{root_domain}#{port}"
+                      else
+                        "#{host}.#{root_domain}#{port}"
+                      end
   end
 
-  def API
-    case environment
-    when 'production'
-      "https://api.daydash.co"
-    when 'staging'
-      "https://brick-api.daydash.co"
-    else
-      "http://dev-api.daydash.co:1337"
+  def root_domain
+    'daydash.co'
+  end
+
+  def protocol
+    environment.production? ? 'https:' : 'http:'
+  end
+
+  def port
+    if environment.development?
+      ':1337'
     end
   end
 
-  # config.paperclib_defaults = {
-  #   storage: :s3,
-  #   s3_credentials: {
-  #     bucket: ENV.fetch('S3_BUCKET_NAME'),
-  #     access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
-  #     secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
-  #     s3_region: ENV.fetch('AWS_REGION'),
-  #   }
-  # }
+  def host
+    case environment
+    when 'staging', 'brick'
+      'brick'
+    when 'development'
+      'dev'
+    end
+  end
+
+  def api_host
+    case environment
+    when 'production'
+      'api'
+    when 'staging', 'brick'
+      'brick-api'
+    when 'development'
+      'dev-api'
+    end
+  end
 
   def is_management?
     $management
@@ -48,13 +61,13 @@ class App < Struct.new(:region, :environment, :version)
     config = OpenStruct.new
 
     case environment
-    when 'production', 'staging'
+    when 'production', 'staging', 'brick'
       config.facebook_app_id      = '286214348393614'
       config.facebook_app_secret  = 'fe56812591fad8625997a9ceecc133bf'
     when 'production'
       config.firebase             = 'https://daydash.firebaseio.com/'
       config.redis                = { host: 'redis.daydash.co', port: 6379, timeout: 25 }
-    when 'staging'
+    when 'staging', 'brick'
       config.firebase             = 'https://daydash-staging.firebaseio.com/'
       config.redis                = { host: 'redis-staging.daydash.co', port: 6379, timeout: 25 }
     else
@@ -75,18 +88,9 @@ class App < Struct.new(:region, :environment, :version)
     Redis.new(configure.redis)
   end
 
-  # def root
-  #   protocol + '//' + host
-  # end
-
-  # def protocol
-  #   region.th? && environment.production? ? 'https:' : 'http:'
-  # end
-
   def no_reply
     'no-reply@daydash.co'
   end
-
 
   class << self
     attr_accessor :current

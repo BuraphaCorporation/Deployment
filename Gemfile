@@ -76,7 +76,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv', github: 'capistrano/rbenv'
   gem 'capistrano-rails-console'
-  gem 'slackistrano'
+  gem 'slackistrano', '3.1.0.beta'
 
   gem 'airbrussh', require: false
 end

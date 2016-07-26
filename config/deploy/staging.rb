@@ -1,7 +1,6 @@
-
-set :stage, :production
-
+set :stage, :staging
 server 'staging.daydash.co', user: 'deploy', roles: %w{web app db}
+set :rails_env, :production
 
 # Bonus! Colors are pretty!
 def red(str)

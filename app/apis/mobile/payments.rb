@@ -48,15 +48,15 @@ module Mobile
       params do
         requires :user_token, type: String, desc: "token of the user"
         requires :event_id, type: Integer, desc: "event id"
-        requires :amount, type: Integer
-        requires :evidence, type: File
+        # requires :amount, type: Integer
+        # requires :evidence, type: File
       end
       post '/bank-transfer' do
         if params[:user_token].present? and params[:event_id].present? # and params[:evidence].present?
           begin
             raise unless User.find_by_token(params[:user_token]).present?
 
-            Payment.transfer(params[:user_token], params[:event], params[:evidence], params[:amount])
+            Payment.transfer(params[:user_token], params[:event]) #, params[:evidence], params[:amount])
 
             present :status, :success
             present :data, ''

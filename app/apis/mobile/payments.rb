@@ -56,17 +56,17 @@ module Mobile
           begin
             raise unless User.find_by_token(params[:user_token]).present?
 
-            Payment.transfer(params[:user_token], params[:event]) #, params[:evidence], params[:amount])
+            payment = Payment.transfer_notify(params[:user_token], params[:event_id]) #, params[:evidence], params[:amount])
 
             present :status, :success
-            present :data, ''
+            present :data, payment
           rescue
             present :status, :error
-            present :data, ''
+            present :data, 'raise'
           end
         else
           present :status, :error
-          present :data, ''
+          present :data, 'params invalid'
         end
       end
 

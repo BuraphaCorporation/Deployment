@@ -24,7 +24,7 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def protocol
-    environment.production? ? 'https:' : 'http:'
+    environment.development? ? 'http:' : 'https:'
   end
 
   def port
@@ -90,6 +90,10 @@ class App < Struct.new(:region, :environment, :version)
 
   def no_reply
     'no-reply@daydash.co'
+  end
+
+  def generate_code(digit=5)
+    (0...digit).map { ('A'..'Z').to_a[rand(26)] }.join
   end
 
   class << self

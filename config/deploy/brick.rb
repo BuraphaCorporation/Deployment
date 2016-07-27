@@ -1,6 +1,6 @@
-set :stage, :brick
+set :stage, :production
 server 'brick.daydash.co', user: 'deploy', roles: %w{web app db}
-set :rails_env, :production
+# set :rails_env, :production
 
 # Bonus! Colors are pretty!
 def red(str)

@@ -23,13 +23,14 @@ module Mobile
         requires :event_id, type: Integer, desc: "event id"
         requires :omise_token, type: String, desc: "omise token"
       end
-      post ':user_token/credit-card' do
-        if params[:user_token].present? and params[:omise_token].present?
+      post '/credit-card' do
+        if params[:user_token].present? and params[:event_id].present? and params[:omise_token].present?
           begin
             charge = Omise::Charge.retrieve(params[:omise_token])
 
-            raise unless User.find(token: params[:user_token]).present?
-            Payment.consume(params[:user_token], params[:event], charge)
+            raise unless User.find_by_token(params[:user_token]).present?
+
+            Payment.omise(params[:user_token], params[:event], charge)
 
             present :status, :success
             present :data, ''
@@ -46,9 +47,27 @@ module Mobile
       desc 'pay by bank transfer'
       params do
         requires :user_token, type: String, desc: "token of the user"
+        requires :event_id, type: Integer, desc: "event id"
+        requires :amount, type: Integer
+        requires :evidence, type: File
       end
-      post ':user_token/bank-transfer' do
+      post '/bank-transfer' do
+        if params[:user_token].present? and params[:event_id].present? # and params[:evidence].present?
+          begin
+            raise unless User.find_by_token(params[:user_token]).present?
 
+            Payment.transfer(params[:user_token], params[:event], params[:evidence], params[:amount])
+
+            present :status, :success
+            present :data, ''
+          rescue
+            present :status, :error
+            present :data, ''
+          end
+        else
+          present :status, :error
+          present :data, ''
+        end
       end
 
     end

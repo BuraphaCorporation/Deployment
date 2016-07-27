@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :events, dependent: :destroy
+  has_many :events    #, dependent: :destroy
+  has_many :payments  #, dependent: :destroy
+  has_many :tickets   #, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
 

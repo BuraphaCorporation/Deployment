@@ -1,3 +1,4 @@
+
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
   end
 
   constraints(subdomain: App.api_host) do
-    mount API::Base, at: "/"
+    mount API, at: "/"
     mount GrapeSwaggerRails::Engine, at: "/documentation"
     # scope module: 'api' do
     #   namespace :v1 do

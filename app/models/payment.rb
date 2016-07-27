@@ -4,6 +4,5 @@ class Payment < ActiveRecord::Base
 
   enum status: { active: 0, archived: 1 }
 
-  has_attached_file :evidence, styles: { "600x700" }
-
+  has_attached_file :evidence, styles: { default: "600x700" }
 end

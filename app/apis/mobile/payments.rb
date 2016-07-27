@@ -4,7 +4,6 @@ module Mobile
 
     resources :payment do
       desc "return channel payment"
-
       get '/' do
         present :status, :success
         present :data, [

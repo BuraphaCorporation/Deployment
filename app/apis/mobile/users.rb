@@ -120,6 +120,7 @@ module Mobile
         end
         present :data, wishlist
       end
+
     end
   end
 end

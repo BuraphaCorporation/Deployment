@@ -11,8 +11,11 @@ class User < ActiveRecord::Base
   has_many :tickets   #, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
+  has_many :referals
 
+  belongs_to :referer, as: :referals
   belongs_to :role
+
 
   enum gender: { male: 1, female: 0 }
 
@@ -23,11 +26,23 @@ class User < ActiveRecord::Base
 
   before_create :set_default_role
   before_create do |user|
-    user.token = user.generate_token
+    user.token   = user.generate_token
+    user.referal = user.default_referal
   end
 
   def self.valid_signup?(email, password)
     User.find_by_email(email).valid_password?(password)
+  end
+
+  def self.valid_token?(token)
+    User.find_by_token(token)
+  end
+
+  def default_referal
+    loop do
+      code = App.generate_code
+      break code unless exists?(code: code)
+    end
   end
 
   def generate_token
@@ -81,7 +96,6 @@ protected
   end
 
 private
-
   def set_default_role
     self.role ||= Role.find_by_title('user')
   end

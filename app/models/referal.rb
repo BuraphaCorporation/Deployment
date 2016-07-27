@@ -1,2 +1,0 @@
-class Referal < ApplicationRecord
-end

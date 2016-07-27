@@ -37,6 +37,8 @@ class App < Struct.new(:region, :environment, :version)
     case environment
     when 'staging', 'brick'
       'brick'
+    when 'pop'
+      'dev-pop'
     when 'development'
       'dev'
     end

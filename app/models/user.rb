@@ -11,9 +11,9 @@ class User < ActiveRecord::Base
   has_many :tickets   #, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
-  has_many :referals
+  # has_many :referals
 
-  belongs_to :referer, as: :referals
+  # belongs_to :referer, as: :referals
   belongs_to :role
 
 

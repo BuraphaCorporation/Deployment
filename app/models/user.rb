@@ -12,11 +12,10 @@ class User < ActiveRecord::Base
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
 
-  has_many :referal, through: :user
+  # has_many :referal, through: :user
   # belongs_to :referee, through: :referal
 
   belongs_to :role
-
 
   enum gender: { male: 1, female: 0 }
 
@@ -39,13 +38,6 @@ class User < ActiveRecord::Base
     User.find_by_token(token)
   end
 
-  def default_referal
-    loop do
-      code = App.generate_code
-      break code unless exists?(code: code)
-    end
-  end
-
   def generate_token
     loop do
       token = SecureRandom.base64.tr('+/=', 'Qrt')
@@ -53,8 +45,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def generate_password
-    (0...8).map { ('a'..'z').to_a[rand(26)] }.join
+  def default_referal
+    loop do
+      referal_code = App.generate_code
+      break referal_code unless User.exists?(referal_code: referal_code)
+    end
   end
 
   def management?

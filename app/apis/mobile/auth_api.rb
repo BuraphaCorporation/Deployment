@@ -1,6 +1,5 @@
 class Mobile::AuthAPI < ApplicationAPI
-  include Defaults::Mobile
-  include Entities::Expose
+  # include Entities::Expose
 
   resources :auth do
     desc "Return a user token from signup successfully"
@@ -9,16 +8,17 @@ class Mobile::AuthAPI < ApplicationAPI
       requires :password, type: String, desc: "password of the user"
     end
     post "/signup" do #, root: "user" do
-      if User.where(email: params[:email]).present?
+      user = User.where(email: params[:email])
+      if user.exists?
         present :status, :failure
+        present :data, nil
       else
+        binding.pry
         user = User.create!(email: params[:email], password: params[:password])
         present :status, :success
+        present :data, user.token
       end
-      present :data, user.token
     end
-
-
 
     desc "Return a user token from login"
     params do

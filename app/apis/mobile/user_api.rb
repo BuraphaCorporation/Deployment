@@ -1,6 +1,4 @@
 class Mobile::UserAPI < ApplicationAPI
-  include Defaults::Mobile
-
 
   resources :user do
     desc "return a user"
@@ -15,7 +13,7 @@ class Mobile::UserAPI < ApplicationAPI
         present :status, :failure
       end
 
-      present :data, user, with: Entities::Expose::User
+      present :data, user, with: Entities::UserExpose
     end
 
     desc "details of user"
@@ -34,7 +32,7 @@ class Mobile::UserAPI < ApplicationAPI
         if params[:gender] == 'male' or params[:gender] == 'female'
           user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender])
           present :status, :success
-          present :data, user, with: Entities::Expose::User
+          present :data, user, with: Entities::UserExpose
         else
           present :status, :error
           present :data, "gender has male or female not #{params[:gender]}"

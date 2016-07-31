@@ -1,6 +1,4 @@
 class Mobile::EventAPI < ApplicationAPI
-  include Defaults::Mobile
-
 
   resources :events do
     desc "Return all events"
@@ -15,7 +13,7 @@ class Mobile::EventAPI < ApplicationAPI
       events_today = Event.today
       # if events_today.present?
         present :status, :success
-        present :data, events_today, with: Entities::Expose::EventExpose
+        present :data, events_today, with: Entities::EventExpose
       # else
       #   present :status, :error
       #   present :data, :error
@@ -27,7 +25,7 @@ class Mobile::EventAPI < ApplicationAPI
       events_tomorrow = Event.tomorrow
       # if events_tomorrow.present?
         present :status, :success
-        present :data, events_tomorrow, with: Entities::Expose::EventExpose
+        present :data, events_tomorrow, with: Entities::EventExpose
       # else
       #   present :status, :error
       #   present :data, :error
@@ -39,7 +37,7 @@ class Mobile::EventAPI < ApplicationAPI
       events_upcoming = Event.upcoming
       # if events_upcoming.present?
         present :status, :success
-        present :data, events_upcoming, with: Entities::Expose::EventExpose
+        present :data, events_upcoming, with: Entities::EventExpose
       # else
       #   present :status, :error
       #   present :data, :error
@@ -52,7 +50,7 @@ class Mobile::EventAPI < ApplicationAPI
       category = Category.where(name: params[:title])
       if category.present?
         present :status, :success
-        present :data, category.events, with: Entities::Expose::EventExpose
+        present :data, category.events, with: Entities::EventExpose
       else
         present :status, :error
         present :data, "error"
@@ -68,7 +66,7 @@ class Mobile::EventAPI < ApplicationAPI
     get "/" do
       if params[:event_id].present?
         present :status, :success
-        present :data, Event.find(params[:event_id]), with: Entities::Expose::EventExpose
+        present :data, Event.find(params[:event_id]), with: Entities::EventExpose
       else
         present :status, :error
         present :data, "id not found"
@@ -78,7 +76,7 @@ class Mobile::EventAPI < ApplicationAPI
     desc "return categories"
     get "/categories" do
       present :status, :success
-      present :data, Category.all, with: Entities::Expose::Category
+      present :data, Category.all, with: Entities::CategoryExpose
     end
   end
 end

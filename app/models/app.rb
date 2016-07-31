@@ -94,8 +94,9 @@ class App < Struct.new(:region, :environment, :version)
     'no-reply@daydash.co'
   end
 
-  def generate_code(digit=5)
-    (0...digit).map { ('A'..'Z').to_a[rand(26)] }.join
+  def generate_code(digit = 5)
+    o = [(0..9), ('A'..'Z')].map { |i| i.to_a }.flatten
+    (0...digit).map { o[rand(o.length)] }.join
   end
 
   class << self

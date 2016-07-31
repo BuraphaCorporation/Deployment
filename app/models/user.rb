@@ -30,14 +30,6 @@ class User < ActiveRecord::Base
     user.referal = user.default_referal
   end
 
-  def self.valid_signup?(email, password)
-    User.find_by_email(email).valid_password?(password)
-  end
-
-  def self.valid_token?(token)
-    User.find_by_token(token)
-  end
-
   def generate_token
     loop do
       token = SecureRandom.base64.tr('+/=', 'Qrt')
@@ -83,6 +75,14 @@ class User < ActiveRecord::Base
 
   def self.process_uri(uri)
     open(uri, allow_redirections: :safe) { |r| r.base_uri.to_s }
+  end
+
+  def self.valid_signup?(email, password)
+    User.find_by_email(email).valid_password?(password)
+  end
+
+  def self.valid_token?(token)
+    User.find_by_token(token)
   end
 
 protected

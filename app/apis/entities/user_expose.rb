@@ -8,4 +8,5 @@ class Entities::UserExpose < Grape::Entity
   # expose :avatar do |a|
   #   a.avatar(:medium)
   # end
+  expose :tickets
 end

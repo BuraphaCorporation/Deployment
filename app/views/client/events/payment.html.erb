@@ -1,139 +1,158 @@
+<script>$('body').attr('id', 'payment-page');</script>
 
-<div class="row">
-  <div class="col-sm-4">
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="card">
+<div class="section" id="payment-section">
+	<div class="container">
+		<div class="row">
+
+      <!-- Left side -->
+			<div class="col-xs-12 col-md-4">
+        <div class="event card payment-card">
           <%= link_to client_event_path(@event.id) do %>
-            <%= image_tag @event.galleries.first.try(:media, :thumb), width: '100%', height: :auto, class: 'card-img-top',
-            'data-src': "holder.js/100px180/", 'data-holder-rendered':"true"  %>
+            <% if @event.galleries.present? %>
+              <div class="cover" style="background-image: url(<%= @event.galleries.first.try(:media, :thumb) %>);"></div>
+            <% else %>
+              <div class="cover"></div>
+            <% end %>
           <% end %>
-          <div class="card-block">
-            <h4 class="card-title text-left">
-              <%= link_to @event.title, client_event_path(@event.id) %>
-            </h4>
-            <p class="card-text text-left"><%= @event.sections.first.event_time.to_formatted_s(:short) %></p>
-            <p class="card-text text-left"><%= @event.location %></p>
-          </div>
-          <div class="card-block">
-            <p class="card-text">
-              1 x $1000
-            </p>
-          </div>
-          <div class="card-block">
-            <p class="card-text text-right">
-              Total: $1500
-            </p>
+          <div class="info">
+            <div class="row">
+              <div class="col-xs-12">
+      					<h4 class="title text-left">
+      						<%= link_to @event.title, client_event_path(@event.id) %>
+      					</h4>
+      					<div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
+      					<div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+              </div>
+            </div>
+            <div class="ticket-list">
+              <div class="list-body">
+                <% @tickets.each do |ticket| %>
+              	<div class="ticket row">
+      						<div class="col-xs-8 ticket-title">
+                    <%= ticket[:quantity] %> x ฿ <%= ticket[:price] %> <%= ticket[:title] %>
+      						</div>
+      						<div class="col-xs-4 ticket-price">
+                  ฿ <%= ticket[:price] * ticket[:quantity] %>
+      						</div>
+  			        </div>
+                <% end %>
+              </div>
+              <div class="row list-footer">
+                <div class="col-xs-12">
+                  Total: ฿ <%= @total %>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-8">
-    <div>
+			</div>
 
-      <style>
-        .nav-tabs > li {
-          width: 50%;
-        }
-      </style>
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active text-center">
-          <a href="#credit-card" aria-controls="credit-card" role="tab" data-toggle="tab">Credit Card</a>
-        </li>
-        <li role="presentation" class="text-center">
-          <a href="#bank-transfer" aria-controls="bank-transfer" role="tab" data-toggle="tab">Bank transfer</a>
-        </li>
-      </ul>
-
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="credit-card">
-
-
-          <%= form_tag client_event_checkout_path(@event.id), id: :checkout do  %>
-            <div id="token_errors"></div>
-
-            <input type="hidden" name="omise_token">
-
-            <div>
-              Name<br>
-              <input type="text" data-omise="holder_name">
+      <!-- Right side -->
+			<div class="col-xs-12 col-md-8">
+        <%= form_tag client_event_checkout_path(@event.id), id: :checkout do  %>
+          <input type="hidden" name="event_id" value="<%= @event.id %>" />
+          <div class="form-section" id="general-info-section">
+            <div class="form-section-header">
+              <h2 class="form-sectiont-title">Your Details</h2>
+              <div class="form-section-description">
+                We need a couple details in case something changes.<br />
+                We'll send the tickets to your phone and email.
+              </div>
             </div>
-            <div>
-              Number<br>
-              <input type="text" data-omise="number">
+            <div class="form-section-body row">
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Firstname</label>
+                <input class="form-control" type="text" name="firstname" value="" />
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Lastname</label>
+                <input class="form-control" type="text" name="lastname" value="" />
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>E-mail</label>
+                <input class="form-control" type="email" name="email" value="" />
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Phone Number</label>
+                <input class="form-control" type="text" name="phone" value="" />
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>
+                  <input type="checkbox" name="signup" value="1" />
+                  Signup for Daydash Account for FREE
+                </label>
+              </div>
             </div>
-            <div>
-              Date<br>
-              <input type="text" data-omise="expiration_month" size="4"> /
-              <input type="text" data-omise="expiration_year" size="8">
+          </div>
+          <div class="form-section" id="payment-method-section">
+            <div class="form-section-header">
+              <h2 class="form-section-title">Payment Method</h2>
+              <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab">Credit Card</a></li>
+                <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab">Bank Transfer</a></li>
+              </ul>
             </div>
-            <div>
-              Security Code<br>
-              <input type="text" data-omise="security_code" size="8">
+            <div class="form-section-body">
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="payment-method-credit-card-panel">
+                  <div class="row">
+                    <div class="form-group col-xs-12 col-md-5">
+                      <label>Card Number</label>
+                      <input class="form-control" type="text" name="card_number" value="" />
+                    </div>
+                    <div class="form-group col-xs-12 col-md-4">
+                      <label>Expire Date</label>
+                      <div class="form-inline">
+                        <select class="form-control" name="expire_month">
+                          <option value="">Month</option>
+                          <% (1..12).each do |month| %>
+                          <option value="<%= month %>"><%= month %></option>
+                          <% end %>
+                        </select>
+                        <select class="form-control" name="expire_month">
+                          <option value="">Year</option>
+                          <% (0..50).each do |i| %>
+                          <option value="<%= Time.now.year + i %>"><%= Time.now.year + i %></option>
+                          <% end %>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-3">
+                      <label>CVV</label>
+                      <input class="form-control" type="text" name="cvv" value="" />
+                    </div>
+                  </div>
+                  <div class="form-section-footer">
+                    <div>
+                      <label>
+                        <input type="checkbox" name="accept_policy" value="1" />
+                        I have read and accept Daydash <a href="#">Payment Policy</a>
+                      </label>
+                    </div>
+                    <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" name="payment_method" value="credit_card" >PAY NOW - ฿ <%= @total %></button>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
+                  <ul>
+                    <li>We will provide payment details for you as soon as you click 'place an order'</li>
+                    <li>Please make and confirm payment within 1 hr otherwise your order will be cancelled</li>
+                    <li>Please noted that some events might not accept bank transfer due to the time constrain,<br />please consider make a purchase via credit card instead.</li>
+                  </ul>
+                  <div class="form-section-footer">
+                    <div>
+                      <label>
+                        <input type="checkbox" name="accept_policy" value="1" />
+                        I have read and accept Daydash <a href="#">Payment Policy</a>
+                      </label>
+                    </div>
+                    <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" name="payment_method" value="bank_transfer" >Place an order</button>
+                  </div>
+                </div>
+              </div>              
             </div>
-
-            <input type="submit" id="create_token">
-          <% end %>
-
-
-          <script src="https://cdn.omise.co/omise.js.gz"></script>
-          <script type="text/javascript">
-
-            Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
-
-            $("#checkout").submit(function () {
-
-            var form = $(this);
-
-            // Disable the submit button to avoid repeated click.
-            form.find("input[type=submit]").prop("disabled", true);
-
-            // Serialize the form fields into a valid card object.
-            var card = {
-              "name": form.find("[data-omise=holder_name]").val(),
-              "number": form.find("[data-omise=number]").val(),
-              "expiration_month": form.find("[data-omise=expiration_month]").val(),
-              "expiration_year": form.find("[data-omise=expiration_year]").val(),
-              "security_code": form.find("[data-omise=security_code]").val()
-            };
-
-            // Send a request to create a token then trigger the callback function once
-            // a response is received from Omise.
-            //
-            // Note that the response could be an error and this needs to be handled within
-            // the callback.
-            Omise.createToken("card", card, function (statusCode, response) {
-              if (response.object == "error") {
-                // Display an error message.
-                $("#token_errors").html(response.message);
-
-                // Re-enable the submit button.
-                form.find("input[type=submit]").prop("disabled", false);
-              } else {
-                // Then fill the omise_token.
-                form.find("[name=omise_token]").val(response.id);
-
-                // Remove card number from form before submiting to server.
-                form.find("[data-omise=number]").val("");
-                form.find("[data-omise=security_code]").val("");
-
-                // submit token to server.
-                form.get(0).submit();
-              };
-            });
-
-            // Prevent the form from being submitted;
-            return false;
-
-          });
-          </script>
-        </div>
-        <div role="tabpanel" class="tab-pane" id="bank-transfer">...xxxx</div>
-      </div>
-
-    </div>
-  </div>
+          </div>
+        <% end %>
+			</div>
+		</div>
+	</div>
 </div>

@@ -1,0 +1,350 @@
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-Regular.ttf); }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-Italic.ttf);
+  font-style: italic; }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-Bold.ttf);
+  font-weight: 600; }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-BoldItalic.ttf);
+  font-weight: 600;
+  font-style: italic; }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-Light.ttf);
+  font-weight: 200; }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-LightItalic.ttf);
+  font-weight: 200;
+  font-style: italic; }
+@font-face {
+  font-family: 'Athiti';
+  src: url(../../fonts/Athiti/Athiti-Regular.ttf); }
+@font-face {
+  font-family: 'Athiti';
+  src: url(../../fonts/Athiti/Athiti-Bold.ttf);
+  font-weight: 600; }
+@font-face {
+  font-family: 'Athiti';
+  src: url(../../fonts/Athiti/Athiti-Light.ttf);
+  font-weight: 200; }
+html, body {
+  height: 100%;
+  font-family: "Athiti", "Helvetica Neue", "sans-serif"; }
+
+#topbar .navbar {
+  margin-bottom: 0px; }
+#topbar .navbar-brand {
+  padding: 10px 15px;
+  height: 60px; }
+  #topbar .navbar-brand img {
+    height: 40px; }
+
+#wrapper {
+  position: relative;
+  min-height: 100%; }
+
+#main {
+  min-height: 800px;
+  padding-bottom: 500px; }
+  @media all and (max-width: 991px) {
+    #main {
+      padding-bottom: 785px; } }
+
+#footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: auto;
+  background-color: #333;
+  color: #aaa;
+  padding-bottom: 100px; }
+  #footer .col {
+    margin-top: 80px; }
+  #footer a {
+    color: #aaa; }
+  #footer .list-panel .list-title {
+    margin-bottom: 25px;
+    color: #eee;
+    font-size: 16px; }
+  #footer .list-panel .list-body li a {
+    display: inline-block;
+    width: auto;
+    padding: 0px;
+    font-size: 14px;
+    color: #aaa;
+    margin-bottom: 5px; }
+    #footer .list-panel .list-body li a:hover, #footer .list-panel .list-body li a:active, #footer .list-panel .list-body li a:focus, #footer .list-panel .list-body li a.active {
+      background: transparent; }
+  #footer .social-list {
+    margin-bottom: 15px; }
+    #footer .social-list .list-inline li {
+      margin-right: 15px; }
+  #footer .copyright {
+    margin-top: 50px;
+    margin-bottom: 5px; }
+  #footer .cert-list {
+    margin-top: 50px; }
+
+.icon {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center; }
+
+.icon-xs {
+  width: 16px;
+  height: 16px; }
+
+.icon-facebook {
+  background-image: url(../../images/icons/icon-facebook.png); }
+
+.icon-line {
+  background-image: url(../../images/icons/icon-line.png); }
+
+.icon-instagram {
+  background-image: url(../../images/icons/icon-instagram.png); }
+
+.icon-twitter {
+  background-image: url(../../images/icons/icon-twitter.png); }
+
+.icon-map-pin {
+  background-image: url(../../images/icons/icon-map-pin.png); }
+
+.icon-calendar {
+  background-image: url(../../images/icons/icon-calendar.png); }
+
+.btn-daydash {
+  border-radius: 0px;
+  color: #444; }
+  .btn-daydash:hover, .btn-daydash:active, .btn-daydash:visited, .btn-daydash:link {
+    color: black; }
+
+.btn-daydash-lg {
+  padding: 15px;
+  font-size: 24px; }
+
+.btn-daydash-green-1 {
+  background: linear-gradient(90deg, #00CFD1, #00E9CA);
+  color: white;
+  border: 0px; }
+  .btn-daydash-green-1:hover, .btn-daydash-green-1:active, .btn-daydash-green-1:visited, .btn-daydash-green-1:link {
+    color: white; }
+
+.event.card {
+  margin-bottom: 30px;
+  border-radius: 2px;
+  border: 1px solid #eee;
+  overflow: hidden; }
+  .event.card .cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ccc;
+    height: 250px; }
+  .event.card .info {
+    background-color: #fff;
+    color: #444;
+    padding: 15px;
+    font-size: 16px; }
+    .event.card .info a {
+      color: #444; }
+  .event.card .title {
+    margin-bottom: 25px;
+    height: 64px;
+    font-size: 20px; }
+  .event.card .icon {
+    float: left;
+    margin-top: 1px;
+    margin-right: 5px; }
+  .event.card .meta {
+    margin-bottom: 10px; }
+  .event.card.payment-card .title {
+    height: auto; }
+  .event.card.payment-card .info {
+    padding-bottom: 0px; }
+    .event.card.payment-card .info .row {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee; }
+  .event.card.payment-card .ticket-list .ticket .ticket-price {
+    text-align: right; }
+  .event.card.payment-card .ticket-list .list-footer {
+    text-align: right; }
+
+#index-page #cover-section .slick {
+  margin-bottom: 0px; }
+  #index-page #cover-section .slick .page-cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: black;
+    height: 400px; }
+    #index-page #cover-section .slick .page-cover .caption {
+      margin-top: 150px;
+      text-align: center;
+      color: white;
+      text-shadow: 2px 2px rgba(0, 0, 0, 0.3); }
+      #index-page #cover-section .slick .page-cover .caption .title {
+        font-family: "Kanit", "Helvetica Neue", "sans-serif";
+        font-size: 48px;
+        font-weight: bold; }
+      #index-page #cover-section .slick .page-cover .caption .subtitle {
+        font-size: 24px; }
+#index-page #event-section {
+  background-color: #fcfcfc;
+  padding-top: 30px;
+  padding-bottom: 30px; }
+  #index-page #event-section .nav {
+    margin-bottom: 15px; }
+    #index-page #event-section .nav li a, #index-page #event-section .nav li a:visited, #index-page #event-section .nav li a:link, #index-page #event-section .nav li a:active {
+      background: transparent;
+      padding-bottom: 2px;
+      color: #aaa; }
+      #index-page #event-section .nav li a:hover, #index-page #event-section .nav li a:visited:hover, #index-page #event-section .nav li a:link:hover, #index-page #event-section .nav li a:active:hover {
+        color: #444; }
+    #index-page #event-section .nav li.active a {
+      border-radius: 0px;
+      background: transparent;
+      color: #444;
+      border-bottom: 3px solid #00CFD1; }
+  #index-page #event-section .event-list {
+    padding-top: 15px; }
+
+#event-page #cover-section {
+  position: relative;
+  height: 550px;
+  background: linear-gradient(90deg, #EFEBEA, #E1CEC6); }
+  #event-page #cover-section .cover {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 -50px 100px -30px rgba(0, 0, 0, 0.7); }
+  #event-page #cover-section .info {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    height: auto;
+    padding-bottom: 30px; }
+    #event-page #cover-section .info .title {
+      margin-bottom: 15px;
+      font-size: 40px;
+      color: white;
+      text-shadow: 1px 1px rgba(0, 0, 0, 0.3); }
+    #event-page #cover-section .info .btn-daydash {
+      margin-top: 50px;
+      width: 300px; }
+  #event-page #cover-section .right {
+    padding-left: 0px; }
+#event-page #info-section {
+  padding-top: 45px;
+  padding-bottom: 60px; }
+  #event-page #info-section .meta {
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    font-size: 16px; }
+    #event-page #info-section .meta .icon {
+      float: left;
+      margin-top: 1px;
+      margin-right: 5px; }
+  #event-page #info-section .description {
+    margin-bottom: 50px;
+    font-size: 16px;
+    line-height: 1.8em; }
+  #event-page #info-section .gallery {
+    margin-left: -5px;
+    margin-right: -5px; }
+    #event-page #info-section .gallery .col {
+      padding-left: 5px;
+      padding-right: 5px; }
+    #event-page #info-section .gallery .image {
+      display: block;
+      height: 150px;
+      margin-bottom: 10px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: #ccc; }
+  #event-page #info-section .btn-daydash-lg {
+    margin-bottom: 15px; }
+  #event-page #info-section .map-panel {
+    margin-bottom: 15px;
+    border-radius: 2px;
+    background: #eee; }
+    #event-page #info-section .map-panel #google-map {
+      width: 100%;
+      height: 400px; }
+  #event-page #info-section .social-panel {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 2px;
+    border: 1px solid #eee; }
+    #event-page #info-section .social-panel .btn-daydash {
+      margin-bottom: 5px; }
+    #event-page #info-section .social-panel .social-list {
+      text-align: center; }
+      #event-page #info-section .social-panel .social-list * {
+        vertical-align: text-top; }
+
+#payment-page .form-section-description {
+  margin-bottom: 15px; }
+#payment-page #payment-method-section .nav-tabs {
+  margin-bottom: 15px;
+  border-bottom: 0px; }
+  #payment-page #payment-method-section .nav-tabs li {
+    margin-bottom: 0px;
+    width: 50%; }
+    #payment-page #payment-method-section .nav-tabs li a {
+      border: 1px solid #444;
+      text-align: center;
+      border-radius: 0px;
+      color: #444; }
+    #payment-page #payment-method-section .nav-tabs li.active a {
+      font-weight: bold; }
+#payment-page #payment-method-section select.form-control {
+  width: 45%; }
+#payment-page #payment-method-section .form-section-footer {
+  margin-top: 30px; }
+  #payment-page #payment-method-section .form-section-footer .btn {
+    margin-top: 15px; }
+
+#payment-complete-page #credit-card-inform-section {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center; }
+#payment-complete-page #bank-transfer-inform-section {
+  padding-top: 50px;
+  padding-bottom: 50px; }
+  #payment-complete-page #bank-transfer-inform-section .section-title {
+    text-align: center; }
+  #payment-complete-page #bank-transfer-inform-section .container {
+    max-width: 600px; }
+
+#related-event-section {
+  padding-top: 40px;
+  padding-bottom: 50px;
+  background: #fcfcfc;
+  border-top: 1px solid #eee; }
+  #related-event-section .section-header {
+    margin-bottom: 20px;
+    text-align: center; }
+    #related-event-section .section-header .section-title {
+      font-size: 30px; }
+
+/*# sourceMappingURL=home.css.map */

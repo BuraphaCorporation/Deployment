@@ -6,16 +6,16 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
+  belongs_to :role
+
   has_many :events    #, dependent: :destroy
   has_many :payments  #, dependent: :destroy
   has_many :tickets   #, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
 
-  # has_many :referal, through: :user
-  # belongs_to :referee, through: :referal
-
-  belongs_to :role
+  belongs_to :referrer, class_name: 'User', inverse_of: :referrals
+  has_many :referrals, class_name: 'User', foreign_key: :referrer_id, inverse_of: :referrer
 
   enum gender: { male: 1, female: 0 }
 

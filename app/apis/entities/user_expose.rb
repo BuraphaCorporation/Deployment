@@ -8,5 +8,6 @@ class Entities::UserExpose < Grape::Entity
   # expose :avatar do |a|
   #   a.avatar(:medium)
   # end
+  expose :referal_code
   expose :tickets
 end

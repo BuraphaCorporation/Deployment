@@ -156,10 +156,10 @@ ActiveRecord::Schema.define(version: 20160729164853) do
     t.datetime "avatar_updated_at"
     t.string   "token"
     t.string   "referal_code"
-    t.integer  "referal"
+    t.integer  "referrer_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["referal"], name: "index_users_on_referal", using: :btree
+    t.index ["referrer_id"], name: "index_users_on_referrer_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["role_id"], name: "index_users_on_role_id", using: :btree
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree

@@ -1,0 +1,53 @@
+<script>$('body').attr('id', 'payment-complete-page');</script>
+
+<div class="section" id="bank-transfer-inform-section">
+  <div class="container">
+    <h2 class="section-title">Order Received</h2>
+    <div>You have reserve tickets for <%= link_to @event.title, client_event_path(@event.id) %></div>
+    <ul>
+      <li>Your payment transfer code is : XX123</li>
+      <li>Please transfer and confirm within 1 hr otherwise your order will be cancelled.</li>
+      <li>We have sent you how to pay to your email</li>
+    </ul>
+
+    <div>Please follow following steps to complete your order:</div>
+    <ol>
+      <li>Transfer to xxxx xxxxx</li>
+      <li>Send payment detail with payment transfer code: XX123 via our chat room on the right side</li>
+      <li>Your ticket will be confirmed within 1 hr after we got payment inform</li>
+      <li>You can check your ticket status at <a href="#">My Tickets</a></li>
+    </ol>
+
+    <div>If you have any question please feel free to contact us: <a href="#">chat</a></div>
+  </div>
+</div>
+
+<div class="section" id="related-event-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-title">Similar Events</div>
+    </div>
+    <div class="row event-list">
+      <% @related_events.each do |event| %>
+        <div class="col-sm-6 col-md-4">
+          <div class="event card">
+            <%= link_to client_event_path(event.id) do %>
+              <% if event.galleries.present? %>
+                <div class="cover" style="background-image: url(<%= event.galleries.first.try(:media, :thumb) %>);"></div>
+              <% else %>
+                <div class="cover"></div>
+              <% end %>
+            <% end %>
+            <div class="info">
+              <h4 class="title text-left">
+                <%= link_to event.title, client_event_path(event.id) %>
+              </h4>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
+              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

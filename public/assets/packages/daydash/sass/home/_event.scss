@@ -1,0 +1,200 @@
+#event-page {
+	#cover-section {
+		position: relative;
+		height: 550px;
+		background: linear-gradient(90deg, #EFEBEA, #E1CEC6);
+
+
+		.cover {
+			position: absolute;
+			top: 0px; right: 0px; left: 0px; bottom: 0px;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+
+			box-shadow: inset 0 -50px 100px -30px rgba(0,0,0,0.7);
+		}
+
+		.info {
+			position: absolute;
+			left: 0px; bottom: 0px; right: 0px; height: auto;
+			padding-bottom: 30px;
+
+			.title {
+				margin-bottom: 15px;
+				font-size: 40px;
+				color: white;
+				text-shadow: 1px 1px rgba(0,0,0,0.3);
+			}
+
+
+			.btn-daydash {
+				margin-top: 50px;
+				width: 300px;
+			}
+		}
+		.right {
+			padding-left: 0px;
+		}
+	}
+
+	#info-section {
+		padding-top: 45px;
+		padding-bottom: 60px;
+
+		.meta {
+			float: left;
+			margin-right: 15px;
+			margin-bottom: 10px;
+			font-size: 16px;
+
+			.icon {
+				float: left;
+				margin-top: 1px;
+				margin-right: 5px;
+			}
+		}
+
+		.description {
+			margin-bottom: 50px;
+			font-size: 16px;
+			line-height: 1.8em;
+		}
+
+		.gallery {
+			margin-left: -5px;
+			margin-right: -5px;
+
+			.col {
+				padding-left: 5px;
+				padding-right: 5px;
+			}
+
+			.image {
+				display: block;
+				height: 150px;
+				margin-bottom: 10px;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-color: #ccc;
+			}
+		}
+
+		.btn-daydash-lg {
+			margin-bottom: 15px;
+		}
+
+		.map-panel {
+			margin-bottom: 15px;
+			border-radius: 2px;
+			background: #eee;
+
+			#google-map {
+				width: 100%;
+				height: 400px;
+			}
+		}
+
+
+		.social-panel {
+			padding-top: 15px;
+			padding-bottom: 15px;
+			border-radius: 2px;
+			border: 1px solid #eee;
+
+			.btn-daydash {
+				margin-bottom: 5px;
+			}
+
+			.social-list {
+				text-align: center;
+
+				* {
+					vertical-align: text-top;
+				}
+			}
+		}
+	}
+}
+
+#payment-page {
+	.form-section-description {
+		margin-bottom: 15px;
+	}
+
+	#payment-method-section {
+		.nav-tabs {
+			margin-bottom: 15px;
+			border-bottom: 0px;
+
+			li {
+				margin-bottom: 0px;
+				width: 50%;
+
+				a {
+					border: 1px solid #444;
+					text-align: center;
+					border-radius: 0px;
+					color: #444;
+				}
+
+				&.active {
+					a {
+						font-weight: bold;
+					}
+				}
+
+			}
+		}
+
+		select.form-control {
+			width: 45%;
+		}
+
+		.form-section-footer {
+			margin-top: 30px;
+
+			.btn {
+				margin-top: 15px;
+			}
+		}
+
+	}
+}
+
+#payment-complete-page {
+	#credit-card-inform-section {
+		padding-top: 50px;
+		padding-bottom: 50px;
+		text-align: center;
+	}
+
+	#bank-transfer-inform-section {
+		padding-top: 50px;
+		padding-bottom: 50px;
+
+		.section-title {
+			text-align: center;
+		}
+		.container {
+			max-width: 600px;
+		}
+	}
+}
+
+#related-event-section {
+	padding-top: 40px;
+	padding-bottom: 50px;
+	background: $bg-color2;
+	border-top: 1px solid #eee;
+
+	.section-header {
+		margin-bottom: 20px;
+		text-align: center;
+
+		.section-title {
+			font-size: 30px;
+		}
+	}
+}

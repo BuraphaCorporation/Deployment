@@ -1,0 +1,68 @@
+#index-page {
+	#cover-section {
+		.slick {
+			margin-bottom: 0px;
+
+			.page-cover {
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-color: black;
+				height: 400px;
+
+				.caption {
+					margin-top: 150px;
+					text-align: center;
+					color: white;
+					text-shadow: 2px 2px rgba(0,0,0,0.3);
+
+					.title {
+						font-family: $font-kanit;
+						font-size: 48px;
+						font-weight: bold;
+					}
+
+					.subtitle {
+						font-size: 24px;
+					}
+				}
+			}
+		}
+	}
+
+	#event-section {
+		background-color: $bg-color2;
+		padding-top: 30px;
+		padding-bottom: 30px;
+
+		.nav {
+			margin-bottom: 15px;
+
+			li {
+				a, a:visited, a:link, a:active  {
+					background: transparent;
+					padding-bottom: 2px;
+					color: #aaa;
+
+					&:hover {
+						color: #444;
+					}
+				}
+
+				&.active {
+					a {
+						border-radius: 0px;
+						background: transparent;
+						color: #444;
+						border-bottom: 3px solid $main-color;
+					}
+				}
+			}
+		}
+
+		.event-list {
+			padding-top: 15px;
+
+		}
+	}
+}

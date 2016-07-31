@@ -1,18 +1,17 @@
-module Mobile
-  module Defaults
+module Defaults
+  module Mobile
     extend ActiveSupport::Concern
 
     included do
-      # prefix ""
-      version "mobile", using: :path #, vendor: 'api'
+      # prefix "/"
+      version "mobile", using: :path, vendor: 'api'
       default_format :json
       format :json
       formatter :json, Grape::Formatter::ActiveModelSerializers
 
       helpers do
         def permitted_params
-          @permitted_params ||= declared(params,
-             include_missing: false)
+          @permitted_params ||= declared(params, include_missing: false)
         end
 
         def logger

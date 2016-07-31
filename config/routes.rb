@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   end
 
   constraints(subdomain: App.api_host) do
-    mount API, at: "/"
+    mount MobileAPI, at: "/"
     mount GrapeSwaggerRails::Engine, at: "/documentation"
     # scope module: 'api' do
     #   namespace :v1 do

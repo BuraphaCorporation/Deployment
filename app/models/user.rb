@@ -11,9 +11,10 @@ class User < ActiveRecord::Base
   has_many :tickets   #, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
-  # has_many :referals
 
-  # belongs_to :referer, as: :referals
+  has_many :referal, through: :user
+  # belongs_to :referee, through: :referal
+
   belongs_to :role
 
 

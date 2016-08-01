@@ -17,14 +17,14 @@ class Client::EventsController < Client::CoreController
   end
 
   def show
-    @event = Event.find(params[:id])
+    @event = Event.friendly.find(params[:id])
 
     @related_events = Event.all.first(3)
 
   end
 
   def payment
-    @event = Event.find(params[:event_id])
+    @event = Event.friendly.find(params[:event_id])
 
     @tickets = [
       { title: 'VIP',     price: 1000, quantity: 1 },
@@ -35,7 +35,7 @@ class Client::EventsController < Client::CoreController
   end
 
   def checkout
-    @event = Event.find(params[:event_id])
+    @event = Event.friendly.find(params[:event_id])
     @related_events = Event.all.first(3)
 
     if params[:payment_method] == 'credit_card'

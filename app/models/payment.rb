@@ -21,7 +21,7 @@ class Payment < ActiveRecord::Base
 
     def omise(user_token, event, charge)
       user = User.find_by_token(user_token)
-      event = Event.find(event)
+      event = Event.friendly.find(event)
 
       transaction = Omise::Transaction.retrieve(charge.transaction.id)
 
@@ -32,14 +32,14 @@ class Payment < ActiveRecord::Base
 
     def transfer(user_token, event, evidence, amount)
       user = User.find_by_token(user_token)
-      event = Event.find(event)
+      event = Event.friendly.find(event)
 
       create(status: :pending, user: user, event: event, evidence: evidence, amount: amount)
     end
 
     def transfer_notify(user_token, event)
       user = User.find_by_token(user_token)
-      event = Event.find(event)
+      event = Event.friendly.find(event)
 
       create(status: :pending, user: user, event: event)
     end

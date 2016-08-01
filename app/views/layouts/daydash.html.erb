@@ -59,14 +59,14 @@
     <%= csrf_meta_tags %>
 
 
-    <link rel="stylesheet" href="/assets/packages/font-awesome-4.5.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/src/packages/font-awesome-4.5.0/css/font-awesome.min.css" />
 
-    <link rel="stylesheet" href="/assets/packages/bootstrap-3.3.6/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/assets/packages/bootstrap-3.3.6/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="/assets/packages/daydash/home.css" />
+    <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="/src/packages/daydash/home.css" />
 
-    <script src="/assets/packages/jquery/jquery-2.2.2.min.js"></script>
-    <script src="/assets/packages/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script src="/src/packages/jquery/jquery-2.2.2.min.js"></script>
+    <script src="/src/packages/bootstrap-3.3.6/js/bootstrap.min.js"></script>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -76,7 +76,7 @@
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="fa fa-navmenu"></i></button>
-              <a class="navbar-brand" href="/"><img src="/assets/images/theme/logo.png" /></a>
+              <a class="navbar-brand" href="/"><img src="/src/images/theme/logo.png" /></a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
@@ -85,7 +85,7 @@
               </ul>
             </div>
           </div>
-        </nav>    
+        </nav>
       </div>
       <div id="main">
         <%= yield %>
@@ -135,8 +135,8 @@
             <div class="col col-xs-12 col-md-3">
               <div class="list-panel">
                 <ul class="list-body list-inline">
-                  <li><a href="#"><img src="/assets/images/theme/appstore.png" height="40" /></a></li>
-                  <li><a href="#"><img src="/assets/images/theme/playstore.png" height="40" /></a></li>
+                  <li><a href="#"><img src="/src/images/theme/appstore.png" height="40" /></a></li>
+                  <li><a href="#"><img src="/src/images/theme/playstore.png" height="40" /></a></li>
                 </ul>
               </div>
 
@@ -149,9 +149,9 @@
               </div>
 
               <div class="cert-list">
-                <img src="/assets/images/theme/comodo.png" height="30" />
-                <img src="/assets/images/theme/visa_master.png" height="30"/>
-                <img src="/assets/images/theme/mixpanel.png" height="30"/>
+                <img src="/src/images/theme/comodo.png" height="30" />
+                <img src="/src/images/theme/visa_master.png" height="30"/>
+                <img src="/src/images/theme/mixpanel.png" height="30"/>
               </div>
             </div>
           </div>
@@ -167,7 +167,7 @@
         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=589404977838310";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-    </script>  
+    </script>
   </body>
 </html>
 <% end %>

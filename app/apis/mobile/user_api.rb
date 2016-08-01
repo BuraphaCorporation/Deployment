@@ -1,4 +1,5 @@
 class Mobile::UserAPI < ApplicationAPI
+  include Defaults::Mobile
 
   resources :user do
     desc "return a user"

@@ -1,4 +1,5 @@
 class Mobile::EventAPI < ApplicationAPI
+  include Defaults::Mobile
 
   resources :events do
     desc "Return all events"

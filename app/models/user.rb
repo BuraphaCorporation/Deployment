@@ -7,15 +7,16 @@ class User < ActiveRecord::Base
          :omniauthable, omniauth_providers: [:facebook]
 
   belongs_to :role
+  belongs_to :referrer, class_name: 'User', inverse_of: :referrals
 
   has_many :events    #, dependent: :destroy
   has_many :payments  #, dependent: :destroy
   has_many :tickets   #, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
-
-  belongs_to :referrer, class_name: 'User', inverse_of: :referrals
   has_many :referrals, class_name: 'User', foreign_key: :referrer_id, inverse_of: :referrer
+
+  # has_one :token, { order 'created_at DESC' }, class_name: Doorkeeper::AccessToken, foreign_key: :resource_owner_id
 
   enum gender: { male: 1, female: 0 }
 

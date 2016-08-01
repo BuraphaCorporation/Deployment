@@ -1,5 +1,5 @@
 class Mobile::TagAPI < ApplicationAPI
-  # include Entities::Expose
+  include Defaults::Mobile
 
   resources :tags do
     desc "Return all tags"

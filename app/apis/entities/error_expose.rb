@@ -1,5 +1,5 @@
 module Entities
-  class Error < Grape::Entity
+  class ErrorExpose < Grape::Entity
     expose :code
     expose :message
   end

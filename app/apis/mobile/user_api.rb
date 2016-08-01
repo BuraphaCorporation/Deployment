@@ -61,21 +61,68 @@ class Mobile::UserAPI < ApplicationAPI
     get '/tickets' do
       tickets = User.find_by_token(params[:user_token]).try(:tickets)
 
-      if wishlists.present?
+      if tickets.present?
         present :status, :success
       else
         present :status, :failure
       end
+      present :data, tickets
     end
 
+    # desc "post ticket"
+    # params do
+    #   requires :user_token, type: String, desc: "token of the user"
+    #   requires :event_id, type: Integer, desc: "event_id"
+    # end
+    # post '/ticket' do
+    #   begin
+    #     user = User.find_by_token(params[:user_token])
+    #     event = Event.find(params[:event_id])
+    #
+    #     if Wishlist.where(user_id: user.id, event_id: params[:event_id]).empty?
+    #       wishlist = Wishlist.create(user_id: user.id, event_id: event.id)
+    #
+    #       if wishlist.present?
+    #         present :status, :success
+    #       else
+    #         present :status, :failure
+    #       end
+    #       present :data, wishlist
+    #     else
+    #       # binding.pry
+    #       present :status, :success
+    #       present :data, user, with: Entities::UserWishlistExpose
+    #     end
+    #   rescue
+    #     present :status, :failure
+    #     present :data, nil
+    #   end
+    # end
+    #
+    # desc "delete ticket"
+    # params do
+    #   requires :user_token, type: String, desc: "token of the user"
+    #   requires :event_id, type: Integer, desc: "event_id"
+    # end
+    # delete '/ticket' do
+    #   begin
+    #     user = User.find_by_token(params[:user_token])
+    #     event = Event.find(params[:event_id])
+    #     wishlist = Wishlist.where(user_id: user.id, event_id: event.id).destroy_all
+    #     present :status, :success
+    #     present :data, [ wishlisted: false ]
+    #   rescue
+    #     present :status, :failure
+    #     present :data, nil
+    #   end
+    # end
 
     desc "return all wishlist by user"
     params do
       requires :user_token, type: String, desc: "token of the user"
     end
     get '/wishlists' do
-      binding.pry
-      wishlists = User.where(token: params[:user_token]).try(:wishlists)
+      wishlists = User.find_by_token(params[:user_token]).try(:wishlists)
 
       if wishlists.present?
         present :status, :success

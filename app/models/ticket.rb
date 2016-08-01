@@ -17,8 +17,8 @@ class Ticket < ActiveRecord::Base
       end
     end
 
-    def create_ticket(event, user, payment)
-      create(status: 1, event: event, user: user, payment: payment)
+    def create_ticket(user, event, payment)
+      create(status: 1, event_id: event.id, user_id: user.id, payment_id: payment.id)
     end
 
     def consume_ticket(ticket)

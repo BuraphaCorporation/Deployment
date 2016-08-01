@@ -7,7 +7,7 @@
 #     end
 #
 #     def show
-#       render json: Event.find(params[:id])
+#       render json: Event.friendly.find(params[:id])
 #     end
 #   end
 # end

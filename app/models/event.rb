@@ -1,5 +1,7 @@
-
 class Event < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   belongs_to :user
   belongs_to :category
 
@@ -10,15 +12,14 @@ class Event < ActiveRecord::Base
   has_many :sections, dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
 
-  scope :today, -> { joins(:sections).where("sections.event_time": Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
-  scope :tomorrow, -> { joins(:sections).where("sections.event_time": Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
+  scope :today,    -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
+  scope :tomorrow, -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming, -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
 
   after_create :set_organizer
 
-
   private
     def set_organizer
-      self.user ||= User.find_by_email("hello@daydash.co")
+      self.user ||= User.find_by_email('hello@daydash.co')
     end
 end

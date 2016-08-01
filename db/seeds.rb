@@ -4,8 +4,13 @@
   Role.find_or_create_by({title: role})
 end
 
-['Nightlife / Entertainment', 'Art & Culture', 'Sport & Wellness', 'Food & Drink'].each do |category|
-  Category.find_or_create_by({title: category})
+{
+  'nightlife-and-entertainment': 'Nightlife / Entertainment',
+  'art-and-culture': 'Art & Culture',
+  'sport-and-wellness': 'Sport & Wellness',
+  'food-and-drink': 'Food & Drink'
+}.map do |key, value|
+  Category.find_or_create_by({name: key, title: value})
 end
 
 ['food', 'music', 'theatre', 'movies', 'bars', 'party', 'comedy', 'shows', 'live', 'beer', 'wine', 'drinks dance', 'dj', 'jazz', 'adventure', 'sports', 'fitness', 'festival', 'outdoors', 'gym', 'culture', 'performance', 'film', 'hipster', 'art', 'design', 'exhibition', 'photography', 'wellness', 'healthy', 'games', 'extreme', 'relaxing',

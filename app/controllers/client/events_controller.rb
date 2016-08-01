@@ -1,9 +1,14 @@
 class Client::EventsController < Client::CoreController
 
   def index
-    @events = Event.all
-
+    @category  = Category.all
     @galleries = Gallery.all.shuffle.first(5)
+
+    @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])
+      Category.friendly.find(params[:category]).events
+    else
+      Event.all
+    end
 
     @covers = [
       { image: '/src/images/content/cover-1.jpg', caption: '<h1 class="title">เพราะเราเชื่อว่า ชีวิตไม่ได้มีด้านเดียว</h1><div class="subtitle">ค้นพบกิจกรรมและอีเว้นท์เจ๋งๆ พร้อมสัมผัสประสบการณ์ใหม่ๆ ได้ที่นี่</div>' },
@@ -12,14 +17,14 @@ class Client::EventsController < Client::CoreController
   end
 
   def show
-    @event = Event.find(params[:id])
+    @event = Event.friendly.find(params[:id])
 
     @related_events = Event.all.first(3)
 
   end
 
   def payment
-    @event = Event.find(params[:event_id])
+    @event = Event.friendly.find(params[:event_id])
 
     @tickets = [
       { title: 'VIP',     price: 1000, quantity: 1 },
@@ -30,7 +35,7 @@ class Client::EventsController < Client::CoreController
   end
 
   def checkout
-    @event = Event.find(params[:event_id])
+    @event = Event.friendly.find(params[:event_id])
     @related_events = Event.all.first(3)
 
     if params[:payment_method] == 'credit_card'

@@ -16,11 +16,16 @@
   <div class="container">
     <ul class="nav nav-pills">
       <li class="active"><a href="#">ALL</a></li>
-      <li><a href="#">ENTERTAINMENT</a></li>
+      <!-- <li><a href="#">ENTERTAINMENT</a></li>
       <li><a href="#">OUTDOOR&amp;ADVENTURE</a></li>
       <li><a href="#">FITNESS</a></li>
       <li><a href="#">WORKSHOPS</a></li>
-      <li><a href="#">FOOD&amp;DRINK</a></li>
+      <li><a href="#">FOOD&amp;DRINK</a></li> -->
+      <% @category.each do |category| %>
+        <li>
+          <%= link_to category.title, client_categories_path(category.title)  %>
+        </li>
+      <% end %>
       <!--li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
         <ul class="dropdown-menu">

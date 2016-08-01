@@ -15,11 +15,12 @@ Rails.application.routes.draw do
       }
 
     root 'client/events#index'
-    namespace :client, path: '' do
+    namespace :client, path: nil do
       resources :events, only: [:index, :show] do
         get '/payment', to: 'events#payment'
         post '/checkout', to: 'events#checkout'
       end
+      get 'categories/:category', to: 'events#index', as: :categories
       # resources :payment, only: [:index, :show, :create, :new]
     end
 

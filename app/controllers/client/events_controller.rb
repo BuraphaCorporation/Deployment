@@ -1,9 +1,14 @@
 class Client::EventsController < Client::CoreController
 
   def index
-    @events = Event.all
-
+    @category  = Category.all
     @galleries = Gallery.all.shuffle.first(5)
+
+    @events = if @category.pluck(:title).include?(params[:category])
+      Category.find_by_title(params[:category]).events
+    else
+      Event.all
+    end
 
     @covers = [
       { image: '/assets/images/content/cover-1.jpg', caption: '<h1 class="title">เพราะเราเชื่อว่า ชีวิตไม่ได้มีด้านเดียว</h1><div class="subtitle">ค้นพบกิจกรรมและอีเว้นท์เจ๋งๆ พร้อมสัมผัสประสบการณ์ใหม่ๆ ได้ที่นี่</div>' },

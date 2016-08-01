@@ -43,16 +43,54 @@ class Mobile::UserAPI < ApplicationAPI
       end
     end
 
-    desc "action tag"
+    desc "change password"
+    params do
+      requires :user_token, type: String, desc: "token of the user"
+      requires :password, type: String, desc: "token of the user"
+    end
+    put 'change_password' do
+      begin
+        User.find_by_token(params[:token]).update(password: params[:password])
+        present :status, :success
+        present :data, nil
+      rescue
+        present :status, :failure
+        present :data, nil
+      end
+    end
+
+    desc "action referal"
     params do
       requires :user_token, type: String, desc: "token of the user"
       requires :referal_code, type: String, desc: "token of the user"
     end
     post '/referal' do
-      # { params: params.slice(:comments), declared: declared(params) }
-      # binding.pry
-      present :status, :success
+      begin
+        User.find_by_token(params[:token]).update(referal_code: params[:referal_code])
+        present :status, :success
+        present :data, nil
+      rescue
+        present :status, :failure
+        present :data, nil
+      end
+    end
+
+    desc "action notification"
+    params do
+      requires :user_token, type: String, desc: "token of the user"
+      # requires :password, type: String, desc: "token of the user"
+    end
+    put 'change_password' do
+      present :status, :waiting
       present :data, nil
+      # begin
+      #   User.find_by_token(params[:token]).update(password: params[:password])
+      #   present :status, :success
+      #   present :data, nil
+      # rescue
+      #   present :status, :failure
+      #   present :data, nil
+      # end
     end
 
     desc "action tag"

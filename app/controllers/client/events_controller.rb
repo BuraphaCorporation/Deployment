@@ -4,8 +4,8 @@ class Client::EventsController < Client::CoreController
     @category  = Category.all
     @galleries = Gallery.all.shuffle.first(5)
 
-    @events = if @category.pluck(:title).include?(params[:category])
-      Category.find_by_title(params[:category]).events
+    @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])
+      Category.friendly.find(params[:category]).events
     else
       Event.all
     end

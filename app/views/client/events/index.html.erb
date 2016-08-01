@@ -15,7 +15,7 @@
 <div class="section" id="event-section">
   <div class="container">
     <ul class="nav nav-pills">
-      <li class="active"><a href="#">ALL</a></li>
+      <li class="active"><a href="/">ALL</a></li>
       <!-- <li><a href="#">ENTERTAINMENT</a></li>
       <li><a href="#">OUTDOOR&amp;ADVENTURE</a></li>
       <li><a href="#">FITNESS</a></li>
@@ -23,7 +23,7 @@
       <li><a href="#">FOOD&amp;DRINK</a></li> -->
       <% @category.each do |category| %>
         <li>
-          <%= link_to category.title, client_categories_path(category.title)  %>
+          <%= link_to category.title, client_category_path(category.name)  %>
         </li>
       <% end %>
       <!--li class="dropdown">

@@ -20,7 +20,7 @@ Rails.application.routes.draw do
         get '/payment', to: 'events#payment'
         post '/checkout', to: 'events#checkout'
       end
-      get 'categories/:category', to: 'events#index', as: :categories
+      get 'categories/:category', to: 'events#index', as: :category
       # resources :payment, only: [:index, :show, :create, :new]
     end
 

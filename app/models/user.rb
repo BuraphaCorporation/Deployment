@@ -26,8 +26,8 @@ class User < ActiveRecord::Base
 
   before_create :set_default_role
   before_create do |user|
-    user.token   = user.generate_token
-    user.referal = user.default_referal
+    user.token        = user.generate_token
+    user.referal_code = user.default_referal
   end
 
   def generate_token

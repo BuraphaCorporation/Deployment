@@ -2,7 +2,7 @@ class Client::EventsController < Client::CoreController
 
   def index
     @category  = Category.all
-    @galleries = Gallery.all.shuffle.first(5)
+    @cover = Gallery.all.shuffle.first(5)
 
     @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])
       Category.friendly.find(params[:category]).events
@@ -18,9 +18,7 @@ class Client::EventsController < Client::CoreController
 
   def show
     @event = Event.friendly.find(params[:id])
-
     @related_events = Event.all.first(3)
-
   end
 
   def payment

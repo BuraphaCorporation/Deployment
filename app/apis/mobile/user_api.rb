@@ -34,33 +34,13 @@ class Mobile::UserAPI < ApplicationAPI
           present :status, :success
           present :data, user, with: Entities::UserExpose
         else
-          present :status, :error
+          present :status, :failure
           present :data, "gender has male or female not #{params[:gender]}"
         end
       else
         present :status, :failure
       end
     end
-
-    desc "return event by tag"
-    params do
-      requires :user_token, type: String, desc: "token of the user"
-    end
-    get '/tickets' do
-      tickets = User.find_by_token(params[:user_token]).tags
-      if tickets.present?
-        present :status, :success
-        present :data, tickets
-      else
-        present :status, :error
-        present :data, "error"
-      end
-    end
-
-    # desc "return all tags"
-    # get '/tags' do
-    #   present :tags, Tag.all
-    # end
 
     desc "action tag"
     params do
@@ -73,12 +53,29 @@ class Mobile::UserAPI < ApplicationAPI
       # present :status, 'wating'
     end
 
+    desc "return all tag by user"
+    params do
+      requires :user_token, type: String, desc: "token of the user"
+    end
+    get '/tickets' do
+      tickets = User.find_by_token(params[:user_token]).try(:tickets)
+
+      if wishlists.present?
+        present :status, :success
+      else
+        present :status, :failure
+      end
+    end
+
+
     desc "return all wishlist by user"
     params do
-      requires :user_id, type: Integer, desc: "user_id"
+      requires :user_token, type: String, desc: "token of the user"
     end
     get '/wishlists' do
-      wishlists = User.find(params[:user_id]).try(:wishlists)
+      binding.pry
+      wishlists = User.where(token: params[:user_token]).try(:wishlists)
+
       if wishlists.present?
         present :status, :success
       else
@@ -89,35 +86,52 @@ class Mobile::UserAPI < ApplicationAPI
 
     desc "post wishlist"
     params do
-      requires :user_id, type: Integer, desc: "user_id"
+      requires :user_token, type: String, desc: "token of the user"
       requires :event_id, type: Integer, desc: "event_id"
     end
     post '/wishlist' do
-      wishlist = Wishlists.where(user_id: params[:user_id], event_id: params[:event_id]).create!
+      begin
+        user = User.find_by_token(params[:user_token])
+        event = Event.find(params[:event_id])
 
-      if wishlist.present?
-        present :status, :success
-      else
+        if Wishlist.where(user_id: user.id, event_id: params[:event_id]).empty?
+          wishlist = Wishlist.create(user_id: user.id, event_id: event.id)
+
+          if wishlist.present?
+            present :status, :success
+          else
+            present :status, :failure
+          end
+          present :data, wishlist
+        else
+          # binding.pry
+          present :status, :success
+          present :data, user, with: Entities::UserWishlistExpose
+        end
+      rescue
         present :status, :failure
+        present :data, nil
       end
-      present :data, wishlist
     end
 
     desc "delete wishlist"
     params do
-      requires :user_id, type: Integer, desc: "user_id"
+      requires :user_token, type: String, desc: "token of the user"
       requires :event_id, type: Integer, desc: "event_id"
     end
     delete '/wishlist' do
-      wishlist = Wishlists.where(user_id: params[:user_id], event_id: params[:event_id]).destroy_all
-
-      if wishlist.present?
+      begin
+        user = User.find_by_token(params[:user_token])
+        event = Event.find(params[:event_id])
+        wishlist = Wishlist.where(user_id: user.id, event_id: event.id).destroy_all
         present :status, :success
-      else
+        present :data, [ wishlisted: false ]
+      rescue
         present :status, :failure
+        present :data, nil
       end
-      present :data, wishlist
     end
+
 
   end
 end

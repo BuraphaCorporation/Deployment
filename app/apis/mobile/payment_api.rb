@@ -32,11 +32,11 @@ class Mobile::PaymentAPI < ApplicationAPI
           present :status, :success
           present :data, ''
         rescue
-          present :status, :error
+          present :status, :failure
           present :data, ''
         end
       else
-        present :status, :error
+        present :status, :failure
         present :data, ''
       end
     end
@@ -58,11 +58,11 @@ class Mobile::PaymentAPI < ApplicationAPI
           present :status, :success
           present :data, payment
         rescue
-          present :status, :error
+          present :status, :failure
           present :data, 'raise'
         end
       else
-        present :status, :error
+        present :status, :failure
         present :data, 'params invalid'
       end
     end

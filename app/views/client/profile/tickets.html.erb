@@ -1,0 +1,57 @@
+<script>$('body').attr('id', 'profile-ticket-list-page');</script>
+<script>$('body').addClass('profile-page');</script>
+
+<div class="section">
+  <div class="container">
+    <%= render partial: "client/profile/parts/profile-nav" %>
+    <script>$('#profile-nav #menu-my-tickets').addClass('active');</script>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-3">
+        <%= render partial: "client/profile/parts/profile-user-panel" %>
+      </div>
+      <div class="col-xs-12 col-md-9">
+        <div class="ticket-list">
+          <div class="list-header">
+            <h1>My Tickets</h1>
+            <ul class="list-inline">
+              <li><a href="#">Live (<%= @tickets.size %>)</a></li>
+              <li>|</li>
+              <li><a href="#">Past (0)</a></li>
+            </ul>
+          </div>
+          <div class="list-body">
+            <% @tickets.each do |ticket| %>
+            <div class="ticket">
+              <div class="ticket-cover" style="background-image: url(<%= ticket[:event].get_thumbnail %>);">
+              </div>
+              <div class="ticket-info">
+                <div class="info-body">
+                  <h4 class="title"><%= ticket[:event].title %></h4>
+                  <div class="meta date">วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
+                  <div class="meta location">Thonglor House Club, ซอยทองหล่อ</div>
+                </div>
+                <div class="info-footer">
+                  <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                      <span class="ticket-price">฿ <%= ticket[:price] %></span>
+                      <span class="purchase-date">purchased on <%= ticket[:purchased_date] %></span>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                      <ul class="list-inline pull-right">
+                        <li><a href="#">View Ticket</a></li>
+                        <li>|</li>
+                        <li><a href="<%= client_event_path(ticket[:event].id) %>">View Event</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

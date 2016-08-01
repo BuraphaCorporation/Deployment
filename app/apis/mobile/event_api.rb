@@ -66,7 +66,7 @@ class Mobile::EventAPI < ApplicationAPI
     get "/" do
       if params[:event_id].present?
         present :status, :success
-        present :data, Event.find(params[:event_id]), with: Entities::EventExpose
+        present :data, Event.friendly.find(params[:event_id]), with: Entities::EventExpose
       else
         present :status, :error
         present :data, "id not found"

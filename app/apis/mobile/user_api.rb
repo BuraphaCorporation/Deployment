@@ -45,13 +45,26 @@ class Mobile::UserAPI < ApplicationAPI
 
     desc "action tag"
     params do
+      requires :user_token, type: String, desc: "token of the user"
+      requires :referal_code, type: String, desc: "token of the user"
+    end
+    post '/referal' do
+      # { params: params.slice(:comments), declared: declared(params) }
+      # binding.pry
+      present :status, :success
+      present :data, nil
+    end
+
+    desc "action tag"
+    params do
       optional :tag, type: Array[JSON], desc: "Tag or tags."
       requires :user_token, type: String, desc: "token of the user"
     end
     post '/tag' do
       # { params: params.slice(:comments), declared: declared(params) }
       # binding.pry
-      # present :status, 'wating'
+      present :status, :wating
+      present :data, nil
     end
 
     desc "return all tag by user"
@@ -179,7 +192,5 @@ class Mobile::UserAPI < ApplicationAPI
         present :data, nil
       end
     end
-
-
   end
 end

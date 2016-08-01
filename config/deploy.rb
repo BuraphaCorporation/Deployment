@@ -4,7 +4,7 @@ set :branch, :master
 
 set :deploy_to, '/home/deploy/daydash'
 
-set :format, :pretty
+# set :format, :pretty
 # set :log_level, :debug
 set :pty, true
 
@@ -32,8 +32,8 @@ set :stages, [:staging, :production]
 set :default_stage, :staging
 
 set :slackistrano, {
- channel: '#web',
- webhook: 'https://hooks.slack.com/services/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'
+  channel: '#web',
+  webhook: 'https://hooks.slack.com/services/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'
 }
 
 

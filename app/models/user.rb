@@ -6,11 +6,16 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
-  has_many :events, dependent: :destroy
+  belongs_to :role
+
+  has_many :events    #, dependent: :destroy
+  has_many :payments  #, dependent: :destroy
+  has_many :tickets   #, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
 
-  belongs_to :role
+  belongs_to :referrer, class_name: 'User', inverse_of: :referrals
+  has_many :referrals, class_name: 'User', foreign_key: :referrer_id, inverse_of: :referrer
 
   enum gender: { male: 1, female: 0 }
 
@@ -21,11 +26,8 @@ class User < ActiveRecord::Base
 
   before_create :set_default_role
   before_create do |user|
-    user.token = user.generate_token
-  end
-
-  def self.valid_signup?(email, password)
-    User.find_by_email(email).valid_password?(password)
+    user.token   = user.generate_token
+    user.referal = user.default_referal
   end
 
   def generate_token
@@ -35,8 +37,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  def generate_password
-    (0...8).map { ('a'..'z').to_a[rand(26)] }.join
+  def default_referal
+    loop do
+      referal_code = App.generate_code
+      break referal_code unless User.exists?(referal_code: referal_code)
+    end
   end
 
   def management?
@@ -72,6 +77,14 @@ class User < ActiveRecord::Base
     open(uri, allow_redirections: :safe) { |r| r.base_uri.to_s }
   end
 
+  def self.valid_signup?(email, password)
+    User.find_by_email(email).valid_password?(password)
+  end
+
+  def self.valid_token?(token)
+    User.find_by_token(token)
+  end
+
 protected
 
   def confirmation_required?
@@ -79,7 +92,6 @@ protected
   end
 
 private
-
   def set_default_role
     self.role ||= Role.find_by_title('user')
   end

@@ -14,9 +14,9 @@ end
 end
 
 # User.create do |user|
-#   user.email                 = 'arnon@hongklay.com'
-#   user.first_name            = 'Arnon'
-#   user.last_name             = 'Hongklay'
+#   user.email                 = 'poprvr@gmail.com'
+#   user.first_name            = 'Pop'
+#   user.last_name             = 'Todi'
 #   user.password              = '1234567890'
 #   user.password_confirmation = '1234567890'
 #   user.confirmed_at          = Time.zone.now

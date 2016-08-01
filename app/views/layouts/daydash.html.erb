@@ -1,4 +1,4 @@
-
+<% if App.is_management? %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -48,3 +48,126 @@
     <%= render partial: "layouts/parts/footer" %>
   </body>
 </html>
+<% else %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Daydash</title>
+    <%= csrf_meta_tags %>
+
+
+    <link rel="stylesheet" href="/assets/packages/font-awesome-4.5.0/css/font-awesome.min.css" />
+
+    <link rel="stylesheet" href="/assets/packages/bootstrap-3.3.6/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/packages/bootstrap-3.3.6/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="/assets/packages/daydash/home.css" />
+
+    <script src="/assets/packages/jquery/jquery-2.2.2.min.js"></script>
+    <script src="/assets/packages/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <div id="wrapper">
+      <div id="topbar">
+        <nav class="navbar navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="fa fa-navmenu"></i></button>
+              <a class="navbar-brand" href="/"><img src="/assets/images/theme/logo.png" /></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+              </ul>
+            </div>
+          </div>
+        </nav>    
+      </div>
+      <div id="main">
+        <%= yield %>
+      </div>
+      <div id="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col col-xs-12 col-md-3">
+              <div class="list-panel">
+                <div class="list-title">Explore</div>
+                <ul class="list-body nav">
+                  <li><a href="#">Nightlife</a></li>
+                  <li><a href="#">Entertainment</a></li>
+                  <li><a href="#">Outdoor &amp; Adventure</a></li>
+                  <li><a href="#">Gaming</a></li>
+                  <li><a href="#">Workshops</a></li>
+                  <li><a href="#">Tours</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+              <div class="list-panel">
+                <div class="list-title">Support</div>
+                <ul class="list-body nav">
+                  <li><a href="#">List Event on Daydash</a></li>
+                  <li><a href="#">Daydashzine</a></li>
+                  <li><a href="#">Our Story</a></li>
+                  <li><a href="#">How to Pay</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">Contact</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+              <div class="list-panel social-list">
+                <div class="list-title">Connect</div>
+                <ul class="list-body list-inline">
+                  <li><a href="#"><i class="icon icon-line"></i></a></li>
+                  <li><a href="#"><i class="icon icon-facebook"></i></a></li>
+                  <li><a href="#"><i class="icon icon-instagram"></i></a></li>
+                  <li><a href="#"><i class="icon icon-twitter"></i></a></li>
+                </ul>
+              </div>
+
+              <div class="fb-page" data-href="https://www.facebook.com/daydashapp/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/daydashapp/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/daydashapp/">Daydash</a></blockquote></div>
+            </div>
+            <div class="col col-xs-12 col-md-3">
+              <div class="list-panel">
+                <ul class="list-body list-inline">
+                  <li><a href="#"><img src="/assets/images/theme/appstore.png" height="40" /></a></li>
+                  <li><a href="#"><img src="/assets/images/theme/playstore.png" height="40" /></a></li>
+                </ul>
+              </div>
+
+              <div>
+                <div class="copyright">© 2016 Daydash.co</div>
+                <ul class="list-body list-inline">
+                  <li><a href="#">Terms &amp; Conditions</a></li>
+                  <li><a href="#">Privacy Policy</a></li>
+                </ul>
+              </div>
+
+              <div class="cert-list">
+                <img src="/assets/images/theme/comodo.png" height="30" />
+                <img src="/assets/images/theme/visa_master.png" height="30"/>
+                <img src="/assets/images/theme/mixpanel.png" height="30"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Facebook API -->
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=589404977838310";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>  
+  </body>
+</html>
+<% end %>

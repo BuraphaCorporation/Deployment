@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160720151847) do
+ActiveRecord::Schema.define(version: 20160729164853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,14 @@ ActiveRecord::Schema.define(version: 20160720151847) do
     t.string   "provider"
     t.integer  "amount"
     t.integer  "fee"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "status"
+    t.string   "code"
+    t.string   "evidence_file_name"
+    t.string   "evidence_content_type"
+    t.integer  "evidence_file_size"
+    t.datetime "evidence_updated_at"
     t.index ["event_id"], name: "index_payments_on_event_id", using: :btree
     t.index ["user_id"], name: "index_payments_on_user_id", using: :btree
   end
@@ -149,8 +155,11 @@ ActiveRecord::Schema.define(version: 20160720151847) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "token"
+    t.string   "referal_code"
+    t.integer  "referrer_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["referrer_id"], name: "index_users_on_referrer_id", using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["role_id"], name: "index_users_on_role_id", using: :btree
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree

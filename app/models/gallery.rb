@@ -10,7 +10,7 @@ class Gallery < ApplicationRecord
               thumb2x:  "750x450#",
               thumb3x:  "1125x675#",
               thumb:    '800x500#',
-              facebook: "1200x630"
+              facebook: "1200x630#"
             }
     # styles: lambda { |a|
     #   if a.instance.is_image?

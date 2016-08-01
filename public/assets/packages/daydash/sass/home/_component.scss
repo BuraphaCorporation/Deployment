@@ -1,0 +1,118 @@
+//Icons
+.icon {
+	display: inline-block;
+	width: 25px;
+	height: 25px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.icon-xs {
+	width: 16px;
+	height: 16px;
+}
+
+.icon-facebook  { background-image: url(../../images/icons/icon-facebook.png); }
+.icon-line      { background-image: url(../../images/icons/icon-line.png); }
+.icon-instagram { background-image: url(../../images/icons/icon-instagram.png); }
+.icon-twitter   { background-image: url(../../images/icons/icon-twitter.png); }
+
+.icon-map-pin   { background-image: url(../../images/icons/icon-map-pin.png); }
+.icon-calendar  { background-image: url(../../images/icons/icon-calendar.png); }
+
+
+//Button
+.btn-daydash {
+	border-radius: 0px;
+	color: #444;
+
+	&:hover, &:active, &:visited, &:link {
+		color: black;
+	}
+}
+
+.btn-daydash-lg {
+	padding: 15px;
+	font-size: 24px;
+}
+
+.btn-daydash-green-1 {
+	background: linear-gradient(90deg, #00CFD1 , #00E9CA);
+	color: white;
+	border: 0px;
+
+	&:hover, &:active, &:visited, &:link {
+		color: white;
+	}
+}
+
+
+//Event Card
+
+.event.card {
+	margin-bottom: 30px;
+	border-radius: 2px;
+	border: 1px solid #eee;
+	overflow: hidden;
+
+	.cover {
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-color: #ccc;
+		height: 250px;
+	}
+	.info {
+		background-color: #fff;
+		color: #444;
+		padding: 15px;
+		font-size: 16px;
+
+		a {
+			color: #444;
+		}
+	}
+
+	.title {
+		margin-bottom: 25px;
+		height: 64px;
+		font-size: 20px;
+	}
+
+	.icon {
+		float: left;
+		margin-top: 1px;
+		margin-right: 5px;
+	}
+	.meta {
+		margin-bottom: 10px;
+	}
+
+	&.payment-card {
+		.title {
+			height: auto;
+		}
+
+		.info {
+			padding-bottom: 0px;
+
+			.row {
+				padding-top: 15px;
+				padding-bottom: 15px;
+				border-bottom: 1px solid #eee;
+			}
+		}
+
+		.ticket-list {
+			.ticket {
+				.ticket-price {
+					text-align: right;
+				}
+			}
+			.list-footer {
+				text-align: right;
+			}
+		}
+	}
+}

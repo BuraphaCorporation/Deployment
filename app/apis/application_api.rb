@@ -1,3 +1,3 @@
 class ApplicationAPI < Grape::API
-  include Defaults::Mobile
+  # include Defaults::Mobile
 end

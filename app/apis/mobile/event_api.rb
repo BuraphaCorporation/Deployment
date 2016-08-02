@@ -1,4 +1,5 @@
 class Mobile::EventAPI < ApplicationAPI
+  include Defaults::Mobile
 
   resources :events do
     desc "Return all events"
@@ -7,41 +8,25 @@ class Mobile::EventAPI < ApplicationAPI
       present :data, Event.all
     end
 
-
     desc "Return events today"
     get "/today" do
       events_today = Event.today
-      # if events_today.present?
-        present :status, :success
-        present :data, events_today, with: Entities::EventExpose
-      # else
-      #   present :status, :error
-      #   present :data, :error
-      # end
+      present :status, :success
+      present :data, events_today, with: Entities::EventExpose
     end
 
     desc "Return events tomorrow"
     get "/tomorrow" do
       events_tomorrow = Event.tomorrow
-      # if events_tomorrow.present?
-        present :status, :success
-        present :data, events_tomorrow, with: Entities::EventExpose
-      # else
-      #   present :status, :error
-      #   present :data, :error
-      # end
+      present :status, :success
+      present :data, events_tomorrow, with: Entities::EventExpose
     end
 
     desc "Return events upcoming"
     get "/upcoming" do
       events_upcoming = Event.upcoming
-      # if events_upcoming.present?
-        present :status, :success
-        present :data, events_upcoming, with: Entities::EventExpose
-      # else
-      #   present :status, :error
-      #   present :data, :error
-      # end
+      present :status, :success
+      present :data, events_upcoming, with: Entities::EventExpose
     end
 
     desc "Return events by category"
@@ -52,8 +37,8 @@ class Mobile::EventAPI < ApplicationAPI
         present :status, :success
         present :data, category.events, with: Entities::EventExpose
       else
-        present :status, :error
-        present :data, "error"
+        present :status, :failure
+        present :data, nil
       end
     end
   end
@@ -68,7 +53,7 @@ class Mobile::EventAPI < ApplicationAPI
         present :status, :success
         present :data, Event.friendly.find(params[:event_id]), with: Entities::EventExpose
       else
-        present :status, :error
+        present :status, :failure
         present :data, "id not found"
       end
     end

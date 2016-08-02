@@ -14,17 +14,19 @@
 </div>
 <div class="section" id="event-section">
   <div class="container">
-    <ul class="nav nav-pills">
+    <ul class="nav nav-pills nav-daydash">
       <li class="active"><a href="/">ALL</a></li>
       <!-- <li><a href="#">ENTERTAINMENT</a></li>
       <li><a href="#">OUTDOOR&amp;ADVENTURE</a></li>
       <li><a href="#">FITNESS</a></li>
       <li><a href="#">WORKSHOPS</a></li>
       <li><a href="#">FOOD&amp;DRINK</a></li> -->
-      <% @category.each do |category| %>
-        <li>
-          <%= link_to category.title, client_category_path(category.name)  %>
-        </li>
+      <% if @categories.size > 0 %>
+        <% @categories.each do |category| %>
+          <li>
+            <%= link_to category.title, client_category_path(category)  %>
+          </li>
+        <% end %>
       <% end %>
       <!--li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

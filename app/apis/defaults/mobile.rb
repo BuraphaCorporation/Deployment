@@ -3,27 +3,21 @@ module Defaults
     extend ActiveSupport::Concern
 
     included do
-      # prefix "/"
-      version "mobile", using: :path, vendor: 'api'
+      # prefix "api"
+      version "mobile", using: :path
       default_format :json
       format :json
-      formatter :json, Grape::Formatter::ActiveModelSerializers
+      formatter :json,
+           Grape::Formatter::ActiveModelSerializers
 
       helpers do
         def permitted_params
-          @permitted_params ||= declared(params, include_missing: false)
+          @permitted_params ||= declared(params,
+             include_missing: false)
         end
 
         def logger
           Rails.logger
-        end
-
-        def current_user
-          @current_user ||= User.authorize!(env)
-        end
-
-        def authenticate!
-          error!('401 Unauthorized', 401) unless current_user
         end
       end
 

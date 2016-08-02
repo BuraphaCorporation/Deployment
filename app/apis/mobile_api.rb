@@ -1,15 +1,10 @@
 class MobileAPI < ApplicationAPI
 
-  # before do
-  #   header["Access-Control-Allow-Origin"]   = "*"
-  #   header["Access-Control-Request-Method"] = "*"
-  # end
   mount Mobile::AuthAPI
   mount Mobile::TagAPI
   mount Mobile::UserAPI
   mount Mobile::EventAPI
   mount Mobile::PaymentAPI
-
   # Docs
   add_swagger_documentation mount_path: "/mobile",
                             base_path: "/",
@@ -22,7 +17,7 @@ class MobileAPI < ApplicationAPI
                              terms_of_service_url: "https://daydash.co/terms",
                              title: "Daydash API"
                             },
-                            # markdown: false,
+                            markdown: false,
                             hide_documentation_path: true,
                             hide_format: true,
                             include_base_url: true,

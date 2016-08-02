@@ -82,6 +82,7 @@
               <ul class="nav navbar-nav">
               </ul>
               <ul class="nav navbar-nav navbar-right">
+                <li><a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login / Sign up</a></li>
               </ul>
             </div>
           </div>
@@ -159,15 +160,22 @@
       </div>
     </div>
 
-    <!-- Facebook API -->
-    <script>(function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=589404977838310";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-    </script>
-  </body>
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
+    <div class="modal-dialog modal-sm" role="document">
+      <%= render partial: "layouts/parts/login-form" %>
+    </div>
+  </div>
+
+  <!-- Facebook API -->
+  <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=589404977838310";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
+</body>
 </html>
 <% end %>

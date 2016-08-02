@@ -116,3 +116,31 @@
 		}
 	}
 }
+
+
+//Nav
+
+.nav-daydash {
+	margin-bottom: 15px;
+
+	li {
+		a, a:visited, a:link, a:active  {
+			background: transparent;
+			padding-bottom: 2px;
+			color: #aaa;
+
+			&:hover {
+				color: #444;
+			}
+		}
+
+		&.active {
+			a {
+				border-radius: 0px;
+				background: transparent;
+				color: #444;
+				border-bottom: 3px solid $main-color;
+			}
+		}
+	}
+}

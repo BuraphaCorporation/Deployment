@@ -1,5 +1,5 @@
 class Mobile::AuthAPI < ApplicationAPI
-  # include Entities::Expose
+  include Defaults::Mobile
 
   resources :auth do
     desc "Return a user token from signup successfully"
@@ -13,7 +13,6 @@ class Mobile::AuthAPI < ApplicationAPI
         present :status, :failure
         present :data, nil
       else
-        binding.pry
         user = User.create!(email: params[:email], password: params[:password])
         present :status, :success
         present :data, user.token

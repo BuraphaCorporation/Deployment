@@ -18,10 +18,22 @@ Rails.application.routes.draw do
     namespace :client, path: nil do
       resources :events, only: [:index, :show] do
         get '/payment', to: 'events#payment'
+        post '/payment', to: 'events#payment'
         post '/checkout', to: 'events#checkout'
+
       end
       get 'categories/:category', to: 'events#index', as: :category
       # resources :payment, only: [:index, :show, :create, :new]
+
+      get '/profile/', to: 'profile#index'
+      get '/profile/tickets', to: 'profile#tickets'
+      get '/profile/tickets/:ticket_id', to: 'profile#ticket', as: :ticket_id
+      get '/profile/wishlist', to: 'profile#wishlist'
+      get '/profile/settings', to: 'profile#settings'
+      get '/profile/logout', to: 'profile#logout'
+      post '/profile/login', to: 'profile#login'
+      
+      post '/profile/settings', to: 'profile#settings_update'
     end
 
     namespace :management do
@@ -33,6 +45,8 @@ Rails.application.routes.draw do
       end
       resources :users, except: :show
     end
+
+
   end
 
   constraints(subdomain: App.api_host) do

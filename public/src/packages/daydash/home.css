@@ -181,6 +181,20 @@ html, body {
   .event.card.payment-card .ticket-list .list-footer {
     text-align: right; }
 
+.nav-daydash {
+  margin-bottom: 15px; }
+  .nav-daydash li a, .nav-daydash li a:visited, .nav-daydash li a:link, .nav-daydash li a:active {
+    background: transparent;
+    padding-bottom: 2px;
+    color: #aaa; }
+    .nav-daydash li a:hover, .nav-daydash li a:visited:hover, .nav-daydash li a:link:hover, .nav-daydash li a:active:hover {
+      color: #444; }
+  .nav-daydash li.active a {
+    border-radius: 0px;
+    background: transparent;
+    color: #444;
+    border-bottom: 3px solid #00CFD1; }
+
 #index-page #cover-section .slick {
   margin-bottom: 0px; }
   #index-page #cover-section .slick .page-cover {
@@ -204,19 +218,6 @@ html, body {
   background-color: #fcfcfc;
   padding-top: 30px;
   padding-bottom: 30px; }
-  #index-page #event-section .nav {
-    margin-bottom: 15px; }
-    #index-page #event-section .nav li a, #index-page #event-section .nav li a:visited, #index-page #event-section .nav li a:link, #index-page #event-section .nav li a:active {
-      background: transparent;
-      padding-bottom: 2px;
-      color: #aaa; }
-      #index-page #event-section .nav li a:hover, #index-page #event-section .nav li a:visited:hover, #index-page #event-section .nav li a:link:hover, #index-page #event-section .nav li a:active:hover {
-        color: #444; }
-    #index-page #event-section .nav li.active a {
-      border-radius: 0px;
-      background: transparent;
-      color: #444;
-      border-bottom: 3px solid #00CFD1; }
   #index-page #event-section .event-list {
     padding-top: 15px; }
 
@@ -301,6 +302,15 @@ html, body {
       text-align: center; }
       #event-page #info-section .social-panel .social-list * {
         vertical-align: text-top; }
+#event-page #ticket-list-modal {
+  margin-top: 100px; }
+  #event-page #ticket-list-modal .table {
+    margin-bottom: 0px; }
+    #event-page #ticket-list-modal .table td {
+      padding-left: 15px;
+      padding-right: 15px; }
+  #event-page #ticket-list-modal .ticket .ticket-title {
+    font-weight: bold; }
 
 #payment-page .form-section-description {
   margin-bottom: 15px; }
@@ -346,5 +356,50 @@ html, body {
     text-align: center; }
     #related-event-section .section-header .section-title {
       font-size: 30px; }
+
+.profile-page #profile-nav {
+  margin-bottom: 15px; }
+.profile-page .current-user-panel .panel-body {
+  text-align: center; }
+.profile-page .current-user-panel .profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 30px auto; }
+
+#profile-ticket-list-page .ticket-list .ticket {
+  margin-bottom: 15px;
+  border: 1px solid #eee; }
+  #profile-ticket-list-page .ticket-list .ticket .ticket-cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ccc; }
+  #profile-ticket-list-page .ticket-list .ticket .ticket-info {
+    padding: 15px;
+    padding-bottom: 0px; }
+    #profile-ticket-list-page .ticket-list .ticket .ticket-info .info-body {
+      padding-bottom: 15px; }
+@media (max-width: 991px) {
+  #profile-ticket-list-page .ticket-list .ticket .ticket-cover {
+    height: 150px; } }
+@media (min-width: 992px) {
+  #profile-ticket-list-page .ticket-list .ticket {
+    width: 100%;
+    display: table; }
+    #profile-ticket-list-page .ticket-list .ticket .ticket-cover {
+      display: table-cell;
+      width: 250px; }
+    #profile-ticket-list-page .ticket-list .ticket .ticket-info {
+      display: table-cell; } }
+
+#profile-wishlist-page .event-list .event .cover {
+  height: 200px; }
+
+#profile-settings-page form .form-group:nth-child(2n+1) {
+  clear: left; }
 
 /*# sourceMappingURL=home.css.map */

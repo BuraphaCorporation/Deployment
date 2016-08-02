@@ -9,5 +9,14 @@ class Entities::UserExpose < Grape::Entity
   #   a.avatar(:medium)
   # end
   expose :referal_code
-  expose :tickets
+end
+
+class Entities::UserTicketExpose < Grape::Entity
+  expose :tickets do |ticket|
+    if ticket.exists?
+      true
+    else
+      false
+    end
+  end
 end

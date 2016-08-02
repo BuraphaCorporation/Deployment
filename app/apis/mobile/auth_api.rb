@@ -1,5 +1,5 @@
 class Mobile::AuthAPI < ApplicationAPI
-  # include Entities::Expose
+  include Defaults::Mobile
 
   resources :auth do
     desc "Return a user token from signup successfully"

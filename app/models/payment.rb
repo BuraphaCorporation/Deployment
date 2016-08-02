@@ -22,19 +22,18 @@ class Payment < ActiveRecord::Base
     def omise(user_token, event, charge)
       user = User.find_by_token(user_token)
       event = Event.friendly.find(event)
-
-      transaction = Omise::Transaction.retrieve(charge.transaction.id)
-
-      payment = create(status: :success, user: user, event: event, amount: transfer.amount, fee: transfer.fee)
+      payment = create(status: :success, user: user, provider: 'omise', event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
 
       Ticket.create_ticket(user, event, payment)
+
+      payment
     end
 
     def transfer(user_token, event, evidence, amount)
       user = User.find_by_token(user_token)
       event = Event.friendly.find(event)
 
-      create(status: :pending, user: user, event: event, evidence: evidence, amount: amount)
+      create(status: :pending, user: user, provider: 'transfer', event: event, evidence: evidence, amount: amount)
     end
 
     def transfer_notify(user_token, event)

@@ -1,4 +1,5 @@
 class Mobile::PaymentAPI < ApplicationAPI
+  include Defaults::Mobile
 
   resources :payment do
     desc "return channel payment"
@@ -24,20 +25,18 @@ class Mobile::PaymentAPI < ApplicationAPI
       if params[:user_token].present? and params[:event_id].present? and params[:omise_token].present?
         begin
           charge = Omise::Charge.retrieve(params[:omise_token])
-
           raise unless User.find_by_token(params[:user_token]).present?
-
-          Payment.omise(params[:user_token], params[:event], charge)
+          payment = Payment.omise(params[:user_token], params[:event_id], charge)
 
           present :status, :success
-          present :data, ''
+          present :data, payment, with: Entities::PaymentOmiseExpose
         rescue
-          present :status, :error
-          present :data, ''
+          present :status, :failure
+          present :data, nil
         end
       else
-        present :status, :error
-        present :data, ''
+        present :status, :failure
+        present :data, nil
       end
     end
 
@@ -56,13 +55,13 @@ class Mobile::PaymentAPI < ApplicationAPI
           payment = Payment.transfer_notify(params[:user_token], params[:event_id]) #, params[:evidence], params[:amount])
 
           present :status, :success
-          present :data, payment
+          present :data, payment, with: Entities::PaymentTransferExpose
         rescue
-          present :status, :error
+          present :status, :failure
           present :data, 'raise'
         end
       else
-        present :status, :error
+        present :status, :failure
         present :data, 'params invalid'
       end
     end

@@ -116,6 +116,25 @@
 			}
 		}
 	}
+
+	#ticket-list-modal {
+		margin-top: 100px;
+
+		.table {
+			margin-bottom: 0px;
+
+			td {
+				padding-left: 15px;
+				padding-right: 15px;
+			}
+		}
+
+		.ticket {
+			.ticket-title {
+				font-weight: bold;
+			}
+		}
+	}
 }
 
 #payment-page {

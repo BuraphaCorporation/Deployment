@@ -1,0 +1,44 @@
+<script>$('body').attr('id', 'profile-wishlist-page');</script>
+<script>$('body').addClass('profile-page');</script>
+
+<div class="section">
+  <div class="container">
+    <%= render partial: "client/profile/parts/profile-nav" %>
+    <script>$('#profile-nav #menu-wishlist').addClass('active');</script>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-3">
+        <%= render partial: "client/profile/parts/profile-user-panel" %>
+      </div>
+      <div class="col-xs-12 col-md-9">
+        <div class="event-list">
+          <div class="list-header">
+            <h1 class="list-title">Wishlist</h1>
+          </div>
+          <div class="list-body row">
+            <% @events.each do |event| %>
+              <div class="col-sm-6 col-md-4">
+                <div class="event card">
+                  <%= link_to client_event_path(event.id) do %>
+                    <% if event.galleries.present? %>
+                      <div class="cover" style="background-image: url(<%= event.galleries.first.try(:media, :thumb) %>);"></div>
+                    <% else %>
+                      <div class="cover"></div>
+                    <% end %>
+                  <% end %>
+                  <div class="info">
+                    <h4 class="title text-left">
+                      <%= link_to event.title, client_event_path(event.id) %>
+                    </h4>
+                    <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
+                    <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -18,6 +18,14 @@ class Event < ActiveRecord::Base
 
   after_create :set_organizer
 
+  def get_thumbnail
+    if self.galleries.present?
+      self.galleries.first.try(:media, :thumb)
+    else
+      ''
+    end
+  end
+
   private
     def set_organizer
       self.user ||= User.find_by_email('hello@daydash.co')

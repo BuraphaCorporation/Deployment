@@ -45,15 +45,13 @@ class Client::EventsController < Client::CoreController
     @event = Event.friendly.find(params[:event_id])
     @section = @event.sections.min_by(&:price)
     if params[:payment_method] == 'credit_card'
-      binding.pry
+
       charge = Omise::Charge.create({
         amount: 10000,
         currency: "thb",
-        # description: inv,
+        description: inv,
         card: params[:omise_token]
       })
-
-      # binding.pry
 
       render "client/events/payment-credit-card"
     elsif params[:payment_method] == 'bank_transfer'

@@ -1,4 +1,6 @@
 class Client::EventsController < Client::CoreController
+  # before_action :event, only: [:show, :express]
+  before_action :related_events, only: [:show, :checkout]
 
   def index
     @category  = Category.all
@@ -18,7 +20,7 @@ class Client::EventsController < Client::CoreController
 
   def show
     @event = Event.friendly.find(params[:id])
-    @related_events = Event.all.first(3)
+    @section = @event.sections.min_by(&:price)
 
     @tickets = [
       { title: 'VIP',     price: 1000, quantity: 1 },
@@ -26,8 +28,9 @@ class Client::EventsController < Client::CoreController
     ]
   end
 
-  def payment
+  def express
     @event = Event.friendly.find(params[:event_id])
+    @section = @event.sections.min_by(&:price)
 
     @tickets = [
       { title: 'VIP',     price: 1000, quantity: 1 },
@@ -38,27 +41,28 @@ class Client::EventsController < Client::CoreController
   end
 
   def checkout
+
     @event = Event.friendly.find(params[:event_id])
-    @related_events = Event.all.first(3)
-
+    @section = @event.sections.min_by(&:price)
     if params[:payment_method] == 'credit_card'
-
-      # charge = Omise::Charge.create({
-      #   amount: 10000,
-      #   currency: "thb",
-      #   # description: inv,
-      #   card: params[:omise_token]
-      # })
+      binding.pry
+      charge = Omise::Charge.create({
+        amount: 10000,
+        currency: "thb",
+        # description: inv,
+        card: params[:omise_token]
+      })
 
       # binding.pry
 
       render "client/events/payment-credit-card"
-
     elsif params[:payment_method] == 'bank_transfer'
       render "client/events/payment-bank-transfer"
-    else
-
     end
   end
 
+private
+  def related_events
+    @related_events = Event.all.first(3)
+  end
 end

@@ -1,11 +1,11 @@
 <script>$('body').attr('id', 'payment-page');</script>
 
 <div class="section" id="payment-section">
-	<div class="container">
-		<div class="row">
+  <div class="container">
+    <div class="row">
 
       <!-- Left side -->
-			<div class="col-xs-12 col-md-4">
+      <div class="col-xs-12 col-md-4">
         <div class="event card payment-card">
           <%= link_to client_event_path(@event.id) do %>
             <% if @event.galleries.present? %>
@@ -17,24 +17,24 @@
           <div class="info">
             <div class="row">
               <div class="col-xs-12">
-      					<h4 class="title text-left">
-      						<%= link_to @event.title, client_event_path(@event.id) %>
-      					</h4>
-      					<div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
-      					<div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+                <h4 class="title text-left">
+                  <%= link_to @event.title, client_event_path(@event.id) %>
+                </h4>
+                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @section.event_time.strftime("%A %d %B, %H:%M") %></div>
+                <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location %></div>
               </div>
             </div>
             <div class="ticket-list">
               <div class="list-body">
-                <% @tickets.each do |ticket| %>
-              	<div class="ticket row">
-      						<div class="col-xs-8 ticket-title">
-                    <%= ticket[:quantity] %> x ฿ <%= ticket[:price] %> <%= ticket[:title] %>
-      						</div>
-      						<div class="col-xs-4 ticket-price">
-                  ฿ <%= ticket[:price] * ticket[:quantity] %>
-      						</div>
-  			        </div>
+                <% @event.sections.each do |section| %>
+                <div class="ticket row">
+                  <div class="col-xs-8 ticket-title">
+                    <%= section.avaliable %> x ฿ <%= section.price %> <%= section.title %>
+                  </div>
+                  <div class="col-xs-4 ticket-price">
+                  ฿ <%= section.price * section.avaliable %>
+                  </div>
+                </div>
                 <% end %>
               </div>
               <div class="row list-footer">
@@ -45,10 +45,10 @@
             </div>
           </div>
         </div>
-			</div>
+      </div>
 
       <!-- Right side -->
-			<div class="col-xs-12 col-md-8">
+      <div class="col-xs-12 col-md-8">
         <%= form_tag client_event_checkout_path(@event.id), id: :checkout do  %>
           <input type="hidden" name="event_id" value="<%= @event.id %>" />
           <div class="form-section" id="general-info-section">
@@ -148,11 +148,11 @@
                     <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" name="payment_method" value="bank_transfer" >Place an order</button>
                   </div>
                 </div>
-              </div>              
+              </div>
             </div>
           </div>
         <% end %>
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 </div>

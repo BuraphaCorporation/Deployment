@@ -1,3 +1,36 @@
+label {
+	font-weight: normal;
+}
+
+//Overwrite for Bootstrap DatetimePicker
+
+.bootstrap-datetimepicker-widget {
+	padding-left: 15px;
+	padding-right: 15px;
+
+	th, td {
+		cursor: pointer;
+		text-align: center;
+	}
+
+	.day {
+		&.active {
+			background-color: $main-color;
+			color: white;
+		}
+	}
+
+	.btn {
+		color: $main-color;
+	}
+
+	.btn-primary {
+		background: $main-color;
+		color: white;
+		border: 0px;
+	}
+}
+
 //Icons
 .icon {
 	display: inline-block;
@@ -50,7 +83,7 @@
 
 //Event Card
 
-.event.card {
+.event.card, .ticket.card {
 	margin-bottom: 30px;
 	border-radius: 2px;
 	border: 1px solid #eee;
@@ -117,6 +150,48 @@
 	}
 }
 
+.card-side-cover {
+	margin-bottom: 15px;
+	border: 1px solid #eee;	
+
+	.cover {
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-color: #ccc;
+	} 			
+
+	.info {
+		padding: 15px;
+		padding-bottom: 0px;
+
+		.info-body {
+			padding-bottom: 15px;
+		}
+
+	}
+
+	@media (max-width: 991px) {
+		.cover {
+			height: 150px;
+		}
+	}
+
+	@media (min-width: 992px) {
+		width: 100%;
+		display: table;
+
+		.cover {
+			display: table-cell;
+			width: 250px;
+		}
+
+		.info {
+			display: table-cell;
+		}
+	}
+}
+
 
 //Nav
 
@@ -134,13 +209,24 @@
 			}
 		}
 
-		&.active {
+		&.active, &.active:hover {
 			a {
 				border-radius: 0px;
 				background: transparent;
 				color: #444;
 				border-bottom: 3px solid $main-color;
 			}
+		}
+	}
+}
+
+.list-action-nav {
+	li:not(:last-child) {
+		&:after {
+			content: "|";
+			display: inline-block;
+			padding-left: 15px;
+
 		}
 	}
 }

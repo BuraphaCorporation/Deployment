@@ -5,7 +5,7 @@ class Mobile::EventAPI < ApplicationAPI
     desc "Return all events"
     get "/" do
       present :status, :success
-      present :data, Event.all
+      present :data, Event.available, with: Entities::EventExpose
     end
 
     desc "Return events today"

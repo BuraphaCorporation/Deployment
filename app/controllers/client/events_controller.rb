@@ -32,29 +32,29 @@ class Client::EventsController < Client::CoreController
     @event = Event.friendly.find(params[:event_id])
     @section = @event.sections.min_by(&:price)
 
-    @tickets = [
-      { title: 'VIP',     price: 1000, quantity: 1 },
-      { title: 'General', price: 500, quantity: 1 },
-    ]
-
-    @total = 1500
+    @total = 0
+    @tickets = {}
+    @event.sections.each do |section|
+      if params[:section]["#{section.id}"].to_i > 0
+        @tickets.merge!({ "#{section.id}":
+          {
+            title: section.title,
+            price: section.price,
+            quantity: params[:section]["#{section.id}"].to_i
+          }
+        })
+        @total += section.price
+      end
+    end
   end
 
   def checkout
-
     @event = Event.friendly.find(params[:event_id])
-    @section = @event.sections.min_by(&:price)
     if params[:payment_method] == 'credit_card'
-
-      charge = Omise::Charge.create({
-        amount: 10000,
-        currency: "thb",
-        description: inv,
-        card: params[:omise_token]
-      })
-
+      Payment.omise_charge(@event, current_user, params[:payment_amount], params[:omise_token])
       render "client/events/payment-credit-card"
     elsif params[:payment_method] == 'bank_transfer'
+      Payment.transfer_notify(@event, current_user, params[:payment_amount])
       render "client/events/payment-bank-transfer"
     end
   end

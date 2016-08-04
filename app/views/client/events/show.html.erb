@@ -93,6 +93,7 @@
         <div class="table-responsive">
           <table class="table table-hover">
             <% @event.sections.each do |section| %>
+            <!-- <input type="hidden" name="" value="<%= section.id %>"> -->
             <tr>
               <td>
                 <div class="ticket-name"><%= section.title %></div>
@@ -101,7 +102,7 @@
                 </div>
               </td>
               <td width="100" align="right">
-                <select class="form-control">
+                <select class="form-control" name="section[<%= section.id %>]">
                   <% (0..1).each do |i| %>
                     <option value="<%= i %>"><%= i %></option>
                   <% end %>

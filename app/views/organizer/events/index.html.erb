@@ -1,0 +1,42 @@
+<div class="section">
+  <div class="container">
+    <%= render partial: "organizer/parts/organizer-nav" %>
+    <script>$('#organizer-nav #menu-event-list').addClass('active');</script>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-9">
+        <div class="event-list">
+          <div class="list-header">
+            <h1 class="list-title">Manage Events</h1>
+          </div>
+          <div class="list-body">
+            <% @events.each do |event| %>
+            <div class="event card-side-cover">
+              <div class="cover">
+              </div>
+              <div class="info">
+                <div class="info-body">
+                  <h4 class="title"><%= event.title %></h4>
+                  <div class="meta date">วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
+                  <div class="meta location">Thonglor House Club, ซอยทองหล่อ</div>
+                </div>
+                <div class="info-footer">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <ul class="list-inline list-action-nav pull-right">
+                        <li><a href="<%= organizer_event_path(event) %>">Transaction List</a></li>
+                        <li><a href="<%= edit_organizer_event_path(event) %>">Edit</a></li>
+                        <li><a href="<%= client_event_path(event) %>">View Event</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

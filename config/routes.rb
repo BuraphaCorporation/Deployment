@@ -16,14 +16,11 @@ Rails.application.routes.draw do
 
     root 'client/events#index'
     namespace :client, path: nil do
-      resources :events, only: [:index, :show] do
-        get '/payment', to: 'events#payment'
-        post '/payment', to: 'events#payment'
-        post '/checkout', to: 'events#checkout'
-
-      end
       get 'categories/:category', to: 'events#index', as: :category
-      # resources :payment, only: [:index, :show, :create, :new]
+      resources :events, only: [:index, :show] do
+        get '/express', to: 'events#express'
+        post '/checkout', to: 'events#checkout'
+      end
 
       get '/profile/', to: 'profile#index'
       get '/profile/tickets', to: 'profile#tickets'
@@ -32,7 +29,7 @@ Rails.application.routes.draw do
       get '/profile/settings', to: 'profile#settings'
       get '/profile/logout', to: 'profile#logout'
       post '/profile/login', to: 'profile#login'
-      
+
       post '/profile/settings', to: 'profile#settings_update'
     end
 

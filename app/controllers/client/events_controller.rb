@@ -1,7 +1,9 @@
 class Client::EventsController < Client::CoreController
+  # before_action :event, only: [:show, :express]
+  before_action :related_events, only: [:show, :checkout]
 
   def index
-    @categories  = Category.all
+    @category  = Category.all
     @galleries = Gallery.all.shuffle.first(5)
 
     @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])
@@ -18,49 +20,47 @@ class Client::EventsController < Client::CoreController
 
   def show
     @event = Event.friendly.find(params[:id])
-
-    @related_events = Event.all.first(3)
+    @section = @event.sections.min_by(&:price)
 
     @tickets = [
       { title: 'VIP',     price: 1000, quantity: 1 },
       { title: 'General', price: 500, quantity: 1 },
     ]
-
   end
 
-  def payment
+  def express
     @event = Event.friendly.find(params[:event_id])
+    @section = @event.sections.min_by(&:price)
 
-    @tickets = [
-      { title: 'VIP',     price: 1000, quantity: 1 },
-      { title: 'General', price: 500, quantity: 1 },
-    ]
-
-    @total = 1500
+    @total = 0
+    @tickets = {}
+    @event.sections.each do |section|
+      if params[:section]["#{section.id}"].to_i > 0
+        @tickets.merge!({ "#{section.id}":
+          {
+            title: section.title,
+            price: section.price,
+            quantity: params[:section]["#{section.id}"].to_i
+          }
+        })
+        @total += section.price
+      end
+    end
   end
 
   def checkout
     @event = Event.friendly.find(params[:event_id])
-    @related_events = Event.all.first(3)
-
     if params[:payment_method] == 'credit_card'
-
-      # charge = Omise::Charge.create({
-      #   amount: 10000,
-      #   currency: "thb",
-      #   # description: inv,
-      #   card: params[:omise_token]
-      # })
-
-      # binding.pry
-
+      Payment.omise_charge(@event, current_user, params[:payment_amount], params[:omise_token])
       render "client/events/payment-credit-card"
-
     elsif params[:payment_method] == 'bank_transfer'
+      Payment.transfer_notify(@event, current_user, params[:payment_amount])
       render "client/events/payment-bank-transfer"
-    else
-
     end
   end
 
+private
+  def related_events
+    @related_events = Event.all.first(3)
+  end
 end

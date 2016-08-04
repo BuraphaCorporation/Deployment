@@ -1,11 +1,11 @@
 <script>$('body').attr('id', 'payment-page');</script>
 
 <div class="section" id="payment-section">
-	<div class="container">
-		<div class="row">
+  <div class="container">
+    <div class="row">
 
       <!-- Left side -->
-			<div class="col-xs-12 col-md-4">
+      <div class="col-xs-12 col-md-4">
         <div class="event card payment-card">
           <%= link_to client_event_path(@event.id) do %>
             <% if @event.galleries.present? %>
@@ -17,24 +17,25 @@
           <div class="info">
             <div class="row">
               <div class="col-xs-12">
-      					<h4 class="title text-left">
-      						<%= link_to @event.title, client_event_path(@event.id) %>
-      					</h4>
-      					<div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
-      					<div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+                <h4 class="title text-left">
+                  <%= link_to @event.title, client_event_path(@event.id) %>
+                </h4>
+                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @section.event_time.strftime("%A %d %B, %H:%M") %></div>
+                <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location %></div>
               </div>
             </div>
             <div class="ticket-list">
               <div class="list-body">
-                <% @tickets.each do |ticket| %>
-              	<div class="ticket row">
-      						<div class="col-xs-8 ticket-title">
-                    <%= ticket[:quantity] %> x ฿ <%= ticket[:price] %> <%= ticket[:title] %>
-      						</div>
-      						<div class="col-xs-4 ticket-price">
-                  ฿ <%= ticket[:price] * ticket[:quantity] %>
-      						</div>
-  			        </div>
+                <% @event.sections.each do |section| %>
+                <% next if @tickets[:"#{section.id}"].nil? %>
+                <div class="ticket row">
+                  <div class="col-xs-8 ticket-title">
+                    <%= section.avaliable %> x ฿ <%= section.price %> <%= section.title %>
+                  </div>
+                  <div class="col-xs-4 ticket-price">
+                  ฿ <%= section.price * @tickets[:"#{section.id}"][:quantity] %>
+                  </div>
+                </div>
                 <% end %>
               </div>
               <div class="row list-footer">
@@ -45,10 +46,10 @@
             </div>
           </div>
         </div>
-			</div>
+      </div>
 
       <!-- Right side -->
-			<div class="col-xs-12 col-md-8">
+      <div class="col-xs-12 col-md-8">
         <%= form_tag client_event_checkout_path(@event.id), id: :checkout do  %>
           <input type="hidden" name="event_id" value="<%= @event.id %>" />
           <div class="form-section" id="general-info-section">
@@ -96,20 +97,31 @@
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="payment-method-credit-card-panel">
                   <div class="row">
+                    <div class="form-group col-xs-12 col-md-12">
+                      <div id="token_errors"></div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-xs-12 col-md-5">
+                      <label>Name</label>
+                      <input class="form-control" type="text" name="card_name" value="" data-omise="holder_name">
+                    </div>
                     <div class="form-group col-xs-12 col-md-5">
                       <label>Card Number</label>
-                      <input class="form-control" type="text" name="card_number" value="" />
+                      <input class="form-control" type="text" name="card_number" value="" data-omise="number"/>
                     </div>
+                  </div>
+                  <div class="row">
                     <div class="form-group col-xs-12 col-md-4">
                       <label>Expire Date</label>
                       <div class="form-inline">
-                        <select class="form-control" name="expire_month">
+                        <select class="form-control" name="expire_month" data-omise="expiration_month">
                           <option value="">Month</option>
                           <% (1..12).each do |month| %>
                           <option value="<%= month %>"><%= month %></option>
                           <% end %>
                         </select>
-                        <select class="form-control" name="expire_month">
+                        <select class="form-control" name="expire_month" data-omise="expiration_year">
                           <option value="">Year</option>
                           <% (0..50).each do |i| %>
                           <option value="<%= Time.now.year + i %>"><%= Time.now.year + i %></option>
@@ -119,7 +131,7 @@
                     </div>
                     <div class="form-group col-xs-12 col-md-3">
                       <label>CVV</label>
-                      <input class="form-control" type="text" name="cvv" value="" />
+                      <input class="form-control" type="text" name="cvv" value="" data-omise="security_code" />
                     </div>
                   </div>
                   <div class="form-section-footer">
@@ -129,7 +141,63 @@
                         I have read and accept Daydash <a href="#">Payment Policy</a>
                       </label>
                     </div>
-                    <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" name="payment_method" value="credit_card" >PAY NOW - ฿ <%= @total %></button>
+                    <script src="https://cdn.omise.co/omise.js"></script>
+                    <script>
+                      Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
+                    </script>
+                    <input type="hidden" name="omise_token">
+                    <input type="hidden" name="payment_method">
+                    <input type="hidden" name="payment_amount" value="<%= @total %>">
+                    <script type="text/javascript">
+                      $(document).ready(function(){
+                        $("#checkout").submit(function () {
+                          var form = $(this);
+
+                          // Disable the submit button to avoid repeated click.
+                          form.find("input[type=submit]").prop("disabled", true);
+
+                          // Serialize the form fields into a valid card object.
+                          var card = {
+                            "name": form.find("[data-omise=holder_name]").val(),
+                            "number": form.find("[data-omise=number]").val(),
+                            "expiration_month": form.find("[data-omise=expiration_month]").val(),
+                            "expiration_year": form.find("[data-omise=expiration_year]").val(),
+                            "security_code": form.find("[data-omise=security_code]").val()
+                          };
+
+                          // Send a request to create a token then trigger the callback function once
+                          // a response is received from Omise.
+                          //
+                          // Note that the response could be an error and this needs to be handled within
+                          // the callback.
+                          Omise.createToken("card", card, function (statusCode, response) {
+                            if (response.object == "error") {
+                              // Display an error message.
+                              $("#token_errors").html(response.message);
+
+                              // Re-enable the submit button.
+                              form.find("input[type=submit]").prop("disabled", false);
+                            } else {
+                              // Then fill the omise_token.
+                              form.find("[name=omise_token]").val(response.id);
+                              form.find("[name=payment_method]").val(form.find("[data-btn=payment-method]").val());
+
+                              // Remove card number from form before submiting to server.
+                              form.find("[data-omise=number]").val("");
+                              form.find("[data-omise=security_code]").val("");
+
+                              // submit token to server.
+                              form.get(0).submit();
+                            };
+                          });
+
+                          // Prevent the form from being submitted;
+                          return false;
+
+                        });
+                      });
+                    </script>
+                    <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @total %></button>
                   </div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
@@ -145,14 +213,16 @@
                         I have read and accept Daydash <a href="#">Payment Policy</a>
                       </label>
                     </div>
-                    <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" name="payment_method" value="bank_transfer" >Place an order</button>
+                    <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="bank_transfer" >Place an order</button>
                   </div>
                 </div>
-              </div>              
+              </div>
             </div>
           </div>
         <% end %>
-			</div>
-		</div>
-	</div>
+      </div>
+    </div>
+  </div>
 </div>
+
+

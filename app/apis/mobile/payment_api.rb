@@ -20,13 +20,15 @@ class Mobile::PaymentAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
       requires :event_id, type: Integer, desc: "event id"
       requires :omise_token, type: String, desc: "omise token"
+      requires :total_price, type: Integer, desc: "Section price"
     end
     post '/credit-card' do
       if params[:user_token].present? and params[:event_id].present? and params[:omise_token].present?
         begin
-          charge = Omise::Charge.retrieve(params[:omise_token])
-          raise unless User.find_by_token(params[:user_token]).present?
-          payment = Payment.omise(params[:user_token], params[:event_id], charge)
+          user = User.find_by_token(params[:user_token])
+          event = Event.find(params[:event_id])
+
+          payment = Payment.omise_charge(event, user, params[:total_price], params[:omise_token])
 
           present :status, :success
           present :data, payment, with: Entities::PaymentOmiseExpose
@@ -46,13 +48,16 @@ class Mobile::PaymentAPI < ApplicationAPI
       requires :event_id, type: Integer, desc: "event id"
       # requires :amount, type: Integer
       # requires :evidence, type: File
+      requires :total_price, type: Integer, desc: "Section price"
+
     end
     post '/bank-transfer' do
       if params[:user_token].present? and params[:event_id].present? # and params[:evidence].present?
         begin
-          raise unless User.find_by_token(params[:user_token]).present?
+          user = User.find_by_token(params[:user_token])
+          event = Event.find(params[:event_id])
 
-          payment = Payment.transfer_notify(params[:user_token], params[:event_id]) #, params[:evidence], params[:amount])
+          payment = Payment.transfer_notify(event, user, params[:total_price])
 
           present :status, :success
           present :data, payment, with: Entities::PaymentTransferExpose

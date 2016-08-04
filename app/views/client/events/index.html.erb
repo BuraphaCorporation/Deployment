@@ -21,8 +21,8 @@
       <li><a href="#">FITNESS</a></li>
       <li><a href="#">WORKSHOPS</a></li>
       <li><a href="#">FOOD&amp;DRINK</a></li> -->
-      <% if @categories.size > 0 %>
-        <% @categories.each do |category| %>
+      <% if @category.size > 0 %>
+        <% @category.each do |category| %>
           <li>
             <%= link_to category.title, client_category_path(category)  %>
           </li>

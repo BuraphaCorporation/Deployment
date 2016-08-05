@@ -1,7 +1,6 @@
 //Parameters
 $main-color:       #00CFD1;
 $main-light-color: #00E9CA;
-$main-dark-color:  #00CFD1;
 
 $trivial-color:     #00a0ff;
 
@@ -23,6 +22,7 @@ $bg-color2: #fcfcfc;
 html, body {
 	height: 100%;
 	font-family: $font-main;
+	color: #444;
 }
 
 #topbar {
@@ -47,7 +47,7 @@ html, body {
 
 #main {
 	min-height: $min-height;
-	padding-bottom: 500px;
+	padding-bottom: 550px;
 
 	@media all and (max-width: 991px) {
 		padding-bottom: 785px;
@@ -69,7 +69,12 @@ html, body {
 	}
 
 	a {
+		text-decoration: none;
 		color: #aaa;
+
+		&:hover {
+			color: white;
+		}
 	}
 
 	.list-panel {
@@ -93,6 +98,7 @@ html, body {
 
 					&:hover, &:active, &:focus, &.active {
 						background: transparent;
+						color: white;
 					}
 				}
 			}
@@ -118,3 +124,54 @@ html, body {
 		margin-top: 50px;
 	}
 }
+
+#login-modal {
+
+	.modal-title {
+		text-align: center;
+	}
+
+	.fb-login {
+		margin-bottom: 15px;
+		text-align: center;
+
+		img {
+			height: 40px;
+		}
+	}
+
+	.seperator {
+		border-top: 1px solid #444;
+		margin-top: 25px;
+		margin-bottom: 15px;
+
+		.inner {
+			margin-top: -16px;
+		}
+
+		span {
+			display: inline-block;
+			padding: 5px 15px;
+			background: white;
+		}
+	}
+
+	.forgot-password {
+		margin-top: 15px;
+		text-align: center;
+	}
+
+	.modal-footer {
+		text-align: center;
+	}
+}
+
+@media (max-width: 991px) {
+	#main {
+		padding-bottom: 1400px;
+	}
+}
+
+
+
+

@@ -138,32 +138,23 @@
 }
 
 #payment-page {
+
+	.form-section.highlight {
+		padding: 15px;
+		background: #f4f4f4;
+	}
+
 	.form-section-description {
 		margin-bottom: 15px;
 	}
 
 	#payment-method-section {
 		.nav-tabs {
-			margin-bottom: 15px;
+			margin-bottom: 30px;
 			border-bottom: 0px;
 
 			li {
 				margin-bottom: 0px;
-				width: 50%;
-
-				a {
-					border: 1px solid #444;
-					text-align: center;
-					border-radius: 0px;
-					color: #444;
-				}
-
-				&.active {
-					a {
-						font-weight: bold;
-					}
-				}
-
 			}
 		}
 
@@ -179,6 +170,29 @@
 			}
 		}
 
+	}
+
+	.dob-form-group {
+		.form-inline {
+			.form-control {
+				display: inline-block;
+				width: 30%;
+			}
+		}
+	}
+
+	.gender-form-group {
+		@media (max-width: 991px) {
+			.form-inline {
+				padding-left: 30px;
+			}
+		}
+	}
+
+	.form-group {
+		.radio {
+			margin-right: 15px;
+		}
 	}
 }
 

@@ -4,8 +4,10 @@
     <% @covers.each do |cover| %>
       <div>
         <div class="page-cover" style="background-image: url(<%= cover[:image] %>)">
-          <div class="container">
-            <div class="caption"><%= raw(cover[:caption]) %></div>
+          <div class="info">
+            <div class="container">
+              <div class="caption"><%= raw(cover[:caption]) %></div>
+            </div>
           </div>
         </div>
       </div>
@@ -37,22 +39,14 @@
     <div class="row event-list">
       <% @events.each do |event| %>
         <div class="col-sm-6 col-md-4">
-          <div class="event card">
-            <%= link_to client_event_path(event.id) do %>
-              <% if event.galleries.present? %>
-                <div class="cover" style="background-image: url(<%= event.galleries.first.try(:media, :thumb) %>);"></div>
-              <% else %>
-                <div class="cover"></div>
-              <% end %>
-            <% end %>
+          <a class="event card" href="<%= client_event_path(event.id) %>">
+            <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
             <div class="info">
-              <h4 class="title text-left">
-                <%= link_to event.title, client_event_path(event.id) %>
-              </h4>
+              <h4 class="title text-left"><%= event.title %></h4>
               <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
             </div>
-          </div>
+          </a>
         </div>
       <% end %>
     </div>

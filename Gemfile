@@ -6,7 +6,7 @@ gem 'rails', '5.0'
 # helper database
 gem 'figaro'
 gem 'bcrypt', '~> 3.1.7'
-gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
+# gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
 gem 'active_model_serializers'
 gem 'activemodel-serializers-xml'
 gem 'rails-controller-testing'

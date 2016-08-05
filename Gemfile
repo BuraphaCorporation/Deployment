@@ -3,50 +3,53 @@ ruby '2.3.1'
 
 gem 'rails', '5.0'
 
-# gem 'sass-rails'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
-gem 'jquery-rails'
-gem 'sprockets'
-# gem 'sprockets-es6'
-gem 'react-rails'
-gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
-gem 'bcrypt', '~> 3.1.7'
-gem 'dalli', '~> 2.7.4'
-
-gem 'friendly_id', '~> 5.1.0' # Note: You MUST use 5.0.0 or greater for Rails 4.0+
-
+# helper database
 gem 'figaro'
-gem "cocoon"
-
-gem 'devise'
-gem 'omniauth-facebook'
-
-gem 'koala'
-
-gem 'omise'
-
-gem 'paperclip'
-gem 'paperclip-ffmpeg'
-gem 'aws-sdk', '>= 2.0.34'
-gem 'gcloud'
-
-gem 'intercom-rails'
-
+gem 'bcrypt', '~> 3.1.7'
+gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
 gem 'active_model_serializers'
 gem 'activemodel-serializers-xml'
 gem 'rails-controller-testing'
 gem 'rack-cors'
 gem 'rack-attack'
 gem 'open_uri_redirections'
+gem 'paperclip'
+gem 'paperclip-ffmpeg'
+gem 'friendly_id', '~> 5.1.0'
 
+# nosql
+gem 'redis', '~>3.2'
+gem 'dalli', '~> 2.7.4'
+gem 'firebase'
+gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
+
+# API
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'koala'
+gem 'omise'
+gem 'aws-sdk', '>= 2.0.34'
+gem 'gcloud'
+gem 'intercom-rails'
+
+# make api
+gem 'jbuilder', '~> 2.5'
 gem 'grape'
 gem 'grape-entity'
 gem 'grape-swagger'
 gem 'grape-swagger-rails'
 gem 'grape-active_model_serializers'
+
+# helper views
+gem "cocoon"
+gem 'turbolinks', '~> 5'
+gem 'react-rails'
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.2'
+gem 'jquery-rails'
+gem 'sprockets'
+# gem 'sprockets-es6'
 
 group :development, :test do
   gem 'pry'
@@ -87,10 +90,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 platform :ruby do
   gem 'pg'
   gem 'puma'
-  gem 'redis'
-  gem 'firebase'
   gem 'unicorn'
-  gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
 end
 
 group :production do

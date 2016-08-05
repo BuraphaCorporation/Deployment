@@ -15,6 +15,11 @@ Rails.application.routes.draw do
       }
 
     root 'client/events#index'
+
+    get 'faq', to: 'greetings#faq'
+    get 'terms', to: 'greetings#terms_and_conditions'
+    get 'policy', to: 'greetings#privacy_policy'
+
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category
       resources :events, only: [:index, :show] do

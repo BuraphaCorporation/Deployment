@@ -1,10 +1,10 @@
-  <div id="login-form">
-    <%= form_tag 'profile/login' do  %>
+  <div id="register-form" style="display: none;">
+    <%= form_tag 'profile/register' do  %>
       <input type="hidden" name="continue" value="" />
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Login</h4>
+          <h4 class="modal-title">Signup</h4>
         </div>
         <div class="modal-body">
           <div class="fb-login">
@@ -16,6 +16,14 @@
             </div>
           </div>
           <div class="form-group">
+            <label>Firstname</label>
+            <input class="form-control" type="text" name="firstname" value="" />
+          </div>
+          <div class="form-group">
+            <label>Lastname</label>
+            <input class="form-control" type="text" name="lastname" value="" />
+          </div>
+          <div class="form-group">
             <label>Your E-mail</label>
             <input class="form-control" type="email" name="email" value="" />
           </div>
@@ -23,15 +31,12 @@
             <label>Your Password</label>
             <input class="form-control" type="password" name="password" value="" />
           </div>
-          <button class="btn btn-block btn-daydash btn-daydash-green-1">Login</button>
-          <div class="forgot-password">
-            <a href="#">Forgot Password?</a>
-          </div>
+          <button class="btn btn-block btn-daydash btn-daydash-green-1">Signup Free!</button>
         </div>
         <div class="modal-footer">
           <div>
-            Don't have an account?
-            <a href="#" onclick="$('#login-modal #login-form').hide(); $('#login-modal #register-form').show(); return false;">Register Free!</a>
+            Already have an account?
+            <a href="#" onclick="$('#login-modal #login-form').show(); $('#login-modal #register-form').hide(); return false;">Login Here!</a>
           </div>
         </div>
       </div><!-- /.modal-content -->

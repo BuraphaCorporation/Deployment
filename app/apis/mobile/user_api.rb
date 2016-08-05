@@ -24,7 +24,7 @@ class Mobile::UserAPI < ApplicationAPI
       requires :first_name, type: String, desc: 'first name'
       requires :last_name, type: String, desc: 'last_name'
       requires :phone, type: String, desc: 'phone'
-      requires :birthday, type: String, desc: 'birthday'
+      requires :birthday, type: String, desc: 'birthday formatting dd/MM/YYYY'
       requires :gender, type: String, desc: 'male, female input'
     end
     put '/' do
@@ -46,11 +46,12 @@ class Mobile::UserAPI < ApplicationAPI
     desc "change password"
     params do
       requires :user_token, type: String, desc: "token of the user"
-      requires :password, type: String, desc: "token of the user"
+      requires :old_password, type: String, desc: "old password user"
+      requires :new_password, type: String, desc: "new password user"
     end
     put 'change_password' do
       begin
-        User.find_by_token(params[:token]).update(password: params[:password])
+        User.find_by_token(params[:token]).update(password: params[:old_password])
         present :status, :success
         present :data, nil
       rescue
@@ -73,24 +74,6 @@ class Mobile::UserAPI < ApplicationAPI
         present :status, :failure
         present :data, nil
       end
-    end
-
-    desc "action notification"
-    params do
-      requires :user_token, type: String, desc: "token of the user"
-      # requires :password, type: String, desc: "token of the user"
-    end
-    put 'change_password' do
-      present :status, :waiting
-      present :data, nil
-      # begin
-      #   User.find_by_token(params[:token]).update(password: params[:password])
-      #   present :status, :success
-      #   present :data, nil
-      # rescue
-      #   present :status, :failure
-      #   present :data, nil
-      # end
     end
 
     desc "action tag"

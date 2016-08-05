@@ -1,12 +1,16 @@
 class GreetingsController < ApplicationController
-  # before_action :authenticate_user!
-  # skip_before_action :authenticate_user!, only: :hello
 
   def hello
+  end
+
+  def faq
+  end
+
+  def terms
 
   end
 
-  def events
-    Event.last(6)
+  def policy
+
   end
 end

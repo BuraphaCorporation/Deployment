@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   # has_one :token, { order 'created_at DESC' }, class_name: Doorkeeper::AccessToken, foreign_key: :resource_owner_id
 
-  enum gender: { male: 1, female: 0 }
+  enum gender: { male: true, female: false }
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100#" },
                     default_url: "/images/:style/missing.png"

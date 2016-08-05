@@ -32,7 +32,7 @@ set :stages, [:staging, :production]
 set :default_stage, :staging
 
 set :slackistrano, {
-  channel: '#web',
+  channel: '#system',
   webhook: 'https://hooks.slack.com/services/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'
 }
 

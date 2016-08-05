@@ -1,16 +1,49 @@
+label {
+  font-weight: normal;
+}
+
+//Overwrite for Bootstrap DatetimePicker
+
+.bootstrap-datetimepicker-widget {
+  padding-left: 15px;
+  padding-right: 15px;
+
+  th, td {
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .day {
+    &.active {
+      background-color: $main-color;
+      color: white;
+    }
+  }
+
+  .btn {
+    color: $main-color;
+  }
+
+  .btn-primary {
+    background: $main-color;
+    color: white;
+    border: 0px;
+  }
+}
+
 //Icons
 .icon {
-	display: inline-block;
-	width: 25px;
-	height: 25px;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .icon-xs {
-	width: 16px;
-	height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .icon-facebook  { background-image: url(../../images/icons/icon-facebook.png); }
@@ -24,123 +57,175 @@
 
 //Button
 .btn-daydash {
-	border-radius: 0px;
-	color: #444;
+  border-radius: 0px;
+  color: #444;
 
-	&:hover, &:active, &:visited, &:link {
-		color: black;
-	}
+  &:hover, &:active, &:visited, &:link {
+    color: black;
+  }
 }
 
 .btn-daydash-lg {
-	padding: 15px;
-	font-size: 24px;
+  padding: 15px;
+  font-size: 24px;
 }
 
 .btn-daydash-green-1 {
-	background: linear-gradient(90deg, #00CFD1 , #00E9CA);
-	color: white;
-	border: 0px;
+  background: linear-gradient(90deg, #00CFD1 , #00E9CA);
+  color: white;
+  border: 0px;
 
-	&:hover, &:active, &:visited, &:link {
-		color: white;
-	}
+  &:hover, &:active, &:visited, &:link {
+    color: white;
+  }
 }
 
 
 //Event Card
 
-.event.card {
-	margin-bottom: 30px;
-	border-radius: 2px;
-	border: 1px solid #eee;
-	overflow: hidden;
+.event.card, .ticket.card {
+  margin-bottom: 30px;
+  border-radius: 2px;
+  border: 1px solid #eee;
+  overflow: hidden;
 
-	.cover {
-		background-size: cover;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-color: #ccc;
-		height: 250px;
-	}
-	.info {
-		background-color: #fff;
-		color: #444;
-		padding: 15px;
-		font-size: 16px;
+  .cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ccc;
+    height: 250px;
+  }
+  .info {
+    background-color: #fff;
+    color: #444;
+    padding: 15px;
+    font-size: 16px;
 
-		a {
-			color: #444;
-		}
-	}
+    a {
+      color: #444;
+    }
+  }
 
-	.title {
-		margin-bottom: 25px;
-		height: 64px;
-		font-size: 20px;
-	}
+  .title {
+    margin-bottom: 25px;
+    height: 64px;
+    font-size: 20px;
+  }
 
-	.icon {
-		float: left;
-		margin-top: 1px;
-		margin-right: 5px;
-	}
-	.meta {
-		margin-bottom: 10px;
-	}
+  .icon {
+    float: left;
+    margin-top: 1px;
+    margin-right: 5px;
+  }
+  .meta {
+    margin-bottom: 10px;
+  }
 
-	&.payment-card {
-		.title {
-			height: auto;
-		}
+  &.payment-card {
+    .title {
+      height: auto;
+    }
 
-		.info {
-			padding-bottom: 0px;
+    .info {
+      padding-bottom: 0px;
 
-			.row {
-				padding-top: 15px;
-				padding-bottom: 15px;
-				border-bottom: 1px solid #eee;
-			}
-		}
+      .row {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+    }
 
-		.ticket-list {
-			.ticket {
-				.ticket-price {
-					text-align: right;
-				}
-			}
-			.list-footer {
-				text-align: right;
-			}
-		}
-	}
+    .ticket-list {
+      .ticket {
+        .ticket-price {
+          text-align: right;
+        }
+      }
+      .list-footer {
+        text-align: right;
+      }
+    }
+  }
 }
 
+.card-side-cover {
+  margin-bottom: 15px;
+  border: 1px solid #eee;
+
+  .cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ccc;
+  }
+
+  .info {
+    padding: 15px;
+    padding-bottom: 0px;
+
+    .info-body {
+      padding-bottom: 15px;
+    }
+
+  }
+
+  @media (max-width: 991px) {
+    .cover {
+      height: 150px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    width: 100%;
+    display: table;
+
+    .cover {
+      display: table-cell;
+      width: 250px;
+    }
+
+    .info {
+      display: table-cell;
+    }
+  }
+}
 
 //Nav
 
 .nav-daydash {
-	margin-bottom: 15px;
+  margin-bottom: 15px;
 
-	li {
-		a, a:visited, a:link, a:active  {
-			background: transparent;
-			padding-bottom: 2px;
-			color: #aaa;
+  li {
+    a, a:visited, a:link, a:active  {
+      background: transparent;
+      padding-bottom: 2px;
+      color: #aaa;
 
-			&:hover {
-				color: #444;
-			}
-		}
+      &:hover {
+        color: #444;
+      }
+    }
 
-		&.active {
-			a {
-				border-radius: 0px;
-				background: transparent;
-				color: #444;
-				border-bottom: 3px solid $main-color;
-			}
-		}
-	}
+    &.active, &.active:hover {
+      a {
+        border-radius: 0px;
+        background: transparent;
+        color: #444;
+        border-bottom: 3px solid $main-color;
+      }
+    }
+  }
+}
+
+.list-action-nav {
+  li:not(:last-child) {
+    &:after {
+      content: "|";
+      display: inline-block;
+      padding-left: 15px;
+
+    }
+  }
 }

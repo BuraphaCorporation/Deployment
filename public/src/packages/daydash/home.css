@@ -93,6 +93,25 @@ html, body {
   #footer .cert-list {
     margin-top: 50px; }
 
+label {
+  font-weight: normal; }
+
+.bootstrap-datetimepicker-widget {
+  padding-left: 15px;
+  padding-right: 15px; }
+  .bootstrap-datetimepicker-widget th, .bootstrap-datetimepicker-widget td {
+    cursor: pointer;
+    text-align: center; }
+  .bootstrap-datetimepicker-widget .day.active {
+    background-color: #00CFD1;
+    color: white; }
+  .bootstrap-datetimepicker-widget .btn {
+    color: #00CFD1; }
+  .bootstrap-datetimepicker-widget .btn-primary {
+    background: #00CFD1;
+    color: white;
+    border: 0px; }
+
 .icon {
   display: inline-block;
   width: 25px;
@@ -140,46 +159,72 @@ html, body {
   .btn-daydash-green-1:hover, .btn-daydash-green-1:active, .btn-daydash-green-1:visited, .btn-daydash-green-1:link {
     color: white; }
 
-.event.card {
+.event.card, .ticket.card {
   margin-bottom: 30px;
   border-radius: 2px;
   border: 1px solid #eee;
   overflow: hidden; }
-  .event.card .cover {
+  .event.card .cover, .ticket.card .cover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #ccc;
     height: 250px; }
-  .event.card .info {
+  .event.card .info, .ticket.card .info {
     background-color: #fff;
     color: #444;
     padding: 15px;
     font-size: 16px; }
-    .event.card .info a {
+    .event.card .info a, .ticket.card .info a {
       color: #444; }
-  .event.card .title {
+  .event.card .title, .ticket.card .title {
     margin-bottom: 25px;
     height: 64px;
     font-size: 20px; }
-  .event.card .icon {
+  .event.card .icon, .ticket.card .icon {
     float: left;
     margin-top: 1px;
     margin-right: 5px; }
-  .event.card .meta {
+  .event.card .meta, .ticket.card .meta {
     margin-bottom: 10px; }
-  .event.card.payment-card .title {
+  .event.card.payment-card .title, .ticket.card.payment-card .title {
     height: auto; }
-  .event.card.payment-card .info {
+  .event.card.payment-card .info, .ticket.card.payment-card .info {
     padding-bottom: 0px; }
-    .event.card.payment-card .info .row {
+    .event.card.payment-card .info .row, .ticket.card.payment-card .info .row {
       padding-top: 15px;
       padding-bottom: 15px;
       border-bottom: 1px solid #eee; }
-  .event.card.payment-card .ticket-list .ticket .ticket-price {
+  .event.card.payment-card .ticket-list .ticket .ticket-price, .ticket.card.payment-card .ticket-list .ticket .ticket-price {
     text-align: right; }
-  .event.card.payment-card .ticket-list .list-footer {
+  .event.card.payment-card .ticket-list .list-footer, .ticket.card.payment-card .ticket-list .list-footer {
     text-align: right; }
+
+.card-side-cover {
+  margin-bottom: 15px;
+  border: 1px solid #eee; }
+  .card-side-cover .cover {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ccc; }
+  .card-side-cover .info {
+    padding: 15px;
+    padding-bottom: 0px; }
+    .card-side-cover .info .info-body {
+      padding-bottom: 15px; }
+  @media (max-width: 991px) {
+    .card-side-cover .cover {
+      height: 150px; } }
+  @media (min-width: 992px) {
+    .card-side-cover {
+      width: 100%;
+      display: table; }
+      .card-side-cover .cover {
+        display: table-cell;
+        width: 250px; }
+      .card-side-cover .info {
+        display: table-cell; } }
 
 .nav-daydash {
   margin-bottom: 15px; }
@@ -189,11 +234,16 @@ html, body {
     color: #aaa; }
     .nav-daydash li a:hover, .nav-daydash li a:visited:hover, .nav-daydash li a:link:hover, .nav-daydash li a:active:hover {
       color: #444; }
-  .nav-daydash li.active a {
+  .nav-daydash li.active a, .nav-daydash li.active:hover a {
     border-radius: 0px;
     background: transparent;
     color: #444;
     border-bottom: 3px solid #00CFD1; }
+
+.list-action-nav li:not(:last-child):after {
+  content: "|";
+  display: inline-block;
+  padding-left: 15px; }
 
 #index-page #cover-section .slick {
   margin-bottom: 0px; }
@@ -370,36 +420,25 @@ html, body {
   background-repeat: no-repeat;
   margin: 30px auto; }
 
-#profile-ticket-list-page .ticket-list .ticket {
-  margin-bottom: 15px;
-  border: 1px solid #eee; }
-  #profile-ticket-list-page .ticket-list .ticket .ticket-cover {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #ccc; }
-  #profile-ticket-list-page .ticket-list .ticket .ticket-info {
-    padding: 15px;
-    padding-bottom: 0px; }
-    #profile-ticket-list-page .ticket-list .ticket .ticket-info .info-body {
-      padding-bottom: 15px; }
-@media (max-width: 991px) {
-  #profile-ticket-list-page .ticket-list .ticket .ticket-cover {
-    height: 150px; } }
-@media (min-width: 992px) {
-  #profile-ticket-list-page .ticket-list .ticket {
-    width: 100%;
-    display: table; }
-    #profile-ticket-list-page .ticket-list .ticket .ticket-cover {
-      display: table-cell;
-      width: 250px; }
-    #profile-ticket-list-page .ticket-list .ticket .ticket-info {
-      display: table-cell; } }
-
 #profile-wishlist-page .event-list .event .cover {
   height: 200px; }
 
 #profile-settings-page form .form-group:nth-child(2n+1) {
+  clear: left; }
+
+#organizer-events-new .form-section, #organizer-events-edit .form-section {
+  margin-bottom: 30px; }
+#organizer-events-new .ticket-list .ticket:first-child .btn-ticket-delete, #organizer-events-edit .ticket-list .ticket:first-child .btn-ticket-delete {
+  display: none; }
+#organizer-events-new .image-list .image, #organizer-events-edit .image-list .image {
+  margin-bottom: 30px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #ccc; }
+
+#organizer-settings-page form .form-group:nth-child(2n+1) {
   clear: left; }
 
 /*# sourceMappingURL=home.css.map */

@@ -1,0 +1,42 @@
+<div class="section">
+  <div class="container">
+      <%= render partial: "organizer/parts/organizer-nav" %>
+      <script>$('#organizer-nav #menu-event-list').addClass('active');</script>
+
+      <div class="row">
+        <div class="col-xs-12 col-md-9">
+          <div class="transaction-list">
+            <div class="list-header">
+              <h1 class="list-title">Transaction list of <%= @event.title %></h1>
+            </div>
+            <div class="list-body table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <td>Date Purchased</td>
+                    <td>Customer</td>
+                    <td>Contact Number</td>
+                    <td>QTY</td>
+                    <td>Type</td>
+                    <td>Amount</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @payments.each do |payment| %>
+                  <tr>
+                    <td><%= payment[:purchased_at] %></td>
+                    <td><%= "#{payment[:user][:firstname]} #{payment[:user][:lastname]}" %></td>
+                    <td><%= payment[:user][:tel] %></td>
+                    <td><%= payment[:quantity] %></td>
+                    <td><%= payment[:type] %></td>
+                    <td><%= payment[:total] %></td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

@@ -3,7 +3,7 @@ class Client::EventsController < Client::CoreController
   before_action :related_events, only: [:show, :checkout]
 
   def index
-    @category  = Category.all
+    @categories  = Category.all
     @galleries = Gallery.all.shuffle.first(5)
 
     @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])

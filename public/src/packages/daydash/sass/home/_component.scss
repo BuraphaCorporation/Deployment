@@ -1,3 +1,14 @@
+
+//Overwrite tag
+
+a {
+  color: $main-color;
+
+  &:hover {
+    color: $main-light-color;
+  }
+}
+
 label {
   font-weight: normal;
 }
@@ -84,10 +95,12 @@ label {
 //Event Card
 
 .event.card, .ticket.card {
+  display: block;
   margin-bottom: 30px;
   border-radius: 2px;
   border: 1px solid #eee;
   overflow: hidden;
+  text-decoration: none;
 
   .cover {
     background-size: cover;
@@ -214,6 +227,55 @@ label {
         background: transparent;
         color: #444;
         border-bottom: 3px solid $main-color;
+      }
+    }
+  }
+}
+
+.nav-tabs-daydash, .nav-tabs-daydash.nav-justified {
+  margin-bottom: 15px;
+
+  li {
+
+    a, a:visited, a:link, a:active  {
+      background: transparent;
+      color: #aaa;
+      border: 0px;
+      border-bottom: 3px solid #eee;
+    }
+
+    &:hover {
+      a, a:hover {
+        color: #444;
+
+      }
+    }
+
+    &.active {
+      &, &:hover {
+        a {
+          &, &:visited, &:link, &:active {
+            border-radius: 0px;
+            background: transparent;
+            color: #444;
+            border: 0px;
+            border-bottom: 3px solid $main-color;
+          }
+        }
+      }
+    }
+  }
+
+  &.nav-tabs-black {
+    li {
+      &.active {
+        &, &:hover {
+          a {
+            &, &:visited, &:link, &:active {
+              border-bottom: 3px solid #444;
+            }
+          }
+        }
       }
     }
   }

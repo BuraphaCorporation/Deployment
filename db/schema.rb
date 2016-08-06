@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801044846) do
+ActiveRecord::Schema.define(version: 20160806023432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -126,13 +126,15 @@ ActiveRecord::Schema.define(version: 20160801044846) do
   create_table "tickets", force: :cascade do |t|
     t.integer  "status",     default: 0
     t.integer  "user_id"
-    t.integer  "event_id"
     t.string   "code"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "payment_id"
+    t.integer  "event_id"
+    t.integer  "section_id"
     t.index ["event_id"], name: "index_tickets_on_event_id", using: :btree
     t.index ["payment_id"], name: "index_tickets_on_payment_id", using: :btree
+    t.index ["section_id"], name: "index_tickets_on_section_id", using: :btree
     t.index ["user_id"], name: "index_tickets_on_user_id", using: :btree
   end
 
@@ -199,8 +201,8 @@ ActiveRecord::Schema.define(version: 20160801044846) do
   add_foreign_key "sections", "events"
   add_foreign_key "taggings", "events"
   add_foreign_key "taggings", "tags"
-  add_foreign_key "tickets", "events"
   add_foreign_key "tickets", "payments"
+  add_foreign_key "tickets", "sections"
   add_foreign_key "tickets", "users"
   add_foreign_key "users", "roles"
   add_foreign_key "wishlists", "events"

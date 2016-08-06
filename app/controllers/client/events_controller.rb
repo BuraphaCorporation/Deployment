@@ -50,11 +50,12 @@ class Client::EventsController < Client::CoreController
 
   def checkout
     @event = Event.friendly.find(params[:event_id])
+
     if params[:payment_method] == 'credit_card'
-      Payment.omise_charge(@event, current_user, params[:payment_amount], params[:omise_token])
+      Payment.omise_charge(current_user, @event, params[:payment_amount], params[:omise_token])
       render "client/events/payment-credit-card"
     elsif params[:payment_method] == 'bank_transfer'
-      Payment.transfer_notify(@event, current_user, params[:payment_amount])
+      Payment.transfer_notify(current_user, @event, params[:payment_amount])
       render "client/events/payment-bank-transfer"
     end
   end

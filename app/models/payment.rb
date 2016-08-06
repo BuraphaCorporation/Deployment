@@ -20,29 +20,49 @@ class Payment < ActiveRecord::Base
       end
     end
 
-    def invoice(event, user)
+    def invoice(user, event)
       "#{Time.zone.now.strftime("%Y%m%d-%H%M")}-#{event.id}-#{user.id}"
     end
 
-    def omise_charge(event, user, amount, omise_token)
-      charge = Omise::Charge.create({
-        amount: amount.to_i * 100,
-        currency: "thb",
-        description: invoice(event, user),
-        card: omise_token
-      })
+    def omise_charge(user, event, sections, amount, omise_token)
+      begin
+        card = Omise::Token.create(card: {
+          name: "Somchai Prasert",
+          number: "4242424242424242",
+          expiration_month: 10,
+          expiration_year: 2018,
+          city: "Bangkok",
+          postal_code: "10320",
+          security_code: 123
+        })
+        omise_token = card.id
 
-      pay = create(status: :success, user: user, provider: 'omise', event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
-      Ticket.create_ticket(user, event, pay)
-      pay
+        charge = Omise::Charge.create({
+          amount: amount.to_i * 100,
+          currency: "thb",
+          description: invoice(event, user),
+          card: omise_token
+        })
+
+        pay = create(status: :success, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
+
+        sections.each do |section|
+          Ticket.create_ticket(user, event, section, pay)
+        end
+
+        pay
+      rescue
+
+      end
     end
 
-    def transfer_checkout(event, user, evidence=nil)
-      # create(status: :pending, user: user, event: event, evidence: evidence)
+    def transfer_notify(user, event, sections, amount)
+      create(status: :pending, provider: 'transfer', user: user, event: event, amount: amount)
     end
 
-    def transfer_notify(event, user, amount)
-      create(status: :pending, user: user, provider: 'transfer', event: event, amount: amount)
+
+    def transfer_checkout(user, event, evidence=nil)
+      update(status: :success, user: user, event: event, evidence: evidence)
     end
 
     def transfer_approve(user, event, payment)

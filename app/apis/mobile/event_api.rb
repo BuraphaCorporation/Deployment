@@ -1,6 +1,28 @@
 class Mobile::EventAPI < ApplicationAPI
   include Defaults::Mobile
 
+  resources :event do
+    desc "Return a event"
+    params do
+      requires :event_id, type: Integer, desc: "slug of event"
+    end
+    get "/" do
+      if params[:event_id].present?
+        present :status, :success
+        present :data, Event.friendly.find(params[:event_id]), with: Entities::EventExpose
+      else
+        present :status, :failure
+        present :data, "id not found"
+      end
+    end
+
+    desc "return categories"
+    get "/categories" do
+      present :status, :success
+      present :data, Category.all, with: Entities::CategoryExpose
+    end
+  end
+
   resources :events do
     desc "Return all events"
     get "/" do
@@ -40,28 +62,6 @@ class Mobile::EventAPI < ApplicationAPI
         present :status, :failure
         present :data, nil
       end
-    end
-  end
-
-  resources :event do
-    desc "Return a event"
-    params do
-      requires :event_id, type: Integer, desc: "slug of event"
-    end
-    get "/" do
-      if params[:event_id].present?
-        present :status, :success
-        present :data, Event.friendly.find(params[:event_id]), with: Entities::EventExpose
-      else
-        present :status, :failure
-        present :data, "id not found"
-      end
-    end
-
-    desc "return categories"
-    get "/categories" do
-      present :status, :success
-      present :data, Category.all, with: Entities::CategoryExpose
     end
   end
 end

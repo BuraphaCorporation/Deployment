@@ -62,7 +62,7 @@ class Payment < ActiveRecord::Base
 
     def transfer_notify(user, event, sections, amount)
       begin
-        create(status: :pending, provider: 'transfer', user: user, event: event, amount: amount)
+        pay = create(status: :pending, provider: 'transfer', user: user, event: event, amount: amount)
         sections.each do |section|
           Ticket.create_ticket(user, event, section, pay)
         end

@@ -26,16 +26,16 @@ class Payment < ActiveRecord::Base
 
     def omise_charge(user, event, sections, amount, omise_token)
       begin
-        card = Omise::Token.create(card: {
-          name: "Somchai Prasert",
-          number: "4242424242424242",
-          expiration_month: 10,
-          expiration_year: 2018,
-          city: "Bangkok",
-          postal_code: "10320",
-          security_code: 123
-        })
-        omise_token = card.id
+        # card = Omise::Token.create(card: {
+        #   name: "Somchai Prasert",
+        #   number: "4242424242424242",
+        #   expiration_month: 10,
+        #   expiration_year: 2018,
+        #   city: "Bangkok",
+        #   postal_code: "10320",
+        #   security_code: 123
+        # })
+        # omise_token = card.id
 
         charge = Omise::Charge.create({
           amount: amount.to_i * 100,
@@ -44,20 +44,33 @@ class Payment < ActiveRecord::Base
           card: omise_token
         })
 
-        pay = create(status: :success, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
+        if charge.status == 'successful'
+          pay = create(status: :success, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
 
+          sections.each do |section|
+            Ticket.create_ticket(user, event, section, pay)
+          end
+
+          pay
+        else
+          raise
+        end
+      rescue Exception => e
+        e
+      end
+    end
+
+    def transfer_notify(user, event, sections, amount)
+      begin
+        create(status: :pending, provider: 'transfer', user: user, event: event, amount: amount)
         sections.each do |section|
           Ticket.create_ticket(user, event, section, pay)
         end
 
         pay
-      rescue
-
+      rescue Exception => e
+        e
       end
-    end
-
-    def transfer_notify(user, event, sections, amount)
-      create(status: :pending, provider: 'transfer', user: user, event: event, amount: amount)
     end
 
 

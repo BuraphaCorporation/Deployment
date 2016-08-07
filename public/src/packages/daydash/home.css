@@ -133,6 +133,9 @@ a {
   a:hover, a:active, a:link, a:visited {
     color: #00E9CA; }
 
+h1 {
+  font-weight: 300; }
+
 label {
   font-weight: normal; }
 

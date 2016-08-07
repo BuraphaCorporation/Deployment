@@ -8,7 +8,6 @@ class Organizer::CoreController < ApplicationController
 
   protected
     def organizer!
-      binding.pry
       current_user.can_organizer?
     end
 

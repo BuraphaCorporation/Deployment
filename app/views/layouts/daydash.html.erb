@@ -83,14 +83,24 @@
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <% if current_user.present? %>
-                  <% if current_user.is_organizer? %>
-                    <li>
-                      <%= link_to "", "Organizer" %>
-                    </li>
-                  <% end %>
-                  <li><a href=""><%= "#{current_user.first_name} #{current_user.last_name}" %></a></li>
+                  <li class="dropdown user-dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                      <div class="user-profile-photo" style="background-image: url(<%= current_user.avatar(:medium) %>"></div>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="/profile/tickets">My Tickets</a></li>
+                      <li><a href="/profile/wishlist">Wish List</a></li>
+                      <li><a href="/profile/settings">Edit Profile</a></li>
+                      <% if current_user.is_organizer? %>
+                        <li>
+                          <%= link_to "Organizer", "/organizer" %>
+                        </li>
+                      <% end %>
+                      <li><a href="/profile/logout">Log Out</a></li>
+                    </ul>
+                  </li>
                 <% else %>
-                  <li><a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login / Sign up</a></li>
+                  <li><a id="menu-login" class="btn btn-daydash btn-daydash-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal">สมัครสมาชิกฟรี / เข้าสู่ระบบ</a></li>
                 <% end %>
               </ul>
             </div>

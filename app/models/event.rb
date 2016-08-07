@@ -9,6 +9,8 @@ class Event < ActiveRecord::Base
 
   has_many :wishlists, dependent: :destroy
   has_many :galleries, dependent: :destroy
+  has_many :payments, dependent: :destroy
+  has_many :tickets, dependent: :destroy
   has_many :sections, dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
 

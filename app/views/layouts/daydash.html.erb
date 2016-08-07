@@ -82,7 +82,16 @@
               <ul class="nav navbar-nav">
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                <li><a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login / Sign up</a></li>
+                <li><a id="menu-login" class="btn btn-daydash btn-daydash-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal">สมัครสมาชิกฟรี / เข้าสู่ระบบ</a></li>
+                <li class="dropdown user-dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"><div class="user-profile-photo" style="background-image: url(/src/images/mockup/user.jpg);"></div></a>
+                  <ul class="dropdown-menu">
+                    <li><a href="/profile/tickets">My Tickets</a></li>
+                    <li><a href="/profile/wishlist">Wish List</a></li>
+                    <li><a href="/profile/settings">Edit Profile</a></li>
+                    <li><a href="/profile/logout">Log Out</a></li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>

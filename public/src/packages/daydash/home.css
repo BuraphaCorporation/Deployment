@@ -46,6 +46,10 @@ html, body {
   height: 60px; }
   #topbar .navbar-brand img {
     height: 40px; }
+#topbar .navbar-nav {
+  padding-top: 10px; }
+  #topbar .navbar-nav li a:hover, #topbar .navbar-nav li a:active, #topbar .navbar-nav li a:link, #topbar .navbar-nav li a:visited {
+    background: transparent; }
 
 #wrapper {
   position: relative;
@@ -126,7 +130,7 @@ html, body {
     padding-bottom: 1400px; } }
 a {
   color: #00CFD1; }
-  a:hover {
+  a:hover, a:active, a:link, a:visited {
     color: #00E9CA; }
 
 label {
@@ -242,6 +246,7 @@ label {
   margin-bottom: 15px;
   border: 1px solid #eee; }
   .card-side-cover .cover {
+    display: block;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

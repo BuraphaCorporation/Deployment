@@ -3,7 +3,7 @@
 a {
   color: $main-color;
 
-  &:hover {
+  &:hover, &:active, &:link, &:visited {
     color: $main-light-color;
   }
 }
@@ -167,6 +167,7 @@ label {
   border: 1px solid #eee;
 
   .cover {
+    display: block;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

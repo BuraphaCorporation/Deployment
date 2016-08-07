@@ -44,16 +44,20 @@ class User < ActiveRecord::Base
     end
   end
 
-  def management?
-    role.name == 'management'
+  def is_management?
+    role.title == 'management'
   end
 
-  def moderator?
-    role.name == 'moderator'
+  def is_moderator?
+    role.title == 'moderator'
   end
 
-  def organizer?
-    role.name == 'organizer'
+  def is_organizer?
+    role.title == 'organizer'
+  end
+
+  def can_organizer?
+    role.title != 'user'
   end
 
   def self.from_omniauth(auth)

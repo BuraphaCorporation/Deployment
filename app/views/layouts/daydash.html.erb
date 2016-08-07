@@ -82,7 +82,16 @@
               <ul class="nav navbar-nav">
               </ul>
               <ul class="nav navbar-nav navbar-right">
-                <li><a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login / Sign up</a></li>
+                <% if current_user.present? %>
+                  <% if current_user.is_organizer? %>
+                    <li>
+                      <%= link_to "", "Organizer" %>
+                    </li>
+                  <% end %>
+                  <li><a href=""><%= "#{current_user.first_name} #{current_user.last_name}" %></a></li>
+                <% else %>
+                  <li><a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login / Sign up</a></li>
+                <% end %>
               </ul>
             </div>
           </div>

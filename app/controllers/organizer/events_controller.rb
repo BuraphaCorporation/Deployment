@@ -5,18 +5,6 @@ class Organizer::EventsController < Organizer::CoreController
   before_action :all_categories, only: [:new, :edit]
   before_action :all_users, only: [:new, :edit]
 
-  def initialize
-    super
-    @current_user = {
-      profile_picture: '/src/images/mockup/user.jpg',
-      firstname: 'Bow',
-      lastname: 'Kraivanich',
-      dob: '1985-07-03',
-      gender: 'female',
-      email: 'bow@daydash.co',
-      tel: '+66 80 4569465',
-    }
-  end
 
   def index
     @events = Event.all
@@ -41,10 +29,10 @@ class Organizer::EventsController < Organizer::CoreController
     @event = Event.find(params[:id])
 
     @payments = [
-      { purchased_at: '2016-08-01 08:12:33', user: @current_user, quantity: 2, type: 'general', total: 2500 },
-      { purchased_at: '2016-08-01 08:12:33', user: @current_user, quantity: 1, type: 'VIP', total: 2500 },
-      { purchased_at: '2016-08-01 08:12:33', user: @current_user, quantity: 2, type: 'general', total: 2500 },
-      { purchased_at: '2016-08-01 08:12:33', user: @current_user, quantity: 2, type: 'general', total: 2500 },
+      { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
+      { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 1, type: 'VIP', total: 2500 },
+      { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
+      { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
     ]
   end
 

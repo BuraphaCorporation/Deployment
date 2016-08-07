@@ -18,15 +18,15 @@
           <div class="form-body row">
             <div class="form-group col-xs-12 col-md-6">
               <label>Firstname</label>
-              <input class="form-control" type="text" name="firstname" value="<%= @current_user[:firstname] %>" />
+              <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" />
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Lastname</label>
-              <input class="form-control" type="text" name="lastname" value="<%= @current_user[:lastname] %>" />
+              <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" />
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Date of Birth</label>
-              <input class="form-control" type="text" name="dob" value="<%= @current_user[:dob] %>" />
+              <input class="form-control" type="text" name="dob" value="<%= current_user.birthday %>" />
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Gender</label>
@@ -47,11 +47,11 @@
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>E-mail</label>
-              <input class="form-control" type="email" name="email" value="<%= @current_user[:email] %>" />
+              <input class="form-control" type="email" name="email" value="<%= current_user.email %>" />
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Phone Number</label>
-              <input class="form-control" type="text" name="tel" value="<%= @current_user[:tel] %>" />
+              <input class="form-control" type="text" name="tel" value="<%= current_user.phone %>" />
             </div>
             <div class="col-xs-12">
               <button class="btn btn-daydash btn-daydash-green-1">Update</button>

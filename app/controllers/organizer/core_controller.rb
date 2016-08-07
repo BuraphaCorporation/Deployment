@@ -1,15 +1,17 @@
 
 class Organizer::CoreController < ApplicationController
+  before_action :organizer!
 
   layout 'daydash'
 
   @management = true
 
-  def index
-  	
-  end
+  protected
+    def organizer!
+      binding.pry
+      current_user.can_organizer?
+    end
 
-  private
     def management!
       $management = true
     end

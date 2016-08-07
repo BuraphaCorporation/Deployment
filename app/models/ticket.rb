@@ -1,5 +1,6 @@
 class Ticket < ActiveRecord::Base
   belongs_to :event
+  belongs_to :section
   belongs_to :user
   belongs_to :payment
 
@@ -17,8 +18,8 @@ class Ticket < ActiveRecord::Base
       end
     end
 
-    def create_ticket(user, event, payment)
-      create(status: 1, event_id: event.id, user_id: user.id, payment_id: payment.id)
+    def create_ticket(user, event, section, payment)
+      create(status: 1, event_id: event.id, section_id: section.id, user_id: user.id, payment_id: payment.id)
     end
 
     def consume_ticket(ticket)

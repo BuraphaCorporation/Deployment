@@ -15,20 +15,33 @@ class Mobile::PaymentAPI < ApplicationAPI
      ]
     end
 
+    desc "return "
+    params do
+      requires :payment_code, type: String, desc: 'payment code'
+    end
+    get '/check' do
+      payment = Payment.where(code: params[:payment_code]).present?
+    # ensure
+      present :status, :failure
+      present :data, payment
+    end
+
     desc 'pay by credit card'
     params do
       requires :user_token, type: String, desc: "token of the user"
-      requires :event_id, type: Integer, desc: "event id"
       requires :omise_token, type: String, desc: "omise token"
+      requires :event_id, type: Integer, desc: 'event id'
+      requires :sections, type: Array[JSON], desc: 'group section id example: [{"id":1, "qty":2}, {"id":2, "qty":2}]'
       requires :total_price, type: Integer, desc: "Section price"
     end
     post '/credit-card' do
-      if params[:user_token].present? and params[:event_id].present? and params[:omise_token].present?
+
+      if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:omise_token].present? and params[:total_price].present?
         begin
           user = User.find_by_token(params[:user_token])
           event = Event.find(params[:event_id])
 
-          payment = Payment.omise_charge(event, user, params[:total_price], params[:omise_token])
+          payment = Payment.omise_charge(user, event, params[:sections], params[:total_price], params[:omise_token])
 
           present :status, :success
           present :data, payment, with: Entities::PaymentOmiseExpose
@@ -46,18 +59,17 @@ class Mobile::PaymentAPI < ApplicationAPI
     params do
       requires :user_token, type: String, desc: "token of the user"
       requires :event_id, type: Integer, desc: "event id"
-      # requires :amount, type: Integer
-      # requires :evidence, type: File
+      requires :event_id, type: Integer, desc: 'event id'
+      requires :sections, type: Array[JSON], desc: 'group section id example: [{"id":1, "qty":2}, {"id":2, "qty":2}]'
       requires :total_price, type: Integer, desc: "Section price"
-
     end
     post '/bank-transfer' do
-      if params[:user_token].present? and params[:event_id].present? # and params[:evidence].present?
+      if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:total_price].present?
         begin
           user = User.find_by_token(params[:user_token])
           event = Event.find(params[:event_id])
 
-          payment = Payment.transfer_notify(event, user, params[:total_price])
+          payment = Payment.transfer_notify(user, event, params[:sections], params[:total_price])
 
           present :status, :success
           present :data, payment, with: Entities::PaymentTransferExpose

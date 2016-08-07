@@ -1,7 +1,8 @@
 class Payment < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
-  belongs_to :ticket
+
+  has_many :tickets, dependent: :destroy
 
   enum status: { failure: 0, success: 1, pending: 2 }
 

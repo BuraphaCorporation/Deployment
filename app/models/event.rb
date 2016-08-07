@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: [:finders]
+  friendly_id :title, use: :slugged
 
   belongs_to :user
   belongs_to :category
@@ -19,18 +19,18 @@ class Event < ActiveRecord::Base
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
 
-  after_create :set_organizer
+  # after_create :set_organizer
 
   def get_thumbnail
-    if self.galleries.present?
-      self.galleries.first.try(:media, :thumb)
-    else
-      ''
-    end
+    self.galleries.present? ? self.galleries.first.try(:media, :thumb) : ''
+  end
+
+  def to_url
+    slug || id
   end
 
   private
-    def set_organizer
-      self.user ||= User.find_by_email('hello@daydash.co')
-    end
+    # def set_organizer
+    #   self.user ||= User.find_by_email('hello@daydash.co')
+    # end
 end

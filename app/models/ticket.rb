@@ -1,7 +1,7 @@
 class Ticket < ActiveRecord::Base
-  belongs_to :event
-  belongs_to :section
   belongs_to :user
+  belongs_to :event
+  # belongs_to :section
   belongs_to :payment
 
   enum status: { passed: 0, upcoming: 1, comsume: 2 }

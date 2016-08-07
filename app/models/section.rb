@@ -1,5 +1,6 @@
 class Section < ApplicationRecord
   belongs_to :event
+  # has_many :tickets
 
   enum status: { on: 1, off: 0 }
 

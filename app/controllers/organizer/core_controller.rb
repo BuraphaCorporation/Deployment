@@ -4,14 +4,14 @@ class Organizer::CoreController < ApplicationController
 
   layout 'daydash'
 
-  @management = true
+  # @management = true
 
   protected
     def organizer!
       current_user.can_organizer?
     end
 
-    def management!
-      $management = true
-    end
+    # def management!
+    #   $management = true
+    # end
 end

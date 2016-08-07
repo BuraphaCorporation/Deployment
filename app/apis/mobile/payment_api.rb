@@ -15,6 +15,17 @@ class Mobile::PaymentAPI < ApplicationAPI
      ]
     end
 
+    desc "return "
+    params do
+      requires :payment_code, type: String, desc: 'payment code'
+    end
+    get '/check' do
+      payment = Payment.where(code: params[:payment_code]).present?
+    # ensure
+      present :status, :failure
+      present :data, payment
+    end
+
     desc 'pay by credit card'
     params do
       requires :user_token, type: String, desc: "token of the user"

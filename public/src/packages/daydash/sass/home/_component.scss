@@ -221,12 +221,14 @@ label {
       }
     }
 
-    &.active, &.active:hover {
+    &.active {
       a {
-        border-radius: 0px;
-        background: transparent;
-        color: #444;
-        border-bottom: 3px solid $main-color;
+        &, &:hover, &:active, &:link, &:visited {
+          border-radius: 0px;
+          background: transparent;
+          color: #444;
+          border-bottom: 3px solid $main-color;
+        }
       }
     }
   }

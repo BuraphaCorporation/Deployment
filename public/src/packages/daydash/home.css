@@ -277,7 +277,7 @@ label {
     color: #aaa; }
     .nav-daydash li a:hover, .nav-daydash li a:visited:hover, .nav-daydash li a:link:hover, .nav-daydash li a:active:hover {
       color: #444; }
-  .nav-daydash li.active a, .nav-daydash li.active:hover a {
+  .nav-daydash li.active a, .nav-daydash li.active a:hover, .nav-daydash li.active a:active, .nav-daydash li.active a:link, .nav-daydash li.active a:visited {
     border-radius: 0px;
     background: transparent;
     color: #444;

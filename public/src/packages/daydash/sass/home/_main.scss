@@ -15,6 +15,7 @@ $md-width: 992px;
 $font-main: "Athiti", "Helvetica Neue", "sans-serif";
 $font-kanit: "Kanit", "Helvetica Neue", "sans-serif";
 $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
+$font-sans-serif: sans-serif;
 
 $bg-color: #fff;
 $bg-color2: #fcfcfc;
@@ -40,15 +41,54 @@ html, body {
 	}
 
 	.navbar-nav {
-		padding-top: 10px;
-
-		li {
-			a {
-				&:hover, &:active, &:link, &:visited {
-					background: transparent;
-				}
+		& > li {
+			& > a {
+				padding: 20px;
+				font-size: 18px;
+				font-weight: 200;
 			}
 
+			.btn-daydash-green-2 {
+			  background: #19D4D6;
+			  color: white;
+			  border: 0px;
+
+			  &:hover, &:active, &:visited, &:link {
+			    background: #19D4D6;
+			    color: white;
+			  }
+
+			}
+		}
+
+		.user-dropdown {
+			.user-profile-photo {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-color: #ccc;
+			}
+
+			.dropdown-toggle {
+				padding: 15px 30px;
+			}
+
+			.dropdown-menu {
+				min-width: 200px;
+				padding: 0px;
+				
+				li {
+					a {
+						padding: 15px 20px;
+						font-size: 14px;
+						font-weight: 200;
+						border-bottom: 1px solid #eee;
+					}
+				}
+			}
 		}
 	}
 }

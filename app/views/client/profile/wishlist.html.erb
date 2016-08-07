@@ -7,10 +7,10 @@
     <script>$('#profile-nav #menu-wishlist').addClass('active');</script>
 
     <div class="row">
-      <div class="col-xs-12 col-md-9">
+      <div class="col-xs-12">
         <div class="event-list">
           <div class="list-header">
-            <h1 class="list-title">Wishlist <small><%= @events.length %></small></h1>
+            <h1 class="list-title">Wishlist <% if (@events.size > 0) %><small>(<%= @events.length %>)</small><% end %></h1>
           </div>
           <div class="list-body row">
             <% @events.each do |event| %>

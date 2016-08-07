@@ -90,10 +90,22 @@ label {
   border: 0px;
 
   &:hover, &:active, &:visited, &:link {
+    background: linear-gradient(90deg, #00CFD1 , #00E9CA);
     color: white;
   }
 }
 
+.btn-daydash-green-2 {
+  background: #19D4D6;
+  color: white;
+  border: 0px;
+
+  &:hover, &:active, &:visited, &:link {
+    background: #19D4D6;
+    color: white;
+  }
+
+}
 
 //Event Card
 

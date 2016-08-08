@@ -82,8 +82,6 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     post '/tag' do
-      # { params: params.slice(:comments), declared: declared(params) }
-      # binding.pry
       present :status, :wating
       present :data, nil
     end
@@ -118,7 +116,6 @@ class Mobile::UserAPI < ApplicationAPI
         present :data, user.present?
       end
     end
-
 
     desc "return all wishlist by user"
     params do

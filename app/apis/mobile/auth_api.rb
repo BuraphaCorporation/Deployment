@@ -35,6 +35,16 @@ class Mobile::AuthAPI < ApplicationAPI
       end
     end
 
+    desc "forgotpassword"
+    params do
+      requires :email, type: String, desc: "Email of user"
+    end
+    post "/forgotpassword" do
+      user = User.where(email: params[:email]).present?
+
+      present :status, :success
+      present :data, user
+    end
 
     desc "Return a user token from signup or login with Facebook"
     params do
@@ -46,7 +56,6 @@ class Mobile::AuthAPI < ApplicationAPI
       profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
 
       if profile.present?
-
         user = User.where(email: profile['email']).first_or_create do |u|
           u.email       = profile["email"]
           u.password    = '123456'

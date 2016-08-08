@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
   belongs_to :role
   belongs_to :referrer, class_name: 'User', inverse_of: :referrals
 
-  has_many :events    #, dependent: :destroy
-  has_many :payments  #, dependent: :destroy
-  has_many :tickets   #, dependent: :destroy
+  has_many :events, dependent: :destroy
+  has_many :payments, dependent: :destroy
+  has_many :tickets, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
   has_many :referrals, class_name: 'User', foreign_key: :referrer_id, inverse_of: :referrer
@@ -57,10 +57,6 @@ class User < ActiveRecord::Base
 
   def organizer?
     role.name == 'organizer'
-  end
-
-  def is_signup
-    created_at < Time.zone.now - 1.minutes
   end
 
   def self.from_omniauth(auth)

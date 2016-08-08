@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   enum gender: { male: true, female: false }
 
   has_attached_file :avatar,
-                    styles: { medium: "300x300>", thumb: "100x100#" }
+                    styles: { medium: "300x300>", thumb: "100x100#" },
                     default_url: '/defalut/:attachment/missing_user.png'
 
   validates_attachment_content_type :avatar,

@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
   belongs_to :role
   belongs_to :referrer, class_name: 'User', inverse_of: :referrals
 
-  has_many :events    #, dependent: :destroy
-  has_many :payments  #, dependent: :destroy
-  has_many :tickets   #, dependent: :destroy
+  has_many :events, dependent: :destroy
+  has_many :payments, dependent: :destroy
+  has_many :tickets, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
   has_many :referrals, class_name: 'User', foreign_key: :referrer_id, inverse_of: :referrer
@@ -20,7 +20,10 @@ class User < ActiveRecord::Base
 
   enum gender: { male: true, female: false }
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100#" }
+  has_attached_file :avatar,
+                    styles: { medium: "300x300>", thumb: "100x100#" },
+                    default_url: '/defalut/:attachment/missing_user.png'
+
   validates_attachment_content_type :avatar,
                                     content_type: /\Aimage\/.*\Z/
 

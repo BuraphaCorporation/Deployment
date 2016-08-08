@@ -96,7 +96,9 @@
                           <%= link_to "Organizer", "/organizer" %>
                         </li>
                       <% end %>
-                      <li><a href="/profile/logout">Log Out</a></li>
+                      <li>
+                      <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+                      </li>
                     </ul>
                   </li>
                 <% else %>

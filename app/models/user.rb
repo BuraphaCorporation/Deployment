@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
     role.name == 'organizer'
   end
 
-  def is_signup
+  def is_signup?
     created_at < Time.zone.now - 1.minutes
   end
 

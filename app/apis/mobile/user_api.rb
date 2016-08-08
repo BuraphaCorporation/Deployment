@@ -152,7 +152,6 @@ class Mobile::UserAPI < ApplicationAPI
           end
           present :data, wishlist
         else
-          # binding.pry
           present :status, :success
           present :data, user, with: Entities::UserWishlistExpose
         end

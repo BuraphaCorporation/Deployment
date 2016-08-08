@@ -59,6 +59,10 @@ class User < ActiveRecord::Base
     role.name == 'organizer'
   end
 
+  def is_signup
+    created_at < Time.zone.now - 1.minutes
+  end
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email

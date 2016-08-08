@@ -15,7 +15,7 @@ class Mobile::AuthAPI < ApplicationAPI
       else
         user = User.create!(email: params[:email], password: params[:password])
         present :status, :success
-        present :data, user.token
+        present :data, user, with: Entities::AuthExpose
       end
     end
 
@@ -28,7 +28,7 @@ class Mobile::AuthAPI < ApplicationAPI
       user = User.where(email: params[:email])
       if user.present? and user.valid_signup?(params[:email], params[:password])
         present :status, :success
-        present :data, user.first.token
+        present :data, user.first, with: Entities::AuthExpose
       else
         present :status, :failure
         present :data, []
@@ -43,7 +43,7 @@ class Mobile::AuthAPI < ApplicationAPI
       user = User.where(email: params[:email]).present?
 
       present :status, :success
-      present :data, user
+      present :data, user, with: Entities::AuthExpose
     end
 
     desc "Return a user token from signup or login with Facebook"
@@ -51,27 +51,40 @@ class Mobile::AuthAPI < ApplicationAPI
       requires :facebook_access_token, type: String, desc: "Token from Facebook authenticate"
     end
     post "/facebook" do
-      token = params[:facebook_access_token]
-      graph = Koala::Facebook::API.new(token)
-      profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
+      begin
+        token = params[:facebook_access_token]
+        graph = Koala::Facebook::API.new(token)
+        profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
+        user = User.find_by_email(profile['email'])
+        if profile.present? and user.nil?
+          user.create do |u|
+            u.email       = profile["email"]
+            u.password    = '123456'
+            u.first_name  = profile["first_name"]
+            u.last_name   = profile["last_name"]
+            u.birthday    = profile["birthday"]
+            u.gender      = profile["gender"]
+            u.uid         = profile["id"]
+            u.provider    = 'facebook'
+          end
 
-      if profile.present?
-        user = User.where(email: profile['email']).first_or_create do |u|
-          u.email       = profile["email"]
-          u.password    = '123456'
-          u.first_name  = profile["first_name"]
-          u.last_name   = profile["last_name"]
-          u.birthday    = profile["birthday"]
-          u.gender      = profile["gender"]
-          u.uid         = profile["id"]
-          u.provider    = 'facebook'
+          present :status, :success
+          present :data, user, with: Entities::AuthExpose
+        else
+          user.update(
+            first_name: profile["first_name"],
+            last_name: profile["last_name"],
+            birthday: profile["birthday"],
+            gender: profile["gender"],
+            uid: profile["id"],
+            provider: 'facebook'
+          )
+          present :status, :success
+          present :data, user, with: Entities::AuthExpose
         end
-
-        present :status, :success
-        present :data, user.token
-      else
+      rescue Exception => e
         present :status, :failure
-        present :data, ""
+        present :data, e
       end
     end
   end

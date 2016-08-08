@@ -47,7 +47,7 @@ class Payment < ActiveRecord::Base
 
         if charge.status == 'successful'
           pay = create(status: :success, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
-
+          binding.pry
           sections.each do |section|
             Ticket.create_ticket(user, event, section, pay)
           end

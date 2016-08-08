@@ -5,11 +5,8 @@ class Client::ProfileController < Client::CoreController
   end
 
   def tickets
-    @event = Event.last
-    @tickets = [
-      { title: 'VIP',     price: 1000, quantity: 1, purchased_date: '13 June 2016', event: @event },
-      { title: 'General', price: 500, quantity: 1, purchased_date: '11 June 2016', event: @event },
-    ]
+    @tickets = current_user.tickets
+    @has_ticket = @tickets.present?
   end
 
   def ticket

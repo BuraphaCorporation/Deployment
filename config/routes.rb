@@ -37,15 +37,15 @@ Rails.application.routes.draw do
       post '/profile/settings', to: 'profile#settings_update'
     end
 
-    # namespace :management do
-    #   get '/', to: 'events#index'
-    #   resources :events do
-    #     collection do
-    #       delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
-    #     end
-    #   end
-    #   resources :users, except: :show
-    # end
+    namespace :management do
+      get '/', to: 'events#index'
+      resources :events do
+        collection do
+          delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
+        end
+      end
+      resources :users, except: :show
+    end
 
     namespace :organizer do
         get '/', to: 'dashboard#index'

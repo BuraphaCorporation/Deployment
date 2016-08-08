@@ -21,7 +21,7 @@
                 <% @categories.each do |category| %>
                 <div class="col-xs-12 col-md-6">
                   <label class="category">
-                    <input type="checkbox" name="categorie_ids[]" value="<%= category.id %>" />
+                    <input type="checkbox" name="category_ids[]" value="<%= category.id %>" />
                     <%= category.title %>
                   </label>
                 </div>
@@ -106,13 +106,13 @@
       <div class="input-group datepicker">
         <input type="text" class="form-control" name="new_ticket_dates[]" />
         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-      </div>                  
+      </div>
     </td>
     <td width="200">
       <div class="input-group timepicker">
         <input class="form-control" type="text" name="new_ticket_start_times[]" value="" />
         <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-      </div>                  
+      </div>
     <td width="200">
       <div class="input-group timepicker">
         <input class="form-control" type="text" name="new_ticket_end_times[]" value="" />
@@ -154,7 +154,7 @@
     $('.ticket-list tbody').append(element);
 
     init_datetimepicker(element);
-    
+
     return false;
   }
 

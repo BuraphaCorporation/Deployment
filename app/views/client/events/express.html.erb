@@ -203,6 +203,7 @@
                     <input type="hidden" name="omise_token">
                     <input type="hidden" name="payment_method">
                     <input type="hidden" name="payment_amount" value="<%= @total %>">
+                    <input type="hidden" name="payment_sections" value="<%= @sections %>">
                     <script type="text/javascript">
                       $(document).ready(function(){
                         $("#checkout").submit(function () {

@@ -34,6 +34,7 @@ class Client::EventsController < Client::CoreController
 
     @total = 0
     @tickets = {}
+    @sections = []
     @event.sections.each do |section|
       if params[:section]["#{section.id}"].to_i > 0
         @tickets.merge!({ "#{section.id}":
@@ -43,6 +44,7 @@ class Client::EventsController < Client::CoreController
             quantity: params[:section]["#{section.id}"].to_i
           }
         })
+        @sections << section.id
         @total += section.price
       end
     end
@@ -51,11 +53,12 @@ class Client::EventsController < Client::CoreController
   def checkout
     @event = Event.friendly.find(params[:event_id])
 
+    binding.pry
     if params[:payment_method] == 'credit_card'
-      Payment.omise_charge(current_user, @event, params[:payment_amount], params[:omise_token])
+      Payment.omise_charge(current_user, @event, params[:payment_sections], params[:payment_amount], params[:omise_token])
       render "client/events/payment-credit-card"
     elsif params[:payment_method] == 'bank_transfer'
-      Payment.transfer_notify(current_user, @event, params[:payment_amount])
+      Payment.transfer_notify(current_user, @event, params[:payment_sections], sections, params[:payment_amount])
       render "client/events/payment-bank-transfer"
     end
   end

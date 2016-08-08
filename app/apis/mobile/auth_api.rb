@@ -57,16 +57,16 @@ class Mobile::AuthAPI < ApplicationAPI
         profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
         user = User.find_by_email(profile['email'])
         if profile.present? and user.nil?
-          user.create do |u|
-            u.email       = profile["email"]
-            u.password    = '123456'
-            u.first_name  = profile["first_name"]
-            u.last_name   = profile["last_name"]
-            u.birthday    = profile["birthday"]
-            u.gender      = profile["gender"]
-            u.uid         = profile["id"]
-            u.provider    = 'facebook'
-          end
+          user = User.create(
+            email: profile["email"],
+            password: '123456',
+            first_name: profile["first_name"],
+            last_name: profile["last_name"],
+            birthday: profile["birthday"],
+            gender: profile["gender"],
+            uid: profile["id"],
+            provider: 'facebook'
+          )
 
           present :status, :success
           present :data, user, with: Entities::AuthExpose

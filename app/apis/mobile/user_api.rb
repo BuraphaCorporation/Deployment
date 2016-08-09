@@ -82,7 +82,7 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     post '/tag' do
-      present :status, :wating
+      present :status, :success
       present :data, nil
     end
 
@@ -91,14 +91,15 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     get '/tickets' do
-      tickets = User.find_by_token(params[:user_token]).try(:tickets)
+      begin
+        tickets = User.find_by_token(params[:user_token]).try(:tickets)
 
-      if tickets.present?
         present :status, :success
-      else
+        present :data, tickets, with: Entities::TicketExpose
+      rescue Exception => e
         present :status, :failure
+        present :data, e
       end
-      present :data, tickets
     end
 
     desc "return a ticket by user"
@@ -108,12 +109,13 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/ticket' do
       begin
-        user = User.find_by_token(params[:user_token]).find(params[:ticket_id])
+        ticket = User.find_by_token(params[:user_token]).tickets.find(params[:ticket_id])
+
         present :status, :success
-        present :data, user
+        present :data, ticket, with: Entities::TicketExpose
       rescue Exception => e
         present :status, :failure
-        present :data, user.present?
+        present :data, ticket.present?
       end
     end
 

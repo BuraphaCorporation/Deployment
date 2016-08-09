@@ -41,7 +41,7 @@ class Payment < ActiveRecord::Base
         charge = Omise::Charge.create({
           amount: amount.to_i * 100,
           currency: "thb",
-          description: invoice(event, user),
+          description: "test", #invoice(event, user),
           card: omise_token
         })
 
@@ -49,7 +49,10 @@ class Payment < ActiveRecord::Base
           pay = create(status: :success, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
           binding.pry
           sections.each do |section|
-            Ticket.create_ticket(user, event, section, pay)
+            (1..section.qty).each do |i|
+              p i
+              Ticket.create_ticket(user, event, section.id, pay)
+            end
           end
 
           pay

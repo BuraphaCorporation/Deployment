@@ -14,7 +14,7 @@ class Event < ActiveRecord::Base
   has_many :sections, dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
 
-  scope :available, -> { joins(:sections).where("sections.event_time > ?", Time.zone.now) }
+  scope :available, -> { joins(:sections).where("sections.event_time > ?", Time.zone.now).uniq }
   scope :today,     -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }

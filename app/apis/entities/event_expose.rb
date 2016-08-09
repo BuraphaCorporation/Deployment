@@ -15,5 +15,5 @@ class Entities::EventExpose < Grape::Entity
   # end
   expose :galleries, as: :covers, using: Entities::GalleryExpose
 
-  expose :sections, as: :tickets, using: Entities::TicketExpose
+  expose :sections, as: :tickets, using: Entities::SectionExpose
 end

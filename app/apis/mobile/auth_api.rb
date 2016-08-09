@@ -7,15 +7,14 @@ class Mobile::AuthAPI < ApplicationAPI
       requires :email,    type: String, desc: "email of the user"
       requires :password, type: String, desc: "password of the user"
     end
-    post "/signup" do #, root: "user" do
-      user = User.where(email: params[:email])
-      if user.exists?
-        present :status, :failure
-        present :data, nil
-      else
+    post "/signup" do
+      begin
         user = User.create!(email: params[:email], password: params[:password])
         present :status, :success
         present :data, user, with: Entities::AuthExpose
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
       end
     end
 
@@ -25,6 +24,8 @@ class Mobile::AuthAPI < ApplicationAPI
       requires :password, type: String, desc: "password of the user"
     end
     post "/login" do
+      begin
+
       user = User.where(email: params[:email])
       if user.present? and user.valid_signup?(params[:email], params[:password])
         present :status, :success
@@ -32,6 +33,10 @@ class Mobile::AuthAPI < ApplicationAPI
       else
         present :status, :failure
         present :data, []
+      end
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
       end
     end
 

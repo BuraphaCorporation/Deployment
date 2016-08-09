@@ -56,7 +56,7 @@ class Payment < ActiveRecord::Base
 
           pay
         else
-          raise
+          pay = create(status: :failure, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
         end
       rescue Exception => e
         e

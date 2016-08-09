@@ -46,6 +46,9 @@ class Mobile::PaymentAPI < ApplicationAPI
 
           payment = Payment.omise_charge(user, event, params[:sections], params[:total_price], params[:omise_token])
 
+          binding.pry
+          raise payment if payment.try(:id).nil?
+
           present :status, :success
           present :data, payment, with: Entities::PaymentOmiseExpose
         else

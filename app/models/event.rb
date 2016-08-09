@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   extend FriendlyId
-  friendly_id :name, use: [:finders]
+  friendly_id :title, use: [:finders]
 
   belongs_to :user
   belongs_to :category

@@ -1,7 +1,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
-  belongs_to :ticket
+  has_many :tickets
 
   enum status: { failure: 0, success: 1, pending: 2 }
 
@@ -40,7 +40,7 @@ class Payment < ActiveRecord::Base
         charge = Omise::Charge.create({
           amount: amount.to_i * 100,
           currency: "thb",
-          description: invoice(event, user),
+          description: "test", #invoice(event, user),
           card: omise_token
         })
 
@@ -48,12 +48,15 @@ class Payment < ActiveRecord::Base
           pay = create(status: :success, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
 
           sections.each do |section|
-            Ticket.create_ticket(user, event, section, pay)
+            (1..section.qty).each do |i|
+              p i
+              Ticket.create_ticket(user, event, section.id, pay)
+            end
           end
 
           pay
         else
-          raise
+          pay = create(status: :failure, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
         end
       rescue Exception => e
         e

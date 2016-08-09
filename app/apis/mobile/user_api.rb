@@ -7,14 +7,19 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     get '/' do
-      user = User.find_by_token(params[:user_token])
-      if user.present?
-        present :status, :success
-      else
-        present :status, :failure
-      end
+      begin
+        user = User.find_by_token(params[:user_token])
+        if user.present?
+          present :status, :success
+        else
+          present :status, :failure
+        end
 
-      present :data, user, with: Entities::UserExpose
+        present :data, user, with: Entities::UserExpose
+      rescue Exception => e
+        present :status, :failure
+        present :data, nil
+      end
     end
 
     desc "details of user"
@@ -28,18 +33,23 @@ class Mobile::UserAPI < ApplicationAPI
       requires :gender, type: String, desc: 'male, female input'
     end
     put '/' do
-      user = User.find_by_token(params[:user_token])
-      if user.present?
-        if params[:gender] == 'male' or params[:gender] == 'female'
-          user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender])
-          present :status, :success
-          present :data, user, with: Entities::UserExpose
+      begin
+        user = User.find_by_token(params[:user_token])
+        if user.present?
+          if params[:gender] == 'male' or params[:gender] == 'female'
+            user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender])
+            present :status, :success
+            present :data, user, with: Entities::UserExpose
+          else
+            present :status, :failure
+            present :data, "gender has male or female not #{params[:gender]}"
+          end
         else
           present :status, :failure
-          present :data, "gender has male or female not #{params[:gender]}"
         end
-      else
+      rescue Exception => e
         present :status, :failure
+        present :data, e
       end
     end
 
@@ -54,7 +64,7 @@ class Mobile::UserAPI < ApplicationAPI
         User.find_by_token(params[:token]).update(password: params[:old_password])
         present :status, :success
         present :data, nil
-      rescue
+      rescue Exception => e
         present :status, :failure
         present :data, nil
       end
@@ -70,7 +80,7 @@ class Mobile::UserAPI < ApplicationAPI
         User.find_by_token(params[:token]).update(referal_code: params[:referal_code])
         present :status, :success
         present :data, nil
-      rescue
+      rescue Exception => e
         present :status, :failure
         present :data, nil
       end
@@ -82,8 +92,13 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     post '/tag' do
-      present :status, :wating
-      present :data, nil
+      begin
+        present :status, :success
+        present :data, nil
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
+      end
     end
 
     desc "return all tickets by user"
@@ -91,14 +106,15 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     get '/tickets' do
-      tickets = User.find_by_token(params[:user_token]).try(:tickets)
+      begin
+        tickets = User.find_by_token(params[:user_token]).try(:tickets)
 
-      if tickets.present?
         present :status, :success
-      else
+        present :data, tickets, with: Entities::TicketExpose
+      rescue Exception => e
         present :status, :failure
+        present :data, e
       end
-      present :data, tickets
     end
 
     desc "return a ticket by user"
@@ -108,12 +124,13 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/ticket' do
       begin
-        user = User.find_by_token(params[:user_token]).find(params[:ticket_id])
+        ticket = User.find_by_token(params[:user_token]).tickets.find(params[:ticket_id])
+
         present :status, :success
-        present :data, user
+        present :data, ticket, with: Entities::TicketExpose
       rescue Exception => e
         present :status, :failure
-        present :data, user.present?
+        present :data, ticket.present?
       end
     end
 
@@ -122,14 +139,19 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     get '/wishlists' do
-      wishlists = User.find_by_token(params[:user_token]).try(:wishlists)
+      begin
+        wishlists = User.find_by_token(params[:user_token]).try(:wishlists)
 
-      if wishlists.present?
-        present :status, :success
-      else
+        if wishlists.present?
+          present :status, :success
+        else
+          present :status, :failure
+        end
+        present :data, wishlists
+      rescue Exception => e
         present :status, :failure
+        present :data, e
       end
-      present :data, wishlists
     end
 
     desc "post wishlist"
@@ -155,7 +177,7 @@ class Mobile::UserAPI < ApplicationAPI
           present :status, :success
           present :data, user, with: Entities::UserWishlistExpose
         end
-      rescue
+      rescue Exception => e
         present :status, :failure
         present :data, nil
       end
@@ -173,7 +195,7 @@ class Mobile::UserAPI < ApplicationAPI
         wishlist = Wishlist.where(user_id: user.id, event_id: event.id).destroy_all
         present :status, :success
         present :data, [ wishlisted: false ]
-      rescue
+      rescue Exception => e
         present :status, :failure
         present :data, nil
       end

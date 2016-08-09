@@ -2,7 +2,7 @@
 # role of user
 ['user', 'organizer', 'moderator', 'management'].each do |role|
   Role.find_or_create_by({title: role})
-end
+end if Role.all.present?
 
 {
   'nightlife-and-entertainment': 'Nightlife / Entertainment',
@@ -11,12 +11,12 @@ end
   'food-and-drink': 'Food & Drink'
 }.map do |key, value|
   Category.find_or_create_by({name: key, title: value})
-end
+end unless Category.all.present?
 
 ['food', 'music', 'theatre', 'movies', 'bars', 'party', 'comedy', 'shows', 'live', 'beer', 'wine', 'drinks dance', 'dj', 'jazz', 'adventure', 'sports', 'fitness', 'festival', 'outdoors', 'gym', 'culture', 'performance', 'film', 'hipster', 'art', 'design', 'exhibition', 'photography', 'wellness', 'healthy', 'games', 'extreme', 'relaxing',
  'afterwork', 'family', 'date', 'romantic', 'group', 'popup', 'trip', 'workshop', 'class', 'training', 'single', 'night', 'day'].each do |tag|
   Tag.find_or_create_by({title: tag})
-end
+end unless Tag.all.present?
 
 # User.create do |user|
 #   user.email                 = 'poprvr@gmail.com'

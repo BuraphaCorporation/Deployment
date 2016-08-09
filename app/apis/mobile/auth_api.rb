@@ -7,15 +7,14 @@ class Mobile::AuthAPI < ApplicationAPI
       requires :email,    type: String, desc: "email of the user"
       requires :password, type: String, desc: "password of the user"
     end
-    post "/signup" do #, root: "user" do
-      user = User.where(email: params[:email])
-      if user.exists?
-        present :status, :failure
-        present :data, nil
-      else
+    post "/signup" do
+      begin
         user = User.create!(email: params[:email], password: params[:password])
         present :status, :success
         present :data, user, with: Entities::AuthExpose
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
       end
     end
 
@@ -25,13 +24,18 @@ class Mobile::AuthAPI < ApplicationAPI
       requires :password, type: String, desc: "password of the user"
     end
     post "/login" do
-      user = User.where(email: params[:email])
-      if user.present? and user.valid_signup?(params[:email], params[:password])
-        present :status, :success
-        present :data, user.first, with: Entities::AuthExpose
-      else
+      begin
+        user = User.where(email: params[:email])
+        if user.present? and user.valid_signup?(params[:email], params[:password])
+          present :status, :success
+          present :data, user.first, with: Entities::AuthExpose
+        else
+          present :status, :failure
+          present :data, []
+        end
+      rescue Exception => e
         present :status, :failure
-        present :data, []
+        present :data, e
       end
     end
 
@@ -40,10 +44,15 @@ class Mobile::AuthAPI < ApplicationAPI
       requires :email, type: String, desc: "Email of user"
     end
     post "/forgotpassword" do
-      user = User.where(email: params[:email]).present?
+      begin
+        user = User.where(email: params[:email]).present?
 
-      present :status, :success
-      present :data, user, with: Entities::AuthExpose
+        present :status, :success
+        present :data, user, with: Entities::AuthExpose
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
+      end
     end
 
     desc "Return a user token from signup or login with Facebook"

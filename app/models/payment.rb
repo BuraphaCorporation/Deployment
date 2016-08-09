@@ -1,7 +1,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
-  belongs_to :ticket
+  has_many :tickets
 
   enum status: { failure: 0, success: 1, pending: 2 }
 
@@ -40,7 +40,7 @@ class Payment < ActiveRecord::Base
         charge = Omise::Charge.create({
           amount: amount.to_i * 100,
           currency: "thb",
-          description: invoice(event, user),
+          description: "test", #invoice(event, user),
           card: omise_token
         })
 

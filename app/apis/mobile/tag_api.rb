@@ -4,8 +4,13 @@ class Mobile::TagAPI < ApplicationAPI
   resources :tags do
     desc "Return all tags"
     get "/" do
-      present :status, :success
-      present :data, Tag.all, with: Entities::TagExpose
+      begin
+        present :status, :success
+        present :data, Tag.all, with: Entities::TagExpose
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
+      end
     end
   end
 end

@@ -25,15 +25,14 @@ class Mobile::AuthAPI < ApplicationAPI
     end
     post "/login" do
       begin
-
-      user = User.where(email: params[:email])
-      if user.present? and user.valid_signup?(params[:email], params[:password])
-        present :status, :success
-        present :data, user.first, with: Entities::AuthExpose
-      else
-        present :status, :failure
-        present :data, []
-      end
+        user = User.where(email: params[:email])
+        if user.present? and user.valid_signup?(params[:email], params[:password])
+          present :status, :success
+          present :data, user.first, with: Entities::AuthExpose
+        else
+          present :status, :failure
+          present :data, []
+        end
       rescue Exception => e
         present :status, :failure
         present :data, e
@@ -45,10 +44,15 @@ class Mobile::AuthAPI < ApplicationAPI
       requires :email, type: String, desc: "Email of user"
     end
     post "/forgotpassword" do
-      user = User.where(email: params[:email]).present?
+      begin
+        user = User.where(email: params[:email]).present?
 
-      present :status, :success
-      present :data, user, with: Entities::AuthExpose
+        present :status, :success
+        present :data, user, with: Entities::AuthExpose
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
+      end
     end
 
     desc "Return a user token from signup or login with Facebook"

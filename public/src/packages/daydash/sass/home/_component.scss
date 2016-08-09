@@ -4,9 +4,13 @@
 a {
   color: $main-color;
 
-  &:hover {
+  &:hover, &:active, &:link, &:visited {
     color: $main-light-color;
   }
+}
+
+h1 {
+  font-weight: 300;
 }
 
 label {
@@ -87,10 +91,22 @@ label {
   border: 0px;
 
   &:hover, &:active, &:visited, &:link {
+    background: linear-gradient(90deg, #00CFD1 , #00E9CA);
     color: white;
   }
 }
 
+.btn-daydash-green-2 {
+  background: #19D4D6;
+  color: white;
+  border: 0px;
+
+  &:hover, &:active, &:visited, &:link {
+    background: #19D4D6;
+    color: white;
+  }
+
+}
 
 //Event Card
 
@@ -168,6 +184,7 @@ label {
   border: 1px solid #eee;
 
   .cover {
+    display: block;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -221,12 +238,14 @@ label {
       }
     }
 
-    &.active, &.active:hover {
+    &.active {
       a {
-        border-radius: 0px;
-        background: transparent;
-        color: #444;
-        border-bottom: 3px solid $main-color;
+        &, &:hover, &:active, &:link, &:visited {
+          border-radius: 0px;
+          background: transparent;
+          color: #444;
+          border-bottom: 3px solid $main-color;
+        }
       }
     }
   }

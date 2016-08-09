@@ -46,6 +46,35 @@ html, body {
   height: 60px; }
   #topbar .navbar-brand img {
     height: 40px; }
+#topbar .navbar-nav > li > a {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 200; }
+#topbar .navbar-nav > li .btn-daydash-green-2 {
+  background: #19D4D6;
+  color: white;
+  border: 0px; }
+  #topbar .navbar-nav > li .btn-daydash-green-2:hover, #topbar .navbar-nav > li .btn-daydash-green-2:active, #topbar .navbar-nav > li .btn-daydash-green-2:visited, #topbar .navbar-nav > li .btn-daydash-green-2:link {
+    background: #19D4D6;
+    color: white; }
+#topbar .navbar-nav .user-dropdown .user-profile-photo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #ccc; }
+#topbar .navbar-nav .user-dropdown .dropdown-toggle {
+  padding: 15px 30px; }
+#topbar .navbar-nav .user-dropdown .dropdown-menu {
+  min-width: 200px;
+  padding: 0px; }
+  #topbar .navbar-nav .user-dropdown .dropdown-menu li a {
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 200;
+    border-bottom: 1px solid #eee; }
 
 #wrapper {
   position: relative;
@@ -126,8 +155,11 @@ html, body {
     padding-bottom: 1400px; } }
 a {
   color: #00CFD1; }
-  a:hover {
+  a:hover, a:active, a:link, a:visited {
     color: #00E9CA; }
+
+h1 {
+  font-weight: 300; }
 
 label {
   font-weight: normal; }
@@ -193,6 +225,15 @@ label {
   color: white;
   border: 0px; }
   .btn-daydash-green-1:hover, .btn-daydash-green-1:active, .btn-daydash-green-1:visited, .btn-daydash-green-1:link {
+    background: linear-gradient(90deg, #00CFD1, #00E9CA);
+    color: white; }
+
+.btn-daydash-green-2 {
+  background: #19D4D6;
+  color: white;
+  border: 0px; }
+  .btn-daydash-green-2:hover, .btn-daydash-green-2:active, .btn-daydash-green-2:visited, .btn-daydash-green-2:link {
+    background: #19D4D6;
     color: white; }
 
 .event.card, .ticket.card {
@@ -242,6 +283,7 @@ label {
   margin-bottom: 15px;
   border: 1px solid #eee; }
   .card-side-cover .cover {
+    display: block;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -272,7 +314,7 @@ label {
     color: #aaa; }
     .nav-daydash li a:hover, .nav-daydash li a:visited:hover, .nav-daydash li a:link:hover, .nav-daydash li a:active:hover {
       color: #444; }
-  .nav-daydash li.active a, .nav-daydash li.active:hover a {
+  .nav-daydash li.active a, .nav-daydash li.active a:hover, .nav-daydash li.active a:active, .nav-daydash li.active a:link, .nav-daydash li.active a:visited {
     border-radius: 0px;
     background: transparent;
     color: #444;
@@ -360,7 +402,7 @@ label {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: inset 0 -50px 100px -30px rgba(0, 0, 0, 0.7); }
+    box-shadow: inset 0 -150px 200px -100px rgba(0, 0, 0, 0.7); }
   #event-page #cover-section .info {
     position: absolute;
     left: 0px;
@@ -384,16 +426,19 @@ label {
   #event-page #info-section .meta {
     float: left;
     margin-right: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 16px; }
     #event-page #info-section .meta .icon {
       float: left;
       margin-top: 1px;
       margin-right: 5px; }
   #event-page #info-section .description {
-    margin-bottom: 50px;
+    font-family: sans-serif;
     font-size: 16px;
-    line-height: 1.8em; }
+    font-weight: 200;
+    letter-spacing: 0.2px;
+    margin-bottom: 50px;
+    line-height: 1.7em; }
   #event-page #info-section .gallery {
     margin-left: -5px;
     margin-right: -5px; }
@@ -499,6 +544,8 @@ label {
   background-repeat: no-repeat;
   margin: 30px auto; }
 
+#profile-wishlist-page h1 small {
+  font-size: 20px; }
 #profile-wishlist-page .event-list .event .cover {
   height: 200px; }
 

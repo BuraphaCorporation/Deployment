@@ -19,7 +19,7 @@ class Client::ProfileController < Client::CoreController
 
   def tickets
     #Mockup
-    @event = Event.find(5)
+    @event = Event.find(1)
     @tickets = [
       { title: 'VIP',     price: 1000, quantity: 1, purchased_date: '13 June 2016', event: @event },
       { title: 'General', price: 500, quantity: 1, purchased_date: '11 June 2016', event: @event },

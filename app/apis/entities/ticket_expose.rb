@@ -4,4 +4,5 @@ class Entities::TicketExpose < Grape::Entity
   expose :price
   expose :event_time
   expose :end_time
+  expose :payment
 end

@@ -21,7 +21,7 @@ class Mobile::PaymentAPI < ApplicationAPI
     end
     get '/check' do
       begin
-        payment = Payment.where(code: params[:payment_code]).present?
+        payment = Payment.where(code: params[:payment_code])
         present :status, :success
         present :data, payment
       rescue Exception => e

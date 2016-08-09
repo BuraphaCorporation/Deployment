@@ -50,8 +50,8 @@ Event.create([
 - คุณสามารถใช้ตั๋ว ที่ซื้อจาก Daydash ได้ทุกวัน session ใดก็ได้ โดยสามารถใช้ได้ 1 ใบต่อวัน โดย session ต่อไปจะต้องชำระเงินกับ Lazgam ในราคาปกติ
 - ตั๋วมีอายุ 90 วัน นับจากวันที่ซื้อ",
     location: 'Holiday Inns, 5th Floor, Sukhumvit 22',
-    latitude: '13.00000',
-    longitude: '13.00000'
+    latitude: '13.7563309',
+    longitude: '100.50176510000006'
   },
   {
     slug: 'give-me-soap',
@@ -80,8 +80,8 @@ Event.create([
 สถานที่:
 เดินทางสะดวก ห่างจาก BTS (ทางออกที่ 4) ประมาน 300 เมตร เข้ามาในซอยพหลโยธิน 6 เดินตรงเข้ามาจนสุดซอย จะเจอทางแยกให้เลี้ยวขวา แล้วเดินต่ออีกนิด ให้สังเกตขวามือไว้ บ้านชอปสปอท จะอยู่ทางขวามือ เลขที่ 68 กำแพงสีเทา (เยื้องกับอพาร์ตเมนท์)"',
     location: 'ShopSpot HQ, BTS อารีย์',
-    latitude: '13.00000',
-    longitude: '13.00000'
+    latitude: '13.7563309',
+    longitude: '100.50176510000006'
   },
   {
     slug: 'candle-aroma-perfume-workshop',
@@ -112,8 +112,8 @@ K. SHUN (NATURAL TELLER)
 สถานที่
 เดินทางสะดวก ห่างจาก BTS (ทางออกที่ 4) ประมาน 300 เมตร เข้ามาในซอยพหลโยธิน 6 เดินตรงเข้ามาจนสุดซอย จะเจอทางแยกให้เลี้ยวขวา แล้วเดินต่ออีกนิด ให้สังเกตขวามือไว้ บ้านชอปสปอท จะอยู่ทางขวามือ เลขที่ 68 กำแพงสีเทา (เยื้องกับอพาร์ตเมนท์) "',
     location: 'ShopSpot HQ, BTS อารีย์',
-    latitude: '13.00000',
-    longitude: '13.00000'
+    latitude: '13.7563309',
+    longitude: '100.50176510000006'
   },
   {
     slug: 'isan-connection-kammao-friends',
@@ -121,8 +121,8 @@ K. SHUN (NATURAL TELLER)
     title: 'Isan Connection - Kammao & Friends',
     description: 'Once every 2 months with Kammao Perdtanon, the Phin player of The Paradise Bangkok Molam International Band, showcasing the traditional sounds & instruments of Isan, featuring a different guest & friends each time. This is a rare opportunity to experience authentic grass roots molam in the heart of the capital - don’t miss.',
     location: 'Studio Lam, Sukhumvit 51, Bangkok',
-    latitude: '13.00000',
-    longitude: '13.00000'
+    latitude: '13.7563309',
+    longitude: '100.50176510000006'
   },
   {
     slug: 'beam-x-zudrangma',
@@ -143,8 +143,8 @@ Gilles Peterson Worldwide : https://soundcloud.com/gillespetersonworldwide/the-p
 NTS Radio : http://www.ntslive.co.uk/shows/spacebass/episodes/spacebass-w-ld-ldldn-15th-august-2015
 BBC6 : http://www.bbc.co.uk/programmes/b0647wv0",
     location: 'xxxx',
-    latitude: '13.00000',
-    longitude: '13.00000'
+    latitude: '13.7563309',
+    longitude: '100.50176510000006'
   },
   {
     slug: 'watercolor-realistic-flowers',
@@ -158,8 +158,8 @@ BBC6 : http://www.bbc.co.uk/programmes/b0647wv0",
 สถานที่ เอกมัย ซอย 10 ตรงเว้งโบราณ ชั้น 3 ข้างๆ ร้านบ้านเพื่อน
 แนะนำให้เดินทางด้วยรถไฟฟ้าหรือแท็กซี่ เพราะค่าที่จอดรถแพงมาก (100-200 บาท สำหรับ 1 วันเต็ม)",
     location: 'Olive Creative Laboratory, Ekkamai 10',
-    latitude: '13.00000',
-    longitude: '13.00000'
+    latitude: '13.7563309',
+    longitude: '100.50176510000006'
   }
 ]) if Category.exists?
 
@@ -182,37 +182,6 @@ CategoriesEvent.create(event: studiolam, category: Category.find_by_name('nightl
 CategoriesEvent.create(event: beam, category: Category.find_by_name('nightlife-and-entertainment'))
 CategoriesEvent.create(event: olive, category: Category.find_by_name('art-and-culture'))
 
-
-puts "upload image"
-Dir["#{Rails.root}/public/event_content/lazgam/*"].each do |attachment|
-  puts attachment
-  Gallery.create(event: lazgam, media: File.open(attachment, 'rb'))
-end
-
-Dir["#{Rails.root}/public/event_content/shopspot/Candle Aroma Perfume/*"].each do |attachment|
-  puts attachment
-  Gallery.create(event: shopspot1, media: File.open(attachment, 'rb'))
-end
-
-Dir["#{Rails.root}/public/event_content/shopspot/Give Me Soap/*"].each do |attachment|
-  puts attachment
-  Gallery.create(event: shopspot2, media: File.open(attachment, 'rb'))
-end
-
-Dir["#{Rails.root}/public/event_content/studiolam/*"].each do |attachment|
-  puts attachment
-  Gallery.create(event: studiolam, media: File.open(attachment, 'rb'))
-end
-
-Dir["#{Rails.root}/public/event_content/beam/*"].each do |attachment|
-  puts attachment
-  Gallery.create(event: beam, media: File.open(attachment, 'rb'))
-end
-
-Dir["#{Rails.root}/public/event_content/olive/*"].each do |attachment|
-  puts attachment
-  Gallery.create(event: olive, media: File.open(attachment, 'rb'))
-end
 
 puts "update sections"
 lazgam.sections.create([
@@ -368,3 +337,35 @@ olive.sections.create([
     bought:     100
   }
 ])
+
+
+puts "upload image"
+Dir["#{Rails.root}/public/event_content/lazgam/*"].each do |attachment|
+  puts attachment
+  Gallery.create(event: lazgam, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/shopspot/Candle Aroma Perfume/*"].each do |attachment|
+  puts attachment
+  Gallery.create(event: shopspot1, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/shopspot/Give Me Soap/*"].each do |attachment|
+  puts attachment
+  Gallery.create(event: shopspot2, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/studiolam/*"].each do |attachment|
+  puts attachment
+  Gallery.create(event: studiolam, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/beam/*"].each do |attachment|
+  puts attachment
+  Gallery.create(event: beam, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/olive/*"].each do |attachment|
+  puts attachment
+  Gallery.create(event: olive, media: File.open(attachment, 'rb'))
+end

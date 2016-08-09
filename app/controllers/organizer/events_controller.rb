@@ -79,7 +79,7 @@ class Organizer::EventsController < Organizer::CoreController
   private
 
     def serialize_data_create
-      binding.pry
+
       user_id = params[:user].to_i.eql?(0) ? current_user.id : params[:user].to_i
       @event.update(user_id: user_id)
 
@@ -131,6 +131,6 @@ class Organizer::EventsController < Organizer::CoreController
     end
 
     def all_users
-      @users = Role.find_by_title('organizer').users
+      # @users = Role.find_by_title('organizer').users
     end
 end

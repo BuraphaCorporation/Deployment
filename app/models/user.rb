@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
   end
 
   def can_organizer?
-    role.title != 'user'
+    role.title = 'admin'
   end
 
   def self.from_omniauth(auth)

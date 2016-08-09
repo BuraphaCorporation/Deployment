@@ -47,7 +47,6 @@ brick:
   MANDRILL_USERNAME: ""
   MANDRILL_PASSWORD:
 
-
 test:
   <<: *default
   HELLO: rspec

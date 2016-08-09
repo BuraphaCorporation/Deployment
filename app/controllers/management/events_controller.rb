@@ -52,8 +52,8 @@ class Management::EventsController < Management::CoreController
         CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
       end unless params[:event][:category_ids].nil?
 
-      params[:event][:attachments].each do |attachments|
-        Gallery.create(event: @event, media: attachments)
+      params[:event][:attachments].each do |attachment|
+        Gallery.create(event: @event, media: attachment)
       end unless params[:event][:attachments].nil?
 
       params[:event][:sections_attributes].each do |section|
@@ -78,8 +78,8 @@ class Management::EventsController < Management::CoreController
         CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
       end unless params[:event][:category].nil?
 
-      params[:event][:attachments].each do |attachments|
-        Gallery.create(event: @event, media: attachments)
+      params[:event][:attachments].each do |attachment|
+        Gallery.create(event: @event, media: attachment)
       end unless params[:event][:attachments].nil?
     end
 
@@ -96,6 +96,6 @@ class Management::EventsController < Management::CoreController
     end
 
     def all_users
-      @users = Role.find_by_title('organizer').users
+      # @users = Role.find_by_title('organizer').users
     end
 end

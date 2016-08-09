@@ -12,7 +12,7 @@ class Mobile::PaymentAPI < ApplicationAPI
         {
           method: 'bank-transfer'
         }
-     ]
+      ]
     end
 
     desc "return "

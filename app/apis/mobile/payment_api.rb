@@ -20,10 +20,14 @@ class Mobile::PaymentAPI < ApplicationAPI
       requires :payment_code, type: String, desc: 'payment code'
     end
     get '/check' do
-      payment = Payment.where(code: params[:payment_code]).present?
-    # ensure
-      present :status, :failure
-      present :data, payment
+      begin
+        payment = Payment.where(code: params[:payment_code]).present?
+        present :status, :failure
+        present :data, payment
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
+      end
     end
 
     desc 'pay by credit card'
@@ -35,9 +39,8 @@ class Mobile::PaymentAPI < ApplicationAPI
       requires :total_price, type: Integer, desc: "Section price"
     end
     post '/credit-card' do
-
-      if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:omise_token].present? and params[:total_price].present?
-        begin
+      begin
+        if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:omise_token].present? and params[:total_price].present?
           user = User.find_by_token(params[:user_token])
           event = Event.find(params[:event_id])
 
@@ -45,13 +48,13 @@ class Mobile::PaymentAPI < ApplicationAPI
 
           present :status, :success
           present :data, payment, with: Entities::PaymentOmiseExpose
-        rescue
+        else
           present :status, :failure
           present :data, nil
         end
-      else
+      rescue Exception => e
         present :status, :failure
-        present :data, nil
+        present :data, e
       end
     end
 
@@ -64,8 +67,8 @@ class Mobile::PaymentAPI < ApplicationAPI
       requires :total_price, type: Integer, desc: "Section price"
     end
     post '/bank-transfer' do
-      if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:total_price].present?
-        begin
+      begin
+        if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:total_price].present?
           user = User.find_by_token(params[:user_token])
           event = Event.find(params[:event_id])
 
@@ -73,15 +76,14 @@ class Mobile::PaymentAPI < ApplicationAPI
 
           present :status, :success
           present :data, payment, with: Entities::PaymentTransferExpose
-        rescue
+        else
           present :status, :failure
-          present :data, 'raise'
+          present :data, 'params invalid'
         end
-      else
+      rescue Exception => e
         present :status, :failure
-        present :data, 'params invalid'
+        present :data, e
       end
     end
-
   end
 end

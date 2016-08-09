@@ -93,6 +93,7 @@ class Mobile::UserAPI < ApplicationAPI
     get '/tickets' do
       begin
         tickets = User.find_by_token(params[:user_token]).try(:tickets)
+
         present :status, :success
         present :data, tickets, with: Entities::TicketExpose
       rescue Exception => e
@@ -109,6 +110,7 @@ class Mobile::UserAPI < ApplicationAPI
     get '/ticket' do
       begin
         ticket = User.find_by_token(params[:user_token]).tickets.find(params[:ticket_id])
+
         present :status, :success
         present :data, ticket, with: Entities::TicketExpose
       rescue Exception => e

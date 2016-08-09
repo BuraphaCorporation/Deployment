@@ -82,7 +82,7 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     post '/tag' do
-      present :status, :wating
+      present :status, :success
       present :data, nil
     end
 

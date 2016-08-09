@@ -47,16 +47,16 @@ class User < ActiveRecord::Base
     end
   end
 
-  def is_management?
-    role.title == 'management'
-  end
+  # def is_management?
+  #   role.title == 'management'
+  # end
 
-  def is_moderator?
-    role.title == 'moderator'
-  end
+  # def is_moderator?
+  #   role.title == 'moderator'
+  # end
 
   def is_organizer?
-    role.title == 'organizer'
+    role.title == 'admin'
   end
 
   def can_organizer?

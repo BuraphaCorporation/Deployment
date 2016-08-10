@@ -48,7 +48,7 @@ class Mobile::AuthAPI < ApplicationAPI
         user = User.where(email: params[:email]).present?
 
         present :status, :success
-        present :data, user, with: Entities::AuthExpose
+        present :data, user
       rescue Exception => e
         present :status, :failure
         present :data, e

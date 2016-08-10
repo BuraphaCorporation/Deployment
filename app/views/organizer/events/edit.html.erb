@@ -1,0 +1,223 @@
+<script>$('body').attr('id', 'organizer-events-edit');</script>
+<div class="section">
+  <div class="container">
+    <%= render partial: "organizer/parts/organizer-nav" %>
+    <script>$('#organizer-nav #menu-event-list').addClass('active');</script>
+
+    <%= form_tag edit_organizer_event_path(@event), multipart: true do %>
+      <input type="hidden" name="images_order" value="<%= @images_order.join(',') %>" />
+      <input type="hidden" name="images_delete[]" value="" />
+
+      <input type="hidden" name="sections_delete[]" value="" />
+
+      <div class="form-section">
+        <div class="form-header">
+          <h1 class="form-title">1. Event Detail</h1>
+        </div>
+        <div class="form-body row">
+          <div class="col-xs-12 col-md-6">
+            <div class="form-group">
+              <label>Event Title</label>
+              <input class="form-control" name="title" value="<%= @event.title %>" />
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <div class="category-list row">
+                <% @categories.each do |category| %>
+                <div class="col-xs-12 col-md-6">
+                  <label class="category">
+                    <input type="checkbox" name="category_ids[]" value="<%= category.id %>" <% if @event.categories.where(:id => category.id).exists? %>checked<% end %> />
+                    <%= category.title %>
+                  </label>
+                </div>
+                <% end %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea class="form-control" name="description" rows="10"><%= @event.description %></textarea>
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <input class="form-control" name="address" value="" placeholder="eg. Hubba Thailand, Ekamai soi 4" />
+            </div>
+            <div class="form-group">
+              <label>Location on Map</label>
+              <div class="form-inline">
+                <input class="form-control" type="text" name="lat" id="event_latitude" value="" placeholder="Latitude" />
+                <input class="form-control" type="text" name="lng" id="event_longitude" value="" placeholder="Longitude" />
+              </div>
+              <div id="map" style="margin-top: 15px; height: 300px;"></div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="form-group">
+              <label>Galleries</label>
+              <input class="form-control" type="file" name="galleries[]" multiple />
+            </div>
+            <div class="image-list sortable row">
+              <% @images.each do |image| %>
+              <div class="col-xs-6" data-id="<%= image[:id] %>">
+                <div class="image" style="background-image: url(<%= image[:url] %>);"></div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-header">
+          <h1 class="form-title">2. Ticket Detail</h1>
+        </div>
+        <div class="form-body">
+          <table class="table table-hover ticket-list">
+            <thead>
+              <tr>
+                <td>Ticket Title</td>
+                <td>Ticket Available</td>
+                <td>Ticket Price</td>
+                <td>Date</td>
+                <td>From</td>
+                <td>To</td>
+                <td><!-- Action --></td>
+              </tr>
+            </thead>
+            <tbody>
+              <% @sections.each do |section| %>
+              <tr class="ticket" id="ticket-<%= section[:id] %>" data-ticket-id="<%= section[:id] %>">
+                <td><input class="form-control" type="text" name="ticket[<%= section[:id] %>][title]" value="<%= section[:title] %>" placeholder="eg. General, VIP" /></td>
+                <td><input class="form-control" type="number" name="ticket[<%= section[:id] %>][available]" value="<%= section[:available] %>" /></td>
+                <td><input class="form-control" type="number" name="ticket[<%= section[:id] %>][price]" value="<%= section[:price] %>" /></td>
+                <td width="200">
+                  <div class="input-group datepicker">
+                    <input type="text" class="form-control" name="ticket[<%= section[:id] %>][date]" value="<%= section[:date] %>" />
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  </div>
+                </td>
+                <td width="200">
+                  <div class="input-group timepicker">
+                    <input class="form-control" type="text" name="ticket[<%= section[:id] %>][start_time]" value="<%= section[:start_time] %>" />
+                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                  </div>
+                <td width="200">
+                  <div class="input-group timepicker">
+                    <input class="form-control" type="text" name="ticket[<%= section[:id] %>][end_time]" value="<%= section[:end_time] %>" />
+                    <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                  </div>
+                </td>
+
+                <td width="100" align="right">
+                  <a class="btn btn-sm btn-default btn-ticket-delete" href="#" onclick="return on_ticket_delete(this);"><i class="fa fa-minus"></i></a>
+                  <a class="btn btn-sm btn-default btn-ticket-add" href="#" onclick="return on_ticket_add(this);"><i class="fa fa-plus"></i></a>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="form-footer">
+        <button class="btn btn-daydash btn-daydash-green-1">Submit</button>
+        or
+        <button class="btn btn-default">Save as Draft</button>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Bootstrap Datetimepicker -->
+<link type="stylesheet" href="/src/packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
+<script src="/src/packages/bootstrap-datetimepicker/js/moment.js"></script>
+<script src="/src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+<!-- Mustache -->
+<script src="/src/packages/mustache/mustache.min.js"></script>
+
+<!-- Jquery UI - Sortable -->
+<link rel="stylesheet" href="/src/packages/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.min.css" />
+<script src="/src/packages/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script>
+
+<!-- Google Map -->
+<%= render partial: "layouts/parts/google_maps" %>
+
+<!-- Template -->
+<script id="new-ticket-template" type="x-tmpl-mustache">
+  <tr class="ticket new-ticket">
+    <td><input class="form-control" type="text" name="new_ticket_names[]" value="" placeholder="eg. General, VIP" /></td>
+    <td><input class="form-control" type="number" name="new_ticket_availables[]" value="" /></td>
+    <td><input class="form-control" type="number" name="new_ticket_prices[]" value="" /></td>
+    <td width="200">
+      <div class="input-group datepicker">
+        <input type="text" class="form-control" name="new_ticket_dates[]" />
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      </div>
+    </td>
+    <td width="200">
+      <div class="input-group timepicker">
+        <input class="form-control" type="text" name="new_ticket_start_times[]" value="" />
+        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+      </div>
+    <td width="200">
+      <div class="input-group timepicker">
+        <input class="form-control" type="text" name="new_ticket_end_times[]" value="" />
+        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+      </div>
+    </td>
+
+    <td width="100" align="right">
+      <a class="btn btn-sm btn-default btn-ticket-delete" href="#" onclick="return on_ticket_delete(this);"><i class="fa fa-minus"></i></a>
+      <a class="btn btn-sm btn-default btn-ticket-add" href="#" onclick="return on_ticket_add(this);"><i class="fa fa-plus"></i></a>
+    </td>
+  </tr>
+</script>
+
+<script> //Init Function
+  function init_datetimepicker(element) {
+    $('.datepicker', element).datetimepicker({
+      format: 'DD/MM/YYYY'
+    });
+
+    $('.timepicker', element).datetimepicker({
+      format: 'LT',
+      stepping: 15
+    });
+  }
+
+  function init_sortable() {
+    $('.sortable').sortable({
+      update: function(event, ui) {
+        var images_order = $(this).sortable('toArray', { attribute: 'data-id' });
+        $('[name=images_order]').val(images_order.join(','));
+        console.log(images_order.join(','));
+      }
+    });
+  }
+
+  $(function() {
+    init_datetimepicker($('body'));
+    init_sortable();
+    // on_ticket_add(); //add 1st ticket
+  });
+</script>
+
+<script> //View Function
+  function on_ticket_add(button) {
+    var template = $('#new-ticket-template').html();
+    Mustache.parse(template);
+    var rendered = Mustache.render(template, {});
+    var element = $(rendered);
+    $('.ticket-list tbody').append(element);
+
+    init_datetimepicker(element);
+
+    return false;
+  }
+
+  function on_ticket_delete(button) {
+    var element = $(button).parents('.ticket');
+    element.remove();
+
+    return false;
+  }
+</script>

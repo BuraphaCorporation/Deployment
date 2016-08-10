@@ -1,7 +1,8 @@
 class Payment < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
-  belongs_to :ticket
+
+  has_many :tickets, dependent: :destroy
 
   enum status: { failure: 0, success: 1, pending: 2 }
 
@@ -20,29 +21,65 @@ class Payment < ActiveRecord::Base
       end
     end
 
-    def invoice(event, user)
+    def invoice(user, event)
       "#{Time.zone.now.strftime("%Y%m%d-%H%M")}-#{event.id}-#{user.id}"
     end
 
-    def omise_charge(event, user, amount, omise_token)
-      charge = Omise::Charge.create({
-        amount: amount.to_i * 100,
-        currency: "thb",
-        description: invoice(event, user),
-        card: omise_token
-      })
+    def omise_charge(user, event, sections, amount, omise_token)
+      begin
+        # card = Omise::Token.create(card: {
+        #   name: "Somchai Prasert",
+        #   number: "4242424242424242",
+        #   expiration_month: 10,
+        #   expiration_year: 2018,
+        #   city: "Bangkok",
+        #   postal_code: "10320",
+        #   security_code: 123
+        # })
+        # omise_token = card.id
 
-      pay = create(status: :success, user: user, provider: 'omise', event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
-      Ticket.create_ticket(user, event, pay)
-      pay
+        charge = Omise::Charge.create({
+          amount: amount.to_i * 100,
+          currency: "thb",
+          description: "test", #invoice(event, user),
+          card: omise_token
+        })
+
+        if charge.status == 'successful'
+          pay = create(status: :success, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
+
+          sections.each do |section|
+            (1..section.qty).each do |i|
+              p i
+              Ticket.create_ticket(user, event, section.id, pay)
+            end
+          end
+
+          pay
+        else
+          pay = create(status: :failure, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
+        end
+      rescue Exception => e
+        e
+      end
     end
 
-    def transfer_checkout(event, user, evidence=nil)
-      # create(status: :pending, user: user, event: event, evidence: evidence)
+    def transfer_notify(user, event, sections, amount)
+      begin
+        pay = create(status: :pending, provider: 'transfer', user: user, event: event, amount: amount)
+        sections.each do |section|
+          Ticket.create_ticket(user, event, section.id, pay)
+        end
+
+        pay
+      rescue Exception => e
+        e
+      end
     end
 
-    def transfer_notify(event, user, amount)
-      create(status: :pending, user: user, provider: 'transfer', event: event, amount: amount)
+
+    def transfer_checkout(user, event, evidence=nil)
+      update(status: :success, user: user, event: event, evidence: evidence)
     end
 
     def transfer_approve(user, event, payment)

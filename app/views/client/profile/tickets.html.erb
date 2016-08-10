@@ -7,9 +7,6 @@
     <script>$('#profile-nav #menu-my-tickets').addClass('active');</script>
 
     <div class="row">
-      <div class="col-xs-12 col-md-3">
-        <%= render partial: "client/profile/parts/profile-user-panel" %>
-      </div>
       <div class="col-xs-12 col-md-9">
         <div class="ticket-list">
           <div class="list-header">
@@ -22,12 +19,11 @@
           </div>
           <div class="list-body">
             <% @tickets.each do |ticket| %>
-            <div class="ticket">
-              <div class="ticket-cover" style="background-image: url(<%= ticket[:event].get_thumbnail %>);">
-              </div>
-              <div class="ticket-info">
+            <div class="ticket card-side-cover">
+              <a class="cover" style="background-image: url(<%= ticket[:event].get_thumbnail %>);" href="#"></a>
+              <div class="info">
                 <div class="info-body">
-                  <h4 class="title"><%= ticket[:event].title %></h4>
+                  <h4 class="title"><a href="#"><%= ticket[:event].title %></a></h4>
                   <div class="meta date">วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
                   <div class="meta location">Thonglor House Club, ซอยทองหล่อ</div>
                 </div>
@@ -38,9 +34,8 @@
                       <span class="purchase-date">purchased on <%= ticket[:purchased_date] %></span>
                     </div>
                     <div class="col-xs-12 col-md-6">
-                      <ul class="list-inline pull-right">
+                      <ul class="list-inline list-action-nav pull-right">
                         <li><a href="#">View Ticket</a></li>
-                        <li>|</li>
                         <li><a href="<%= client_event_path(ticket[:event].id) %>">View Event</a></li>
                       </ul>
                     </div>

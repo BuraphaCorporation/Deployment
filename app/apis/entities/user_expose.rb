@@ -5,18 +5,8 @@ class Entities::UserExpose < Grape::Entity
   expose :gender
   expose :birthday
   expose :phone
-  # expose :avatar do |a|
-  #   a.avatar(:medium)
-  # end
-  expose :referal_code
-end
-
-class Entities::UserTicketExpose < Grape::Entity
-  expose :tickets do |ticket|
-    if ticket.exists?
-      true
-    else
-      false
-    end
+  expose :avatar do |a|
+    a.avatar(:medium)
   end
+  expose :referal_code
 end

@@ -3,7 +3,7 @@
 <div class="section" id="bank-transfer-inform-section">
   <div class="container">
     <h2 class="section-title">Order Received</h2>
-    <div>You have reserve tickets for <%= link_to @event.title, client_event_path(@event.id) %></div>
+    <div>You have reserve tickets for <%= link_to @event.title, client_event_path(@event.to_url) %></div>
     <ul>
       <li>Your payment transfer code is : XX123</li>
       <li>Please transfer and confirm within 1 hr otherwise your order will be cancelled.</li>
@@ -31,7 +31,7 @@
       <% @related_events.each do |event| %>
         <div class="col-sm-6 col-md-4">
           <div class="event card">
-            <%= link_to client_event_path(event.id) do %>
+            <%= link_to client_event_path(event.to_url) do %>
               <% if event.galleries.present? %>
                 <div class="cover" style="background-image: url(<%= event.galleries.first.try(:media, :thumb) %>);"></div>
               <% else %>
@@ -40,7 +40,7 @@
             <% end %>
             <div class="info">
               <h4 class="title text-left">
-                <%= link_to event.title, client_event_path(event.id) %>
+                <%= link_to event.title, client_event_path(event.to_url) %>
               </h4>
               <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>

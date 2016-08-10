@@ -1,7 +1,7 @@
 <div class="panel panel-default current-user-panel">
   <div class="panel-body">
-    <div class="profile-picture" style="background-image: url(<%= @current_user[:profile_picture] %>);"></div>
-    <div class="user-name"><%= @current_user[:firstname] %> <%= @current_user[:lastname] %></div>
+    <div class="profile-picture" style="background-image: url(<%= current_user.avatar(:medium) %>);"></div>
+    <div class="user-name"><%= current_user.first_name %> <%= current_user.last_name %></div>
     <div><a href="/profile/settings">Edit Profile</a></div>
   </div>
 </div>

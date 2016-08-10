@@ -1,12 +1,21 @@
 class GreetingsController < ApplicationController
-  # before_action :authenticate_user!
-  # skip_before_action :authenticate_user!, only: :hello
-
-  def hello
-
+  def faq
   end
 
-  def events
-    Event.last(6)
+  def terms
+  end
+
+  def policy
+  end
+
+  def rating
+    redirect_to case request.user_agent.downcase
+    when /iphone/
+      "http://daydash.co"
+    when /android/
+      "http://daydash.co"
+    else
+      "http://daydash.co"
+    end.html_safe
   end
 end

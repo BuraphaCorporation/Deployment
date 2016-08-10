@@ -3,7 +3,7 @@ class Client::EventsController < Client::CoreController
   before_action :related_events, only: [:show, :checkout]
 
   def index
-    @category  = Category.all
+    @categories  = Category.all
     @galleries = Gallery.all.shuffle.first(5)
 
     @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])
@@ -21,19 +21,15 @@ class Client::EventsController < Client::CoreController
   def show
     @event = Event.friendly.find(params[:id])
     @section = @event.sections.min_by(&:price)
-
-    @tickets = [
-      { title: 'VIP',     price: 1000, quantity: 1 },
-      { title: 'General', price: 500, quantity: 1 },
-    ]
   end
 
   def express
     @event = Event.friendly.find(params[:event_id])
     @section = @event.sections.min_by(&:price)
 
-    @total = 0
+    session[:total] = 0
     @tickets = {}
+    session[:sections] = []
     @event.sections.each do |section|
       if params[:section]["#{section.id}"].to_i > 0
         @tickets.merge!({ "#{section.id}":
@@ -43,18 +39,23 @@ class Client::EventsController < Client::CoreController
             quantity: params[:section]["#{section.id}"].to_i
           }
         })
-        @total += section.price
+        session[:sections] << { "id": section.id, "qty": params[:section]["#{section.id}"].to_i }
+        session[:total] += section.price
       end
     end
   end
 
   def checkout
     @event = Event.friendly.find(params[:event_id])
+
+    sections = []
+    session[:sections].each{|s| sections << Hashie::Mash.new(s)}
+
     if params[:payment_method] == 'credit_card'
-      Payment.omise_charge(@event, current_user, params[:payment_amount], params[:omise_token])
+      Payment.omise_charge(current_user, @event, sections, session[:total], params[:omise_token])
       render "client/events/payment-credit-card"
     elsif params[:payment_method] == 'bank_transfer'
-      Payment.transfer_notify(@event, current_user, params[:payment_amount])
+      Payment.transfer_notify(current_user, @event, sections, session[:total])
       render "client/events/payment-bank-transfer"
     end
   end

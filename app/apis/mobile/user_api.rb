@@ -7,14 +7,19 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     get '/' do
-      user = User.find_by_token(params[:user_token])
-      if user.present?
-        present :status, :success
-      else
-        present :status, :failure
-      end
+      begin
+        user = User.find_by_token(params[:user_token])
+        if user.present?
+          present :status, :success
+        else
+          present :status, :failure
+        end
 
-      present :data, user, with: Entities::UserExpose
+        present :data, user, with: Entities::UserExpose
+      rescue Exception => e
+        present :status, :failure
+        present :data, nil
+      end
     end
 
     desc "details of user"
@@ -24,36 +29,42 @@ class Mobile::UserAPI < ApplicationAPI
       requires :first_name, type: String, desc: 'first name'
       requires :last_name, type: String, desc: 'last_name'
       requires :phone, type: String, desc: 'phone'
-      requires :birthday, type: String, desc: 'birthday'
+      requires :birthday, type: String, desc: 'birthday formatting dd/MM/YYYY'
       requires :gender, type: String, desc: 'male, female input'
     end
     put '/' do
-      user = User.find_by_token(params[:user_token])
-      if user.present?
-        if params[:gender] == 'male' or params[:gender] == 'female'
-          user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender])
-          present :status, :success
-          present :data, user, with: Entities::UserExpose
+      begin
+        user = User.find_by_token(params[:user_token])
+        if user.present?
+          if params[:gender] == 'male' or params[:gender] == 'female'
+            user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender])
+            present :status, :success
+            present :data, user, with: Entities::UserExpose
+          else
+            present :status, :failure
+            present :data, "gender has male or female not #{params[:gender]}"
+          end
         else
           present :status, :failure
-          present :data, "gender has male or female not #{params[:gender]}"
         end
-      else
+      rescue Exception => e
         present :status, :failure
+        present :data, e
       end
     end
 
     desc "change password"
     params do
       requires :user_token, type: String, desc: "token of the user"
-      requires :password, type: String, desc: "token of the user"
+      requires :old_password, type: String, desc: "old password user"
+      requires :new_password, type: String, desc: "new password user"
     end
     put 'change_password' do
       begin
-        User.find_by_token(params[:token]).update(password: params[:password])
+        User.find_by_token(params[:token]).update(password: params[:old_password])
         present :status, :success
         present :data, nil
-      rescue
+      rescue Exception => e
         present :status, :failure
         present :data, nil
       end
@@ -69,28 +80,10 @@ class Mobile::UserAPI < ApplicationAPI
         User.find_by_token(params[:token]).update(referal_code: params[:referal_code])
         present :status, :success
         present :data, nil
-      rescue
+      rescue Exception => e
         present :status, :failure
         present :data, nil
       end
-    end
-
-    desc "action notification"
-    params do
-      requires :user_token, type: String, desc: "token of the user"
-      # requires :password, type: String, desc: "token of the user"
-    end
-    put 'change_password' do
-      present :status, :waiting
-      present :data, nil
-      # begin
-      #   User.find_by_token(params[:token]).update(password: params[:password])
-      #   present :status, :success
-      #   present :data, nil
-      # rescue
-      #   present :status, :failure
-      #   present :data, nil
-      # end
     end
 
     desc "action tag"
@@ -99,88 +92,66 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
     end
     post '/tag' do
-      # { params: params.slice(:comments), declared: declared(params) }
-      # binding.pry
-      present :status, :wating
-      present :data, nil
+      begin
+        present :status, :success
+        present :data, nil
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
+      end
     end
 
-    desc "return all tag by user"
+    desc "return all tickets by user"
     params do
       requires :user_token, type: String, desc: "token of the user"
     end
     get '/tickets' do
-      tickets = User.find_by_token(params[:user_token]).try(:tickets)
+      begin
+        tickets = User.find_by_token(params[:user_token]).try(:tickets)
 
-      if tickets.present?
         present :status, :success
-      else
+        present :data, tickets, with: Entities::TicketExpose
+      rescue Exception => e
         present :status, :failure
+        present :data, e
       end
-      present :data, tickets
     end
 
-    # desc "post ticket"
-    # params do
-    #   requires :user_token, type: String, desc: "token of the user"
-    #   requires :event_id, type: Integer, desc: "event_id"
-    # end
-    # post '/ticket' do
-    #   begin
-    #     user = User.find_by_token(params[:user_token])
-    #     event = Event.find(params[:event_id])
-    #
-    #     if Wishlist.where(user_id: user.id, event_id: params[:event_id]).empty?
-    #       wishlist = Wishlist.create(user_id: user.id, event_id: event.id)
-    #
-    #       if wishlist.present?
-    #         present :status, :success
-    #       else
-    #         present :status, :failure
-    #       end
-    #       present :data, wishlist
-    #     else
-    #       # binding.pry
-    #       present :status, :success
-    #       present :data, user, with: Entities::UserWishlistExpose
-    #     end
-    #   rescue
-    #     present :status, :failure
-    #     present :data, nil
-    #   end
-    # end
-    #
-    # desc "delete ticket"
-    # params do
-    #   requires :user_token, type: String, desc: "token of the user"
-    #   requires :event_id, type: Integer, desc: "event_id"
-    # end
-    # delete '/ticket' do
-    #   begin
-    #     user = User.find_by_token(params[:user_token])
-    #     event = Event.find(params[:event_id])
-    #     wishlist = Wishlist.where(user_id: user.id, event_id: event.id).destroy_all
-    #     present :status, :success
-    #     present :data, [ wishlisted: false ]
-    #   rescue
-    #     present :status, :failure
-    #     present :data, nil
-    #   end
-    # end
+    desc "return a ticket by user"
+    params do
+      requires :user_token, type: String, desc: "token of the user"
+      requires :ticket_id, type: Integer, desc: "ticket id"
+    end
+    get '/ticket' do
+      begin
+        ticket = User.find_by_token(params[:user_token]).tickets.find(params[:ticket_id])
+
+        present :status, :success
+        present :data, ticket, with: Entities::TicketExpose
+      rescue Exception => e
+        present :status, :failure
+        present :data, ticket.present?
+      end
+    end
 
     desc "return all wishlist by user"
     params do
       requires :user_token, type: String, desc: "token of the user"
     end
     get '/wishlists' do
-      wishlists = User.find_by_token(params[:user_token]).try(:wishlists)
+      begin
+        wishlists = User.find_by_token(params[:user_token]).try(:wishlists)
 
-      if wishlists.present?
-        present :status, :success
-      else
+        if wishlists.present?
+          present :status, :success
+        else
+          present :status, :failure
+        end
+        present :data, wishlists
+      rescue Exception => e
         present :status, :failure
+        present :data, e
       end
-      present :data, wishlists
     end
 
     desc "post wishlist"
@@ -203,11 +174,10 @@ class Mobile::UserAPI < ApplicationAPI
           end
           present :data, wishlist
         else
-          # binding.pry
           present :status, :success
           present :data, user, with: Entities::UserWishlistExpose
         end
-      rescue
+      rescue Exception => e
         present :status, :failure
         present :data, nil
       end
@@ -225,7 +195,7 @@ class Mobile::UserAPI < ApplicationAPI
         wishlist = Wishlist.where(user_id: user.id, event_id: event.id).destroy_all
         present :status, :success
         present :data, [ wishlisted: false ]
-      rescue
+      rescue Exception => e
         present :status, :failure
         present :data, nil
       end

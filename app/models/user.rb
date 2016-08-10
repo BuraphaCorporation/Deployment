@@ -9,19 +9,21 @@ class User < ActiveRecord::Base
   belongs_to :role
   belongs_to :referrer, class_name: 'User', inverse_of: :referrals
 
-  has_many :events    #, dependent: :destroy
-  has_many :payments  #, dependent: :destroy
-  has_many :tickets   #, dependent: :destroy
+  has_many :events, dependent: :destroy
+  has_many :payments, dependent: :destroy
+  has_many :tickets, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
   has_many :referrals, class_name: 'User', foreign_key: :referrer_id, inverse_of: :referrer
 
   # has_one :token, { order 'created_at DESC' }, class_name: Doorkeeper::AccessToken, foreign_key: :resource_owner_id
 
-  enum gender: { male: 1, female: 0 }
+  enum gender: { male: true, female: false }
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100#" },
-                    default_url: "/images/:style/missing.png"
+  has_attached_file :avatar,
+                    styles: { medium: "300x300>", thumb: "100x100#" },
+                    default_url: '/defalut/:attachment/missing_user.png'
+
   validates_attachment_content_type :avatar,
                                     content_type: /\Aimage\/.*\Z/
 
@@ -45,16 +47,20 @@ class User < ActiveRecord::Base
     end
   end
 
-  def management?
-    role.name == 'management'
+  # def is_management?
+  #   role.title == 'management'
+  # end
+
+  # def is_moderator?
+  #   role.title == 'moderator'
+  # end
+
+  def is_organizer?
+    role.title == 'admin'
   end
 
-  def moderator?
-    role.name == 'moderator'
-  end
-
-  def organizer?
-    role.name == 'organizer'
+  def can_organizer?
+    role.title = 'admin'
   end
 
   def self.from_omniauth(auth)

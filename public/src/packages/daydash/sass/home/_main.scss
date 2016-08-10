@@ -1,7 +1,6 @@
 //Parameters
 $main-color:       #00CFD1;
 $main-light-color: #00E9CA;
-$main-dark-color:  #00CFD1;
 
 $trivial-color:     #00a0ff;
 
@@ -16,6 +15,7 @@ $md-width: 992px;
 $font-main: "Athiti", "Helvetica Neue", "sans-serif";
 $font-kanit: "Kanit", "Helvetica Neue", "sans-serif";
 $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
+$font-sans-serif: sans-serif;
 
 $bg-color: #fff;
 $bg-color2: #fcfcfc;
@@ -23,6 +23,7 @@ $bg-color2: #fcfcfc;
 html, body {
 	height: 100%;
 	font-family: $font-main;
+	color: #444;
 }
 
 #topbar {
@@ -38,6 +39,58 @@ html, body {
 			height: 40px;
 		}
 	}
+
+	.navbar-nav {
+		& > li {
+			& > a {
+				padding: 20px;
+				font-size: 18px;
+				font-weight: 200;
+			}
+
+			.btn-daydash-green-2 {
+			  background: #19D4D6;
+			  color: white;
+			  border: 0px;
+
+			  &:hover, &:active, &:visited, &:link {
+			    background: #19D4D6;
+			    color: white;
+			  }
+
+			}
+		}
+
+		.user-dropdown {
+			.user-profile-photo {
+				width: 30px;
+				height: 30px;
+				border-radius: 50%;
+				background-size: cover;
+				background-position: center;
+				background-repeat: no-repeat;
+				background-color: #ccc;
+			}
+
+			.dropdown-toggle {
+				padding: 15px 30px;
+			}
+
+			.dropdown-menu {
+				min-width: 200px;
+				padding: 0px;
+				
+				li {
+					a {
+						padding: 15px 20px;
+						font-size: 14px;
+						font-weight: 200;
+						border-bottom: 1px solid #eee;
+					}
+				}
+			}
+		}
+	}
 }
 
 #wrapper {
@@ -47,7 +100,7 @@ html, body {
 
 #main {
 	min-height: $min-height;
-	padding-bottom: 500px;
+	padding-bottom: 550px;
 
 	@media all and (max-width: 991px) {
 		padding-bottom: 785px;
@@ -69,7 +122,12 @@ html, body {
 	}
 
 	a {
+		text-decoration: none;
 		color: #aaa;
+
+		&:hover {
+			color: white;
+		}
 	}
 
 	.list-panel {
@@ -93,6 +151,7 @@ html, body {
 
 					&:hover, &:active, &:focus, &.active {
 						background: transparent;
+						color: white;
 					}
 				}
 			}
@@ -118,3 +177,54 @@ html, body {
 		margin-top: 50px;
 	}
 }
+
+#login-modal {
+
+	.modal-title {
+		text-align: center;
+	}
+
+	.fb-login {
+		margin-bottom: 15px;
+		text-align: center;
+
+		img {
+			height: 40px;
+		}
+	}
+
+	.seperator {
+		border-top: 1px solid #444;
+		margin-top: 25px;
+		margin-bottom: 15px;
+
+		.inner {
+			margin-top: -16px;
+		}
+
+		span {
+			display: inline-block;
+			padding: 5px 15px;
+			background: white;
+		}
+	}
+
+	.forgot-password {
+		margin-top: 15px;
+		text-align: center;
+	}
+
+	.modal-footer {
+		text-align: center;
+	}
+}
+
+@media (max-width: 991px) {
+	#main {
+		padding-bottom: 1400px;
+	}
+}
+
+
+
+

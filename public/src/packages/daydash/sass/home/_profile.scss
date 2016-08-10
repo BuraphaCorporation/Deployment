@@ -1,88 +1,49 @@
 .profile-page {
-	#profile-nav {
-		margin-bottom: 15px;
-	}
+  #profile-nav {
+    margin-bottom: 15px;
+  }
 
-	.current-user-panel {
-		.panel-body {
-			text-align: center;
-		}
+  .current-user-panel {
+    .panel-body {
+      text-align: center;
+    }
 
-		.profile-picture {
-			width: 80px;
-			height: 80px;
-			border-radius: 50%;
-			background-size: cover;
-			background-position: center;
-			background-repeat: no-repeat;
-			margin: 30px auto;
-		}
-	}
+    .profile-picture {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 30px auto;
+    }
+  }
 }
 
  #profile-ticket-list-page {
- 	.ticket-list {
- 		.ticket {
- 			margin-bottom: 15px;
- 			border: 1px solid #eee;	
-
-			.ticket-cover {
-				background-size: cover;
-				background-position: center;
-				background-repeat: no-repeat;
-				background-color: #ccc;
-			} 			
-
- 			.ticket-info {
- 				padding: 15px;
- 				padding-bottom: 0px;
-
- 				.info-body {
- 					padding-bottom: 15px;
- 				}
- 			}
- 		}
-
- 		@media (max-width: 991px) {
- 			.ticket {
- 				.ticket-cover {
- 					height: 150px;
- 				}
- 			}
- 		}
-
- 		@media (min-width: 992px) {
- 			.ticket {
- 				width: 100%;
- 				display: table;
-
- 				.ticket-cover {
- 					display: table-cell;
- 					width: 250px;
- 				}
-
- 				.ticket-info {
- 					display: table-cell;
- 				}
- 			}
- 		}
- 	}
 }
 
 #profile-wishlist-page {
-	.event-list {
-		.event {
-			.cover {
-				height: 200px;
-			}
-		}
-	}
+
+  h1 {
+    small {
+      font-size: 20px;
+    }
+  }
+
+  .event-list {
+    .event {
+      .cover {
+        height: 200px;
+      }
+    }
+  }
 }
 
 #profile-settings-page {
-	form {
-		.form-group:nth-child(2n+1) {
-			clear: left;
-		}
-	}
+  form {
+    .form-group:nth-child(2n+1) {
+      clear: left;
+    }
+  }
 }

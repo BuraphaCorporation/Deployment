@@ -12,7 +12,7 @@
 <div class="section" id="info-section">
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 col-md-8">
+      <div class="col-xs-12 col-md-7">
         <div class="row">
           <div class="col-xs-12">
             <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @section.event_time.strftime("%A %d %B, %H:%M") %></div>
@@ -30,9 +30,10 @@
           <% end %>
         </div>
       </div>
+      <div class="col-md-1"></div>
       <div class="col-xs-12 col-md-4">
         <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1" data-toggle="modal" data-target="#ticket-list-modal">
-          ซื้อตั๋ว - <%= @section.price %>
+          ซื้อตั๋ว - ฿<%= @section.price %>
         </button>
         <div class="map-panel">
           <div id="google-map"></div>
@@ -42,8 +43,8 @@
             <div class="col-xs-12">
               <a class="btn btn-block btn-daydash">Add to my Wishlist</a>
               <div class="social-list">
-                <div class="fb-share-button" data-href="<%= client_event_path(@event.id) %>" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
-                <a href="<%= client_event_path(@event.id) %>" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <div class="fb-share-button" data-href="<%= client_event_path(@event.to_url) %>" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
+                <a href="<%= client_event_path(@event.to_url) %>" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
               </div>
             </div>
           </div>
@@ -61,7 +62,7 @@
       <% @related_events.each do |event| %>
         <div class="col-sm-6 col-md-4">
           <div class="event card">
-            <%= link_to client_event_path(event.id) do %>
+            <%= link_to client_event_path(event.to_url) do %>
               <% if event.galleries.present? %>
                 <div class="cover" style="background-image: url(<%= event.galleries.first.try(:media, :thumb) %>);"></div>
               <% else %>
@@ -70,7 +71,7 @@
             <% end %>
             <div class="info">
               <h4 class="title text-left">
-                <%= link_to event.title, client_event_path(event.id) %>
+                <%= link_to event.title, client_event_path(event.to_url) %>
               </h4>
               <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
@@ -84,7 +85,7 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ticket-list-modal">
   <div class="modal-dialog" role="document">
-    <%= form_tag client_event_express_path(@event.id), method: :get, id: :payment do  %>
+    <%= form_tag client_event_express_path(@event.to_url), method: :get, id: :payment do  %>
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -124,10 +125,18 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
 <script>
   $(function() {
+    var eventLocation = {lat: <%= @event.latitude %>, lng: <%= @event.longitude || "100.50176510000006" %> };
+
     var map = new google.maps.Map(document.getElementById('google-map'), {
-      center: {lat: <%= @event.latitude %>, lng: <%= @event.longitude %>},
+      center: eventLocation,
       zoom: 13,
       scrollwheel: false,
+    });
+
+    var marker = new google.maps.Marker({
+      position: eventLocation,
+      map: map,
+      title: 'Hello World!'
     });
   });
 </script>

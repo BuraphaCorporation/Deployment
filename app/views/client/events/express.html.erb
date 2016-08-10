@@ -7,7 +7,7 @@
       <!-- Left side -->
       <div class="col-xs-12 col-md-4">
         <div class="event card payment-card">
-          <%= link_to client_event_path(@event.id) do %>
+          <%= link_to client_event_path(@event.to_url) do %>
             <% if @event.galleries.present? %>
               <div class="cover" style="background-image: url(<%= @event.galleries.first.try(:media, :thumb) %>);"></div>
             <% else %>
@@ -18,7 +18,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <h4 class="title text-left">
-                  <%= link_to @event.title, client_event_path(@event.id) %>
+                  <%= link_to @event.title, client_event_path(@event.to_url) %>
                 </h4>
                 <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @section.event_time.strftime("%A %d %B, %H:%M") %></div>
                 <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location %></div>
@@ -30,7 +30,7 @@
                 <% next if @tickets[:"#{section.id}"].nil? %>
                 <div class="ticket row">
                   <div class="col-xs-8 ticket-title">
-                    <%= section.avaliable %> x ฿ <%= section.price %> <%= section.title %>
+                    <%= section.available %> x ฿ <%= section.price %> <%= section.title %>
                   </div>
                   <div class="col-xs-4 ticket-price">
                   ฿ <%= section.price * @tickets[:"#{section.id}"][:quantity] %>
@@ -50,45 +50,102 @@
 
       <!-- Right side -->
       <div class="col-xs-12 col-md-8">
-        <%= form_tag client_event_checkout_path(@event.id), id: :checkout do  %>
+        <%= form_tag client_event_checkout_path(@event.to_url), id: :checkout do  %>
           <input type="hidden" name="event_id" value="<%= @event.id %>" />
+          <% if current_user.nil? %>
+            <div class="form-section highlight" id="general-info-section">
+              <div class="form-section-header">
+                <h2 class="form-section-title">Quick Checkout</h2>
+                <div class="form-section-description">
+                  ซื้อตั๋วผ่าน Facebook Login ในคลิกเดียว
+                </div>
+              </div>
+              <div class="form-section-body">
+                <div class="form-section-description">
+                  <a href="/auth/facebook"><img src="/src/images/theme/fb-login.png" height="40" /></a>
+                </div>
+              </div>
+            </div>
+          <% end %>
           <div class="form-section" id="general-info-section">
             <div class="form-section-header">
-              <h2 class="form-sectiont-title">Your Details</h2>
+              <h2 class="form-sectiont-title">Checkout with E-mail</h2>
               <div class="form-section-description">
                 We need a couple details in case something changes.<br />
                 We'll send the tickets to your phone and email.
+                or <a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login</a>
               </div>
             </div>
-            <div class="form-section-body row">
-              <div class="form-group col-xs-12 col-md-6">
-                <label>Firstname</label>
-                <input class="form-control" type="text" name="firstname" value="" />
-              </div>
-              <div class="form-group col-xs-12 col-md-6">
-                <label>Lastname</label>
-                <input class="form-control" type="text" name="lastname" value="" />
-              </div>
-              <div class="form-group col-xs-12 col-md-6">
-                <label>E-mail</label>
-                <input class="form-control" type="email" name="email" value="" />
-              </div>
-              <div class="form-group col-xs-12 col-md-6">
-                <label>Phone Number</label>
-                <input class="form-control" type="text" name="phone" value="" />
-              </div>
-              <div class="form-group col-xs-12 col-md-6">
-                <label>
-                  <input type="checkbox" name="signup" value="1" />
-                  Signup for Daydash Account for FREE
-                </label>
+            <div class="form-section-body">
+              <div class="row">
+                <div class="form-group col-xs-12 col-md-6">
+                  <label>Firstname</label>
+                  <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" />
+                </div>
+                <div class="form-group col-xs-12 col-md-6">
+                  <label>Lastname</label>
+                  <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" />
+                </div>
+                <div class="form-group col-xs-12 col-md-6">
+                  <label>Phone Number</label>
+                  <input class="form-control" type="text" name="phone" value="<%= current_user.phone %>" />
+                </div>
+                <div class="form-group dob-form-group col-xs-12 col-md-6">
+                  <label>Date of Birth</label>
+                  <div class="form-inline">
+                    <select class="form-control" name="dob_date">
+                      <option value="">Date</option>
+                      <% (1..31).each do |date| %>
+                        <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
+                      <% end %>
+                    </select>
+                    <select class="form-control" name="dob_month">
+                      <option value="">Month</option>
+                      <% (1..12).each do |month| %>
+                        <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= month %></option>
+                      <% end %>
+                    </select>
+                    <select class="form-control" name="dob_year">
+                      <option value="">Year</option>
+                      <% (0..99).each do |year| %>
+                        <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group gender-form-group col-xs-12 col-md-6">
+                  <label>Gender</label>
+                  <div class="form-inline">
+                    <label class="radio">
+                      <input type="radio" name="gender" value="male" <%= "checked" if current_user.gender == "male" %> />
+                      Male
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> />
+                      Female
+                    </label>
+                    <label class="radio">
+                      <input type="radio" name="gender" value="not_specify" />
+                      Not specify
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group col-xs-12 col-md-6" style="clear: left;">
+                  <label>E-mail</label>
+                  <input class="form-control" type="email" name="email" value="<%= current_user.email %>" />
+                </div>
+                <div class="form-group col-xs-12 col-md-6">
+                  <label>Password</label>
+                  <input class="form-control" type="password" name="password" value="" />
+                </div>
+
               </div>
             </div>
           </div>
           <div class="form-section" id="payment-method-section">
             <div class="form-section-header">
               <h2 class="form-section-title">Payment Method</h2>
-              <ul class="nav nav-tabs" role="tablist">
+              <ul class="nav nav-tabs nav-justified nav-tabs-black nav-tabs-daydash" role="tablist">
                 <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab">Credit Card</a></li>
                 <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab">Bank Transfer</a></li>
               </ul>
@@ -96,23 +153,23 @@
             <div class="form-section-body">
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="payment-method-credit-card-panel">
-                  <div class="row">
+                  <div class="row error" style="display: none;">
                     <div class="form-group col-xs-12 col-md-12">
                       <div id="token_errors"></div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-xs-12 col-md-5">
+                    <div class="form-group col-xs-12 col-md-6">
                       <label>Name</label>
                       <input class="form-control" type="text" name="card_name" value="" data-omise="holder_name">
                     </div>
-                    <div class="form-group col-xs-12 col-md-5">
+                    <div class="form-group col-xs-12 col-md-6">
                       <label>Card Number</label>
                       <input class="form-control" type="text" name="card_number" value="" data-omise="number"/>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="form-group col-xs-12 col-md-4">
+                    <div class="form-group col-xs-12 col-md-6">
                       <label>Expire Date</label>
                       <div class="form-inline">
                         <select class="form-control" name="expire_month" data-omise="expiration_month">
@@ -129,7 +186,7 @@
                         </select>
                       </div>
                     </div>
-                    <div class="form-group col-xs-12 col-md-3">
+                    <div class="form-group col-xs-12 col-md-6">
                       <label>CVV</label>
                       <input class="form-control" type="text" name="cvv" value="" data-omise="security_code" />
                     </div>
@@ -138,7 +195,7 @@
                     <div>
                       <label>
                         <input type="checkbox" name="accept_policy" value="1" />
-                        I have read and accept Daydash <a href="#">Payment Policy</a>
+                        I have read and accept Daydash <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
                       </label>
                     </div>
                     <script src="https://cdn.omise.co/omise.js"></script>
@@ -148,6 +205,7 @@
                     <input type="hidden" name="omise_token">
                     <input type="hidden" name="payment_method">
                     <input type="hidden" name="payment_amount" value="<%= @total %>">
+                    <input type="hidden" name="payment_sections" value="<%= @sections %>">
                     <script type="text/javascript">
                       $(document).ready(function(){
                         $("#checkout").submit(function () {
@@ -210,7 +268,7 @@
                     <div>
                       <label>
                         <input type="checkbox" name="accept_policy" value="1" />
-                        I have read and accept Daydash <a href="#">Payment Policy</a>
+                        I have read and accept Daydash <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
                       </label>
                     </div>
                     <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="bank_transfer" >Place an order</button>
@@ -224,5 +282,11 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="policy-modal">
+    <div class="modal-dialog" role="document">
+      <%= render partial: "layouts/parts/payment-policy" %>
+    </div>
+  </div>
 
 

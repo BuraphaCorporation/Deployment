@@ -36,7 +36,8 @@
   font-weight: 200; }
 html, body {
   height: 100%;
-  font-family: "Athiti", "Helvetica Neue", "sans-serif"; }
+  font-family: "Athiti", "Helvetica Neue", "sans-serif";
+  color: #444; }
 
 #topbar .navbar {
   margin-bottom: 0px; }
@@ -45,6 +46,35 @@ html, body {
   height: 60px; }
   #topbar .navbar-brand img {
     height: 40px; }
+#topbar .navbar-nav > li > a {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 200; }
+#topbar .navbar-nav > li .btn-daydash-green-2 {
+  background: #19D4D6;
+  color: white;
+  border: 0px; }
+  #topbar .navbar-nav > li .btn-daydash-green-2:hover, #topbar .navbar-nav > li .btn-daydash-green-2:active, #topbar .navbar-nav > li .btn-daydash-green-2:visited, #topbar .navbar-nav > li .btn-daydash-green-2:link {
+    background: #19D4D6;
+    color: white; }
+#topbar .navbar-nav .user-dropdown .user-profile-photo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #ccc; }
+#topbar .navbar-nav .user-dropdown .dropdown-toggle {
+  padding: 15px 30px; }
+#topbar .navbar-nav .user-dropdown .dropdown-menu {
+  min-width: 200px;
+  padding: 0px; }
+  #topbar .navbar-nav .user-dropdown .dropdown-menu li a {
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 200;
+    border-bottom: 1px solid #eee; }
 
 #wrapper {
   position: relative;
@@ -52,7 +82,7 @@ html, body {
 
 #main {
   min-height: 800px;
-  padding-bottom: 500px; }
+  padding-bottom: 550px; }
   @media all and (max-width: 991px) {
     #main {
       padding-bottom: 785px; } }
@@ -69,7 +99,10 @@ html, body {
   #footer .col {
     margin-top: 80px; }
   #footer a {
+    text-decoration: none;
     color: #aaa; }
+    #footer a:hover {
+      color: white; }
   #footer .list-panel .list-title {
     margin-bottom: 25px;
     color: #eee;
@@ -82,7 +115,8 @@ html, body {
     color: #aaa;
     margin-bottom: 5px; }
     #footer .list-panel .list-body li a:hover, #footer .list-panel .list-body li a:active, #footer .list-panel .list-body li a:focus, #footer .list-panel .list-body li a.active {
-      background: transparent; }
+      background: transparent;
+      color: white; }
   #footer .social-list {
     margin-bottom: 15px; }
     #footer .social-list .list-inline li {
@@ -92,6 +126,59 @@ html, body {
     margin-bottom: 5px; }
   #footer .cert-list {
     margin-top: 50px; }
+
+#login-modal .modal-title {
+  text-align: center; }
+#login-modal .fb-login {
+  margin-bottom: 15px;
+  text-align: center; }
+  #login-modal .fb-login img {
+    height: 40px; }
+#login-modal .seperator {
+  border-top: 1px solid #444;
+  margin-top: 25px;
+  margin-bottom: 15px; }
+  #login-modal .seperator .inner {
+    margin-top: -16px; }
+  #login-modal .seperator span {
+    display: inline-block;
+    padding: 5px 15px;
+    background: white; }
+#login-modal .forgot-password {
+  margin-top: 15px;
+  text-align: center; }
+#login-modal .modal-footer {
+  text-align: center; }
+
+@media (max-width: 991px) {
+  #main {
+    padding-bottom: 1400px; } }
+a {
+  color: #00CFD1; }
+  a:hover, a:active, a:link, a:visited {
+    color: #00E9CA; }
+
+h1 {
+  font-weight: 300; }
+
+label {
+  font-weight: normal; }
+
+.bootstrap-datetimepicker-widget {
+  padding-left: 15px;
+  padding-right: 15px; }
+  .bootstrap-datetimepicker-widget th, .bootstrap-datetimepicker-widget td {
+    cursor: pointer;
+    text-align: center; }
+  .bootstrap-datetimepicker-widget .day.active {
+    background-color: #00CFD1;
+    color: white; }
+  .bootstrap-datetimepicker-widget .btn {
+    color: #00CFD1; }
+  .bootstrap-datetimepicker-widget .btn-primary {
+    background: #00CFD1;
+    color: white;
+    border: 0px; }
 
 .icon {
   display: inline-block;
@@ -138,48 +225,86 @@ html, body {
   color: white;
   border: 0px; }
   .btn-daydash-green-1:hover, .btn-daydash-green-1:active, .btn-daydash-green-1:visited, .btn-daydash-green-1:link {
+    background: linear-gradient(90deg, #00CFD1, #00E9CA);
     color: white; }
 
-.event.card {
+.btn-daydash-green-2 {
+  background: #19D4D6;
+  color: white;
+  border: 0px; }
+  .btn-daydash-green-2:hover, .btn-daydash-green-2:active, .btn-daydash-green-2:visited, .btn-daydash-green-2:link {
+    background: #19D4D6;
+    color: white; }
+
+.event.card, .ticket.card {
+  display: block;
   margin-bottom: 30px;
   border-radius: 2px;
   border: 1px solid #eee;
-  overflow: hidden; }
-  .event.card .cover {
+  overflow: hidden;
+  text-decoration: none; }
+  .event.card .cover, .ticket.card .cover {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #ccc;
     height: 250px; }
-  .event.card .info {
+  .event.card .info, .ticket.card .info {
     background-color: #fff;
     color: #444;
     padding: 15px;
     font-size: 16px; }
-    .event.card .info a {
+    .event.card .info a, .ticket.card .info a {
       color: #444; }
-  .event.card .title {
+  .event.card .title, .ticket.card .title {
     margin-bottom: 25px;
     height: 64px;
     font-size: 20px; }
-  .event.card .icon {
+  .event.card .icon, .ticket.card .icon {
     float: left;
     margin-top: 1px;
     margin-right: 5px; }
-  .event.card .meta {
+  .event.card .meta, .ticket.card .meta {
     margin-bottom: 10px; }
-  .event.card.payment-card .title {
+  .event.card.payment-card .title, .ticket.card.payment-card .title {
     height: auto; }
-  .event.card.payment-card .info {
+  .event.card.payment-card .info, .ticket.card.payment-card .info {
     padding-bottom: 0px; }
-    .event.card.payment-card .info .row {
+    .event.card.payment-card .info .row, .ticket.card.payment-card .info .row {
       padding-top: 15px;
       padding-bottom: 15px;
       border-bottom: 1px solid #eee; }
-  .event.card.payment-card .ticket-list .ticket .ticket-price {
+  .event.card.payment-card .ticket-list .ticket .ticket-price, .ticket.card.payment-card .ticket-list .ticket .ticket-price {
     text-align: right; }
-  .event.card.payment-card .ticket-list .list-footer {
+  .event.card.payment-card .ticket-list .list-footer, .ticket.card.payment-card .ticket-list .list-footer {
     text-align: right; }
+
+.card-side-cover {
+  margin-bottom: 15px;
+  border: 1px solid #eee; }
+  .card-side-cover .cover {
+    display: block;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ccc; }
+  .card-side-cover .info {
+    padding: 15px;
+    padding-bottom: 0px; }
+    .card-side-cover .info .info-body {
+      padding-bottom: 15px; }
+  @media (max-width: 991px) {
+    .card-side-cover .cover {
+      height: 150px; } }
+  @media (min-width: 992px) {
+    .card-side-cover {
+      width: 100%;
+      display: table; }
+      .card-side-cover .cover {
+        display: table-cell;
+        width: 250px; }
+      .card-side-cover .info {
+        display: table-cell; } }
 
 .nav-daydash {
   margin-bottom: 15px; }
@@ -189,11 +314,39 @@ html, body {
     color: #aaa; }
     .nav-daydash li a:hover, .nav-daydash li a:visited:hover, .nav-daydash li a:link:hover, .nav-daydash li a:active:hover {
       color: #444; }
-  .nav-daydash li.active a {
+  .nav-daydash li.active a, .nav-daydash li.active a:hover, .nav-daydash li.active a:active, .nav-daydash li.active a:link, .nav-daydash li.active a:visited {
     border-radius: 0px;
     background: transparent;
     color: #444;
     border-bottom: 3px solid #00CFD1; }
+
+.nav-tabs-daydash, .nav-tabs-daydash.nav-justified {
+  margin-bottom: 15px; }
+  .nav-tabs-daydash li a, .nav-tabs-daydash li a:visited, .nav-tabs-daydash li a:link, .nav-tabs-daydash li a:active, .nav-tabs-daydash.nav-justified li a, .nav-tabs-daydash.nav-justified li a:visited, .nav-tabs-daydash.nav-justified li a:link, .nav-tabs-daydash.nav-justified li a:active {
+    background: transparent;
+    color: #aaa;
+    border: 0px;
+    border-bottom: 3px solid #eee; }
+  .nav-tabs-daydash li:hover a, .nav-tabs-daydash li:hover a:hover, .nav-tabs-daydash.nav-justified li:hover a, .nav-tabs-daydash.nav-justified li:hover a:hover {
+    color: #444; }
+  .nav-tabs-daydash li.active a, .nav-tabs-daydash li.active a:visited, .nav-tabs-daydash li.active a:link, .nav-tabs-daydash li.active a:active, .nav-tabs-daydash li.active:hover a, .nav-tabs-daydash li.active:hover a:visited, .nav-tabs-daydash li.active:hover a:link, .nav-tabs-daydash li.active:hover a:active, .nav-tabs-daydash.nav-justified li.active a, .nav-tabs-daydash.nav-justified li.active a:visited, .nav-tabs-daydash.nav-justified li.active a:link, .nav-tabs-daydash.nav-justified li.active a:active, .nav-tabs-daydash.nav-justified li.active:hover a, .nav-tabs-daydash.nav-justified li.active:hover a:visited, .nav-tabs-daydash.nav-justified li.active:hover a:link, .nav-tabs-daydash.nav-justified li.active:hover a:active {
+    border-radius: 0px;
+    background: transparent;
+    color: #444;
+    border: 0px;
+    border-bottom: 3px solid #00CFD1; }
+  .nav-tabs-daydash.nav-tabs-black li.active a, .nav-tabs-daydash.nav-tabs-black li.active a:visited, .nav-tabs-daydash.nav-tabs-black li.active a:link, .nav-tabs-daydash.nav-tabs-black li.active a:active, .nav-tabs-daydash.nav-tabs-black li.active:hover a, .nav-tabs-daydash.nav-tabs-black li.active:hover a:visited, .nav-tabs-daydash.nav-tabs-black li.active:hover a:link, .nav-tabs-daydash.nav-tabs-black li.active:hover a:active, .nav-tabs-daydash.nav-justified.nav-tabs-black li.active a, .nav-tabs-daydash.nav-justified.nav-tabs-black li.active a:visited, .nav-tabs-daydash.nav-justified.nav-tabs-black li.active a:link, .nav-tabs-daydash.nav-justified.nav-tabs-black li.active a:active, .nav-tabs-daydash.nav-justified.nav-tabs-black li.active:hover a, .nav-tabs-daydash.nav-justified.nav-tabs-black li.active:hover a:visited, .nav-tabs-daydash.nav-justified.nav-tabs-black li.active:hover a:link, .nav-tabs-daydash.nav-justified.nav-tabs-black li.active:hover a:active {
+    border-bottom: 3px solid #444; }
+
+.list-action-nav li:not(:last-child):after {
+  content: "|";
+  display: inline-block;
+  padding-left: 15px; }
+
+.list-action-nav li:not(:last-child):after {
+  content: "|";
+  display: inline-block;
+  padding-left: 15px; }
 
 #index-page #cover-section .slick {
   margin-bottom: 0px; }
@@ -203,16 +356,31 @@ html, body {
     background-repeat: no-repeat;
     background-color: black;
     height: 400px; }
-    #index-page #cover-section .slick .page-cover .caption {
+    #index-page #cover-section .slick .page-cover:before {
+      content: " ";
+      display: block;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      background: rgba(0, 0, 0, 0.3); }
+  #index-page #cover-section .slick .info {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px; }
+    #index-page #cover-section .slick .info .caption {
       margin-top: 150px;
       text-align: center;
       color: white;
-      text-shadow: 2px 2px rgba(0, 0, 0, 0.3); }
-      #index-page #cover-section .slick .page-cover .caption .title {
+      text-shadow: 0px 1px rgba(0, 0, 0, 0.3); }
+      #index-page #cover-section .slick .info .caption .title {
         font-family: "Kanit", "Helvetica Neue", "sans-serif";
         font-size: 48px;
         font-weight: bold; }
-      #index-page #cover-section .slick .page-cover .caption .subtitle {
+      #index-page #cover-section .slick .info .caption .subtitle {
         font-size: 24px; }
 #index-page #event-section {
   background-color: #fcfcfc;
@@ -234,7 +402,7 @@ html, body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    box-shadow: inset 0 -50px 100px -30px rgba(0, 0, 0, 0.7); }
+    box-shadow: inset 0 -150px 200px -100px rgba(0, 0, 0, 0.7); }
   #event-page #cover-section .info {
     position: absolute;
     left: 0px;
@@ -258,16 +426,19 @@ html, body {
   #event-page #info-section .meta {
     float: left;
     margin-right: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 16px; }
     #event-page #info-section .meta .icon {
       float: left;
       margin-top: 1px;
       margin-right: 5px; }
   #event-page #info-section .description {
-    margin-bottom: 50px;
+    font-family: sans-serif;
     font-size: 16px;
-    line-height: 1.8em; }
+    font-weight: 200;
+    letter-spacing: 0.2px;
+    margin-bottom: 50px;
+    line-height: 1.7em; }
   #event-page #info-section .gallery {
     margin-left: -5px;
     margin-right: -5px; }
@@ -312,27 +483,30 @@ html, body {
   #event-page #ticket-list-modal .ticket .ticket-title {
     font-weight: bold; }
 
+#payment-page .form-section.highlight {
+  padding: 15px;
+  background: #f4f4f4; }
 #payment-page .form-section-description {
   margin-bottom: 15px; }
 #payment-page #payment-method-section .nav-tabs {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
   border-bottom: 0px; }
   #payment-page #payment-method-section .nav-tabs li {
-    margin-bottom: 0px;
-    width: 50%; }
-    #payment-page #payment-method-section .nav-tabs li a {
-      border: 1px solid #444;
-      text-align: center;
-      border-radius: 0px;
-      color: #444; }
-    #payment-page #payment-method-section .nav-tabs li.active a {
-      font-weight: bold; }
+    margin-bottom: 0px; }
 #payment-page #payment-method-section select.form-control {
   width: 45%; }
 #payment-page #payment-method-section .form-section-footer {
   margin-top: 30px; }
   #payment-page #payment-method-section .form-section-footer .btn {
     margin-top: 15px; }
+#payment-page .dob-form-group .form-inline .form-control {
+  display: inline-block;
+  width: 30%; }
+@media (max-width: 991px) {
+  #payment-page .gender-form-group .form-inline {
+    padding-left: 30px; } }
+#payment-page .form-group .radio {
+  margin-right: 15px; }
 
 #payment-complete-page #credit-card-inform-section {
   padding-top: 50px;
@@ -370,36 +544,27 @@ html, body {
   background-repeat: no-repeat;
   margin: 30px auto; }
 
-#profile-ticket-list-page .ticket-list .ticket {
-  margin-bottom: 15px;
-  border: 1px solid #eee; }
-  #profile-ticket-list-page .ticket-list .ticket .ticket-cover {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: #ccc; }
-  #profile-ticket-list-page .ticket-list .ticket .ticket-info {
-    padding: 15px;
-    padding-bottom: 0px; }
-    #profile-ticket-list-page .ticket-list .ticket .ticket-info .info-body {
-      padding-bottom: 15px; }
-@media (max-width: 991px) {
-  #profile-ticket-list-page .ticket-list .ticket .ticket-cover {
-    height: 150px; } }
-@media (min-width: 992px) {
-  #profile-ticket-list-page .ticket-list .ticket {
-    width: 100%;
-    display: table; }
-    #profile-ticket-list-page .ticket-list .ticket .ticket-cover {
-      display: table-cell;
-      width: 250px; }
-    #profile-ticket-list-page .ticket-list .ticket .ticket-info {
-      display: table-cell; } }
-
+#profile-wishlist-page h1 small {
+  font-size: 20px; }
 #profile-wishlist-page .event-list .event .cover {
   height: 200px; }
 
 #profile-settings-page form .form-group:nth-child(2n+1) {
+  clear: left; }
+
+#organizer-events-new .form-section, #organizer-events-edit .form-section {
+  margin-bottom: 30px; }
+#organizer-events-new .ticket-list .ticket:first-child .btn-ticket-delete, #organizer-events-edit .ticket-list .ticket:first-child .btn-ticket-delete {
+  display: none; }
+#organizer-events-new .image-list .image, #organizer-events-edit .image-list .image {
+  margin-bottom: 30px;
+  height: 150px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #ccc; }
+
+#organizer-settings-page form .form-group:nth-child(2n+1) {
   clear: left; }
 
 /*# sourceMappingURL=home.css.map */

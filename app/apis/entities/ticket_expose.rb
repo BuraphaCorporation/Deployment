@@ -1,7 +1,8 @@
 class Entities::TicketExpose < Grape::Entity
   expose :id
-  expose :title
-  expose :price
-  expose :event_time
-  expose :end_time
+  expose :status, as: :ticket_status
+  expose :code, as: :ticket_code
+  expose :event, using: Entities::EventExpose
+  expose :section, using: Entities::SectionExpose
+  expose :payment, using: Entities::PaymentExpose
 end

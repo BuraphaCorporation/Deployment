@@ -1,0 +1,44 @@
+  <div id="register-form" style="display: none;">
+    <%= form_tag 'profile/register' do  %>
+      <input type="hidden" name="continue" value="" />
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Signup</h4>
+        </div>
+        <div class="modal-body">
+          <div class="fb-login">
+            <a href="/auth/facebook"><img src="/src/images/theme/fb-login.png" height="40" /></a>
+            <div class="seperator">
+              <div class="inner">
+                <span>OR</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Firstname</label>
+            <input class="form-control" type="text" name="firstname" value="" />
+          </div>
+          <div class="form-group">
+            <label>Lastname</label>
+            <input class="form-control" type="text" name="lastname" value="" />
+          </div>
+          <div class="form-group">
+            <label>Your E-mail</label>
+            <input class="form-control" type="email" name="email" value="" />
+          </div>
+          <div class="form-group">
+            <label>Your Password</label>
+            <input class="form-control" type="password" name="password" value="" />
+          </div>
+          <button class="btn btn-block btn-daydash btn-daydash-green-1">Signup Free!</button>
+        </div>
+        <div class="modal-footer">
+          <div>
+            Already have an account?
+            <a href="#" onclick="$('#login-modal #login-form').show(); $('#login-modal #register-form').hide(); return false;">Login Here!</a>
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    <% end %>
+  </div>

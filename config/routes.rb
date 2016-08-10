@@ -15,6 +15,12 @@ Rails.application.routes.draw do
       }
 
     root 'client/events#index'
+
+    get 'faq', to: 'greetings#faq'
+    get 'terms-and-conditions', to: 'greetings#terms'
+    get 'privacy-policy', to: 'greetings#policy'
+    get 'rating', to: 'greetings#rating'
+
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category
       resources :events, only: [:index, :show] do
@@ -29,7 +35,6 @@ Rails.application.routes.draw do
       get '/profile/settings', to: 'profile#settings'
       get '/profile/logout', to: 'profile#logout'
       post '/profile/login', to: 'profile#login'
-
       post '/profile/settings', to: 'profile#settings_update'
     end
 
@@ -43,7 +48,14 @@ Rails.application.routes.draw do
       resources :users, except: :show
     end
 
-
+    namespace :organizer do
+        get '/', to: 'dashboard#index'
+        get '/settings', to: 'dashboard#settings'
+        post '/settings', to: 'dashboard#settings_update'
+        get '/logout', to: 'dashboard#logout'
+        resources :events do
+        end
+    end
   end
 
   constraints(subdomain: App.api_host) do

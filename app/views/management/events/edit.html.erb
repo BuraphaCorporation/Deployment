@@ -125,7 +125,7 @@
                 <% @event.galleries.each do |g| %>
                 <div class="m-t-20">
                   <%= image_tag g.media(:thumb), width: '100%', height: :auto %>
-                  <%= link_to('Delete', delete_attachment_management_events_path(@event.id, g.id), method: :delete) %>
+                  <%= link_to('Delete', delete_attachment_management_events_path(@event.to_url, g.id), method: :delete) %>
                 </div>
                 <% end %>
               </div>

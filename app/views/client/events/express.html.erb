@@ -7,7 +7,7 @@
       <!-- Left side -->
       <div class="col-xs-12 col-md-4">
         <div class="event card payment-card">
-          <%= link_to client_event_path(@event.id) do %>
+          <%= link_to client_event_path(@event.to_url) do %>
             <% if @event.galleries.present? %>
               <div class="cover" style="background-image: url(<%= @event.galleries.first.try(:media, :thumb) %>);"></div>
             <% else %>
@@ -18,7 +18,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <h4 class="title text-left">
-                  <%= link_to @event.title, client_event_path(@event.id) %>
+                  <%= link_to @event.title, client_event_path(@event.to_url) %>
                 </h4>
                 <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @section.event_time.strftime("%A %d %B, %H:%M") %></div>
                 <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location %></div>
@@ -30,7 +30,7 @@
                 <% next if @tickets[:"#{section.id}"].nil? %>
                 <div class="ticket row">
                   <div class="col-xs-8 ticket-title">
-                    <%= section.avaliable %> x ฿ <%= section.price %> <%= section.title %>
+                    <%= section.available %> x ฿ <%= section.price %> <%= section.title %>
                   </div>
                   <div class="col-xs-4 ticket-price">
                   ฿ <%= section.price * @tickets[:"#{section.id}"][:quantity] %>
@@ -50,21 +50,23 @@
 
       <!-- Right side -->
       <div class="col-xs-12 col-md-8">
-        <%= form_tag client_event_checkout_path(@event.id), id: :checkout do  %>
+        <%= form_tag client_event_checkout_path(@event.to_url), id: :checkout do  %>
           <input type="hidden" name="event_id" value="<%= @event.id %>" />
-          <div class="form-section highlight" id="general-info-section">
-            <div class="form-section-header">
-              <h2 class="form-section-title">Quick Checkout</h2>
-              <div class="form-section-description">
-                ซื้อตั๋วผ่าน Facebook Login ในคลิกเดียว
+          <% if current_user.nil? %>
+            <div class="form-section highlight" id="general-info-section">
+              <div class="form-section-header">
+                <h2 class="form-section-title">Quick Checkout</h2>
+                <div class="form-section-description">
+                  ซื้อตั๋วผ่าน Facebook Login ในคลิกเดียว
+                </div>
+              </div>
+              <div class="form-section-body">
+                <div class="form-section-description">
+                  <a href="/auth/facebook"><img src="/src/images/theme/fb-login.png" height="40" /></a>
+                </div>
               </div>
             </div>
-            <div class="form-section-body">
-              <div class="form-section-description">
-                <a href="/auth/facebook"><img src="/src/images/theme/fb-login.png" height="40" /></a>
-              </div>
-            </div>
-          </div>
+          <% end %>
           <div class="form-section" id="general-info-section">
             <div class="form-section-header">
               <h2 class="form-sectiont-title">Checkout with E-mail</h2>
@@ -78,15 +80,15 @@
               <div class="row">
                 <div class="form-group col-xs-12 col-md-6">
                   <label>Firstname</label>
-                  <input class="form-control" type="text" name="firstname" value="" />
+                  <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" />
                 </div>
                 <div class="form-group col-xs-12 col-md-6">
                   <label>Lastname</label>
-                  <input class="form-control" type="text" name="lastname" value="" />
+                  <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" />
                 </div>
                 <div class="form-group col-xs-12 col-md-6">
                   <label>Phone Number</label>
-                  <input class="form-control" type="text" name="phone" value="" />
+                  <input class="form-control" type="text" name="phone" value="<%= current_user.phone %>" />
                 </div>
                 <div class="form-group dob-form-group col-xs-12 col-md-6">
                   <label>Date of Birth</label>
@@ -94,19 +96,19 @@
                     <select class="form-control" name="dob_date">
                       <option value="">Date</option>
                       <% (1..31).each do |date| %>
-                      <option value="<%= date %>"><%= date %></option>
+                        <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
                       <% end %>
                     </select>
                     <select class="form-control" name="dob_month">
                       <option value="">Month</option>
                       <% (1..12).each do |month| %>
-                      <option value="<%= month %>"><%= month %></option>
+                        <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= month %></option>
                       <% end %>
                     </select>
                     <select class="form-control" name="dob_year">
                       <option value="">Year</option>
                       <% (0..99).each do |year| %>
-                      <option value="<%= (Time.now.year - year) %>"><%= (Time.now.year - year) %></option>
+                        <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
                       <% end %>
                     </select>
                   </div>
@@ -115,12 +117,12 @@
                   <label>Gender</label>
                   <div class="form-inline">
                     <label class="radio">
-                      <input type="radio" name="gender" value="female" />
-                      Female
+                      <input type="radio" name="gender" value="male" <%= "checked" if current_user.gender == "male" %> />
+                      Male
                     </label>
                     <label class="radio">
-                      <input type="radio" name="gender" value="male" />
-                      Male
+                      <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> />
+                      Female
                     </label>
                     <label class="radio">
                       <input type="radio" name="gender" value="not_specify" />
@@ -130,8 +132,8 @@
                 </div>
                 <div class="form-group col-xs-12 col-md-6" style="clear: left;">
                   <label>E-mail</label>
-                  <input class="form-control" type="email" name="email" value="" />
-                </div>                
+                  <input class="form-control" type="email" name="email" value="<%= current_user.email %>" />
+                </div>
                 <div class="form-group col-xs-12 col-md-6">
                   <label>Password</label>
                   <input class="form-control" type="password" name="password" value="" />
@@ -203,6 +205,7 @@
                     <input type="hidden" name="omise_token">
                     <input type="hidden" name="payment_method">
                     <input type="hidden" name="payment_amount" value="<%= @total %>">
+                    <input type="hidden" name="payment_sections" value="<%= @sections %>">
                     <script type="text/javascript">
                       $(document).ready(function(){
                         $("#checkout").submit(function () {

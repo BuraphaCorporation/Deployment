@@ -1,7 +1,8 @@
 class Payment < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
-  has_many :tickets
+
+  has_many :tickets, dependent: :destroy
 
   enum status: { failure: 0, success: 1, pending: 2 }
 
@@ -67,7 +68,7 @@ class Payment < ActiveRecord::Base
       begin
         pay = create(status: :pending, provider: 'transfer', user: user, event: event, amount: amount)
         sections.each do |section|
-          Ticket.create_ticket(user, event, section, pay)
+          Ticket.create_ticket(user, event, section.id, pay)
         end
 
         pay

@@ -36,7 +36,6 @@ set :slackistrano, {
   webhook: 'https://hooks.slack.com/services/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'
 }
 
-
 namespace :deploy do
 
   desc 'Restart application'
@@ -51,7 +50,7 @@ namespace :deploy do
     on primary fetch(:migration_role) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :rake, "db:seed"
+          execute :rake, "db:schema:load db:seed"
         end
       end
     end
@@ -90,23 +89,3 @@ namespace :rails do
     end
   end
 end
-
-# namespace :deploy do
-#   desc 'Says a message when deployment is completed'
-#   task :say do
-#     system("\\say Capistrano Deployment Completed! Good Job!")
-#   end
-# end
-#
-# after :finished, 'deploy:say'
-# namespace :bower do
-#   desc 'Install bower'
-#   task :install do
-#     on roles(:web) do
-#       within release_path do
-#         execute :rake, 'bower:install CI=true'
-#       end
-#     end
-#   end
-# end
-# before 'deploy:compile_assets', 'bower:install'

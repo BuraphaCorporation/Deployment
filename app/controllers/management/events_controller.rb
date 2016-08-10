@@ -52,8 +52,8 @@ class Management::EventsController < Management::CoreController
         CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
       end unless params[:event][:category_ids].nil?
 
-      params[:event][:attachments].each do |attachments|
-        Gallery.create(event: @event, media: attachments)
+      params[:event][:attachments].each do |attachment|
+        Gallery.create(event: @event, media: attachment)
       end unless params[:event][:attachments].nil?
 
       params[:event][:sections_attributes].each do |section|
@@ -63,7 +63,7 @@ class Management::EventsController < Management::CoreController
         Section.create do |s|
           s.event_id    = @event.id
           s.title       = params[:event][:sections_attributes][section][:section_name].first
-          s.avaliable   = params[:event][:sections_attributes][section][:section_avaliable].first
+          s.available   = params[:event][:sections_attributes][section][:section_available].first
           s.price       = params[:event][:sections_attributes][section][:section_price].first
           s.event_time  = event_time
           s.end_time    = end_time
@@ -78,8 +78,8 @@ class Management::EventsController < Management::CoreController
         CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
       end unless params[:event][:category].nil?
 
-      params[:event][:attachments].each do |attachments|
-        Gallery.create(event: @event, media: attachments)
+      params[:event][:attachments].each do |attachment|
+        Gallery.create(event: @event, media: attachment)
       end unless params[:event][:attachments].nil?
     end
 
@@ -88,7 +88,7 @@ class Management::EventsController < Management::CoreController
     end
 
     def event_params
-      params.require(:event).permit(:title, :description, :location, :latitude, :longitude, section_attributes: [:section_name, :section_avaliable, :section_price, :_destroy])
+      params.require(:event).permit(:title, :description, :location, :latitude, :longitude, section_attributes: [:section_name, :section_available, :section_price, :_destroy])
     end
 
     def all_categories
@@ -96,6 +96,6 @@ class Management::EventsController < Management::CoreController
     end
 
     def all_users
-      @users = Role.find_by_title('organizer').users
+      # @users = Role.find_by_title('organizer').users
     end
 end

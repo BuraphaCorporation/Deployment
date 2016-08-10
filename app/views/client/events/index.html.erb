@@ -1,3 +1,4 @@
+
 <script>$('body').attr('id', 'index-page');</script>
 <div class="section" id="cover-section">
   <div class="slick" id="cover-slick">
@@ -39,7 +40,7 @@
     <div class="row event-list">
       <% @events.each do |event| %>
         <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
-          <a class="event card" href="<%= client_event_path(event.id) %>">
+          <a class="event card" href="<%= client_event_path(event.to_url) %>">
             <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
             <div class="info">
               <h4 class="title text-left"><%= event.title %></h4>
@@ -53,44 +54,3 @@
   </div>
 </div>
 
-<!-- Slick -->
-<link rel="stylesheet" href="/src/packages/slick/slick.css" />
-<link rel="stylesheet" href="/src/packages/slick/slick-theme.css" />
-<script src="/src/packages/slick/slick.min.js"></script>
-
-<script> //Init Function
-function init_slick() {
-  $('#cover-slick').slick({
-    infinite: true,
-    dots: false,
-    arrows: false,
-    fade: true,
-    autoplay: true,
-    autoplaySpeed: 4000,
-  });
-}
-
-$(function() {
-  init_slick();
-});
-</script>
-
-<script> //View Function
-function on_events_filter(element, options) {
-
-  if(options['category_id'] != undefined) {
-    var category_id = options['category_id'];
-    $('#event-section .event-list .event-wrapper').not('.event-category-'+category_id).hide();
-    $('#event-section .event-list .event-wrapper.event-category-'+category_id).show();
-  }
-  else {
-    $('#event-section .event-list .event-wrapper').show();
-  }
-
-  //Update nav
-  $(element).parents('.nav').find('li').removeClass('active');
-  $(element).parent().addClass('active');
-
-  return false;
-}
-</script>

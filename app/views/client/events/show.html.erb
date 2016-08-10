@@ -125,10 +125,18 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
 <script>
   $(function() {
+    var eventLocation = {lat: <%= @event.latitude %>, lng: <%= @event.longitude || "100.50176510000006" %> };
+
     var map = new google.maps.Map(document.getElementById('google-map'), {
-      center: {lat: <%= @event.latitude %>, lng: <%= @event.longitude %>},
+      center: eventLocation,
       zoom: 13,
       scrollwheel: false,
+    });
+
+    var marker = new google.maps.Marker({
+      position: eventLocation,
+      map: map,
+      title: 'Hello World!'
     });
   });
 </script>

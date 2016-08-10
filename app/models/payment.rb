@@ -26,6 +26,7 @@ class Payment < ActiveRecord::Base
     end
 
     def omise_charge(user, event, sections, amount, omise_token)
+      binding.pry
       begin
         # card = Omise::Token.create(card: {
         #   name: "Somchai Prasert",

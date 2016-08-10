@@ -190,7 +190,7 @@ lazgam.sections.create([
     event_time: Time.zone.now,
     end_time:   Time.zone.now,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -198,7 +198,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -206,7 +206,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 1.days,
     end_time:   Time.zone.tomorrow + 1.days,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -214,7 +214,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 2.days,
     end_time:   Time.zone.tomorrow + 2.days,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -222,7 +222,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 3.days,
     end_time:   Time.zone.tomorrow + 3.days,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -230,7 +230,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 4.days,
     end_time:   Time.zone.tomorrow + 4.days,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -238,7 +238,7 @@ lazgam.sections.create([
     event_time: Time.zone.now + 30.days,
     end_time:   Time.zone.now + 30.days,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   }
 ])
@@ -249,7 +249,7 @@ shopspot1.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -257,7 +257,7 @@ shopspot1.sections.create([
     event_time: Time.zone.now,
     end_time:   Time.zone.now,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   }
 ])
@@ -268,7 +268,7 @@ shopspot2.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -276,7 +276,7 @@ shopspot2.sections.create([
     event_time: Time.zone.now,
     end_time:   Time.zone.now,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   }
 ])
@@ -287,7 +287,7 @@ studiolam.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -295,7 +295,7 @@ studiolam.sections.create([
     event_time: Time.zone.now,
     end_time:   Time.zone.now,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   }
 ])
@@ -306,7 +306,7 @@ beam.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -314,7 +314,7 @@ beam.sections.create([
     event_time: Time.zone.now,
     end_time:   Time.zone.now,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   }
 ])
@@ -325,7 +325,7 @@ olive.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   },
   {
@@ -333,7 +333,7 @@ olive.sections.create([
     event_time: Time.zone.now,
     end_time:   Time.zone.now,
     price:      1000,
-    avaliable:  100,
+    available:  100,
     bought:     100
   }
 ])

@@ -98,7 +98,7 @@ class Organizer::EventsController < Organizer::CoreController
         Section.create do |s|
           s.event_id    = @event.id
           s.title       = params[:sections_attributes][section][:section_name].first
-          s.avaliable   = params[:sections_attributes][section][:section_avaliable].first
+          s.available   = params[:sections_attributes][section][:section_available].first
           s.price       = params[:sections_attributes][section][:section_price].first
           s.event_time  = event_time
           s.end_time    = end_time
@@ -123,7 +123,7 @@ class Organizer::EventsController < Organizer::CoreController
     end
 
     def event_params
-      params.permit(:title, :description, :location, :latitude, :longitude, section_attributes: [:section_name, :section_avaliable, :section_price, :_destroy])
+      params.permit(:title, :description, :location, :latitude, :longitude, section_attributes: [:section_name, :section_available, :section_price, :_destroy])
     end
 
     def all_categories

@@ -30,7 +30,7 @@
                 <% next if @tickets[:"#{section.id}"].nil? %>
                 <div class="ticket row">
                   <div class="col-xs-8 ticket-title">
-                    <%= section.avaliable %> x ฿ <%= section.price %> <%= section.title %>
+                    <%= section.available %> x ฿ <%= section.price %> <%= section.title %>
                   </div>
                   <div class="col-xs-4 ticket-price">
                   ฿ <%= section.price * @tickets[:"#{section.id}"][:quantity] %>

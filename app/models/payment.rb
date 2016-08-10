@@ -68,7 +68,7 @@ class Payment < ActiveRecord::Base
       begin
         pay = create(status: :pending, provider: 'transfer', user: user, event: event, amount: amount)
         sections.each do |section|
-          Ticket.create_ticket(user, event, section, pay)
+          Ticket.create_ticket(user, event, section.id, pay)
         end
 
         pay

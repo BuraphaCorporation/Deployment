@@ -1,10 +1,8 @@
-
 class Organizer::EventsController < Organizer::CoreController
 
   before_action :event, only: [:edit, :update, :destroy, :delete_attachment]
   before_action :all_categories, only: [:new, :edit]
   before_action :all_users, only: [:new, :edit]
-
 
   def index
     @events = Event.all

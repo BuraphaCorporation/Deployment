@@ -1,4 +1,5 @@
 class Client::ProfileController < Client::CoreController
+  before_action :authenticate_user!
 
   def index
     redirect_to '/profile/tickets'
@@ -10,8 +11,7 @@ class Client::ProfileController < Client::CoreController
   end
 
   def ticket
-    @ticket = { title: 'VIP',     price: 1000, quantity: 1 }
-
+    @ticket = { title: 'VIP', price: 1000, quantity: 1 }
   end
 
   def wishlist

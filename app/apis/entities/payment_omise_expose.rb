@@ -1,6 +1,7 @@
 class Entities::PaymentOmiseExpose < Grape::Entity
   expose :code
   expose :status
-  expose :tickets, using: Entities::PaymentSectionExpose
-  expose :tickets, using: Entities::TicketExpose
+  expose :event,    using: Entities::TicketDetailEventExpose
+  expose :user,     using: Entities::TicketDetailUserExpose
+  expose :tickets,  using: Entities::PaymentSectionExpose
 end

@@ -109,8 +109,13 @@ class Mobile::UserAPI < ApplicationAPI
       begin
         tickets = User.find_by_token(params[:user_token]).try(:tickets)
 
-        present :status, :success
-        present :data, tickets, with: Entities::TicketExpose
+        if tickets.nil?
+          present :status, :success
+          present :data, []
+        else
+          present :status, :success
+          present :data, tickets, with: Entities::TicketExpose
+        end
       rescue Exception => e
         present :status, :failure
         present :data, e

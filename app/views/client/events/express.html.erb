@@ -52,6 +52,9 @@
       <div class="col-xs-12 col-md-8">
         <%= form_tag client_event_checkout_path(@event.to_url), id: :checkout do  %>
           <input type="hidden" name="event_id" value="<%= @event.id %>" />
+          <input type="hidden" name="omise_token">
+          <input type="hidden" name="payment_method">
+
           <% if current_user.nil? %>
             <div class="form-section highlight" id="general-info-section">
               <div class="form-section-header">
@@ -67,6 +70,7 @@
               </div>
             </div>
           <% end %>
+
           <div class="form-section" id="general-info-section">
             <div class="form-section-header">
               <h2 class="form-sectiont-title">Checkout with E-mail</h2>
@@ -146,8 +150,8 @@
             <div class="form-section-header">
               <h2 class="form-section-title">Payment Method</h2>
               <ul class="nav nav-tabs nav-justified nav-tabs-black nav-tabs-daydash" role="tablist">
-                <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab">Credit Card</a></li>
-                <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab">Bank Transfer</a></li>
+                <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('credit_card');">Credit Card</a></li>
+                <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('bank_transfer');">Bank Transfer</a></li>
               </ul>
             </div>
             <div class="form-section-body">
@@ -198,63 +202,6 @@
                         I have read and accept Daydash <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
                       </label>
                     </div>
-                    <script src="https://cdn.omise.co/omise.js"></script>
-                    <script>
-                      Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
-                    </script>
-                    <input type="hidden" name="omise_token">
-                    <input type="hidden" name="payment_method">
-                    <input type="hidden" name="payment_amount" value="<%= @total %>">
-                    <input type="hidden" name="payment_sections" value="<%= @sections %>">
-                    <script type="text/javascript">
-                      $(document).ready(function(){
-                        $("#checkout").submit(function () {
-                          var form = $(this);
-
-                          // Disable the submit button to avoid repeated click.
-                          form.find("input[type=submit]").prop("disabled", true);
-
-                          // Serialize the form fields into a valid card object.
-                          var card = {
-                            "name": form.find("[data-omise=holder_name]").val(),
-                            "number": form.find("[data-omise=number]").val(),
-                            "expiration_month": form.find("[data-omise=expiration_month]").val(),
-                            "expiration_year": form.find("[data-omise=expiration_year]").val(),
-                            "security_code": form.find("[data-omise=security_code]").val()
-                          };
-
-                          // Send a request to create a token then trigger the callback function once
-                          // a response is received from Omise.
-                          //
-                          // Note that the response could be an error and this needs to be handled within
-                          // the callback.
-                          Omise.createToken("card", card, function (statusCode, response) {
-                            if (response.object == "error") {
-                              // Display an error message.
-                              $("#token_errors").html(response.message);
-
-                              // Re-enable the submit button.
-                              form.find("input[type=submit]").prop("disabled", false);
-                            } else {
-                              // Then fill the omise_token.
-                              form.find("[name=omise_token]").val(response.id);
-                              form.find("[name=payment_method]").val(form.find("[data-btn=payment-method]").val());
-
-                              // Remove card number from form before submiting to server.
-                              form.find("[data-omise=number]").val("");
-                              form.find("[data-omise=security_code]").val("");
-
-                              // submit token to server.
-                              form.get(0).submit();
-                            };
-                          });
-
-                          // Prevent the form from being submitted;
-                          return false;
-
-                        });
-                      });
-                    </script>
                     <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @total %></button>
                   </div>
                 </div>
@@ -284,9 +231,87 @@
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="policy-modal">
-    <div class="modal-dialog" role="document">
-      <%= render partial: "layouts/parts/payment-policy" %>
-    </div>
+  <div class="modal-dialog" role="document">
+    <%= render partial: "layouts/parts/payment-policy" %>
   </div>
+</div>
+
+<script src="https://cdn.omise.co/omise.js"></script>
+<script type="text/javascript"> //Init Function
+
+$(document).ready(function() {
+  init_payment_method_nav();
+  init_form_validate();
+});
+
+function init_payment_method_nav() {
+
+}
+
+function init_form_validate() {
+  Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
+
+  $("#checkout").submit(function () {
+    var form = $(this);
+
+    // Disable the submit button to avoid repeated click.
+    form.find("input[type=submit]").prop("disabled", true);
 
 
+    if(payment_method == 'credit_card') {
+      return omise_submit(form);
+    }
+    else {
+      //Bank Transfer
+      return true;
+    }
+
+  });
+}
+
+function omise_submit(form) {
+  // Serialize the form fields into a valid card object.
+  var card = {
+    "name": form.find("[data-omise=holder_name]").val(),
+    "number": form.find("[data-omise=number]").val(),
+    "expiration_month": form.find("[data-omise=expiration_month]").val(),
+    "expiration_year": form.find("[data-omise=expiration_year]").val(),
+    "security_code": form.find("[data-omise=security_code]").val()
+  };
+
+  // Send a request to create a token then trigger the callback function once
+  // a response is received from Omise.
+  //
+  // Note that the response could be an error and this needs to be handled within
+  // the callback.
+  Omise.createToken("card", card, function (statusCode, response) {
+    if (response.object == "error") {
+      // Display an error message.
+      $("#token_errors").html(response.message);
+
+      // Re-enable the submit button.
+      form.find("input[type=submit]").prop("disabled", false);
+    } else {
+      // Then fill the omise_token.
+      form.find("[name=omise_token]").val(response.id);
+      form.find("[name=payment_method]").val(form.find("[data-btn=payment-method]").val());
+
+      // Remove card number from form before submiting to server.
+      form.find("[data-omise=number]").val("");
+      form.find("[data-omise=security_code]").val("");
+
+      // submit token to server.
+      form.get(0).submit();
+    };
+  });
+
+  // Prevent the form from being submitted;
+  return false;
+}
+</script>
+
+<script> //View Function
+  function on_change_payment_method(method) {
+    $('[name=payment_method]').val(method);
+  }
+</script>

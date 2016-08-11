@@ -1,6 +1,10 @@
 class Entities::PaymentTransferExpose < Grape::Entity
   expose :code
   expose :status
-  expose :tickets, using: Entities::PaymentSectionExpose
-  expose :tickets, using: Entities::TicketExpose
+  expose :event,    using: Entities::TicketDetailEventExpose
+  expose :user,     using: Entities::TicketDetailUserExpose
+  expose :tickets,  using: Entities::PaymentSectionExpose
+  expose :expired do |item, option|
+    item.created_at + 1.hours
+  end
 end

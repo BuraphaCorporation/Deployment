@@ -4,7 +4,7 @@ class Entities::EventExpose < Grape::Entity
   expose :description
   expose :location, as: :location_name
   expose :location_address do |item, options|
-    "address ยังไม่มีครับ"
+    "#{item.location}"
   end
   expose :latitude
   expose :longitude

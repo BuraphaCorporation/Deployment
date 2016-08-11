@@ -1,4 +1,3 @@
-
 class Management::EventsController < Management::CoreController
 
   before_action :event, only: [:edit, :update, :destroy, :delete_attachment]

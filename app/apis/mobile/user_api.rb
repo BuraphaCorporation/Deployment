@@ -107,7 +107,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/tickets' do
       begin
-        tickets = User.find_by_token(params[:user_token]).try(:tickets)
+        tickets = User.find_by_token(params[:user_token]).try(:payments)
 
         if tickets.nil?
           present :status, :success
@@ -125,11 +125,11 @@ class Mobile::UserAPI < ApplicationAPI
     desc "return a ticket by user"
     params do
       requires :user_token, type: String, desc: "token of the user"
-      requires :ticket_id, type: Integer, desc: "ticket id"
+      requires :ticket_code, type: String, desc: "ticket id"
     end
     get '/ticket' do
       begin
-        ticket = User.find_by_token(params[:user_token]).tickets.find(params[:ticket_id])
+        ticket = User.find_by_token(params[:user_token]).payments.find_by_code(params[:ticket_code])
 
         present :status, :success
         present :data, ticket, with: Entities::TicketExpose

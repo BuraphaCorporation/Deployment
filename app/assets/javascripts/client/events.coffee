@@ -13,6 +13,7 @@ $(document).ready ->
 
   $('.category-filter').on 'click', ->
     category_id = $(this).attr('data-filter')
+    console.log category_id
     if category_id != undefined
       $('#event-section .event-list .event-wrapper').not('.event-category-' + category_id).hide()
       $('#event-section .event-list .event-wrapper.event-category-' + category_id).show()
@@ -24,9 +25,12 @@ $(document).ready ->
     false
 
   initGoogleMap =  ->
-    lat = parseFloat $("#google-map").attr('data-lat')
-    lng = parseFloat $("#google-map").attr('data-lng')
+    lat = $("#google-map").attr('data-lat')
+    lng = $("#google-map").attr('data-lng')
     return if lat == undefined || lng == undefined
+
+    lat = parseFloat lat
+    lng = parseFloat lng
 
     eventLocation =
       lat: lat || 13.725275

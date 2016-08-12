@@ -1,3 +1,4 @@
+
 <script>$('body').attr('id', 'event-page');</script>
 <div class="section" id="cover-section">
   <% if @event.galleries.present? %>
@@ -73,8 +74,8 @@
               <h4 class="title text-left">
                 <%= link_to event.title, client_event_path(event.to_url) %>
               </h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
-              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.first_section.event_time_human %></div>
+              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
             </div>
           </div>
         </div>
@@ -116,10 +117,7 @@
         <div class="modal-footer">
           <button class="btn btn-daydash btn-daydash-green-1">NEXT</button>
         </div>
-      </div><!-- /.modal-content -->
+      </div>
     <% end %>
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<!-- Google Map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
+  </div>
+</div>

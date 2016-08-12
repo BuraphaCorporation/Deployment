@@ -22,7 +22,7 @@ end
 
 puts "add first user"
 user = User.create do |user|
-  user.email                  = "hello@daydash.com"
+  user.email                  = "arnon@hongklay.com"
   user.first_name             = 'Arnon'
   user.last_name              = 'Hongklay'
   user.password               = '1234567890'

@@ -20,7 +20,7 @@ class Client::EventsController < Client::CoreController
 
   def show
     @event = Event.friendly.find(params[:id])
-    @section = @event.sections.min_by(&:price)
+    @section = @event.first_section
   end
 
   def express

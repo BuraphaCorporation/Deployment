@@ -52,6 +52,9 @@ gem 'grape-swagger'
 gem 'grape-swagger-rails'
 gem 'grape-active_model_serializers'
 
+# error handler
+gem 'rollbar'
+
 group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0'

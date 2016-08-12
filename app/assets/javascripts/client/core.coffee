@@ -1,1 +1,4 @@
-#= require_tree .
+
+//= require slick
+//= require moment
+//= require_tree .

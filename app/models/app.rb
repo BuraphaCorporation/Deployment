@@ -82,6 +82,10 @@ class App < Struct.new(:region, :environment, :version)
     config
   end
 
+  def rollbar
+    'a7c214f1a0164e748d688ef15cc1c9ea'
+  end
+
   def firebase
     Firebase::Client.new(configure.firebase)
   end

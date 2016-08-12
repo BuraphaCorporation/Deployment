@@ -21,7 +21,7 @@
                   <%= link_to @event.title, client_event_path(@event.to_url) %>
                 </h4>
                 <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @section.event_time.strftime("%A %d %B, %H:%M") %></div>
-                <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location %></div>
+                <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location_name %></div>
               </div>
             </div>
             <div class="ticket-list">
@@ -53,7 +53,7 @@
         <%= form_tag client_event_checkout_path(@event.to_url), id: :checkout do  %>
           <input type="hidden" name="event_id" value="<%= @event.id %>" />
           <input type="hidden" name="omise_token">
-          <input type="hidden" name="payment_method">
+          <input type="hidden" name="payment_method" value="credit_card">
 
           <% if current_user.nil? %>
             <div class="form-section highlight" id="general-info-section">
@@ -71,159 +71,165 @@
             </div>
           <% end %>
 
-          <div class="form-section" id="general-info-section">
-            <div class="form-section-header">
-              <h2 class="form-sectiont-title">Checkout with E-mail</h2>
-              <div class="form-section-description">
-                We need a couple details in case something changes.<br />
-                We'll send the tickets to your phone and email.
-                or <a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login</a>
-              </div>
-            </div>
-            <div class="form-section-body">
-              <div class="row">
-                <div class="form-group col-xs-12 col-md-6">
-                  <label>Firstname</label>
-                  <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" />
-                </div>
-                <div class="form-group col-xs-12 col-md-6">
-                  <label>Lastname</label>
-                  <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" />
-                </div>
-                <div class="form-group col-xs-12 col-md-6">
-                  <label>Phone Number</label>
-                  <input class="form-control" type="text" name="phone" value="<%= current_user.phone %>" />
-                </div>
-                <div class="form-group dob-form-group col-xs-12 col-md-6">
-                  <label>Date of Birth</label>
-                  <div class="form-inline">
-                    <select class="form-control" name="dob_date">
-                      <option value="">Date</option>
-                      <% (1..31).each do |date| %>
-                        <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
-                      <% end %>
-                    </select>
-                    <select class="form-control" name="dob_month">
-                      <option value="">Month</option>
-                      <% (1..12).each do |month| %>
-                        <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= month %></option>
-                      <% end %>
-                    </select>
-                    <select class="form-control" name="dob_year">
-                      <option value="">Year</option>
-                      <% (0..99).each do |year| %>
-                        <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
-                      <% end %>
-                    </select>
+            <div class="form-section" id="general-info-section">
+              <% if current_user.nil? %>
+                <div class="form-section-header">
+                  <h2 class="form-sectiont-title">Checkout with E-mail</h2>
+                  <div class="form-section-description">
+                    We need a couple details in case something changes.<br />
+                    We'll send the tickets to your phone and email.
+                    or <a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login</a>
                   </div>
                 </div>
-                <div class="form-group gender-form-group col-xs-12 col-md-6">
-                  <label>Gender</label>
-                  <div class="form-inline">
-                    <label class="radio">
-                      <input type="radio" name="gender" value="male" <%= "checked" if current_user.gender == "male" %> />
-                      Male
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> />
-                      Female
-                    </label>
-                    <label class="radio">
-                      <input type="radio" name="gender" value="not_specify" />
-                      Not specify
-                    </label>
-                  </div>
-                </div>
-                <div class="form-group col-xs-12 col-md-6" style="clear: left;">
-                  <label>E-mail</label>
-                  <input class="form-control" type="email" name="email" value="<%= current_user.email %>" />
-                </div>
-                <div class="form-group col-xs-12 col-md-6">
-                  <label>Password</label>
-                  <input class="form-control" type="password" name="password" value="" />
-                </div>
+              <% end %>
 
-              </div>
-            </div>
-          </div>
-          <div class="form-section" id="payment-method-section">
-            <div class="form-section-header">
-              <h2 class="form-section-title">Payment Method</h2>
-              <ul class="nav nav-tabs nav-justified nav-tabs-black nav-tabs-daydash" role="tablist">
-                <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('credit_card');">Credit Card</a></li>
-                <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('bank_transfer');">Bank Transfer</a></li>
-              </ul>
-            </div>
-            <div class="form-section-body">
-              <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="payment-method-credit-card-panel">
-                  <div class="row error" style="display: none;">
-                    <div class="form-group col-xs-12 col-md-12">
-                      <div id="token_errors"></div>
-                    </div>
-                  </div>
+              <% unless current_user.nil? %>
+                <div class="form-section-body">
                   <div class="row">
                     <div class="form-group col-xs-12 col-md-6">
-                      <label>Name</label>
-                      <input class="form-control" type="text" name="card_name" value="" data-omise="holder_name">
+                      <label>Firstname</label>
+                      <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" />
                     </div>
                     <div class="form-group col-xs-12 col-md-6">
-                      <label>Card Number</label>
-                      <input class="form-control" type="text" name="card_number" value="" data-omise="number"/>
+                      <label>Lastname</label>
+                      <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" />
                     </div>
-                  </div>
-                  <div class="row">
                     <div class="form-group col-xs-12 col-md-6">
-                      <label>Expire Date</label>
+                      <label>Phone Number</label>
+                      <input class="form-control" type="text" name="phone" value="<%= current_user.phone %>" />
+                    </div>
+                    <div class="form-group dob-form-group col-xs-12 col-md-6">
+                      <label>Date of Birth</label>
                       <div class="form-inline">
-                        <select class="form-control" name="expire_month" data-omise="expiration_month">
-                          <option value="">Month</option>
-                          <% (1..12).each do |month| %>
-                          <option value="<%= month %>"><%= month %></option>
+                        <select class="form-control" name="dob_date">
+                          <option value="">Date</option>
+                          <% (1..31).each do |date| %>
+                            <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
                           <% end %>
                         </select>
-                        <select class="form-control" name="expire_month" data-omise="expiration_year">
+                        <select class="form-control" name="dob_month">
+                          <option value="">Month</option>
+                          <% (1..12).each do |month| %>
+                            <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= month %></option>
+                          <% end %>
+                        </select>
+                        <select class="form-control" name="dob_year">
                           <option value="">Year</option>
-                          <% (0..50).each do |i| %>
-                          <option value="<%= Time.now.year + i %>"><%= Time.now.year + i %></option>
+                          <% (0..99).each do |year| %>
+                            <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
                           <% end %>
                         </select>
                       </div>
                     </div>
-                    <div class="form-group col-xs-12 col-md-6">
-                      <label>CVV</label>
-                      <input class="form-control" type="text" name="cvv" value="" data-omise="security_code" />
+                    <div class="form-group gender-form-group col-xs-12 col-md-6">
+                      <label>Gender</label>
+                      <div class="form-inline">
+                        <label class="radio">
+                          <input type="radio" name="gender" value="male" <%= "checked" if current_user.gender == "male" %> />
+                          Male
+                        </label>
+                        <label class="radio">
+                          <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> />
+                          Female
+                        </label>
+                        <label class="radio">
+                          <input type="radio" name="gender" value="not_specify" />
+                          Not specify
+                        </label>
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-section-footer">
-                    <div>
-                      <label>
-                        <input type="checkbox" name="accept_policy" value="1" />
-                        I have read and accept Daydash <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
-                      </label>
+                    <div class="form-group col-xs-12 col-md-6" style="clear: left;">
+                      <label>E-mail</label>
+                      <input class="form-control" type="email" name="email" value="<%= current_user.email %>" />
                     </div>
-                    <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @total %></button>
+                    <!-- <div class="form-group col-xs-12 col-md-6">
+                      <label>Password</label>
+                      <input class="form-control" type="password" name="password" value="" />
+                    </div> -->
                   </div>
                 </div>
-                <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
-                  <ul>
-                    <li>We will provide payment details for you as soon as you click 'place an order'</li>
-                    <li>Please make and confirm payment within 1 hr otherwise your order will be cancelled</li>
-                    <li>Please noted that some events might not accept bank transfer due to the time constrain,<br />please consider make a purchase via credit card instead.</li>
-                  </ul>
-                  <div class="form-section-footer">
-                    <div>
-                      <label>
-                        <input type="checkbox" name="accept_policy" value="1" />
-                        I have read and accept Daydash <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
-                      </label>
+              <% end %>
+            </div>
+          <% unless current_user.nil? %>
+            <div class="form-section" id="payment-method-section">
+              <div class="form-section-header">
+                <h2 class="form-section-title">Payment Method</h2>
+                <ul class="nav nav-tabs nav-justified nav-tabs-black nav-tabs-daydash" role="tablist">
+                  <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('credit_card');">Credit Card</a></li>
+                  <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('bank_transfer');">Bank Transfer</a></li>
+                </ul>
+              </div>
+              <div class="form-section-body">
+                <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane active" id="payment-method-credit-card-panel">
+                    <div class="row error" style="display: none;">
+                      <div class="form-group col-xs-12 col-md-12">
+                        <div id="token_errors"></div>
+                      </div>
                     </div>
-                    <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="bank_transfer" >Place an order</button>
+                    <div class="row">
+                      <div class="form-group col-xs-12 col-md-6">
+                        <label>Name</label>
+                        <input class="form-control" type="text" name="card_name" value="" data-omise="holder_name">
+                      </div>
+                      <div class="form-group col-xs-12 col-md-6">
+                        <label>Card Number</label>
+                        <input class="form-control" type="text" name="card_number" value="" data-omise="number"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-12 col-md-6">
+                        <label>Expire Date</label>
+                        <div class="form-inline">
+                          <select class="form-control" name="expire_month" data-omise="expiration_month">
+                            <option value="">Month</option>
+                            <% (1..12).each do |month| %>
+                            <option value="<%= month %>"><%= month %></option>
+                            <% end %>
+                          </select>
+                          <select class="form-control" name="expire_month" data-omise="expiration_year">
+                            <option value="">Year</option>
+                            <% (0..50).each do |i| %>
+                            <option value="<%= Time.now.year + i %>"><%= Time.now.year + i %></option>
+                            <% end %>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group col-xs-12 col-md-6">
+                        <label>CVV</label>
+                        <input class="form-control" type="text" name="cvv" value="" data-omise="security_code" />
+                      </div>
+                    </div>
+                    <div class="form-section-footer">
+                      <div>
+                        <label>
+                          <input type="checkbox" name="accept_policy" value="1" />
+                          I have read and accept Daydash <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
+                        </label>
+                      </div>
+                      <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @total %></button>
+                    </div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
+                    <ul>
+                      <li>We will provide payment details for you as soon as you click 'place an order'</li>
+                      <li>Please make and confirm payment within 1 hr otherwise your order will be cancelled</li>
+                      <li>Please noted that some events might not accept bank transfer due to the time constrain,<br />please consider make a purchase via credit card instead.</li>
+                    </ul>
+                    <div class="form-section-footer">
+                      <div>
+                        <label>
+                          <input type="checkbox" name="accept_policy" value="1" />
+                          I have read and accept Daydash <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
+                        </label>
+                      </div>
+                      <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="bank_transfer" >Place an order</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -240,37 +246,28 @@
 <script type="text/javascript"> //Init Function
 
 $(document).ready(function() {
-  init_payment_method_nav();
   init_form_validate();
 });
 
-function init_payment_method_nav() {
-
-}
-
 function init_form_validate() {
-  Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
 
   $("#checkout").submit(function () {
     var form = $(this);
 
-    // Disable the submit button to avoid repeated click.
     form.find("input[type=submit]").prop("disabled", true);
-
-
-    if(payment_method == 'credit_card') {
-      return omise_submit(form);
+    if(form.find("[name=payment_method]").val() == 'credit_card') {
+      omise_submit(form);
+      return false;
     }
     else {
-      //Bank Transfer
       return true;
     }
-
   });
 }
 
 function omise_submit(form) {
-  // Serialize the form fields into a valid card object.
+  Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
+
   var card = {
     "name": form.find("[data-omise=holder_name]").val(),
     "number": form.find("[data-omise=number]").val(),
@@ -279,34 +276,21 @@ function omise_submit(form) {
     "security_code": form.find("[data-omise=security_code]").val()
   };
 
-  // Send a request to create a token then trigger the callback function once
-  // a response is received from Omise.
-  //
-  // Note that the response could be an error and this needs to be handled within
-  // the callback.
   Omise.createToken("card", card, function (statusCode, response) {
     if (response.object == "error") {
-      // Display an error message.
       $("#token_errors").html(response.message);
 
-      // Re-enable the submit button.
       form.find("input[type=submit]").prop("disabled", false);
     } else {
-      // Then fill the omise_token.
       form.find("[name=omise_token]").val(response.id);
       form.find("[name=payment_method]").val(form.find("[data-btn=payment-method]").val());
 
-      // Remove card number from form before submiting to server.
       form.find("[data-omise=number]").val("");
       form.find("[data-omise=security_code]").val("");
 
-      // submit token to server.
       form.get(0).submit();
     };
   });
-
-  // Prevent the form from being submitted;
-  return false;
 }
 </script>
 

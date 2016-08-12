@@ -62,35 +62,11 @@ class Mobile::AuthAPI < ApplicationAPI
     post "/facebook" do
       begin
         token = params[:facebook_access_token]
-        graph = Koala::Facebook::API.new(token)
-        profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
-        user = User.find_by_email(profile['email'])
-        if profile.present? and user.nil?
-          user = User.create(
-            email: profile["email"],
-            password: '123456',
-            first_name: profile["first_name"],
-            last_name: profile["last_name"],
-            birthday: profile["birthday"],
-            gender: profile["gender"],
-            uid: profile["id"],
-            provider: 'facebook'
-          )
 
-          present :status, :success
-          present :data, user, with: Entities::AuthExpose
-        else
-          user.update(
-            first_name: profile["first_name"],
-            last_name: profile["last_name"],
-            birthday: profile["birthday"],
-            gender: profile["gender"],
-            uid: profile["id"],
-            provider: 'facebook'
-          )
-          present :status, :success
-          present :data, user, with: Entities::AuthExpose
-        end
+        user = User.from_api(token)
+
+        present :status, :success
+        present :data, user, with: Entities::AuthExpose
       rescue Exception => e
         present :status, :failure
         present :data, e

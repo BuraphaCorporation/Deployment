@@ -6,8 +6,8 @@ class Client::ProfileController < Client::CoreController
   end
 
   def tickets
-    @tickets = current_user.tickets
-    @has_ticket = @tickets.present?
+    @tickets = current_user.payments
+    @has_tickets = @tickets.present?
   end
 
   def ticket

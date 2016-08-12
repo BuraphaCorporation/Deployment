@@ -7,21 +7,21 @@
     <title>Daydash</title>
     <%= csrf_meta_tags %>
 
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
     <link rel="stylesheet" href="/src/packages/font-awesome-4.5.0/css/font-awesome.min.css" />
 
     <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="/src/packages/daydash/home.css" />
+    <!-- <link rel="stylesheet" href="/src/packages/daydash/home.css" /> -->
 
-    <script src="/src/packages/jquery/jquery-2.2.2.min.js"></script>
     <script src="/src/packages/bootstrap-3.3.6/js/bootstrap.min.js"></script>
 
-    <!-- Slick -->
-    <link rel="stylesheet" href="/src/packages/slick/slick.css" />
-    <link rel="stylesheet" href="/src/packages/slick/slick-theme.css" />
-    <script src="/src/packages/slick/slick.min.js"></script>
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
 
-    <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'client/core', media: 'all', 'data-turbolinks-track' => true %>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -40,19 +40,19 @@
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <% if current_user.present? %>
+                  <% if current_user.is_organizer? %>
+                    <li>
+                      <%= link_to "Organizer", "/organizer" %>
+                    </li>
+                  <% end %>
                   <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                       <div class="user-profile-photo" style="background-image: url(<%= current_user.avatar(:medium) %>"></div>
                     </a>
                     <ul class="dropdown-menu">
                       <li><a href="/profile/tickets">My Tickets</a></li>
-                      <li><a href="/profile/wishlist">Wish List</a></li>
+                      <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
                       <li><a href="/profile/settings">Edit Profile</a></li>
-                      <% if current_user.is_organizer? %>
-                        <li>
-                          <%= link_to "Organizer", "/organizer" %>
-                        </li>
-                      <% end %>
                       <li>
                       <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
                       </li>
@@ -67,6 +67,9 @@
         </nav>
       </div>
       <div id="main">
+        <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
         <%= yield %>
       </div>
       <div id="footer">
@@ -138,7 +141,6 @@
       </div>
     </div>
 
-
   <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
     <div class="modal-dialog modal-sm" role="document">
       <%= render partial: "layouts/parts/login-form" %>
@@ -146,14 +148,6 @@
     </div>
   </div>
 
-  <!-- Facebook API -->
-  <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
+  <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
 </body>
 </html>

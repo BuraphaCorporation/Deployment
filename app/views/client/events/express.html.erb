@@ -21,7 +21,7 @@
                   <%= link_to @event.title, client_event_path(@event.to_url) %>
                 </h4>
                 <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @section.event_time.strftime("%A %d %B, %H:%M") %></div>
-                <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location %></div>
+                <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location_name %></div>
               </div>
             </div>
             <div class="ticket-list">

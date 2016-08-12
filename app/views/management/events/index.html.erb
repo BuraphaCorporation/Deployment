@@ -33,7 +33,7 @@
                     <td><%= link_to event.title, edit_management_event_path(event.id), target: '_self' %></td>
                     <td><%= event.category.try(:title) %></td>
                     <td><%= "#{event.user.try(:first_name)} #{event.user.try(:last_name)}" %></td>
-                    <td><%= event.location %></td>
+                    <td><%= event.location_name %></td>
                   </tr>
                 <% end %>
               </tbody>

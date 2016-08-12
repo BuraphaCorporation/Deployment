@@ -87,7 +87,7 @@ class Management::EventsController < Management::CoreController
     end
 
     def event_params
-      params.require(:event).permit(:title, :description, :location, :latitude, :longitude, section_attributes: [:section_name, :section_available, :section_price, :_destroy])
+      params.require(:event).permit(:title, :description, :location_name, :latitude, :longitude, section_attributes: [:section_name, :section_available, :section_price, :_destroy])
     end
 
     def all_categories

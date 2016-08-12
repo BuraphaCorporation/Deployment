@@ -34,8 +34,8 @@
             <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
             <div class="info">
               <h4 class="title text-left"><%= event.title %></h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
-              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.sections.first.event_time.strftime("%A %d %B, %H:%M") %></div>
+              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
             </div>
           </a>
         </div>
@@ -44,3 +44,20 @@
   </div>
 </div>
 
+<script type="text/javascript">
+  var on_events_filter;
+
+  on_events_filter = function(element, options) {
+    var category_id;
+    if (options['category_id'] !== void 0) {
+      category_id = options['category_id'];
+      $('#event-section .event-list .event-wrapper').not('.event-category-' + category_id).hide();
+      $('#event-section .event-list .event-wrapper.event-category-' + category_id).show();
+    } else {
+      $('#event-section .event-list .event-wrapper').show();
+    }
+    $(element).parents('.nav').find('li').removeClass('active');
+    $(element).parent().addClass('active');
+    return false;
+  };
+</script>

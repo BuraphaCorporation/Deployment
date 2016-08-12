@@ -49,7 +49,7 @@ Event.create([
 - กรุณาจอง session ล่วงหน้า ที่เว็บไซต์ของ Lazgam [BOOK] http://bookeo.com/lazgamlasergames
 - คุณสามารถใช้ตั๋ว ที่ซื้อจาก Daydash ได้ทุกวัน session ใดก็ได้ โดยสามารถใช้ได้ 1 ใบต่อวัน โดย session ต่อไปจะต้องชำระเงินกับ Lazgam ในราคาปกติ
 - ตั๋วมีอายุ 90 วัน นับจากวันที่ซื้อ",
-    location: 'Holiday Inns, 5th Floor, Sukhumvit 22',
+    location_name: 'Holiday Inns, 5th Floor, Sukhumvit 22',
     latitude: '13.7563309',
     longitude: '100.50176510000006'
   },
@@ -79,7 +79,7 @@ Event.create([
 
 สถานที่:
 เดินทางสะดวก ห่างจาก BTS (ทางออกที่ 4) ประมาน 300 เมตร เข้ามาในซอยพหลโยธิน 6 เดินตรงเข้ามาจนสุดซอย จะเจอทางแยกให้เลี้ยวขวา แล้วเดินต่ออีกนิด ให้สังเกตขวามือไว้ บ้านชอปสปอท จะอยู่ทางขวามือ เลขที่ 68 กำแพงสีเทา (เยื้องกับอพาร์ตเมนท์)"',
-    location: 'ShopSpot HQ, BTS อารีย์',
+    location_name: 'ShopSpot HQ, BTS อารีย์',
     latitude: '13.7563309',
     longitude: '100.50176510000006'
   },
@@ -111,7 +111,7 @@ K. SHUN (NATURAL TELLER)
 
 สถานที่
 เดินทางสะดวก ห่างจาก BTS (ทางออกที่ 4) ประมาน 300 เมตร เข้ามาในซอยพหลโยธิน 6 เดินตรงเข้ามาจนสุดซอย จะเจอทางแยกให้เลี้ยวขวา แล้วเดินต่ออีกนิด ให้สังเกตขวามือไว้ บ้านชอปสปอท จะอยู่ทางขวามือ เลขที่ 68 กำแพงสีเทา (เยื้องกับอพาร์ตเมนท์) "',
-    location: 'ShopSpot HQ, BTS อารีย์',
+    location_name: 'ShopSpot HQ, BTS อารีย์',
     latitude: '13.7563309',
     longitude: '100.50176510000006'
   },
@@ -120,7 +120,7 @@ K. SHUN (NATURAL TELLER)
     user: user,
     title: 'Isan Connection - Kammao & Friends',
     description: 'Once every 2 months with Kammao Perdtanon, the Phin player of The Paradise Bangkok Molam International Band, showcasing the traditional sounds & instruments of Isan, featuring a different guest & friends each time. This is a rare opportunity to experience authentic grass roots molam in the heart of the capital - don’t miss.',
-    location: 'Studio Lam, Sukhumvit 51, Bangkok',
+    location_name: 'Studio Lam, Sukhumvit 51, Bangkok',
     latitude: '13.7563309',
     longitude: '100.50176510000006'
   },
@@ -142,7 +142,7 @@ Recent Mixes
 Gilles Peterson Worldwide : https://soundcloud.com/gillespetersonworldwide/the-paradise-bangkok-molam-international-band-mix-on-gilles-peterson-worldwide-gpww961
 NTS Radio : http://www.ntslive.co.uk/shows/spacebass/episodes/spacebass-w-ld-ldldn-15th-august-2015
 BBC6 : http://www.bbc.co.uk/programmes/b0647wv0",
-    location: 'xxxx',
+    location_name: 'xxxx',
     latitude: '13.7563309',
     longitude: '100.50176510000006'
   },
@@ -157,7 +157,7 @@ BBC6 : http://www.bbc.co.uk/programmes/b0647wv0",
 รวมอุปกรณ์ทุกอย่างให้นำไปฝึกต่อที่บ้านได้
 สถานที่ เอกมัย ซอย 10 ตรงเว้งโบราณ ชั้น 3 ข้างๆ ร้านบ้านเพื่อน
 แนะนำให้เดินทางด้วยรถไฟฟ้าหรือแท็กซี่ เพราะค่าที่จอดรถแพงมาก (100-200 บาท สำหรับ 1 วันเต็ม)",
-    location: 'Olive Creative Laboratory, Ekkamai 10',
+    location_name: 'Olive Creative Laboratory, Ekkamai 10',
     latitude: '13.7563309',
     longitude: '100.50176510000006'
   }

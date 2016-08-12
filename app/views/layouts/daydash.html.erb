@@ -20,8 +20,6 @@
     <link rel="stylesheet" href="/src/packages/slick/slick.css" />
     <link rel="stylesheet" href="/src/packages/slick/slick-theme.css" />
     <script src="/src/packages/slick/slick.min.js"></script>
-
-    <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -145,6 +143,8 @@
       <%= render partial: "layouts/parts/register-form" %>
     </div>
   </div>
+
+  <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
 
   <!-- Facebook API -->
   <script>(function(d, s, id) {

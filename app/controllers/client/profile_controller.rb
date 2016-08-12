@@ -6,7 +6,6 @@ class Client::ProfileController < Client::CoreController
   end
 
   def tickets
-    binding.pry
     @tickets = current_user.tickets
     @has_tickets = @tickets.present?
   end

@@ -12,7 +12,7 @@
           <div class="list-header">
             <h1>My Tickets</h1>
             <ul class="list-inline">
-              <li><a href="#">Live (<%= @tickets.size %>)</a></li>
+              <li><a href="#">Live (<%= @tickets.count %>)</a></li>
               <li>|</li>
               <li><a href="#">Past (0)</a></li>
             </ul>
@@ -20,10 +20,10 @@
           <div class="list-body">
             <% @tickets.each do |ticket| %>
             <div class="ticket card-side-cover">
-              <a class="cover" style="background-image: url(<%= ticket[:event].get_thumbnail %>);" href="#"></a>
+              <a class="cover" style="background-image: url(<%= ticket.event.galleries.first.media(:thumb) %>);" href="#"></a>
               <div class="info">
                 <div class="info-body">
-                  <h4 class="title"><a href="#"><%= ticket[:event].title %></a></h4>
+                  <h4 class="title"><a href="#"><%= ticket.event.title %></a></h4>
                   <div class="meta date">วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
                   <div class="meta location">Thonglor House Club, ซอยทองหล่อ</div>
                 </div>
@@ -36,7 +36,7 @@
                     <div class="col-xs-12 col-md-6">
                       <ul class="list-inline list-action-nav pull-right">
                         <li><a href="#">View Ticket</a></li>
-                        <li><a href="<%= client_event_path(ticket[:event].id) %>">View Event</a></li>
+                        <li><a href="<%= client_event_path(ticket.event.id) %>">View Event</a></li>
                       </ul>
                     </div>
                   </div>

@@ -4,6 +4,9 @@ set :branch, :master
 
 set :deploy_to, '/home/deploy/daydash'
 
+set :stages, [:staging, :production]
+set :default_stage, :staging
+
 # set :format, :pretty
 # set :log_level, :debug
 set :pty, true
@@ -28,8 +31,9 @@ set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
 
-set :stages, [:staging, :production]
-set :default_stage, :staging
+set :rollbar_token, 'a7c214f1a0164e748d688ef15cc1c9ea'
+set :rollbar_env, Proc.new { fetch :stage }
+set :rollbar_role, Proc.new { :app }
 
 set :slackistrano, {
   channel: '#system',

@@ -29,6 +29,10 @@ class Event < ActiveRecord::Base
     slug || id
   end
 
+  def first_section
+    self.sections.min_by{|s| [s.price, s.event_time] }
+  end
+
   private
     # def set_organizer
     #   self.user ||= User.find_by_email('hello@daydash.co')

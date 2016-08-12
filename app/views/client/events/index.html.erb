@@ -18,14 +18,15 @@
 <div class="section" id="event-section">
   <div class="container">
     <ul class="nav nav-pills nav-daydash">
-      <li class="active"><a href="#" onclick="return on_events_filter(this, {});">ALL</a></li>
-      <% if @categories.size > 0 %>
-        <% @categories.each do |category| %>
-          <li>
-            <a href="#" onclick="return on_events_filter(this, {category_id: '<%= category.id %>'});"><%= category.title %></a>
-          </li>
-        <% end %>
-      <% end %>
+      <li class="active">
+        <%= link_to 'ALL', 'javascript:;', class: 'category-filter', 'data-filter': 0 %>
+        <!-- <a href="#" onclick="return"></a> -->
+      </li>
+      <% @categories.each do |category| %>
+        <li>
+          <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
+        </li>
+      <% end if @categories.present? %>
     </ul>
     <div class="row event-list">
       <% @events.each do |event| %>
@@ -43,21 +44,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  var on_events_filter;
-
-  on_events_filter = function(element, options) {
-    var category_id;
-    if (options['category_id'] !== void 0) {
-      category_id = options['category_id'];
-      $('#event-section .event-list .event-wrapper').not('.event-category-' + category_id).hide();
-      $('#event-section .event-list .event-wrapper.event-category-' + category_id).show();
-    } else {
-      $('#event-section .event-list .event-wrapper').show();
-    }
-    $(element).parents('.nav').find('li').removeClass('active');
-    $(element).parent().addClass('active');
-    return false;
-  };
-</script>

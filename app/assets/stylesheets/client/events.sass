@@ -1,0 +1,704 @@
+@font-face
+  font-family: 'Kanit'
+  src: font-url('Kanit/Kanit-Regular.ttf')
+
+
+@font-face
+  font-family: 'Kanit'
+  src: font-url('Kanit/Kanit-Italic.ttf')
+  font-style: italic
+
+
+@font-face
+  font-family: 'Kanit'
+  src: font-url('Kanit/Kanit-Bold.ttf')
+  font-weight: 600
+
+
+@font-face
+  font-family: 'Kanit'
+  src: font-url('Kanit/Kanit-BoldItalic.ttf')
+  font-weight: 600
+  font-style: italic
+
+
+@font-face
+  font-family: 'Kanit'
+  src: font-url('Kanit/Kanit-Light.ttf')
+  font-weight: 200
+
+
+@font-face
+  font-family: 'Kanit'
+  src: font-url('Kanit/Kanit-LightItalic.ttf')
+  font-weight: 200
+  font-style: italic
+
+
+@font-face
+  font-family: 'Athiti'
+  src: font-url('Athiti/Athiti-Regular.ttf')
+
+
+@font-face
+  font-family: 'Athiti'
+  src: font-url('Athiti/Athiti-Bold.ttf')
+  font-weight: 600
+
+
+@font-face
+  font-family: 'Athiti'
+  src: font-url('Athiti/Athiti-Light.ttf')
+  font-weight: 200
+
+
+html, body
+  height: 100%
+  font-family: "Athiti", "Helvetica Neue", "sans-serif"
+  color: #444
+
+#topbar
+  .navbar
+    margin-bottom: 0px
+  .navbar-brand
+    padding: 10px 15px
+    height: 60px
+    img
+      height: 40px
+  .navbar-nav
+    > li
+      > a
+        padding: 20px
+        font-size: 18px
+        font-weight: 200
+      .btn-daydash-green-2
+        background: #19D4D6
+        color: white
+        border: 0px
+        &:hover, &:active, &:visited, &:link
+          background: #19D4D6
+          color: white
+    .user-dropdown
+      .user-profile-photo
+        width: 30px
+        height: 30px
+        border-radius: 50%
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+        background-color: #ccc
+      .dropdown-toggle
+        padding: 15px 30px
+      .dropdown-menu
+        min-width: 200px
+        padding: 0px
+        li a
+          padding: 15px 20px
+          font-size: 14px
+          font-weight: 200
+          border-bottom: 1px solid #eee
+
+#wrapper
+  position: relative
+  min-height: 100%
+
+#main
+  min-height: 800px
+  padding-bottom: 550px
+
+@media all and (max-width: 991px)
+  #main
+    padding-bottom: 785px
+
+#footer
+  position: absolute
+  bottom: 0px
+  left: 0px
+  right: 0px
+  height: auto
+  background-color: #333
+  color: #aaa
+  padding-bottom: 100px
+  .col
+    margin-top: 80px
+  a
+    text-decoration: none
+    color: #aaa
+    &:hover
+      color: white
+  .list-panel
+    .list-title
+      margin-bottom: 25px
+      color: #eee
+      font-size: 16px
+    .list-body li a
+      display: inline-block
+      width: auto
+      padding: 0px
+      font-size: 14px
+      color: #aaa
+      margin-bottom: 5px
+      &:hover, &:active, &:focus, &.active
+        background: transparent
+        color: white
+  .social-list
+    margin-bottom: 15px
+    .list-inline li
+      margin-right: 15px
+  .copyright
+    margin-top: 50px
+    margin-bottom: 5px
+  .cert-list
+    margin-top: 50px
+
+#login-modal
+  .modal-title
+    text-align: center
+  .fb-login
+    margin-bottom: 15px
+    text-align: center
+    img
+      height: 40px
+  .seperator
+    border-top: 1px solid #444
+    margin-top: 25px
+    margin-bottom: 15px
+    .inner
+      margin-top: -16px
+    span
+      display: inline-block
+      padding: 5px 15px
+      background: white
+  .forgot-password
+    margin-top: 15px
+    text-align: center
+  .modal-footer
+    text-align: center
+
+@media (max-width: 991px)
+  #main
+    padding-bottom: 1400px
+
+a
+  color: #00CFD1
+  &:hover, &:active, &:link, &:visited
+    color: #00E9CA
+
+h1
+  font-weight: 300
+
+label
+  font-weight: normal
+
+.bootstrap-datetimepicker-widget
+  padding-left: 15px
+  padding-right: 15px
+  th, td
+    cursor: pointer
+    text-align: center
+  .day.active
+    background-color: #00CFD1
+    color: white
+  .btn
+    color: #00CFD1
+  .btn-primary
+    background: #00CFD1
+    color: white
+    border: 0px
+
+.icon
+  display: inline-block
+  width: 25px
+  height: 25px
+  background-size: contain
+  background-repeat: no-repeat
+  background-position: center
+
+.icon-xs
+  width: 16px
+  height: 16px
+
+.icon-facebook
+  background-image: asset-url('icons/icon-facebook.png')
+
+.icon-line
+  background-image: asset-url('icons/icon-line.png')
+
+.icon-instagram
+  background-image: asset-url('icons/icon-instagram.png')
+
+.icon-twitter
+  background-image: asset-url('icons/icon-twitter.png')
+
+.icon-map-pin
+  background-image: asset-url('icons/icon-map-pin.png')
+
+.icon-calendar
+  background-image: asset-url('icons/icon-calendar.png')
+
+.btn-daydash
+  border-radius: 0px
+  color: #444
+  &:hover, &:active, &:visited, &:link
+    color: black
+
+.btn-daydash-lg
+  padding: 15px
+  font-size: 24px
+
+.btn-daydash-green-1
+  background: linear-gradient(90deg, #00CFD1, #00E9CA)
+  color: white
+  border: 0px
+  &:hover, &:active, &:visited, &:link
+    background: linear-gradient(90deg, #00CFD1, #00E9CA)
+    color: white
+
+.btn-daydash-green-2
+  background: #19D4D6
+  color: white
+  border: 0px
+  &:hover, &:active, &:visited, &:link
+    background: #19D4D6
+    color: white
+
+.event.card, .ticket.card
+  display: block
+  margin-bottom: 30px
+  border-radius: 2px
+  border: 1px solid #eee
+  overflow: hidden
+  text-decoration: none
+
+.event.card .cover, .ticket.card .cover
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+  background-color: #ccc
+  height: 250px
+
+.event.card .info, .ticket.card .info
+  background-color: #fff
+  color: #444
+  padding: 15px
+  font-size: 16px
+
+.event.card .info a, .ticket.card .info a
+  color: #444
+
+.event.card .title, .ticket.card .title
+  margin-bottom: 25px
+  height: 64px
+  font-size: 20px
+
+.event.card .icon, .ticket.card .icon
+  float: left
+  margin-top: 1px
+  margin-right: 5px
+
+.event.card .meta, .ticket.card .meta
+  margin-bottom: 10px
+
+.event.card.payment-card .title, .ticket.card.payment-card .title
+  height: auto
+
+.event.card.payment-card .info, .ticket.card.payment-card .info
+  padding-bottom: 0px
+
+.event.card.payment-card .info .row, .ticket.card.payment-card .info .row
+  padding-top: 15px
+  padding-bottom: 15px
+  border-bottom: 1px solid #eee
+
+.event.card.payment-card .ticket-list .ticket .ticket-price, .ticket.card.payment-card .ticket-list .ticket .ticket-price, .event.card.payment-card .ticket-list .list-footer, .ticket.card.payment-card .ticket-list .list-footer
+  text-align: right
+
+.card-side-cover
+  margin-bottom: 15px
+  border: 1px solid #eee
+  .cover
+    display: block
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    background-color: #ccc
+  .info
+    padding: 15px
+    padding-bottom: 0px
+    .info-body
+      padding-bottom: 15px
+
+@media (max-width: 991px)
+  .card-side-cover .cover
+    height: 150px
+
+@media (min-width: 992px)
+  .card-side-cover
+    width: 100%
+    display: table
+    .cover
+      display: table-cell
+      width: 250px
+    .info
+      display: table-cell
+
+.nav-daydash
+  margin-bottom: 15px
+  li
+    a
+      background: transparent
+      padding-bottom: 2px
+      color: #aaa
+      &:visited, &:link, &:active
+        background: transparent
+        padding-bottom: 2px
+        color: #aaa
+      &:hover, &:visited:hover, &:link:hover, &:active:hover
+        color: #444
+    &.active a
+      border-radius: 0px
+      background: transparent
+      color: #444
+      border-bottom: 3px solid #00CFD1
+      &:hover, &:active, &:link, &:visited
+        border-radius: 0px
+        background: transparent
+        color: #444
+        border-bottom: 3px solid #00CFD1
+
+.nav-tabs-daydash
+  margin-bottom: 15px
+  &.nav-justified
+    margin-bottom: 15px
+  li a
+    background: transparent
+    color: #aaa
+    border: 0px
+    border-bottom: 3px solid #eee
+    &:visited, &:link, &:active
+      background: transparent
+      color: #aaa
+      border: 0px
+      border-bottom: 3px solid #eee
+  &.nav-justified li a
+    background: transparent
+    color: #aaa
+    border: 0px
+    border-bottom: 3px solid #eee
+    &:visited, &:link, &:active
+      background: transparent
+      color: #aaa
+      border: 0px
+      border-bottom: 3px solid #eee
+  li:hover a, &.nav-justified li:hover a
+    color: #444
+    &:hover
+      color: #444
+  li.active
+    a
+      border-radius: 0px
+      background: transparent
+      color: #444
+      border: 0px
+      border-bottom: 3px solid #00CFD1
+      &:visited, &:link, &:active
+        border-radius: 0px
+        background: transparent
+        color: #444
+        border: 0px
+        border-bottom: 3px solid #00CFD1
+    &:hover a
+      border-radius: 0px
+      background: transparent
+      color: #444
+      border: 0px
+      border-bottom: 3px solid #00CFD1
+      &:visited, &:link, &:active
+        border-radius: 0px
+        background: transparent
+        color: #444
+        border: 0px
+        border-bottom: 3px solid #00CFD1
+  &.nav-justified li.active
+    a
+      border-radius: 0px
+      background: transparent
+      color: #444
+      border: 0px
+      border-bottom: 3px solid #00CFD1
+      &:visited, &:link, &:active
+        border-radius: 0px
+        background: transparent
+        color: #444
+        border: 0px
+        border-bottom: 3px solid #00CFD1
+    &:hover a
+      border-radius: 0px
+      background: transparent
+      color: #444
+      border: 0px
+      border-bottom: 3px solid #00CFD1
+      &:visited, &:link, &:active
+        border-radius: 0px
+        background: transparent
+        color: #444
+        border: 0px
+        border-bottom: 3px solid #00CFD1
+  &.nav-tabs-black li.active
+    a
+      border-bottom: 3px solid #444
+      &:visited, &:link, &:active
+        border-bottom: 3px solid #444
+    &:hover a
+      border-bottom: 3px solid #444
+      &:visited, &:link, &:active
+        border-bottom: 3px solid #444
+  &.nav-justified.nav-tabs-black li.active
+    a
+      border-bottom: 3px solid #444
+      &:visited, &:link, &:active
+        border-bottom: 3px solid #444
+    &:hover a
+      border-bottom: 3px solid #444
+      &:visited, &:link, &:active
+        border-bottom: 3px solid #444
+
+.list-action-nav li:not(:last-child):after
+  content: "|"
+  display: inline-block
+  padding-left: 15px
+  content: "|"
+  display: inline-block
+  padding-left: 15px
+
+#index-page
+  #cover-section .slick
+    margin-bottom: 0px
+    .page-cover
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+      background-color: black
+      height: 400px
+      &:before
+        content: " "
+        display: block
+        position: absolute
+        top: 0px
+        bottom: 0px
+        left: 0px
+        right: 0px
+        background: rgba(0, 0, 0, 0.3)
+    .info
+      position: absolute
+      top: 0px
+      bottom: 0px
+      left: 0px
+      right: 0px
+      .caption
+        margin-top: 150px
+        text-align: center
+        color: white
+        text-shadow: 0px 1px rgba(0, 0, 0, 0.3)
+        .title
+          font-family: "Kanit", "Helvetica Neue", "sans-serif"
+          font-size: 48px
+          font-weight: bold
+        .subtitle
+          font-size: 24px
+  #event-section
+    background-color: #fcfcfc
+    padding-top: 30px
+    padding-bottom: 30px
+    .event-list
+      padding-top: 15px
+
+#event-page
+  #cover-section
+    position: relative
+    height: 550px
+    background: linear-gradient(90deg, #EFEBEA, #E1CEC6)
+    .cover
+      position: absolute
+      top: 0px
+      right: 0px
+      left: 0px
+      bottom: 0px
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+      box-shadow: inset 0 -150px 200px -100px rgba(0, 0, 0, 0.7)
+    .info
+      position: absolute
+      left: 0px
+      bottom: 0px
+      right: 0px
+      height: auto
+      padding-bottom: 30px
+      .title
+        margin-bottom: 15px
+        font-size: 40px
+        color: white
+        text-shadow: 1px 1px rgba(0, 0, 0, 0.3)
+      .btn-daydash
+        margin-top: 50px
+        width: 300px
+    .right
+      padding-left: 0px
+  #info-section
+    padding-top: 45px
+    padding-bottom: 60px
+    .meta
+      float: left
+      margin-right: 15px
+      margin-bottom: 20px
+      font-size: 16px
+      .icon
+        float: left
+        margin-top: 1px
+        margin-right: 5px
+    .description
+      font-family: sans-serif
+      font-size: 16px
+      font-weight: 200
+      letter-spacing: 0.2px
+      margin-bottom: 50px
+      line-height: 1.7em
+    .gallery
+      margin-left: -5px
+      margin-right: -5px
+      .col
+        padding-left: 5px
+        padding-right: 5px
+      .image
+        display: block
+        height: 150px
+        margin-bottom: 10px
+        background-size: cover
+        background-position: center
+        background-repeat: no-repeat
+        background-color: #ccc
+    .btn-daydash-lg
+      margin-bottom: 15px
+    .map-panel
+      margin-bottom: 15px
+      border-radius: 2px
+      background: #eee
+      #google-map
+        width: 100%
+        height: 400px
+    .social-panel
+      padding-top: 15px
+      padding-bottom: 15px
+      border-radius: 2px
+      border: 1px solid #eee
+      .btn-daydash
+        margin-bottom: 5px
+      .social-list
+        text-align: center
+        *
+          vertical-align: text-top
+  #ticket-list-modal
+    margin-top: 100px
+    .table
+      margin-bottom: 0px
+      td
+        padding-left: 15px
+        padding-right: 15px
+    .ticket .ticket-title
+      font-weight: bold
+
+#payment-page
+  .form-section.highlight
+    padding: 15px
+    background: #f4f4f4
+  .form-section-description
+    margin-bottom: 15px
+  #payment-method-section
+    .nav-tabs
+      margin-bottom: 30px
+      border-bottom: 0px
+      li
+        margin-bottom: 0px
+    select.form-control
+      width: 45%
+    .form-section-footer
+      margin-top: 30px
+      .btn
+        margin-top: 15px
+  .dob-form-group .form-inline .form-control
+    display: inline-block
+    width: 30%
+  .form-group .radio
+    margin-right: 15px
+
+@media (max-width: 991px)
+  #payment-page .gender-form-group .form-inline
+    padding-left: 30px
+
+#payment-complete-page
+  #credit-card-inform-section
+    padding-top: 50px
+    padding-bottom: 50px
+    text-align: center
+  #bank-transfer-inform-section
+    padding-top: 50px
+    padding-bottom: 50px
+    .section-title
+      text-align: center
+    .container
+      max-width: 600px
+
+#related-event-section
+  padding-top: 40px
+  padding-bottom: 50px
+  background: #fcfcfc
+  border-top: 1px solid #eee
+  .section-header
+    margin-bottom: 20px
+    text-align: center
+    .section-title
+      font-size: 30px
+
+.profile-page
+  #profile-nav
+    margin-bottom: 15px
+  .current-user-panel
+    .panel-body
+      text-align: center
+    .profile-picture
+      width: 80px
+      height: 80px
+      border-radius: 50%
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+      margin: 30px auto
+
+#profile-wishlist-page
+  h1 small
+    font-size: 20px
+  .event-list .event .cover
+    height: 200px
+
+#profile-settings-page form .form-group:nth-child(2n+1)
+  clear: left
+
+#organizer-events-new .form-section, #organizer-events-edit .form-section
+  margin-bottom: 30px
+
+#organizer-events-new .ticket-list .ticket:first-child .btn-ticket-delete, #organizer-events-edit .ticket-list .ticket:first-child .btn-ticket-delete
+  display: none
+
+#organizer-events-new .image-list .image, #organizer-events-edit .image-list .image
+  margin-bottom: 30px
+  height: 150px
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+  background-color: #ccc
+
+#organizer-settings-page form .form-group:nth-child(2n+1)
+  clear: left
+
+/*# sourceMappingURL=home.css.map

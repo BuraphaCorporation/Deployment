@@ -7,19 +7,18 @@
     <title>Daydash</title>
     <%= csrf_meta_tags %>
 
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
     <link rel="stylesheet" href="/src/packages/font-awesome-4.5.0/css/font-awesome.min.css" />
 
     <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="/src/packages/daydash/home.css" />
+    <!-- <link rel="stylesheet" href="/src/packages/daydash/home.css" /> -->
 
-    <script src="/src/packages/jquery/jquery-2.2.2.min.js"></script>
     <script src="/src/packages/bootstrap-3.3.6/js/bootstrap.min.js"></script>
 
-    <!-- Slick -->
-    <link rel="stylesheet" href="/src/packages/slick/slick.css" />
-    <link rel="stylesheet" href="/src/packages/slick/slick-theme.css" />
-    <script src="/src/packages/slick/slick.min.js"></script>
+    <%= stylesheet_link_tag 'client/core', media: 'all', 'data-turbolinks-track' => true %>
   </head>
   <body>
     <div id="fb-root"></div>

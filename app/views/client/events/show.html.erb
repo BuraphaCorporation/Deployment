@@ -36,7 +36,7 @@
           ซื้อตั๋ว - ฿<%= @section.price %>
         </button>
         <div class="map-panel">
-          <div id="google-map"></div>
+          <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>"></div>
         </div>
         <div class="social-panel">
           <div class="row">
@@ -123,20 +123,3 @@
 
 <!-- Google Map -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
-<script>
-  $(function() {
-    var eventLocation = {lat: <%= @event.latitude %>, lng: <%= @event.longitude || "100.50176510000006" %> };
-
-    var map = new google.maps.Map(document.getElementById('google-map'), {
-      center: eventLocation,
-      zoom: 13,
-      scrollwheel: false,
-    });
-
-    var marker = new google.maps.Marker({
-      position: eventLocation,
-      map: map,
-      title: 'Hello World!'
-    });
-  });
-</script>

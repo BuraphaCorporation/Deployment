@@ -4,15 +4,19 @@ ruby '2.3.1'
 gem 'rails', '5.0'
 
 # helper views
-gem "cocoon"
 gem 'turbolinks', '~> 5'
-gem 'react-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
-gem 'jquery-rails'
 gem 'sprockets'
-# gem 'sprockets-es6'
+gem 'sprockets-es6'
+gem 'jquery-rails'
+gem 'react-rails'
+gem 'slick_rails'
+gem 'momentjs-rails'
+# gem 'bootstrap-sass'
+# gem 'autoprefixer-rails'
+gem "cocoon"
 
 # helper database
 gem 'figaro'

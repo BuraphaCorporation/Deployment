@@ -18,14 +18,15 @@
 <div class="section" id="event-section">
   <div class="container">
     <ul class="nav nav-pills nav-daydash">
-      <li class="active"><a href="#" onclick="return on_events_filter(this, {});">ALL</a></li>
-      <% if @categories.size > 0 %>
-        <% @categories.each do |category| %>
-          <li>
-            <a href="#" onclick="return on_events_filter(this, {category_id: '<%= category.id %>'});"><%= category.title %></a>
-          </li>
-        <% end %>
-      <% end %>
+      <li class="active">
+        <%= link_to 'ALL', 'javascript:;', class: 'category-filter' %>
+        <!-- <a href="#" onclick="return"></a> -->
+      </li>
+      <% @categories.each do |category| %>
+        <li>
+          <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
+        </li>
+      <% end if @categories.present? %>
     </ul>
     <div class="row event-list">
       <% @events.each do |event| %>
@@ -34,8 +35,8 @@
             <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
             <div class="info">
               <h4 class="title text-left"><%= event.title %></h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
-              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.sections.first.event_time.strftime("%A %d %B, %H:%M") %></div>
+              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
             </div>
           </a>
         </div>
@@ -43,4 +44,3 @@
     </div>
   </div>
 </div>
-

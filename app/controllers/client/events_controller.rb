@@ -9,7 +9,7 @@ class Client::EventsController < Client::CoreController
     @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])
       Category.friendly.find(params[:category]).events
     else
-      Event.all
+      Event.available
     end
 
     @covers = [
@@ -20,7 +20,7 @@ class Client::EventsController < Client::CoreController
 
   def show
     @event = Event.friendly.find(params[:id])
-    @section = @event.sections.min_by(&:price)
+    @section = @event.first_section
   end
 
   def express

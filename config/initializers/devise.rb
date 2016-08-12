@@ -245,6 +245,8 @@ Devise.setup do |config|
   config.omniauth :facebook,
                   App.configure.facebook_app_id,
                   App.configure.facebook_app_secret,
+                  scope: 'email,user_birthday,user_location,user_about_me',
+                  info_fields: 'id,email,first_name,last_name,birthday,about,gender,location',
                   image_size: 'large'
 
   # ==> Warden configuration

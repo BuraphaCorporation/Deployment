@@ -27,6 +27,7 @@ end
 
 set :application, 'daydash'
 set :repo_url, 'git@github.com:hongklay/daydash.git'
+set :deploy_to, '/home/deploy/daydash'
 
 # set :stages, ['production', 'brick', 'dev-non', 'dev-pop']
 # set :default_stage, 'staging'

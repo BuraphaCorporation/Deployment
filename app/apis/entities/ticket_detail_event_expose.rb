@@ -1,4 +1,5 @@
 class Entities::TicketDetailEventExpose < Grape::Entity
+  expose :id
   expose :title
   expose :description
   expose :location_name

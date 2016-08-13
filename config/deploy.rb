@@ -23,10 +23,6 @@ def current_git_branch
   git_branch branch
 end
 
-def daydash_path
-  '$HOME/daydash/shared'
-end
-
 # set :format, :pretty
 # set :log_level, :debug
 set :pty, true
@@ -35,21 +31,6 @@ set :linked_files, %w{config/database.yml config/application.yml config/instance
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 
 set :keep_releases, 5
-
-set :puma_rackup, -> { File.join(current_path, 'config.ru') }
-set :puma_state, "#{daydash_path}/tmp/pids/puma.state"
-set :puma_pid, "#{daydash_path}/tmp/pids/puma.pid"
-set :puma_bind, "unix://#{daydash_path}/tmp/sockets/puma.sock"    #accept array for multi-bind
-set :puma_conf, "#{daydash_path}/puma.rb"
-set :puma_access_log, "#{daydash_path}/log/puma_error.log"
-set :puma_error_log, "#{daydash_path}/log/puma_access.log"
-set :puma_role, :app
-set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
-set :puma_threads, [0, 8]
-set :puma_workers, 0
-set :puma_worker_timeout, nil
-set :puma_init_active_record, true
-set :puma_preload_app, false
 
 set :rollbar_token, 'a7c214f1a0164e748d688ef15cc1c9ea'
 set :rollbar_env, Proc.new { fetch :stage }

@@ -30,12 +30,12 @@ set :rollbar_token, 'a7c214f1a0164e748d688ef15cc1c9ea'
 set :rollbar_env, Proc.new { fetch :stage }
 set :rollbar_role, Proc.new { :app }
 
-set :slackistrano, {
-  channel: '#system',
-  webhook: 'https://hooks.slack.com/services/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'
-}
+# set :slackistrano, {
+#   channel: '#system',
+#   webhook: 'https://hooks.slack.com/services/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'
+# }
 
-set :puma_conf, -> { File.join(current_path, 'config/puma.rb') }
+set :puma_conf, -> { File.join(release_path, 'config/puma.rb') }
 
 namespace :deploy do
   desc 'Restart application'

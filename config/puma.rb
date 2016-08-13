@@ -1,28 +1,28 @@
-# if App.environment != 'development'
-#   current_path = "/home/#{App.environment}/daydash"
-#
-#   directory "#{current_path}/current"
-#   rackup "#{current_path}/current/config.ru"
-#   environment 'production'
-#
-#   pidfile "#{current_path}/shared/tmp/pids/puma.pid"
-#   state_path "#{current_path}/shared/tmp/pids/puma.state"
-#   stdout_redirect 'daydash/shared/log/puma_error.log', 'daydash/shared/log/puma_access.log', true
-#   threads 0,8
-#
-#   sock = "unix://#{current_path}/shared/tmp/sockets/puma.sock"
-#   puts sock
-#   bind sock
-#
-#   workers 0
-#
-#   prune_bundler
-#
-#   on_restart do
-#     puts 'Refreshing Gemfile'
-#     ENV["BUNDLE_GEMFILE"] = "#{current_path}current/Gemfile"
-#   end
-# else
+if App.environment != 'development'
+  current_path = ENV.fetch("ROOT_PATH")
+
+  directory "#{current_path}/current"
+  rackup "#{current_path}/current/config.ru"
+  environment 'production'
+
+  pidfile "#{current_path}/shared/tmp/pids/puma.pid"
+  state_path "#{current_path}/shared/tmp/pids/puma.state"
+  stdout_redirect 'daydash/shared/log/puma_error.log', 'daydash/shared/log/puma_access.log', true
+  threads 0,8
+
+  sock = "unix://#{current_path}/shared/tmp/sockets/puma.sock"
+  puts sock
+  bind sock
+
+  workers 0
+
+  prune_bundler
+
+  on_restart do
+    puts 'Refreshing Gemfile'
+    ENV["BUNDLE_GEMFILE"] = "#{current_path}current/Gemfile"
+  end
+else
   # Puma can serve each request in a thread from an internal thread pool.
   # The `threads` method setting takes two numbers a minimum and maximum.
   # Any libraries that use thread pools should be configured to match
@@ -71,4 +71,4 @@
 
   # Allow puma to be restarted by `rails restart` command.
   plugin :tmp_restart
-# end
+end

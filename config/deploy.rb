@@ -1,3 +1,12 @@
+set :application, 'Daydash'
+set :repo_url, 'git@github.com:hongklay/daydash.git'
+set :branch, :master
+
+set :deploy_to, '/home/deploy/daydash'
+
+set :stages, [:staging, :production]
+set :default_stage, :staging
+
 # Bonus! Colors are pretty!
 def red(str)
   "\e[31m#{str}\e[0m"
@@ -14,22 +23,9 @@ def current_git_branch
   git_branch branch
 end
 
-def stage_path
-  case fetch(:stage)
-  when 'production', 'staging', 'brick'
-    '/home/deploy/daydash'
-  when 'dev-non'
-    '/home/non/daydash'
-  when 'dev-pop'
-    '/home/pop/daydash'
-  end
+def daydash_path
+  '$HOME/daydash/shared'
 end
-
-set :application, 'daydash'
-set :repo_url, 'git@github.com:hongklay/daydash.git'
-
-# set :stages, ['production', 'brick', 'dev-non', 'dev-pop']
-# set :default_stage, 'staging'
 
 # set :format, :pretty
 # set :log_level, :debug
@@ -40,17 +36,13 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 
 set :keep_releases, 5
 
-set :rollbar_token, 'a7c214f1a0164e748d688ef15cc1c9ea'
-set :rollbar_env, Proc.new { fetch :stage }
-set :rollbar_role, Proc.new { :app }
-
 set :puma_rackup, -> { File.join(current_path, 'config.ru') }
-set :puma_state, "#{shared_path}/tmp/pids/puma.state"
-set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
-set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"    #accept array for multi-bind
-set :puma_conf, "#{shared_path}/puma.rb"
-set :puma_access_log, "#{shared_path}/log/puma_error.log"
-set :puma_error_log, "#{shared_path}/log/puma_access.log"
+set :puma_state, "#{daydash_path}/tmp/pids/puma.state"
+set :puma_pid, "#{daydash_path}/tmp/pids/puma.pid"
+set :puma_bind, "unix://#{daydash_path}/tmp/sockets/puma.sock"    #accept array for multi-bind
+set :puma_conf, "#{daydash_path}/puma.rb"
+set :puma_access_log, "#{daydash_path}/log/puma_error.log"
+set :puma_error_log, "#{daydash_path}/log/puma_access.log"
 set :puma_role, :app
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
 set :puma_threads, [0, 8]
@@ -58,12 +50,18 @@ set :puma_workers, 0
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
-# set :slackistrano, {
-#   channel: '#system',
-#   webhook: 'https://hooks.slack.com/services/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'
-# }
+
+set :rollbar_token, 'a7c214f1a0164e748d688ef15cc1c9ea'
+set :rollbar_env, Proc.new { fetch :stage }
+set :rollbar_role, Proc.new { :app }
+
+set :slackistrano, {
+  channel: '#system',
+  webhook: 'https://hooks.slack.com/services/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'
+}
 
 namespace :deploy do
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -86,6 +84,16 @@ namespace :deploy do
   after :finishing, 'deploy:cleanup'
 end
 
+namespace :deploy do
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
+  end
+end
+
 namespace :rails do
   desc 'Console to production'
   task :console do
@@ -97,7 +105,7 @@ namespace :rails do
   end
 
   desc "Task log"
-  task :logs do
+  task :log do
     on roles(:web) do
       within current_path do
         execute :tail, '-f log/puma_error.log'

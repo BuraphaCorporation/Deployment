@@ -39,6 +39,8 @@ class App < Struct.new(:region, :environment, :version)
       'beta'
     when 'staging', 'brick'
       'brick'
+    when 'non'
+      'dev-non'
     when 'pop'
       'dev-pop'
     when 'development'

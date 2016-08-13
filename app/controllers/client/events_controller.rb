@@ -27,7 +27,7 @@ class Client::EventsController < Client::CoreController
     @event = Event.friendly.find(params[:event_id])
     @section = @event.sections.min_by(&:price)
 
-    session[:total] = 0
+    @total = 0
     @tickets = {}
     session[:sections] = []
     @event.sections.each do |section|

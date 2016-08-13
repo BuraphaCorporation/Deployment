@@ -1,16 +1,16 @@
 
-directory '/home/deploy/daydash/current'
-rackup "/home/deploy/daydash/current/config.ru"
+directory '/home/non/daydash/current'
+rackup "/home/non/daydash/current/config.ru"
 environment 'production'
 
-pidfile "/home/deploy/daydash/shared/tmp/pids/puma.pid"
-state_path "/home/deploy/daydash/shared/tmp/pids/puma.state"
-stdout_redirect '/home/deploy/daydash/shared/log/puma_error.log', 'daydash/shared/log/puma_access.log', true
+pidfile "/home/non/daydash/shared/tmp/pids/puma.pid"
+state_path "/home/non/daydash/shared/tmp/pids/puma.state"
+stdout_redirect '/home/non/daydash/shared/log/puma_error.log', 'daydash/shared/log/puma_access.log', true
 
 
 threads 0,8
 
-bind 'unix://home/deploy/daydash/shared/tmp/sockets/puma.sock'
+bind 'unix://home/non/daydash/shared/tmp/sockets/puma.sock'
 
 workers 0
 
@@ -21,7 +21,7 @@ prune_bundler
 
 on_restart do
   puts 'Refreshing Gemfile'
-  ENV["BUNDLE_GEMFILE"] = "/home/deploy/daydash/current/Gemfile"
+  ENV["BUNDLE_GEMFILE"] = "/home/non/daydash/current/Gemfile"
 end
 
 # if App.environment != 'development'

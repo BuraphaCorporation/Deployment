@@ -1,4 +1,5 @@
 server 'brick.daydash.co', user: 'deploy', roles: %w{web app db}
+set :deploy_to, '/home/deploy/daydash'
 set :stage, :staging
 set :rails_env, :production
 

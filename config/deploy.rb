@@ -1,3 +1,4 @@
+
 # Bonus! Colors are pretty!
 def red(str)
   "\e[31m#{str}\e[0m"
@@ -14,22 +15,14 @@ def current_git_branch
   git_branch branch
 end
 
-def stage_path
-  case fetch(:stage)
-  when 'production', 'staging', 'brick'
-    '/home/deploy/daydash'
-  when 'dev-non'
-    '/home/non/daydash'
-  when 'dev-pop'
-    '/home/pop/daydash'
-  end
-end
-
-set :application, 'daydash'
+set :application, 'Daydash'
 set :repo_url, 'git@github.com:hongklay/daydash.git'
+set :deploy_to, '/home/deploy/daydash'
 
-# set :stages, ['production', 'brick', 'dev-non', 'dev-pop']
-# set :default_stage, 'staging'
+set :slackistrano, {
+  channel: '#system',
+  webhook: 'https://hooks.slack.com/services/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'
+}
 
 # set :format, :pretty
 # set :log_level, :debug
@@ -58,10 +51,6 @@ set :puma_workers, 0
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
-# set :slackistrano, {
-#   channel: '#system',
-#   webhook: 'https://hooks.slack.com/services/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'
-# }
 
 namespace :deploy do
   desc 'Restart application'

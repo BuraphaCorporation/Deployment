@@ -49,6 +49,15 @@ class Client::EventsController < Client::CoreController
   def checkout
     @event = Event.friendly.find(params[:event_id])
 
+    dob = params[:dob_date]
+    current_user.update(
+      first_name: params[:firstname],
+      last_name:  params[:lastname],
+      phone:      params[:phone],
+      birthday:   dob,
+      gender:     params[:gender],
+    )
+
     sections = []
     session[:sections].each{|s| sections << Hashie::Mash.new(s)}
 

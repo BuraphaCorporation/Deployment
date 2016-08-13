@@ -19,6 +19,7 @@ default: &default
   AWS_REGION: 'ap-southeast-1'
   MANDRILL_USERNAME:
   MANDRILL_PASSWORD:
+  ROOT_PATH: '/home/deploy/daydash'
 
 development:
   <<: *default

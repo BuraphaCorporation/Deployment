@@ -7,6 +7,22 @@ set :deploy_to, '/home/deploy/daydash'
 set :stages, [:staging, :production]
 set :default_stage, :staging
 
+# Bonus! Colors are pretty!
+def red(str)
+  "\e[31m#{str}\e[0m"
+end
+
+def git_branch(branch)
+  puts "Deploying branch #{red branch}"
+  branch
+end
+
+# Figure out the name of the current local branch
+def current_git_branch
+  branch = `git symbolic-ref HEAD 2> /dev/null`.strip.gsub(/^refs\/heads\//, '')
+  git_branch branch
+end
+
 # set :format, :pretty
 # set :log_level, :debug
 set :pty, true

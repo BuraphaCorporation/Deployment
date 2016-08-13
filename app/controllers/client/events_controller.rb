@@ -40,7 +40,8 @@ class Client::EventsController < Client::CoreController
           }
         })
         session[:sections] << { "id": section.id, "qty": params[:section]["#{section.id}"].to_i }
-        session[:total] += section.price
+        @total += section.price
+        session[:total] = @total
       end
     end
   end

@@ -19,10 +19,10 @@ set :application, 'Daydash'
 set :repo_url, 'git@github.com:hongklay/daydash.git'
 set :deploy_to, '/home/deploy/daydash'
 
-# set :slackistrano, {
-#   channel: '#system',
-#   webhook: 'https://hooks.slack.com/services/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'
-# }
+set :slackistrano, {
+  channel: '#system',
+  webhook: 'https://hooks.slack.com/services/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'
+}
 
 # set :format, :pretty
 # set :log_level, :debug

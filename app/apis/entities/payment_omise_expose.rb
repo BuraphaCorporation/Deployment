@@ -1,4 +1,5 @@
 class Entities::PaymentOmiseExpose < Grape::Entity
+  expose :id
   expose :code
   expose :status
   expose :event,    using: Entities::TicketDetailEventExpose

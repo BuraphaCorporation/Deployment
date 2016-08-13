@@ -1,11 +1,5 @@
 set :application, 'Daydash'
 set :repo_url, 'git@github.com:hongklay/daydash.git'
-set :branch, :master
-
-set :deploy_to, '/home/deploy/daydash'
-
-set :stages, [:staging, :production]
-set :default_stage, :staging
 
 # Bonus! Colors are pretty!
 def red(str)
@@ -41,8 +35,9 @@ set :slackistrano, {
   webhook: 'https://hooks.slack.com/services/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'
 }
 
-namespace :deploy do
+set :puma_conf, -> { File.join(current_path, 'config/puma.rb') }
 
+namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
@@ -63,16 +58,6 @@ namespace :deploy do
 
   after :publishing, 'deploy:restart'
   after :finishing, 'deploy:cleanup'
-end
-
-namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :touch, release_path.join('tmp/restart.txt')
-    end
-  end
 end
 
 namespace :rails do

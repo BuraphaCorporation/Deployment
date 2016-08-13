@@ -1,5 +1,3 @@
-set :application, 'Daydash'
-set :repo_url, 'git@github.com:hongklay/daydash.git'
 
 # Bonus! Colors are pretty!
 def red(str)
@@ -17,6 +15,15 @@ def current_git_branch
   git_branch branch
 end
 
+set :application, 'Daydash'
+set :repo_url, 'git@github.com:hongklay/daydash.git'
+set :deploy_to, '/home/deploy/daydash'
+
+# set :slackistrano, {
+#   channel: '#system',
+#   webhook: 'https://hooks.slack.com/services/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'
+# }
+
 # set :format, :pretty
 # set :log_level, :debug
 set :pty, true
@@ -30,12 +37,20 @@ set :rollbar_token, 'a7c214f1a0164e748d688ef15cc1c9ea'
 set :rollbar_env, Proc.new { fetch :stage }
 set :rollbar_role, Proc.new { :app }
 
-# set :slackistrano, {
-#   channel: '#system',
-#   webhook: 'https://hooks.slack.com/services/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'
-# }
-
-set :puma_conf, -> { File.join(release_path, 'config/puma.rb') }
+set :puma_rackup, -> { File.join(current_path, 'config.ru') }
+set :puma_state, "#{shared_path}/tmp/pids/puma.state"
+set :puma_pid, "#{shared_path}/tmp/pids/puma.pid"
+set :puma_bind, "unix://#{shared_path}/tmp/sockets/puma.sock"    #accept array for multi-bind
+set :puma_conf, "#{shared_path}/puma.rb"
+set :puma_access_log, "#{shared_path}/log/puma_error.log"
+set :puma_error_log, "#{shared_path}/log/puma_access.log"
+set :puma_role, :app
+set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
+set :puma_threads, [0, 8]
+set :puma_workers, 0
+set :puma_worker_timeout, nil
+set :puma_init_active_record, true
+set :puma_preload_app, false
 
 namespace :deploy do
   desc 'Restart application'
@@ -71,7 +86,7 @@ namespace :rails do
   end
 
   desc "Task log"
-  task :log do
+  task :logs do
     on roles(:web) do
       within current_path do
         execute :tail, '-f log/puma_error.log'

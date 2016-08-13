@@ -35,6 +35,8 @@ class App < Struct.new(:region, :environment, :version)
 
   def host
     case environment
+    when 'beta', 'production'
+      'beta'
     when 'staging', 'brick'
       'brick'
     when 'pop'

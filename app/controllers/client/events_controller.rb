@@ -32,8 +32,8 @@ class Client::EventsController < Client::CoreController
     session[:sections] = []
     @event.sections.each do |section|
       if params[:section]["#{section.id}"].to_i > 0
-        @tickets.merge!({ "#{section.id}":
-          {
+        @tickets.merge!({
+          "#{section.id}": {
             title: section.title,
             price: section.price,
             quantity: params[:section]["#{section.id}"].to_i

@@ -1,5 +1,5 @@
   <div id="register-form" style="display: none;">
-    <%= form_tag 'profile/register' do  %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
       <input type="hidden" name="continue" value="" />
       <div class="modal-content">
         <div class="modal-header">

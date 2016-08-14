@@ -1,7 +1,7 @@
 class PaymentMailer < MandrillMailer::TemplateMailer
   default from: 'noreply@daydash.co'
 
-  def checkout(user, payment)
+  def checkout(payment, user)
     mandrill_mail(
       from: 'noreply@daydash.co',
       from_name: "Daydash.co",

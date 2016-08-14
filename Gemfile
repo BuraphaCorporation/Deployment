@@ -47,6 +47,8 @@ gem 'aws-sdk', '>= 2.0.34'
 gem 'gcloud'
 gem 'intercom-rails'
 gem 'one_signal'
+gem 'mandrill_mailer'
+# gem 'mailgun_rails'
 
 # make api
 gem 'jbuilder', '~> 2.5'

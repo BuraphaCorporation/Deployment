@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
     user.token        = user.generate_token
     user.referal_code = user.default_referal
   end
+  after_create :send_welcome_mail
 
   def generate_token
     loop do
@@ -47,6 +48,9 @@ class User < ActiveRecord::Base
     end
   end
 
+  def send_welcome_mail
+    UserMailer.welcome(self).deliver
+  end
   # def is_management?
   #   role.title == 'management'
   # end

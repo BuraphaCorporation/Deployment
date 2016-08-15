@@ -13,47 +13,48 @@
     </div>
     <div class="row">
       <div class="col-xs-12 col-md-9">
-        <%= form_tag '/profile/settings' do  %>
+        <%= form_for(@user, as: @user, url: client_profile_settings_path(@user), html: { method: :put }) do |f| %>
           <div class="form-header">
             <h1 class="form-title">Account Settings</h1>
           </div>
           <div class="form-body row">
             <div class="form-group col-xs-12 col-md-6">
               <label>Firstname</label>
-              <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" />
+              <%= f.text_field :first_name, value: @user.first_name, class: 'form-control' %>
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Lastname</label>
-              <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" />
+              <%= f.text_field :last_name, value: @user.last_name, class: 'form-control' %>
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Date of Birth</label>
-              <input class="form-control" type="text" name="dob" value="<%= current_user.birthday %>" />
+              <%= f.text_field :birthday, value: @user.birthday, class: 'form-control' %>
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Gender</label>
               <div class="form-inline">
                 <label class="radio">
-                  <input type="radio" name="gender" value="female" />
-                  Female
-                </label>
-                <label class="radio">
-                  <input type="radio" name="gender" value="male" />
+                  <%= f.radio_button :gender, 'male' %>
                   Male
                 </label>
                 <label class="radio">
-                  <input type="radio" name="gender" value="not_specific" />
-                  Not specific
+                  <%= f.radio_button :gender, 'female' %>
+                  Female
                 </label>
+                <!-- <label class="radio">
+                  <input type="radio" name="gender" value="not_specific" />
+                  <%#= f.radio_button :gender %>
+                  Not specific
+                </label> -->
               </div>
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>E-mail</label>
-              <input class="form-control" type="email" name="email" value="<%= current_user.email %>" />
+              <%= f.email_field :email, value: @user.email, class: 'form-control' %>
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Phone Number</label>
-              <input class="form-control" type="text" name="tel" value="<%= current_user.phone %>" />
+              <%= f.telephone_field :phone, value: @user.phone, class: 'form-control' %>
             </div>
             <div class="col-xs-12">
               <button class="btn btn-daydash btn-daydash-green-1">Update</button>
@@ -62,24 +63,24 @@
         <% end %>
 
 
-        <%= form_tag '/profile/settings-password' do  %>
+        <%= form_for(@user, as: @user, url: client_profile_change_password_path(@user), html: { method: :put }) do |f| %>
           <div class="form-header">
             <h1 class="form-title">Change Password</h1>
           </div>
           <div class="form-body row">
             <div class="form-group col-xs-12 col-md-6">
               <label>Current Password</label>
-              <input class="form-control" type="password" name="current_password" value="" />
+              <%= f.password_field :current_password, class: 'form-control' %>
             </div>
             <div class="form-group col-xs-12 col-md-6">
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>New Password</label>
-              <input class="form-control" type="password" name="new_password" value="" />
+              <%= f.password_field :new_password, class: 'form-control' %>
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Confirm New Password</label>
-              <input class="form-control" type="password" name="new_password2" value="" />
+              <%= f.password_field :new_password_confirm, class: 'form-control' %>
             </div>
             <div class="col-xs-12">
               <button class="btn btn-daydash btn-daydash-green-1">Change Password</button>

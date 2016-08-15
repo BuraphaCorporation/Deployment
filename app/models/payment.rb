@@ -11,7 +11,14 @@ class Payment < ActiveRecord::Base
   before_create do |payment|
     payment.code = Payment.code
   end
+  after_create :send_payment_mail
   # after_create :add_ticket
+
+  def send_payment_mail
+    PaymentMailer.checkout(self, self.user).deliver!
+  rescue
+    logger.fatal self
+  end
 
   class << self
     def code

@@ -1,11 +1,11 @@
 # require "rails_helper"
 #
-# RSpec.describe UserMailer, type: :mailer do
-#   describe "welcome" do
-#     let(:mail) { UserMailer.welcome }
+# RSpec.describe PaymentMailer, type: :mailer do
+#   describe "checkout" do
+#     let(:mail) { PaymentMailer.checkout }
 #
 #     it "renders the headers" do
-#       expect(mail.subject).to eq("Welcome")
+#       expect(mail.subject).to eq("Checkout")
 #       expect(mail.to).to eq(["to@example.org"])
 #       expect(mail.from).to eq(["from@example.com"])
 #     end

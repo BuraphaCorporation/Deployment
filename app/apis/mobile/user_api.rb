@@ -92,7 +92,7 @@ class Mobile::UserAPI < ApplicationAPI
       requires :user_token, type: String, desc: "token of the user"
       requires :omise_customer_token, type: String, desc: "omise customer token"
     end
-    put '/credit-card'
+    put '/credit-card' do
       begin
         user = User.find_by_token(params[:user_token])
         user.update(omise_customer_token: params[:omise_customer_token])
@@ -107,12 +107,11 @@ class Mobile::UserAPI < ApplicationAPI
     desc "user delete credit-card"
     params do
       requires :user_token, type: String, desc: "token of the user"
-      requires :omise_customer_token, type: String, desc: "omise customer token"
     end
-    delete '/credit-card'
+    delete '/credit-card' do
       begin
         user = User.find_by_token(params[:user_token])
-        user.update(omise_customer_token: params[:omise_customer_token])
+        user.update(omise_customer_token: nil)
         present :status, :success
         present :data, user, with: Entities::UserExpose
       rescue Exception => e

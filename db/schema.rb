@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160815082552) do
+ActiveRecord::Schema.define(version: 20160815083542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,7 @@ ActiveRecord::Schema.define(version: 20160815082552) do
     t.string   "referal_code"
     t.integer  "referrer_id"
     t.string   "onesignal_token"
+    t.string   "omise_customer_token"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["referrer_id"], name: "index_users_on_referrer_id", using: :btree

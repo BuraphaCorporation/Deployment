@@ -17,8 +17,9 @@ default: &default
   AWS_ACCESS_KEY_ID: 'AKIAJ3CURNBFIHWRY2WQ'
   AWS_SECRET_ACCESS_KEY: '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'
   AWS_REGION: 'ap-southeast-1'
-  MANDRILL_USERNAME: 'Daydash'
-  MANDRILL_API_KEY: 'DPnj4_BSZAWbey7NWsS8rQ'
+  MAILGUN_USERNAME: 'postmaster@daydash.co'
+  MAILGUN_PASSWORD: 'f6b0bf49107aedd15e63c574402fc595'
+  MAILGUN_API_KEY: 'key-1eba6c459b82d4ef064a4ae1692fc333'
 
 development:
   <<: *default

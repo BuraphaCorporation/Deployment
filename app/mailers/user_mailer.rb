@@ -1,31 +1,20 @@
-# class UserMailer < ApplicationMailer
-class UserMailer < MandrillMailer::TemplateMailer
+class UserMailer < ApplicationMailer
   default from: 'noreply@daydash.co'
 
+  # Subject can be set in your I18n file at config/locales/en.yml
+  # with the following lookup:
+  #
+  #   en.user_mailer.welcome.subject
+  #
   def welcome(user)
-    mandrill_mail(
-      from: 'noreply@daydash.co',
-      from_name: "Daydash.co",
-      template: 'welcome',
-      subject: 'welcome',
-      to: { email: user.email },
-      vars: {
-        "FIRST_NAME"    => user.first_name,
-        "LAST_NAME"     => user.last_name,
-        "EMAIL"         => user.email,
-      },
-      important: true,
-      inline_css: true
-    )
-  end
+    @user    = user
+    @subject = "Welcome to daydash.co"
 
-  # def welcome_email(user)
-  #   # @user = user
-  #   # @url  = 'http://example.com/login'
-  #   # mail(to: @user.email, subject: 'Welcome to My Awesome Site')
-  # end
-  #
-  # def welcome_facebook(user)
-  #
-  # end
+    parameters = {
+      to:       @user.email,
+      subject:  @subject
+    }
+    $mailgun.messages.send_email(parameters)
+    # mail(to: @user.email, subject: 'Welcome to daydash.co')
+  end
 end

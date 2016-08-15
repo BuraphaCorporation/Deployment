@@ -9,5 +9,6 @@ class Entities::UserExpose < Grape::Entity
     a.avatar(:medium)
   end
   expose :onesignal_token
+  expose :omise_customer_token
   expose :referal_code
 end

@@ -53,6 +53,23 @@ class Mobile::UserAPI < ApplicationAPI
       end
     end
 
+    desc "onesignal"
+    params do
+      requires :user_token, type: String, desc: "token of the user"
+      requires :onesignal_token, type: String, desc: "token for notification"
+    end
+    put '/notification' do
+      begin
+        user = User.find_by_token(params[:user_token])
+        user.update(onesignal_token: params[:onesignal_token])
+        present :status, :success
+        present :data, user, with: Entities::UserExpose
+      rescue Exception => e
+        present :status, :failure
+        present :data, e
+      end
+    end
+
     desc "change password"
     params do
       requires :user_token, type: String, desc: "token of the user"

@@ -19,11 +19,18 @@ class Client::ProfileController < Client::CoreController
   end
 
   def settings
-
+    @user = current_user
   end
 
   def settings_update
+    current_user.update(user_params)
+    redirect_to :back
+  end
 
+  def change_password
+    binding.pry
+    current_user.update(password: params[:user][:new_password])
+    redirect_to :back
   end
 
   #Mockup Auth System
@@ -35,4 +42,12 @@ class Client::ProfileController < Client::CoreController
     redirect_to '/'
   end
 
+  private
+    def user_params
+      params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone)
+    end
+
+    def check_password
+      current_user.valid_password?(params[:user][:current_password]) && (params[:user][:new_password] == params[:user][:new_password_confirm])
+    end
 end

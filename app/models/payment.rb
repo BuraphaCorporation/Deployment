@@ -15,7 +15,8 @@ class Payment < ActiveRecord::Base
   # after_create :add_ticket
 
   def send_payment_mail
-    PaymentMailer.checkout(self, self.user).deliver!
+    PaymentMailer.checkout(self.user).deliver!
+    $slack.ping "#{self.inspect}\n #{self.user.inspect}"
   rescue
     logger.fatal self
   end

@@ -5,5 +5,4 @@ class PaymentMailerPreview < ActionMailer::Preview
   def checkout
     PaymentMailer.checkout
   end
-
 end

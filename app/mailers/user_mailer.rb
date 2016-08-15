@@ -7,14 +7,14 @@ class UserMailer < ApplicationMailer
   #   en.user_mailer.welcome.subject
   #
   def welcome(user)
-    @user    = user
+    @user    = User.first
     @subject = "Welcome to daydash.co"
 
-    parameters = {
-      to:       @user.email,
-      subject:  @subject
-    }
-    $mailgun.messages.send_email(parameters)
-    # mail(to: @user.email, subject: 'Welcome to daydash.co')
+    # parameters = {
+    #   to:       @user.email,
+    #   subject:  @subject
+    # }
+    # $mailgun.messages.send_email(parameters)
+    mail(to: @user.email, subject: 'Welcome to daydash.co')
   end
 end

@@ -3,7 +3,7 @@ class PaymentMailerPreview < ActionMailer::Preview
 
   # Preview this email at http://localhost:3000/rails/mailers/payment_mailer/checkout
   def checkout
-    PaymentMailerMailer.checkout
+    PaymentMailer.checkout
   end
 
 end

@@ -27,7 +27,7 @@ user = User.create do |user|
   user.last_name              = 'Hongklay'
   user.password               = '1234567890'
   user.password_confirmation  = '1234567890'
-  user.confirmed_at           = Time.zone.now
+  user.confirmed_at           = Time.zone.now + rand(5..30).days
   user.role_id                = Role.find_by_title('admin').id
 end
 puts user
@@ -187,8 +187,8 @@ puts "update sections"
 lazgam.sections.create([
   {
     title:      "1 person",
-    event_time: Time.zone.now,
-    end_time:   Time.zone.now,
+    event_time: Time.zone.now + rand(5..30).days,
+    end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
     available:  100,
     bought:     100
@@ -235,8 +235,8 @@ lazgam.sections.create([
   },
   {
     title:      "1 person",
-    event_time: Time.zone.now + 30.days,
-    end_time:   Time.zone.now + 30.days,
+    event_time: Time.zone.now + rand(5..30).days + 30.days,
+    end_time:   Time.zone.now + rand(5..30).days + 30.days,
     price:      1000,
     available:  100,
     bought:     100
@@ -254,8 +254,8 @@ shopspot1.sections.create([
   },
   {
     title:      "1 person",
-    event_time: Time.zone.now,
-    end_time:   Time.zone.now,
+    event_time: Time.zone.now + rand(5..30).days,
+    end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
     available:  100,
     bought:     100
@@ -273,8 +273,8 @@ shopspot2.sections.create([
   },
   {
     title:      "1 person",
-    event_time: Time.zone.now,
-    end_time:   Time.zone.now,
+    event_time: Time.zone.now + rand(5..30).days,
+    end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
     available:  100,
     bought:     100
@@ -292,8 +292,8 @@ studiolam.sections.create([
   },
   {
     title:      "1 person",
-    event_time: Time.zone.now,
-    end_time:   Time.zone.now,
+    event_time: Time.zone.now + rand(5..30).days,
+    end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
     available:  100,
     bought:     100
@@ -311,8 +311,8 @@ beam.sections.create([
   },
   {
     title:      "1 person",
-    event_time: Time.zone.now,
-    end_time:   Time.zone.now,
+    event_time: Time.zone.now + rand(5..30).days,
+    end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
     available:  100,
     bought:     100
@@ -330,8 +330,8 @@ olive.sections.create([
   },
   {
     title:      "1 person",
-    event_time: Time.zone.now,
-    end_time:   Time.zone.now,
+    event_time: Time.zone.now + rand(5..30).days,
+    end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
     available:  100,
     bought:     100

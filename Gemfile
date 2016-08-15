@@ -48,6 +48,7 @@ gem 'gcloud'
 gem 'intercom-rails'
 gem 'one_signal'
 gem 'mailgun'
+gem 'slack-notifier'
 
 # make api
 gem 'jbuilder', '~> 2.5'

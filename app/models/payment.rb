@@ -16,6 +16,7 @@ class Payment < ActiveRecord::Base
 
   def send_payment_mail
     PaymentMailer.checkout(self.user).deliver!
+    $slack.ping "#{self.inspect}\n #{self.user.inspect}"
   rescue
     logger.fatal self
   end

@@ -1,0 +1,49 @@
+<script>$('body').attr('id', 'profile-ticket-list-page');</script>
+<script>$('body').addClass('profile-page');</script>
+
+<div class="section">
+  <div class="container">
+    <%= render partial: "client/profile/parts/profile-nav" %>
+    <script>$('#profile-nav #menu-my-tickets').addClass('active');</script>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-9">
+        <div class="ticket-list">
+          <div class="list-header">
+            <h1>My Tickets</h1>
+            <pre>
+              <%= @payment.inspect %>
+            </pre>
+          </div>
+
+          <div class="list-body">
+            <% @tickets.each do |ticket| %>
+              <div class="ticket card-side-cover">
+                <a class="cover" style="background-image: url(<%= ticket.event.galleries.first.media(:thumb) %>);" href="#"></a>
+                <div class="info">
+                  <div class="info-body">
+                    <h4 class="title">
+                      <%= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
+                        <%= ticket.event.title %>
+                      <% end %>
+                    </h4>
+                    <div class="meta date">วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
+                    <div class="meta location">Thonglor House Club, ซอยทองหล่อ</div>
+                  </div>
+                  <div class="info-footer">
+                    <div class="row">
+                      <div class="col-xs-12 col-md-7">
+                        <span class="ticket-price">฿ <%= ticket.event.first_section.price %></span>
+                        <span class="purchase-date">purchased on <%= ticket.event.first_section.event_time_human %></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

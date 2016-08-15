@@ -50,9 +50,9 @@
                       <div class="user-profile-photo" style="background-image: url(<%= current_user.avatar(:medium) %>"></div>
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a href="/profile/tickets">My Tickets</a></li>
+                      <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
                       <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
-                      <li><a href="/profile/settings">Edit Profile</a></li>
+                      <li><%= link_to "Edit Profile", client_profile_settings_path(current_user) %></li>
                       <li>
                       <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
                       </li>

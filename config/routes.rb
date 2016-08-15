@@ -28,25 +28,34 @@ Rails.application.routes.draw do
         post '/checkout', to: 'events#checkout'
       end
 
-      get '/profile/', to: 'profile#index'
-      get '/profile/tickets', to: 'profile#tickets'
-      get '/profile/tickets/:ticket_id', to: 'profile#ticket', as: :ticket_id
-      get '/profile/wishlist', to: 'profile#wishlist'
-      get '/profile/settings', to: 'profile#settings'
-      get '/profile/logout', to: 'profile#logout'
-      post '/profile/login', to: 'profile#login'
-      post '/profile/settings', to: 'profile#settings_update'
+      # get '/profile/', to: 'profile#index'
+      # get '/profile/tickets', to: 'profile#tickets'
+      # get '/profile/tickets/:ticket_id', to: 'profile#ticket', as: :ticket_id
+      # get '/profile/wishlist', to: 'profile#wishlist'
+      # get '/profile/settings', to: 'profile#settings'
+      # get '/profile/logout', to: 'profile#logout'
+      # post '/profile/login', to: 'profile#login'
+      # put '/profile/settings', to: 'profile#settings_update'
+      # put '/profile/change_password', to: 'profile#change_password'
+
+      resources :profile, only: [:index] do
+        get '/tickets', to: 'profile#tickets'
+        get '/tickets/:ticket_id/', to: 'profile#ticket', as: :ticket
+        get '/settings', to: 'profile#settings'
+        put '/settings', to: 'profile#settings_update'
+        put '/change_password', to: 'profile#change_password'
+      end
     end
 
-    namespace :management do
-      get '/', to: 'events#index'
-      resources :events do
-        collection do
-          delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
-        end
-      end
-      resources :users, except: :show
-    end
+    # namespace :management do
+    #   get '/', to: 'events#index'
+    #   resources :events do
+    #     collection do
+    #       delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
+    #     end
+    #   end
+    #   resources :users, except: :show
+    # end
 
     namespace :organizer do
         get '/', to: 'dashboard#index'

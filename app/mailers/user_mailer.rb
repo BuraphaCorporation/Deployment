@@ -1,13 +1,20 @@
 class UserMailer < ApplicationMailer
   default from: 'noreply@daydash.co'
 
-  def welcome_email(user)
-    # @user = user
-    # @url  = 'http://example.com/login'
-    # mail(to: @user.email, subject: 'Welcome to My Awesome Site')
-  end
+  # Subject can be set in your I18n file at config/locales/en.yml
+  # with the following lookup:
+  #
+  #   en.user_mailer.welcome.subject
+  #
+  def welcome(user)
+    @user    = user
+    @subject = "Welcome to daydash.co"
 
-  def welcome_facebook(user)
-
+    parameters = {
+      to:       @user.email,
+      subject:  @subject
+    }
+    $mailgun.messages.send_email(parameters)
+    # mail(to: @user.email, subject: 'Welcome to daydash.co')
   end
 end

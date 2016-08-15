@@ -16,12 +16,12 @@ gem 'slick_rails'
 gem 'momentjs-rails'
 # gem 'bootstrap-sass'
 # gem 'autoprefixer-rails'
-gem "cocoon"
+gem 'cocoon'
 
 # helper database
 gem 'figaro'
 gem 'bcrypt', '~> 3.1.7'
-gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
+gem 'paranoia', github: 'rubysherpas/paranoia', branch: 'rails5'
 gem 'active_model_serializers'
 gem 'activemodel-serializers-xml'
 gem 'rails-controller-testing'
@@ -47,6 +47,7 @@ gem 'aws-sdk', '>= 2.0.34'
 gem 'gcloud'
 gem 'intercom-rails'
 gem 'one_signal'
+gem 'mailgun'
 
 # make api
 gem 'jbuilder', '~> 2.5'

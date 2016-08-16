@@ -1,5 +1,6 @@
 
 class Organizer::CoreController < ApplicationController
+  before_action :authenticate!
   before_action :organizer!
 
   layout 'daydash'

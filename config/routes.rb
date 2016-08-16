@@ -16,10 +16,10 @@ Rails.application.routes.draw do
 
     root 'client/events#index'
 
-    get 'faq', to: 'greetings#faq'
+    get 'faq',                  to: 'greetings#faq'
     get 'terms-and-conditions', to: 'greetings#terms'
-    get 'privacy-policy', to: 'greetings#policy'
-    get 'rating', to: 'greetings#rating'
+    get 'privacy-policy',       to: 'greetings#policy'
+    get 'rating',               to: 'greetings#rating'
 
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category
@@ -28,42 +28,33 @@ Rails.application.routes.draw do
         post '/checkout', to: 'events#checkout'
       end
 
-      # get '/profile/', to: 'profile#index'
-      # get '/profile/tickets', to: 'profile#tickets'
-      # get '/profile/tickets/:ticket_id', to: 'profile#ticket', as: :ticket_id
-      # get '/profile/wishlist', to: 'profile#wishlist'
-      # get '/profile/settings', to: 'profile#settings'
-      # get '/profile/logout', to: 'profile#logout'
-      # post '/profile/login', to: 'profile#login'
-      # put '/profile/settings', to: 'profile#settings_update'
-      # put '/profile/change_password', to: 'profile#change_password'
-
       resources :profile, only: [:index] do
         get '/tickets', to: 'profile#tickets'
         get '/tickets/:ticket_id/', to: 'profile#ticket', as: :ticket
+        # get '/profile/wishlist', to: 'profile#wishlist'
         get '/settings', to: 'profile#settings'
         put '/settings', to: 'profile#settings_update'
         put '/change_password', to: 'profile#change_password'
       end
     end
 
-    # namespace :management do
-    #   get '/', to: 'events#index'
-    #   resources :events do
-    #     collection do
-    #       delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
-    #     end
-    #   end
-    #   resources :users, except: :show
-    # end
-
     namespace :organizer do
-        get '/', to: 'dashboard#index'
-        get '/settings', to: 'dashboard#settings'
-        post '/settings', to: 'dashboard#settings_update'
-        get '/logout', to: 'dashboard#logout'
-        resources :events do
+      get '/', to: 'dashboard#index'
+      get '/settings', to: 'dashboard#settings'
+      post '/settings', to: 'dashboard#settings_update'
+      get '/logout', to: 'dashboard#logout'
+      resources :events do
+      end
+    end
+
+    namespace :admin do
+      get '/', to: 'events#index'
+      resources :events do
+        collection do
+          delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
         end
+      end
+      resources :users, except: :show
     end
   end
 

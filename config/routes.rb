@@ -40,22 +40,26 @@ Rails.application.routes.draw do
 
     namespace :organizer do
       get '/', to: 'dashboard#index'
-      get '/settings', to: 'dashboard#settings'
-      post '/settings', to: 'dashboard#settings_update'
+      # get '/settings', to: 'dashboard#settings'
+      # post '/settings', to: 'dashboard#settings_update'
       get '/logout', to: 'dashboard#logout'
       resources :events do
+        # collection do
+          # delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
+        # end
       end
+      # resources :users, except: :show
     end
 
-    namespace :admin do
-      get '/', to: 'events#index'
-      resources :events do
-        collection do
-          delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
-        end
-      end
-      resources :users, except: :show
-    end
+    # namespace :admin do
+    #   get '/', to: 'events#index'
+    #   resources :events do
+    #     collection do
+    #       delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
+    #     end
+    #   end
+    #   resources :users, except: :show
+    # end
   end
 
   constraints(subdomain: App.api_host) do

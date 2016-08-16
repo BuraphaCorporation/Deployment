@@ -56,12 +56,12 @@ class Mobile::UserAPI < ApplicationAPI
     desc "onesignal"
     params do
       requires :user_token, type: String, desc: "token of the user"
-      requires :onesignal_token, type: String, desc: "token for notification"
+      requires :onesignal_id, type: String, desc: "token for notification"
     end
     put '/notification' do
       begin
         user = User.find_by_token(params[:user_token])
-        user.update(onesignal_token: params[:onesignal_token])
+        user.update(onesignal_id: params[:onesignal_id])
         present :status, :success
         present :data, user, with: Entities::UserExpose
       rescue Exception => e
@@ -90,12 +90,12 @@ class Mobile::UserAPI < ApplicationAPI
     desc "user add credit-card"
     params do
       requires :user_token, type: String, desc: "token of the user"
-      requires :omise_customer_token, type: String, desc: "omise customer token"
+      requires :customer_token, type: String, desc: "omise customer token"
     end
     put '/credit-card' do
       begin
         user = User.find_by_token(params[:user_token])
-        user.update(omise_customer_token: params[:omise_customer_token])
+        user.update(customer_token: params[:customer_token])
         present :status, :success
         present :data, user, with: Entities::UserExpose
       rescue Exception => e
@@ -111,7 +111,7 @@ class Mobile::UserAPI < ApplicationAPI
     delete '/credit-card' do
       begin
         user = User.find_by_token(params[:user_token])
-        user.update(omise_customer_token: nil)
+        user.update(customer_token: nil)
         present :status, :success
         present :data, user, with: Entities::UserExpose
       rescue Exception => e

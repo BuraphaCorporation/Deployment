@@ -12,8 +12,7 @@
           <div class="list-body">
             <% @events.each do |event| %>
             <div class="event card-side-cover">
-              <div class="cover">
-              </div>
+              <a class="cover" style="background-image: url(<%= event.galleries.first.media(:thumb) %>);" href="#"></a>
               <div class="info">
                 <div class="info-body">
                   <h4 class="title"><%= event.title %></h4>

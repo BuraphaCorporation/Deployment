@@ -24,5 +24,4 @@ class MobileAPI < ApplicationAPI
                             models: ::Entities.constants.select { | c | Class === ::Entities.const_get(c) }.
                                                         map { | c | "::Entities::#{c.to_s}".constantize }
 
-
 end

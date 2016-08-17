@@ -4,7 +4,7 @@ class Client::EventsController < Client::CoreController
 
   def index
     @categories  = Category.all
-    @galleries = Gallery.all.shuffle.first(5)
+    # @galleries = Gallery.all.shuffle.first(5)
 
     @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])
       Category.friendly.find(params[:category]).events

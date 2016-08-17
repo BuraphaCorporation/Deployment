@@ -177,8 +177,8 @@ ActiveRecord::Schema.define(version: 20160815083542) do
     t.string   "token"
     t.string   "referal_code"
     t.integer  "referrer_id"
-    t.string   "onesignal_token"
-    t.string   "omise_customer_token"
+    t.string   "onesignal_id"
+    t.string   "customer_token"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["referrer_id"], name: "index_users_on_referrer_id", using: :btree

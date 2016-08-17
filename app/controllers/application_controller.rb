@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  # skip_after_action :intercom_rails_auto_include
+  skip_after_action :intercom_rails_auto_include
 
   protected
     def not_found

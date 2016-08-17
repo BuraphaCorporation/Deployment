@@ -1,4 +1,4 @@
-class Management::EventsController < Management::CoreController
+class Admin::EventsController < Admin::CoreController
 
   before_action :event, only: [:edit, :update, :destroy, :delete_attachment]
   before_action :all_categories, only: [:new, :edit]
@@ -16,9 +16,9 @@ class Management::EventsController < Management::CoreController
     if @event = Event.create(event_params)
       serialize_data_create
 
-      redirect_to edit_management_event_path(@event.id), flash: { notice: "Success!" }
+      redirect_to edit_admin_event_path(@event.id), flash: { notice: "Success!" }
     else
-      redirect_to management_events_path, flash: { error: @event.errors.full_messages }
+      redirect_to admin_events_path, flash: { error: @event.errors.full_messages }
     end
   end
 

@@ -24,13 +24,13 @@ class Organizer::EventsController < Organizer::CoreController
 
   def show
     @event = Event.friendly.find(params[:id])
-
-    @payments = [
-      { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
-      { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 1, type: 'VIP', total: 2500 },
-      { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
-      { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
-    ]
+    @payments = @event.payments
+    # @payments = [
+    #   { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
+    #   { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 1, type: 'VIP', total: 2500 },
+    #   { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
+    #   { purchased_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
+    # ]
   end
 
   def edit

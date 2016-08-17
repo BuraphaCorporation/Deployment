@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
                     styles: { medium: "300x300>", thumb: "100x100#" },
-                    default_url: '/defalut/:attachment/missing_user.png'
+                    default_url: "#{App.domain}/src/images/profile/missing-profile.png"
 
   validates_attachment_content_type :avatar,
                                     content_type: /\Aimage\/.*\Z/
@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
     user.token        = user.generate_token
     user.referal_code = user.default_referal
   end
+  after_create :create_customer_token
   after_create :send_welcome_mail
 
   def generate_token
@@ -48,9 +49,22 @@ class User < ActiveRecord::Base
     end
   end
 
+  def create_customer_token
+    begin
+      customer = Omise::Customer.create({
+        email: self.email,
+        description: "#{self.first_name} #{self.last_name} id: #{self.id}"
+      })
+      self.update(customer_token: customer.id)
+    rescue Exception => e
+      logger.warn e
+    end
+  end
+
   def send_welcome_mail
     UserMailer.welcome(self).deliver
   end
+
   # def is_management?
   #   role.title == 'management'
   # end
@@ -64,7 +78,7 @@ class User < ActiveRecord::Base
   end
 
   def can_organizer?
-    role.title = 'admin'
+    role.title == 'admin'
   end
 
   def self.from_api(token)
@@ -115,14 +129,13 @@ class User < ActiveRecord::Base
     User.find_by_token(token)
   end
 
-protected
+  protected
+    def confirmation_required?
+      false
+    end
 
-  def confirmation_required?
-    false
-  end
-
-private
-  def set_default_role
-    self.role ||= Role.find_by_title('user')
-  end
+  private
+    def set_default_role
+      self.role ||= Role.find_by_title('user')
+    end
 end

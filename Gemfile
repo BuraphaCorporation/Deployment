@@ -49,6 +49,7 @@ gem 'intercom-rails'
 gem 'one_signal'
 gem 'mailgun'
 gem 'slack-notifier'
+gem "intercom-rails"
 
 # make api
 gem 'jbuilder', '~> 2.5'

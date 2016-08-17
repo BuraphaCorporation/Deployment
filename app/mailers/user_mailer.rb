@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
   #   en.user_mailer.welcome.subject
   #
   def welcome(user)
-    @user    = User.first
+    @user    = user
     @subject = "Welcome to daydash.co"
 
     # parameters = {

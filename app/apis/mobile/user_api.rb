@@ -31,13 +31,14 @@ class Mobile::UserAPI < ApplicationAPI
       requires :phone, type: String, desc: 'phone'
       requires :birthday, type: String, desc: 'birthday formatting dd/MM/YYYY'
       requires :gender, type: String, desc: 'male, female input'
+      requires :onesignal_id, type: String, desc: "token for notification"
     end
     put '/' do
       begin
         user = User.find_by_token(params[:user_token])
         if user.present?
           if params[:gender] == 'male' or params[:gender] == 'female'
-            user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender])
+            user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender], nesignal_id: params[:onesignal_id])
             present :status, :success
             present :data, user, with: Entities::UserExpose
           else
@@ -47,23 +48,6 @@ class Mobile::UserAPI < ApplicationAPI
         else
           present :status, :failure
         end
-      rescue Exception => e
-        present :status, :failure
-        present :data, e
-      end
-    end
-
-    desc "onesignal"
-    params do
-      requires :user_token, type: String, desc: "token of the user"
-      requires :onesignal_id, type: String, desc: "token for notification"
-    end
-    put '/notification' do
-      begin
-        user = User.find_by_token(params[:user_token])
-        user.update(onesignal_id: params[:onesignal_id])
-        present :status, :success
-        present :data, user, with: Entities::UserExpose
       rescue Exception => e
         present :status, :failure
         present :data, e
@@ -87,38 +71,58 @@ class Mobile::UserAPI < ApplicationAPI
       end
     end
 
-    desc "user add credit-card"
+    desc "show credit-card"
     params do
       requires :user_token, type: String, desc: "token of the user"
-      requires :customer_token, type: String, desc: "omise customer token"
+      # requires :customer_token, type: String, desc: "omise customer token"
     end
-    put '/credit-card' do
+    get '/credit-card' do
       begin
         user = User.find_by_token(params[:user_token])
-        user.update(customer_token: params[:customer_token])
+
+        customer = Omise::Customer.retrieve(user.customer_token)
+        cards = customer.cards
+        binding.pry
         present :status, :success
-        present :data, user, with: Entities::UserExpose
+        present :data, cards
       rescue Exception => e
         present :status, :failure
         present :data, e
       end
     end
 
-    desc "user delete credit-card"
-    params do
-      requires :user_token, type: String, desc: "token of the user"
-    end
-    delete '/credit-card' do
-      begin
-        user = User.find_by_token(params[:user_token])
-        user.update(customer_token: nil)
-        present :status, :success
-        present :data, user, with: Entities::UserExpose
-      rescue Exception => e
-        present :status, :failure
-        present :data, e
-      end
-    end
+    # desc "user add credit-card"
+    # params do
+    #   requires :user_token, type: String, desc: "token of the user"
+    #   requires :customer_token, type: String, desc: "omise customer token"
+    # end
+    # put '/credit-card' do
+    #   begin
+    #     user = User.find_by_token(params[:user_token])
+    #     user.update(customer_token: params[:customer_token])
+    #     present :status, :success
+    #     present :data, user, with: Entities::UserExpose
+    #   rescue Exception => e
+    #     present :status, :failure
+    #     present :data, e
+    #   end
+    # end
+    #
+    # desc "user delete credit-card"
+    # params do
+    #   requires :user_token, type: String, desc: "token of the user"
+    # end
+    # delete '/credit-card' do
+    #   begin
+    #     user = User.find_by_token(params[:user_token])
+    #     user.update(customer_token: nil)
+    #     present :status, :success
+    #     present :data, user, with: Entities::UserExpose
+    #   rescue Exception => e
+    #     present :status, :failure
+    #     present :data, e
+    #   end
+    # end
 
     desc "action referal"
     params do

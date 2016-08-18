@@ -16,16 +16,22 @@
               <div class="info">
                 <div class="info-body">
                   <h4 class="title"><%= event.title %></h4>
-                  <div class="meta date">วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
-                  <div class="meta location">Thonglor House Club, ซอยทองหล่อ</div>
+                  <div class="meta date"><%= event.sections.first %></div>
+                  <div class="meta location"><%= event.location_name %></div>
                 </div>
                 <div class="info-footer">
                   <div class="row">
                     <div class="col-xs-12">
                       <ul class="list-inline list-action-nav pull-right">
-                        <li><a href="<%= organizer_event_path(event) %>">Transaction List</a></li>
-                        <li><a href="<%= edit_organizer_event_path(event) %>">Edit</a></li>
-                        <li><a href="<%= client_event_path(event) %>">View Event</a></li>
+                        <li>
+                          <%= link_to "Transaction List", organizer_event_path(event) %>
+                        </li>
+                        <li>
+                          <%= link_to "Edit", edit_organizer_event_path(event), target: '_self' %>
+                        </li>
+                        <li>
+                          <%= link_to "View Event", organizer_event_path(event) %>
+                        </li>
                       </ul>
                     </div>
                   </div>

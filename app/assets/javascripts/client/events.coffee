@@ -53,6 +53,7 @@ $(document).ready ->
 
   initGoogleMap()
 
+
 ((d, s, id) ->
   js = undefined
   fjs = d.getElementsByTagName(s)[0]

@@ -1,4 +1,6 @@
 class GreetingsController < ApplicationController
+  layout false
+
   def faq
   end
 
@@ -17,5 +19,8 @@ class GreetingsController < ApplicationController
     else
       "http://daydash.co"
     end.html_safe
+  end
+
+  def campaign
   end
 end

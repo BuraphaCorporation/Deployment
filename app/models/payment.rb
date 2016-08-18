@@ -52,6 +52,14 @@ class Payment < ActiveRecord::Base
     logger.fatal self
   end
 
+  def purchased
+    purchased_at.try(:strftime, "%A %d %B, %H:%M")
+  end
+
+  def purchased_status
+    purchased || 'pending'
+  end
+
   class << self
     def code
       loop do

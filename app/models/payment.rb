@@ -45,7 +45,7 @@ class Payment < ActiveRecord::Base
   after_create :send_payment_mail
   # after_create :add_ticket
 
-  dragonfly_accessor :qr_code
+  # dragonfly_accessor :qr_code
 
   def send_payment_mail
     PaymentMailer.checkout(self.user).deliver!

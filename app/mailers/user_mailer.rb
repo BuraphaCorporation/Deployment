@@ -17,4 +17,10 @@ class UserMailer < ApplicationMailer
     # $mailgun.messages.send_email(parameters)
     mail(to: @user.email, subject: 'Welcome to daydash.co')
   end
+
+  def reminder(user)
+    @user    = user
+    @subject = "Welcome to daydash.co"
+    mail(to: @user.email, subject: 'Welcome to daydash.co')
+  end
 end

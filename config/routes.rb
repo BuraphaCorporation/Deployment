@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get 'terms-and-conditions', to: 'greetings#terms'
     get 'privacy-policy',       to: 'greetings#policy'
     get 'rating',               to: 'greetings#rating'
+    get 'campaign',             to: 'greetings#campaign'
 
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category

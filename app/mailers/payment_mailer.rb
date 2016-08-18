@@ -5,16 +5,18 @@ class PaymentMailer < ApplicationMailer
   #
   #   en.payment_mailer.checkout.subject
   #
-  def order(user)
+  def order(payment, user, event)
+    @payment  = payment
     @user     = user
-    @greeting = "Hi"
+    @event    = event
 
     mail to: @user.email
   end
 
-  def ticket(user)
+  def ticket(payment, user, event)
+    @payment  = payment
     @user     = user
-    @greeting = "Hi"
+    @event    = event
 
     mail to: @user.email
   end

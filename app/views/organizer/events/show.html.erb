@@ -24,7 +24,7 @@
                 <tbody>
                   <% @payments.each do |payment| %>
                   <tr>
-                    <td><%= payment.created_at %></td>
+                    <td><%= payment.purchased_status %></td>
                     <td><%= "#{payment.user.first_name} #{payment.user.last_name}" %></td>
                     <td><%= payment.user.phone %></td>
                     <td><%= payment.tickets.count %></td>

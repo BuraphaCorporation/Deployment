@@ -97,7 +97,8 @@
 <%= render partial: "layouts/parts/google_maps" %>
 
 <!-- Template -->
-<script id="new-ticket-template" type="x-tmpl-mustache">
+<%= render partial: "layouts/parts/section" %>
+<!-- <script id="new-ticket-template" type="x-tmpl-mustache">
   <tr class="ticket new-ticket">
     <td><input class="form-control" type="text" name="new_ticket_titles[]" value="" placeholder="eg. General, VIP" /></td>
     <td><input class="form-control" type="number" name="new_ticket_availables[]" value="" /></td>
@@ -125,7 +126,7 @@
       <a class="btn btn-sm btn-default btn-ticket-add" href="#" onclick="return on_ticket_add(this);"><i class="fa fa-plus"></i></a>
     </td>
   </tr>
-</script>
+</script> -->
 
 <script> //Init Function
   function init_datetimepicker(element) {

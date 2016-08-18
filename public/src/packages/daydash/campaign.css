@@ -1,0 +1,134 @@
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-Regular.ttf); }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-Italic.ttf);
+  font-style: italic; }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-Bold.ttf);
+  font-weight: 600; }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-BoldItalic.ttf);
+  font-weight: 600;
+  font-style: italic; }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-Light.ttf);
+  font-weight: 200; }
+@font-face {
+  font-family: 'Kanit';
+  src: url(../../fonts/Kanit/Kanit-LightItalic.ttf);
+  font-weight: 200;
+  font-style: italic; }
+@font-face {
+  font-family: 'Athiti';
+  src: url(../../fonts/Athiti/Athiti-Regular.ttf); }
+@font-face {
+  font-family: 'Athiti';
+  src: url(../../fonts/Athiti/Athiti-Bold.ttf);
+  font-weight: 600; }
+@font-face {
+  font-family: 'Athiti';
+  src: url(../../fonts/Athiti/Athiti-Light.ttf);
+  font-weight: 200; }
+#campaign-page #main {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; }
+#campaign-page #intro-section {
+  padding-bottom: 30px;
+  text-align: center; }
+  #campaign-page #intro-section .container {
+    max-width: 750px; }
+  #campaign-page #intro-section .section-title {
+    font-family: "Kanit", "Helvetica Neue", "sans-serif";
+    font-size: 46;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px; }
+  #campaign-page #intro-section .section-description {
+    font-family: "Athiti", "Helvetica Neue", "sans-serif";
+    font-size: 16px;
+    color: #444; }
+#campaign-page #event-section .section-body .event {
+  position: relative;
+  height: 350px;
+  margin-bottom: 30px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2); }
+  #campaign-page #event-section .section-body .event .cover {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ccc; }
+  #campaign-page #event-section .section-body .event .info {
+    position: absolute;
+    height: auto;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 100;
+    padding: 15px;
+    text-align: center;
+    font-family: "Athiti", "Helvetica Neue", "sans-serif";
+    font-size: 14px;
+    color: white; }
+    #campaign-page #event-section .section-body .event .info h4 {
+      font-family: "Kanit", "Helvetica Neue", "sans-serif";
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 2px; }
+    #campaign-page #event-section .section-body .event .info .btn {
+      margin-top: 10px; }
+#campaign-page #event-section .section-footer {
+  padding-bottom: 30px;
+  font-family: "Athiti", "Helvetica Neue", "sans-serif";
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 1px; }
+  #campaign-page #event-section .section-footer a {
+    color: #777;
+    text-decoration: none; }
+#campaign-page #footer-section {
+  text-align: center; }
+  #campaign-page #footer-section .section-title {
+    font-family: "Kanit", "Helvetica Neue", "sans-serif";
+    font-weight: bold;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 30px; }
+  #campaign-page #footer-section .sponser-list li {
+    padding: 0px 30px; }
+    #campaign-page #footer-section .sponser-list li a img {
+      height: 50px; }
+#campaign-page .btn-pink-blue {
+  padding: 10px 5px;
+  font-size: 20px;
+  border-radius: 25px;
+  border: 0px;
+  background: linear-gradient(to right, #F57A7A, #456EE6);
+  color: white;
+  font-family: "Kanit", "Helvetica Neue", "sans-serif";
+  font-weight: bold;
+  letter-spacing: 0.5px; }
+@media (max-width: 991px) {
+  #campaign-page #intro-section .section-title br {
+    display: none; }
+  #campaign-page #footer-section .sponser-list li {
+    padding: 0px 15px; }
+    #campaign-page #footer-section .sponser-list li a img {
+      height: 30px; } }
+
+/*# sourceMappingURL=campaign.css.map */

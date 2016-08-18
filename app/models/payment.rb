@@ -48,7 +48,15 @@ class Payment < ActiveRecord::Base
   # dragonfly_accessor :qr_code
 
   def send_payment_mail
-    PaymentMailer.checkout(self.user).deliver!
+    case provider
+    when 'transfer'
+      OrganizerMailer.order(self.user).deliver!
+      PaymentMailer.order(self.user).deliver!
+      PaymentMailer.ticket(self.user).deliver!
+    when 'omise'
+      OrganizerMailer.order(self.user).deliver!
+      PaymentMailer.order(self.user).deliver!
+    end
     $slack.ping "#{self.inspect}\n #{self.user.inspect}"
   rescue
     logger.fatal self

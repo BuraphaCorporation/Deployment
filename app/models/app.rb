@@ -14,8 +14,16 @@ class App < Struct.new(:region, :environment, :version)
                       when 'api'
                         "#{api_host}.#{root_domain}#{port}"
                       else
-                        "#{host}.#{root_domain}#{port}"
+                        if environment.production?
+                          "#{root_domain}"
+                        else
+                          "#{host}.#{root_domain}#{port}"
+                        end
                       end
+  end
+
+  def blog
+    protocol + '//blog.' + root_domain
   end
 
   def root_domain
@@ -34,8 +42,6 @@ class App < Struct.new(:region, :environment, :version)
 
   def host
     case environment
-    when 'beta', 'production'
-      'beta'
     when 'staging', 'brick'
       'brick'
     when 'non'
@@ -44,6 +50,8 @@ class App < Struct.new(:region, :environment, :version)
       'dev-pop'
     when 'development'
       'dev'
+    else
+      ''
     end
   end
 

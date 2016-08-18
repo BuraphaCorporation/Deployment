@@ -18,7 +18,7 @@
                 <tr>
                   <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                     <h1 style="background: black; color: white; padding: 5px; margin-bottom: 3px; display: inline-block;">
-                      Hi Bow, we’ve got your order!
+                      Hi <%= "#{@user.first_name}" %>, we’ve got your order!
                     </h1>
                     <h1 style="padding: 0px 5px; padding-bottom: 30px;">
                       Just one more step :)
@@ -66,11 +66,11 @@
                       </tr>
                       <tr>
                         <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;">
-                          <strong>Give Me Soap เวิร์คช็อปทำสบู่ของขวัญ</strong><br>
+                          <strong><%= @event.title %></strong><br>
                           <p style="font-size: 14px; font-weight: 200;">
                             Sunday 04 September, 02:54<br />
-                            ShopSpot HQ, BTS อารีย์
-                            [<a href="#">ดูแผนที่</a>]
+                            <%= @event.location_name %>
+                            [<a href='https://www.google.co.th/maps?q=loc:<%= "#{@event.latitude},#{@event.longitude}" %>' target="_blank">ดูแผนที่</a>]
                           </p>
                         </td>
                       </tr>
@@ -105,7 +105,7 @@
                         <td class="mcnTextContent" valign="top">
                           <table class="invoice-info" width="100%">
                             <tr>
-                              <td style="font-size: 14px; font-weight: 200;" >คำสั่งซื้อเลขที่ <a href="#">#12345</a></td>
+                              <td style="font-size: 14px; font-weight: 200;" >คำสั่งซื้อเลขที่ <a href='<%= "#{App.domain}/profile/#{@user.id}/tickets" %>'>#<%= @payment.code %></a></td>
                               <td style="font-size: 14px; font-weight: 200;" colspan="2" align="right">25 กันยายน 2016</td>
                             </tr>
                             <tr>

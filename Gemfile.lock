@@ -120,6 +120,7 @@ GEM
     capybara-webkit (1.11.1)
       capybara (>= 2.3.0, < 2.8.0)
       json
+    chunky_png (1.3.6)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.8)
@@ -152,6 +153,10 @@ GEM
     digest-crc (0.4.1)
     domain_name (0.5.20160615)
       unf (>= 0.0.5, < 1.0.0)
+    dragonfly (1.0.12)
+      addressable (~> 2.3)
+      multi_json (~> 1.0)
+      rack (>= 1.3.0)
     enumerable-lazy (0.0.1)
     equalizer (0.0.11)
     erubis (2.7.0)
@@ -406,6 +411,11 @@ GEM
     retriable (2.1.0)
     rollbar (2.12.0)
       multi_json
+    rqrcode (0.10.1)
+      chunky_png (~> 1.0)
+    rqrcode_png (0.1.5)
+      chunky_png
+      rqrcode
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -528,6 +538,7 @@ DEPENDENCIES
   dalli (~> 2.7.4)
   database_cleaner
   devise
+  dragonfly (~> 1.0.12)
   factory_girl_rails
   ffaker
   figaro
@@ -567,6 +578,7 @@ DEPENDENCIES
   react-rails
   redis (~> 3.2)
   rollbar
+  rqrcode_png
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   shoulda

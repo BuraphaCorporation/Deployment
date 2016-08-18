@@ -82,7 +82,7 @@ Rails.application.routes.draw do
         unlocks:            'users/unlocks',
       }
 
-    if App.host == 'beta'
+    if App.environment.production?
       root :to => redirect('/campaign/dash-your-day')
     else
       root 'client/events#index'

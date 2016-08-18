@@ -6,8 +6,9 @@ class OrganizerMailer < ApplicationMailer
   #   en.organizer_mailer.order.subject
   #
   def order
+    @user     = user
     @greeting = "Hi"
 
-    mail to: "to@example.org"
+    mail to: @user.email
   end
 end

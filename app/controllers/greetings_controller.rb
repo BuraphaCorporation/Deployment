@@ -1,4 +1,6 @@
 class GreetingsController < ApplicationController
+  layout false
+
   def faq
   end
 

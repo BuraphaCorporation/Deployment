@@ -5,7 +5,14 @@ class PaymentMailer < ApplicationMailer
   #
   #   en.payment_mailer.checkout.subject
   #
-  def checkout(user)
+  def order(user)
+    @user     = user
+    @greeting = "Hi"
+
+    mail to: @user.email
+  end
+
+  def ticket(user)
     @user     = user
     @greeting = "Hi"
 

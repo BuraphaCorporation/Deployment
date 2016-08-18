@@ -37,20 +37,25 @@ class Organizer::EventsController < Organizer::CoreController
     @event = Event.friendly.find(params[:id])
     @categories = Category.all
 
-    @sections = [
-      { id: 1, title: 'General', available: 20, price: 500, date: '03/08/2016', start_time: '13:00', end_time: '15:00' },
-      { id: 2, title: 'VIP',     available:  5, price: 500, date: '03/08/2016', start_time: '13:00', end_time: '15:00' },
-      { id: 3, title: 'General', available: 15, price: 500, date: '04/08/2016', start_time: '13:00', end_time: '15:00' },
-    ]
+    # @sections = [
+    #   { id: 1, title: 'General', available: 20, price: 500, date: '03/08/2016', start_time: '13:00', end_time: '15:00' },
+    #   { id: 2, title: 'VIP',     available:  5, price: 500, date: '03/08/2016', start_time: '13:00', end_time: '15:00' },
+    #   { id: 3, title: 'General', available: 15, price: 500, date: '04/08/2016', start_time: '13:00', end_time: '15:00' },
+    # ]
 
-    @images = [
-      { id: 1, url: '/src/images/content/cover-1.jpg' },
-      { id: 2, url: '/src/images/content/cover-2.jpg' },
-      { id: 3, url: '/src/images/content/cover-1.jpg' },
-      { id: 4, url: '/src/images/content/cover-2.jpg' },
-      { id: 5, url: '/src/images/content/cover-1.jpg' },
-      { id: 6, url: '/src/images/content/cover-2.jpg' },
-    ]
+    @sections = @event.sections
+
+    # @images = [
+    #   { id: 1, url: '/src/images/content/cover-1.jpg' },
+    #   { id: 2, url: '/src/images/content/cover-2.jpg' },
+    #   { id: 3, url: '/src/images/content/cover-1.jpg' },
+    #   { id: 4, url: '/src/images/content/cover-2.jpg' },
+    #   { id: 5, url: '/src/images/content/cover-1.jpg' },
+    #   { id: 6, url: '/src/images/content/cover-2.jpg' },
+    # ]
+
+    @images = @event.galleries
+
     @images_order = [];
     @images.each do |image|
       @images_order.push(image[:id])

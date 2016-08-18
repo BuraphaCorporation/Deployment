@@ -31,6 +31,8 @@ gem 'rack-attack'
 gem 'open_uri_redirections'
 gem 'paperclip'
 gem 'paperclip-ffmpeg'
+gem 'rqrcode_png'
+gem 'dragonfly', '~> 1.0.12'
 gem 'friendly_id', '~> 5.1.0'
 
 # nosql

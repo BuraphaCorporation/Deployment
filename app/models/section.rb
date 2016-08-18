@@ -30,6 +30,8 @@ class Section < ApplicationRecord
   enum status: { on: 1, off: 0 }
   attr_accessor :section_name, :section_event_date, :section_end_date, :section_event_time, :section_end_time, :section_price, :section_available
 
+  scope :available, -> { where("event_time > ?", Time.zone.now).order(:event_time) }
+
   def to_event_human
     event_time.try(:strftime, "%A %d %B, %H:%M")
   end

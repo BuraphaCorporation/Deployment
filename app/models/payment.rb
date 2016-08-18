@@ -50,12 +50,12 @@ class Payment < ActiveRecord::Base
   def send_payment_mail
     case provider
     when 'transfer'
-      OrganizerMailer.order(self.user).deliver!
-      PaymentMailer.order(self.user).deliver!
-      PaymentMailer.ticket(self.user).deliver!
+      OrganizerMailer.order(self, self.user, self.event).deliver!
+      PaymentMailer.order(self, self.user, self.event).deliver!
+      PaymentMailer.ticket(self, self.user, self.event).deliver!
     when 'omise'
-      OrganizerMailer.order(self.user).deliver!
-      PaymentMailer.order(self.user).deliver!
+      OrganizerMailer.order(self, self.user, self.event).deliver!
+      PaymentMailer.order(self, self.user, self.event).deliver!
     end
     $slack.ping "#{self.inspect}\n #{self.user.inspect}"
   rescue

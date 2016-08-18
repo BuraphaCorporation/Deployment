@@ -24,12 +24,12 @@
                 <tbody>
                   <% @payments.each do |payment| %>
                   <tr>
-                    <td><%= payment[:purchased_at] %></td>
-                    <td><%= "#{payment[:user][:firstname]} #{payment[:user][:lastname]}" %></td>
-                    <td><%= payment[:user][:tel] %></td>
-                    <td><%= payment[:quantity] %></td>
-                    <td><%= payment[:type] %></td>
-                    <td><%= payment[:total] %></td>
+                    <td><%= payment.created_at %></td>
+                    <td><%= "#{payment.user.first_name} #{payment.user.last_name}" %></td>
+                    <td><%= payment.user.phone %></td>
+                    <td><%= payment.tickets.count %></td>
+                    <td><%= payment.provider %></td>
+                    <td><%= payment.amount %></td>
                   </tr>
                   <% end %>
                 </tbody>

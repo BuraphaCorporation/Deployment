@@ -26,7 +26,7 @@
                 <!-- <li><a href="javascript:void(0)"><i class="ti-lock m-r-5"></i> Lock screen</a></li> -->
                 <!-- <li><a href="javascript:void(0)"><i class="ti-power-off m-r-5"></i> Logout</a></li> -->
                 <li>
-                  <%= link_to management_path do %>
+                  <%= link_to admin_path do %>
                   <i class="ti-user m-r-5"></i> Profile
                   <% end %>
                 </li>
@@ -57,24 +57,24 @@
     </div>
   </div>
 
-  <% if App.is_management? %>
+  <% if current_user.is_admin? %>
     <!-- End topbar -->
     <div class="navbar-custom">
       <div class="container">
         <div id="navigation">
           <ul class="navigation-menu">
             <li class="has-submenu">
-              <%= link_to management_path, target: '_self' do %>
+              <%= link_to admin_path, target: '_self' do %>
               <i class="md md-dashboard"></i>Dashboard
               <% end %>
             </li>
             <li class="has-submenu">
-              <%= link_to management_events_path, target: '_self' do %>
+              <%= link_to admin_events_path, target: '_self' do %>
               <i class="md md-event"></i>Event
               <% end %>
             </li>
             <li class="has-submenu">
-              <%= link_to management_users_path, target: '_self' do %>
+              <%= link_to admin_users_path, target: '_self' do %>
               <i class="md md-person"></i>User
               <% end %>
             </li>

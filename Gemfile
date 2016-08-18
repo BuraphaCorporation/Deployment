@@ -18,8 +18,9 @@ gem 'momentjs-rails'
 # gem 'autoprefixer-rails'
 gem 'cocoon'
 
-# helper database
+# helper model
 gem 'figaro'
+gem 'annotate'
 gem 'bcrypt', '~> 3.1.7'
 gem 'paranoia', github: 'rubysherpas/paranoia', branch: 'rails5'
 gem 'active_model_serializers'
@@ -49,7 +50,6 @@ gem 'intercom-rails'
 gem 'one_signal'
 gem 'mailgun'
 gem 'slack-notifier'
-gem "intercom-rails"
 
 # make api
 gem 'jbuilder', '~> 2.5'

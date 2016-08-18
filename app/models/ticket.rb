@@ -1,3 +1,31 @@
+# == Schema Information
+#
+# Table name: tickets
+#
+#  id         :integer          not null, primary key
+#  status     :integer          default("passed")
+#  user_id    :integer
+#  code       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  payment_id :integer
+#  event_id   :integer
+#  section_id :integer
+#
+# Indexes
+#
+#  index_tickets_on_event_id    (event_id)
+#  index_tickets_on_payment_id  (payment_id)
+#  index_tickets_on_section_id  (section_id)
+#  index_tickets_on_user_id     (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_538a036fb9  (user_id => users.id)
+#  fk_rails_9092443286  (payment_id => payments.id)
+#  fk_rails_e59379c902  (section_id => sections.id)
+#
+
 class Ticket < ActiveRecord::Base
   belongs_to :event
   belongs_to :section

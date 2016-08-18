@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id               :integer          not null, primary key
+#  user_id          :integer
+#  title            :string
+#  description      :text
+#  location_name    :string
+#  latitude         :decimal(10, 6)
+#  longitude        :decimal(10, 6)
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  slug             :string
+#  location_address :string
+#
+# Indexes
+#
+#  index_events_on_slug     (slug) UNIQUE
+#  index_events_on_user_id  (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_0cb5590091  (user_id => users.id)
+#
+
 class Event < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged

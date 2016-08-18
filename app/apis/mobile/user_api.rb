@@ -82,7 +82,7 @@ class Mobile::UserAPI < ApplicationAPI
 
         customer = Omise::Customer.retrieve(user.customer_token)
         cards = customer.cards
-        binding.pry
+
         present :status, :success
         present :data, cards
       rescue Exception => e

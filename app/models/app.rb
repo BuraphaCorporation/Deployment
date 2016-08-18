@@ -22,6 +22,10 @@ class App < Struct.new(:region, :environment, :version)
                       end
   end
 
+  def blog
+    protocol + '//blog.' + root_domain
+  end
+
   def root_domain
     'daydash.co'
   end

@@ -82,18 +82,19 @@ Rails.application.routes.draw do
         unlocks:            'users/unlocks',
       }
 
-    if App.host == 'beta'
+    if App.environment.production?
       root :to => redirect('/campaign/dash-your-day')
     else
       root 'client/events#index'
     end
 
-    get 'faq',                    to: 'greetings#faq'
-    get 'terms-and-conditions',   to: 'greetings#terms'
-    get 'privacy-policy',         to: 'greetings#policy'
-    get 'rating',                 to: 'greetings#rating'
-    get 'campaign/dash-your-day', to: 'greetings#campaign'
-    get 'campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
+    get '/blog' => redirect(App.blog)
+    get '/campaign/dash-your-day', to: 'greetings#campaign'
+    get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
+    get '/faq',                    to: 'greetings#faq'
+    get '/terms-and-conditions',   to: 'greetings#terms'
+    get '/privacy-policy',         to: 'greetings#policy'
+    get '/rating',                 to: 'greetings#rating'
 
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category

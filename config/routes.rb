@@ -93,6 +93,7 @@ Rails.application.routes.draw do
     get 'privacy-policy',         to: 'greetings#policy'
     get 'rating',                 to: 'greetings#rating'
     get 'campaign/dash-your-day', to: 'greetings#campaign'
+    get 'campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
 
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category

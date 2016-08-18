@@ -42,65 +42,73 @@
         <div class="section" id="event-section">
           <div class="container">
             <div class="row section-body">
-              <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="event">
-                  <div class="cover" style="background-image: url(/src/images/content/campaign/event-1.png);"></div>
+                  <div class="cover" style="background-image: url(/src/images/content/campaign/olive.jpg);"></div>
                   <div class="info">
                     <h4>เวิร์คช็อปทำลูกชุบกับ Olive</h4>
                     <div>1 รางวัล (วันที่ 24 กันยา 2PM-4PM)</div>
-                    <a class="btn btn-block btn-daydash btn-pink-blue" href="#">I want this!</a>
+                    <% if @selected_campaign == 'olive' %>
+                    <a class="btn btn-block btn-daydash btn-green vrlps-trigger" href="#">I want this!</a>
+                    <% else %>
+                    <a class="btn btn-block btn-daydash btn-green" href="/campaign/dash-your-day?campaign=olive">I want this!</a>
+                    <% end %>
                   </div>
                 </div>
               </div>
-              <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="event">
-                  <div class="cover" style="background-image: url(/src/images/content/campaign/event-2.png);"></div>
+                  <div class="cover" style="background-image: url(/src/images/content/campaign/rock-domain.png);"></div>
                   <div class="info">
                     <h4>Rock Climbing 1 Day Pass</h4>
                     <div>2 รางวัล รางวัลละ 2 ท่าน</div>
-                    <a class="btn btn-block btn-daydash btn-pink-blue" href="#">I want this!</a>
+                    <% if @selected_campaign == 'rock-domain' %>
+                    <a class="btn btn-block btn-daydash btn-green vrlps-trigger" href="#">I want this!</a>
+                    <% else %>
+                    <a class="btn btn-block btn-daydash btn-green" href="/campaign/dash-your-day?campaign=rock-domain">I want this!</a>
+                    <% end %>
                   </div>
                 </div>
               </div>
-              <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="col-xs-12 col-sm-6 col-md-4">
                 <div class="event">
-                  <div class="cover" style="background-image: url(/src/images/content/campaign/event-3.png);"></div>
+                  <div class="cover" style="background-image: url(/src/images/content/campaign/lazgam.jpg);"></div>
                   <div class="info">
                     <h4>Lazer Game</h4>
                     <div>5 รางวัล รางวัลละ 4 ท่าน (1 game)</div>
-                    <a class="btn btn-block btn-daydash btn-pink-blue" href="#">I want this!</a>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="event">
-                  <div class="cover" style="background-image: url(/src/images/content/campaign/event-4.png);"></div>
-                  <div class="info">
-                    <h4>Live DJ with your favorite cocktail at BEAM</h4>
-                    <div>5 รางวัล รางวัลละ 2 ท่าน</div>
-                    <a class="btn btn-block btn-daydash btn-pink-blue" href="#">I want this!</a>
+                    <% if @selected_campaign == 'lazgam' %>
+                    <a class="btn btn-block btn-daydash btn-green vrlps-trigger" href="#">I want this!</a>
+                    <% else %>
+                    <a class="btn btn-block btn-daydash btn-green" href="/campaign/dash-your-day?campaign=lazgam">I want this!</a>
+                    <% end %>
                   </div>
                 </div>
               </div>
             </div>
             <div class="row section-footer">
               <div class="col-xs-12">
-                <div><a href="#">*** กติกาและเงื่อนไขการร่วมสนุก และรายละเอียดของรางวัล ***</a></div>
+                <div><a href="/campaign/dash-your-day/terms" target="_blank">*** กติกาและเงื่อนไขการร่วมสนุก และรายละเอียดของรางวัล ***</a></div>
               </div>
             </div>
           </div>
         </div>
+
         <div class="section" id="footer-section">
           <div class="container">
-            <h4 class="section-title">Incredible Activity By</h4>
+            <h4 class="section-title">Incredible Activities By</h4>
             <ul class="list-inline sponser-list">
-              <li><a href="#"><img src="/src/images/content/campaign/sponser-1.png" /></a></li>
-              <li><a href="#"><img src="/src/images/content/campaign/sponser-2.png" /></a></li>
-              <li><a href="#"><img src="/src/images/content/campaign/sponser-3.png" /></a></li>
-              <li><a href="#"><img src="/src/images/content/campaign/sponser-4.png" /></a></li>
+              <li><a target="_blank" href="http://www.rockdomaingym.com/"><img src="/src/images/content/campaign/sponsor-rd.png" /></a></li>
+              <li><a target="_blank" href="http://www.lazgam.com/"><img src="/src/images/content/campaign/sponsor-lazgam.png" /></a></li>
+              <li><a target="_blank" href="https://www.facebook.com/olivecreativelab/"><img src="/src/images/content/campaign/sponsor-olive.png" /></a></li>
             </ul>
           </div>
         </div>
+
+        <ul class="list-inline" id="social-list">
+          <li><a target="_blank" href="https://www.facebook.com/daydashapp/"><i class="icon icon-facebook"></i></a></li>
+          <li><a target="_blank" href="https://www.instagram.com/daydashapp"><i class="icon icon-instagram"></i></a></li>
+          <li><a target="_blank" href="#"><i class="icon icon-line"></i></a></li>
+        </ul>
       </div>
     </div>
 
@@ -114,5 +122,60 @@
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
   </script>
+
+  <% if @selected_campaign == 'lazgam' %>
+<script>
+  (function(d, s, id, ucid) {
+    var js, hd = d.getElementsByTagName("head")[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.setAttribute("data-vrlps-ucid", ucid);
+    js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
+    hd.appendChild(js);
+  }(document, "script", "vrlps-js", "xXx5R50mptUkMKKJ75wqzuQAn6I"));
+</script>
+<script>
+  window.addEventListener('vl_ready', function(e) {
+    VL.openModal();
+  }, false)
+</script>
+
+
+  <% elsif @selected_campaign == 'rock-domain' %>
+<script>
+  (function(d, s, id, ucid) {
+    var js, hd = d.getElementsByTagName("head")[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.setAttribute("data-vrlps-ucid", ucid);
+    js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
+    hd.appendChild(js);
+  }(document, "script", "vrlps-js", "BAYBdxcQ9j8fBd7tDJM3l2FGlgo"));
+</script>
+<script>
+  window.addEventListener('vl_ready', function(e) {
+    VL.openModal();
+  }, false)
+</script>
+  <% elsif @selected_campaign == 'olive' %>
+<script>
+  (function(d, s, id, ucid) {
+    var js, hd = d.getElementsByTagName("head")[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.setAttribute("data-vrlps-ucid", ucid);
+    js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
+    hd.appendChild(js);
+  }(document, "script", "vrlps-js", "qoSau3hvJnZB2UqmvfhyOHhLa1U"));
+</script>
+<script>
+  window.addEventListener('vl_ready', function(e) {
+    VL.openModal();
+  }, false)
+</script>
+  <% end %>
 </body>
 </html>

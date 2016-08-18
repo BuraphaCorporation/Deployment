@@ -6,11 +6,15 @@ class Client::ProfileController < Client::CoreController
   end
 
   def tickets
-    @tickets = current_user.payments
-    @has_tickets = @tickets.present?
+    @tickets = current_user.tickets
   end
 
-  def ticket
+  def orders
+    @payments = current_user.payments
+    @has_tickets = @payments.present?
+  end
+
+  def order
     begin
       @payment = current_user.payments.find(params[:ticket_id])
       @tickets = @payment.tickets

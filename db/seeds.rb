@@ -22,12 +22,12 @@ end
 
 puts "add first user"
 user = User.create do |user|
-  user.email                  = "arnon@hongklay.com"
+  user.email                  = "nonmadden@gmail.com"
   user.first_name             = 'Arnon'
   user.last_name              = 'Hongklay'
   user.password               = '1234567890'
   user.password_confirmation  = '1234567890'
-  user.confirmed_at           = Time.zone.now + rand(5..30).days
+  user.confirmed_at           = Time.zone.now
   user.role_id                = Role.find_by_title('admin').id
 end
 puts user

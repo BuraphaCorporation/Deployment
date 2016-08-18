@@ -1,17 +1,11 @@
-
 class Organizer::CoreController < ApplicationController
   before_action :authenticate_user!
-  before_action :organizer!
+  before_action :authenticate_organizer!
 
   layout 'daydash'
 
-  # @management = true
   protected
-    def organizer!
-      not_found unless current_user.can_organizer?
+    def authenticate_organizer!
+      not_found unless current_user && current_user.can_organizer?
     end
-
-    # def management!
-    #   $management = true
-    # end
 end

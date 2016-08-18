@@ -1,3 +1,34 @@
+# == Schema Information
+#
+# Table name: payments
+#
+#  id                    :integer          not null, primary key
+#  user_id               :integer
+#  event_id              :integer
+#  provider              :string
+#  amount                :integer
+#  fee                   :integer
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  status                :integer
+#  code                  :string
+#  evidence_file_name    :string
+#  evidence_content_type :string
+#  evidence_file_size    :integer
+#  evidence_updated_at   :datetime
+#  purchased_at          :datetime
+#
+# Indexes
+#
+#  index_payments_on_event_id  (event_id)
+#  index_payments_on_user_id   (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_081dc04a02  (user_id => users.id)
+#  fk_rails_1a5e9ad0e2  (event_id => events.id)
+#
+
 class Payment < ActiveRecord::Base
   belongs_to :user
   belongs_to :event
@@ -19,6 +50,14 @@ class Payment < ActiveRecord::Base
     $slack.ping "#{self.inspect}\n #{self.user.inspect}"
   rescue
     logger.fatal self
+  end
+
+  def purchased
+    purchased_at.try(:strftime, "%A %d %B, %H:%M")
+  end
+
+  def purchased_status
+    purchased || 'pending'
   end
 
   class << self

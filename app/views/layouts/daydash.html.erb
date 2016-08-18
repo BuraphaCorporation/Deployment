@@ -40,7 +40,7 @@
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <% if current_user.present? %>
-                  <% if current_user.is_organizer? %>
+                  <% if current_user.can_organizer? %>
                     <li>
                       <%= link_to "Organizer", "/organizer" %>
                     </li>
@@ -51,6 +51,7 @@
                     </a>
                     <ul class="dropdown-menu">
                       <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
+                      <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
                       <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
                       <li><%= link_to "Edit Profile", client_profile_settings_path(current_user) %></li>
                       <li>

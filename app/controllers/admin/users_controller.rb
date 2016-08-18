@@ -1,5 +1,4 @@
-
-class Management::UsersController < Management::CoreController
+class Admin::UsersController < Admin::CoreController
   before_action :user, only: [:edit, :update, :destroy]
 
   def index
@@ -12,9 +11,9 @@ class Management::UsersController < Management::CoreController
 
   def create
     if @user = User.create(user_params)
-      redirect_to management_users_path, flash: { notice: "Success!" }
+      redirect_to admin_users_path, flash: { notice: "Success!" }
     else
-      redirect_to management_users_path, flash: { error: @user.errors.full_messages }
+      redirect_to admin_users_path, flash: { error: @user.errors.full_messages }
     end
   end
 

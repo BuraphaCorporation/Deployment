@@ -10,7 +10,7 @@
       <div class="col-xs-12 col-md-9">
         <div class="ticket-list">
           <div class="list-header">
-            <h1>My Tickets</h1>
+            <h1>E-Ticket</h1>
             <ul class="list-inline">
               <li><a href="#">Live (<%= @tickets.count %>)</a></li>
               <li>|</li>
@@ -24,24 +24,18 @@
                 <div class="info">
                   <div class="info-body">
                     <h4 class="title">
-                      <%= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
+                      <%#= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
                         <%= ticket.event.title %>
-                      <% end %>
+                      <%# end %>
                     </h4>
-                    <div class="meta date">วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
-                    <div class="meta location">Thonglor House Club, ซอยทองหล่อ</div>
+                    <div class="meta date"><%= ticket.section.to_event_human %></div>
+                    <div class="meta location"><%= ticket.event.location_name %></div>
                   </div>
                   <div class="info-footer">
                     <div class="row">
                       <div class="col-xs-12 col-md-7">
                         <span class="ticket-price">฿ <%= ticket.event.first_section.price %></span>
-                        <span class="purchase-date">purchased on <%= ticket.event.first_section.event_time_human %></span>
-                      </div>
-                      <div class="col-xs-12 col-md-5">
-                        <ul class="list-inline list-action-nav pull-right">
-                          <li><%= link_to "View Ticket", client_profile_ticket_path(current_user.id, ticket.id) %></li>
-                          <li><a href="<%= client_event_path(ticket.event.id) %>">View Event</a></li>
-                        </ul>
+                        <span class="purchase-date">purchased on <%= ticket.payment.purchased_status %></span>
                       </div>
                     </div>
                   </div>

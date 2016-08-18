@@ -1,0 +1,31 @@
+
+<!-- Template -->
+<script id="new-ticket-template" type="x-tmpl-mustache">
+  <tr class="ticket new-ticket">
+    <td><input class="form-control" type="text" name="new_ticket_names[]" value="" placeholder="eg. General, VIP" /></td>
+    <td><input class="form-control" type="number" name="new_ticket_availables[]" value="" /></td>
+    <td><input class="form-control" type="number" name="new_ticket_prices[]" value="" /></td>
+    <td width="200">
+      <div class="input-group datepicker">
+        <input type="text" class="form-control" name="new_ticket_dates[]" />
+        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      </div>
+    </td>
+    <td width="200">
+      <div class="input-group timepicker">
+        <input class="form-control" type="text" name="new_ticket_start_times[]" value="" />
+        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+      </div>
+    <td width="200">
+      <div class="input-group timepicker">
+        <input class="form-control" type="text" name="new_ticket_end_times[]" value="" />
+        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+      </div>
+    </td>
+
+    <td width="100" align="right">
+      <a class="btn btn-sm btn-default btn-ticket-delete" href="#" onclick="return on_ticket_delete(this);"><i class="fa fa-minus"></i></a>
+      <a class="btn btn-sm btn-default btn-ticket-add" href="#" onclick="return on_ticket_add(this);"><i class="fa fa-plus"></i></a>
+    </td>
+  </tr>
+</script>

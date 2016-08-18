@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe Management::CoreController, type: :controller do
+RSpec.describe Admin::CoreController, type: :controller do
 
 end

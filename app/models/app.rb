@@ -1,4 +1,3 @@
-
 class App < Struct.new(:region, :environment, :version)
 
   def initialize(attrs = {})
@@ -59,9 +58,9 @@ class App < Struct.new(:region, :environment, :version)
     end
   end
 
-  def is_management?
-    $management
-  end
+  # def is_admin?
+  #   $admin
+  # end
 
   def configure
     config = OpenStruct.new

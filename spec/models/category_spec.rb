@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: categories
+#
+#  id         :integer          not null, primary key
+#  title      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  name       :string
+#  slug       :string
+#
+
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do

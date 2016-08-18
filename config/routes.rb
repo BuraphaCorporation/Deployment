@@ -98,7 +98,8 @@ Rails.application.routes.draw do
 
       resources :profile, only: [:index] do
         get '/tickets', to: 'profile#tickets'
-        get '/tickets/:ticket_id/', to: 'profile#ticket', as: :ticket
+        get '/orders', to: 'profile#orders'
+        get '/orders/:ticket_id/', to: 'profile#order', as: :ticket
         # get '/profile/wishlist', to: 'profile#wishlist'
         get '/settings', to: 'profile#settings'
         put '/settings', to: 'profile#settings_update'

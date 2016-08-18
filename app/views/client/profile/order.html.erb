@@ -4,16 +4,25 @@
 <div class="section">
   <div class="container">
     <%= render partial: "client/profile/parts/profile-nav" %>
-    <script>$('#profile-nav #menu-my-tickets').addClass('active');</script>
+    <script>$('#profile-nav #menu-my-orders').addClass('active');</script>
 
     <div class="row">
       <div class="col-xs-12 col-md-9">
         <div class="ticket-list">
           <div class="list-header">
-            <h1>My Tickets</h1>
-            <pre>
-              <%= @payment.inspect %>
-            </pre>
+            <h1>Order <%= "##{@payment.code}" %></h1>
+            <div class="info">
+              <div class="info-body">
+                <div class="row">
+                    <div class="col-xs-6">
+                      <%= "#{@payment.user.first_name} #{@payment.user.last_name}" %>
+                    </div>
+                    <div class="col-xs-6">
+                      <%= @payment.provider %>
+                    </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="list-body">

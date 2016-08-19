@@ -34,6 +34,22 @@
   font-family: 'Athiti';
   src: url(../../fonts/Athiti/Athiti-Light.ttf);
   font-weight: 200; }
+#campaign-page #loading {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(229, 242, 245, 0.8);
+  color: white;
+  text-align: center;
+  z-index: 999; }
+  #campaign-page #loading img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.7; }
 #campaign-page #main {
   padding-top: 50px;
   padding-bottom: 50px;

@@ -90,6 +90,7 @@ Rails.application.routes.draw do
 
     get '/blog' => redirect(App.blog)
     get '/campaign/dash-your-day', to: 'greetings#campaign'
+    get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
     get '/faq',                    to: 'greetings#faq'
     get '/terms-and-conditions',   to: 'greetings#terms'
     get '/privacy-policy',         to: 'greetings#policy'

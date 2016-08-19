@@ -127,11 +127,11 @@ ActiveRecord::Schema.define(version: 20160817210545) do
   create_table "tickets", force: :cascade do |t|
     t.integer  "status",     default: 0
     t.integer  "user_id"
+    t.integer  "event_id"
     t.string   "code"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "payment_id"
-    t.integer  "event_id"
     t.integer  "section_id"
     t.index ["event_id"], name: "index_tickets_on_event_id", using: :btree
     t.index ["payment_id"], name: "index_tickets_on_payment_id", using: :btree
@@ -204,6 +204,7 @@ ActiveRecord::Schema.define(version: 20160817210545) do
   add_foreign_key "sections", "events"
   add_foreign_key "taggings", "events"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "tickets", "events"
   add_foreign_key "tickets", "payments"
   add_foreign_key "tickets", "sections"
   add_foreign_key "tickets", "users"

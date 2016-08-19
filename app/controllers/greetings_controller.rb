@@ -22,5 +22,16 @@ class GreetingsController < ApplicationController
   end
 
   def campaign
+    @selected_campaign = ''
+    if params[:campaign] == 'olive'
+      @selected_campaign = 'olive'
+    elsif params[:campaign] == 'lazgam'
+      @selected_campaign = 'lazgam'
+    elsif params[:campaign] == 'rock-domain'
+      @selected_campaign = 'rock-domain'
+    end
+  end
+
+  def campaign_terms
   end
 end

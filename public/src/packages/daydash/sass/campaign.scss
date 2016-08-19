@@ -4,6 +4,23 @@ $font-kanit: "Kanit", "Helvetica Neue", "sans-serif";
 $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 
 #campaign-page {
+
+	#loading {
+		position: fixed;
+		top: 0px; bottom: 0px; left: 0px; right: 0px;
+		background: rgba(229, 242, 245, 0.8);
+		color: white;
+		text-align: center;
+		z-index: 999;
+
+		img {
+			position: absolute;
+			top: 50%; left: 50%;
+			transform: translate(-50%, -50%);
+			opacity: 0.7;
+		}
+	}
+
 	#main {
 		padding-top: 50px;
 		padding-bottom: 50px;
@@ -57,6 +74,9 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 					background-position: center;
 					background-repeat: no-repeat;
 					background-color: #ccc;
+					border-radius: 5px;
+
+					transition: all 0.3s;
 				}
 
 				.info {
@@ -79,6 +99,13 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 
 					.btn {
 						margin-top: 10px;
+					}
+				}
+
+				&:hover {
+					.cover {
+						-webkit-filter: brightness(80%);
+						filter: brightness(80%);
 					}
 				}
 			}
@@ -174,14 +201,23 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 	.btn-green {
 		background: linear-gradient(to right, #00CFD1 , #00E9CA);
 		color: white;
+
+		&:hover {
+			background: linear-gradient(45deg, #DF1E68 , #DD2993);
+		}
 	}
 
 	@media (max-width: 991px) {
 		#intro-section {
 			.section-title {
+				font-size: 30px;
 				br {
 					display: none;
 				}
+			}
+
+			.section-description {
+				font-size: 16px;
 			}
 		}
 

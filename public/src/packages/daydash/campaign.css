@@ -34,6 +34,22 @@
   font-family: 'Athiti';
   src: url(../../fonts/Athiti/Athiti-Light.ttf);
   font-weight: 200; }
+#campaign-page #loading {
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  background: rgba(229, 242, 245, 0.8);
+  color: white;
+  text-align: center;
+  z-index: 999; }
+  #campaign-page #loading img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.7; }
 #campaign-page #main {
   padding-top: 50px;
   padding-bottom: 50px;
@@ -74,7 +90,9 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #ccc; }
+    background-color: #ccc;
+    border-radius: 5px;
+    transition: all 0.3s; }
   #campaign-page #event-section .section-body .event .info {
     position: absolute;
     height: auto;
@@ -94,6 +112,9 @@
       margin-bottom: 2px; }
     #campaign-page #event-section .section-body .event .info .btn {
       margin-top: 10px; }
+  #campaign-page #event-section .section-body .event:hover .cover {
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%); }
 #campaign-page #event-section .section-footer {
   padding-bottom: 30px;
   font-family: "Athiti", "Helvetica Neue", "sans-serif";
@@ -158,9 +179,15 @@
 #campaign-page .btn-green {
   background: linear-gradient(to right, #00CFD1, #00E9CA);
   color: white; }
+  #campaign-page .btn-green:hover {
+    background: linear-gradient(45deg, #DF1E68, #DD2993); }
 @media (max-width: 991px) {
-  #campaign-page #intro-section .section-title br {
-    display: none; }
+  #campaign-page #intro-section .section-title {
+    font-size: 30px; }
+    #campaign-page #intro-section .section-title br {
+      display: none; }
+  #campaign-page #intro-section .section-description {
+    font-size: 16px; }
   #campaign-page #footer-section .sponser-list li {
     padding: 0px 15px; }
     #campaign-page #footer-section .sponser-list li a img {

@@ -48,14 +48,16 @@
     max-width: 750px; }
   #campaign-page #intro-section .section-title {
     font-family: "Kanit", "Helvetica Neue", "sans-serif";
-    font-size: 46;
+    font-size: 46px;
     font-weight: bold;
     color: #333;
     margin-bottom: 15px; }
   #campaign-page #intro-section .section-description {
     font-family: "Athiti", "Helvetica Neue", "sans-serif";
-    font-size: 16px;
+    font-size: 18px;
     color: #444; }
+#campaign-page #event-section .container {
+  max-width: 900px; }
 #campaign-page #event-section .section-body .event {
   position: relative;
   height: 350px;
@@ -83,7 +85,7 @@
     padding: 15px;
     text-align: center;
     font-family: "Athiti", "Helvetica Neue", "sans-serif";
-    font-size: 14px;
+    font-size: 16px;
     color: white; }
     #campaign-page #event-section .section-body .event .info h4 {
       font-family: "Kanit", "Helvetica Neue", "sans-serif";
@@ -95,9 +97,9 @@
 #campaign-page #event-section .section-footer {
   padding-bottom: 30px;
   font-family: "Athiti", "Helvetica Neue", "sans-serif";
-  font-size: 12px;
+  font-size: 14px;
   text-align: center;
-  letter-spacing: 1px; }
+  letter-spacing: 0.2px; }
   #campaign-page #event-section .section-footer a {
     color: #777;
     text-decoration: none; }
@@ -112,23 +114,64 @@
   #campaign-page #footer-section .sponser-list li {
     padding: 0px 30px; }
     #campaign-page #footer-section .sponser-list li a img {
-      height: 50px; }
-#campaign-page .btn-pink-blue {
+      height: 80px; }
+#campaign-page #social-list {
+  padding: 30px; }
+  #campaign-page #social-list li {
+    padding-left: 15px;
+    padding-right: 15px; }
+  #campaign-page #social-list .icon, #campaign-page #social-list .fa {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center; }
+  #campaign-page #social-list .icon-facebook {
+    background-image: url("/src/images/icons/icon-facebook-black.png"); }
+  #campaign-page #social-list .icon-instagram {
+    background-image: url("/src/images/icons/icon-instagram-black.png"); }
+  #campaign-page #social-list .icon-line {
+    background-image: url("/src/images/icons/icon-line-black.png"); }
+  @media (max-width: 991px) {
+    #campaign-page #social-list {
+      margin-top: 50px;
+      text-align: center; } }
+  @media (min-width: 992px) {
+    #campaign-page #social-list {
+      position: fixed;
+      top: 0px;
+      right: 0px;
+      width: auto;
+      height: auto; } }
+#campaign-page .btn-daydash {
   padding: 10px 5px;
   font-size: 20px;
   border-radius: 25px;
   border: 0px;
-  background: linear-gradient(to right, #F57A7A, #456EE6);
-  color: white;
   font-family: "Kanit", "Helvetica Neue", "sans-serif";
   font-weight: bold;
   letter-spacing: 0.5px; }
+#campaign-page .btn-pink-blue {
+  background: linear-gradient(to right, #F57A7A, #456EE6);
+  color: white; }
+#campaign-page .btn-green {
+  background: linear-gradient(to right, #00CFD1, #00E9CA);
+  color: white; }
 @media (max-width: 991px) {
   #campaign-page #intro-section .section-title br {
     display: none; }
   #campaign-page #footer-section .sponser-list li {
     padding: 0px 15px; }
     #campaign-page #footer-section .sponser-list li a img {
-      height: 30px; } }
+      height: 60px; } }
+
+#campaign-terms-page #main {
+  padding-top: 50px;
+  paddign-bottom: 50px;
+  font-family: "Athiti", "Helvetica Neue", "sans-serif"; }
+  #campaign-terms-page #main h2, #campaign-terms-page #main h4 {
+    font-family: "Kanit", "Helvetica Neue", "sans-serif";
+    font-weight: bold; }
 
 /*# sourceMappingURL=campaign.css.map */

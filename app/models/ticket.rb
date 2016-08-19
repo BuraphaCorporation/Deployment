@@ -5,11 +5,11 @@
 #  id         :integer          not null, primary key
 #  status     :integer          default("passed")
 #  user_id    :integer
+#  event_id   :integer
 #  code       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  payment_id :integer
-#  event_id   :integer
 #  section_id :integer
 #
 # Indexes
@@ -21,6 +21,7 @@
 #
 # Foreign Keys
 #
+#  fk_rails_4def87ea62  (event_id => events.id)
 #  fk_rails_538a036fb9  (user_id => users.id)
 #  fk_rails_9092443286  (payment_id => payments.id)
 #  fk_rails_e59379c902  (section_id => sections.id)

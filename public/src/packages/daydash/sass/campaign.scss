@@ -74,6 +74,9 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 					background-position: center;
 					background-repeat: no-repeat;
 					background-color: #ccc;
+					border-radius: 5px;
+
+					transition: all 0.3s;
 				}
 
 				.info {
@@ -96,6 +99,13 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 
 					.btn {
 						margin-top: 10px;
+					}
+				}
+
+				&:hover {
+					.cover {
+						-webkit-filter: brightness(80%);
+						filter: brightness(80%);
 					}
 				}
 			}
@@ -191,14 +201,23 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 	.btn-green {
 		background: linear-gradient(to right, #00CFD1 , #00E9CA);
 		color: white;
+
+		&:hover {
+			background: linear-gradient(45deg, #DF1E68 , #DD2993);
+		}
 	}
 
 	@media (max-width: 991px) {
 		#intro-section {
 			.section-title {
+				font-size: 30px;
 				br {
 					display: none;
 				}
+			}
+
+			.section-description {
+				font-size: 16px;
 			}
 		}
 

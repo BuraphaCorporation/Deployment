@@ -28,6 +28,7 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
+		background-attachement: fixed;
 	}
 
 	#intro-section {
@@ -143,7 +144,7 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 
 				a {
 					img {
-						height: 80px;
+						height: 120px;
 					}
 				}
 			}
@@ -177,7 +178,7 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 		}
 
 		@media (min-width: 992px) {
-			position: fixed;
+			position: absolute;
 			top: 0px; right: 0px; width: auto; height: auto;
 		}
 	}
@@ -228,7 +229,7 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 
 					a {
 						img {
-							height: 60px;
+							height: 80px;
 						}
 					}
 				}
@@ -240,8 +241,10 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 #campaign-terms-page {
 
 	#main {
+		background-size: cover;
+		background-attachment: fixed;
 		padding-top: 50px;
-		paddign-bottom: 50px;
+		padding-bottom: 50px;
 		font-family: $font-athiti;
 
 		h2, h4 {
@@ -249,4 +252,37 @@ $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 			font-weight: bold;
 		}
 	}
+
+	#social-list {
+		padding: 30px;
+
+		li {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.icon, .fa {
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+
+		.icon-facebook 	{ background-image: url('/src/images/icons/icon-facebook-black.png'); }
+		.icon-instagram { background-image: url('/src/images/icons/icon-instagram-black.png'); }
+		.icon-line 		{ background-image: url('/src/images/icons/icon-line-black.png'); }
+
+		@media (max-width: 991px) {
+			margin-top: 50px;
+			text-align: center;
+		}
+
+		@media (min-width: 992px) {
+			position: absolute;
+			top: 0px; right: 0px; width: auto; height: auto;
+		}
+	}
+
 }

@@ -56,7 +56,8 @@
   min-height: 100vh;
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat; }
+  background-repeat: no-repeat;
+  background-attachement: fixed; }
 #campaign-page #intro-section {
   padding-bottom: 30px;
   text-align: center; }
@@ -135,7 +136,7 @@
   #campaign-page #footer-section .sponser-list li {
     padding: 0px 30px; }
     #campaign-page #footer-section .sponser-list li a img {
-      height: 80px; }
+      height: 120px; }
 #campaign-page #social-list {
   padding: 30px; }
   #campaign-page #social-list li {
@@ -160,7 +161,7 @@
       text-align: center; } }
   @media (min-width: 992px) {
     #campaign-page #social-list {
-      position: fixed;
+      position: absolute;
       top: 0px;
       right: 0px;
       width: auto;
@@ -191,14 +192,45 @@
   #campaign-page #footer-section .sponser-list li {
     padding: 0px 15px; }
     #campaign-page #footer-section .sponser-list li a img {
-      height: 60px; } }
+      height: 80px; } }
 
 #campaign-terms-page #main {
+  background-size: cover;
+  background-attachment: fixed;
   padding-top: 50px;
-  paddign-bottom: 50px;
+  padding-bottom: 50px;
   font-family: "Athiti", "Helvetica Neue", "sans-serif"; }
   #campaign-terms-page #main h2, #campaign-terms-page #main h4 {
     font-family: "Kanit", "Helvetica Neue", "sans-serif";
     font-weight: bold; }
+#campaign-terms-page #social-list {
+  padding: 30px; }
+  #campaign-terms-page #social-list li {
+    padding-left: 15px;
+    padding-right: 15px; }
+  #campaign-terms-page #social-list .icon, #campaign-terms-page #social-list .fa {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center; }
+  #campaign-terms-page #social-list .icon-facebook {
+    background-image: url("/src/images/icons/icon-facebook-black.png"); }
+  #campaign-terms-page #social-list .icon-instagram {
+    background-image: url("/src/images/icons/icon-instagram-black.png"); }
+  #campaign-terms-page #social-list .icon-line {
+    background-image: url("/src/images/icons/icon-line-black.png"); }
+  @media (max-width: 991px) {
+    #campaign-terms-page #social-list {
+      margin-top: 50px;
+      text-align: center; } }
+  @media (min-width: 992px) {
+    #campaign-terms-page #social-list {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      width: auto;
+      height: auto; } }
 
 /*# sourceMappingURL=campaign.css.map */

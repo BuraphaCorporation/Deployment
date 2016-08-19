@@ -4,6 +4,23 @@ $font-kanit: "Kanit", "Helvetica Neue", "sans-serif";
 $font-athiti: "Athiti", "Helvetica Neue", "sans-serif";
 
 #campaign-page {
+
+	#loading {
+		position: fixed;
+		top: 0px; bottom: 0px; left: 0px; right: 0px;
+		background: rgba(229, 242, 245, 0.8);
+		color: white;
+		text-align: center;
+		z-index: 999;
+
+		img {
+			position: absolute;
+			top: 50%; left: 50%;
+			transform: translate(-50%, -50%);
+			opacity: 0.7;
+		}
+	}
+
 	#main {
 		padding-top: 50px;
 		padding-bottom: 50px;

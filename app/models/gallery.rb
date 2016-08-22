@@ -10,6 +10,7 @@
 #  media_updated_at   :datetime
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  sort_index         :integer
 #
 # Indexes
 #

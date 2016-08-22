@@ -4,7 +4,7 @@
     <%= render partial: "organizer/parts/organizer-nav" %>
     <script>$('#organizer-nav #menu-event-list').addClass('active');</script>
 
-    <%= form_tag edit_organizer_event_path(@event), multipart: true do %>
+    <%= form_tag organizer_event_path(@event), multipart: true, method: :put  do %>
       <input type="hidden" name="images_order" value="<%= @images_order.join(',') %>" />
       <input type="hidden" name="images_delete[]" value="" />
 
@@ -38,26 +38,31 @@
               <textarea class="form-control" name="description" rows="10"><%= @event.description %></textarea>
             </div>
             <div class="form-group">
+              <label>Name</label>
+              <input class="form-control" name="location_name" value="<%= @event.location_name %>" placeholder="eg. Hubba Thailand, Ekamai soi 4" />
+            </div>
+            <div class="form-group">
               <label>Address</label>
-              <input class="form-control" name="address" value="" placeholder="eg. Hubba Thailand, Ekamai soi 4" />
+              <input class="form-control" name="location_address" value="<%= @event.location_address %>" placeholder="eg. Hubba Thailand, Ekamai soi 4" />
             </div>
             <div class="form-group">
               <label>Location on Map</label>
               <div class="form-inline">
-                <input class="form-control" type="text" name="lat" id="event_latitude" value="" placeholder="Latitude" />
-                <input class="form-control" type="text" name="lng" id="event_longitude" value="" placeholder="Longitude" />
+                <input class="form-control" type="text" name="latitude" id="event_latitude" value="<%= @event.latitude %>" placeholder="Latitude" />
+                <input class="form-control" type="text" name="longitude" id="event_longitude" value="<%= @event.longitude %>" placeholder="Longitude" />
               </div>
+              <input id="pac-input" class="controls" type="text" placeholder="Search Box">
               <div id="map" style="margin-top: 15px; height: 300px;"></div>
             </div>
           </div>
           <div class="col-xs-12 col-md-6">
             <div class="form-group">
-              <label>Galleries</label>
+              <label>Images</label>
               <input class="form-control" type="file" name="galleries[]" multiple />
             </div>
             <div class="image-list sortable row">
               <% @images.each do |image| %>
-              <div class="col-xs-6" data-id="<%= image.id %>">
+              <div class="col-xs-6" data-id="<%= image.sort_index %>">
                 <div class="image" style="background-image: url(<%= image.media(:thumb) %>);"></div>
               </div>
               <% end %>
@@ -91,18 +96,18 @@
                 <td><input class="form-control" type="number" name="ticket[<%= section.id %>][price]" value="<%= section.price %>" /></td>
                 <td width="200">
                   <div class="input-group datepicker">
-                    <input type="text" class="form-control" name="ticket[<%= section.id %>][event_time]" value="<%= section.event_time %>" />
+                    <input type="text" class="form-control" name="ticket[<%= section.id %>][event_time]" value="<%= section.event_time.strftime("%d/%m/%Y")  %>" />
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                   </div>
                 </td>
                 <td width="200">
                   <div class="input-group timepicker">
-                    <input class="form-control" type="text" name="ticket[<%= section.id %>][end_time]" value="<%= section.end_time %>" />
+                    <input class="form-control" type="text" name="ticket[<%= section.id %>][event_time]" value="<%= section.event_time.strftime("%H:%m") %>" />
                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                   </div>
                 <td width="200">
                   <div class="input-group timepicker">
-                    <input class="form-control" type="text" name="ticket[<%= section.id %>][event_time]" value="<%= section.event_time %>" />
+                    <input class="form-control" type="text" name="ticket[<%= section.id %>][end_time]" value="<%= section.end_time.strftime("%H:%m") %>" />
                     <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                   </div>
                 </td>
@@ -180,7 +185,7 @@
     });
 
     $('.timepicker', element).datetimepicker({
-      format: 'LT',
+      format: 'HH:mm',
       stepping: 15
     });
   }
@@ -217,6 +222,7 @@
 
   function on_ticket_delete(button) {
     var element = $(button).parents('.ticket');
+    console.log(element);
     element.remove();
 
     return false;

@@ -54,13 +54,14 @@ class Organizer::EventsController < Organizer::CoreController
     #   { id: 6, url: '/src/images/content/cover-2.jpg' },
     # ]
 
-    @images = @event.galleries
+    @images = @event.galleries.order(:sort_index)
 
     @images_order = [];
     @images.each do |image|
-      @images_order.push(image[:id])
+      @images_order.push(image.id)
     end
-    # @category_id = @event.categories.pluck(:id)
+
+    @category_id = @event.categories.pluck(:id)
   end
 
   def update
@@ -81,7 +82,6 @@ class Organizer::EventsController < Organizer::CoreController
   private
 
     def serialize_data_create
-
       user_id = params[:user].to_i.eql?(0) ? current_user.id : params[:user].to_i
       @event.update(user_id: user_id)
 
@@ -89,35 +89,48 @@ class Organizer::EventsController < Organizer::CoreController
         CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
       end unless params[:category_ids].nil?
 
-      params[:attachments].each do |attachments|
+      params[:galleries].each do |attachments|
         Gallery.create(event: @event, media: attachments)
-      end unless params[:attachments].nil?
+      end unless params[:galleries].nil?
 
-      params[:sections_attributes].each do |section|
-        event_time = DateTime.parse("#{params[:sections_attributes][section][:section_event_date].first} #{params[:sections_attributes][section][:section_event_time].first}")
-        end_time   = DateTime.parse("#{params[:sections_attributes][section][:section_end_date].first} #{params[:sections_attributes][section][:section_end_time].first}")
+      (0..params[:new_ticket_names].count - 1).each do |section|
+        event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
+        end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
 
         Section.create do |s|
           s.event_id    = @event.id
-          s.title       = params[:sections_attributes][section][:section_name].first
-          s.available   = params[:sections_attributes][section][:section_available].first
-          s.price       = params[:sections_attributes][section][:section_price].first
+          s.title       = params[:new_ticket_names][section]
+          s.available   = params[:new_ticket_availables][section]
+          s.price       = params[:new_ticket_prices][section]
           s.event_time  = event_time
           s.end_time    = end_time
         end
-      end unless params[:sections_attributes].nil?
+      end unless params[:new_ticket_names].nil?
     end
 
     def serialize_data_update
-      category = params[:category].reject { |c| c.empty? }
-      CategoriesEvent.where(event: @event).where.not(category: category).delete_all
-      params[:category].each do |category|
+      CategoriesEvent.where(event: @event).where.not(category: params[:category_ids]).delete_all
+      params[:category_ids].each do |category|
         CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
-      end unless params[:category].nil?
+      end unless params[:category_ids].nil?
 
-      params[:attachments].each do |attachments|
+      params[:galleries].each do |attachments|
         Gallery.create(event: @event, media: attachments)
-      end unless params[:attachments].nil?
+      end unless params[:galleries].nil?
+
+      (0..params[:new_ticket_names].count - 1).each do |section|
+        event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
+        end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+
+        Section.create do |s|
+          s.event_id    = @event.id
+          s.title       = params[:new_ticket_names][section]
+          s.available   = params[:new_ticket_availables][section]
+          s.price       = params[:new_ticket_prices][section]
+          s.event_time  = event_time
+          s.end_time    = end_time
+        end
+      end unless params[:new_ticket_names].nil?
     end
 
     def event
@@ -125,7 +138,7 @@ class Organizer::EventsController < Organizer::CoreController
     end
 
     def event_params
-      params.permit(:title, :description, :location_name, :latitude, :longitude, section_attributes: [:section_name, :section_available, :section_price, :_destroy])
+      params.permit(:title, :description, :location_name, :location_address, :latitude, :longitude)
     end
 
     def all_categories

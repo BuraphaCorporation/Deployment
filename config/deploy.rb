@@ -31,7 +31,7 @@ set :pty, true
 set :linked_files, %w{config/database.yml config/application.yml config/instance.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 
-set :keep_releases, 5
+set :keep_releases, 50
 
 set :rollbar_token, 'a7c214f1a0164e748d688ef15cc1c9ea'
 set :rollbar_env, Proc.new { fetch :stage }
@@ -56,8 +56,15 @@ namespace :deploy do
     end
   end
 
-  after :publishing, 'deploy:restart'
+  # task :restart_sidekiq do
+  #   on roles(:worker) do
+  #     execute :service, "sidekiq restart"
+  #   end
+  # end
+
   after :finishing, 'deploy:cleanup'
+  after :publishing, 'deploy:restart'
+  # after "deploy:published", "restart_sidekiq"
 end
 
 namespace :rails do

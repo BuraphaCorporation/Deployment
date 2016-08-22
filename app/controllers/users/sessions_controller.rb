@@ -19,6 +19,14 @@ class Users::SessionsController < Devise::SessionsController
     super
   end
 
+  def after_sign_in_path_for(resource)
+    if resource.sign_in_count == 1
+      # welcome_path
+    else
+      # root_path
+    end
+  end
+
   protected
 
   # If you have extra params to permit, append them to the sanitizer.

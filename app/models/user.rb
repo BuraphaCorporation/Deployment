@@ -153,15 +153,27 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create(
-      email:      auth.extra.raw_info.email,
-      password:   Devise.friendly_token[0,20],
-      first_name: auth.extra.raw_info.first_name,
-      last_name:  auth.extra.raw_info.last_name,
-      birthday:   auth.extra.raw_info.birthday,
-      gender:     auth.extra.raw_info.gender,
-      avatar:     process_uri(auth.info.image)
-    )
+    if where(email: auth.extra.raw_info.email).present?
+      update(
+        provider:   auth.provider,
+        uid:        auth.uid,
+        first_name: auth.extra.raw_info.first_name,
+        last_name:  auth.extra.raw_info.last_name,
+        birthday:   auth.extra.raw_info.birthday,
+        gender:     auth.extra.raw_info.gender,
+        avatar:     process_uri(auth.info.image)
+      ).first
+    else
+      where(provider: auth.provider, uid: auth.uid).first_or_create(
+        email:      auth.extra.raw_info.email,
+        password:   Devise.friendly_token[0,20],
+        first_name: auth.extra.raw_info.first_name,
+        last_name:  auth.extra.raw_info.last_name,
+        birthday:   auth.extra.raw_info.birthday,
+        gender:     auth.extra.raw_info.gender,
+        avatar:     process_uri(auth.info.image)
+      )
+    end
   end
 
   def self.new_with_session(params, session)

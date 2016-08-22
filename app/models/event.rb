@@ -45,7 +45,6 @@ class Event < ActiveRecord::Base
   scope :today,     -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
-
   # after_create :set_organizer
 
   def get_thumbnail
@@ -57,7 +56,7 @@ class Event < ActiveRecord::Base
   end
 
   def first_section
-    self.sections.min_by{|s| [s.event_time, s.price] }
+    self.sections.available.min_by{|s| [s.event_time, s.price] }
   end
 
   private

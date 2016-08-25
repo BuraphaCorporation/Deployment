@@ -61,9 +61,9 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, # :confirmable,
+  devise :database_authenticatable, :async, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:facebook] #, :async
+         :omniauthable, omniauth_providers: [:facebook]
 
   belongs_to :role
   belongs_to :referrer, class_name: 'User', inverse_of: :referrals
@@ -154,7 +154,7 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
     if where(email: auth.extra.raw_info.email).present?
-      update(
+      where(email: auth.extra.raw_info.email).update(
         provider:   auth.provider,
         uid:        auth.uid,
         first_name: auth.extra.raw_info.first_name,

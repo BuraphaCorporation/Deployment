@@ -6,6 +6,9 @@ gem 'rails', '5.0.0.1'
 # helper views
 gem 'turbolinks', '~> 5'
 gem 'sass-rails', '~> 5.0'
+# gem 'bootstrap', '~> 4.0.0.alpha3.1'
+gem 'bootstrap-sass'
+gem 'font-awesome-sass', '~> 4.6.2'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'sprockets'
@@ -14,8 +17,6 @@ gem 'jquery-rails'
 gem 'react-rails'
 gem 'slick_rails'
 gem 'momentjs-rails'
-# gem 'bootstrap-sass'
-# gem 'autoprefixer-rails'
 gem 'cocoon'
 
 # helper model
@@ -63,7 +64,7 @@ gem 'slack-notifier'
 
 # worker
 gem 'sidekiq'
-# gem "devise-async"
+gem 'devise-async'
 
 # error handler
 gem 'rollbar'

@@ -35,6 +35,14 @@ gem 'rqrcode_png'
 gem 'dragonfly', '~> 1.0.12'
 gem 'friendly_id', '~> 5.1.0'
 
+# make api
+gem 'jbuilder', '~> 2.5'
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-active_model_serializers'
+
 # nosql
 gem 'redis', '~>3.2'
 gem 'dalli', '~> 2.7.4'
@@ -53,13 +61,9 @@ gem 'one_signal'
 gem 'mailgun'
 gem 'slack-notifier'
 
-# make api
-gem 'jbuilder', '~> 2.5'
-gem 'grape'
-gem 'grape-entity'
-gem 'grape-swagger'
-gem 'grape-swagger-rails'
-gem 'grape-active_model_serializers'
+# worker
+gem 'sidekiq'
+# gem "devise-async"
 
 # error handler
 gem 'rollbar'

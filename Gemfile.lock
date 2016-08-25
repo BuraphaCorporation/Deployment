@@ -451,6 +451,10 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    sidekiq (4.1.2)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      redis (~> 3.2, >= 3.2.1)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -582,6 +586,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   shoulda
+  sidekiq
   slack-notifier
   slackistrano (= 3.1.0.beta)
   slick_rails

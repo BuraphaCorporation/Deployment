@@ -127,15 +127,15 @@ Rails.application.routes.draw do
       # resources :users, except: :show
     end
 
-    namespace :admin do
-      get '/', to: 'events#index'
-      resources :events do
-        collection do
-          delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
-        end
-      end
-      resources :users, except: :show
-    end
+    # namespace :admin do
+    #   get '/', to: 'events#index'
+    #   resources :events do
+    #     collection do
+    #       delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
+    #     end
+    #   end
+    #   resources :users, except: :show
+    # end
   end
 
   constraints(subdomain: App.api_host) do

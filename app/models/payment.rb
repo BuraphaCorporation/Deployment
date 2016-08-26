@@ -113,6 +113,7 @@ class Payment < ActiveRecord::Base
           amount: amount.to_i * 100,
           currency: "thb",
           description: "test", #invoice(event, user),
+          customer: user.customer_token,
           card: omise_token
         })
 

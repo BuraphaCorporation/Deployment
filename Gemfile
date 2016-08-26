@@ -17,6 +17,8 @@ gem 'jquery-rails'
 gem 'react-rails'
 gem 'slick_rails'
 gem 'momentjs-rails'
+gem 'simple_form'
+gem 'show_for'
 gem 'cocoon'
 
 # helper model
@@ -35,6 +37,7 @@ gem 'paperclip-ffmpeg'
 gem 'rqrcode_png'
 gem 'dragonfly', '~> 1.0.12'
 gem 'friendly_id', '~> 5.1.0'
+gem 'has_scope'
 
 # make api
 gem 'jbuilder', '~> 2.5'

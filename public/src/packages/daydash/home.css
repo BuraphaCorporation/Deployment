@@ -343,11 +343,6 @@ label {
   display: inline-block;
   padding-left: 15px; }
 
-.list-action-nav li:not(:last-child):after {
-  content: "|";
-  display: inline-block;
-  padding-left: 15px; }
-
 #index-page #cover-section .slick {
   margin-bottom: 0px; }
   #index-page #cover-section .slick .page-cover {
@@ -507,6 +502,8 @@ label {
     padding-left: 30px; } }
 #payment-page .form-group .radio {
   margin-right: 15px; }
+#payment-page .card-wrapper {
+  margin-bottom: 30px; }
 
 #payment-complete-page #credit-card-inform-section {
   padding-top: 50px;

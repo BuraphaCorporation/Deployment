@@ -83,6 +83,9 @@ class Payment < ActiveRecord::Base
     purchased || 'pending'
   end
 
+  def my_tickets
+    tickets.current_tickets
+  end
 
   class << self
     def code

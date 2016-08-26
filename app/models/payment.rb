@@ -17,6 +17,10 @@
 #  evidence_file_size    :integer
 #  evidence_updated_at   :datetime
 #  purchased_at          :datetime
+#  qr_code_file_name     :string
+#  qr_code_content_type  :string
+#  qr_code_file_size     :integer
+#  qr_code_updated_at    :datetime
 #
 # Indexes
 #
@@ -39,13 +43,22 @@ class Payment < ActiveRecord::Base
 
   has_attached_file :evidence, styles: { default: "600x700" }
 
+  has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
+
   before_create do |payment|
     payment.code = Payment.code
   end
+  after_create :generate_qr_code
   after_create :send_payment_mail
   # after_create :add_ticket
 
   # dragonfly_accessor :qr_code
+
+  def generate_qr_code
+    attachment = App.generate_qr_code(self)
+    self.qr_code = File.open(attachment, 'rb')
+  end
 
   def send_payment_mail
     case provider
@@ -69,6 +82,7 @@ class Payment < ActiveRecord::Base
   def purchased_status
     purchased || 'pending'
   end
+
 
   class << self
     def code

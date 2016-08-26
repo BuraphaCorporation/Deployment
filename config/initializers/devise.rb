@@ -16,6 +16,7 @@ Devise.setup do |config|
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
+  # config.mailer = 'Devise::Async::Proxy'
 
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
@@ -245,9 +246,9 @@ Devise.setup do |config|
   config.omniauth :facebook,
                   App.configure.facebook_app_id,
                   App.configure.facebook_app_secret,
-                  scope: 'email,user_birthday,user_location,user_about_me',
+                  scope:       'email,user_birthday,user_location,user_about_me',
                   info_fields: 'id,email,first_name,last_name,birthday,about,gender,location',
-                  image_size: 'large'
+                  image_size:  'large'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
@@ -271,5 +272,4 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   config.omniauth_path_prefix = '/auth'
-
 end

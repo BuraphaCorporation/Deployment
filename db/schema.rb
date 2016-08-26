@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822020658) do
+ActiveRecord::Schema.define(version: 20160826024933) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,10 @@ ActiveRecord::Schema.define(version: 20160822020658) do
     t.integer  "evidence_file_size"
     t.datetime "evidence_updated_at"
     t.datetime "purchased_at"
+    t.string   "qr_code_file_name"
+    t.string   "qr_code_content_type"
+    t.integer  "qr_code_file_size"
+    t.datetime "qr_code_updated_at"
     t.index ["event_id"], name: "index_payments_on_event_id", using: :btree
     t.index ["user_id"], name: "index_payments_on_user_id", using: :btree
   end
@@ -127,14 +131,18 @@ ActiveRecord::Schema.define(version: 20160822020658) do
   end
 
   create_table "tickets", force: :cascade do |t|
-    t.integer  "status",     default: 0
+    t.integer  "status",               default: 0
     t.integer  "user_id"
     t.integer  "event_id"
     t.string   "code"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "payment_id"
     t.integer  "section_id"
+    t.string   "qr_code_file_name"
+    t.string   "qr_code_content_type"
+    t.integer  "qr_code_file_size"
+    t.datetime "qr_code_updated_at"
     t.index ["event_id"], name: "index_tickets_on_event_id", using: :btree
     t.index ["payment_id"], name: "index_tickets_on_payment_id", using: :btree
     t.index ["section_id"], name: "index_tickets_on_section_id", using: :btree

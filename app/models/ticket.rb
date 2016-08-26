@@ -2,15 +2,19 @@
 #
 # Table name: tickets
 #
-#  id         :integer          not null, primary key
-#  status     :integer          default("passed")
-#  user_id    :integer
-#  event_id   :integer
-#  code       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  payment_id :integer
-#  section_id :integer
+#  id                   :integer          not null, primary key
+#  status               :integer          default("passed")
+#  user_id              :integer
+#  event_id             :integer
+#  code                 :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  payment_id           :integer
+#  section_id           :integer
+#  qr_code_file_name    :string
+#  qr_code_content_type :string
+#  qr_code_file_size    :integer
+#  qr_code_updated_at   :datetime
 #
 # Indexes
 #
@@ -35,8 +39,17 @@ class Ticket < ActiveRecord::Base
 
   enum status: { passed: 0, upcoming: 1, comsume: 2 }
 
+  has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
+
   before_create do |ticket|
     ticket.code = Ticket.code
+  end
+  after_create :generate_qr_code
+
+  def generate_qr_code
+    attachment = App.generate_qr_code(self)
+    self.qr_code = File.open(attachment, 'rb')
   end
 
   class << self

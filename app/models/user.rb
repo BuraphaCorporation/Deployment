@@ -61,7 +61,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, # :confirmable,
+  devise :database_authenticatable, :async, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
@@ -153,17 +153,7 @@ class User < ActiveRecord::Base
   end
 
   def self.from_omniauth(auth)
-    if where(email: auth.extra.raw_info.email).present?
-      update(
-        provider:   auth.provider,
-        uid:        auth.uid,
-        first_name: auth.extra.raw_info.first_name,
-        last_name:  auth.extra.raw_info.last_name,
-        birthday:   auth.extra.raw_info.birthday,
-        gender:     auth.extra.raw_info.gender,
-        avatar:     process_uri(auth.info.image)
-      ).first
-    else
+    if find_by_email(auth.info.email).nil?
       where(provider: auth.provider, uid: auth.uid).first_or_create(
         email:      auth.extra.raw_info.email,
         password:   Devise.friendly_token[0,20],
@@ -173,6 +163,16 @@ class User < ActiveRecord::Base
         gender:     auth.extra.raw_info.gender,
         avatar:     process_uri(auth.info.image)
       )
+    else
+      where(email: auth.info.email).update(
+        provider:   auth.provider,
+        uid:        auth.uid,
+        first_name: auth.extra.raw_info.first_name,
+        last_name:  auth.extra.raw_info.last_name,
+        birthday:   auth.extra.raw_info.birthday,
+        gender:     auth.extra.raw_info.gender,
+        avatar:     process_uri(auth.info.image)
+      ).first
     end
   end
 

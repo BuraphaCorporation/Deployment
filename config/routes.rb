@@ -75,6 +75,8 @@ Rails.application.routes.draw do
       root 'client/events#index'
     end
 
+    get '/fuck' => 'application#index', defaults: { format: :json }
+
     get '/blog' => redirect(App.blog)
     get '/campaign/dash-your-day', to: 'greetings#campaign'
     get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'

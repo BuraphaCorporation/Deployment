@@ -11,4 +11,11 @@ class Entities::UserExpose < Grape::Entity
   expose :onesignal_id
   expose :customer_token
   expose :referal_code
+  expose :has_password do |item|
+    if item.provider?
+      item.sign_in_count > 1
+    else
+      true
+    end
+  end
 end

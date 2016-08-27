@@ -161,14 +161,14 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/tickets' do
       begin
-        tickets = User.find_by_token(params[:user_token]).try(:payments)
+        payments = User.find_by_token(params[:user_token]).try(:payments)
 
-        if tickets.nil?
+        if payments.nil?
           present :status, :success
           present :data, []
         else
           present :status, :success
-          present :data, tickets, with: Entities::TicketExpose
+          present :data, payments, with: Entities::TicketExpose
         end
       rescue Exception => e
         present :status, :failure

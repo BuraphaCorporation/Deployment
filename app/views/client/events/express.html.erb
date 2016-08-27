@@ -88,32 +88,32 @@
                   <div class="row">
                     <div class="form-group col-xs-12 col-md-6">
                       <label>Firstname</label>
-                      <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" />
+                      <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" required />
                     </div>
                     <div class="form-group col-xs-12 col-md-6">
                       <label>Lastname</label>
-                      <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" />
+                      <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" required />
                     </div>
                     <div class="form-group col-xs-12 col-md-6">
                       <label>Phone Number</label>
-                      <input class="form-control" type="text" name="phone" value="<%= current_user.phone %>" />
+                      <input class="form-control" type="text" name="phone" value="<%= current_user.phone %>" required />
                     </div>
                     <div class="form-group dob-form-group col-xs-12 col-md-6">
                       <label>Date of Birth</label>
                       <div class="form-inline">
-                        <select class="form-control" name="dob_date">
+                        <select class="form-control" name="dob_date" required >
                           <option value="">Date</option>
                           <% (1..31).each do |date| %>
                             <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
                           <% end %>
                         </select>
-                        <select class="form-control" name="dob_month">
+                        <select class="form-control" name="dob_month" required >
                           <option value="">Month</option>
                           <% (1..12).each do |month| %>
-                            <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= month %></option>
+                            <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= Date::MONTHNAMES[month] %></option>
                           <% end %>
                         </select>
-                        <select class="form-control" name="dob_year">
+                        <select class="form-control" name="dob_year" required >
                           <option value="">Year</option>
                           <% (0..99).each do |year| %>
                             <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
@@ -125,22 +125,22 @@
                       <label>Gender</label>
                       <div class="form-inline">
                         <label class="radio">
-                          <input type="radio" name="gender" value="male" <%= "checked" if current_user.gender == "male" %> />
+                          <input type="radio" name="gender" value="male" <%= "checked" if current_user.gender == "male" %> required />
                           Male
                         </label>
                         <label class="radio">
-                          <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> />
+                          <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> required />
                           Female
                         </label>
                         <label class="radio">
-                          <input type="radio" name="gender" value="not_specify" />
+                          <input type="radio" name="gender" value="not_specify" required />
                           Not specify
                         </label>
                       </div>
                     </div>
                     <div class="form-group col-xs-12 col-md-6" style="clear: left;">
                       <label>E-mail</label>
-                      <input class="form-control" type="email" name="email" value="<%= current_user.email %>" />
+                      <input class="form-control" type="email" name="email" value="<%= current_user.email %>" required />
                     </div>
                     <!-- <div class="form-group col-xs-12 col-md-6">
                       <label>Password</label>
@@ -162,25 +162,24 @@
               <div class="form-section-body">
                 <div class="tab-content">
                   <div role="tabpanel" class="tab-pane active" id="payment-method-credit-card-panel">
-                    <div class="row error" style="display: none;">
-                      <div class="form-group col-xs-12 col-md-12">
-                        <div id="token_errors"></div>
-                      </div>
-                    </div>
                     <div class="row">
+                      <div class="col-xs-12">
+                        <div class="card-wrapper"></div>
+                      </div>
                       <div class="form-group col-xs-12 col-md-6">
                         <label>Name</label>
                         <input class="form-control" type="text" name="card_name" value="" data-omise="holder_name">
                       </div>
                       <div class="form-group col-xs-12 col-md-6">
                         <label>Card Number</label>
-                        <input class="form-control" type="text" name="card_number" value="" data-omise="number"/>
+                        <input class="form-control" type="text" name="card_number" value="" data-omise="number" />
                       </div>
                     </div>
                     <div class="row">
                       <div class="form-group col-xs-12 col-md-6">
                         <label>Expire Date</label>
-                        <div class="form-inline">
+                        <input class="form-control" type="text" name="card_expiry" value="" data-omise="expiry" />
+                        <!--div class="form-inline">
                           <select class="form-control" name="expire_month" data-omise="expiration_month">
                             <option value="">Month</option>
                             <% (1..12).each do |month| %>
@@ -193,21 +192,24 @@
                             <option value="<%= Time.now.year + i %>"><%= Time.now.year + i %></option>
                             <% end %>
                           </select>
-                        </div>
+                        </div-->
                       </div>
                       <div class="form-group col-xs-12 col-md-6">
-                        <label>CVV</label>
-                        <input class="form-control" type="text" name="cvv" value="" data-omise="security_code" />
+                        <label>CVC</label>
+                        <input class="form-control" type="text" name="card_cvc" value="" data-omise="security_code" />
+                      </div>
+                      <div class="col-xs-12">
+                        <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
                       </div>
                     </div>
                     <div class="form-section-footer">
                       <div>
                         <label>
-                          <input type="checkbox" name="accept_policy" value="1" />
-                          I have read and accept Daydash <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
+                          
+                          By submitting, you agree to <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
                         </label>
                       </div>
-                      <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @total %></button>
+                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @total %></button>
                     </div>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
@@ -219,11 +221,10 @@
                     <div class="form-section-footer">
                       <div>
                         <label>
-                          <input type="checkbox" name="accept_policy" value="1" />
-                          I have read and accept Daydash <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
+                          By submitting, you agree to <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
                         </label>
                       </div>
-                      <button class="btn btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="bank_transfer" >Place an order</button>
+                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="bank_transfer" >Place an order</button>
                     </div>
                   </div>
                 </div>
@@ -243,54 +244,117 @@
 </div>
 
 <script src="https://cdn.omise.co/omise.js"></script>
+
+<script src="/src/packages/card/card.js"></script>
+<script src="/src/packages/card/jquery.card.js"></script>
+
+<script src="/src/packages/jquery-validate/jquery.validate.min.js"></script>
+
 <script type="text/javascript"> //Init Function
 
 $(document).ready(function() {
   init_form_validate();
+  init_card_validate();
 });
 
+function init_card_validate() {
+  //Init Card Form
+  $('form').card({
+    // a selector or DOM element for the container
+    // where you want the card to appear
+    container: '.card-wrapper', // *required*
+
+    formSelectors: {
+      numberInput: 'input[name=card_number]',
+      expiryInput: 'input[name=card_expiry]',
+      cvcInput: 'input[name=card_cvc]',
+      nameInput: 'input[name=card_name]'
+    },    
+  });
+
+}
+
 function init_form_validate() {
+  //Payment Method
 
-  $("#checkout").submit(function () {
-    var form = $(this);
+  $('#checkout').validate({
+    highlight: function(element) {
+        $(element).closest('.form-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+        $(element).closest('.form-group').removeClass('has-error');
+    },    
+    submitHandler: function() {
 
-    form.find("input[type=submit]").prop("disabled", true);
-    if(form.find("[name=payment_method]").val() == 'credit_card') {
-      omise_submit(form);
-      return false;
-    }
-    else {
-      return true;
+      var form = $('#checkout');
+      
+      if(form.find("[name=payment_method]").val() == 'credit_card') {
+        omise_submit(form);
+        return false;
+      }
+      else {
+        return true;
+      }
     }
   });
 }
 
 function omise_submit(form) {
-  Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
 
-  var card = {
-    "name": form.find("[data-omise=holder_name]").val(),
-    "number": form.find("[data-omise=number]").val(),
-    "expiration_month": form.find("[data-omise=expiration_month]").val(),
-    "expiration_year": form.find("[data-omise=expiration_year]").val(),
-    "security_code": form.find("[data-omise=security_code]").val()
-  };
+  try {
+    Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
 
-  Omise.createToken("card", card, function (statusCode, response) {
-    if (response.object == "error") {
-      $("#token_errors").html(response.message);
+    $('.btn-submit').button('loading');
+    $('#token_errors').hide();
 
-      form.find("input[type=submit]").prop("disabled", false);
-    } else {
-      form.find("[name=omise_token]").val(response.id);
-      form.find("[name=payment_method]").val(form.find("[data-btn=payment-method]").val());
+    var expiry = $("[name=card_expiry]").val();
+    var match = null;
+    if(match = expiry.match(/^([0-9]+) \/ ([0-9]+)$/)) {
+      var expiration_month = match[1];
+      var expiration_year = match[2];
+    }
+    else {
+      var expiration_month = '';
+      var expiration_year = '';
+    }
 
-      form.find("[data-omise=number]").val("");
-      form.find("[data-omise=security_code]").val("");
-
-      form.get(0).submit();
+    var card = {
+      "name": form.find("[data-omise=holder_name]").val(),
+      "number": form.find("[data-omise=number]").val(),
+      // "expiration_month": form.find("[data-omise=expiration_month]").val(),
+      // "expiration_year": form.find("[data-omise=expiration_year]").val(),
+      "expiration_month": expiration_month,
+      "expiration_year": expiration_year,
+      "security_code": form.find("[data-omise=security_code]").val()
     };
-  });
+
+    Omise.createToken("card", card, function (statusCode, response) {
+      try {
+        if (response.object == "error") {
+
+          if(response.code == 'invalid_card') throw 'Your credit card information does not correct.';
+          else throw response.message;
+          
+        } else {
+          form.find("[name=omise_token]").val(response.id);
+          form.find("[name=payment_method]").val(form.find("[data-btn=payment-method]").val());
+
+          form.find("[data-omise=number]").val("");
+          form.find("[data-omise=security_code]").val("");
+
+          form.get(0).submit();
+        };
+      }
+      catch(e) {
+          $("#token_errors").html(e).show('fast');
+          $('.btn-submit').button('reset');
+      }
+    });
+  }
+  catch(e) {
+    $('#token_errors').html('Your credit card information does not correct.').show('fast');
+    $('.btn-submit').button('reset');
+  }
 }
 </script>
 

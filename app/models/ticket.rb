@@ -42,6 +42,8 @@ class Ticket < ActiveRecord::Base
   has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
 
+  scope :current_tickets, -> { joins(:section).select{ |s| s.section.event_time >= Date.today } }
+
   before_create do |ticket|
     ticket.code = Ticket.code
   end
@@ -51,6 +53,7 @@ class Ticket < ActiveRecord::Base
     attachment = App.generate_qr_code(self)
     self.qr_code = File.open(attachment, 'rb')
   end
+
 
   class << self
     def code

@@ -78,6 +78,7 @@ Rails.application.routes.draw do
     get '/fuck' => 'application#index', defaults: { format: :json }
 
     get '/blog' => redirect(App.blog)
+    get '/blog/weekend-activities-for-couple-in-bangkok' => redirect("#{App.blog}/weekend-activities-for-couple-in-bangkok")
     get '/campaign/dash-your-day', to: 'greetings#campaign'
     get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
     get '/faq',                    to: 'greetings#faq'

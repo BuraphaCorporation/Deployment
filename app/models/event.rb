@@ -14,6 +14,9 @@
 #  slug             :string
 #  location_address :string
 #  instruction      :text
+#  max_price        :integer
+#  min_price        :integer
+#  up_time          :datetime
 #
 # Indexes
 #
@@ -45,21 +48,26 @@ class Event < ActiveRecord::Base
   scope :today,     -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
-  # after_create :set_organizer
 
-  def get_thumbnail
-    self.galleries.present? ? self.galleries.first.try(:media, :thumb) : ''
+  # after_create :set_organizer
+  after_create :asign_up_time
+  def asign_up_time
+    self.up_time = sections.available.min_by(&:event_time)
   end
+
+  # def first_section
+  #   self.sections.available.min_by{|s| [s.event_time, s.price] }
+  # end
 
   def to_url
     slug || id
   end
 
-  def first_section
-    self.sections.available.min_by{|s| [s.event_time, s.price] }
+  def get_thumbnail
+    self.galleries.present? ? self.galleries.first.try(:media, :thumb) : ''
   end
 
-  private
+  # private
     # def set_organizer
     #   self.user ||= User.find_by_email('hello@daydash.co')
     # end

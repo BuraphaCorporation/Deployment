@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rails', '5.0.0.1'
+gem 'sinatra', github: 'sinatra'
 
 # helper views
 gem 'turbolinks', '~> 5'
@@ -68,6 +69,7 @@ gem 'slack-notifier'
 
 # worker
 gem 'sidekiq'
+gem 'sidekiq-scheduler', '~> 2.0'
 gem 'devise-async'
 
 # error handler

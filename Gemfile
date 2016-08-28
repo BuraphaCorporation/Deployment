@@ -49,6 +49,7 @@ gem 'grape-active_model_serializers'
 
 # nosql
 gem 'redis', '~>3.2'
+gem 'redis-namespace'
 gem 'dalli', '~> 2.7.4'
 gem 'firebase'
 gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
@@ -71,6 +72,10 @@ gem 'devise-async'
 
 # error handler
 gem 'rollbar'
+
+# marketing
+# gem 'split'
+gem 'vanity'
 
 group :development, :test do
   gem 'pry'

@@ -69,7 +69,8 @@ gem 'slack-notifier'
 
 # worker
 gem 'sidekiq'
-gem 'sidekiq-scheduler', '~> 2.0'
+gem 'sidekiq-cron'
+# gem 'sidekiq-scheduler', '~> 2.0'
 gem 'devise-async'
 
 # error handler

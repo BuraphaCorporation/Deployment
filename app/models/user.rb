@@ -124,11 +124,11 @@ class User < ActiveRecord::Base
     UserMailer.welcome(self).deliver
   end
 
-  def is_admin?
+  def admin?
     role.title == 'admin'
   end
 
-  def is_organizer?
+  def organizer?
     role.title == 'organizer'
   end
 

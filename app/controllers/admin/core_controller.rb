@@ -8,6 +8,6 @@ class Admin::CoreController < ApplicationController
 
   protected
     def authenticate_admin!
-      not_found unless current_user && current_user.is_admin?
+      not_found unless current_user && current_user.admin?
     end
 end

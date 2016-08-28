@@ -1,3 +1,2 @@
 module DaydashHelper
-
 end

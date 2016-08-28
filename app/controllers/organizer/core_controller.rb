@@ -1,6 +1,8 @@
 class Organizer::CoreController < ApplicationController
-  before_action :authenticate_user!
   before_action :authenticate_organizer!
+
+  include OrganizerHelper
+  include DaydashHelper
 
   layout 'daydash'
 

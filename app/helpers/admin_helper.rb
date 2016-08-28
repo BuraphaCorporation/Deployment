@@ -1,4 +1,4 @@
-module Admin::CoreHelper
+module AdminHelper
   # def is_admin?
   #   current_user.find_by_type 'admin'
   # end

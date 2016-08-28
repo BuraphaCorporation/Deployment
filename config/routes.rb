@@ -75,16 +75,18 @@ Rails.application.routes.draw do
       root 'client/events#index'
     end
 
-    get '/fuck' => 'application#index', defaults: { format: :json }
+    get '/react-api' => 'application#index', defaults: { format: :json }
 
-    get '/blog' => redirect(App.blog)
-    get '/blog/weekend-activities-for-couple-in-bangkok' => redirect("#{App.blog}/weekend-activities-for-couple-in-bangkok")
-    get '/campaign/dash-your-day', to: 'greetings#campaign'
-    get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
+    get '/blog',        to: 'greetings#blog'
+    get '/blog/:slug',  to: 'greetings#blog'
+    get '/rating',      to: 'greetings#rating'
+
     get '/faq',                    to: 'greetings#faq'
     get '/terms-and-conditions',   to: 'greetings#terms'
     get '/privacy-policy',         to: 'greetings#policy'
-    get '/rating',                 to: 'greetings#rating'
+
+    get '/campaign/dash-your-day',        to: 'greetings#campaign'
+    get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
 
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category

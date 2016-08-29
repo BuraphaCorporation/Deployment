@@ -103,14 +103,14 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'capistrano', '~> 3.1'
-  # gem 'capistrano3-puma'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv', github: 'capistrano/rbenv'
   gem 'capistrano-rails-console'
-  gem 'slackistrano', '3.1.0.beta'
+  gem 'capistrano-sidekiq'
 
   gem 'airbrussh', require: false
+  gem 'slackistrano', '3.1.0.beta'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

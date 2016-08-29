@@ -125,6 +125,9 @@ GEM
       capistrano-bundler (~> 1.1)
     capistrano-rails-console (1.0.2)
       capistrano (>= 3.1.0, < 4.0.0)
+    capistrano-sidekiq (0.5.4)
+      capistrano
+      sidekiq (>= 3.4)
     capybara (2.7.1)
       addressable
       mime-types (>= 1.16)
@@ -631,6 +634,7 @@ DEPENDENCIES
   capistrano-rails (~> 1.1)
   capistrano-rails-console
   capistrano-rbenv!
+  capistrano-sidekiq
   capybara
   capybara-webkit
   cocoon

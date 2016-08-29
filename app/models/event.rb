@@ -50,14 +50,21 @@ class Event < ActiveRecord::Base
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
 
   # after_create :set_organizer
-  after_create :asign_up_time
-  def asign_up_time
-    self.up_time = sections.available.min_by(&:event_time)
+  # after_create :set_up_time
+  # def set_up_time
+  #   up_time = sections.available.min_by(&:event_time).event_time
+  # end
+
+  def update_up_time
+    Event.all.each do |event|
+      event_tim = event.sections.available.min_by(&:event_time).event_time
+      update(up_time: event_time)
+    end
   end
 
-  # def first_section
-  #   self.sections.available.min_by{|s| [s.event_time, s.price] }
-  # end
+  def first_section
+    self.sections.available.min_by{|s| [s.event_time, s.price] }
+  end
 
   def to_url
     slug || id

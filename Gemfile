@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rails', '5.0.0.1'
+gem 'sinatra', github: 'sinatra'
 
 # helper views
 gem 'turbolinks', '~> 5'
@@ -49,6 +50,7 @@ gem 'grape-active_model_serializers'
 
 # nosql
 gem 'redis', '~>3.2'
+gem 'redis-namespace'
 gem 'dalli', '~> 2.7.4'
 gem 'firebase'
 gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
@@ -67,10 +69,16 @@ gem 'slack-notifier'
 
 # worker
 gem 'sidekiq'
+gem 'sidekiq-cron'
+# gem 'sidekiq-scheduler', '~> 2.0'
 gem 'devise-async'
 
 # error handler
 gem 'rollbar'
+
+# marketing
+# gem 'split'
+gem 'vanity'
 
 group :development, :test do
   gem 'pry'
@@ -95,14 +103,14 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   gem 'capistrano', '~> 3.1'
-  # gem 'capistrano3-puma'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv', github: 'capistrano/rbenv'
   gem 'capistrano-rails-console'
-  gem 'slackistrano', '3.1.0.beta'
+  gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
 
   gem 'airbrussh', require: false
+  gem 'slackistrano', '3.1.0.beta'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

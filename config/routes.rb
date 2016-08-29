@@ -56,8 +56,9 @@
 
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   constraints(subdomain: App.host)  do
+    mount Sidekiq::Web => '/workers'
+
     devise_for :users,
       path: 'auth',
       controllers: {
@@ -75,15 +76,18 @@ Rails.application.routes.draw do
       root 'client/events#index'
     end
 
-    get '/fuck' => 'application#index', defaults: { format: :json }
+    get '/react-api' => 'application#index', defaults: { format: :json }
 
-    get '/blog' => redirect(App.blog)
-    get '/campaign/dash-your-day', to: 'greetings#campaign'
-    get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
+    get '/blog',        to: 'greetings#blog'
+    get '/blog/:slug',  to: 'greetings#blog'
+    get '/rating',      to: 'greetings#rating'
+
     get '/faq',                    to: 'greetings#faq'
     get '/terms-and-conditions',   to: 'greetings#terms'
     get '/privacy-policy',         to: 'greetings#policy'
-    get '/rating',                 to: 'greetings#rating'
+
+    get '/campaign/dash-your-day',        to: 'greetings#campaign'
+    get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
 
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category

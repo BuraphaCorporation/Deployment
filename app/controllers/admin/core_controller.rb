@@ -1,12 +1,13 @@
 class Admin::CoreController < ApplicationController
-  include DaydashHelper
-  before_action :authenticate_user!
   before_action :authenticate_admin!
+
+  include AdminHelper
+  include DaydashHelper
 
   layout 'daydash'
 
-  private
+  protected
     def authenticate_admin!
-      not_found unless current_user && current_user.is_admin?
+      not_found unless current_user && current_user.admin?
     end
 end

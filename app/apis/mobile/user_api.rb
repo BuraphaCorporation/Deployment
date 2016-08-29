@@ -168,7 +168,7 @@ class Mobile::UserAPI < ApplicationAPI
           present :data, []
         else
           present :status, :success
-          present :data, payments, with: Entities::TicketExpose
+          present :data, payments.available, with: Entities::TicketExpose
         end
       rescue Exception => e
         present :status, :failure

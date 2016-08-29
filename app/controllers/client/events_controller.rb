@@ -9,7 +9,7 @@ class Client::EventsController < Client::CoreController
     @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])
       Category.friendly.find(params[:category]).events
     else
-      Event.available
+      Event.list
     end
 
     @covers = [
@@ -72,6 +72,6 @@ class Client::EventsController < Client::CoreController
 
 private
   def related_events
-    @related_events = Event.all.first(3)
+    @related_events = Event.list.first(3)
   end
 end

@@ -43,8 +43,12 @@ class GreetingsController < ApplicationController
   private
     def resolve_layout
       case action_name
-      when "faq", "terms", "policy"
-        'daydash'
+      when 'faq', 'terms', 'policy'
+        if mobile_device?
+          'daydash'
+        else
+          false
+        end
       else
         false
       end

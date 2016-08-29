@@ -44,7 +44,6 @@ class GreetingsController < ApplicationController
 
   private
     def resolve_layout
-      binding.pry
       case action_name
       when 'faq', 'terms', 'policy'
         if mobile_device?

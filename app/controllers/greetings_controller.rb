@@ -1,5 +1,5 @@
 class GreetingsController < ApplicationController
-  layout false
+  layout :resolve_layout
 
   def rating
     redirect_to case request.user_agent.downcase
@@ -40,4 +40,13 @@ class GreetingsController < ApplicationController
   def campaign_terms
   end
 
+  private
+    def resolve_layout
+      case action_name
+      when "faq", "terms", "policy"
+        'daydash'
+      else
+        false
+      end
+    end
 end

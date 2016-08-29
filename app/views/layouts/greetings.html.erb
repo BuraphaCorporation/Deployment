@@ -10,10 +10,11 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
-    <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
-
-    <%= stylesheet_link_tag 'client/core', media: 'all', 'data-turbolinks-track' => true %>
+    <style media="screen">
+      body {
+        font-family: Sans-Serif;
+      }
+    </style>
   </head>
   <body>
     <%= yield %>

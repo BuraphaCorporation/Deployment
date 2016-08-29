@@ -1,4 +1,6 @@
 class GreetingsController < ApplicationController
+  include GreetingsHelper
+
   layout :resolve_layout
 
   def rating
@@ -42,12 +44,13 @@ class GreetingsController < ApplicationController
 
   private
     def resolve_layout
+      binding.pry
       case action_name
       when 'faq', 'terms', 'policy'
         if mobile_device?
-          'daydash'
-        else
           false
+        else
+          'daydash'
         end
       else
         false

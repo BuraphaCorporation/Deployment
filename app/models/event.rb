@@ -49,17 +49,17 @@ class Event < ActiveRecord::Base
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
 
-  scope :list,      -> { where('up_time > ?', Time.zone.now) }
+  scope :list,      -> { where('up_time > ?', Time.zone.now).order(:up_time) }
   # after_create :set_organizer
   # after_create :set_up_time
   # def set_up_time
   #   up_time = sections.available.min_by(&:event_time).event_time
   # end
 
-  def update_up_time
-    Event.all.each do |event|
-      event_tim = event.sections.available.min_by(&:event_time).event_time
-      update(up_time: event_time)
+  def self.update_up_time
+    all.each do |event|
+      event_time = event.sections.available.min_by(&:event_time).event_time
+      event.update(up_time: event_time)
     end
   end
 

@@ -44,11 +44,12 @@ class Event < ActiveRecord::Base
   has_many :sections, dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
 
-  scope :available, -> { joins(:sections).where("sections.event_time > ?", Time.zone.now).uniq }
+  scope :available, -> { joins(:sections).where('sections.event_time > ?', Time.zone.now).uniq }
   scope :today,     -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
 
+  scope :list,      -> { where('up_time > ?', Time.zone.now) }
   # after_create :set_organizer
   # after_create :set_up_time
   # def set_up_time
@@ -60,6 +61,10 @@ class Event < ActiveRecord::Base
       event_tim = event.sections.available.min_by(&:event_time).event_time
       update(up_time: event_time)
     end
+  end
+
+  def to_up_time
+    up_time.try(:strftime, "%A %d %B, %H:%M")
   end
 
   def first_section

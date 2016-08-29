@@ -1,5 +1,23 @@
 class GreetingsController < ApplicationController
-  layout false
+  include GreetingsHelper
+
+  layout :resolve_layout
+
+  def rating
+    redirect_to case request.user_agent.downcase
+    when /iphone/
+      App.domain
+    when /android/
+      App.domain
+    else
+      App.domain
+    end
+  end
+
+  def blog
+    slug = params[:slug]
+    redirect_to "#{App.blog}/#{slug}", status: :moved_permanently
+  end
 
   def faq
   end
@@ -8,17 +26,6 @@ class GreetingsController < ApplicationController
   end
 
   def policy
-  end
-
-  def rating
-    redirect_to case request.user_agent.downcase
-    when /iphone/
-      "http://daydash.co"
-    when /android/
-      "http://daydash.co"
-    else
-      "http://daydash.co"
-    end.html_safe
   end
 
   def campaign
@@ -34,4 +41,18 @@ class GreetingsController < ApplicationController
 
   def campaign_terms
   end
+
+  private
+    def resolve_layout
+      case action_name
+      when 'faq', 'terms', 'policy'
+        if mobile_device?
+          'greetings'
+        else
+          'daydash'
+        end
+      else
+        false
+      end
+    end
 end

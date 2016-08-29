@@ -61,7 +61,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :async, :registerable, # :confirmable,
+  devise :database_authenticatable, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
@@ -124,11 +124,11 @@ class User < ActiveRecord::Base
     UserMailer.welcome(self).deliver
   end
 
-  def is_admin?
+  def admin?
     role.title == 'admin'
   end
 
-  def is_organizer?
+  def organizer?
     role.title == 'organizer'
   end
 

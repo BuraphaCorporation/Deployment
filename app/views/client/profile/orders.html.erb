@@ -20,7 +20,7 @@
           <div class="list-body">
             <% @payments.each do |payment| %>
               <div class="ticket card-side-cover">
-                <a class="cover" style="background-image: url(<%= payment.event.galleries.first.media(:thumb) %>);" href="#"></a>
+                <a class="cover" style="background-image: url(<%= payment.event.galleries.first.try(:media, :thumb) %>);" href="#"></a>
                 <div class="info">
                   <div class="info-body">
                     <h4 class="title">
@@ -28,7 +28,7 @@
                         <%= payment.event.title %>
                       <% end %>
                     </h4>
-                    <div class="meta date"><%= payment.tickets.first.section.to_event_human %></div>
+                    <div class="meta date"><%= payment.event.up_time %></div>
                     <div class="meta location"><%= payment.event.location_name %></div>
                   </div>
                   <div class="info-footer">
@@ -47,7 +47,7 @@
                   </div>
                 </div>
               </div>
-            <% end %>
+            <% end if @has_tickets %>
           </div>
         </div>
       </div>

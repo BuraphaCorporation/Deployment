@@ -20,7 +20,7 @@
           <div class="list-body">
             <% @tickets.each do |ticket| %>
               <div class="ticket card-side-cover">
-                <a class="cover" style="background-image: url(<%= ticket.event.galleries.first.media(:thumb) %>);" href="#"></a>
+                <a class="cover" style="background-image: url(<%= ticket.event.galleries.first.try(:media, :thumb) %>);" href="#"></a>
                 <div class="info">
                   <div class="info-body">
                     <h4 class="title">

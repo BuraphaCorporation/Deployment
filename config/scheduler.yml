@@ -1,0 +1,12 @@
+
+notification:
+  cron: "*/5 * * * *"
+  class: "NotificationJob"
+  queue: default
+  active_job: true
+
+event_update:
+  cron: "0 6 * * *"
+  class: "EventJob"
+  queue: default
+  active_job: true

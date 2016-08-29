@@ -47,7 +47,7 @@ class GreetingsController < ApplicationController
       case action_name
       when 'faq', 'terms', 'policy'
         if mobile_device?
-          false
+          'greetings'
         else
           'daydash'
         end

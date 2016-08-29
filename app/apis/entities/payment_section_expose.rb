@@ -9,9 +9,9 @@ class Entities::PaymentSectionExpose < Grape::Entity
     item.section.title
   end
   expose :section, as: :event_time do |item, option|
-    item.section.event_time
+    item.section.event_time.utc.iso8601
   end
   expose :section, as: :end_time do |item, option|
-    item.section.end_time
+    item.section.end_time.utc.iso8601
   end
 end

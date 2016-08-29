@@ -107,7 +107,7 @@ group :development do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv', github: 'capistrano/rbenv'
   gem 'capistrano-rails-console'
-  gem 'capistrano-sidekiq'
+  gem 'capistrano-sidekiq', github: 'seuros/capistrano-sidekiq'
 
   gem 'airbrussh', require: false
   gem 'slackistrano', '3.1.0.beta'

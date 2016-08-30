@@ -1,19 +1,29 @@
-class DeviseCreateUsers < ActiveRecord::Migration
+class DeviseCreateUsers < ActiveRecord::Migration[5.0]
   def change
     create_table :users do |t|
       ## Database authenticatable
+      t.string :username,           null: true, unique: true
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       t.string :first_name
       t.string :last_name
-      t.boolean :gender
-      t.date :birthday
+      t.string :gender
+      t.date   :birthday
       t.string :phone
-      t.string :interesting
+      t.attachment :picture
+      t.string :role
+
+      t.string :provider
+      t.string :uid
+      t.string :access_token
+      t.string :omise_customer_id
+      t.string :onesignal_id
+
       t.string :company
       t.string :url
-      t.text :short_description
+      t.string :interest
+      t.text   :short_description
 
       ## Recoverable
       t.string   :reset_password_token

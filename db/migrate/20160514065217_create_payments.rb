@@ -1,16 +1,17 @@
-class CreatePayments < ActiveRecord::Migration
+class CreatePayments < ActiveRecord::Migration[5.0]
   def change
     create_table :payments do |t|
-      # t.references :user, index: true, foreign_key: true
-      # t.references :event, index: true, foreign_key: true
-
-      t.string :provider
-      t.integer :amount
-      t.integer :fee
+      t.string      :status
+      t.string      :code
+      t.attachment  :qr_code
+      t.string      :methods
+      t.string      :omise_transaction_id
+      t.integer     :amount
+      t.integer     :fee
+      t.attachment  :slip
+      t.datetime    :purchased_at
 
       t.timestamps null: false
     end
-
-    add_reference :tickets, :payment, index: true, foreign_key: true
   end
 end

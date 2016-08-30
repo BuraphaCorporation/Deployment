@@ -8,8 +8,8 @@
       <div class="col-xs-12 col-md-4">
         <div class="event card payment-card">
           <%= link_to client_event_path(@event.to_url) do %>
-            <% if @event.galleries.present? %>
-              <div class="cover" style="background-image: url(<%= @event.galleries.first.try(:media, :thumb) %>);"></div>
+            <% if @event.event_pictures.present? %>
+              <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :thumb) %>);"></div>
             <% else %>
               <div class="cover"></div>
             <% end %>

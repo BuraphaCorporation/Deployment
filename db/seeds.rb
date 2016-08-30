@@ -398,30 +398,30 @@ olive.sections.create([
 puts "upload image"
 Dir["#{Rails.root}/public/event_content/lazgam/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: lazgam, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: lazgam, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/shopspot/Candle Aroma Perfume/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: shopspot1, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: shopspot1, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/shopspot/Give Me Soap/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: shopspot2, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: shopspot2, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/studiolam/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: studiolam, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: studiolam, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/beam/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: beam, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: beam, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/olive/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: olive, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: olive, media: File.open(attachment, 'rb'))
 end

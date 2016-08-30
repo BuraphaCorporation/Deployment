@@ -54,7 +54,7 @@ class Organizer::EventsController < Organizer::CoreController
     #   { id: 6, url: '/src/images/content/cover-2.jpg' },
     # ]
 
-    @images = @event.galleries.order(:sort_index)
+    @images = @event.event_pictures.order(:sort_index)
 
     @images_order = [];
     @images.each do |image|
@@ -75,7 +75,7 @@ class Organizer::EventsController < Organizer::CoreController
   end
 
   def delete_attachment
-    @event.galleries.where(id: params[:media_id]).destroy_all
+    @event.event_pictures.where(id: params[:media_id]).destroy_all
     redirect_to :back
   end
 
@@ -89,9 +89,9 @@ private
       CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
     end unless params[:category_ids].nil?
 
-    params[:galleries].each do |attachments|
-      Gallery.create(event: @event, media: attachments)
-    end unless params[:galleries].nil?
+    params[:event_pictures].each do |attachments|
+      EventPicture.create(event: @event, media: attachments)
+    end unless params[:event_pictures].nil?
 
     (0..params[:new_ticket_names].count - 1).each do |section|
       event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
@@ -114,9 +114,9 @@ private
       CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
     end unless params[:category_ids].nil?
 
-    params[:galleries].each do |attachments|
-      Gallery.create(event: @event, media: attachments)
-    end unless params[:galleries].nil?
+    params[:event_pictures].each do |attachments|
+      EventPicture.create(event: @event, media: attachments)
+    end unless params[:event_pictures].nil?
 
     (0..params[:new_ticket_names].count - 1).each do |section|
       event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")

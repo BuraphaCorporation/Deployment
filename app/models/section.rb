@@ -3,7 +3,7 @@
 # Table name: sections
 #
 #  id         :integer          not null, primary key
-#  status     :integer          default("off")
+#  status     :string           default(NULL)
 #  event_id   :integer
 #  title      :string
 #  event_time :datetime

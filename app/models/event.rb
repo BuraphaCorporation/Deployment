@@ -6,17 +6,18 @@
 #  user_id          :integer
 #  title            :string
 #  description      :text
+#  instruction      :text
 #  location_name    :string
+#  location_address :string
 #  latitude         :decimal(10, 6)
 #  longitude        :decimal(10, 6)
+#  uptime           :datetime
+#  max_price        :integer
+#  min_price        :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  slug             :string
-#  location_address :string
-#  instruction      :text
-#  max_price        :integer
-#  min_price        :integer
-#  up_time          :datetime
+#  name             :string
 #
 # Indexes
 #
@@ -37,11 +38,11 @@ class Event < ApplicationRecord
 
   has_and_belongs_to_many :categories
 
-  has_many :wishlists, dependent: :destroy
-  has_many :galleries, dependent: :destroy
-  has_many :payments, dependent: :destroy
-  has_many :tickets, dependent: :destroy
-  has_many :sections, dependent: :destroy
+  has_many :wishlists,      dependent: :destroy
+  has_many :event_pictures, dependent: :destroy
+  has_many :orders,         dependent: :destroy
+  has_many :tickets,        dependent: :destroy
+  has_many :sections,       dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
 
   scope :available, -> { joins(:sections).where('sections.event_time > ?', Time.zone.now).uniq }
@@ -49,22 +50,22 @@ class Event < ApplicationRecord
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
 
-  scope :list,      -> { where('up_time > ?', Time.zone.now).order(:up_time) }
+  scope :list,      -> { where('uptime > ?', Time.zone.now).order(:uptime) }
   # after_create :set_organizer
-  # after_create :set_up_time
-  # def set_up_time
-  #   up_time = sections.available.min_by(&:event_time).event_time
+  # after_create :set_uptime
+  # def set_uptime
+  #   uptime = sections.available.min_by(&:event_time).event_time
   # end
 
-  def self.update_up_time
+  def self.update_uptime
     all.each do |event|
       event_time = event.sections.available.min_by(&:event_time).event_time
-      event.update(up_time: event_time)
+      event.update(uptime: event_time)
     end
   end
 
-  def to_up_time
-    up_time.try(:strftime, "%A %d %B, %H:%M")
+  def to_uptime
+    uptime.try(:strftime, "%A %d %B, %H:%M")
   end
 
   def first_section
@@ -76,11 +77,11 @@ class Event < ApplicationRecord
   end
 
   def get_thumbnail
-    self.galleries.present? ? self.galleries.first.try(:media, :thumb) : ''
+    self.event_pictures.present? ? self.event_pictures.first.try(:media, :thumb) : ''
   end
 
   # private
-    # def set_organizer
-    #   self.user ||= User.find_by_email('hello@daydash.co')
-    # end
+  #   def set_organizer
+  #     self.user ||= User.find_by_email('hello@daydash.co')
+  #   end
 end

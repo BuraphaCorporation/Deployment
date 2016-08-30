@@ -155,7 +155,6 @@ class Payment < ActiveRecord::Base
       end
     end
 
-
     def transfer_checkout(user, event, evidence=nil)
       update(status: :success, user: user, event: event, evidence: evidence)
     end

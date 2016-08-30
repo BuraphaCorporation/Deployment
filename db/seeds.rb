@@ -1,9 +1,4 @@
 
-# puts "role of user"
-# ['user', 'admin'].each do |role|
-#   Role.find_or_create_by({title: role})
-# end
-
 puts "add category"
 {
   'nightlife-and-entertainment': 'Nightlife / Entertainment',
@@ -28,6 +23,18 @@ user = User.create do |user|
   user.password               = '1234567890'
   user.password_confirmation  = '1234567890'
   user.confirmed_at           = Time.zone.now
+  user.role                   = 'admin'
+end
+puts user
+
+user = User.create do |user|
+  user.email                  = "hello@daydash.co"
+  user.first_name             = 'Bow'
+  user.last_name              = 'Kai'
+  user.password               = '1234567890'
+  user.password_confirmation  = '1234567890'
+  user.confirmed_at           = Time.zone.now
+  user.role                   = 'admin'
 end
 puts user
 

@@ -81,22 +81,23 @@ class User < ApplicationRecord
   after_create :send_welcome_email
 
   scope :latest, -> { order 'created_at desc' }
-  enumerize :gender, in: [:male, :female] #default: lambda { |user| SexIdentifier.sex_for_name(user.name).to_sym }
+  enumerize :gender, in: [:male, :female, :not_specify], default: :not_specify #default: lambda { |user| SexIdentifier.sex_for_name(user.name).to_sym }
   enumerize :role, in: [:user, :admin], default: :user
 
   def admin?
-    # role.title == 'admin'
-    true
+    role == 'admin'
   end
 
   def organizer?
-    # role.title == 'organizer'
-    true
+    role == 'organizer'
   end
 
   def can_organizer?
-    # role.title != 'user'
-    true
+    role != 'user'
+  end
+
+  def date_of_birth
+    birthday.strftime("%m/%d/%Y")
   end
 
   def self.from_api(token)
@@ -111,7 +112,7 @@ class User < ApplicationRecord
       last_name:  profile['last_name'],
       birthday:   profile['birthday'],
       gender:     profile['gender'],
-      picture:     process_uri(image)
+      picture:    process_uri(image)
     )
   end
 
@@ -124,7 +125,7 @@ class User < ApplicationRecord
         last_name:  auth.extra.raw_info.last_name,
         birthday:   auth.extra.raw_info.birthday,
         gender:     auth.extra.raw_info.gender,
-        picture:     process_uri(auth.info.image)
+        picture:    process_uri(auth.info.image)
       )
     else
       where(email: auth.info.email).update(

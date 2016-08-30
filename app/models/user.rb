@@ -198,12 +198,12 @@ class User < ApplicationRecord
     User.find_by_token(token)
   end
 
-  protected
-    def confirmation_required?
-      false
-    end
+protected
+  def confirmation_required?
+    false
+  end
 
-  private
+private
   def set_default_role
     self.role ||= Role.find_by_title('user')
   end

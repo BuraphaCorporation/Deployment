@@ -11,4 +11,11 @@ class Order < ApplicationRecord
   extend Enumerize
 
   has_many :tickets, dependent: :destroy
+
+  def to_s
+    "##{no}"
+  end
+
+private
+
 end

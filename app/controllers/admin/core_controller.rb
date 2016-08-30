@@ -6,7 +6,7 @@ class Admin::CoreController < ApplicationController
 
   layout 'daydash'
 
-  protected
+protected
   def authenticate_admin!
     not_found unless current_user && current_user.admin?
   end

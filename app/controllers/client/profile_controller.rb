@@ -55,7 +55,7 @@ class Client::ProfileController < Client::CoreController
     redirect_to '/'
   end
 
-  private
+private
   def user_params
     params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone)
   end

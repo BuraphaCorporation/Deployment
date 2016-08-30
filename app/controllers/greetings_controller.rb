@@ -42,7 +42,7 @@ class GreetingsController < ApplicationController
   def campaign_terms
   end
 
-  private
+private
   def resolve_layout
     case action_name
     when 'faq', 'terms', 'policy'

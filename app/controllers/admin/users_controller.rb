@@ -29,7 +29,7 @@ class Admin::UsersController < Admin::CoreController
     @user.destroy
   end
 
-  private
+private
   def user
     @user = User.find(params[:id])
   end

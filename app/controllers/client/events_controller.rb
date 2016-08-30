@@ -70,7 +70,7 @@ class Client::EventsController < Client::CoreController
     end
   end
 
-  private
+private
   def related_events
     @related_events = Event.list.first(3)
   end

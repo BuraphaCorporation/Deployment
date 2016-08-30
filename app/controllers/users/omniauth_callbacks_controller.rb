@@ -21,7 +21,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     super
   end
 
-  protected
+protected
   def after_omniauth_failure_path_for(scope)
     super(scope)
   end

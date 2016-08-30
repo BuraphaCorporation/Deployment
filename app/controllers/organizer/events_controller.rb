@@ -79,7 +79,7 @@ class Organizer::EventsController < Organizer::CoreController
     redirect_to :back
   end
 
-  private
+private
 
   def serialize_data_create
     user_id = params[:user].to_i.eql?(0) ? current_user.id : params[:user].to_i

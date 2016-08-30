@@ -40,7 +40,7 @@ class Admin::EventsController < Admin::CoreController
     redirect_to :back
   end
 
-  private
+private
 
   def serialize_data_create
     user_id = params[:event][:user].to_i.eql?(0) ? current_user.id : params[:event][:user].to_i

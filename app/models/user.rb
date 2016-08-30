@@ -55,8 +55,6 @@
 #
 
 class User < ApplicationRecord
-  extend Enumerize
-
   devise :database_authenticatable, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]

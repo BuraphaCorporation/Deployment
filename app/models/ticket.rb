@@ -28,8 +28,6 @@
 #
 
 class Ticket < ApplicationRecord
-  extend Enumerize
-
   belongs_to :user
   belongs_to :event
   belongs_to :section

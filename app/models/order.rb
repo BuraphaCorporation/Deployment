@@ -26,8 +26,6 @@
 #
 
 class Order < ApplicationRecord
-  extend Enumerize
-
   belongs_to :user, inverse_of: :orders
   belongs_to :event, inverse_of: :orders
 

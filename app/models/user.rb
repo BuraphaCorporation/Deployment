@@ -58,7 +58,9 @@
 #  fk_rails_642f17018b  (role_id => roles.id)
 #
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
+  extend Enumerize
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, # :confirmable,
@@ -202,7 +204,7 @@ class User < ActiveRecord::Base
     end
 
   private
-    def set_default_role
-      self.role ||= Role.find_by_title('user')
-    end
+  def set_default_role
+    self.role ||= Role.find_by_title('user')
+  end
 end

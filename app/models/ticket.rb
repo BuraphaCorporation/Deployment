@@ -31,7 +31,7 @@
 #  fk_rails_e59379c902  (section_id => sections.id)
 #
 
-class Ticket < ActiveRecord::Base
+class Ticket < ApplicationRecord
   belongs_to :event
   belongs_to :section
   belongs_to :user

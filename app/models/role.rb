@@ -8,6 +8,6 @@
 #  updated_at :datetime         not null
 #
 
-class Role < ActiveRecord::Base
+class Role < ApplicationRecord
   has_many :users
 end

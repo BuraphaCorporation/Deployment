@@ -7,7 +7,7 @@ class Organizer::CoreController < ApplicationController
   layout 'daydash'
 
   protected
-    def authenticate_organizer!
-      not_found unless current_user && current_user.can_organizer?
-    end
+  def authenticate_organizer!
+    not_found unless current_user && current_user.can_organizer?
+  end
 end

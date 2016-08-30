@@ -30,11 +30,11 @@ class Admin::UsersController < Admin::CoreController
   end
 
   private
-    def user
-      @user = User.find(params[:id])
-    end
+  def user
+    @user = User.find(params[:id])
+  end
 
-    def user_params
-      params.require(:user).permit(:email, :password, :first_name, :last_name, :birthday, :company, :url, :interesting, :short_description, :avatar)
-    end
+  def user_params
+    params.require(:user).permit(:email, :password, :first_name, :last_name, :birthday, :company, :url, :interesting, :short_description, :avatar)
+  end
 end

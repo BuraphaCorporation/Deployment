@@ -56,11 +56,11 @@ class Client::ProfileController < Client::CoreController
   end
 
   private
-    def user_params
-      params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone)
-    end
+  def user_params
+    params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone)
+  end
 
-    def check_password
-      current_user.valid_password?(params[:user][:current_password]) && (params[:user][:new_password] == params[:user][:new_password_confirm])
-    end
+  def check_password
+    current_user.valid_password?(params[:user][:current_password]) && (params[:user][:new_password] == params[:user][:new_password_confirm])
+  end
 end

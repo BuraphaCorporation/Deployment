@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160828142459) do
+ActiveRecord::Schema.define(version: 20160830124958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,11 @@ ActiveRecord::Schema.define(version: 20160828142459) do
     t.index ["event_id"], name: "index_galleries_on_event_id", using: :btree
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
@@ -93,6 +98,7 @@ ActiveRecord::Schema.define(version: 20160828142459) do
     t.string   "qr_code_content_type"
     t.integer  "qr_code_file_size"
     t.datetime "qr_code_updated_at"
+    t.string   "omise_token"
     t.index ["event_id"], name: "index_payments_on_event_id", using: :btree
     t.index ["user_id"], name: "index_payments_on_user_id", using: :btree
   end

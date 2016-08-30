@@ -1,16 +1,14 @@
 # == Schema Information
 #
-# Table name: tags
+# Table name: orders
 #
 #  id         :integer          not null, primary key
-#  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-# Indexes
-#
-#  index_tags_on_title  (title) UNIQUE
-#
 
-class Tag < ApplicationRecord
+class Order < ApplicationRecord
+  extend Enumerize
+
+  has_many :tickets, dependent: :destroy
 end

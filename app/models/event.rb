@@ -28,7 +28,7 @@
 #  fk_rails_0cb5590091  (user_id => users.id)
 #
 
-class Event < ActiveRecord::Base
+class Event < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 

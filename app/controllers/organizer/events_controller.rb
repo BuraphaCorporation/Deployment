@@ -81,71 +81,71 @@ class Organizer::EventsController < Organizer::CoreController
 
   private
 
-    def serialize_data_create
-      user_id = params[:user].to_i.eql?(0) ? current_user.id : params[:user].to_i
-      @event.update(user_id: user_id)
+  def serialize_data_create
+    user_id = params[:user].to_i.eql?(0) ? current_user.id : params[:user].to_i
+    @event.update(user_id: user_id)
 
-      params[:category_ids].each do |category|
-        CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
-      end unless params[:category_ids].nil?
+    params[:category_ids].each do |category|
+      CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
+    end unless params[:category_ids].nil?
 
-      params[:galleries].each do |attachments|
-        Gallery.create(event: @event, media: attachments)
-      end unless params[:galleries].nil?
+    params[:galleries].each do |attachments|
+      Gallery.create(event: @event, media: attachments)
+    end unless params[:galleries].nil?
 
-      (0..params[:new_ticket_names].count - 1).each do |section|
-        event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
-        end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+    (0..params[:new_ticket_names].count - 1).each do |section|
+      event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
+      end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
 
-        Section.create do |s|
-          s.event_id    = @event.id
-          s.title       = params[:new_ticket_names][section]
-          s.available   = params[:new_ticket_availables][section]
-          s.price       = params[:new_ticket_prices][section]
-          s.event_time  = event_time
-          s.end_time    = end_time
-        end
-      end unless params[:new_ticket_names].nil?
-    end
+      Section.create do |s|
+        s.event_id    = @event.id
+        s.title       = params[:new_ticket_names][section]
+        s.available   = params[:new_ticket_availables][section]
+        s.price       = params[:new_ticket_prices][section]
+        s.event_time  = event_time
+        s.end_time    = end_time
+      end
+    end unless params[:new_ticket_names].nil?
+  end
 
-    def serialize_data_update
-      CategoriesEvent.where(event: @event).where.not(category: params[:category_ids]).delete_all
-      params[:category_ids].each do |category|
-        CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
-      end unless params[:category_ids].nil?
+  def serialize_data_update
+    CategoriesEvent.where(event: @event).where.not(category: params[:category_ids]).delete_all
+    params[:category_ids].each do |category|
+      CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
+    end unless params[:category_ids].nil?
 
-      params[:galleries].each do |attachments|
-        Gallery.create(event: @event, media: attachments)
-      end unless params[:galleries].nil?
+    params[:galleries].each do |attachments|
+      Gallery.create(event: @event, media: attachments)
+    end unless params[:galleries].nil?
 
-      (0..params[:new_ticket_names].count - 1).each do |section|
-        event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
-        end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+    (0..params[:new_ticket_names].count - 1).each do |section|
+      event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
+      end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
 
-        Section.create do |s|
-          s.event_id    = @event.id
-          s.title       = params[:new_ticket_names][section]
-          s.available   = params[:new_ticket_availables][section]
-          s.price       = params[:new_ticket_prices][section]
-          s.event_time  = event_time
-          s.end_time    = end_time
-        end
-      end unless params[:new_ticket_names].nil?
-    end
+      Section.create do |s|
+        s.event_id    = @event.id
+        s.title       = params[:new_ticket_names][section]
+        s.available   = params[:new_ticket_availables][section]
+        s.price       = params[:new_ticket_prices][section]
+        s.event_time  = event_time
+        s.end_time    = end_time
+      end
+    end unless params[:new_ticket_names].nil?
+  end
 
-    def event
-      @event = Event.friendly.find(params[:id])
-    end
+  def event
+    @event = Event.friendly.find(params[:id])
+  end
 
-    def event_params
-      params.permit(:title, :description, :location_name, :location_address, :latitude, :longitude)
-    end
+  def event_params
+    params.permit(:title, :description, :location_name, :location_address, :latitude, :longitude)
+  end
 
-    def all_categories
-      @categories = Category.all
-    end
+  def all_categories
+    @categories = Category.all
+  end
 
-    def all_users
-      # @users = Role.find_by_title('organizer').users
-    end
+  def all_users
+    # @users = Role.find_by_title('organizer').users
+  end
 end

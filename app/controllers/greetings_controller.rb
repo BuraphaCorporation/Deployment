@@ -43,16 +43,16 @@ class GreetingsController < ApplicationController
   end
 
   private
-    def resolve_layout
-      case action_name
-      when 'faq', 'terms', 'policy'
-        if mobile_device?
-          'greetings'
-        else
-          'daydash'
-        end
+  def resolve_layout
+    case action_name
+    when 'faq', 'terms', 'policy'
+      if mobile_device?
+        'greetings'
       else
-        false
+        'daydash'
       end
+    else
+      false
     end
+  end
 end

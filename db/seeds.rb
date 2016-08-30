@@ -1,8 +1,8 @@
 
-puts "role of user"
-['user', 'admin'].each do |role|
-  Role.find_or_create_by({title: role})
-end
+# puts "role of user"
+# ['user', 'admin'].each do |role|
+#   Role.find_or_create_by({title: role})
+# end
 
 puts "add category"
 {
@@ -28,7 +28,6 @@ user = User.create do |user|
   user.password               = '1234567890'
   user.password_confirmation  = '1234567890'
   user.confirmed_at           = Time.zone.now
-  user.role_id                = Role.find_by_title('admin').id
 end
 puts user
 
@@ -425,3 +424,6 @@ Dir["#{Rails.root}/public/event_content/olive/*"].each do |attachment|
   puts attachment
   EventPicture.create(event: olive, media: File.open(attachment, 'rb'))
 end
+
+puts "update event uptime"
+Event.update_uptime

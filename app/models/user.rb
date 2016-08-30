@@ -72,12 +72,12 @@ class User < ApplicationRecord
 
   # has_one :token, { order 'created_at DESC' }, class_name: Doorkeeper::AccessToken, foreign_key: :resource_owner_id
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100#" },
+  has_attached_file :picture, styles: { medium: "300x300>", thumb: "100x100#" },
                     default_url: "#{App.domain}/src/images/profile/missing-profile.png"
 
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+  validates_attachment_content_type :picture, content_type: /\Aimage\/.*\Z/
 
-  before_create :set_default_token
+  before_create :set_default_access_token
   before_create :set_default_referal
   after_create :set_customer_token
   after_create :send_welcome_email
@@ -113,7 +113,7 @@ class User < ApplicationRecord
       last_name:  profile['last_name'],
       birthday:   profile['birthday'],
       gender:     profile['gender'],
-      avatar:     process_uri(image)
+      picture:     process_uri(image)
     )
   end
 
@@ -126,7 +126,7 @@ class User < ApplicationRecord
         last_name:  auth.extra.raw_info.last_name,
         birthday:   auth.extra.raw_info.birthday,
         gender:     auth.extra.raw_info.gender,
-        avatar:     process_uri(auth.info.image)
+        picture:     process_uri(auth.info.image)
       )
     else
       where(email: auth.info.email).update(
@@ -136,7 +136,7 @@ class User < ApplicationRecord
         last_name:  auth.extra.raw_info.last_name,
         birthday:   auth.extra.raw_info.birthday,
         gender:     auth.extra.raw_info.gender,
-        avatar:     process_uri(auth.info.image)
+        picture:     process_uri(auth.info.image)
       ).first
     end
   end
@@ -167,18 +167,18 @@ protected
   end
 
 private
-  def set_default_token
-    token = self.generate_token
+  def set_default_access_token
+    access_token = generate_token
   end
 
   def set_default_referal
-    referal_code = self.generate_referal
+    referal_code = generate_referal
   end
 
   def generate_token
     loop do
-      token = SecureRandom.base64.tr('+/=', 'Qrt')
-      break token unless User.exists?(token: token)
+      access_token = SecureRandom.base64.tr('+/=', 'Qrt')
+      break access_token unless User.exists?(access_token: access_token)
     end
   end
 

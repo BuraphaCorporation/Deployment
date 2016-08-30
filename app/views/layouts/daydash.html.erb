@@ -68,7 +68,7 @@ mixpanel.init("a289e1db68d3fa5373095ae76c8e594a");</script>
                   <% end %>
                   <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                      <div class="user-profile-photo" style="background-image: url(<%= current_user.avatar(:medium) %>"></div>
+                      <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>"></div>
                     </a>
                     <ul class="dropdown-menu">
                       <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>

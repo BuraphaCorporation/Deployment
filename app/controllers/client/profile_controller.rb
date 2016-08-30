@@ -10,7 +10,7 @@ class Client::ProfileController < Client::CoreController
   end
 
   def orders
-    @payments = current_user.payments
+    @payments = current_user.orders
     @has_tickets = @payments.present?
   end
 

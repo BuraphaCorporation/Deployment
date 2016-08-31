@@ -38,7 +38,7 @@ class Ticket < ApplicationRecord
   validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
 
   before_create :set_default_ticket_code
-  after_create :set_default_qr_code
+  after_create :set_default_ticket_qr_code
 
   scope :current_tickets, -> { joins(:section).select{ |s| s.section.event_time >= Date.today } }
   enumerize :status, in: [:upcoming, :passed, :used]
@@ -48,19 +48,10 @@ class Ticket < ApplicationRecord
   end
 
   class << self
-    def code
-      loop do
-        code = App.generate_code
-        break code unless self.exists?(code: code)
-      end
-    end
-
-    def create_ticket(user, event, section, payment)
-      begin
-        create(status: 1, event_id: event.id, section_id: section, user_id: user.id, payment_id: payment.id)
-      rescue Exception => e
-        e
-      end
+    def create_ticket(user, order, event, section)
+      create(status: 1, user_id: user.id, order_id: order.id, event_id: event.id, section_id: section)
+    rescue Exception => error
+      error
     end
 
     def consume_ticket(ticket)
@@ -73,12 +64,19 @@ class Ticket < ApplicationRecord
   end
 
 private
-  def set_default_ticket_code
-    ticket.code = Ticket.code
+  def generate_code
+    loop do
+      code = App.generate_code
+      break code unless Ticket.exists?(code: code)
+    end
   end
 
-  def set_default_qr_code
-    attachment = App.generate_qr_code(self)
+  def set_default_ticket_code
+    self.code = generate_code
+  end
+
+  def set_default_ticket_qr_code
+    attachment   = App.generate_qr_code(self)
     self.qr_code = File.open(attachment, 'rb')
   end
 end

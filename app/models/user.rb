@@ -135,7 +135,7 @@ class User < ApplicationRecord
         last_name:  auth.extra.raw_info.last_name,
         birthday:   auth.extra.raw_info.birthday,
         gender:     auth.extra.raw_info.gender,
-        picture:     process_uri(auth.info.image)
+        picture:    process_uri(auth.info.image)
       ).first
     end
   end
@@ -166,19 +166,17 @@ protected
   end
 
 private
-  def set_default_access_token
-    access_token = generate_token
-  end
-
-  def set_default_referal
-    referal_code = generate_referal
-  end
-
   def generate_token
     loop do
       access_token = SecureRandom.base64.tr('+/=', 'Qrt')
       break access_token unless User.exists?(access_token: access_token)
     end
+  end
+
+  def set_default_access_token
+    self.access_token = generate_token
+  rescue Exception => e
+    logger.warn e
   end
 
   def generate_referal
@@ -188,12 +186,18 @@ private
     end
   end
 
+  def set_default_referal
+    self.referal_code = generate_referal
+  rescue Exception => e
+    logger.warn e
+  end
+
   def set_customer_token
     customer = Omise::Customer.create({
       email: self.email,
-      description: "#{self.first_name} #{self.last_name} id: #{self.id}"
+      description: "id: #{self.id} - name: #{self.first_name} #{self.last_name}"
     })
-    self.update(customer_token: customer.id)
+    self.update(omise_customer_id: customer.id)
   rescue Exception => e
     logger.warn e
   end

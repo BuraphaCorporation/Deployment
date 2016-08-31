@@ -4,11 +4,6 @@
 #
 #  id                   :integer          not null, primary key
 #  status               :string
-#  code                 :string
-#  qr_code_file_name    :string
-#  qr_code_content_type :string
-#  qr_code_file_size    :integer
-#  qr_code_updated_at   :datetime
 #  methods              :string
 #  omise_transaction_id :string
 #  amount               :integer
@@ -17,7 +12,8 @@
 #  slip_content_type    :string
 #  slip_file_size       :integer
 #  slip_updated_at      :datetime
-#  purchased_at         :datetime
+#  approved_at          :datetime
+#  paid_at         :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  order_id             :integer
@@ -32,26 +28,25 @@
 #
 
 class Payment < ApplicationRecord
-  belongs_to :order, inverse_of: :payments
+  belongs_to :order, inverse_of: :payment
 
   has_attached_file :evidence, styles: { default: "600x700" }
-  has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  # has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  # validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
 
-  validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
+  before_create :set_default_payment_code
+  after_create :set_default_payment_qr_code
+  after_create :send_payment_email
 
   scope :available, -> { all.reject{ |p| p.tickets.empty? } }
   enumerize :status, in: [:success, :failure, :cancel, :pending], default: :pending
 
-  before_create :set_default_payment_code
-  after_create :set_default_qr_code
-  after_create :send_payment_email
-
-  def to_s
-    "#PM-#{code}"
-  end
+  # def to_s
+  #   "#PM-#{code}"
+  # end
 
   def purchased
-    purchased_at.try(:strftime, "%A %d %B, %H:%M")
+    paid_at.try(:strftime, "%A %d %B, %H:%M")
   end
 
   def purchased_status
@@ -63,53 +58,62 @@ class Payment < ApplicationRecord
   end
 
   class << self
-    def omise_charge(user, event, sections, amount, omise_token)
-      # card = Omise::Token.create(card: {
-      #   name: "Somchai Prasert",
-      #   number: "4242424242424242",
-      #   expiration_month: 10,
-      #   expiration_year: 2018,
-      #   city: "Bangkok",
-      #   postal_code: "10320",
-      #   security_code: 123
-      # })
-      # omise_token = card.id
+    # omise create card
+    # card = Omise::Token.create(card: {
+    #   name: "Arnon Hongklay",
+    #   number: "4242424242424242",
+    #   expiration_month: 10,
+    #   expiration_year: 2018,
+    #   city: "Bangkok",
+    #   postal_code: "10320",
+    #   security_code: 123
+    # })
+    # omise_token = card.id
 
+    def omise_customer_charge(order, amount, omise_token)
       charge = Omise::Charge.create({
         amount:       amount.to_i * 100,
         currency:     "thb",
-        description:  invoice(user, event),
-        customer:     user.customer_token,
+        description:  order.invoice_no,
+        customer:     order.user.omise_customer_id,
         card:         omise_token
       })
 
-      pay = create(status: charge.status, provider: 'omise', user: user, event: event, amount: charge.transaction.amount, fee: charge.amount - charge.transaction.amount)
-
-      if pay.new_record?
-        sw.each do |section|
-          (1..section.qty).each do |i|
-            Ticket.create_ticket(user, event, section.id, pay)
-          end
-        end
-      end
-    rescue Exception => error
-      error
-    # ensure
-    #   pay
+      create(
+        order:                order,
+        status:               charge.status,
+        methods:              'omise',
+        omise_transaction_id: charge,
+        amount:               charge.transaction.amount,
+        fee:                  charge.amount - charge.transaction.amount
+      )
     end
 
-    def transfer_notify(user, event, sections, amount)
-      pay = create(status: :pending, provider: 'transfer', user: user, event: event, amount: amount)
+    def omise_token_charge(order, amount, omise_token)
+      charge = Omise::Charge.create({
+        amount:       amount.to_i * 100,
+        currency:     "thb",
+        description:  order.invoice_no,
+        card:         omise_token
+      })
 
-      sections.each do |section|
-        (1..section.qty).each do |i|
-          Ticket.create_ticket(user, event, section.id, pay)
-        end
-      end
-
-      pay
+      create(
+        order:                order,
+        status:               charge.status,
+        methods:              'omise',
+        omise_transaction_id: charge,
+        amount:               charge.transaction.amount,
+        fee:                  charge.amount - charge.transaction.amount
+      )
     rescue Exception => error
-      error
+      { status: :error, message: error }
+    end
+
+    def transfer_notify(order, amount)
+      create(status: :pending, methods: 'transfer', order: order, amount: amount, fee: 0)
+      raise "xxxx"
+    rescue Exception => error
+      { status: :error, message: error }
     end
 
     def transfer_checkout(user, event, evidence=nil)
@@ -126,24 +130,24 @@ class Payment < ApplicationRecord
   end
 
 private
-  def code
+  def generate_code
     loop do
       code = App.generate_code
-      break code unless self.exists?(code: code)
+      break code unless Payment.exists?(code: code)
     end
   end
 
   def set_default_payment_code
-    payment.code = Payment.code
+    self.code = generate_code
   end
 
-  def set_default_qr_code
+  def set_default_payment_qr_code
     attachment = App.generate_qr_code(self)
     self.qr_code = File.open(attachment, 'rb')
   end
 
   def send_payment_email
-    case provider
+    case methods
     when 'transfer'
       OrganizerMailer.order(self, self.user, self.event).deliver!
       PaymentMailer.order(self, self.user, self.event).deliver!

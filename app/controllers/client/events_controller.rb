@@ -53,7 +53,8 @@ class Client::EventsController < Client::CoreController
   end
 
   def checkout
-    dob = params[:dob_date]
+    dob = Date.strptime("#{params[:dob_date]}/#{params[:dob_month]}/#{params[:dob_year]}", "%d/%m/%Y")
+
     current_user.update(
       first_name: params[:firstname],
       last_name:  params[:lastname],
@@ -62,16 +63,34 @@ class Client::EventsController < Client::CoreController
       gender:     params[:gender],
     )
 
+    @order = Order.create(user: current_user, event: @event)
+    case params[:payment_method]
+    when 'credit_card'
+      @payment = Payment.omise_token_charge(@order, session["tickets"]["total"], params[:omise_token])
+
+      @order.approve! if @payment[:status] == :success
+
+      render_by_payment_mothod = "client/events/payment-credit-card"
+    when 'bank_transfer'
+      @payment = Payment.transfer_notify(@order, session["tickets"]["total"])
+
+      render_by_payment_mothod = "client/events/payment-bank-transfer"
+    end
+
     sections = []
     session[:sections].each{|s| sections << Hashie::Mash.new(s)}
 
-    if params[:payment_method] == 'credit_card'
-      Payment.omise_charge(current_user, @event, sections, session[:total], params[:omise_token])
-      render "client/events/payment-credit-card"
-    elsif params[:payment_method] == 'bank_transfer'
-      Payment.transfer_notify(current_user, @event, sections, session[:total])
-      render "client/events/payment-bank-transfer"
+    if @payment[:status] == :success
+      sections.each do |section|
+        (1..section.qty).each do |i|
+          Ticket.create_ticket(current_user, @order, @event, section.id)
+        end
+      end
+    else
+      @payment[:message]
     end
+
+    render render_by_payment_mothod
   end
 
 private

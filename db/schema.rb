@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20160830175706) do
   create_table "orders", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
+    t.string   "invoice_no"
     t.string   "status"
     t.string   "code"
     t.string   "qr_code_file_name"
@@ -92,11 +93,6 @@ ActiveRecord::Schema.define(version: 20160830175706) do
 
   create_table "payments", force: :cascade do |t|
     t.string   "status"
-    t.string   "code"
-    t.string   "qr_code_file_name"
-    t.string   "qr_code_content_type"
-    t.integer  "qr_code_file_size"
-    t.datetime "qr_code_updated_at"
     t.string   "methods"
     t.string   "omise_transaction_id"
     t.integer  "amount"
@@ -105,7 +101,8 @@ ActiveRecord::Schema.define(version: 20160830175706) do
     t.string   "slip_content_type"
     t.integer  "slip_file_size"
     t.datetime "slip_updated_at"
-    t.datetime "purchased_at"
+    t.datetime "approved_at"
+    t.datetime "paid_at"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.integer  "order_id"

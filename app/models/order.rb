@@ -5,6 +5,7 @@
 #  id                   :integer          not null, primary key
 #  user_id              :integer
 #  event_id             :integer
+#  invoice_no           :string
 #  status               :string
 #  code                 :string
 #  qr_code_file_name    :string
@@ -26,25 +27,54 @@
 #
 
 class Order < ApplicationRecord
+  ORDER_NO_PADDING = 10000
+
   belongs_to :user, inverse_of: :orders
   belongs_to :event, inverse_of: :orders
 
+  has_one :payment, dependent: :destroy
+
   has_many :tickets, dependent: :destroy
-  has_many :payments, dependent: :destroy
+
+  has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
+
+  before_create :set_default_order_code
+  after_create :set_default_order_qr_code
+  after_create :set_invoice_no
+
+  enumerize :status, in: [:approved, :not_allowed], default: :not_allowed
+
+  def approve!
+    self.status = :approved
+  end
 
   def to_s
     "#OD-#{code}"
   end
 
+  def to_no
+    self.id + ORDER_NO_PADDING
+  end
+
 private
-  def code
+  def generate_code
     loop do
       code = App.generate_code
-      break code unless self.exists?(code: code)
+      break code unless Order.exists?(code: code)
     end
   end
 
-  def invoice(user, event)
-    "#{Time.zone.now.strftime("%Y%m%d-%H%M")}-#{event.id}-#{user.id}"
+  def set_default_order_code
+    self.code = generate_code
+  end
+
+  def set_default_order_qr_code
+    attachment = App.generate_qr_code(self)
+    self.update(qr_code: File.open(attachment, 'rb'))
+  end
+
+  def set_invoice_no
+    self.update(invoice_no: "#{to_s}-#{to_no}-#{Time.zone.now.to_i}")
   end
 end

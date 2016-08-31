@@ -4,6 +4,7 @@ class CreateOrders < ActiveRecord::Migration[5.0]
       t.references :user, index: true, foreign_key: true
       t.references :event, index: true, foreign_key: true
 
+      t.string      :invoice_no, unique: :true
       t.string      :status
       t.string      :code
       t.attachment  :qr_code

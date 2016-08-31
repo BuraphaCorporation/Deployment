@@ -18,7 +18,7 @@
           <% if current_user %>
             <li class="dropdown">
               <a href="" class="dropdown-toggle waves-effect waves-light profile" data-toggle="dropdown" aria-expanded="true">
-                <%= image_tag current_user.avatar(:medium), alt: 'user-img', class: 'img-circle' %>
+                <%= image_tag current_user.picture(:medium), alt: 'user-img', class: 'img-circle' %>
               </a>
               <ul class="dropdown-menu">
                 <!-- <li><a href="javascript:void(0)"><i class="ti-user m-r-5"></i> Profile</a></li> -->

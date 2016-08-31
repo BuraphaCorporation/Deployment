@@ -12,5 +12,5 @@
 #  index_tags_on_title  (title) UNIQUE
 #
 
-class Tag < ActiveRecord::Base
+class Tag < ApplicationRecord
 end

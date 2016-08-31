@@ -116,9 +116,9 @@ class App < Struct.new(:region, :environment, :version)
 
   def generate_qr_code(qr)
     if qr.nil?
-      tmp = "public/QRCode/#{self.class}.png"
+      tmp = "public/QRCode/#{qr.class.name}.png"
     else
-      tmp = "public/QRCode/#{self.class}-#{qr.id}.png"
+      tmp = "public/QRCode/#{qr.class.name}-#{qr.code}.png"
     end
     RQRCode::QRCode.new(qr.code, size: 4, level: :h).to_img.resize(120, 120).save(tmp)
   end

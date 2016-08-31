@@ -1,9 +1,4 @@
 
-puts "role of user"
-['user', 'admin'].each do |role|
-  Role.find_or_create_by({title: role})
-end
-
 puts "add category"
 {
   'nightlife-and-entertainment': 'Nightlife / Entertainment',
@@ -28,7 +23,18 @@ user = User.create do |user|
   user.password               = '1234567890'
   user.password_confirmation  = '1234567890'
   user.confirmed_at           = Time.zone.now
-  user.role_id                = Role.find_by_title('admin').id
+  user.role                   = 'admin'
+end
+puts user
+
+user = User.create do |user|
+  user.email                  = "hello@daydash.co"
+  user.first_name             = 'Bow'
+  user.last_name              = 'Kai'
+  user.password               = '1234567890'
+  user.password_confirmation  = '1234567890'
+  user.confirmed_at           = Time.zone.now
+  user.role                   = 'admin'
 end
 puts user
 
@@ -190,7 +196,7 @@ lazgam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -198,7 +204,7 @@ lazgam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -206,7 +212,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -214,7 +220,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -222,7 +228,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 1.days,
     end_time:   Time.zone.tomorrow + 1.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -230,7 +236,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 1.days,
     end_time:   Time.zone.tomorrow + 1.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -238,7 +244,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 2.days,
     end_time:   Time.zone.tomorrow + 2.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -246,7 +252,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 2.days,
     end_time:   Time.zone.tomorrow + 2.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -254,7 +260,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 3.days,
     end_time:   Time.zone.tomorrow + 3.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -262,7 +268,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 3.days,
     end_time:   Time.zone.tomorrow + 3.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -270,7 +276,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 4.days,
     end_time:   Time.zone.tomorrow + 4.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -278,7 +284,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 4.days,
     end_time:   Time.zone.tomorrow + 4.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -286,7 +292,7 @@ lazgam.sections.create([
     event_time: Time.zone.now + rand(5..30).days + 30.days,
     end_time:   Time.zone.now + rand(5..30).days + 30.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -294,7 +300,7 @@ lazgam.sections.create([
     event_time: Time.zone.now + rand(5..30).days + 30.days,
     end_time:   Time.zone.now + rand(5..30).days + 30.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -305,7 +311,7 @@ shopspot1.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      2500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -313,7 +319,7 @@ shopspot1.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      10000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -324,7 +330,7 @@ shopspot2.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      3000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -332,7 +338,7 @@ shopspot2.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      12000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -343,7 +349,7 @@ studiolam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -351,7 +357,7 @@ studiolam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      2000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -362,7 +368,7 @@ beam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -370,7 +376,7 @@ beam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -381,7 +387,7 @@ olive.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -389,7 +395,7 @@ olive.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -398,30 +404,33 @@ olive.sections.create([
 puts "upload image"
 Dir["#{Rails.root}/public/event_content/lazgam/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: lazgam, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: lazgam, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/shopspot/Candle Aroma Perfume/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: shopspot1, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: shopspot1, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/shopspot/Give Me Soap/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: shopspot2, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: shopspot2, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/studiolam/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: studiolam, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: studiolam, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/beam/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: beam, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: beam, media: File.open(attachment, 'rb'))
 end
 
 Dir["#{Rails.root}/public/event_content/olive/*"].each do |attachment|
   puts attachment
-  Gallery.create(event: olive, media: File.open(attachment, 'rb'))
+  EventPicture.create(event: olive, media: File.open(attachment, 'rb'))
 end
+
+puts "update event uptime"
+Event.update_uptime

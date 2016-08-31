@@ -19,5 +19,5 @@
 #  fk_rails_9fcd2e236b  (tag_id => tags.id)
 #
 
-class Tagging < ActiveRecord::Base
+class Tagging < ApplicationRecord
 end

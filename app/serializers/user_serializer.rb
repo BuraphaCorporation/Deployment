@@ -34,10 +34,10 @@
 #  provider               :string
 #  uid                    :string
 #  role_id                :integer
-#  avatar_file_name       :string
-#  avatar_content_type    :string
-#  avatar_file_size       :integer
-#  avatar_updated_at      :datetime
+#  picture_file_name       :string
+#  picture_content_type    :string
+#  picture_file_size       :integer
+#  picture_updated_at      :datetime
 #  token                  :string
 #  referal_code           :string
 #  referrer_id            :integer

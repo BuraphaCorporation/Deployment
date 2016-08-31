@@ -6,6 +6,11 @@ class Entities::EventExpose < Grape::Entity
   expose :location_address
   expose :latitude
   expose :longitude
+  expose :max_price
+  expose :min_price
+  expose :up_time do |item, option|
+    item.up_time.utc.iso8601
+  end
   expose :categories, using: Entities::CategoryExpose
 
   # expose :cover, as: :main_cover do |item, options|

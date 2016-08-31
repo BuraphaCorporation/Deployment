@@ -161,14 +161,14 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/tickets' do
       begin
-        payments = User.find_by_access_token(params[:user_token]).try(:payments)
+        orders = User.find_by_access_token(params[:user_token]).try(:orders)
 
-        if payments.nil?
+        if orders.nil?
           present :status, :success
           present :data, []
         else
           present :status, :success
-          present :data, payments.available, with: Entities::TicketExpose
+          present :data, orders.available, with: Entities::TicketExpose
         end
       rescue Exception => e
         present :status, :failure
@@ -183,7 +183,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/ticket' do
       begin
-        ticket = User.find_by_access_token(params[:user_token]).payments.find_by_code(params[:ticket_code])
+        ticket = User.find_by_access_token(params[:user_token]).orders.find_by_code(params[:ticket_code])
 
         present :status, :success
         present :data, ticket, with: Entities::TicketExpose

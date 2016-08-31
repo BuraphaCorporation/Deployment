@@ -43,6 +43,7 @@ class Order < ApplicationRecord
   after_create :set_default_order_qr_code
   after_create :set_invoice_no
 
+  scope :available, -> { all.reject{ |p| p.tickets.empty? } }
   enumerize :status, in: [:approved, :not_allowed], default: :not_allowed
 
   def approve!

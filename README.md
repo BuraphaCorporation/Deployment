@@ -74,3 +74,5 @@ bundle install --path vendor/bundle
 bundle exec rake bower:install
 bundle exec rake db:setup db:seed
 ```
+
+ref: https://www.sitepoint.com/deploy-your-rails-app-to-aws/

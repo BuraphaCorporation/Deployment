@@ -68,6 +68,10 @@ class Event < ApplicationRecord
     uptime.try(:strftime, "%A %d %B, %H:%M")
   end
 
+  def order_by_section
+    sections.order(:event_time)
+  end
+
   def first_section
     self.sections.available.min_by{|s| [s.event_time, s.price] }
   end

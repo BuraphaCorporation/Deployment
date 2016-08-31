@@ -25,35 +25,13 @@ class Organizer::EventsController < Organizer::CoreController
   def show
     @event = Event.friendly.find(params[:id])
     @payments = @event.orders
-    # @payments = [
-    #   { paid_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
-    #   { paid_at: '2016-08-01 08:12:33', user: current_user, quantity: 1, type: 'VIP', total: 2500 },
-    #   { paid_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
-    #   { paid_at: '2016-08-01 08:12:33', user: current_user, quantity: 2, type: 'general', total: 2500 },
-    # ]
   end
 
   def edit
     @event = Event.friendly.find(params[:id])
     @categories = Category.all
 
-    # @sections = [
-    #   { id: 1, title: 'General', available: 20, price: 500, date: '03/08/2016', start_time: '13:00', end_time: '15:00' },
-    #   { id: 2, title: 'VIP',     available:  5, price: 500, date: '03/08/2016', start_time: '13:00', end_time: '15:00' },
-    #   { id: 3, title: 'General', available: 15, price: 500, date: '04/08/2016', start_time: '13:00', end_time: '15:00' },
-    # ]
-
     @sections = @event.sections
-
-    # @images = [
-    #   { id: 1, url: '/src/images/content/cover-1.jpg' },
-    #   { id: 2, url: '/src/images/content/cover-2.jpg' },
-    #   { id: 3, url: '/src/images/content/cover-1.jpg' },
-    #   { id: 4, url: '/src/images/content/cover-2.jpg' },
-    #   { id: 5, url: '/src/images/content/cover-1.jpg' },
-    #   { id: 6, url: '/src/images/content/cover-2.jpg' },
-    # ]
-
     @images = @event.event_pictures.order(:sort_index)
 
     @images_order = [];
@@ -100,7 +78,7 @@ private
       Section.create do |s|
         s.event_id    = @event.id
         s.title       = params[:new_ticket_names][section]
-        s.available   = params[:new_ticket_availables][section]
+        s.total       = params[:new_ticket_totals][section]
         s.price       = params[:new_ticket_prices][section]
         s.event_time  = event_time
         s.end_time    = end_time
@@ -125,7 +103,7 @@ private
       Section.create do |s|
         s.event_id    = @event.id
         s.title       = params[:new_ticket_names][section]
-        s.available   = params[:new_ticket_availables][section]
+        s.total       = params[:new_ticket_totals][section]
         s.price       = params[:new_ticket_prices][section]
         s.event_time  = event_time
         s.end_time    = end_time

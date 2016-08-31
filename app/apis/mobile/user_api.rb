@@ -8,7 +8,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/' do
       begin
-        user = User.find_by_token(params[:user_token])
+        user = User.find_by_access_token(params[:user_token])
         if user.present?
           present :status, :success
         else
@@ -35,7 +35,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     put '/' do
       begin
-        user = User.find_by_token(params[:user_token])
+        user = User.find_by_access_token(params[:user_token])
         if user.present?
           if params[:gender] == 'male' or params[:gender] == 'female'
             user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender], nesignal_id: params[:onesignal_id])
@@ -62,7 +62,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     put 'change_password' do
       begin
-        User.find_by_token(params[:token]).update(password: params[:old_password])
+        User.find_by_access_token(params[:token]).update(password: params[:old_password])
         present :status, :success
         present :data, nil
       rescue Exception => e
@@ -74,13 +74,13 @@ class Mobile::UserAPI < ApplicationAPI
     desc "show credit-card"
     params do
       requires :user_token, type: String, desc: "token of the user"
-      # requires :customer_token, type: String, desc: "omise customer token"
+      # requires :omise_customer_id, type: String, desc: "omise customer token"
     end
     get '/credit-card' do
       begin
-        user = User.find_by_token(params[:user_token])
+        user = User.find_by_access_token(params[:user_token])
 
-        customer = Omise::Customer.retrieve(user.customer_token)
+        customer = Omise::Customer.retrieve(user.omise_customer_id)
         cards = customer.cards
 
         present :status, :success
@@ -94,12 +94,12 @@ class Mobile::UserAPI < ApplicationAPI
     # desc "user add credit-card"
     # params do
     #   requires :user_token, type: String, desc: "token of the user"
-    #   requires :customer_token, type: String, desc: "omise customer token"
+    #   requires :omise_customer_id, type: String, desc: "omise customer token"
     # end
     # put '/credit-card' do
     #   begin
-    #     user = User.find_by_token(params[:user_token])
-    #     user.update(customer_token: params[:customer_token])
+    #     user = User.find_by_access_token(params[:user_token])
+    #     user.update(omise_customer_id: params[:omise_customer_id])
     #     present :status, :success
     #     present :data, user, with: Entities::UserExpose
     #   rescue Exception => e
@@ -114,8 +114,8 @@ class Mobile::UserAPI < ApplicationAPI
     # end
     # delete '/credit-card' do
     #   begin
-    #     user = User.find_by_token(params[:user_token])
-    #     user.update(customer_token: nil)
+    #     user = User.find_by_access_token(params[:user_token])
+    #     user.update(omise_customer_id: nil)
     #     present :status, :success
     #     present :data, user, with: Entities::UserExpose
     #   rescue Exception => e
@@ -131,7 +131,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     post '/referal' do
       begin
-        User.find_by_token(params[:token]).update(referal_code: params[:referal_code])
+        User.find_by_access_token(params[:token]).update(referal_code: params[:referal_code])
         present :status, :success
         present :data, nil
       rescue Exception => e
@@ -161,14 +161,14 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/tickets' do
       begin
-        payments = User.find_by_token(params[:user_token]).try(:payments)
+        orders = User.find_by_access_token(params[:user_token]).try(:orders)
 
-        if payments.nil?
+        if orders.nil?
           present :status, :success
           present :data, []
         else
           present :status, :success
-          present :data, payments.available, with: Entities::TicketExpose
+          present :data, orders.available, with: Entities::TicketExpose
         end
       rescue Exception => e
         present :status, :failure
@@ -183,7 +183,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/ticket' do
       begin
-        ticket = User.find_by_token(params[:user_token]).payments.find_by_code(params[:ticket_code])
+        ticket = User.find_by_access_token(params[:user_token]).orders.find_by_code(params[:ticket_code])
 
         present :status, :success
         present :data, ticket, with: Entities::TicketExpose
@@ -199,7 +199,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     get '/wishlists' do
       begin
-        wishlists = User.find_by_token(params[:user_token]).try(:wishlists)
+        wishlists = User.find_by_access_token(params[:user_token]).try(:wishlists)
 
         if wishlists.present?
           present :status, :success
@@ -220,7 +220,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     post '/wishlist' do
       begin
-        user = User.find_by_token(params[:user_token])
+        user = User.find_by_access_token(params[:user_token])
         event = Event.find(params[:event_id])
 
         if Wishlist.where(user_id: user.id, event_id: params[:event_id]).empty?
@@ -249,7 +249,7 @@ class Mobile::UserAPI < ApplicationAPI
     end
     delete '/wishlist' do
       begin
-        user = User.find_by_token(params[:user_token])
+        user = User.find_by_access_token(params[:user_token])
         event = Event.find(params[:event_id])
         wishlist = Wishlist.where(user_id: user.id, event_id: event.id).destroy_all
         present :status, :success

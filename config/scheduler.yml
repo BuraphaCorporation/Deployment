@@ -5,7 +5,13 @@ notification:
   queue: default
   active_job: true
 
-event_update:
+ReminderEvent:
+  cron: "0 6 * * *"
+  class: "ReminderJob"
+  queue: default
+  active_job: true
+
+event_uptime:
   cron: "0 6 * * *"
   class: "EventJob"
   queue: default

@@ -39,6 +39,7 @@ gem 'rqrcode_png'
 gem 'dragonfly', '~> 1.0.12'
 gem 'friendly_id', '~> 5.1.0'
 gem 'has_scope'
+gem 'enumerize'
 
 # make api
 gem 'jbuilder', '~> 2.5'
@@ -78,6 +79,8 @@ gem 'rollbar'
 
 # marketing
 # gem 'split'
+gem 'google-api-client'
+gem 'mixpanel-ruby'
 gem 'vanity'
 
 group :development, :test do

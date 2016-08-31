@@ -28,7 +28,7 @@
           <div class="list-body">
             <% @tickets.each do |ticket| %>
               <div class="ticket card-side-cover">
-                <a class="cover" style="background-image: url(<%= ticket.event.galleries.first.try(:media, :thumb) %>);" href="#"></a>
+                <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="#"></a>
                 <div class="info">
                   <div class="info-body">
                     <h4 class="title">
@@ -43,7 +43,7 @@
                     <div class="row">
                       <div class="col-xs-12 col-md-7">
                         <span class="ticket-price">฿ <%= ticket.event.first_section.price %></span>
-                        <span class="purchase-date">purchased on <%= ticket.payment.purchased_status %></span>
+                        <span class="purchase-date">purchased on <%#= ticket.payment.purchased_status %></span>
                       </div>
                     </div>
                   </div>

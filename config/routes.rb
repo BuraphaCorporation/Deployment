@@ -93,6 +93,7 @@ Rails.application.routes.draw do
       get 'categories/:category', to: 'events#index', as: :category
       resources :events, only: [:index, :show] do
         get '/express', to: 'events#express'
+        post '/selection', to: 'events#selection'
         post '/checkout', to: 'events#checkout'
       end
 

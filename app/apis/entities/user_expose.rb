@@ -6,10 +6,10 @@ class Entities::UserExpose < Grape::Entity
   expose :birthday
   expose :phone
   expose :avatar do |a|
-    a.avatar(:medium)
+    a.picture(:medium)
   end
   expose :onesignal_id
-  expose :customer_token
+  expose :omise_customer_id, as: :customer_token
   expose :referal_code
   expose :has_password do |item|
     if item.provider?

@@ -122,7 +122,7 @@
                 <div class="form-control">
                   <%= f.file_field :attachments, type: :file, multiple: true %>
                 </div>
-                <% @event.galleries.each do |g| %>
+                <% @event.event_pictures.each do |g| %>
                 <div class="m-t-20">
                   <%= image_tag g.media(:thumb), width: '100%', height: :auto %>
                   <%= link_to('Delete', delete_attachment_admin_events_path(@event.to_url, g.id), method: :delete) %>

@@ -3,16 +3,27 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
+#  username               :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string
 #  last_name              :string
-#  gender                 :boolean
+#  gender                 :string
 #  birthday               :date
 #  phone                  :string
-#  interesting            :string
+#  picture_file_name      :string
+#  picture_content_type   :string
+#  picture_file_size      :integer
+#  picture_updated_at     :datetime
+#  role                   :string
+#  provider               :string
+#  uid                    :string
+#  access_token           :string
+#  omise_customer_id      :string
+#  onesignal_id           :string
 #  company                :string
 #  url                    :string
+#  interest               :string
 #  short_description      :text
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -31,18 +42,8 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  provider               :string
-#  uid                    :string
-#  role_id                :integer
-#  avatar_file_name       :string
-#  avatar_content_type    :string
-#  avatar_file_size       :integer
-#  avatar_updated_at      :datetime
-#  token                  :string
 #  referal_code           :string
 #  referrer_id            :integer
-#  onesignal_id           :string
-#  customer_token         :string
 #
 # Indexes
 #
@@ -50,26 +51,18 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_referrer_id           (referrer_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#  index_users_on_role_id               (role_id)
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
-# Foreign Keys
-#
-#  fk_rails_642f17018b  (role_id => roles.id)
-#
 
-class User < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+class User < ApplicationRecord
   devise :database_authenticatable, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
-  belongs_to :role
   belongs_to :referrer, class_name: 'User', inverse_of: :referrals
 
   has_many :events, dependent: :destroy
-  has_many :payments, dependent: :destroy
+  has_many :orders, dependent: :destroy
   has_many :tickets, dependent: :destroy
   has_many :wishlists, dependent: :destroy
   has_many :tickets, dependent: :destroy
@@ -77,63 +70,34 @@ class User < ActiveRecord::Base
 
   # has_one :token, { order 'created_at DESC' }, class_name: Doorkeeper::AccessToken, foreign_key: :resource_owner_id
 
-  enum gender: { male: true, female: false }
-
-  has_attached_file :avatar,
-                    styles: { medium: "300x300>", thumb: "100x100#" },
+  has_attached_file :picture, styles: { medium: "300x300>", thumb: "100x100#" },
                     default_url: "#{App.domain}/src/images/profile/missing-profile.png"
 
-  validates_attachment_content_type :avatar,
-                                    content_type: /\Aimage\/.*\Z/
+  validates_attachment_content_type :picture, content_type: /\Aimage\/.*\Z/
 
-  before_create :set_default_role
-  before_create do |user|
-    user.token        = user.generate_token
-    user.referal_code = user.default_referal
-  end
-  after_create :create_customer_token
-  after_create :send_welcome_mail
+  before_create :set_default_access_token
+  before_create :set_default_referal
+  after_create :set_customer_token
+  after_create :send_welcome_email
 
-  def generate_token
-    loop do
-      token = SecureRandom.base64.tr('+/=', 'Qrt')
-      break token unless User.exists?(token: token)
-    end
-  end
-
-  def default_referal
-    loop do
-      referal_code = App.generate_code
-      break referal_code unless User.exists?(referal_code: referal_code)
-    end
-  end
-
-  def create_customer_token
-    begin
-      customer = Omise::Customer.create({
-        email: self.email,
-        description: "#{self.first_name} #{self.last_name} id: #{self.id}"
-      })
-      self.update(customer_token: customer.id)
-    rescue Exception => e
-      logger.warn e
-    end
-  end
-
-  def send_welcome_mail
-    UserMailer.welcome(self).deliver
-  end
+  scope :latest, -> { order 'created_at desc' }
+  enumerize :gender, in: [:male, :female, :not_specify], default: :not_specify #default: lambda { |user| SexIdentifier.sex_for_name(user.name).to_sym }
+  enumerize :role, in: [:user, :admin], default: :user
 
   def admin?
-    role.title == 'admin'
+    role == 'admin'
   end
 
   def organizer?
-    role.title == 'organizer'
+    role == 'organizer'
   end
 
   def can_organizer?
-    role.title != 'user'
+    role != 'user'
+  end
+
+  def date_of_birth
+    birthday.strftime("%m/%d/%Y")
   end
 
   def self.from_api(token)
@@ -148,7 +112,7 @@ class User < ActiveRecord::Base
       last_name:  profile['last_name'],
       birthday:   profile['birthday'],
       gender:     profile['gender'],
-      avatar:     process_uri(image)
+      picture:    process_uri(image)
     )
   end
 
@@ -161,7 +125,7 @@ class User < ActiveRecord::Base
         last_name:  auth.extra.raw_info.last_name,
         birthday:   auth.extra.raw_info.birthday,
         gender:     auth.extra.raw_info.gender,
-        avatar:     process_uri(auth.info.image)
+        picture:    process_uri(auth.info.image)
       )
     else
       where(email: auth.info.email).update(
@@ -171,7 +135,7 @@ class User < ActiveRecord::Base
         last_name:  auth.extra.raw_info.last_name,
         birthday:   auth.extra.raw_info.birthday,
         gender:     auth.extra.raw_info.gender,
-        avatar:     process_uri(auth.info.image)
+        picture:    process_uri(auth.info.image)
       ).first
     end
   end
@@ -196,13 +160,49 @@ class User < ActiveRecord::Base
     User.find_by_token(token)
   end
 
-  protected
-    def confirmation_required?
-      false
-    end
+protected
+  def confirmation_required?
+    false
+  end
 
-  private
-    def set_default_role
-      self.role ||= Role.find_by_title('user')
+private
+  def generate_token
+    loop do
+      access_token = SecureRandom.base64.tr('+/=', 'Qrt')
+      break access_token unless User.exists?(access_token: access_token)
     end
+  end
+
+  def set_default_access_token
+    self.access_token = generate_token
+  rescue Exception => e
+    logger.warn e
+  end
+
+  def generate_referal
+    loop do
+      referal_code = App.generate_code
+      break referal_code unless User.exists?(referal_code: referal_code)
+    end
+  end
+
+  def set_default_referal
+    self.referal_code = generate_referal
+  rescue Exception => e
+    logger.warn e
+  end
+
+  def set_customer_token
+    customer = Omise::Customer.create({
+      email: self.email,
+      description: "id: #{self.id} - name: #{self.first_name} #{self.last_name}"
+    })
+    self.update(omise_customer_id: customer.id)
+  rescue Exception => e
+    logger.warn e
+  end
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver
+  end
 end

@@ -29,12 +29,12 @@ class Admin::UsersController < Admin::CoreController
     @user.destroy
   end
 
-  private
-    def user
-      @user = User.find(params[:id])
-    end
+private
+  def user
+    @user = User.find(params[:id])
+  end
 
-    def user_params
-      params.require(:user).permit(:email, :password, :first_name, :last_name, :birthday, :company, :url, :interesting, :short_description, :avatar)
-    end
+  def user_params
+    params.require(:user).permit(:email, :password, :first_name, :last_name, :birthday, :company, :url, :interesting, :short_description, :picture)
+  end
 end

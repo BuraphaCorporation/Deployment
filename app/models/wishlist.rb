@@ -19,7 +19,7 @@
 #  fk_rails_eb66139660  (user_id => users.id)
 #
 
-class Wishlist < ActiveRecord::Base
+class Wishlist < ApplicationRecord
   has_many :users
   has_many :events
 end

@@ -38,7 +38,7 @@ class Mobile::EventAPI < ApplicationAPI
     get "/" do
       begin
         present :status, :success
-        present :data, Event.available, with: Entities::EventExpose
+        present :data, Event.list, with: Entities::EventExpose
       rescue Exception => e
         present :status, :failure
         present :data, e

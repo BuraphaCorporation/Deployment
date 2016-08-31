@@ -110,16 +110,16 @@ ActiveRecord::Schema.define(version: 20160830175706) do
   end
 
   create_table "sections", force: :cascade do |t|
-    t.string   "status",     default: "0"
+    t.string   "status"
     t.integer  "event_id"
     t.string   "title"
     t.datetime "event_time"
     t.datetime "end_time"
     t.integer  "price"
-    t.integer  "available",  default: 0
+    t.integer  "total",      default: 0
     t.integer  "bought",     default: 0
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.index ["event_id"], name: "index_sections_on_event_id", using: :btree
   end
 
@@ -142,10 +142,14 @@ ActiveRecord::Schema.define(version: 20160830175706) do
   create_table "tickets", force: :cascade do |t|
     t.string   "status"
     t.string   "code"
+    t.string   "qr_code_file_name"
+    t.string   "qr_code_content_type"
+    t.integer  "qr_code_file_size"
+    t.datetime "qr_code_updated_at"
     t.integer  "user_id"
     t.integer  "event_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "section_id"
     t.integer  "order_id"
     t.index ["event_id"], name: "index_tickets_on_event_id", using: :btree

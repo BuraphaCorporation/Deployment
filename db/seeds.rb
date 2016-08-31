@@ -196,7 +196,7 @@ lazgam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -204,7 +204,7 @@ lazgam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -212,7 +212,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -220,7 +220,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow,
     end_time:   Time.zone.tomorrow,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -228,7 +228,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 1.days,
     end_time:   Time.zone.tomorrow + 1.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -236,7 +236,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 1.days,
     end_time:   Time.zone.tomorrow + 1.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -244,7 +244,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 2.days,
     end_time:   Time.zone.tomorrow + 2.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -252,7 +252,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 2.days,
     end_time:   Time.zone.tomorrow + 2.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -260,7 +260,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 3.days,
     end_time:   Time.zone.tomorrow + 3.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -268,7 +268,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 3.days,
     end_time:   Time.zone.tomorrow + 3.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -276,7 +276,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 4.days,
     end_time:   Time.zone.tomorrow + 4.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -284,7 +284,7 @@ lazgam.sections.create([
     event_time: Time.zone.tomorrow + 4.days,
     end_time:   Time.zone.tomorrow + 4.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -292,7 +292,7 @@ lazgam.sections.create([
     event_time: Time.zone.now + rand(5..30).days + 30.days,
     end_time:   Time.zone.now + rand(5..30).days + 30.days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -300,7 +300,7 @@ lazgam.sections.create([
     event_time: Time.zone.now + rand(5..30).days + 30.days,
     end_time:   Time.zone.now + rand(5..30).days + 30.days,
     price:      4500,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -311,7 +311,7 @@ shopspot1.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      2500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -319,7 +319,7 @@ shopspot1.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      10000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -330,7 +330,7 @@ shopspot2.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      3000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -338,7 +338,7 @@ shopspot2.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      12000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -349,7 +349,7 @@ studiolam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      500,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -357,7 +357,7 @@ studiolam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      2000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -368,7 +368,7 @@ beam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -376,7 +376,7 @@ beam.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])
@@ -387,7 +387,7 @@ olive.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   },
   {
@@ -395,7 +395,7 @@ olive.sections.create([
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
-    available:  100,
+    total:      100,
     bought:     0
   }
 ])

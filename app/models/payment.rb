@@ -13,7 +13,7 @@
 #  slip_file_size       :integer
 #  slip_updated_at      :datetime
 #  approved_at          :datetime
-#  paid_at         :datetime
+#  paid_at              :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  order_id             :integer
@@ -34,8 +34,8 @@ class Payment < ApplicationRecord
   # has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   # validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
 
-  before_create :set_default_payment_code
-  after_create :set_default_payment_qr_code
+  # before_create :set_default_payment_code
+  # after_create :set_default_payment_qr_code
   after_create :send_payment_email
 
   scope :available, -> { all.reject{ |p| p.tickets.empty? } }
@@ -111,7 +111,6 @@ class Payment < ApplicationRecord
 
     def transfer_notify(order, amount)
       create(status: :pending, methods: 'transfer', order: order, amount: amount, fee: 0)
-      raise "xxxx"
     rescue Exception => error
       { status: :error, message: error }
     end
@@ -130,21 +129,21 @@ class Payment < ApplicationRecord
   end
 
 private
-  def generate_code
-    loop do
-      code = App.generate_code
-      break code unless Payment.exists?(code: code)
-    end
-  end
-
-  def set_default_payment_code
-    self.code = generate_code
-  end
-
-  def set_default_payment_qr_code
-    attachment = App.generate_qr_code(self)
-    self.qr_code = File.open(attachment, 'rb')
-  end
+  # def generate_code
+  #   loop do
+  #     code = App.generate_code
+  #     break code unless Payment.exists?(code: code)
+  #   end
+  # end
+  #
+  # def set_default_payment_code
+  #   self.code = generate_code
+  # end
+  #
+  # def set_default_payment_qr_code
+  #   attachment = App.generate_qr_code(self)
+  #   self.qr_code = File.open(attachment, 'rb')
+  # end
 
   def send_payment_email
     case methods

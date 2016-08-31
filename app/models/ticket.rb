@@ -2,15 +2,19 @@
 #
 # Table name: tickets
 #
-#  id         :integer          not null, primary key
-#  status     :string
-#  code       :string
-#  user_id    :integer
-#  event_id   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  section_id :integer
-#  order_id   :integer
+#  id                   :integer          not null, primary key
+#  status               :string
+#  code                 :string
+#  qr_code_file_name    :string
+#  qr_code_content_type :string
+#  qr_code_file_size    :integer
+#  qr_code_updated_at   :datetime
+#  user_id              :integer
+#  event_id             :integer
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  section_id           :integer
+#  order_id             :integer
 #
 # Indexes
 #
@@ -34,7 +38,6 @@ class Ticket < ApplicationRecord
   belongs_to :order
 
   has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
-
   validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
 
   before_create :set_default_ticket_code
@@ -49,7 +52,8 @@ class Ticket < ApplicationRecord
 
   class << self
     def create_ticket(user, order, event, section)
-      create(status: 1, user_id: user.id, order_id: order.id, event_id: event.id, section_id: section)
+      binding.pry
+      create(status: 1, user: user, order: order, event: event, section_id: section)
     rescue Exception => error
       error
     end

@@ -68,7 +68,7 @@ class Client::EventsController < Client::CoreController
     when 'credit_card'
       @payment = Payment.omise_token_charge(@order, session["tickets"]["total"], params[:omise_token])
 
-      @order.approve! if @payment[:status] == :success
+      @order.approve! unless @payment[:status] == :error
 
       render_by_payment_mothod = "client/events/payment-credit-card"
     when 'bank_transfer'
@@ -80,11 +80,15 @@ class Client::EventsController < Client::CoreController
     sections = []
     session[:sections].each{|s| sections << Hashie::Mash.new(s)}
 
-    if @payment[:status] == :success
+    binding.pry
+
+    if @payment[:status] != :error
+      binding.pry
       sections.each do |section|
         (1..section.qty).each do |i|
           Ticket.create_ticket(current_user, @order, @event, section.id)
         end
+        @event.sections.find(section.id).bought += section.qty
       end
     else
       @payment[:message]

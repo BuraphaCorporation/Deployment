@@ -80,15 +80,12 @@ class Client::EventsController < Client::CoreController
     sections = []
     session[:sections].each{|s| sections << Hashie::Mash.new(s)}
 
-    binding.pry
-
     if @payment[:status] != :error
-      binding.pry
       sections.each do |section|
         (1..section.qty).each do |i|
           Ticket.create_ticket(current_user, @order, @event, section.id)
         end
-        @event.sections.find(section.id).bought += section.qty
+        Section.cut_in(section.id, section.qty)
       end
     else
       @payment[:message]

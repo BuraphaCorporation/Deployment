@@ -36,6 +36,10 @@ class Section < ApplicationRecord
     total - bought > 0
   end
 
+  def self.cut_in(id, qty)
+    find(id).update(bought: qty)
+  end
+
   def to_event_human
     event_time.try(:strftime, "%A %d %B, %H:%M")
   end

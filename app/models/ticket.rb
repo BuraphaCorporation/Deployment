@@ -52,8 +52,7 @@ class Ticket < ApplicationRecord
 
   class << self
     def create_ticket(user, order, event, section)
-      binding.pry
-      create(status: 1, user: user, order: order, event: event, section_id: section)
+      create(status: :upcoming, user: user, order: order, event: event, section_id: section)
     rescue Exception => error
       error
     end

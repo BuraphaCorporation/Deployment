@@ -21,7 +21,7 @@ class Mobile::PaymentAPI < ApplicationAPI
     end
     get '/check' do
       begin
-        payment = Payment.where(code: params[:payment_code])
+        payment = Order.where(code: params[:payment_code])
         present :status, :success
         present :data, payment
       rescue Exception => e
@@ -41,15 +41,27 @@ class Mobile::PaymentAPI < ApplicationAPI
     post '/credit-card' do
       begin
         if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:omise_token].present? and params[:total_price].present?
-          user = User.find_by_token(params[:user_token])
+          user = User.find_by_access_token(params[:user_token])
           event = Event.find(params[:event_id])
 
-          payment = Payment.omise_charge(user, event, params[:sections], params[:total_price], params[:omise_token])
+          order = Order.create(user: user, event: event)
+          @payment = Payment.omise_customer_charge(order, params[:total_price].to_i, params[:omise_token])
 
-          raise payment if payment.try(:id).nil?
+          sections = params[:sections]
+
+          if @payment[:status] != :error
+            sections.each do |section|
+              (1..section.qty).each do |i|
+                Ticket.create_ticket(user, order, event, section.id)
+              end
+              Section.cut_in(section.id, section.qty)
+            end
+          else
+            @payment[:message]
+          end
 
           present :status, :success
-          present :data, payment, with: Entities::PaymentOmiseExpose
+          present :data, order, with: Entities::PaymentOmiseExpose
         else
           present :status, :failure
           present :data, nil
@@ -71,13 +83,27 @@ class Mobile::PaymentAPI < ApplicationAPI
     post '/bank-transfer' do
       begin
         if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:total_price].present?
-          user = User.find_by_token(params[:user_token])
+          user = User.find_by_access_token(params[:user_token])
           event = Event.find(params[:event_id])
 
-          payment = Payment.transfer_notify(user, event, params[:sections], params[:total_price])
+          order = Order.create(user: user, event: event)
+          @payment = Payment.transfer_notify(order, params[:total_price])
+
+          sections = params[:sections]
+
+          if @payment[:status] != :error
+            sections.each do |section|
+              (1..section.qty).each do |i|
+                Ticket.create_ticket(user, order, event, section.id)
+              end
+              Section.cut_in(section.id, section.qty)
+            end
+          else
+            @payment[:message]
+          end
 
           present :status, :success
-          present :data, payment, with: Entities::PaymentTransferExpose
+          present :data, order, with: Entities::PaymentTransferExpose
         else
           present :status, :failure
           present :data, 'params invalid'

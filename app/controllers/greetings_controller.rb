@@ -42,17 +42,17 @@ class GreetingsController < ApplicationController
   def campaign_terms
   end
 
-  private
-    def resolve_layout
-      case action_name
-      when 'faq', 'terms', 'policy'
-        if mobile_device?
-          'greetings'
-        else
-          'daydash'
-        end
+private
+  def resolve_layout
+    case action_name
+    when 'faq', 'terms', 'policy'
+      if mobile_device?
+        'greetings'
       else
-        false
+        'daydash'
       end
+    else
+      false
     end
+  end
 end

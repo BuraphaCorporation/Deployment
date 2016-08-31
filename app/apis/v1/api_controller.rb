@@ -6,7 +6,7 @@
 #
 #     # before_action :authenticate
 #
-#     protected
+#   protected
 #       def authenticate
 #         authenticate_token || render_unauthorized
 #       end

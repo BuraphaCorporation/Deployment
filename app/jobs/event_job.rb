@@ -3,6 +3,6 @@ class EventJob < ApplicationJob
 
   def perform
     # Do something later
-    Event.update_up_time
+    Event.update_uptime
   end
 end

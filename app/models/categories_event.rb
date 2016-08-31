@@ -11,7 +11,7 @@
 #  index_categories_events_on_event_id_and_category_id  (event_id,category_id)
 #
 
-class CategoriesEvent < ActiveRecord::Base
+class CategoriesEvent < ApplicationRecord
   belongs_to :category
   belongs_to :event
 end

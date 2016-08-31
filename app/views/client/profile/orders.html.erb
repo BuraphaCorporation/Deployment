@@ -23,7 +23,7 @@
               </div>
               <div class="order-body row">
                 <div class="col-xs-12 col-md-6 left">
-                    <a class="cover" style="background-image: url(<%= payment.event.galleries.first.try(:media, :thumb) %>);" href="<%= client_event_path(payment.event.id) %>"></a>
+                    <a class="cover" style="background-image: url(<%= payment.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(payment.event.id) %>"></a>
                     <h4 class="title"><a href="<%= client_event_path(payment.event.id) %>"><%= payment.event.title %></a></h4>
 
                     <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= payment.event.location_name %></div>
@@ -34,11 +34,11 @@
                       <table class="table">
                         <tr>
                           <td width="150">ราคารวม</td>
-                          <td>฿ <%= payment.amount %></td>
+                          <td>฿ <%= payment.payment.amount %></td>
                         </tr>
                         <tr>
                           <td>วิธีการชำระเงิน</td>
-                          <td><%= payment.provider %></td>
+                          <td><%= payment.payment.methods %></td>
                         </tr>
                         <tr>
                           <td>สถานะการชำระเงิน</td>
@@ -62,7 +62,7 @@
                         <tr class="total">
                           <td></td>
                           <td><strong>TOTAL</strong></td>
-                          <td align="right"><strong>฿ <%= payment.amount %></strong></td>
+                          <td align="right"><strong>฿ <%= payment.payment.amount %></strong></td>
                         </tr>
                       </table>
                     </div>

@@ -55,14 +55,14 @@
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-3">
-                    <a class="cover" style="background-image: url(<%= ticket.event.galleries.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>">
+                    <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>">
                       <!--img src="<%= ticket.qr_code(:medium) %>" width="100%" /-->
                       <img src="/src/images/mockup/ticket-qr.png" width="100%" />
                     </a>
                   </div>
                 </div>
                 <!--
-                <a class="cover" style="background-image: url(<%= ticket.event.galleries.first.try(:media, :thumb) %>);" href="#"></a>
+                <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="#"></a>
                 <div class="info">
                   <div class="info-body">
                     <h4 class="title">

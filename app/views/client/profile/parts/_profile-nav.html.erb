@@ -1,7 +1,7 @@
 <div class="section" id="profile-nav-section">
   <div class="container">
     <div class="current-user-panel">
-      <div class="profile-photo" style="background-image: url(<%= current_user.avatar(:medium) %>);"></div>
+      <div class="profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>);"></div>
       <div class="user-name"><%= current_user.first_name %> <%= current_user.last_name %></div>
     </div>
     <ul class="nav nav-pills nav-daydash" id="profile-nav">

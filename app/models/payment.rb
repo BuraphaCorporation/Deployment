@@ -70,6 +70,17 @@ class Payment < ApplicationRecord
     # })
     # omise_token = card.id
 
+    def status_charging(status)
+      case status
+      when 'successful'
+        :success
+      when 'failed'
+        :failure
+      when 'pending', 'reversed'
+        :pending
+      end
+    end
+
     def omise_customer_charge(order, amount, omise_token)
       charge = Omise::Charge.create({
         amount:       amount.to_i * 100,
@@ -80,13 +91,15 @@ class Payment < ApplicationRecord
       })
 
       create(
-        order:                order,
-        status:               charge.status,
+        status:               status_charging(charge.status),
         methods:              'omise',
-        omise_transaction_id: charge,
+        order:                order,
+        omise_transaction_id: charge.transaction.id,
         amount:               charge.transaction.amount,
         fee:                  charge.amount - charge.transaction.amount
       )
+    rescue Exception => error
+      { status: :error, message: error }
     end
 
     def omise_token_charge(order, amount, omise_token)
@@ -98,13 +111,14 @@ class Payment < ApplicationRecord
       })
 
       create(
-        order:                order,
-        status:               charge.status,
+        status:               status_charging(charge.status),
         methods:              'omise',
-        omise_transaction_id: charge,
+        order:                order,
+        omise_transaction_id: charge.transaction.id,
         amount:               charge.transaction.amount,
         fee:                  charge.amount - charge.transaction.amount
       )
+
     rescue Exception => error
       { status: :error, message: error }
     end

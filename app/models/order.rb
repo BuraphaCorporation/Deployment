@@ -46,7 +46,7 @@ class Order < ApplicationRecord
   enumerize :status, in: [:approved, :not_allowed], default: :not_allowed
 
   def approve!
-    self.status = :approved
+    self.update(status: :approved)
   end
 
   def to_s

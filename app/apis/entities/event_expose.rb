@@ -18,5 +18,7 @@ class Entities::EventExpose < Grape::Entity
   # end
   expose :event_pictures, as: :covers, using: Entities::GalleryExpose
 
-  expose :sections, as: :tickets, using: Entities::SectionExpose
+  expose :sections, as: :tickets, using: Entities::SectionExpose do
+    sections.order(:event_time)
+  end
 end

@@ -250,6 +250,16 @@ label
   padding: 15px
   font-size: 24px
 
+.btn-daydash-inverse
+  &, &:active, &:visited, &:link
+    background: #444
+    color: white
+    border: 0px
+
+  &:hover
+    background: #888
+    color: white
+
 .btn-daydash-green-1
   background: linear-gradient(90deg, #00CFD1, #00E9CA)
   color: white
@@ -332,6 +342,120 @@ label
     .info-body
       padding-bottom: 15px
 
+.ticket.ticket-1
+  margin-bottom: 30px
+  padding: 15px
+  background-color: white
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.05)
+
+  a
+    color: #444
+
+  .event-date-lg
+    padding-top: 20px
+    text-align: center
+
+    .month
+      font-size: 24px
+      text-transform: uppercase
+
+    .date
+      font-size: 60px
+
+
+  .cover 
+    display: block
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    background-color: #ccc
+    height: 170px
+    padding: 30px
+
+
+  .info
+    .info-body
+      padding-bottom: 15px
+
+      .title
+        font-size: 20px
+      .ticket-price
+
+      .ticket-code
+        text-align: right
+
+        label
+          color: #aaa
+
+    .info-footer
+      padding-top: 15px
+      border-top: 1px solid #444
+
+      .meta
+        margin-bottom: 5px
+
+      .icon
+        float: left
+        margin-top: 2px
+        margin-right: 5px
+
+.order.order-1
+  margin-bottom: 30px
+  padding: 15px
+  background-color: white
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.05)
+
+  a:not(.btn)
+    color: #444
+
+  .order-header
+    padding-bottom: 15px
+    .right
+      text-align: right
+  .cover 
+    display: block
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    background-color: #ccc
+    height: 170px
+    padding: 30px
+
+  .title
+    font-size: 20px
+    margin-bottom: 80px
+
+  .meta
+    margin-bottom: 5px
+
+  .icon
+    float: left
+    margin-top: 2px
+    margin-right: 5px
+
+  .info
+    .info-header, .info-body
+      padding-top: 15px
+      border-top: 1px solid #444
+
+    .table
+      tr
+        td
+          border: 0px
+      .total
+        td
+          padding-top: 15px
+          border-top: 1px solid #444
+    .info-body
+      padding-top: 10px
+
+      .table
+        tr
+          td
+            padding-bottom: 15px
+
+
+
 @media (max-width: 991px)
   .card-side-cover .cover
     height: 150px
@@ -351,11 +475,11 @@ label
   li
     a
       background: transparent
-      padding-bottom: 2px
+      padding-bottom: 8px
       color: #aaa
       &:visited, &:link, &:active
         background: transparent
-        padding-bottom: 2px
+        padding-bottom: 8px
         color: #aaa
       &:hover, &:visited:hover, &:link:hover, &:active:hover
         color: #444
@@ -368,7 +492,8 @@ label
         border-radius: 0px
         background: transparent
         color: #444
-        border-bottom: 3px solid #00CFD1
+        // border-bottom: 3px solid #00CFD1
+        border-bottom: 3px solid #444
 
 .nav-tabs-daydash
   margin-bottom: 15px
@@ -672,19 +797,54 @@ label
       font-size: 30px
 
 .profile-page
-  #profile-nav
-    margin-bottom: 15px
-  .current-user-panel
-    .panel-body
+  #profile-nav-section
+    padding-top: 15px
+    border-bottom: 1px solid #eee
+    background: #f8f8f8
+
+    #profile-nav
       text-align: center
-    .profile-picture
+      margin: 0px auto
+      width: 270px
+      margin-top: 15px
+
+
+  .current-user-panel
+    text-align: center
+
+    .profile-photo
       width: 80px
       height: 80px
       border-radius: 50%
       background-size: cover
       background-position: center
       background-repeat: no-repeat
-      margin: 30px auto
+      margin: 10px auto
+    .user-name
+      font-size: 20px
+      font-weight: 200
+
+
+#profile-ticket-list-page
+  #main
+    background-color: #fcfcfc
+    .container
+      max-width: 850px
+
+      .ticket-list
+        .list-body
+          padding-top: 30px
+
+#profile-order-list-page
+  #main
+    background-color: #fcfcfc
+    .container
+      max-width: 850px
+
+      .order-list
+        .list-body
+          padding-top: 30px
+
 
 #profile-wishlist-page
   h1 small

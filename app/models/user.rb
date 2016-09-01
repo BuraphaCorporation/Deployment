@@ -105,7 +105,7 @@ class User < ApplicationRecord
     profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
     image = graph.get_picture(profile['id'], type: :large)
 
-    if find_by_email(auth.info.email).nil?
+    if find_by_email(profile['email']).nil?
       where(provider: 'facebook', uid: profile['id']).first_or_create(
         email:      profile['email'],
         password:   Devise.friendly_token[0,20],

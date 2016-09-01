@@ -100,20 +100,32 @@ class User < ApplicationRecord
     birthday.strftime("%m/%d/%Y")
   end
 
-  def self.from_api(token)
+  def self.from_oauth_api(token)
     graph = Koala::Facebook::API.new(token)
     profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
     image = graph.get_picture(profile['id'], type: :large)
 
-    where(provider: 'facebook', uid: profile['id']).first_or_create(
-      email:      profile['email'],
-      password:   Devise.friendly_token[0,20],
-      first_name: profile['first_name'],
-      last_name:  profile['last_name'],
-      birthday:   profile['birthday'],
-      gender:     profile['gender'],
-      picture:    process_uri(image)
-    )
+    if find_by_email(profile['email']).nil?
+      where(provider: 'facebook', uid: profile['id']).first_or_create(
+        email:      profile['email'],
+        password:   Devise.friendly_token[0,20],
+        first_name: profile['first_name'],
+        last_name:  profile['last_name'],
+        birthday:   profile['birthday'],
+        gender:     profile['gender'],
+        picture:    process_uri(image)
+      )
+    else
+      where(email: profile['email']).update(
+        provider:   'facebook',
+        uid:        profile['id'],
+        first_name: profile['first_name'],
+        last_name:  profile['last_name'],
+        birthday:   profile['birthday'],
+        gender:     profile['gender'],
+        picture:    process_uri(image)
+      ).first
+    end
   end
 
   def self.from_omniauth(auth)

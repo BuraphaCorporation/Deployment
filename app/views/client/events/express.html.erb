@@ -40,7 +40,7 @@
               </div>
               <div class="row list-footer">
                 <div class="col-xs-12">
-                  Total: ฿ <%= @tickets["total"] %>
+                  Total: ฿ <%= @tickets["total"].to_i / 100 %>
                 </div>
               </div>
             </div>

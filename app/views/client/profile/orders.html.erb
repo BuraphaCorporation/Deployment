@@ -34,7 +34,7 @@
                       <table class="table">
                         <tr>
                           <td width="150">ราคารวม</td>
-                          <td>฿ <%= order.payment.amount %></td>
+                          <td>฿ <%= '%.2f' % order.to_price %></td>
                         </tr>
                         <tr>
                           <td>วิธีการชำระเงิน</td>
@@ -44,32 +44,38 @@
                           <td>สถานะการชำระเงิน</td>
                           <td><%= order.status %></td>
                         </tr>
-                        <tr>
-                          <td>รหัสชำระเงิน</td>
-                          <td><%= order.code %></td>
-                        </tr>
+                        <% if order.transfer? %>
+                          <tr>
+                            <td>รหัสชำระเงิน</td>
+                            <td><%= order.code %></td>
+                          </tr>
+                        <% end %>
                       </table>
                     </div>
                     <div class="info-body">
                       <table class="table ticket-list">
                         <% order.tickets.each do |ticket| %>
-                        <tr class="ticket">
-                          <td class="ticket-title" width="150"><%= ticket.section.title %></td>
-                          <td class="ticket-code"><%= ticket.code %></td>
-                          <td class="ticket-price" width="100" align="right">฿ 500</td>
-                        </tr>
+                          <tr class="ticket">
+                            <td class="ticket-title" width="150"><%= ticket.section.title %></td>
+                            <td class="ticket-code"><%= ticket.code %></td>
+                            <td class="ticket-price" width="100" align="right">฿ <%= '%.2f' % ticket.to_price %></td>
+                          </tr>
                         <% end %>
                         <tr class="total">
                           <td></td>
                           <td><strong>TOTAL</strong></td>
-                          <td align="right"><strong>฿ <%= order.payment.amount %></strong></td>
+                          <td align="right"><strong>฿ <%= '%.2f' % order.to_price %></strong></td>
                         </tr>
                       </table>
                     </div>
                     <div class="info-footer">
                       <div class="row">
-                        <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse" data-toggle="modal" href="#payment-modal">วิธีการชำระเงิน</a></div>
-                        <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse" data-toggle="modal" href="#payment-modal">แจ้งชำระเงิน</a></div>
+                        <% if order.transfer? %>
+                          <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse" data-toggle="modal" href="#payment-modal">วิธีการชำระเงิน</a></div>
+                          <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse" data-toggle="modal" href="#payment-modal">แจ้งชำระเงิน</a></div>
+                        <% else %>
+                          <div class="col-xs-12"><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></div>
+                        <% end %>
                       </div>
                     </div>
                   </div>

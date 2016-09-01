@@ -62,6 +62,18 @@ class Order < ApplicationRecord
     self.id + ORDER_NO_PADDING
   end
 
+  def to_price
+    price.to_f / 100
+  end
+
+  def omise?
+    payment.methods == 'omise'
+  end
+
+  def transfer?
+    payment.methods == 'transfer'
+  end
+
 private
   def generate_code
     loop do

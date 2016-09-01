@@ -15,6 +15,7 @@
 #  updated_at           :datetime         not null
 #  section_id           :integer
 #  order_id             :integer
+#  price                :integer
 #
 # Indexes
 #
@@ -50,9 +51,13 @@ class Ticket < ApplicationRecord
     "#TK-#{code}"
   end
 
+  def to_price
+    price.to_f / 100
+  end
+
   class << self
     def create_ticket(user, order, event, section)
-      create(status: :upcoming, user: user, order: order, event: event, section_id: section)
+      create(status: :upcoming, user: user, order: order, event: event, section_id: section.id, price: section.price)
     rescue Exception => error
       error
     end

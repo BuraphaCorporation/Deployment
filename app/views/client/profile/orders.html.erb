@@ -11,22 +11,22 @@
       <div class="col-xs-12">
         <div class="order-list">
           <div class="list-body">
-            <% @payments.each do |payment| %>
+            <% @orders.each do |order| %>
             <div class="order order-1">
               <div class="order-header row">
                 <div class="col-xs-12 col-md-6 left">
-                  <strong>เลขที่ออร์เดอร์:</strong> <%= payment.code %>
+                  <strong>เลขที่ออร์เดอร์:</strong> <%= order.code %>
                 </div>
                 <div class="col-xs-12 col-md-6 right">
-                  สั่งซื้อเมื่อ <%= payment.created_at.try(:strftime, "%A %d %B, %H:%M") %>
+                  สั่งซื้อเมื่อ <%= order.created_at.try(:strftime, "%A %d %B, %H:%M") %>
                 </div>
               </div>
               <div class="order-body row">
                 <div class="col-xs-12 col-md-6 left">
-                    <a class="cover" style="background-image: url(<%= payment.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(payment.event.id) %>"></a>
-                    <h4 class="title"><a href="<%= client_event_path(payment.event.id) %>"><%= payment.event.title %></a></h4>
+                    <a class="cover" style="background-image: url(<%= order.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(order.event.id) %>"></a>
+                    <h4 class="title"><a href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
 
-                    <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= payment.event.location_name %></div>
+                    <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
                 </div>
                 <div class="col-xs-12 col-md-6 right">
                   <div class="info">
@@ -34,25 +34,25 @@
                       <table class="table">
                         <tr>
                           <td width="150">ราคารวม</td>
-                          <td>฿ <%= payment.payment.amount %></td>
+                          <td>฿ <%= order.payment.amount %></td>
                         </tr>
                         <tr>
                           <td>วิธีการชำระเงิน</td>
-                          <td><%= payment.payment.methods %></td>
+                          <td><%= order.payment.methods %></td>
                         </tr>
                         <tr>
                           <td>สถานะการชำระเงิน</td>
-                          <td><%= payment.status %></td>
+                          <td><%= order.status %></td>
                         </tr>
                         <tr>
                           <td>รหัสชำระเงิน</td>
-                          <td><%= payment.code %></td>
+                          <td><%= order.code %></td>
                         </tr>
                       </table>
                     </div>
                     <div class="info-body">
                       <table class="table ticket-list">
-                        <% payment.tickets.each do |ticket| %>
+                        <% order.tickets.each do |ticket| %>
                         <tr class="ticket">
                           <td class="ticket-title" width="150"><%= ticket.section.title %></td>
                           <td class="ticket-code"><%= ticket.code %></td>
@@ -62,7 +62,7 @@
                         <tr class="total">
                           <td></td>
                           <td><strong>TOTAL</strong></td>
-                          <td align="right"><strong>฿ <%= payment.payment.amount %></strong></td>
+                          <td align="right"><strong>฿ <%= order.payment.amount %></strong></td>
                         </tr>
                       </table>
                     </div>

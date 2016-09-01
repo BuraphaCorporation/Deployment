@@ -10,13 +10,14 @@ class Client::ProfileController < Client::CoreController
   end
 
   def orders
-    @payments = current_user.orders
-    @has_tickets = @payments.present?
+    @orders       = current_user.orders
+    # @payment      = @orders.payment
+    @has_tickets  = @orders.present?
   end
 
   def order
     begin
-      @payment = current_user.payments.find(params[:ticket_id])
+      @payment = current_user.orders.find(params[:ticket_id])
       @tickets = @payment.tickets
     rescue
       redirect_to client_profile_tickets_path

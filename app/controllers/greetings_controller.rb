@@ -51,6 +51,8 @@ private
       else
         'daydash'
       end
+    when 'campaign', 'campaign_terms'
+      'campaign'
     else
       false
     end

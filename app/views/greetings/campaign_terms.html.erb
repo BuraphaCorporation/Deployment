@@ -1,22 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Daydash</title>
-
-    <link rel="stylesheet" href="/src/packages/font-awesome-4.5.0/css/font-awesome.min.css" />
-
-    <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="/src/packages/daydash/campaign.css" />
-
-    <script src="/src/packages/jquery/jquery-2.2.2.min.js"></script>
-    <script src="/src/packages/bootstrap-3.3.6/js/bootstrap.min.js"></script>
-
-  </head>
-  <body id="campaign-terms-page">
+  <section id="campaign-terms-page">
     <div id="fb-root"></div>
     <div id="wrapper">
       <div id="main" style="background-image: url(/src/images/content/campaign/bg.png);">
@@ -80,15 +62,14 @@
       </div>
     </div>
 
+    <!-- Facebook API -->
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+  </section>
 
-  <!-- Facebook API -->
-  <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
-</body>
-</html>

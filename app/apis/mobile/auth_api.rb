@@ -63,7 +63,16 @@ class Mobile::AuthAPI < ApplicationAPI
       begin
         token = params[:facebook_access_token]
 
-        user = User.from_api(token)
+        user = User.from_oauth_api(token)
+        # @user = User.from_omniauth(request.env["omniauth.auth"])
+
+        # if @user.persisted? or @user.new_record?
+        #   sign_in_and_redirect @user, :event => :authentication #this will throw if @user is not activated
+        #   set_flash_message(:notice, :success, :kind => "Facebook") if is_navigational_format?
+        # else
+        #   session["devise.facebook_data"] = request.env["omniauth.auth"]
+        #   redirect_to new_user_session_url
+        # end
 
         present :status, :success
         present :data, user, with: Entities::AuthExpose

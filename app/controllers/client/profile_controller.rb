@@ -6,12 +6,13 @@ class Client::ProfileController < Client::CoreController
   end
 
   def tickets
-    @tickets = current_user.tickets
+    @tickets_active = current_user.tickets.active
+    @tickets_passed = current_user.tickets.passed
+    @has_tickets_passed = @tickets_passed.present?
   end
 
   def orders
-    @orders       = current_user.orders
-    # @payment      = @orders.payment
+    @orders       = current_user.orders.order(id: :desc)
     @has_tickets  = @orders.present?
   end
 

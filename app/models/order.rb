@@ -14,6 +14,7 @@
 #  qr_code_updated_at   :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
+#  price                :integer
 #
 # Indexes
 #
@@ -44,10 +45,10 @@ class Order < ApplicationRecord
   after_create :set_invoice_no
 
   scope :available, -> { all.reject{ |p| p.tickets.empty? } }
-  enumerize :status, in: [:approved, :pending, :cancel], default: :pending
+  enumerize :status, in: [:paid, :pending, :cancel, :unpaid], default: :pending
 
   def approve!
-    self.update(status: :approved)
+    self.update(status: :paid)
   end
 
   def order_by_event_upcoming

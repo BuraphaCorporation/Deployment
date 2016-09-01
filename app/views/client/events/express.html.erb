@@ -206,10 +206,10 @@
                       <div>
                         <label>
 
-                          By submitting, you agree to <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
+                          By submitting, you agree to <a target="_blank" href="<%= terms_and_conditions_path %>">Payment Policy</a>
                         </label>
                       </div>
-                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @tickets["total"] %></button>
+                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @tickets["total"] /100 %></button>
                     </div>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
@@ -221,7 +221,7 @@
                     <div class="form-section-footer">
                       <div>
                         <label>
-                          By submitting, you agree to <a data-toggle="modal" data-target="#policy-modal" href="#policy-modal">Payment Policy</a>
+                          By submitting, you agree to <a target="_blank" href="<%= terms_and_conditions_path %>">Payment Policy</a>
                         </label>
                       </div>
                       <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="bank_transfer" >Place an order</button>

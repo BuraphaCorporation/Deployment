@@ -1,33 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-
-    <title>Daydash “Dash Your Day” - ได้เวลาเปิดใจ ทดลองทำกิจกรรมใหม่ๆ </title>
-
-    <link rel="icon" href="/favicon-194x194.png?v=1.0">
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description" content="เพราะเชื่อว่า การได้ทดลองทำกิจกรรมใหม่ๆ เป็นการเปิดโลกของเราให้กว้างขึ้น Daydash จึงเลือก 3 กิจกรรมเด็ด มาให้คุณได้ทดลองกันฟรีๆ เพียงเลือกกิจกรรมที่อยากทำ กรอกข้อมูล และแชร์ให้เพื่อน เท่านี้คุณก็มีสิทธิ์ลุ้นเป็นผู้โชคดี ได้ทดลองทำกิจกรรมสนุกๆ กับ Daydash ฟรี!">
-    <meta property="og:title"              content="ลุ้นรับบัตรเพื่อร่วมทำกิจกรรมสนุกๆ กับเรา ฟรี!" />
-    <meta property="og:description"        content="Daydash ให้คุณร่วมลุ้นได้ง่ายๆ เพียงเลือกกิจกรรมที่อยากทำ กรอกข้อมูล และแชร์ให้เพื่อน เท่านี้ก็มีสิทธิ์ลุ้นเป็นผู้โชคดี ได้ทดลองทำกิจกรรมสนุกๆ กับเราฟรี!" />
-    <meta property="og:image"              content="<%= "#{App.domain}/src/images/content/campaign/fb-og.jpg" %>" />
-
-
-
-    <link rel="stylesheet" href="/src/packages/font-awesome-4.5.0/css/font-awesome.min.css" />
-
-    <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="/src/packages/bootstrap-3.3.6/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="/src/packages/daydash/campaign.css" />
-
-    <script src="/src/packages/jquery/jquery-2.2.2.min.js"></script>
-    <script src="/src/packages/bootstrap-3.3.6/js/bootstrap.min.js"></script>
-
-
-  </head>
-  <body id="campaign-page">
+  <section id="campaign-page">
     <div id="fb-root"></div>
     <div id="wrapper">
       <div id="main" style="background-image: url(/src/images/content/campaign/bg.png);">
@@ -120,82 +91,80 @@
         </ul>
       </div>
     </div>
-
-
-  <!-- Facebook API -->
-  <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
+    <!-- Facebook API -->
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
 
   <% if @selected_campaign == 'lazgam' %>
-<script>
-  (function(d, s, id, ucid) {
-    var js, hd = d.getElementsByTagName("head")[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s);
-    js.id = id;
-    js.setAttribute("data-vrlps-ucid", ucid);
-    js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
-    hd.appendChild(js);
-  }(document, "script", "vrlps-js", "xXx5R50mptUkMKKJ75wqzuQAn6I"));
-</script>
+    <script>
+      (function(d, s, id, ucid) {
+        var js, hd = d.getElementsByTagName("head")[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.setAttribute("data-vrlps-ucid", ucid);
+        js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
+        hd.appendChild(js);
+      }(document, "script", "vrlps-js", "xXx5R50mptUkMKKJ75wqzuQAn6I"));
+    </script>
 
   <% elsif @selected_campaign == 'rock-domain' %>
-<script>
-  (function(d, s, id, ucid) {
-    var js, hd = d.getElementsByTagName("head")[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s);
-    js.id = id;
-    js.setAttribute("data-vrlps-ucid", ucid);
-    js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
-    hd.appendChild(js);
-  }(document, "script", "vrlps-js", "BAYBdxcQ9j8fBd7tDJM3l2FGlgo"));
-</script>
+    <script>
+      (function(d, s, id, ucid) {
+        var js, hd = d.getElementsByTagName("head")[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.setAttribute("data-vrlps-ucid", ucid);
+        js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
+        hd.appendChild(js);
+      }(document, "script", "vrlps-js", "BAYBdxcQ9j8fBd7tDJM3l2FGlgo"));
+    </script>
 
 
-  <% elsif @selected_campaign == 'olive' %>
-<script>
-  (function(d, s, id, ucid) {
-    var js, hd = d.getElementsByTagName("head")[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s);
-    js.id = id;
-    js.setAttribute("data-vrlps-ucid", ucid);
-    js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
-    hd.appendChild(js);
-  }(document, "script", "vrlps-js", "qoSau3hvJnZB2UqmvfhyOHhLa1U"));
-</script>
-  <% end %>
+      <% elsif @selected_campaign == 'olive' %>
+    <script>
+      (function(d, s, id, ucid) {
+        var js, hd = d.getElementsByTagName("head")[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.setAttribute("data-vrlps-ucid", ucid);
+        js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
+        hd.appendChild(js);
+      }(document, "script", "vrlps-js", "qoSau3hvJnZB2UqmvfhyOHhLa1U"));
+    </script>
+      <% end %>
 
-<% if @selected_campaign != '' %>
-<div id="loading">
-  <img src="/src/images/content/campaign/loading.gif" width="100" />
-</div>
+    <% if @selected_campaign != '' %>
+    <div id="loading">
+      <img src="/src/images/content/campaign/loading.gif" width="100" />
+    </div>
 
-<script>
-  window.addEventListener('vl_ready', function(e) {
-    $('#loading').hide('fast');
-    VL.openModal();
-  }, false)
-</script>
-<% end %>
+    <script>
+      window.addEventListener('vl_ready', function(e) {
+        $('#loading').hide('fast');
+        VL.openModal();
+      }, false)
+    </script>
+    <% end %>
 
 
-<!-- Google Analytics -->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-82041608-2', 'auto');
-  ga('send', 'pageview');
-</script>
-</body>
-</html>
+      ga('create', 'UA-82041608-2', 'auto');
+      ga('send', 'pageview');
+    </script>
+    </body>
+  </section>

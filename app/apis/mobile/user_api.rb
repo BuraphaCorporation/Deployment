@@ -38,7 +38,7 @@ class Mobile::UserAPI < ApplicationAPI
         user = User.find_by_access_token(params[:user_token])
         if user.present?
           if params[:gender] == 'male' or params[:gender] == 'female'
-            user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender], nesignal_id: params[:onesignal_id])
+            user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender], onesignal_id: params[:onesignal_id])
             present :status, :success
             present :data, user, with: Entities::UserExpose
           else

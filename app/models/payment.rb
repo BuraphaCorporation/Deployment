@@ -38,8 +38,8 @@ class Payment < ApplicationRecord
   # after_create :set_default_payment_qr_code
   after_create :send_payment_email
 
-  scope :available, -> { all.reject{ |p| p.tickets.empty? } }
   enumerize :status, in: [:success, :failure, :cancel, :pending], default: :pending
+  scope :available, -> { all.reject{ |p| p.tickets.empty? } }
 
   # def to_s
   #   "#PM-#{code}"

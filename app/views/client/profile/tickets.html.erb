@@ -33,7 +33,7 @@
                           <div class="col-xs-6">
                             <div>
                               <span class="ticket-type"><%= ticket.section.title %></span>
-                              <span class="ticket-price">฿ <%= ticket.event.first_section.price %></span>
+                              <span class="ticket-price">฿ <%= '%.2f' % ticket.to_price %></span>
                             </div>
                           </div>
                           <div class="col-xs-6">
@@ -56,8 +56,7 @@
                   </div>
                   <div class="col-xs-12 col-md-3">
                     <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>">
-                      <!--img src="<%= ticket.qr_code(:medium) %>" width="100%" /-->
-                      <img src="/src/images/mockup/ticket-qr.png" width="100%" />
+                      <img src="<%= ticket.qr_code(:thumb) %>" width="100%" />
                     </a>
                   </div>
                 </div>
@@ -90,7 +89,7 @@
                           <div class="col-xs-6">
                             <div>
                               <span class="ticket-type"><%= ticket.section.title %></span>
-                              <span class="ticket-price">฿ <%= ticket.event.first_section.price %></span>
+                              <span class="ticket-price">฿ <%= '%.2f' % ticket.to_price %></span>
                             </div>
                           </div>
                           <div class="col-xs-6">
@@ -113,8 +112,7 @@
                   </div>
                   <div class="col-xs-12 col-md-3">
                     <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>">
-                      <!--img src="<%= ticket.qr_code(:medium) %>" width="100%" /-->
-                      <img src="/src/images/mockup/ticket-qr.png" width="100%" />
+                      <img src="<%= ticket.qr_code(:medium) %>" width="100%" />
                     </a>
                   </div>
                 </div>

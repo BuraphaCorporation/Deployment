@@ -23,10 +23,9 @@
               </div>
               <div class="order-body row">
                 <div class="col-xs-12 col-md-6 left">
-                    <a class="cover" style="background-image: url(<%= order.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(order.event.id) %>"></a>
-                    <h4 class="title"><a href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
-
-                    <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
+                  <a class="cover" style="background-image: url(<%= order.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(order.event.id) %>"></a>
+                  <h4 class="title"><a href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
+                  <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
                 </div>
                 <div class="col-xs-12 col-md-6 right">
                   <div class="info">
@@ -71,8 +70,8 @@
                     <div class="info-footer">
                       <div class="row">
                         <% if order.transfer? %>
-                          <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse" data-toggle="modal" href="#payment-modal">วิธีการชำระเงิน</a></div>
-                          <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse" data-toggle="modal" href="#payment-modal">แจ้งชำระเงิน</a></div>
+                          <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal">วิธีการชำระเงิน</a></div>
+                          <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal">แจ้งชำระเงิน</a></div>
                         <% else %>
                           <div class="col-xs-12"><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></div>
                         <% end %>
@@ -152,8 +151,8 @@
                 <table width="100%">
                   <tr>
                     <td align="center" style="color: red;">
-                      <strong>*** กรุณาทำการชำระเงินภายใน 3 ชั่วโมง นับจากการสั่งซื้อ ***</strong><br />
-                      (ชำระภายใน วันที่ 25 กันยายน 2016 เวลา 11:03 PM)
+                      <strong>*** กรุณาทำการชำระเงินภายใน 60 นาที นับจากการสั่งซื้อ ***</strong><br />
+                      <span class="time-payment">(ชำระภายใน วันที่ 25 กันยายน 2016 เวลา 11:03 PM)</span>
                     </td>
                   </tr>
                 </table>
@@ -175,3 +174,11 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).on("click", ".open-payment", function(){
+     var time = $(this).data('time');
+     time = moment(time).format('LLL')
+     $(".time-payment").html("(ชำระภายใน วันที่ " + time + ")");
+  });
+</script>

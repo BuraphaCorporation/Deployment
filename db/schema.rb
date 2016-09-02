@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901012224) do
+ActiveRecord::Schema.define(version: 20160901113804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 20160901012224) do
     t.datetime "qr_code_updated_at"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "price"
     t.index ["event_id"], name: "index_orders_on_event_id", using: :btree
     t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
@@ -153,6 +154,8 @@ ActiveRecord::Schema.define(version: 20160901012224) do
     t.datetime "updated_at",           null: false
     t.integer  "section_id"
     t.integer  "order_id"
+    t.integer  "price"
+    t.string   "stages"
     t.index ["event_id"], name: "index_tickets_on_event_id", using: :btree
     t.index ["order_id"], name: "index_tickets_on_order_id", using: :btree
     t.index ["section_id"], name: "index_tickets_on_section_id", using: :btree

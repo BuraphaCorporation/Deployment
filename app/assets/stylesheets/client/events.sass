@@ -69,12 +69,19 @@ html, body
     height: 60px
     img
       height: 40px
-  .navbar-nav
+  .navbar-left
+    padding-left: 20px
+    > li
+      > a
+        padding: 20px 15px
+        font-size: 16px
+        color: #444
+        text-transform: uppercase
+  .navbar-right
     > li
       > a
         padding: 20px
         font-size: 18px
-        font-weight: 200
       .btn-daydash-green-2
         background: #19D4D6
         color: white
@@ -91,8 +98,17 @@ html, body
         background-position: center
         background-repeat: no-repeat
         background-color: #ccc
+        float: left
+      .user-name
+        display: inline-block
+        padding: 5px
+        padding-left: 15px
+        color: #444
+      .fa
+        color: #444
+
       .dropdown-toggle
-        padding: 15px 30px
+        padding: 15px
       .dropdown-menu
         min-width: 200px
         padding: 0px

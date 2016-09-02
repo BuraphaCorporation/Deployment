@@ -30,7 +30,15 @@
               <% end %>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
+              <ul class="nav navbar-nav navbar-left">
+                <li>
+                  <a href="/">ALL</a>
+                </li>
+                <% @g_categories.each do |category| %>
+                  <li>
+                    <a href="/?category=<%= category.title %>"><%= category.title %></a>
+                  </li>
+                <% end if @categories.present? %>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <% if current_user.present? %>
@@ -42,12 +50,14 @@
                   <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                       <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>"></div>
+                      <div class="user-name"><%= current_user.first_name %></div>
+                      <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
                       <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
                       <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
                       <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
-                      <li><%= link_to "Edit Profile", client_profile_settings_path(current_user) %></li>
+                      <li><%= link_to "Account Settings", client_profile_settings_path(current_user) %></li>
                       <li>
                       <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
                       </li>

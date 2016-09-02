@@ -1,6 +1,7 @@
 class Client::ProfileController < Client::CoreController
+  before_action :global_categories
   before_action :authenticate_user!
-
+  
   def index
     redirect_to '/profile/tickets'
   end

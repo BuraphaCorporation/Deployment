@@ -11,7 +11,7 @@ class Client::EventsController < Client::CoreController
 
     @categories = Category.all
 
-    @events = if params[:category].present? and @category.pluck(:name).include?(params[:category])
+    @events = if params[:category].present? and @categories.pluck(:name).include?(params[:category])
       @categories.friendly.find(params[:category]).events
     else
       Event.all

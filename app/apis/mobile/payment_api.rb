@@ -44,8 +44,8 @@ class Mobile::PaymentAPI < ApplicationAPI
           user = User.find_by_access_token(params[:user_token])
           event = Event.find(params[:event_id])
 
-          order = Order.create(user: user, event: event)
-          payment = Payment.omise_customer_charge(order, params[:total_price].to_i, params[:omise_token])
+          order = Order.create(user: user, event: event, price: params[:total_price].to_i * 100)
+          payment = Payment.omise_customer_charge(order, params[:omise_token])
 
           order.approve! unless payment[:status] == :error
 
@@ -54,7 +54,7 @@ class Mobile::PaymentAPI < ApplicationAPI
           if payment[:status] != :error
             sections.each do |section|
               (1..section.qty).each do |i|
-                Ticket.create_ticket(user, order, event, section.id)
+                Ticket.create_ticket(user, order, event, section)
               end
               Section.cut_in(section.id, section.qty)
             end
@@ -88,15 +88,15 @@ class Mobile::PaymentAPI < ApplicationAPI
           user = User.find_by_access_token(params[:user_token])
           event = Event.find(params[:event_id])
 
-          order = Order.create(user: user, event: event)
-          payment = Payment.transfer_notify(order, params[:total_price])
+          order = Order.create(user: user, event: event, price: params[:total_price].to_i * 100)
+          payment = Payment.transfer_notify(order)
 
           sections = params[:sections]
 
           if payment[:status] != :error
             sections.each do |section|
               (1..section.qty).each do |i|
-                Ticket.create_ticket(user, order, event, section.id)
+                Ticket.create_ticket(user, order, event, section)
               end
               Section.cut_in(section.id, section.qty)
             end

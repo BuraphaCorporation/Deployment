@@ -38,8 +38,8 @@ class Payment < ApplicationRecord
   # after_create :set_default_payment_qr_code
   after_create :send_payment_email
 
-  scope :available, -> { all.reject{ |p| p.tickets.empty? } }
   enumerize :status, in: [:success, :failure, :cancel, :pending], default: :pending
+  scope :available, -> { all.reject{ |p| p.tickets.empty? } }
 
   # def to_s
   #   "#PM-#{code}"
@@ -81,9 +81,9 @@ class Payment < ApplicationRecord
       end
     end
 
-    def omise_customer_charge(order, amount, omise_token)
+    def omise_customer_charge(order, omise_token)
       charge = Omise::Charge.create({
-        amount:       amount.to_i * 100,
+        amount:       order.price,
         currency:     "thb",
         description:  order.invoice_no,
         customer:     order.user.omise_customer_id,
@@ -102,9 +102,9 @@ class Payment < ApplicationRecord
       { status: :error, message: error }
     end
 
-    def omise_token_charge(order, amount, omise_token)
+    def omise_token_charge(order, omise_token)
       charge = Omise::Charge.create({
-        amount:       amount.to_i * 100,
+        amount:       order.price,
         currency:     "thb",
         description:  order.invoice_no,
         card:         omise_token
@@ -123,8 +123,8 @@ class Payment < ApplicationRecord
       { status: :error, message: error }
     end
 
-    def transfer_notify(order, amount)
-      create(status: :pending, methods: 'transfer', order: order, amount: amount, fee: 0)
+    def transfer_notify(order)
+      create(status: :pending, methods: 'transfer', order: order, amount: order.price, fee: 0)
     rescue Exception => error
       { status: :error, message: error }
     end

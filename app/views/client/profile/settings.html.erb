@@ -1,11 +1,11 @@
 <script>$('body').attr('id', 'profile-settings-page');</script>
 <script>$('body').addClass('profile-page');</script>
 
+<%= render partial: "client/profile/parts/profile-nav" %>
+<script>$('#profile-nav #menu-settings').addClass('active');</script>
+
 <div class="section">
   <div class="container">
-    <%= render partial: "client/profile/parts/profile-nav" %>
-    <script>$('#profile-nav #menu-settings').addClass('active');</script>
-
     <div class="row">
       <div class="col-xs-12 col-md-9">
         <a href="/auth/facebook">Connect Facebook</a>

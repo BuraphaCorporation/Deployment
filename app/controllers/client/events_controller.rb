@@ -39,8 +39,8 @@ class Client::EventsController < Client::CoreController
             quantity: params[:section]["#{section.id}"].to_i,
           }
         })
-        session[:tickets][:total] = total
-        session[:sections] << { "id": section.id, "qty": params[:section]["#{section.id}"].to_i, "total": total }
+        session[:tickets][:total] = total.to_i * 100
+        session[:sections] << { "id": section.id, "price": section.price.to_i * 100, "qty": params[:section]["#{section.id}"].to_i }
       end
     end
 
@@ -63,16 +63,16 @@ class Client::EventsController < Client::CoreController
       gender:     params[:gender],
     )
 
-    @order = Order.create(user: current_user, event: @event)
+    @order = Order.create(user: current_user, event: @event, price: session["tickets"]["total"])
     case params[:payment_method]
     when 'credit_card'
-      @payment = Payment.omise_token_charge(@order, session["tickets"]["total"], params[:omise_token])
+      @payment = Payment.omise_token_charge(@order, params[:omise_token])
 
       @order.approve! unless @payment[:status] == :error
 
       render_by_payment_mothod = "client/events/payment-credit-card"
     when 'bank_transfer'
-      @payment = Payment.transfer_notify(@order, session["tickets"]["total"])
+      @payment = Payment.transfer_notify(@order)
 
       render_by_payment_mothod = "client/events/payment-bank-transfer"
     end
@@ -83,7 +83,7 @@ class Client::EventsController < Client::CoreController
     if @payment[:status] != :error
       sections.each do |section|
         (1..section.qty).each do |i|
-          Ticket.create_ticket(current_user, @order, @event, section.id)
+          Ticket.create_ticket(current_user, @order, @event, section)
         end
         Section.cut_in(section.id, section.qty)
       end

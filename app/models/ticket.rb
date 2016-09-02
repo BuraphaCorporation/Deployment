@@ -15,6 +15,8 @@
 #  updated_at           :datetime         not null
 #  section_id           :integer
 #  order_id             :integer
+#  price                :integer
+#  stages               :string
 #
 # Indexes
 #
@@ -43,27 +45,37 @@ class Ticket < ApplicationRecord
   before_create :set_default_ticket_code
   after_create :set_default_ticket_qr_code
 
+  enumerize :stages, in: [:active, :passed], default: :active
+  enumerize :status, in: [:available, :used], default: :available
+
   scope :current_tickets, -> { joins(:section).select{ |s| s.section.event_time >= Date.today } }
-  enumerize :status, in: [:upcoming, :passed, :used]
+  scope :active, -> { includes(:section).where(stages: :active).order("sections.event_time asc") }
+  scope :passed, -> { includes(:section).where(stages: :passed).order("sections.event_time desc") }
+
+@users = User.includes(:user_extension).order("user_extensions.company desc")
 
   def to_s
     "#TK-#{code}"
   end
 
+  def to_price
+    price.to_f / 100
+  end
+
   class << self
     def create_ticket(user, order, event, section)
-      create(status: :upcoming, user: user, order: order, event: event, section_id: section)
+      create(stages: :active, user: user, order: order, event: event, section_id: section.id, price: section.price)
     rescue Exception => error
       error
     end
 
-    def consume_ticket(ticket)
-      find(ticket).update(status: 2)
-    end
+    # def consume_ticket(ticket)
+    #   find(ticket).update(status: 2)
+    # end
 
-    def event_passed(ticket)
-      find(ticket).update(status: 0)
-    end
+    # def event_passed(ticket)
+    #   find(ticket).update(status: 0)
+    # end
   end
 
 private

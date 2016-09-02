@@ -57,7 +57,7 @@ class Event < ApplicationRecord
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
   scope :list,      -> { where('uptime > ?', Time.zone.now).order(:uptime) }
-  enumerize :ticket_type, in: [:one_time, :continuous, :recurring], default: :one_time
+  enumerize :ticket_type, in: [:general, :deal], default: :general
 
 
   def to_url

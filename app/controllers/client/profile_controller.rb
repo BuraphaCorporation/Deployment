@@ -6,17 +6,19 @@ class Client::ProfileController < Client::CoreController
   end
 
   def tickets
-    @tickets = current_user.tickets
+    @tickets_active = current_user.tickets.active
+    @tickets_passed = current_user.tickets.passed
+    @has_tickets_passed = @tickets_passed.present?
   end
 
   def orders
-    @payments = current_user.orders
-    @has_tickets = @payments.present?
+    @orders       = current_user.orders.order(id: :desc)
+    @has_tickets  = @orders.present?
   end
 
   def order
     begin
-      @payment = current_user.payments.find(params[:ticket_id])
+      @payment = current_user.orders.find(params[:ticket_id])
       @tickets = @payment.tickets
     rescue
       redirect_to client_profile_tickets_path

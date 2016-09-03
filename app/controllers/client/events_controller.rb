@@ -9,13 +9,15 @@ class Client::EventsController < Client::CoreController
       { image: '/src/images/content/cover-2.jpg', caption: '<h1 class="title">เพราะเราเชื่อว่า ชีวิตไม่ได้มีด้านเดียว</h1><div class="subtitle">ค้นพบกิจกรรมและอีเว้นท์เจ๋งๆ พร้อมสัมผัสประสบการณ์ใหม่ๆ ได้ที่นี่</div>' },
     ]
 
-    @categories = Category.all
-
-    @events = if params[:category].present? and @categories.pluck(:name).include?(params[:category])
-      @categories.friendly.find(params[:category]).events
+    # @events = if params[:category].present? and @categories.pluck(:name).include?(params[:category])
+    #   @categories.friendly.find(params[:category]).events
+    # end
+    if params[:category].present?
+      @category_id = Category.friendly.find(params[:category]).id
     else
-      Event.list
+      @category_id = nil
     end
+    @events = Event.list
   end
 
   def show

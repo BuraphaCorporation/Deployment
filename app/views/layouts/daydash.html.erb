@@ -34,7 +34,6 @@
                 <li>
                   <a href="/">ALL</a>
                 </li>
-                <%# binding.pry %>
                 <% @global_categories.each do |category| %>
                   <li>
                     <% if is_index_with_categories? %>
@@ -43,7 +42,7 @@
                       <a href="/categories/<%= category.slug %>"><%= category.title %></a>
                     <% end %>
                   </li>
-                <% end %>
+                <% end unless @global_categories.nil? %>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <% if current_user.present? %>

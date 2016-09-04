@@ -15,14 +15,6 @@ GIT
       activerecord (>= 4.0, < 5.1)
 
 GIT
-  remote: git://github.com/seuros/capistrano-sidekiq.git
-  revision: 416d1ba6ac29e550b506468c45053b9fe65347b3
-  specs:
-    capistrano-sidekiq (0.5.4)
-      capistrano
-      sidekiq (>= 3.4)
-
-GIT
   remote: git://github.com/sinatra/sinatra.git
   revision: 1b0edc0aeaaf4839cadfcec1b21da86e6af1d4c0
   specs:
@@ -648,7 +640,6 @@ DEPENDENCIES
   capistrano-rails (~> 1.1)
   capistrano-rails-console
   capistrano-rbenv!
-  capistrano-sidekiq!
   capybara
   capybara-webkit
   cocoon

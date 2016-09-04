@@ -33,6 +33,7 @@ class Client::EventsController < Client::CoreController
 
     @event.sections.each do |section|
       if params[:section]["#{section.id}"].to_i > 0
+        raise "you need to hack more limit tickets" if params[:section]["#{section.id}"].to_i > section.show_ticket_available
         total += section.price
         session[:tickets].merge!({
           "#{section.id}": {
@@ -47,6 +48,12 @@ class Client::EventsController < Client::CoreController
     end
 
     redirect_to client_event_express_path(@event.to_url)
+
+  rescue Exception => e
+    session[:event]    = nil
+    session[:tickets]  = nil
+    session[:sections] = nil
+    redirect_back
   end
 
   def express
@@ -93,6 +100,14 @@ class Client::EventsController < Client::CoreController
       @payment[:message]
     end
 
+    if @order.tickets.present?
+      UserMailer.order(@order).deliver!
+      OrganizerMailer.order(@order).deliver!
+
+      UserMailer.ticket(@order).deliver! if @order.payment.status.success?
+
+      # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
+    end
     render render_by_payment_mothod
   end
 

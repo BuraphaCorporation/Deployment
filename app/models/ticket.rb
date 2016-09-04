@@ -44,27 +44,31 @@ class Ticket < ApplicationRecord
 
   before_create :set_default_ticket_code
   after_create :set_default_ticket_qr_code
+  # after_commit :send_email_to_buyer, on: [:create, :update]
 
   enumerize :stages, in: [:active, :passed], default: :active
-  enumerize :status, in: [:available, :used], default: :available
+  enumerize :status, in: [:available, :unusable, :used], default: :unusable
 
   scope :current_tickets, -> { joins(:section).select{ |s| s.section.event_time >= Date.today } }
   scope :active, -> { includes(:section).where(stages: :active).order("sections.event_time asc") }
   scope :passed, -> { includes(:section).where(stages: :passed).order("sections.event_time desc") }
-
-@users = User.includes(:user_extension).order("user_extensions.company desc")
 
   def to_s
     "#TK-#{code}"
   end
 
   def to_price
-    price.to_f / 100
+    '%.2f' % (price.to_f / 100)
   end
 
   class << self
     def create_ticket(user, order, event, section)
-      create(stages: :active, user: user, order: order, event: event, section_id: section.id, price: section.price)
+      status = if order.status.pending?
+        :unusable
+      else
+        :available
+      end
+      create(status: status, user: user, order: order, event: event, section_id: section.id, price: section.price)
     rescue Exception => error
       error
     end
@@ -94,4 +98,10 @@ private
     attachment   = App.generate_qr_code(self)
     self.update(qr_code: File.open(attachment, 'rb'))
   end
+
+  # def send_email_to_buyer
+  #   UserMailer.ticket(self.order).deliver! if status.available?
+  # rescue
+  #   logger.fatal self
+  # end
 end

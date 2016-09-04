@@ -2,14 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Daydash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name= "category-id" content="<%= @category_id %>">
     <%= csrf_meta_tags %>
+    <%= render partial: "layouts/parts/tracking" %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-    <%= render partial: "layouts/parts/tracking.html.erb" %>
 
     <!-- Google Map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
@@ -34,11 +34,15 @@
                 <li>
                   <a href="/">ALL</a>
                 </li>
-                <% @g_categories.each do |category| %>
+                <% @global_categories.each do |category| %>
                   <li>
-                    <a href="/?category=<%= category.title %>"><%= category.title %></a>
+                    <% if is_index_with_categories? %>
+                      <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
+                    <% else %>
+                      <a href="/categories/<%= category.slug %>"><%= category.title %></a>
+                    <% end %>
                   </li>
-                <% end if @categories.present? %>
+                <% end unless @global_categories.nil? %>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <% if current_user.present? %>
@@ -136,8 +140,8 @@
               <div>
                 <div class="copyright">© 2016 Daydash.co</div>
                 <ul class="list-body list-inline">
-                  <li><a href="#">Terms &amp; Conditions</a></li>
-                  <li><a href="#">Privacy Policy</a></li>
+                  <li><a href="<%= terms_and_conditions_path %>">Terms &amp; Conditions</a></li>
+                  <li><a href="<%= privacy_policy_path %>">Privacy Policy</a></li>
                 </ul>
               </div>
 

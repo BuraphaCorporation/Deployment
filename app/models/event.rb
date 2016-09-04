@@ -87,6 +87,10 @@ class Event < ApplicationRecord
     end
   end
 
+  def get_total_sales
+    orders.sum(:price).to_f / 100
+  end
+
   private
     def set_organizer
       self.user ||= User.find_by_email('hello@daydash.co')

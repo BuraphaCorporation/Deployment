@@ -1,6 +1,6 @@
 
 $(document).ready ->
-  init_slick = ->
+  initSlick = ->
     $('#cover-slick').not('.slick-initialized').slick
       infinite: true
       dots: false
@@ -9,19 +9,31 @@ $(document).ready ->
       autoplay: true
       autoplaySpeed: 4000
 
-  init_slick()
+  initSlick()
 
-  $('.category-filter').on 'click', ->
-    category_id = $(this).attr('data-filter')
 
+  set_category = (category_id) ->
     if category_id != undefined
       $('#event-section .event-list .event-wrapper').not('.event-category-' + category_id).hide()
       $('#event-section .event-list .event-wrapper.event-category-' + category_id).show()
     else
       $('#event-section .event-list .event-wrapper').show()
+    selected = $("[data-filter=" + category_id + "]")
+    selected.parents('.nav').find('li').removeClass 'active'
+    selected.parent().addClass 'active'
 
-    $(this).parents('.nav').find('li').removeClass 'active'
-    $(this).parent().addClass 'active'
+  initCategory = ->
+    category_id = $("[name=category-id]").attr('content')
+    return false if category_id == "" or category_id == undefined
+
+    set_category(category_id)
+    false
+
+  initCategory()
+
+  $('.category-filter').on 'click', ->
+    category_id = $(this).attr('data-filter') # if category_id == undefined
+    set_category(category_id)
     false
 
   initGoogleMap =  ->
@@ -54,14 +66,14 @@ $(document).ready ->
   initGoogleMap()
 
 
-((d, s, id) ->
-  js = undefined
-  fjs = d.getElementsByTagName(s)[0]
-  if d.getElementById(id)
+  ((d, s, id) ->
+    js = undefined
+    fjs = d.getElementsByTagName(s)[0]
+    if d.getElementById(id)
+      return
+    js = d.createElement(s)
+    js.id = id
+    js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738'
+    fjs.parentNode.insertBefore js, fjs
     return
-  js = d.createElement(s)
-  js.id = id
-  js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738'
-  fjs.parentNode.insertBefore js, fjs
-  return
-) document, 'script', 'facebook-jssdk'
+  ) document, 'script', 'facebook-jssdk'

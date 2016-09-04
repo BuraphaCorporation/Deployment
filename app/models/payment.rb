@@ -36,7 +36,7 @@ class Payment < ApplicationRecord
 
   # before_create :set_default_payment_code
   # after_create :set_default_payment_qr_code
-  after_create :send_payment_email
+  # after_create :send_email_payment
 
   enumerize :status, in: [:success, :failure, :cancel, :pending], default: :pending
   scope :available, -> { all.reject{ |p| p.tickets.empty? } }
@@ -44,6 +44,28 @@ class Payment < ApplicationRecord
   # def to_s
   #   "#PM-#{code}"
   # end
+
+  def channel
+    case methods
+    when 'omise'
+      'บัตรเครดิต'
+    when 'transfer'
+      'โอนเงิน'
+    end
+  end
+
+  def stages
+    case status
+    when 'success'
+      'ชำระเงินสำเร็จ'
+    when 'failure'
+      'ผิดพลาด'
+    when 'cancel'
+      'ยกเลิก'
+    when 'pending'
+      'รอการชำระเงิน'
+    end
+  end
 
   def purchased
     paid_at.try(:strftime, "%A %d %B, %H:%M")
@@ -159,18 +181,11 @@ private
   #   self.qr_code = File.open(attachment, 'rb')
   # end
 
-  def send_payment_email
-    case methods
-    when 'transfer'
-      OrganizerMailer.order(self, self.user, self.event).deliver!
-      PaymentMailer.order(self, self.user, self.event).deliver!
-      PaymentMailer.ticket(self, self.user, self.event).deliver!
-    when 'omise'
-      OrganizerMailer.order(self, self.user, self.event).deliver!
-      PaymentMailer.order(self, self.user, self.event).deliver!
-    end
-    $slack.ping "#{self.inspect}\n #{self.user.inspect}"
-  rescue
-    logger.fatal self
-  end
+  # def send_email_payment
+  #   UserMailer.order(self.order).deliver!
+  #   OrganizerMailer.order(self.order).deliver!
+  #   $slack.ping "#{self.inspect}\n #{self.user.inspect}"
+  # rescue
+  #   logger.fatal self
+  # end
 end

@@ -9,13 +9,15 @@ class Client::EventsController < Client::CoreController
       { image: '/src/images/content/cover-2.jpg', caption: '<h1 class="title">เพราะเราเชื่อว่า ชีวิตไม่ได้มีด้านเดียว</h1><div class="subtitle">ค้นพบกิจกรรมและอีเว้นท์เจ๋งๆ พร้อมสัมผัสประสบการณ์ใหม่ๆ ได้ที่นี่</div>' },
     ]
 
-    @categories = Category.all
-
-    @events = if params[:category].present? and @categories.pluck(:name).include?(params[:category])
-      @categories.friendly.find(params[:category]).events
+    # @events = if params[:category].present? and @categories.pluck(:name).include?(params[:category])
+    #   @categories.friendly.find(params[:category]).events
+    # end
+    if params[:category].present?
+      @category_id = Category.friendly.find(params[:category]).id
     else
-      Event.all
+      @category_id = nil
     end
+    @events = Event.list
   end
 
   def show
@@ -31,6 +33,7 @@ class Client::EventsController < Client::CoreController
 
     @event.sections.each do |section|
       if params[:section]["#{section.id}"].to_i > 0
+        raise "you need to hack more limit tickets" if params[:section]["#{section.id}"].to_i > section.show_ticket_available
         total += section.price
         session[:tickets].merge!({
           "#{section.id}": {
@@ -45,6 +48,12 @@ class Client::EventsController < Client::CoreController
     end
 
     redirect_to client_event_express_path(@event.to_url)
+
+  rescue Exception => e
+    session[:event]    = nil
+    session[:tickets]  = nil
+    session[:sections] = nil
+    redirect_back
   end
 
   def express
@@ -91,6 +100,14 @@ class Client::EventsController < Client::CoreController
       @payment[:message]
     end
 
+    if @order.tickets.present?
+      UserMailer.order(@order).deliver!
+      OrganizerMailer.order(@order).deliver!
+
+      UserMailer.ticket(@order).deliver! if @order.payment.status.success?
+
+      # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
+    end
     render render_by_payment_mothod
   end
 

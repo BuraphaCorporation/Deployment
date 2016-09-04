@@ -33,11 +33,11 @@
                       <table class="table">
                         <tr>
                           <td width="150">ราคารวม</td>
-                          <td>฿ <%= '%.2f' % order.to_price %></td>
+                          <td>฿ <%= order.to_price %></td>
                         </tr>
                         <tr>
                           <td>วิธีการชำระเงิน</td>
-                          <td><%= order.payment.methods %></td>
+                          <td><%= order.payment.channel %></td>
                         </tr>
                         <tr>
                           <td>สถานะการชำระเงิน</td>
@@ -57,13 +57,13 @@
                           <tr class="ticket">
                             <td class="ticket-title" width="150"><%= ticket.section.title %></td>
                             <td class="ticket-code"><%= ticket.code %></td>
-                            <td class="ticket-price" width="100" align="right">฿ <%= '%.2f' % ticket.to_price %></td>
+                            <td class="ticket-price" width="100" align="right">฿ <%= ticket.to_price %></td>
                           </tr>
                         <% end %>
                         <tr class="total">
                           <td></td>
                           <td><strong>TOTAL</strong></td>
-                          <td align="right"><strong>฿ <%= '%.2f' % order.to_price %></strong></td>
+                          <td align="right"><strong>฿ <%= order.to_price %></strong></td>
                         </tr>
                       </table>
                     </div>
@@ -143,7 +143,7 @@
                 </table>
                 <p style="font-weight: 200; padding-bottom: 30px;">
                   2. แจ้งยืนยันการชำระเงินโดยส่งรูปถ่ายหลักฐานการโอนเงิน<br />
-                  พร้อมรหัสการโอนเงิน ผ่านทาง: Line @daydash (มี @ ข้างหน้า)
+                  พร้อมรหัสการโอนเงิน ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)
                 </p>
                 <p style="font-weight: 200; padding-bottom: 30px;">
                   3. เราจะส่งตั๋วให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 60 นาที :)
@@ -162,7 +162,7 @@
                   <tr>
                     <td align="center" style="background: #DFFFFB; padding: 15px; font-size: 14px; font-weight: 200;">
                       หากคุณพบปัญหาหรือมีคำถาม ต้องการความช่วยเหลือ สามารถติดต่อเราได้ที่<br />
-                      Tel. 080-456-9465  หรือ Line: @daydash
+                      Tel. 080-456-9465  หรือ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a>
                     </td>
                   </tr>
                 </table>

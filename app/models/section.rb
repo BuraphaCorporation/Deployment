@@ -24,6 +24,8 @@
 #
 
 class Section < ApplicationRecord
+  SHOW_TICKET_AVAILABLE = 10
+
   belongs_to :event
   has_many :tickets
 
@@ -32,12 +34,20 @@ class Section < ApplicationRecord
   scope :available, -> { where("event_time > ?", Time.zone.now).order(:event_time) }
   enumerize :status, in: [:on, :off, :draft], default: :draft
 
-  def availability?
+  def ticket_availability?
     total - bought > 0
   end
 
+  def ticket_available
+    total - bought
+  end
+
+  def show_ticket_available
+    self.ticket_available > SHOW_TICKET_AVAILABLE ? SHOW_TICKET_AVAILABLE : self.ticket_available
+  end
+
   def self.cut_in(id, qty)
-    find(id).update(bought: qty)
+    find(id).update(bought: find(id).bought + qty)
   end
 
   def to_event_human

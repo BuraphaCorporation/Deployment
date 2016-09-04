@@ -45,7 +45,9 @@ class Order < ApplicationRecord
   after_create :set_invoice_no
 
   enumerize :status, in: [:paid, :pending, :cancel, :unpaid], default: :pending
-  scope :available, -> { all.reject{ |p| p.tickets.empty? } }
+  scope :available, -> { all.reject{ |o| o.tickets.empty? } }
+
+
 
   def approve!
     self.update(status: :paid)

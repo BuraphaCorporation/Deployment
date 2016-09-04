@@ -13,6 +13,9 @@ class OrganizerMailer < ApplicationMailer
     @payment  = @order.payment
     @tickets  = @order.tickets
 
+    @title    = "Someone just booked your event!"
+    @subtitle = "And here’s the detail :)"
+
     mail to: @event.user.email, cc: "hello@daydash.co"
   end
 end

@@ -20,6 +20,9 @@ class UserMailer < ApplicationMailer
     @payment  = @order.payment
     @tickets  = @order.tickets
 
+    @title     = "Hi #{@user.first_name}, we’ve got your order!"
+    @subtitle = "Just one more step :)"
+
     mail to: @user.email
   end
 

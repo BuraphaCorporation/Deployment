@@ -98,18 +98,36 @@
             <!-- <input type="hidden" name="" value="<%= section.id %>"> -->
             <tr>
               <td>
-                <div class="ticket-name"><%= section.title %> <%= section.to_event_human %></div>
+                <div class="ticket-name"><%= section.title %></div>
                 <div class="ticket-meta">
-                  <span class="ticket-price">฿ <%= section.price %></span> <span class="ticket-quantity">x 1</span>
+                  <span class="ticket-time"><%= section.to_event_human %></span>
+                </div>
+              </td>
+              <% if section.ticket_availability? %>
+              <td width="100" align="right">
+                <div class="ticket-meta" style="margin-top: 8px;">
+                  <span class="ticket-price">฿ <%= section.price %></span>
                 </div>
               </td>
               <td width="100" align="right">
                 <select class="form-control" name="section[<%= section.id %>]">
-                  <% (0..1).each do |i| %>
+                  <% (0..section.show_ticket_available).each do |i| %>
                     <option value="<%= i %>"><%= i %></option>
                   <% end %>
                 </select>
               </td>
+              <% else %>
+              <td width="100" align="right">
+                <div class="ticket-meta" style="margin-top: 8px; color: #ccc;">
+                  <span class="ticket-price">฿ <%= section.price %></span>
+                </div>
+              </td>
+              <td align="right" colspan="2">
+                <div class="ticket-meta" style="margin-top: 8px; margin-right: 5px; color: red;">
+                  <span class="ticket-not-available">SOLD OUT</span>
+                </div>
+              </td>
+              <% end %>
             </tr>
             <% end %>
           </table>

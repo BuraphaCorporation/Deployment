@@ -14,11 +14,15 @@ class UserMailer < ApplicationMailer
   end
 
   def order(order)
+
     @order    = order
     @user     = @order.user
     @event    = @order.event
     @payment  = @order.payment
     @tickets  = @order.tickets
+
+    @title     = "Hi #{@user.first_name}, we’ve got your order!"
+    @subtitle = "Just one more step :)"
 
     mail to: @user.email
   end

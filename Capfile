@@ -27,7 +27,7 @@ require 'capistrano/rails/console'
 # require 'capistrano/puma/jungle'  # if you need the jungle tasks
 # require 'capistrano/puma/monit'   # if you need the monit tasks
 # require 'capistrano/puma/nginx'   # if you want to upload a nginx site template
-# require 'capistrano/sidekiq'
+require 'capistrano/sidekiq'
 # require 'capistrano/sidekiq/monit' #to require monit tasks # Only for capistrano3
 
 require "airbrussh/capistrano"
@@ -42,4 +42,4 @@ set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, '2.3.1'
 set :format, :airbrussh
 
-# invoke :production
+invoke :staging

@@ -14,6 +14,7 @@ class UserMailer < ApplicationMailer
   end
 
   def order(order)
+
     @order    = order
     @user     = @order.user
     @event    = @order.event

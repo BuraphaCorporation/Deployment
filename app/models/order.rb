@@ -44,7 +44,7 @@ class Order < ApplicationRecord
   after_create :set_default_order_qr_code
   after_create :set_invoice_no
 
-  enumerize :status, in: [:paid, :pending, :cancel, :unpaid], default: :pending
+  enumerize :status, in: [:paid, :unpaid, :pending, :cancel], default: :pending
   scope :available, -> { all.reject{ |o| o.tickets.empty? } }
 
 

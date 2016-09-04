@@ -1,5 +1,6 @@
 <%= render partial: "layouts_mailer/parts/order" %>
 
+<% if @order.transfer? %>
 <!-- Section 3 -->
 <tr class="body-2">
   <td valign="top" id="templateBody">
@@ -105,3 +106,5 @@
     </table>
   </td>
 </tr>
+
+<% end %>

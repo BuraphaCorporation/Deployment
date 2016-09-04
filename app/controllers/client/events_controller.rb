@@ -33,7 +33,7 @@ class Client::EventsController < Client::CoreController
 
     @event.sections.each do |section|
       if params[:section]["#{section.id}"].to_i > 0
-        raise "you need to hack more 10 tickets" if params[:section]["#{section.id}"].to_i > 10
+        raise "you need to hack more limit tickets" if params[:section]["#{section.id}"].to_i > section.show_ticket_available
         total += section.price
         session[:tickets].merge!({
           "#{section.id}": {

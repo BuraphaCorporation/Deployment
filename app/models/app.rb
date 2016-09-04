@@ -123,6 +123,10 @@ class App < Struct.new(:region, :environment, :version)
     RQRCode::QRCode.new(qr.code, size: 4, level: :h).to_img.resize(120, 120).save(tmp)
   end
 
+  def limit_buy_ticket
+    10
+  end
+
   class << self
     attr_accessor :current
 

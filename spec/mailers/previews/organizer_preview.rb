@@ -3,7 +3,7 @@ class OrganizerPreview < ActionMailer::Preview
 
   # Preview this email at http://localhost:3000/rails/mailers/organizer/order
   def order
-    order = Order.last
+    order = Order.first
     OrganizerMailer.order(order)
   end
 end

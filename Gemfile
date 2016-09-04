@@ -78,7 +78,7 @@ gem 'devise-async'
 gem 'rollbar'
 
 # marketing
-gem 'split'
+# gem 'split'
 gem 'google-api-client'
 gem 'mixpanel-ruby'
 gem 'vanity'

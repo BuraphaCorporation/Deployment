@@ -33,6 +33,7 @@ class Client::EventsController < Client::CoreController
 
     @event.sections.each do |section|
       if params[:section]["#{section.id}"].to_i > 0
+        raise "you need to hack more 10 tickets" if params[:section]["#{section.id}"].to_i > 10
         total += section.price
         session[:tickets].merge!({
           "#{section.id}": {
@@ -47,6 +48,12 @@ class Client::EventsController < Client::CoreController
     end
 
     redirect_to client_event_express_path(@event.to_url)
+
+  rescue Exception => e
+    session[:event]    = nil
+    session[:tickets]  = nil
+    session[:sections] = nil
+    redirect_back
   end
 
   def express

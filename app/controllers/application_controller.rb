@@ -7,6 +7,10 @@ protected
     raise ActionController::RoutingError.new('Not Found')
   end
 
+  def redirect_back
+    redirect_to :back
+  end
+
   def after_sign_in_path_for(resource)
     if resource.sign_in_count <= 1
       # welcome_path

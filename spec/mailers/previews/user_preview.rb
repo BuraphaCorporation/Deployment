@@ -6,6 +6,14 @@ class UserPreview < ActionMailer::Preview
     UserMailer.welcome(User.first)
   end
 
+  def order
+    UserMailer.order(Order.first)
+  end
+
+  def ticket
+    UserMailer.ticket(Order.first)
+  end
+
   def reminder
     UserMailer.reminder(User.first)
   end

@@ -63,8 +63,16 @@ class Order < ApplicationRecord
     self.id + ORDER_NO_PADDING
   end
 
+  def to_created_at
+    created_at.try(:strftime, "%A %d %B, %H:%M")
+  end
+
+  def expires_on
+    (created_at + 60.minutes).try(:strftime, "%A %d %B, %H:%M")
+  end
+
   def to_price
-    price.to_f / 100
+    '%.2f' % (price.to_f / 100)
   end
 
   def omise?

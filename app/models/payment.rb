@@ -48,9 +48,22 @@ class Payment < ApplicationRecord
   def channel
     case methods
     when 'omise'
-      'เครดิตการ์ด'
+      'บัตรเครดิต'
     when 'transfer'
       'โอนเงิน'
+    end
+  end
+
+  def stages
+    case status
+    when 'success'
+      'ชำระเงินสำเร็จ'
+    when 'failure'
+      'ผิดพลาด'
+    when 'cancel'
+      'ยกเลิก'
+    when 'pending'
+      'รอการชำระเงิน'
     end
   end
 

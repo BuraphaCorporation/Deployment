@@ -1,0 +1,61 @@
+<script>$('body').attr('id', 'organizer-event-orders');</script>
+
+<%= render partial: "organizer/parts/organizer-nav" %>
+<script>$('#organizer-nav #menu-event-list').addClass('active');</script>
+
+<div class="section" id="order-list-section">
+  <div class="container">
+    <div class="section-header row">
+      <div class="col-xs-12">
+        <h1 class="event-title"><%= @event.title %></h1>
+      </div>
+    </div>
+    <div class="section-body row">
+      <div class="col-xs-12 col-md-2">
+        <%= render partial: "organizer/parts/organizer-event-nav" %>
+      </div>
+      <div class="col-xs-12 col-md-10">
+        <div class="event-section-panel">
+          <div class="panel-header">
+            <ul class="list-inline">
+              <li>Orders: <%= @event.orders.count %></li>
+              <li>Total Sales: ฿<%= @event.get_total_sales %></li>
+              <li>Attendees: <%= @event.tickets.count %></li>
+            </ul>
+          </div>
+          <div class="table-responsive organizer-table">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <td>ORDER #</td>
+                  <td>TICKET BUYER</td>
+                  <td>QUANTITY</td>
+                  <td>PRICE</td>
+                  <td>PURCHASED DATE</td>
+                  <td>PAYMENT</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @event.orders.each do |order| %>
+                <tr>
+                  <td><%= order.code %></td>
+                  <td><%= order.user.first_name %> <%= order.user.last_name %></td>
+                  <td><%= order.tickets.count %></td>
+                  <td>฿ <%= order.to_price %></td>
+                  <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
+                  <td>
+                    <span class="order-status"><%= order.status %></span>
+                    <% if !order.payment.nil? %>
+                      - <%= order.payment.methods %>
+                    <% end %>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

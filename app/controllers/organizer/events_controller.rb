@@ -1,5 +1,5 @@
 class Organizer::EventsController < Organizer::CoreController
-  before_action :event, only: [:edit, :update, :destroy, :delete_attachment]
+  before_action :event, only: [:edit, :update, :destroy, :delete_attachment, :orders, :checkin, :unpublish]
   before_action :all_categories, only: [:new, :edit]
   before_action :all_users, only: [:new, :edit]
 
@@ -54,6 +54,22 @@ class Organizer::EventsController < Organizer::CoreController
 
   def delete_attachment
     @event.event_pictures.where(id: params[:media_id]).destroy_all
+    redirect_to :back
+  end
+
+  def tickets
+    @event = Event.friendly.find(params[:id])
+  end
+
+  def orders
+    @event = Event.friendly.find(params[:id])
+  end
+
+  def checkin
+    @event = Event.friendly.find(params[:id])
+  end
+
+  def unpublish
     redirect_to :back
   end
 

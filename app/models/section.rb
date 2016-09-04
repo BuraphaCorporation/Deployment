@@ -25,7 +25,7 @@
 
 class Section < ApplicationRecord
   belongs_to :event
-  # has_many :tickets
+  has_many :tickets
 
   attr_accessor :section_name, :section_event_date, :section_end_date, :section_event_time, :section_end_time, :section_price, :section_available
 

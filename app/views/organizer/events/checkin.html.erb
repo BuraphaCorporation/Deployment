@@ -1,0 +1,85 @@
+<script>$('body').attr('id', 'organizer-event-checkin');</script>
+
+<%= render partial: "organizer/parts/organizer-nav" %>
+<script>$('#organizer-nav #menu-event-list').addClass('active');</script>
+
+<div class="section" id="checkin-section">
+  <div class="container">
+    <div class="section-header row">
+      <div class="col-xs-12">
+        <h1 class="event-title"><%= @event.title %></h1>
+      </div>
+    </div>
+    <div class="section-body row">
+      <div class="col-xs-12 col-md-2">
+        <%= render partial: "organizer/parts/organizer-event-nav" %>
+      </div>
+      <div class="col-xs-12 col-md-10">
+        <% @event.sections.each do |section| %>
+        <div class="event-section-panel">
+          <div class="panel-header">
+            <h4 class="panel-title"><%= section.title %> - <%= section.event_time.strftime("%d %B %Y, %H:%M") %></h4>
+            <div class="row">
+              <div class="col-xs-12 col-md-6">
+                <ul class="meta-info list-inline">
+                  <li>Attendee: <%= section.tickets.count %></li>
+                  <li>Checked-in: <%= section.tickets.where(stages: 'checked-in').count %></li>
+                  <li>Remaining: <%= section.tickets.where(stages: 'new').count %></li>
+                </ul>
+              </div>
+              <div class="col-xs-12 col-md-6">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                  <input type="text" class="form-control table-filter" name="table_filter" placeholder="Name, Email, Ticket ID">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive organizer-table">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <td>ATTENDEE NAME</td>
+                  <td>EMAIL</td>
+                  <td>TEL</td>
+                  <td>TICKET ID</td>
+                  <td>STATUS</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% section.tickets.each do |ticket| %>
+                <tr>
+                  <td><%= ticket.user.first_name %> <%= ticket.user.last_name %></td>
+                  <td><%= ticket.user.email %></td>
+                  <td><%= ticket.user.phone %></td>
+                  <td><%= ticket.code %></td>
+                  <td>CHECK IN</td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+
+  function init_table_filter() {
+    $('.table-filter').keyup(function () {
+      var element = this;
+      var table = $(element).parents('.event-section-panel').find('.table');
+      var rex = new RegExp($(this).val(), 'i');
+      $('tbody tr', table).hide();
+      $('tbody tr', table).filter(function () {
+          return rex.test($(this).text());
+      }).show();
+    })    
+  }
+
+  $(function() {
+    init_table_filter();
+  });
+</script>

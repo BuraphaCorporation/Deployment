@@ -1,9 +1,9 @@
 <script>$('body').attr('id', 'organizer-events-new');</script>
+<%= render partial: "organizer/parts/organizer-nav" %>
+<script>$('#organizer-nav #menu-create-event').addClass('active');</script>
+
 <div class="section">
   <div class="container">
-    <%= render partial: "organizer/parts/organizer-nav" %>
-    <script>$('#organizer-nav #menu-create-event').addClass('active');</script>
-
     <%= form_tag organizer_events_path(@event), multipart: true do %>
       <div class="form-section">
         <div class="form-header">

@@ -114,6 +114,11 @@ Rails.application.routes.draw do
       # post '/settings', to: 'dashboard#settings_update'
       # get '/logout', to: 'dashboard#logout'
       resources :events do
+        member do
+          get 'orders', to: 'events#orders'
+          get 'checkin', to: 'events#checkin'
+          get 'unpublish', to: 'events#unpublish'
+        end
         # collection do
           # delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
         # end

@@ -57,12 +57,6 @@ namespace :deploy do
     end
   end
 
-  # task :restart_sidekiq do
-  #   on roles(:worker) do
-  #     execute :service, "sidekiq restart"
-  #   end
-  # end
-
   after :finishing, 'deploy:cleanup'
   after :publishing, 'deploy:restart'
   # after "deploy:published", "restart_sidekiq"
@@ -88,37 +82,56 @@ namespace :rails do
   end
 end
 
-namespace :sidekiq do
-  task :quiet do
-    on roles(:app) do
-      puts capture("pgrep -f 'workers' | xargs kill -USR1")
-    end
-  end
-  task :restart do
-    on roles(:app) do
-      execute :sudo, :initctl, :restart, :workers
-    end
-  end
-end
 
-after 'deploy:starting', 'sidekiq:quiet'
-after 'deploy:reverted', 'sidekiq:restart'
-after 'deploy:published', 'sidekiq:restart'
 
-# If you wish to use Inspeqtor to monitor Sidekiq
-# https://github.com/mperham/inspeqtor/wiki/Deployments
-# namespace :inspeqtor do
-#   task :start do
-#     on roles(:app) do
-#       execute :inspeqtorctl, :start, :deploy
-#     end
-#   end
-#   task :finish do
-#     on roles(:app) do
-#       execute :inspeqtorctl, :finish, :deploy
+# # config/deploy.rb
+# namespace :upstart do
+#   desc 'Generate and upload Upstard configs for daemons needed by the app'
+#   task :update_configs, except: {no_release: true} do
+#     upstart_config_files = File.expand_path('../upstart/*.conf.erb', __FILE__)
+#     upstart_root         = '/etc/init'
+
+#     Dir[upstart_config_files].each do |upstart_config_file|
+#       config = ERB.new(IO.read(upstart_config_file)).result(binding)
+#       path   = "#{upstart_root}/#{File.basename upstart_config_file, '.erb'}"
+
+#       put config, path
 #     end
 #   end
 # end
 
-# before 'deploy:starting', 'inspeqtor:start'
-# after 'deploy:finished', 'inspeqtor:finish'
+# after 'deploy:update_code', 'upstart:update_configs'
+
+# # Add this to your /etc/sudoers file in order to allow the user
+# # www-data to control the Sidekiq worker daemon via Upstart:
+# #
+# #   www-data ALL = (root) NOPASSWD: /sbin/start sidekiq, /sbin/stop sidekiq, /sbin/status sidekiq
+# namespace :sidekiq do
+#   desc 'Start the sidekiq workers via Upstart'
+#   task :start do
+#     sudo 'start sidekiq'
+#   end
+
+#   desc 'Stop the sidekiq workers via Upstart'
+#   task :stop do
+#     sudo 'stop sidekiq || true'
+#   end
+
+#   desc 'Restart the sidekiq workers via Upstart'
+#   task :restart do
+#     sudo 'stop sidekiq || true'
+#     sudo 'start sidekiq'
+#   end
+
+#   desc "Quiet sidekiq (stop accepting new work)"
+#   task :quiet do
+#     pid_file       = "#{current_path}/tmp/pids/sidekiq.pid"
+#     sidekiqctl_cmd = "bundle exec sidekiqctl"
+#     run "if [ -d #{current_path} ] && [ -f #{pid_file} ] && kill -0 `cat #{pid_file}`> /dev/null 2>&1; then cd #{current_path} && #{sidekiqctl_cmd} quiet #{pid_file} ; else echo 'Sidekiq is not running'; fi"
+#   end
+# end
+
+# # before 'deploy:update_code', 'sidekiq:quiet'
+# after  'deploy:stop',        'sidekiq:stop'
+# after  'deploy:start',       'sidekiq:start'
+# before 'deploy:restart',     'sidekiq:restart'

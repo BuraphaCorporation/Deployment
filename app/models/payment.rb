@@ -45,6 +45,15 @@ class Payment < ApplicationRecord
   #   "#PM-#{code}"
   # end
 
+  def channel
+    case methods
+    when 'omise'
+      'เครดิตการ์ด'
+    when 'transfer'
+      'โอนเงิน'
+    end
+  end
+
   def purchased
     paid_at.try(:strftime, "%A %d %B, %H:%M")
   end

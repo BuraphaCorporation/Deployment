@@ -10,6 +10,14 @@ module ApplicationHelper
     end
   end
 
+  def is_index?
+    current_page? root_path
+  end
+
+  def is_index_with_categories?
+    current_page?(controller: 'client/events', action: :index)
+  end
+
   def resource_name
     :user
   end

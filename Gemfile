@@ -78,10 +78,10 @@ gem 'devise-async'
 gem 'rollbar'
 
 # marketing
-# gem 'split'
 gem 'google-api-client'
 gem 'mixpanel-ruby'
 gem 'vanity'
+gem 'split'
 
 group :development, :test do
   gem 'pry'

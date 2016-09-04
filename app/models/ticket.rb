@@ -92,6 +92,6 @@ private
 
   def set_default_ticket_qr_code
     attachment   = App.generate_qr_code(self)
-    self.qr_code = File.open(attachment, 'rb')
+    self.update(qr_code: File.open(attachment, 'rb'))
   end
 end

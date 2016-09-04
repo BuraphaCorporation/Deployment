@@ -33,9 +33,13 @@ class UserMailer < ApplicationMailer
     mail to: @order.user.email
   end
 
-  def reminder(user)
-    @user    = user
-    @subject = "Reminder to daydash.co"
-    mail(to: @user.email, subject: 'Welcome to daydash.co')
+  def reminder(order)
+    @order    = order
+    @user     = @order.user
+    @event    = @order.event
+    @payment  = @order.payment
+    @tickets  = @order.tickets
+
+    mail(to: @user.email)
   end
 end

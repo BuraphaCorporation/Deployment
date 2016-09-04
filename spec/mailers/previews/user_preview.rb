@@ -15,6 +15,6 @@ class UserPreview < ActionMailer::Preview
   end
 
   def reminder
-    UserMailer.reminder(User.first)
+    UserMailer.reminder(Order.first)
   end
 end

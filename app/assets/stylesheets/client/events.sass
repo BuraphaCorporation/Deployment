@@ -226,6 +226,14 @@ label
     color: white
     border: 0px
 
+
+.organizer-badge
+  display: inline-block
+  border-radius: 2px
+  padding: 3px 15px
+  background: linear-gradient(90deg, #433B8F, #2F9687)
+  color: white
+
 .icon
   display: inline-block
   width: 25px
@@ -255,6 +263,15 @@ label
 
 .icon-calendar
   background-image: asset-url('icons/icon-calendar.png')
+.icon-order
+  background-image: asset-url('icons/icon-order.png')
+.icon-checkin
+  background-image: asset-url('icons/icon-checkin.png')
+.icon-edit
+  background-image: asset-url('icons/icon-edit.png')
+.icon-unpublish
+  background-image: asset-url('icons/icon-unpublish.png')
+
 
 .btn-daydash
   border-radius: 0px
@@ -344,8 +361,10 @@ label
   text-align: right
 
 .card-side-cover
-  margin-bottom: 15px
-  border: 1px solid #eee
+  margin-bottom: 40px
+  padding: 10px
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1)
+
   .cover
     display: block
     background-size: cover
@@ -470,6 +489,26 @@ label
           td
             padding-bottom: 15px
 
+.event-for-organizer
+  .list-action-nav
+    margin-top: 15px
+
+    li
+      a
+        color: #444
+
+  .ticket-sold-panel
+    font-weight: 200
+
+    .ticket-sold-value
+      text-align: right
+    .progress
+      height: 5px
+      margin-top: 5px
+      margin-bottom: 0px
+
+      .progress-bar
+        background-color: #17A41D
 
 
 @media (max-width: 991px)
@@ -482,7 +521,7 @@ label
     display: table
     .cover
       display: table-cell
-      width: 250px
+      width: 150px
     .info
       display: table-cell
 
@@ -812,17 +851,17 @@ label
     .section-title
       font-size: 30px
 
-.profile-page
-  #profile-nav-section
-    padding-top: 15px
-    border-bottom: 1px solid #eee
-    background: #f8f8f8
 
-    #profile-nav
-      text-align: center
-      margin: 0px auto
-      width: 270px
-      margin-top: 15px
+#profile-nav-section
+  padding-top: 15px
+  border-bottom: 1px solid #eee
+  background: #f8f8f8
+
+  #profile-nav, #organizer-nav
+    text-align: center
+    margin: 0px auto
+    width: 270px
+    margin-top: 15px
 
 
   .current-user-panel
@@ -839,6 +878,24 @@ label
     .user-name
       font-size: 20px
       font-weight: 200
+      margin-bottom: 5px
+
+.organizer-event-nav
+  border-top: 1px solid #ddd
+  li
+    a
+      &, &:active, &:link, &:visited
+        padding: 8px 10px
+        color: #444
+        background: transparent
+        border-bottom: 1px solid #ddd
+
+      &:hover
+        background: #eee
+
+      .icon
+        float: left
+        margin-right: 15px
 
 
 #profile-ticket-list-page
@@ -871,8 +928,27 @@ label
 #profile-settings-page form .form-group:nth-child(2n+1)
   clear: left
 
-#organizer-events-new .form-section, #organizer-events-edit .form-section
-  margin-bottom: 30px
+#organizer-event-list
+  #event-list-section
+    .container
+      max-width: 900px
+    .event-list
+      .list-body
+        padding-top: 40px
+
+
+#organizer-events-new, #organizer-events-edit
+  .section
+    padding-top: 30px
+
+    .section-header
+      margin-bottom: 30px
+
+    h1
+      margin-top: 0px
+
+  .form-section
+    margin-bottom: 30px
 
 #organizer-events-new .ticket-list .ticket:first-child .btn-ticket-delete, #organizer-events-edit .ticket-list .ticket:first-child .btn-ticket-delete
   display: none
@@ -887,4 +963,55 @@ label
 
 #organizer-settings-page form .form-group:nth-child(2n+1)
   clear: left
+
+#organizer-event-orders
+  #main
+    background: #fcfcfc
+
+  #order-list-section
+    padding-top: 30px
+
+    .section-header
+      margin-bottom: 30px
+
+#organizer-event-checkin
+
+  #main
+    background: #fcfcfc
+
+  #checkin-section
+    padding-top: 30px
+
+    .section-header
+      margin-bottom: 30px
+
+    .event-section-panel
+      margin-bottom: 50px
+
+      .panel-header
+        margin-bottom: 15px
+
+        .panel-title
+          margin-bottom: 5px
+          font-weight: bold
+
+        .meta-info
+          margin-top: 5px
+
+
+
+.organizer-table
+  background: white
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1)
+  margin-bottom: 30px
+
+  .table
+    margin-bottom: 0px
+
+    thead
+      tr
+        td, th
+          background: #444
+          color: white
+          font-weight: 200
 

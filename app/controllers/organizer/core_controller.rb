@@ -1,6 +1,6 @@
 class Organizer::CoreController < ApplicationController
-  before_action :authenticate_organizer!
   before_action :global_categories
+  before_action :authenticate_organizer!
 
   include OrganizerHelper
   include DaydashHelper

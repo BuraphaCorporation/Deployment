@@ -1,11 +1,11 @@
 class Client::CoreController < ApplicationController
+  before_action :global_categories
+
   include DaydashHelper
   layout "daydash"
 
-  before_action :global_categories
 protected
   def global_categories
-  	@g_categories = Category.all
+    @global_categories = Category.all
   end
-
 end

@@ -59,7 +59,7 @@ class Ticket < ApplicationRecord
   end
 
   def to_price
-    price.to_f / 100
+    '%.2f' % (price.to_f / 100)
   end
 
   class << self

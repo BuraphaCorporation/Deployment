@@ -83,56 +83,19 @@ namespace :rails do
 end
 
 
-
-# config/deploy.rb
-namespace :upstart do
-  desc 'Generate and upload Upstard configs for daemons needed by the app'
-  task :update_configs do #except: {no_release: true}
-    on roles(:app) do
-      within release_path do
-        upstart_config_files = File.expand_path('../upstart/*.conf.erb', __FILE__)
-        upstart_root         = '/etc/init'
-
-        Dir[upstart_config_files].each do |upstart_config_file|
-          config = ERB.new(IO.read(upstart_config_file)).result(binding)
-          path   = "#{upstart_root}/#{File.basename upstart_config_file, '.erb'}"
-
-          put config, path
-        end
-      end
-    end
-  end
-end
-
-after 'deploy:updated', 'upstart:update_configs'
-
-# Add this to your /etc/sudoers file in order to allow the user
-# www-data to control the Sidekiq worker daemon via Upstart:
-#
-#   www-data ALL = (root) NOPASSWD: /sbin/start sidekiq, /sbin/stop sidekiq, /sbin/status sidekiq
 namespace :sidekiq do
   task :quiet do
     on roles(:app) do
       puts capture("pgrep -f 'workers' | xargs kill -USR1")
     end
   end
-  task :start do
-    on roles(:app) do
-      execute :sudo, :start, :workers
-    end
-  end
-  task :stop do
-    on roles(:app) do
-      execute :sudo, :stop, :workers
-    end
-  end
   task :restart do
     on roles(:app) do
-      execute :sudo, :restart, :workers
+      execute :sudo, :initctl, :restart, :workers
     end
   end
 end
 
 after 'deploy:starting', 'sidekiq:quiet'
-after 'deploy:reverted', 'sidekiq:start'
-after 'deploy:published', 'sidekiq:start'
+after 'deploy:reverted', 'sidekiq:restart'
+after 'deploy:published', 'sidekiq:restart'

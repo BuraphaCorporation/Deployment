@@ -16,7 +16,7 @@ class OrganizerMailer < ApplicationMailer
     @title    = "Someone just booked your event!"
     @subtitle = "And here’s the detail :)"
 
-    mail to: @event.user.email #, cc: "hello@daydash.co"
+    mail to: @event.user.email, subject: @title, bcc: "hello@daydash.co,daydash.app@gmail.com,nonmadden@gmail.com"
   end
 end
 

@@ -36,7 +36,7 @@ class UserMailer < ApplicationMailer
 
     @title = "your ticket"
 
-    mail to: @order.email, subject: @title
+    mail to: @user.email, subject: @title
   end
 
   def reminder(order)

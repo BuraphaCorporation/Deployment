@@ -58,7 +58,7 @@ namespace :deploy do
   end
 
   desc 'run workers'
-  task :workers
+  task :workers do
     on roles(:app), in: :sequence, wait: 5 do
       execute "su - deploy -c 'cd /home/deploy/daydash/current && $HOME/.rbenv/bin/rbenv exec bundle exec sidekiq -i 5 -e production' > /dev/null 2>&1 &"
     end

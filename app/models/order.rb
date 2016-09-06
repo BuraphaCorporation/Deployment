@@ -48,7 +48,6 @@ class Order < ApplicationRecord
   scope :available, -> { all.reject{ |o| o.tickets.empty? } }
 
 
-
   def approve!
     self.update(status: :paid)
   end

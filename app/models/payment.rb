@@ -31,7 +31,7 @@ class Payment < ApplicationRecord
   belongs_to :order, inverse_of: :payment
 
   has_attached_file :evidence, styles: { default: "600x700" }
-  # has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  # has_attached_file :qr_code, styles: { medium: "300x300>" }, default_url: "/images/:style/missing.png"
   # validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
 
   # before_create :set_default_payment_code

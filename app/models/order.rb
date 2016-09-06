@@ -37,7 +37,7 @@ class Order < ApplicationRecord
 
   has_many :tickets, dependent: :destroy
 
-  has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :qr_code, styles: { medium: "300x300>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
 
   before_create :set_default_order_code
@@ -46,15 +46,15 @@ class Order < ApplicationRecord
 
   enumerize :status, in: [:paid, :unpaid, :pending, :cancel], default: :pending
   scope :available, -> { all.reject{ |o| o.tickets.empty? } }
-
+  scope :order_by_event_upcoming, -> { order(id: :desc).available }
 
   def approve!
     self.update(status: :paid)
   end
 
-  def order_by_event_upcoming
+  # def order_by_event_upcoming
     # available.order_by()
-  end
+  # end
 
   def to_s
     "#OD-#{code}"

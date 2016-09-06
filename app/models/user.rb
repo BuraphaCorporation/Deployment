@@ -97,7 +97,7 @@ class User < ApplicationRecord
   end
 
   def date_of_birth
-    birthday.try(:strftime, "%m/%d/%Y")
+    birthday.try(:strftime, "%d/%m/%Y")
   end
 
   def self.from_oauth_api(token)

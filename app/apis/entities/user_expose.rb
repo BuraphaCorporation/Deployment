@@ -3,7 +3,7 @@ class Entities::UserExpose < Grape::Entity
   expose :first_name
   expose :last_name
   expose :gender
-  expose :birthday
+  expose :date_of_birth, as: :birthday
   expose :phone
   expose :avatar do |item|
     item.picture(:medium)

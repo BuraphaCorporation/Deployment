@@ -64,16 +64,21 @@ namespace :deploy do
     end
   end
 
-  task :generate_500_html do
+  task :generate_error_html do
     on roles(:web) do |host|
       public_500_html = File.join(release_path, "public/500.html")
-      execute :curl, "-k", "https://#{App.domain}/500", "> #{public_500_html}"
+      execute :curl, "-k", "https://brick.daydash.co/500", "> #{public_500_html}"
+
+      public_404_html = File.join(release_path, "public/404.html")
+      execute :curl, "-k", "https://brick.daydash.co/404", "> #{public_404_html}"
+      public_402_html = File.join(release_path, "public/402.html")
+      execute :curl, "-k", "https://brick.daydash.co/404", "> #{public_402_html}"
     end
   end
 
   after :finishing, 'deploy:cleanup'
   after :publishing, 'deploy:restart'
-  after "deploy:published", :generate_500_html
+  after "deploy:published", :generate_error_html
 
   # after "deploy:published", "restart_sidekiq"
 end

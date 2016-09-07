@@ -59,6 +59,7 @@ class Client::ProfileController < Client::CoreController
 
 private
   def user_params
+    params[:user][:birthday] = Date.strptime("#{params[:dob_date]}/#{params[:dob_month]}/#{params[:dob_year]}", "%d/%m/%Y")
     params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone)
   end
 

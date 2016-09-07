@@ -34,7 +34,7 @@ class Client::EventsController < Client::CoreController
     @event.sections.each do |section|
       if params[:section]["#{section.id}"].to_i > 0
         raise "you need to hack more limit tickets" if params[:section]["#{section.id}"].to_i > section.show_ticket_available
-        total += section.price
+        total += section.price * params[:section]["#{section.id}"].to_i
         session[:tickets].merge!({
           "#{section.id}": {
             title: section.title,
@@ -42,10 +42,11 @@ class Client::EventsController < Client::CoreController
             quantity: params[:section]["#{section.id}"].to_i,
           }
         })
-        session[:tickets][:total] = total.to_i * 100
         session[:sections] << { "id": section.id, "price": section.price.to_i * 100, "qty": params[:section]["#{section.id}"].to_i }
       end
     end
+
+    session[:tickets][:total] = total.to_i * 100
 
     redirect_to client_event_express_path(@event.to_url)
 
@@ -78,12 +79,8 @@ class Client::EventsController < Client::CoreController
       @payment = Payment.omise_token_charge(@order, params[:omise_token])
 
       @order.approve! unless @payment[:status] == :error
-
-      render_by_payment_mothod = "client/events/payment-credit-card"
     when 'bank_transfer'
       @payment = Payment.transfer_notify(@order)
-
-      render_by_payment_mothod = "client/events/payment-bank-transfer"
     end
 
     sections = []
@@ -108,7 +105,8 @@ class Client::EventsController < Client::CoreController
 
       # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
     end
-    render render_by_payment_mothod
+
+    render :checkout
   end
 
 private

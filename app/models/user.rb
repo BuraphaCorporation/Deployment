@@ -97,7 +97,7 @@ class User < ApplicationRecord
   end
 
   def date_of_birth
-    birthday.try(:strftime, "%m/%d/%Y")
+    birthday.try(:strftime, "%d/%m/%Y")
   end
 
   def self.from_oauth_api(token)
@@ -111,7 +111,7 @@ class User < ApplicationRecord
         password:   Devise.friendly_token[0,20],
         first_name: profile['first_name'],
         last_name:  profile['last_name'],
-        birthday:   profile['birthday'],
+        birthday:   process_date_of_birth(profile['birthday']),
         gender:     profile['gender'],
         picture:    process_uri(image)
       )
@@ -121,7 +121,7 @@ class User < ApplicationRecord
         uid:        profile['id'],
         first_name: profile['first_name'],
         last_name:  profile['last_name'],
-        birthday:   profile['birthday'],
+        birthday:   process_date_of_birth(profile['birthday']),
         gender:     profile['gender'],
         picture:    process_uri(image)
       ).first
@@ -135,7 +135,7 @@ class User < ApplicationRecord
         password:   Devise.friendly_token[0,20],
         first_name: auth.extra.raw_info.first_name,
         last_name:  auth.extra.raw_info.last_name,
-        birthday:   auth.extra.raw_info.birthday,
+        birthday:   process_date_of_birth(auth.extra.raw_info.birthday),
         gender:     auth.extra.raw_info.gender,
         picture:    process_uri(auth.info.image)
       )
@@ -145,7 +145,7 @@ class User < ApplicationRecord
         uid:        auth.uid,
         first_name: auth.extra.raw_info.first_name,
         last_name:  auth.extra.raw_info.last_name,
-        birthday:   auth.extra.raw_info.birthday,
+        birthday:   process_date_of_birth(auth.extra.raw_info.birthday),
         gender:     auth.extra.raw_info.gender,
         picture:    process_uri(auth.info.image)
       ).first
@@ -158,6 +158,11 @@ class User < ApplicationRecord
         user.email = data["email"] if user.email.blank?
       end
     end
+  end
+
+  def self.process_date_of_birth(data)
+    date = data.split('/')
+    date = Date.new(date[2].to_i, date[0].to_i, date[1].to_i)
   end
 
   def self.process_uri(uri)

@@ -52,12 +52,13 @@ class Event < ApplicationRecord
   #   uptime = sections.available.min_by(&:event_time).event_time
   # end
 
+  enumerize :ticket_type, in: [:general, :deal], default: :general
+
   scope :available, -> { joins(:sections).where('sections.event_time > ?', Time.zone.now).uniq }
   scope :today,     -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
   scope :list,      -> { where('uptime > ?', Time.zone.now).order(:uptime) }
-  enumerize :ticket_type, in: [:general, :deal], default: :general
 
 
   def to_url

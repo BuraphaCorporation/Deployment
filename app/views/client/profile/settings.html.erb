@@ -6,11 +6,19 @@
 
 <div class="section">
   <div class="container">
-    <div class="row">
+<!--     <div class="row">
       <div class="col-xs-12 col-md-9">
-        <a href="/auth/facebook">Connect Facebook</a>
+        <div class="form-header">
+          <h1 class="form-title">Connect with Facebook</h1>
+        </div>
+
+        <div class="form-body row">
+          <div class="form-group col-xs-12 col-md-6">
+            <a href="/auth/facebook"><img src="/src/images/theme/fb-login.png" height="40"></a>
+          </div>
+        </div>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-xs-12 col-md-9">
         <%= form_for(@user, as: @user, url: client_profile_settings_path(@user), html: { method: :put }) do |f| %>
@@ -28,7 +36,26 @@
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Date of Birth</label>
-              <%= f.text_field :birthday, value: @user.birthday, class: 'form-control' %>
+              <div class="form-inline">
+                <select class="form-control" name="dob_date" required >
+                  <option value="">Date</option>
+                  <% (1..31).each do |date| %>
+                    <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
+                  <% end %>
+                </select>
+                <select class="form-control" name="dob_month" required >
+                  <option value="">Month</option>
+                  <% (1..12).each do |month| %>
+                    <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= Date::MONTHNAMES[month] %></option>
+                  <% end %>
+                </select>
+                <select class="form-control" name="dob_year" required >
+                  <option value="">Year</option>
+                  <% (0..99).each do |year| %>
+                    <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
+                  <% end %>
+                </select>
+              </div>
             </div>
             <div class="form-group col-xs-12 col-md-6">
               <label>Gender</label>

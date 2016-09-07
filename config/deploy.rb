@@ -20,10 +20,10 @@ set :repo_url, 'git@github.com:hongklay/daydash.git'
 set :deploy_to, '/home/deploy/daydash'
 set :ssh_options, {:forward_agent => true}
 
-set :slackistrano, {
-  channel: '#system',
-  webhook: 'https://hooks.slack.com/services/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'
-}
+# set :slackistrano, {
+#   channel: '#system',
+#   webhook: 'https://hooks.slack.com/services/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'
+# }
 
 # set :format, :pretty
 # set :log_level, :debug
@@ -57,8 +57,29 @@ namespace :deploy do
     end
   end
 
+  desc 'run workers'
+  task :workers do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "su - deploy -c 'cd /home/deploy/daydash/current && $HOME/.rbenv/bin/rbenv exec bundle exec sidekiq -i 5 -e production' > /dev/null 2>&1 &"
+    end
+  end
+
+  task :generate_error_html do
+    on roles(:web) do |host|
+      public_500_html = File.join(release_path, "public/500.html")
+      execute :curl, "-k", "https://brick.daydash.co/500", "> #{public_500_html}"
+
+      public_404_html = File.join(release_path, "public/404.html")
+      execute :curl, "-k", "https://brick.daydash.co/404", "> #{public_404_html}"
+      public_402_html = File.join(release_path, "public/402.html")
+      execute :curl, "-k", "https://brick.daydash.co/404", "> #{public_402_html}"
+    end
+  end
+
   after :finishing, 'deploy:cleanup'
   after :publishing, 'deploy:restart'
+  after "deploy:published", :generate_error_html
+
   # after "deploy:published", "restart_sidekiq"
 end
 
@@ -83,55 +104,19 @@ namespace :rails do
 end
 
 
-
-# # config/deploy.rb
-# namespace :upstart do
-#   desc 'Generate and upload Upstard configs for daemons needed by the app'
-#   task :update_configs, except: {no_release: true} do
-#     upstart_config_files = File.expand_path('../upstart/*.conf.erb', __FILE__)
-#     upstart_root         = '/etc/init'
-
-#     Dir[upstart_config_files].each do |upstart_config_file|
-#       config = ERB.new(IO.read(upstart_config_file)).result(binding)
-#       path   = "#{upstart_root}/#{File.basename upstart_config_file, '.erb'}"
-
-#       put config, path
+# namespace :sidekiq do
+#   task :quiet do
+#     on roles(:app) do
+#       puts capture("pgrep -f 'workers' | xargs kill -USR1")
+#     end
+#   end
+#   task :restart do
+#     on roles(:app) do
+#       execute :sudo, :initctl, :restart, :workers
 #     end
 #   end
 # end
 
-# after 'deploy:update_code', 'upstart:update_configs'
-
-# # Add this to your /etc/sudoers file in order to allow the user
-# # www-data to control the Sidekiq worker daemon via Upstart:
-# #
-# #   www-data ALL = (root) NOPASSWD: /sbin/start sidekiq, /sbin/stop sidekiq, /sbin/status sidekiq
-# namespace :sidekiq do
-#   desc 'Start the sidekiq workers via Upstart'
-#   task :start do
-#     sudo 'start sidekiq'
-#   end
-
-#   desc 'Stop the sidekiq workers via Upstart'
-#   task :stop do
-#     sudo 'stop sidekiq || true'
-#   end
-
-#   desc 'Restart the sidekiq workers via Upstart'
-#   task :restart do
-#     sudo 'stop sidekiq || true'
-#     sudo 'start sidekiq'
-#   end
-
-#   desc "Quiet sidekiq (stop accepting new work)"
-#   task :quiet do
-#     pid_file       = "#{current_path}/tmp/pids/sidekiq.pid"
-#     sidekiqctl_cmd = "bundle exec sidekiqctl"
-#     run "if [ -d #{current_path} ] && [ -f #{pid_file} ] && kill -0 `cat #{pid_file}`> /dev/null 2>&1; then cd #{current_path} && #{sidekiqctl_cmd} quiet #{pid_file} ; else echo 'Sidekiq is not running'; fi"
-#   end
-# end
-
-# # before 'deploy:update_code', 'sidekiq:quiet'
-# after  'deploy:stop',        'sidekiq:stop'
-# after  'deploy:start',       'sidekiq:start'
-# before 'deploy:restart',     'sidekiq:restart'
+# after 'deploy:starting', 'sidekiq:quiet'
+# after 'deploy:reverted', 'sidekiq:restart'
+# after 'deploy:published', 'sidekiq:restart'

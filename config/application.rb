@@ -14,5 +14,6 @@ module Daydash
     config.time_zone = 'Bangkok'
     config.active_record.time_zone_aware_types = [:datetime, :time]
     config.active_record.default_timezone = :local
+    config.exceptions_app = self.routes
   end
 end

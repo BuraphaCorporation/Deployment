@@ -79,12 +79,8 @@ class Client::EventsController < Client::CoreController
       @payment = Payment.omise_token_charge(@order, params[:omise_token])
 
       @order.approve! unless @payment[:status] == :error
-
-      render_by_payment_mothod = "client/events/payment-credit-card"
     when 'bank_transfer'
       @payment = Payment.transfer_notify(@order)
-
-      render_by_payment_mothod = "client/events/payment-bank-transfer"
     end
 
     sections = []
@@ -109,7 +105,8 @@ class Client::EventsController < Client::CoreController
 
       # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
     end
-    render render_by_payment_mothod
+
+    render :checkout
   end
 
 private

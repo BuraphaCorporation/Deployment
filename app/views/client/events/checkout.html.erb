@@ -1,0 +1,96 @@
+<script>$('body').attr('id', 'payment-complete-page');</script>
+
+<div class="section" id="bank-transfer-inform-section">
+  <div class="container">
+    <h2 class="section-title">Order Received</h2>
+
+    <style type="text/css">
+      .m-tb-10 {
+        margin: 10px auto;
+      }
+      .m-tb-20 {
+        margin: 20px auto;
+      }
+      .fix-link {
+        color: #000 !important;
+      }
+      a.fix-link:hover {
+        text-decoration: none;
+      }
+    </style>
+    <div class="row m-tb-10">
+      <div class="col-sm-12 m-tb-10">
+        คุณได้ทำการซั้งซื้อ
+        <h1><%= link_to @event.title, client_event_path(@event.to_url), class: "fix-link" %></h1>
+      </div>
+    </div>
+    <div class="row m-tb-10">
+      <div class="col-sm-12">
+        <i class="icon icon-xs icon-map-pin"></i>
+        <%= @order.event.location_name %>
+      </div>
+    </div>
+    <div class="row m-tb-10">
+      <div class="col-sm-12">
+        <i class="icon icon-xs icon-checked"></i> ได้รับคำสั่งซื้อ #<%= @order.code %> : ยอดรวม <%= @order.to_price %>
+        <% if @order.transfer? %>
+        <span style="color: #EB585B"><%= @order.payment.stages %></span>
+        <% else %>
+        <span style="color: #7BC880"><%= @order.payment.stages %></span>
+        <% end %> โดย <%= @order.payment.channel %></li>
+      </div>
+    </div>
+    <div class="row m-tb-10">
+      <div class="col-sm-12">
+        <i class="icon icon-xs icon-checked"></i> เราได้ทำการส่งรายละเอียดการสั่งซื้อและรายละเอียดการชำระเงินไปที่อีเมล <a href="<%= @order.user.email %>"><%= @order.user.email %></a> เรียบร้อยแล้ว
+      </div>
+    </div>
+    <div class="row m-tb-10">
+      <div class="col-sm-12">
+        <% if @order.transfer? %>
+        <i class="icon icon-xs icon-waiting"></i>
+        <span style="color: #EB585B">กรุณาทำการชำระเงินและแจ้งชำระเงินภายใน 60 นาทีค่ะ (ชำระภายใน วันที่ <%= @order.expires_on %>)</span>
+        <p>หากพ้นเวลาดังกล่าว คำสั่งซื้อของคุณจะถูกยกเลิก และคุณจะต้องทำการสั่งซื้อใหม่อีกครั้ง</p>
+        <% end %>
+      </div>
+    </div>
+    <div class="row m-tb-20">
+      <div class="col-sm-12">
+        <% if @order.transfer? %>
+          <a href="/" class="btn btn-daydash btn-daydash-green-2 btn-lg" style="background: #E66096">รายละเอียดการชำระเงิน</a>
+        <% end %>
+          <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg">ดูรายละเอียดการสั่งซื้อ</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="related-event-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-title">Similar Events</div>
+    </div>
+    <div class="row event-list">
+      <% @related_events.each do |event| %>
+        <div class="col-sm-6 col-md-4">
+          <div class="event card">
+            <%= link_to client_event_path(event.to_url) do %>
+              <% if event.event_pictures.present? %>
+                <div class="cover" style="background-image: url(<%= event.event_pictures.first.try(:media, :thumb) %>);"></div>
+              <% else %>
+                <div class="cover"></div>
+              <% end %>
+            <% end %>
+            <div class="info">
+              <h4 class="title text-left">
+                <%= link_to event.title, client_event_path(event.to_url) %>
+              </h4>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
+              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

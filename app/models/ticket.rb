@@ -39,7 +39,7 @@ class Ticket < ApplicationRecord
   belongs_to :section
   belongs_to :order
 
-  has_attached_file :qr_code, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :qr_code, styles: { medium: "300x300>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
 
   before_create :set_default_ticket_code

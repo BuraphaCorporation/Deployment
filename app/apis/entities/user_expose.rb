@@ -5,8 +5,8 @@ class Entities::UserExpose < Grape::Entity
   expose :gender
   expose :date_of_birth, as: :birthday
   expose :phone
-  expose :avatar do |a|
-    a.picture(:medium)
+  expose :avatar do |item|
+    item.picture(:medium)
   end
   expose :onesignal_id
   expose :omise_customer_id, as: :customer_token

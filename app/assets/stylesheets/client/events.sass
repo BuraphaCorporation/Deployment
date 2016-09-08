@@ -234,6 +234,15 @@ label
   background: linear-gradient(90deg, #433B8F, #2F9687)
   color: white
 
+.color-daydash-green
+  color: #19D4D6
+
+.color-daydash-green-2
+  color: #17A41D
+
+.color-daydash-red
+  color: #EB585B
+
 .icon
   display: inline-block
   width: 25px
@@ -249,14 +258,21 @@ label
 .icon-facebook
   background-image: asset-url('icons/icon-facebook.png')
 
+.icon-facebook-color
+  background-image: asset-url('icons/icon-facebook-color.png')
+
 .icon-line
   background-image: asset-url('icons/icon-line.png')
+.icon-line-black
+  background-image: asset-url('icons/icon-line-black.png')
 
 .icon-instagram
   background-image: asset-url('icons/icon-instagram.png')
 
 .icon-twitter
   background-image: asset-url('icons/icon-twitter.png')
+.icon-twitter-color
+  background-image: asset-url('icons/icon-twitter-color.png')
 
 .icon-map-pin
   background-image: asset-url('icons/icon-map-pin.png')
@@ -275,6 +291,19 @@ label
   background-image: asset-url('icons/icon-waiting.png')
 .icon-checked
   background-image: asset-url('icons/icon-checked.png')
+.icon-envelope
+  background-image: asset-url('icons/icon-envelope.png')
+.icon-chrome
+  background-image: asset-url('icons/icon-chrome.png')
+.icon-mobile
+  background-image: asset-url('icons/icon-mobile.png')
+.icon-phone
+  background-image: asset-url('icons/icon-phone.png')
+.icon-comments
+  background-image: asset-url('icons/icon-comments.png')
+.icon-arrow-left
+  background-image: asset-url('icons/icon-arrow-left.png')
+
 
 
 .btn-daydash
@@ -286,6 +315,9 @@ label
 .btn-daydash-lg
   padding: 15px
   font-size: 24px
+
+.btn-daydash-round
+  border-radius: 2px
 
 .btn-daydash-inverse
   &, &:active, &:visited, &:link
@@ -312,6 +344,21 @@ label
   &:hover, &:active, &:visited, &:link
     background: #19D4D6
     color: white
+
+.btn-daydash-pink
+  background: linear-gradient(90deg, #DF1E68, #DD2993)
+  color: white
+  border: 0px
+  &:hover, &:active, &:visited, &:link
+    background: linear-gradient(90deg, #DF1E68, #DD2993)
+    color: white
+
+.panel-daydash
+  border-radius: 0px
+  box-shadow: none
+  padding: 30px
+  border: 1px solid #eee
+  background: white
 
 .event.card, .ticket.card
   display: block
@@ -836,13 +883,113 @@ label
     padding-top: 50px
     padding-bottom: 50px
     text-align: center
+
   #bank-transfer-inform-section
     padding-top: 50px
     padding-bottom: 50px
-    .section-title
+    background: #fcfcfc
+
+    .panel
+      .panel-heading, .panel-body, .panel-footer
+        padding-left: 0px
+        padding-right: 0px
+
+    .main-panel
+      font-size: 16px
+      font-weight: 200
+
+      .panel-heading
+        padding-bottom: 30px
+        border-bottom: 1px solid #eee
+
+        .back-btn
+          .icon
+            width: 15px
+            height: 10px
+            margin-right: 5px
+
+        .panel-title
+          margin-top: 20px
+          margin-bottom: 25px
+          font-size: 36px
+          font-weight: normal
+          line-height: 1.5em
+
+        .meta
+          li
+            margin-right: 15px
+
+      .panel-body
+        padding-top: 30px
+        padding-bottom: 30px
+
+        ul
+          margin-bottom: 30px
+          padding-left: 30px
+          list-style: none
+
+          li
+            margin-bottom: 15px
+            font-size: 16px
+            line-height: 1.8em
+
+            .icon
+              float: left
+              margin-left: -30px
+              margin-top: 5px
+
+        .panel-action
+          .btn
+            margin-right: 10px
+            padding: 10px 30px
+            font-weight: 200
+
+      .panel-footer
+        padding-top: 30px
+        background: transparent
+        font-size: 20px
+
+        .social-list
+          padding-top: 5px
+          
+          *
+            vertical-align: text-top !important
+
+    .side-panel-1
+      margin-bottom: 30px
       text-align: center
-    .container
-      max-width: 600px
+      font-size: 16px
+      font-weight: 200
+
+      .list-inline, p
+        margin-bottom: 30px
+
+    .side-panel-2
+      margin-bottom: 30px
+      font-size: 16px
+      font-weight: 200
+      line-height: 1.8em
+
+      .panel-heading
+        text-align: center
+
+        .panel-title
+          font-size: 20px
+
+      .panel-body
+        ul
+          margin-left: 25px
+          padding-left: 30px
+          list-style: none
+
+          li
+            margin-bottom: 15px
+
+            .icon
+              float: left
+              margin-left: -30px
+              margin-top: 5px
+
 
 #related-event-section
   padding-top: 40px

@@ -2,64 +2,107 @@
 
 <div class="section" id="bank-transfer-inform-section">
   <div class="container">
-    <h2 class="section-title">Order Received</h2>
 
-    <style type="text/css">
-      .m-tb-10 {
-        margin: 10px auto;
-      }
-      .m-tb-20 {
-        margin: 20px auto;
-      }
-      .fix-link {
-        color: #000 !important;
-      }
-      a.fix-link:hover {
-        text-decoration: none;
-      }
-    </style>
-    <div class="row m-tb-10">
-      <div class="col-sm-12 m-tb-10">
-        คุณได้ทำการซั้งซื้อ
-        <h1><%= link_to @event.title, client_event_path(@event.to_url), class: "fix-link" %></h1>
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        <div class="panel panel-daydash main-panel">
+          <div class="panel-heading">
+            <div class="back-btn">
+              <a href="<%= client_event_path(@event) %>"><i class="icon icon-arrow-left"></i> <%= @event.title %></a>
+            </div>
+            <h1 class="panel-title event-name">คุณได้ทำการซั้งซื้อ: <%= @event.title %></h1>
+
+            <ul class="meta list-inline">
+              <li><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></li>
+              <li><i class="icon icon-xs icon-map-pin"></i> <%= @order.event.location_name %></li>
+            </ul>
+          </div>
+          <div class="panel-body">
+            
+            <ul>
+              <li>
+                <i class="icon icon-xs icon-checked"></i>
+
+                <span>ได้รับคำสั่งซื้อ <span class="color-daydash-green">#<%= @order.code %></span> :</span>
+                <span>ยอดรวม <%= @order.to_price %></span>
+
+                <% if @order.transfer? %>
+                <span class="color-daydash-red"><%= @order.payment.stages %></span>
+                <% else %>
+                <span class="color-daydash-green-2"><%= @order.payment.stages %></span>
+                <% end %> โดย <%= @order.payment.channel %></li>
+              </li>
+
+              <% if @order.transfer? %>
+              <li>
+                <i class="icon icon-xs icon-checked"></i>
+                เราได้ทำการส่งรายละเอียดการสั่งซื้อและรายละเอียดการชำระเงินไปที่อีเมล <br />
+                <%= @order.user.email %> เรียบร้อยแล้ว
+              </li>
+              <li>
+                <i class="icon icon-xs icon-waiting"></i>
+                <span class="color-daydash-red">
+                  กรุณาทำการชำระเงินและแจ้งชำระเงินภายใน 60 นาทีค่ะ <br />
+                  (ชำระภายใน วันที่ <%= @order.expires_on %>)
+                </span>
+                <p>หากพ้นเวลาดังกล่าว คำสั่งซื้อของคุณจะถูกยกเลิก และคุณจะต้องทำการสั่งซื้อใหม่อีกครั้ง</p>
+              </li>
+              <% else %>
+              <li>
+                <i class="icon icon-xs icon-checked"></i>
+                เราได้ทำการส่งรายละเอียดการสั่งซื้อและตั๋วสำหรับเข้าร่วมงานไปที่อีเมล <br />
+                <%= @order.user.email %> เรียบร้อยแล้ว
+              </li>
+
+              <% end %>
+
+            </ul>
+            <div class="panel-action">
+              <% if @order.transfer? %>
+              <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a>
+              <% end %>
+              <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
+            </div>
+          </div> <!-- .panel-body -->
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="pull-left">ชวนเพื่อนไปด้วยกันสิ :) &nbsp;</div>
+                <div class="social-list pull-left">
+                  <div class="fb-share-button" data-href="<%= client_event_path(@event.to_url) %>" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%= client_event_path(@event.to_url) %>">Share</a></div>
+                  <a href="<%= client_event_path(@event.to_url) %>" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- .panel -->
       </div>
-    </div>
-    <div class="row m-tb-10">
-      <div class="col-sm-12">
-        <i class="icon icon-xs icon-map-pin"></i>
-        <%= @order.event.location_name %>
-      </div>
-    </div>
-    <div class="row m-tb-10">
-      <div class="col-sm-12">
-        <i class="icon icon-xs icon-checked"></i> ได้รับคำสั่งซื้อ #<%= @order.code %> : ยอดรวม <%= @order.to_price %>
-        <% if @order.transfer? %>
-        <span style="color: #EB585B"><%= @order.payment.stages %></span>
-        <% else %>
-        <span style="color: #7BC880"><%= @order.payment.stages %></span>
-        <% end %> โดย <%= @order.payment.channel %></li>
-      </div>
-    </div>
-    <div class="row m-tb-10">
-      <div class="col-sm-12">
-        <i class="icon icon-xs icon-checked"></i> เราได้ทำการส่งรายละเอียดการสั่งซื้อและรายละเอียดการชำระเงินไปที่อีเมล <a href="<%= @order.user.email %>"><%= @order.user.email %></a> เรียบร้อยแล้ว
-      </div>
-    </div>
-    <div class="row m-tb-10">
-      <div class="col-sm-12">
-        <% if @order.transfer? %>
-        <i class="icon icon-xs icon-waiting"></i>
-        <span style="color: #EB585B">กรุณาทำการชำระเงินและแจ้งชำระเงินภายใน 60 นาทีค่ะ (ชำระภายใน วันที่ <%= @order.expires_on %>)</span>
-        <p>หากพ้นเวลาดังกล่าว คำสั่งซื้อของคุณจะถูกยกเลิก และคุณจะต้องทำการสั่งซื้อใหม่อีกครั้ง</p>
-        <% end %>
-      </div>
-    </div>
-    <div class="row m-tb-20">
-      <div class="col-sm-12">
-        <% if @order.transfer? %>
-          <a href="/" class="btn btn-daydash btn-daydash-green-2 btn-lg" style="background: #E66096">รายละเอียดการชำระเงิน</a>
-        <% end %>
-          <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg">ดูรายละเอียดการสั่งซื้อ</a>
+      <div class="col-xs-12 col-md-4">
+        <div class="panel panel-daydash side-panel-1">
+          <div class="panel-body">
+            <ul class="list-inline">
+              <li><i class="icon icon-envelope"></i></li>
+              <li><i class="icon icon-chrome"></i></li>
+              <li><i class="icon icon-mobile"></i></li>
+            </ul>
+            <p>คุณไม่จำเป็นต้องพิมพ์ตั๋วใดๆ เพียงโชว์ตั๋วที่เราส่งให้คุณทางอีเมล หน้า My Tickets หรือบน Daydash iOS App ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
+            <p><img src="/src/images/theme/appstore.png" height="50" /></p>
+            <div>สะดวกกว่า ค้นหา ซื้อบัตร และเข้าร่วมงานได้ใน 2 นาที!</div>
+          </div>
+        </div>
+        <div class="panel panel-daydash side-panel-2">
+          <div class="panel-heading">
+            <div class="panel-title">มีปัญหา คำถาม ติดต่อเราได้ทันทีค่ะ :)</div>
+          </div>
+          <div class="panel-body">
+            <ul>
+              <li><i class="icon icon-xs icon-comments"></i> สอบถามพูดคุยแบบ real time</li>
+              <li><i class="icon icon-xs icon-line-black"></i> @daydash</li>
+              <li><i class="icon icon-xs icon-phone"></i> 090-4569465</li>
+              <li><i class="icon icon-xs icon-envelope"></i> hello@daydash.co</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>

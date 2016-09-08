@@ -164,7 +164,6 @@
   </div>
   <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
 
-
 <!-- Bootstrap Datetimepicker -->
 <link type="stylesheet" href="/src/packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
 <script src="/src/packages/bootstrap-datetimepicker/js/moment.js"></script>
@@ -172,59 +171,7 @@
 
 <!-- Mustache -->
 <script src="/src/packages/mustache/mustache.min.js"></script>
-
-<!-- Google Map -->
-<%= render partial: "layouts/parts/google_maps" %>
 <!-- Template -->
 <%= render partial: "layouts/parts/section" %>
-
-<script> //Init Function
-  function init_datetimepicker(element) {
-    $('.datepicker', element).datetimepicker({
-      format: 'DD/MM/YYYY'
-    });
-
-    $('.timepicker', element).datetimepicker({
-      format: 'LT',
-      stepping: 15
-    });
-  }
-
-  function on_ticket_add(button) {
-    var template = $('#new-ticket-template').html();
-    Mustache.parse(template);
-    var rendered = Mustache.render(template, {});
-    var element = $(rendered);
-    $('.ticket-list tbody').append(element);
-
-    init_datetimepicker(element);
-
-    return false;
-  }
-
-  function on_ticket_delete(button) {
-    var element = $(button).parents('.ticket');
-    element.remove();
-
-    return false;
-  }
-
-  function init_sortable() {
-    $('.sortable').sortable({
-      update: function(event, ui) {
-        var images_order = $(this).sortable('toArray', { attribute: 'data-id' });
-        $('[name=images_order]').val(images_order.join(','));
-        console.log(images_order.join(','));
-      }
-    });
-  }
-
-  $(function() {
-    if($("body").attr('id') == "organizer-events-new" && $("body").attr('id') == "organizer-events-edit") {
-      init_datetimepicker($('body'));
-      on_ticket_add(); //add 1st ticket
-    }
-  });
-</script>
 </body>
 </html>

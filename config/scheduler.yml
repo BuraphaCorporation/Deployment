@@ -6,7 +6,7 @@ EventUpdateJob:
   active_job: true
 
 ReminderJob:
-  cron: "0 6 * * *"
+  cron: "0 5 * * *"
   class: "ReminderJob"
   queue: default
   active_job: true

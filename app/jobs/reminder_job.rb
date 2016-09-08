@@ -1,7 +1,9 @@
 class ReminderJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    # Do something later
+  def perform
+    Order.event_today.each do |order|
+      UserReminderWorker.perform_async(order.id)
+    end
   end
 end

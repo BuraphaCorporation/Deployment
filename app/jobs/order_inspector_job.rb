@@ -1,8 +1,8 @@
 class OrderInspectorJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
-    orders = Order.where(status: :pending).where("created_at < ?", Time.zone.now - 70.minutes)
+  def perform
+    orders = Order.where(status: :pending).where("created_at < ?", Time.zone.now - 60.minutes)
 
     orders.each do |order|
       order.tickets.each do |ticket|

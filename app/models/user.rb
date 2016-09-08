@@ -55,7 +55,7 @@
 #
 
 class User < ApplicationRecord
-  devise :database_authenticatable, :registerable, # :confirmable,
+  devise :database_authenticatable, :async, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
 
@@ -220,6 +220,6 @@ private
   end
 
   def send_welcome_email
-    UserMailer.welcome(self).deliver_later
+    UserWelcomeWorker.perform_async(self.id)
   end
 end

@@ -87,8 +87,8 @@ class Event < ApplicationRecord
 
   def self.update_uptime_present
     all.each do |event|
-      event_time = event.sections.available.min_by(&:event_time).try(:event_time)
-      event.update(uptime: event_time) unless event_time.empty?
+      p event_time = event.sections.available.min_by(&:event_time).try(:event_time)
+      event.update(uptime: event_time) unless event_time.nil?
     end
   end
   private

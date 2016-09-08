@@ -15,18 +15,6 @@ puts "add tag list"
   Tag.find_or_create_by({title: tag})
 end
 
-puts "add first user"
-user = User.create do |user|
-  user.email                  = "nonmadden@gmail.com"
-  user.first_name             = 'Arnon'
-  user.last_name              = 'Hongklay'
-  user.password               = '1234567890'
-  user.password_confirmation  = '1234567890'
-  user.confirmed_at           = Time.zone.now
-  user.role                   = 'admin'
-end
-puts user
-
 user = User.create do |user|
   user.email                  = "hello@daydash.co"
   user.first_name             = 'Bow'
@@ -132,6 +120,7 @@ K. SHUN (NATURAL TELLER)
   },
   {
     slug: 'beam-x-zudrangma',
+    user: user,
     title: 'BEAM X ZUDRANGMA: Maft Sai / Dangdut Banget',
     description: "A very special night of music covering all bases from Roots to Electronics, from Africa, Latin America, & the Caribbean, to the Middle East & South East Asia. Maft Sai & Dangdut Banget will be digging deep into the crates, dropping a heavy, vinyl only selection! Boom!
 
@@ -190,7 +179,7 @@ CategoriesEvent.create(event: olive, category: Category.find_by_name('art-and-cu
 
 
 puts "update sections"
-lazgam.sections.create([
+beam.sections.create([
   {
     title:      "1 person",
     event_time: Time.zone.now + rand(5..30).days,
@@ -362,15 +351,7 @@ studiolam.sections.create([
   }
 ])
 
-beam.sections.create([
-  {
-    title:      "1 person",
-    event_time: Time.zone.now + rand(5..30).days,
-    end_time:   Time.zone.now + rand(5..30).days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
+lazgam.sections.create([
   {
     title:      "1 person",
     event_time: Time.zone.now + rand(5..30).days,
@@ -379,6 +360,14 @@ beam.sections.create([
     total:      100,
     bought:     0
   }
+  # {
+  #   title:      "1 person",
+  #   event_time: Time.zone.now + rand(5..30).days,
+  #   end_time:   Time.zone.now + rand(5..30).days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # }
 ])
 
 olive.sections.create([
@@ -433,4 +422,4 @@ Dir["#{Rails.root}/public/event_content/olive/*"].each do |attachment|
 end
 
 puts "update event uptime"
-Event.update_uptime
+Event.update_uptime_present

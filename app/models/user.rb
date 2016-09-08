@@ -82,7 +82,7 @@ class User < ApplicationRecord
 
   scope :latest, -> { order 'created_at desc' }
   enumerize :gender, in: [:male, :female, :not_specify], default: :not_specify #default: lambda { |user| SexIdentifier.sex_for_name(user.name).to_sym }
-  enumerize :role, in: [:user, :admin], default: :user
+  enumerize :role, in: [:user, :organizer, :admin], default: :user
 
   def admin?
     role == 'admin'

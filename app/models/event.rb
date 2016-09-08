@@ -81,17 +81,16 @@ class Event < ApplicationRecord
     self.event_pictures.present? ? self.event_pictures.first.try(:media, :thumb) : ''
   end
 
-  def self.update_uptime
-    all.each do |event|
-      event_time = event.sections.available.min_by(&:event_time).event_time
-      event.update(uptime: event_time)
-    end
-  end
-
   def get_total_sales
     orders.sum(:price).to_f / 100
   end
 
+  def self.update_uptime_present
+    all.each do |event|
+      event_time = event.sections.available.min_by(&:event_time).try(:event_time)
+      event.update(uptime: event_time) unless event_time.empty?
+    end
+  end
   private
     def set_organizer
       self.user ||= User.find_by_email('hello@daydash.co')

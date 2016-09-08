@@ -1,18 +1,24 @@
 
-notification:
-  cron: "*/5 * * * *"
-  class: "NotificationJob"
+EventUpdateJob:
+  cron: "0 6 * * *"
+  class: "EventUpdateJob"
   queue: default
   active_job: true
 
-ReminderEvent:
+ReminderJob:
   cron: "0 6 * * *"
   class: "ReminderJob"
   queue: default
   active_job: true
 
-event_uptime:
-  cron: "0 6 * * *"
-  class: "EventJob"
+NotificationJob:
+  cron: "*/5 * * * *"
+  class: "NotificationJob"
+  queue: default
+  active_job: true
+
+OrderInspectorJob:
+  cron: "*/5 * * * *"
+  class: "OrderInspectorJob"
   queue: default
   active_job: true

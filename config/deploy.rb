@@ -79,9 +79,8 @@ namespace :deploy do
 
   after :finishing, 'deploy:cleanup'
   after :publishing, 'deploy:restart'
-  after "deploy:published", :generate_error_html
-
-  # after "deploy:published", "restart_workers"
+  after :published, :generate_error_html
+  # after :published, :restart_workers
 end
 
 namespace :rails do

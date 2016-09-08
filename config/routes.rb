@@ -1,6 +1,11 @@
 # == Route Map
 #
 #                           Prefix Verb     URI Pattern                                      Controller#Action
+#                 errors_not_found GET      /errors/not_found(.:format)                      errors#not_found
+#     errors_internal_server_error GET      /errors/internal_server_error(.:format)          errors#internal_server_error
+#                                           /404(.:format)                                   errors#not_found
+#                                           /500(.:format)                                   errors#internal_server_error
+#                      sidekiq_web          /workers                                         Sidekiq::Web {:subdomain=>"dev"}
 #                 new_user_session GET      /auth/sign_in(.:format)                          users/sessions#new {:subdomain=>"dev"}
 #                     user_session POST     /auth/sign_in(.:format)                          users/sessions#create {:subdomain=>"dev"}
 #             destroy_user_session DELETE   /auth/sign_out(.:format)                         users/sessions#destroy {:subdomain=>"dev"}
@@ -19,15 +24,18 @@
 #                                  PUT      /auth(.:format)                                  users/registrations#update {:subdomain=>"dev"}
 #                                  DELETE   /auth(.:format)                                  users/registrations#destroy {:subdomain=>"dev"}
 #                             root GET      /                                                client/events#index {:subdomain=>"dev"}
-#                             blog GET      /blog(.:format)                                  redirect(301, http://blog.daydash.co) {:subdomain=>"dev"}
-#           campaign_dash_your_day GET      /campaign/dash-your-day(.:format)                greetings#campaign {:subdomain=>"dev"}
-#     campaign_dash_your_day_terms GET      /campaign/dash-your-day/terms(.:format)          greetings#campaign_terms {:subdomain=>"dev"}
+#                        react_api GET      /react-api(.:format)                             application#index {:subdomain=>"dev", :format=>:json}
+#                             blog GET      /blog(.:format)                                  greetings#blog {:subdomain=>"dev"}
+#                                  GET      /blog/:slug(.:format)                            greetings#blog {:subdomain=>"dev"}
+#                           rating GET      /rating(.:format)                                greetings#rating {:subdomain=>"dev"}
 #                              faq GET      /faq(.:format)                                   greetings#faq {:subdomain=>"dev"}
 #             terms_and_conditions GET      /terms-and-conditions(.:format)                  greetings#terms {:subdomain=>"dev"}
 #                   privacy_policy GET      /privacy-policy(.:format)                        greetings#policy {:subdomain=>"dev"}
-#                           rating GET      /rating(.:format)                                greetings#rating {:subdomain=>"dev"}
+#           campaign_dash_your_day GET      /campaign/dash-your-day(.:format)                greetings#campaign {:subdomain=>"dev"}
+#     campaign_dash_your_day_terms GET      /campaign/dash-your-day/terms(.:format)          greetings#campaign_terms {:subdomain=>"dev"}
 #                  client_category GET      /categories/:category(.:format)                  client/events#index {:subdomain=>"dev"}
 #             client_event_express GET      /events/:event_id/express(.:format)              client/events#express {:subdomain=>"dev"}
+#           client_event_selection POST     /events/:event_id/selection(.:format)            client/events#selection {:subdomain=>"dev"}
 #            client_event_checkout POST     /events/:event_id/checkout(.:format)             client/events#checkout {:subdomain=>"dev"}
 #                    client_events GET      /events(.:format)                                client/events#index {:subdomain=>"dev"}
 #                     client_event GET      /events/:id(.:format)                            client/events#show {:subdomain=>"dev"}
@@ -39,6 +47,9 @@
 #   client_profile_change_password PUT      /profile/:profile_id/change_password(.:format)   client/profile#change_password {:subdomain=>"dev"}
 #             client_profile_index GET      /profile(.:format)                               client/profile#index {:subdomain=>"dev"}
 #                        organizer GET      /organizer(.:format)                             organizer/dashboard#index {:subdomain=>"dev"}
+#           orders_organizer_event GET      /organizer/events/:id/orders(.:format)           organizer/events#orders {:subdomain=>"dev"}
+#          checkin_organizer_event GET      /organizer/events/:id/checkin(.:format)          organizer/events#checkin {:subdomain=>"dev"}
+#        unpublish_organizer_event GET      /organizer/events/:id/unpublish(.:format)        organizer/events#unpublish {:subdomain=>"dev"}
 #                 organizer_events GET      /organizer/events(.:format)                      organizer/events#index {:subdomain=>"dev"}
 #                                  POST     /organizer/events(.:format)                      organizer/events#create {:subdomain=>"dev"}
 #              new_organizer_event GET      /organizer/events/new(.:format)                  organizer/events#new {:subdomain=>"dev"}

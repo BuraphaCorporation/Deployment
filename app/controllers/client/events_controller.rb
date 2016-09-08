@@ -98,10 +98,10 @@ class Client::EventsController < Client::CoreController
     end
 
     if @order.tickets.present?
-      UserMailer.order(@order).deliver!
-      OrganizerMailer.order(@order).deliver!
+      UserMailer.order(@order).deliver_later
+      OrganizerMailer.order(@order).deliver_later
 
-      UserMailer.ticket(@order).deliver! if @order.payment.status.success?
+      UserMailer.ticket(@order).deliver_later if @order.payment.status.success?
 
       # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
     end

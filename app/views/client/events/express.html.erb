@@ -168,17 +168,17 @@
                       </div>
                       <div class="form-group col-xs-12 col-md-6">
                         <label>Name</label>
-                        <input class="form-control" type="text" name="card_name" value="" data-omise="holder_name">
+                        <input class="form-control" type="text" name="card_name" value="" placeholder="FULL NAME" data-omise="holder_name">
                       </div>
                       <div class="form-group col-xs-12 col-md-6">
                         <label>Card Number</label>
-                        <input class="form-control" type="text" name="card_number" value="" data-omise="number" />
+                        <input class="form-control" type="text" name="card_number" value="" placeholder="•••• •••• •••• ••••" data-omise="number" />
                       </div>
                     </div>
                     <div class="row">
                       <div class="form-group col-xs-12 col-md-6">
                         <label>Expire Date</label>
-                        <input class="form-control" type="text" name="card_expiry" value="" data-omise="expiry" />
+                        <input class="form-control" type="text" name="card_expiry" value="" placeholder="••/••" data-omise="expiry" />
                         <!--div class="form-inline">
                           <select class="form-control" name="expire_month" data-omise="expiration_month">
                             <option value="">Month</option>
@@ -196,7 +196,7 @@
                       </div>
                       <div class="form-group col-xs-12 col-md-6">
                         <label>CVC</label>
-                        <input class="form-control" type="text" name="card_cvc" value="" data-omise="security_code" />
+                        <input class="form-control" type="text" name="card_cvc" maxlength="3" value="" placeholder="•••" data-omise="security_code" />
                       </div>
                       <div class="col-xs-12">
                         <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
@@ -286,6 +286,9 @@ function init_form_validate() {
 
       var form = $('#checkout');
 
+      $('.btn-submit').button('loading');
+      $('#token_errors').hide();
+
       if(form.find("[name=payment_method]").val() == 'credit_card') {
         omise_submit(form);
         return false;
@@ -301,9 +304,6 @@ function omise_submit(form) {
 
   try {
     Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
-
-    $('.btn-submit').button('loading');
-    $('#token_errors').hide();
 
     var expiry = $("[name=card_expiry]").val();
     var match = null;

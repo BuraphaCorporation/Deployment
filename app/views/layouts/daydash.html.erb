@@ -16,6 +16,18 @@
 
     <%= stylesheet_link_tag 'client/core', media: 'all', 'data-turbolinks-track' => true %>
 
+  <!-- Bootstrap Datetimepicker -->
+  <link type="stylesheet" href="/src/packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
+  <script src="/src/packages/bootstrap-datetimepicker/js/moment.js"></script>
+  <script src="/src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!-- Mustache -->
+  <script src="/src/packages/mustache/mustache.min.js"></script>
+
+  <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
+
+  <!-- Template -->
+  <%= render partial: "layouts/parts/section" %>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -162,16 +174,6 @@
       <%= render partial: "layouts/parts/register-form" %>
     </div>
   </div>
-  <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
 
-<!-- Bootstrap Datetimepicker -->
-<link type="stylesheet" href="/src/packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
-<script src="/src/packages/bootstrap-datetimepicker/js/moment.js"></script>
-<script src="/src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-
-<!-- Mustache -->
-<script src="/src/packages/mustache/mustache.min.js"></script>
-<!-- Template -->
-<%= render partial: "layouts/parts/section" %>
 </body>
 </html>

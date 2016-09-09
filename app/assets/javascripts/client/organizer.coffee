@@ -29,7 +29,7 @@
 # }
 # google.maps.event.addDomListener(window, 'load', initialize);
 
-initAutocomplete = ->
+initGoogleMapOrganizer = ->
   map = new (google.maps.Map)(document.getElementById('map'),
     center:
       lat: 13.7563309
@@ -107,7 +107,7 @@ initAutocomplete = ->
       #   position: place.geometry.location,
       #   draggable: true
       # }));
-      if place.geometry.viewport
+      if place.geometry.viewpor
         # Only geocodes have viewport.
         bounds.union place.geometry.viewport
       else
@@ -122,39 +122,22 @@ updateLatLng = (lat, lng) ->
   $('#event_longitude').val lng
   return
 
-initAutocomplete()
+# initSortable = ->
+#   $('.sortable').sortable update: (event, ui) ->
+#     images_order = $(this).sortable('toArray', attribute: 'data-id')
+#     $('[name=images_order]').val images_order.join(',')
+#     console.log images_order.join(',')
+#     return
+#   return
 
-init_datetimepicker = (element) ->
-  $('.datepicker', element).datetimepicker format: 'DD/MM/YYYY'
-  $('.timepicker', element).datetimepicker
-    format: 'LT'
-    stepping: 15
-  return
+$(document).ready ->
+  bodyId = $('body').attr('id')
+  initDatetimepicker($('body'))
 
-on_ticket_add = (button) ->
-  template = $('#new-ticket-template').html()
-  Mustache.parse template
-  rendered = Mustache.render(template, {})
-  element = $(rendered)
-  $('.ticket-list tbody').append element
-  init_datetimepicker element
-  false
+  initGoogleMapOrganizer()
 
-on_ticket_delete = (button) ->
-  element = $(button).parents('.ticket')
-  element.remove()
-  false
 
-init_sortable = ->
-  $('.sortable').sortable update: (event, ui) ->
-    images_order = $(this).sortable('toArray', attribute: 'data-id')
-    $('[name=images_order]').val images_order.join(',')
-    console.log images_order.join(',')
-    return
-  return
-
-$ ->
-  init_datetimepicker $('body')
-  on_ticket_add()
-  #add 1st ticket
-  return
+  if bodyId == "organizer-events-new"
+    onTicketAdd()
+  # else
+  #   initSortable()

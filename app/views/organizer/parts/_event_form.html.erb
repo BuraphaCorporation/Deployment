@@ -106,31 +106,31 @@
 
                   <% if @sections.present? %>
                     <% @sections.each do |section| %>
-                      <tr class="ticket" id="ticket-<%= section.id %>" data-ticket-id="<%= section.id %>">
-                        <td><input class="form-control" type="text" name="ticket[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
-                        <td><input class="form-control" type="number" name="ticket[<%= section.id %>][total]" value="<%= section.total %>" /></td>
-                        <td><input class="form-control" type="number" name="ticket[<%= section.id %>][price]" value="<%= section.price %>" /></td>
+                      <tr class="tickets" id="ticket-<%= section.id %>" data-ticket-id="<%= section.id %>">
+                        <td><input class="form-control" type="text" name="tickets[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
+                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][total]" value="<%= section.total %>" /></td>
+                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][price]" value="<%= section.price %>" /></td>
                         <td width="200">
                           <div class="input-group datepicker">
-                            <input type="text" class="form-control" name="ticket[<%= section.id %>][event_time]" value="<%= section.event_time.strftime("%d/%m/%Y")  %>" />
+                            <input type="text" class="form-control" name="tickets[<%= section.id %>][event_time]" value="<%= section.event_time.strftime("%d/%m/%Y") %>" />
                             <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                           </div>
                         </td>
                         <td width="200">
                           <div class="input-group timepicker">
-                            <input class="form-control" type="text" name="ticket[<%= section.id %>][event_time]" value="<%= section.event_time.strftime("%H:%M") %>" />
+                            <input class="form-control" type="text" name="tickets[<%= section.id %>][event_time]" value="<%= section.event_time.strftime("%H:%M") %>" />
                             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                           </div>
                         <td width="200">
                           <div class="input-group timepicker">
-                            <input class="form-control" type="text" name="ticket[<%= section.id %>][end_time]" value="<%= section.end_time.strftime("%H:%M") %>" />
+                            <input class="form-control" type="text" name="tickets[<%= section.id %>][end_time]" value="<%= section.end_time.strftime("%H:%M") %>" />
                             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                           </div>
                         </td>
 
                         <td width="100" align="right">
-                          <a class="btn btn-sm btn-default btn-ticket-delete" href="#" onclick="return on_ticket_delete(this);"><i class="fa fa-minus"></i></a>
-                          <a class="btn btn-sm btn-default btn-ticket-add" href="#" onclick="return on_ticket_add(this);"><i class="fa fa-plus"></i></a>
+                          <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this);"><i class="fa fa-minus"></i></a>
+                          <a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-plus"></i></a>
                         </td>
                       </tr>
                     <% end %>

@@ -103,11 +103,14 @@ private
     end unless params[:event_pictures].nil?
 
     (0..params[:new_ticket_names].count - 1).each do |section|
-      event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
-      end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+      next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present?
 
-      Section.create do |s|
-        s.event_id    = @event.id
+      if params[:new_ticket_dates][section].present? and params[:new_ticket_start_times][section].present? and params[:new_ticket_end_times][section].present?
+        event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
+        end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+      end
+
+      @event.sections.create do |s|
         s.title       = params[:new_ticket_names][section]
         s.total       = params[:new_ticket_totals][section]
         s.price       = params[:new_ticket_prices][section]
@@ -130,20 +133,23 @@ private
     # update section
     @event.sections.each do |section|
       section.update(
-        title:      params["ticket"]["#{section.id}"]["title"],
-        total:      params["ticket"]["#{section.id}"]["total"],
-        price:      params["ticket"]["#{section.id}"]["price"],
-        event_time: params["ticket"]["#{section.id}"]["event_time"],
-        end_time:   params["ticket"]["#{section.id}"]["end_time"]
+        title:      params["tickets"]["#{section.id}"]["title"],
+        total:      params["tickets"]["#{section.id}"]["total"],
+        price:      params["tickets"]["#{section.id}"]["price"],
+        event_time: params["tickets"]["#{section.id}"]["event_time"],
+        end_time:   params["tickets"]["#{section.id}"]["end_time"]
       )
-    end
+    end unless params[:tickets].nil?
 
     (0..params[:new_ticket_names].count - 1).each do |section|
-      event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
-      end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+      next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present?
 
-      Section.create do |s|
-        s.event_id    = @event.id
+      if params[:new_ticket_dates][section].present? and params[:new_ticket_start_times][section].present? and params[:new_ticket_end_times][section].present?
+        event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
+        end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+      end
+
+      @event.sections.create do |s|
         s.title       = params[:new_ticket_names][section]
         s.total       = params[:new_ticket_totals][section]
         s.price       = params[:new_ticket_prices][section]

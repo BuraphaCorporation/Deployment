@@ -161,7 +161,7 @@ class User < ApplicationRecord
   end
 
   def self.process_date_of_birth(data)
-    logger "process_date_of_birth data #{data}"
+    logger.debug "process_date_of_birth data #{data}"
     date = data.split('/')
     date = Date.new(date[2].to_i, date[0].to_i, date[1].to_i)
   end

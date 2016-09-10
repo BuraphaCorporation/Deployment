@@ -105,6 +105,8 @@ class User < ApplicationRecord
     profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
     image = graph.get_picture(profile['id'], type: :large)
 
+    p profile
+
     if find_by_email(profile['email']).nil?
       where(provider: 'facebook', uid: profile['id']).first_or_create(
         email:      profile['email'],
@@ -129,6 +131,7 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
+    p auth
     if find_by_email(auth.info.email).nil?
       where(provider: auth.provider, uid: auth.uid).first_or_create(
         email:      auth.extra.raw_info.email,

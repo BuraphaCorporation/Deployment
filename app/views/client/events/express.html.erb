@@ -292,10 +292,19 @@ function init_form_validate() {
         return false;
       }
       else {
+        transfer_submit(form);
         return true;
       }
     }
   });
+}
+
+function transfer_submit(form) {
+  try {
+    form.get(0).submit();
+  } catch(e) {
+    $('.btn-submit').button('reset');
+  }
 }
 
 function omise_submit(form) {

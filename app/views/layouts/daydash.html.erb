@@ -15,10 +15,8 @@
 
     <!-- Google Map -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
-    <!-- Bootstrap Datetimepicker -->
-    <link type="stylesheet" href="/src/packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
-    <script src="/src/packages/bootstrap-datetimepicker/js/moment.js"></script>
-    <script src="/src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+    <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -165,8 +163,6 @@
       </div>
     </div>
   </body>
-
-  <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
 
   <!-- Template -->
   <%= render partial: "layouts/parts/section" %>

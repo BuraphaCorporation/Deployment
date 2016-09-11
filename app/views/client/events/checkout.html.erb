@@ -18,7 +18,7 @@
             </ul>
           </div>
           <div class="panel-body">
-            
+
             <ul>
               <li>
                 <i class="icon icon-xs icon-checked"></i>
@@ -59,9 +59,9 @@
             </ul>
             <div class="panel-action">
               <% if @order.transfer? %>
-              <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a>
+              <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a>
               <% end %>
-              <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
+              <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
             </div>
           </div> <!-- .panel-body -->
           <div class="panel-footer">
@@ -117,7 +117,7 @@
       <% @related_events.each do |event| %>
         <div class="col-sm-6 col-md-4">
           <div class="event card">
-            <%= link_to client_event_path(event.to_url) do %>
+            <%= link_to client_event_path(event.to_url), target: '_self' do %>
               <% if event.event_pictures.present? %>
                 <div class="cover" style="background-image: url(<%= event.event_pictures.first.try(:media, :thumb) %>);"></div>
               <% else %>
@@ -126,7 +126,7 @@
             <% end %>
             <div class="info">
               <h4 class="title text-left">
-                <%= link_to event.title, client_event_path(event.to_url) %>
+                <%= link_to event.title, client_event_path(event.to_url), target: '_self' %>
               </h4>
               <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>

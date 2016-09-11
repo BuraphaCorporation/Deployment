@@ -3,11 +3,10 @@
 <div class="section" id="payment-section">
   <div class="container">
     <div class="row">
-
       <!-- Left side -->
       <div class="col-xs-12 col-md-4">
         <div class="event card payment-card">
-          <%= link_to client_event_path(@event.to_url) do %>
+          <%= link_to client_event_path(@event.to_url), target: '_self' do %>
             <% if @event.event_pictures.present? %>
               <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :thumb) %>);"></div>
             <% else %>
@@ -18,7 +17,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <h4 class="title text-left">
-                  <%= link_to @event.title, client_event_path(@event.to_url) %>
+                  <%= link_to @event.title, client_event_path(@event.to_url), target: '_self' %>
                 </h4>
                 <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></div>
                 <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location_name %></div>
@@ -246,7 +245,6 @@
 <script src="https://cdn.omise.co/omise.js"></script>
 <script src="/src/packages/card/card.js"></script>
 <script src="/src/packages/card/jquery.card.js"></script>
-<script src="/src/packages/jquery-validate/jquery.validate.min.js"></script>
 
 <script type="text/javascript"> //Init Function
 
@@ -277,10 +275,10 @@ function init_form_validate() {
 
   $('#checkout').validate({
     highlight: function(element) {
-        $(element).closest('.form-group').addClass('has-error');
+      $(element).closest('.form-group').addClass('has-error');
     },
     unhighlight: function(element) {
-        $(element).closest('.form-group').removeClass('has-error');
+      $(element).closest('.form-group').removeClass('has-error');
     },
     submitHandler: function() {
 
@@ -294,10 +292,19 @@ function init_form_validate() {
         return false;
       }
       else {
+        transfer_submit(form);
         return true;
       }
     }
   });
+}
+
+function transfer_submit(form) {
+  try {
+    form.get(0).submit();
+  } catch(e) {
+    $('.btn-submit').button('reset');
+  }
 }
 
 function omise_submit(form) {

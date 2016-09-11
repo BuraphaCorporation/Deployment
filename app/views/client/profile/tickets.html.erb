@@ -25,7 +25,7 @@
                       <div class="info-body">
                         <h4 class="title">
                           <%#= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
-                            <a href="<%= client_event_path(ticket.event.id) %>"><%= ticket.event.title %></a>
+                            <a href="<%= client_event_path(ticket.event.id) %>" target="_self"><%= ticket.event.title %></a>
                           <%# end %>
                         </h4>
 
@@ -81,7 +81,7 @@
                       <div class="info-body">
                         <h4 class="title">
                           <%#= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
-                            <a href="<%= client_event_path(ticket.event.id) %>"><%= ticket.event.title %></a>
+                            <a href="<%= client_event_path(ticket.event.id) %>" target="_self"><%= ticket.event.title %></a>
                           <%# end %>
                         </h4>
 
@@ -111,7 +111,7 @@
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-3">
-                    <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>">
+                    <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>" target="_self">
                       <img src="<%= ticket.qr_code(:medium) %>" width="100%" />
                     </a>
                   </div>

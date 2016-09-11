@@ -11,23 +11,14 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
-    <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
-
     <%= stylesheet_link_tag 'client/core', media: 'all', 'data-turbolinks-track' => true %>
 
-  <!-- Bootstrap Datetimepicker -->
-  <link type="stylesheet" href="/src/packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
-  <script src="/src/packages/bootstrap-datetimepicker/js/moment.js"></script>
-  <script src="/src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-
-  <!-- Mustache -->
-  <script src="/src/packages/mustache/mustache.min.js"></script>
-
-  <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
-
-  <!-- Template -->
-  <%= render partial: "layouts/parts/section" %>
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
+    <!-- Bootstrap Datetimepicker -->
+    <link type="stylesheet" href="/src/packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
+    <script src="/src/packages/bootstrap-datetimepicker/js/moment.js"></script>
+    <script src="/src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -37,14 +28,14 @@
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="fa fa-navmenu"></i></button>
-              <%= link_to root_path, class: 'navbar-brand' do %>
+              <%= link_to root_path, class: 'navbar-brand', target: '_self' do %>
                 <img src="/src/images/theme/logo.png" />
               <% end %>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-left">
                 <li>
-                  <a href="/">ALL</a>
+                  <%= link_to 'ALL', root_path, target: '_self' %>
                 </li>
                 <% @global_categories.each do |category| %>
                   <li>
@@ -167,13 +158,16 @@
         </div>
       </div>
     </div>
-
-  <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
-    <div class="modal-dialog modal-sm" role="document">
-      <%= render partial: "layouts/parts/login-form" %>
-      <%= render partial: "layouts/parts/register-form" %>
+    <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
+      <div class="modal-dialog modal-sm" role="document">
+        <%= render partial: "layouts/parts/login-form" %>
+        <%= render partial: "layouts/parts/register-form" %>
+      </div>
     </div>
-  </div>
+  </body>
 
-</body>
+  <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
+
+  <!-- Template -->
+  <%= render partial: "layouts/parts/section" %>
 </html>

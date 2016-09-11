@@ -31,6 +31,7 @@ Event.create([
   {
     slug: 'lazgam',
     user: user,
+    status: :published,
     title: 'Lazgam เลเซอร์เกมส์ เกมแห่งการผจญภัยสุดมันส์ในโลกแห่งอนาคต',
     description: "LaZgaM ชวนคุณมาระเบิดความมันส์เปิดประสบการณ์แบบสุดขั้ว ณ ใจกลางกรุงเทพฯ กับ “เลเซอร์เกมส์” เกมการแข่งขันยิงปืนเลเซอร์ที่จะมาทำให้อะดรีนาลีนในตัวคุณพลุ่งพล่านอย่างสุดมันส์ คุณจะพบกับประสบการณ์ความมันส์หลากหลายรูปแบบผ่านโปรแกรมการร่วมสนุกที่ทางเราจัดทำขึ้น ในเขาวงกตที่ล้ำสมัยบรรยากาศเสมือนอยู่ในโลก Sci-Fi สนุก มันส์ และลึกลับไปพร้อมกัน
 
@@ -50,6 +51,7 @@ Event.create([
   {
     slug: 'give-me-soap',
     user: user,
+    status: :published,
     title: 'Give Me Soap เวิร์คช็อปทำสบู่ของขวัญ',
     description: '"ในเดือนแห่งเทศกาลวันแม่แบบนี้ เราก็ต้องมาหาอะไรเป็นของขวัญสุดพิเศษให้คุณแม่กันเนาะ มาคราวนี้ Lailalin จะมา สอนทำสบู่ จากวัสดุธรรมชาติกัน แต่ไม่ใช่สบู่ธรรมดาแน่นอน เพราะว่ามาพร้อมกับรูปแบบ สีสัน สดใส สวยงาม เหมาะกับการทำเป็นของขวัญให้กับคนพิเศษ อย่างคุณแม่ ของเราสุดๆ เลยล่ะค่ะ
 
@@ -80,6 +82,7 @@ Event.create([
   {
     slug: 'candle-aroma-perfume-workshop',
     user: user,
+    status: :published,
     title: 'Candle Aroma Perfume Workshop สอนทำเทียนอโรมากลิ่นน้ำหอม',
     description: '"เรียนรู้วิธีทำเทียนอโรมา กลิ่นน้ำหอมจากวัสดุธรรมชาติ ที่พร้อมให้ทุกคนสนุกไปกับการเลือกสรรวัตถุดิบเพื่อให้เกิดเป็นเทียนกลิ่นหอมธรรมชาติไม่ซ้ำใคร
 
@@ -112,6 +115,7 @@ K. SHUN (NATURAL TELLER)
   {
     slug: 'isan-connection-kammao-friends',
     user: user,
+    status: :published,
     title: 'Isan Connection - Kammao & Friends',
     description: 'Once every 2 months with Kammao Perdtanon, the Phin player of The Paradise Bangkok Molam International Band, showcasing the traditional sounds & instruments of Isan, featuring a different guest & friends each time. This is a rare opportunity to experience authentic grass roots molam in the heart of the capital - don’t miss.',
     location_name: 'Studio Lam, Sukhumvit 51, Bangkok',
@@ -121,6 +125,7 @@ K. SHUN (NATURAL TELLER)
   {
     slug: 'beam-x-zudrangma',
     user: user,
+    status: :published,
     title: 'BEAM X ZUDRANGMA: Maft Sai / Dangdut Banget',
     description: "A very special night of music covering all bases from Roots to Electronics, from Africa, Latin America, & the Caribbean, to the Middle East & South East Asia. Maft Sai & Dangdut Banget will be digging deep into the crates, dropping a heavy, vinyl only selection! Boom!
 
@@ -144,6 +149,7 @@ BBC6 : http://www.bbc.co.uk/programmes/b0647wv0",
   {
     slug: 'watercolor-realistic-flowers',
     user: user,
+    status: :published,
     title: 'คลาส “สีน้ำสุดตระการตา” Watercolor Realistic Flowers',
     description: "เวิร์คช็อปวาดดอกไม้เสมือนจริงด้วยเทคนิคสีน้ำ เรียนรู้เทคนิคการร่างภาพดอกไม้จากแบบจริง และลงสีด้วยเทคนิคสีน้ำที่สุดงดงามโรแมนติก
 

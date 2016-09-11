@@ -1,5 +1,5 @@
 
-$(document).ready ->
+$ ->
   bodyId = $('body').attr('id')
 
   initSlick = ->
@@ -63,6 +63,7 @@ $(document).ready ->
       title: 'Hello World!')
     return
 
+  google.maps.event.addDomListener window, 'load', initGoogleMapEvent
+
   initSlick()
   initCategory()
-  initGoogleMapEvent()

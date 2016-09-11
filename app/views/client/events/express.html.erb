@@ -3,11 +3,10 @@
 <div class="section" id="payment-section">
   <div class="container">
     <div class="row">
-
       <!-- Left side -->
       <div class="col-xs-12 col-md-4">
         <div class="event card payment-card">
-          <%= link_to client_event_path(@event.to_url) do %>
+          <%= link_to client_event_path(@event.to_url), target: '_self' do %>
             <% if @event.event_pictures.present? %>
               <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :thumb) %>);"></div>
             <% else %>
@@ -246,7 +245,6 @@
 <script src="https://cdn.omise.co/omise.js"></script>
 <script src="/src/packages/card/card.js"></script>
 <script src="/src/packages/card/jquery.card.js"></script>
-<script src="/src/packages/jquery-validate/jquery.validate.min.js"></script>
 
 <script type="text/javascript"> //Init Function
 

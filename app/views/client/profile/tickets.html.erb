@@ -11,112 +11,125 @@
       <div class="col-xs-12">
         <div class="ticket-list">
           <div class="list-body">
-            <% @tickets_active.each do |ticket| %>
-              <div class="ticket ticket-1">
-                <div class="row">
-                  <div class="col-xs-12 col-md-3">
-                    <div class="event-date-lg">
-                      <div class="month"><%= ticket.section.event_time.try(:strftime, "%b") %></div>
-                      <div class="date"><%= ticket.section.event_time.try(:strftime, "%d") %></div>
+            <% if @tickets_active.count > 0 or @tickets_passed.count > 0 %>
+              <% @tickets_active.each do |ticket| %>
+                <div class="ticket ticket-1">
+                  <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                      <div class="event-date-lg">
+                        <div class="month"><%= ticket.section.event_time.try(:strftime, "%b") %></div>
+                        <div class="date"><%= ticket.section.event_time.try(:strftime, "%d") %></div>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <div class="info">
-                      <div class="info-body">
-                        <h4 class="title">
-                          <%#= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
-                            <a href="<%= client_event_path(ticket.event.id) %>" target="_self"><%= ticket.event.title %></a>
-                          <%# end %>
-                        </h4>
+                    <div class="col-xs-12 col-md-6">
+                      <div class="info">
+                        <div class="info-body">
+                          <h4 class="title">
+                            <%#= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
+                              <a href="<%= client_event_path(ticket.event.id) %>" target="_self"><%= ticket.event.title %></a>
+                            <%# end %>
+                          </h4>
 
-                        <div class="row">
-                          <div class="col-xs-6">
-                            <div>
-                              <span class="ticket-type"><%= ticket.section.title %></span>
-                              <span class="ticket-price">฿ <%= ticket.to_price %></span>
+                          <div class="row">
+                            <div class="col-xs-6">
+                              <div>
+                                <span class="ticket-type"><%= ticket.section.title %></span>
+                                <span class="ticket-price">฿ <%= ticket.to_price %></span>
+                              </div>
                             </div>
-                          </div>
-                          <div class="col-xs-6">
-                            <div class="ticket-code">
-                              <label>TICKET ID:</label>
-                              <%= ticket.code %>
+                            <div class="col-xs-6">
+                              <div class="ticket-code">
+                                <label>TICKET ID:</label>
+                                <%= ticket.code %>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="info-footer">
-                        <div class="row">
-                          <div class="col-xs-12 col-md-7">
-                            <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= ticket.section.to_event_human %></div>
-                            <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= ticket.event.location_name %></div>
+                        <div class="info-footer">
+                          <div class="row">
+                            <div class="col-xs-12 col-md-7">
+                              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= ticket.section.to_event_human %></div>
+                              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= ticket.event.location_name %></div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-xs-12 col-md-3">
-                    <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>">
-                      <img src="<%= ticket.qr_code(:medium) %>" width="100%" />
-                    </a>
+                    <div class="col-xs-12 col-md-3">
+                      <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>">
+                        <img src="<%= ticket.qr_code(:medium) %>" width="100%" />
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            <% end %>
+              <% end %>
 
-            <% if @has_tickets_passed %>
-              <!-- ....................... PAST EVENT ....................... -->
-            <% end  %>
-
-            <% @tickets_passed.each do |ticket| %>
-              <div class="ticket ticket-1">
-                <div class="row">
-                  <div class="col-xs-12 col-md-3">
-                    <div class="event-date-lg">
-                      <div class="month"><%= ticket.section.event_time.try(:strftime, "%b") %></div>
-                      <div class="date"><%= ticket.section.event_time.try(:strftime, "%d") %></div>
-                    </div>
-                  </div>
-                  <div class="col-xs-12 col-md-6">
-                    <div class="info">
-                      <div class="info-body">
-                        <h4 class="title">
-                          <%#= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
-                            <a href="<%= client_event_path(ticket.event.id) %>" target="_self"><%= ticket.event.title %></a>
-                          <%# end %>
-                        </h4>
-
-                        <div class="row">
-                          <div class="col-xs-6">
-                            <div>
-                              <span class="ticket-type"><%= ticket.section.title %></span>
-                              <span class="ticket-price">฿ <%= ticket.to_price %></span>
-                            </div>
-                          </div>
-                          <div class="col-xs-6">
-                            <div class="ticket-code">
-                              <label>TICKET ID:</label>
-                              <%= ticket.code %>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="info-footer">
-                        <div class="row">
-                          <div class="col-xs-12 col-md-7">
-                            <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= ticket.section.to_event_human %></div>
-                            <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= ticket.event.location_name %></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xs-12 col-md-3">
-                    <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>" target="_self">
-                      <img src="<%= ticket.qr_code(:medium) %>" width="100%" />
-                    </a>
-                  </div>
+              <% if @has_tickets_passed %>
+              <div class="past-event-section">
+                <div class="past-event-header">
+                  <div class="past-event-title">PAST EVENTS</div>
                 </div>
               </div>
+              <% end  %>
+
+              <% @tickets_passed.each do |ticket| %>
+                <div class="ticket ticket-1">
+                  <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                      <div class="event-date-lg">
+                        <div class="month"><%= ticket.section.event_time.try(:strftime, "%b") %></div>
+                        <div class="date"><%= ticket.section.event_time.try(:strftime, "%d") %></div>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                      <div class="info">
+                        <div class="info-body">
+                          <h4 class="title">
+                            <%#= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
+                              <a href="<%= client_event_path(ticket.event.id) %>" target="_self"><%= ticket.event.title %></a>
+                            <%# end %>
+                          </h4>
+
+                          <div class="row">
+                            <div class="col-xs-6">
+                              <div>
+                                <span class="ticket-type"><%= ticket.section.title %></span>
+                                <span class="ticket-price">฿ <%= ticket.to_price %></span>
+                              </div>
+                            </div>
+                            <div class="col-xs-6">
+                              <div class="ticket-code">
+                                <label>TICKET ID:</label>
+                                <%= ticket.code %>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="info-footer">
+                          <div class="row">
+                            <div class="col-xs-12 col-md-7">
+                              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= ticket.section.to_event_human %></div>
+                              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= ticket.event.location_name %></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                      <a class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(ticket.event.id) %>" target="_self">
+                        <img src="<%= ticket.qr_code(:medium) %>" width="100%" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% else %>
+              <div class="empty">
+                <i class="icon icon-lg icon-ticket"></i>
+                <h4 class="description">คุณยังไม่มีบัตรเข้าร่วมงานเลยค่ะ</h4>
+                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
+              </div>
+
             <% end %>
           </div>
         </div>

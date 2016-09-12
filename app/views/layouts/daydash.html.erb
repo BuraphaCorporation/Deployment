@@ -62,7 +62,7 @@
                       <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
                       <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
                       <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
-                      <li><%= link_to "Account Settings", client_profile_settings_path(current_user) %></li>
+                      <li><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
                       <li>
                       <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
                       </li>

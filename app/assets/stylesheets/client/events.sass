@@ -64,6 +64,7 @@ html, body
 #topbar
   .navbar
     margin-bottom: 0px
+    border-bottom: 1px solid #eee
   .navbar-brand
     padding: 10px 15px
     height: 60px
@@ -254,29 +255,26 @@ label
 .icon-xs
   width: 16px
   height: 16px
+.icon-lg
+  width: 64px
+  height: 64px
 
 .icon-facebook
   background-image: asset-url('icons/icon-facebook.png')
-
 .icon-facebook-color
   background-image: asset-url('icons/icon-facebook-color.png')
-
 .icon-line
   background-image: asset-url('icons/icon-line.png')
 .icon-line-black
   background-image: asset-url('icons/icon-line-black.png')
-
 .icon-instagram
   background-image: asset-url('icons/icon-instagram.png')
-
 .icon-twitter
   background-image: asset-url('icons/icon-twitter.png')
 .icon-twitter-color
   background-image: asset-url('icons/icon-twitter-color.png')
-
 .icon-map-pin
   background-image: asset-url('icons/icon-map-pin.png')
-
 .icon-calendar
   background-image: asset-url('icons/icon-calendar.png')
 .icon-order
@@ -303,7 +301,14 @@ label
   background-image: asset-url('icons/icon-comments.png')
 .icon-arrow-left
   background-image: asset-url('icons/icon-arrow-left.png')
-
+.icon-info
+  background-image: asset-url('icons/icon-info.png')
+.icon-submit
+  background-image: asset-url('icons/icon-submit.png')
+.icon-ticket
+  background-image: asset-url('icons/icon-ticket.png')
+.icon-shopping
+  background-image: asset-url('icons/icon-shopping.png')
 
 
 .btn-daydash
@@ -311,6 +316,10 @@ label
   color: #444
   &:hover, &:active, &:visited, &:link
     color: black
+
+.btn-daydash-md
+  padding: 10px 15px
+  font-size: 18px
 
 .btn-daydash-lg
   padding: 15px
@@ -509,7 +518,11 @@ label
 
   .title
     font-size: 20px
-    margin-bottom: 80px
+    font-weight: normal
+    line-height: 1.6em
+
+    a:hover
+      text-decoration: none
 
   .meta
     margin-bottom: 5px
@@ -539,6 +552,39 @@ label
         tr
           td
             padding-bottom: 15px
+    .info-footer
+      .nav
+        li
+          padding: 2.5px
+
+          a
+            font-size: 18px
+            font-weight: 200
+            border-radius: 2px
+
+            .icon
+              float: left
+              margin-top: 5px
+              margin-right: 0px
+
+          .btn-daydash-inverse
+            &:hover, &:active, &:link, &:visited
+              background: #444
+
+  @media (min-width: 992px)
+    .order-body
+      display: table
+      width: 100%
+
+      .left, .right
+        display: table-cell
+        float: none
+        vertical-align: top
+        position: relative
+
+    .info-2
+      position: absolute
+      bottom: 0px
 
 .event-for-organizer
   .list-action-nav
@@ -582,11 +628,11 @@ label
     a
       background: transparent
       padding-bottom: 8px
-      color: #aaa
+      color: #444
       &:visited, &:link, &:active
         background: transparent
         padding-bottom: 8px
-        color: #aaa
+        color: #444
       &:hover, &:visited:hover, &:link:hover, &:active:hover
         color: #444
     &.active a
@@ -1011,7 +1057,7 @@ label
   #profile-nav, #organizer-nav
     text-align: center
     margin: 0px auto
-    width: 270px
+    width: 285px
     margin-top: 15px
 
 
@@ -1059,6 +1105,33 @@ label
         .list-body
           padding-top: 30px
 
+          .past-event-section
+            margin-top: 50px
+            margin-bottom: 30px
+            border-top: 3px dotted #ccc
+
+            .past-event-header
+              margin-top: -13px
+              text-align: center
+
+              .past-event-title
+                margin: 0px
+                display: inline-block
+                padding: 0px 15px
+                font-size: 12px
+                color: #aaa
+                background: #fcfcfc
+                letter-spacing: 1px
+
+        .empty
+          padding: 30px 0px
+          text-align: center
+
+          .description
+            margin-top: 20px
+            margin-bottom: 20px
+
+
 #profile-order-list-page
   #main
     background-color: #fcfcfc
@@ -1068,6 +1141,14 @@ label
       .order-list
         .list-body
           padding-top: 30px
+
+        .empty
+          padding: 30px 0px
+          text-align: center
+
+          .description
+            margin-top: 20px
+            margin-bottom: 20px
 
 
 #profile-wishlist-page

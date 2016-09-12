@@ -11,77 +11,89 @@
       <div class="col-xs-12">
         <div class="order-list">
           <div class="list-body">
-            <% @orders.each do |order| %>
-            <div class="order order-1">
-              <div class="order-header row">
-                <div class="col-xs-12 col-md-6 left">
-                  <strong>เลขที่ออร์เดอร์:</strong> <%= order.code %>
+            <% if @orders.count > 0 %>
+              <% @orders.each do |order| %>
+              <div class="order order-1">
+                <div class="order-header row">
+                  <div class="col-xs-12 col-md-6 left">
+                    เลขที่ออร์เดอร์: <strong><%= order.code %></strong>
+                  </div>
+                  <div class="col-xs-12 col-md-6 right">
+                    สั่งซื้อเมื่อ <%= order.created_at.try(:strftime, "%A %d %B, %H:%M") %>
+                  </div>
                 </div>
-                <div class="col-xs-12 col-md-6 right">
-                  สั่งซื้อเมื่อ <%= order.created_at.try(:strftime, "%A %d %B, %H:%M") %>
-                </div>
-              </div>
-              <div class="order-body row">
-                <div class="col-xs-12 col-md-6 left">
-                  <a class="cover" style="background-image: url(<%= order.event.event_pictures.first.try(:media, :thumb) %>);" href="<%= client_event_path(order.event.id) %>"></a>
-                  <h4 class="title"><a href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
-                  <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
-                </div>
-                <div class="col-xs-12 col-md-6 right">
-                  <div class="info">
-                    <div class="info-header">
-                      <table class="table">
-                        <tr>
-                          <td width="150">ราคารวม</td>
-                          <td>฿ <%= order.to_price %></td>
-                        </tr>
-                        <tr>
-                          <td>วิธีการชำระเงิน</td>
-                          <td><%= order.payment.channel %></td>
-                        </tr>
-                        <tr>
-                          <td>สถานะการชำระเงิน</td>
-                          <td><%= order.status %></td>
-                        </tr>
-                        <% if order.transfer? %>
-                          <tr>
-                            <td>รหัสชำระเงิน</td>
-                            <td><%= order.code %></td>
-                          </tr>
-                        <% end %>
-                      </table>
+                <div class="row">
+                  <div class="order-body">
+                    <div class="col-xs-12 col-md-6 left">
+                      <a class="cover" style="background-image: url(<%= order.event.event_pictures.first.try(:media, :thumb) %>);" target="_blank" href="<%= client_event_path(order.event.id) %>"></a>
+                      <h4 class="title"><a target="_blank" href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
+                      <div class="info-2">
+                        <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
+                      </div>
                     </div>
-                    <div class="info-body">
-                      <table class="table ticket-list">
-                        <% order.tickets.each do |ticket| %>
-                          <tr class="ticket">
-                            <td class="ticket-title" width="150"><%= ticket.section.title %></td>
-                            <td class="ticket-code"><%= ticket.code %></td>
-                            <td class="ticket-price" width="100" align="right">฿ <%= ticket.to_price %></td>
-                          </tr>
-                        <% end %>
-                        <tr class="total">
-                          <td></td>
-                          <td><strong>TOTAL</strong></td>
-                          <td align="right"><strong>฿ <%= order.to_price %></strong></td>
-                        </tr>
-                      </table>
-                    </div>
-                    <div class="info-footer">
-                      <div class="row">
-                        <% if order.transfer? %>
-                          <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal">วิธีการชำระเงิน</a></div>
-                          <div class="col-xs-6"><a class="btn btn-block btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal">แจ้งชำระเงิน</a></div>
-                        <% else %>
-                          <div class="col-xs-12"><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></div>
-                        <% end %>
+                    <div class="col-xs-12 col-md-6 right">
+                      <div class="info">
+                        <div class="info-header">
+                          <table class="table">
+                            <tr>
+                              <td width="150">ราคารวม</td>
+                              <td>฿ <%= order.to_price %></td>
+                            </tr>
+                            <tr>
+                              <td>วิธีการชำระเงิน</td>
+                              <td><%= order.payment.channel %></td>
+                            </tr>
+                            <tr>
+                              <td>สถานะการชำระเงิน</td>
+                              <td><%= order.status %></td>
+                            </tr>
+                            <% if order.transfer? %>
+                              <tr>
+                                <td>รหัสชำระเงิน</td>
+                                <td><%= order.code %></td>
+                              </tr>
+                            <% end %>
+                          </table>
+                        </div>
+                        <div class="info-body">
+                          <table class="table ticket-list">
+                            <% order.tickets.each do |ticket| %>
+                              <tr class="ticket">
+                                <td class="ticket-title" width="150"><%= ticket.section.title %></td>
+                                <td class="ticket-code"><%= ticket.code %></td>
+                                <td class="ticket-price" width="100" align="right">฿ <%= ticket.to_price %></td>
+                              </tr>
+                            <% end %>
+                            <tr class="total">
+                              <td></td>
+                              <td><strong>TOTAL</strong></td>
+                              <td align="right"><strong>฿ <%= order.to_price %></strong></td>
+                            </tr>
+                          </table>
+                        </div>
+                        <div class="info-footer">
+                          <ul class="nav nav-justified">
+                          <% if order.transfer? %>
+                            <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
+                            <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
+                          <% else %>
+                            <li><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></li>
+                          <% end %>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <% end if @has_tickets %>
+              <% end if @has_tickets %>
+            <% else %>
+              <div class="empty">
+                <i class="icon icon-lg icon-shopping"></i>
+                <h4 class="description">ยังไม่มีรายการสั่งซื้อ</h4>
+                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

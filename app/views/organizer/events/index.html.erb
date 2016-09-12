@@ -47,7 +47,7 @@
                           <a href="<%= checkin_organizer_event_path(event) %>"><i class="icon icon-xs icon-checkin"></i> Check in</a>
                         </li>
                         <li>
-                          <a href="<%= edit_organizer_event_path(event) %>"><i class="icon icon-xs icon-edit"></i> Edit</a>
+                          <a href="<%= edit_organizer_event_path(event) %>" target="_self"><i class="icon icon-xs icon-edit"></i> Edit</a>
                         </li>
                         <li>
                           <% if event.status.published? %>

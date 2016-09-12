@@ -1,5 +1,4 @@
-
-$ ->
+$(document).on 'ready', (event) ->
   bodyId = $('body').attr('id')
 
   initSlick = ->

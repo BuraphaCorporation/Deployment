@@ -82,7 +82,7 @@ class User < ApplicationRecord
 
   scope :latest, -> { order 'created_at desc' }
   enumerize :gender, in: [:male, :female, :not_specify], default: :not_specify #default: lambda { |user| SexIdentifier.sex_for_name(user.name).to_sym }
-  enumerize :role, in: [:user, :admin], default: :user
+  enumerize :role, in: [:user, :organizer, :admin], default: :user
 
   def admin?
     role == 'admin'
@@ -104,6 +104,8 @@ class User < ApplicationRecord
     graph = Koala::Facebook::API.new(token)
     profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
     image = graph.get_picture(profile['id'], type: :large)
+
+    p profile
 
     if find_by_email(profile['email']).nil?
       where(provider: 'facebook', uid: profile['id']).first_or_create(
@@ -129,6 +131,7 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
+    p auth
     if find_by_email(auth.info.email).nil?
       where(provider: auth.provider, uid: auth.uid).first_or_create(
         email:      auth.extra.raw_info.email,
@@ -161,6 +164,7 @@ class User < ApplicationRecord
   end
 
   def self.process_date_of_birth(data)
+    p "process_date_of_birth data #{data}"
     date = data.split('/')
     date = Date.new(date[2].to_i, date[0].to_i, date[1].to_i)
   end
@@ -220,6 +224,6 @@ private
   end
 
   def send_welcome_email
-    UserMailer.welcome(self).deliver
+    UserWelcomeWorker.perform_async(self.id)
   end
 end

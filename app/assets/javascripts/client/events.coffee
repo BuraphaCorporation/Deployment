@@ -1,5 +1,6 @@
+$(document).on 'ready', (event) ->
+  bodyId = $('body').attr('id')
 
-$(document).ready ->
   initSlick = ->
     $('#cover-slick').not('.slick-initialized').slick
       infinite: true
@@ -9,8 +10,10 @@ $(document).ready ->
       autoplay: true
       autoplaySpeed: 4000
 
-  initSlick()
-
+  $('.category-filter').on 'click', ->
+    category_id = $(this).attr('data-filter') # if category_id == undefined
+    set_category(category_id)
+    false
 
   set_category = (category_id) ->
     if category_id != undefined
@@ -23,20 +26,16 @@ $(document).ready ->
     selected.parent().addClass 'active'
 
   initCategory = ->
+    return if bodyId == "organizer-events-edit" || bodyId == "organizer-events-new"
     category_id = $("[name=category-id]").attr('content')
+
     return false if category_id == "" or category_id == undefined
 
     set_category(category_id)
     false
 
-  initCategory()
 
-  $('.category-filter').on 'click', ->
-    category_id = $(this).attr('data-filter') # if category_id == undefined
-    set_category(category_id)
-    false
-
-  initGoogleMap =  ->
+  initGoogleMapEvent =  ->
     lat = $("#google-map").attr('data-lat')
     lng = $("#google-map").attr('data-lng')
     return if lat == undefined || lng == undefined
@@ -63,17 +62,107 @@ $(document).ready ->
       title: 'Hello World!')
     return
 
-  initGoogleMap()
+  google.maps.event.addDomListener window, 'load', initGoogleMapEvent
 
+  initSlick()
+  initCategory()
 
-  ((d, s, id) ->
-    js = undefined
-    fjs = d.getElementsByTagName(s)[0]
-    if d.getElementById(id)
+  initDatetimepicker($('body'))
+
+  initGoogleMapOrganizer = ->
+    map = new (google.maps.Map)(document.getElementById('map'),
+      center:
+        lat: 13.7563309
+        lng: 100.50176510000006
+      zoom: 13
+      mapTypeId: google.maps.MapTypeId.ROADMAP)
+    markers = []
+    # Create the search box and link it to the UI element.
+    input = document.getElementById('pac-input')
+    searchBox = new (google.maps.places.SearchBox)(input)
+
+    setMarkers = ->
+      i = 0
+      while i < markers.length
+        markers[i].setMap yourMap
+        #Add the marker to the map
+        i++
       return
-    js = d.createElement(s)
-    js.id = id
-    js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738'
-    fjs.parentNode.insertBefore js, fjs
+
+    hideMarkers = ->
+      i = 0
+      while i < markers.length
+        markers[i].setMap null
+        #Remove the marker from the map
+        i++
+      return
+
+    addMarker = (location) ->
+      hideMarkers()
+      markers = []
+      marker = new (google.maps.Marker)(
+        position: location
+        map: map
+        draggable: true)
+      markers.push marker
+      updateLatLng location.lat(), location.lng()
+      marker.addListener 'dragend', (event) ->
+        updateLatLng event.latLng.lat(), event.latLng.lng()
+        return
+      return
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push input
+    # Bias the SearchBox results towards current map's viewport.
+    map.addListener 'bounds_changed', ->
+      searchBox.setBounds map.getBounds()
+      return
+    map.addListener 'click', (event) ->
+      addMarker event.latLng
+      return
+    # Listen for the event fired when the user selects a prediction and retrieve
+    # more details for that place.
+    searchBox.addListener 'places_changed', ->
+      places = searchBox.getPlaces()
+      if places.length == 0
+        return
+      # Clear out the old markers.
+      # markers.forEach(function(marker) {
+      #   marker.setMap(null);
+      # });
+      # markers = [];
+      # For each place, get the icon, name and location.
+      bounds = new (google.maps.LatLngBounds)
+      places.forEach (place) ->
+        icon =
+          url: place.icon
+          size: new (google.maps.Size)(71, 71)
+          origin: new (google.maps.Point)(0, 0)
+          anchor: new (google.maps.Point)(17, 34)
+          scaledSize: new (google.maps.Size)(25, 25)
+        addMarker place.geometry.location
+        # Create a marker for each place.
+        # markers.push(new google.maps.Marker({
+        #   map: map,
+        #   title: place.name,
+        #   position: place.geometry.location,
+        #   draggable: true
+        # }));
+        if place.geometry.viewpor
+          # Only geocodes have viewport.
+          bounds.union place.geometry.viewport
+        else
+          bounds.extend place.geometry.location
+        return
+      map.fitBounds bounds
+      return
     return
-  ) document, 'script', 'facebook-jssdk'
+
+  updateLatLng = (lat, lng) ->
+    $('#event_latitude').val lat
+    $('#event_longitude').val lng
+    return
+
+  google.maps.event.addDomListener window, 'load', initGoogleMapOrganizer
+
+  if bodyId == "organizer-events-new"
+    onTicketAdd()

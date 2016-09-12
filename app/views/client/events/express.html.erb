@@ -3,11 +3,10 @@
 <div class="section" id="payment-section">
   <div class="container">
     <div class="row">
-
       <!-- Left side -->
       <div class="col-xs-12 col-md-4">
         <div class="event card payment-card">
-          <%= link_to client_event_path(@event.to_url) do %>
+          <%= link_to client_event_path(@event.to_url), target: '_self' do %>
             <% if @event.event_pictures.present? %>
               <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :thumb) %>);"></div>
             <% else %>
@@ -18,7 +17,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <h4 class="title text-left">
-                  <%= link_to @event.title, client_event_path(@event.to_url) %>
+                  <%= link_to @event.title, client_event_path(@event.to_url), target: '_self' %>
                 </h4>
                 <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></div>
                 <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location_name %></div>
@@ -168,17 +167,17 @@
                       </div>
                       <div class="form-group col-xs-12 col-md-6">
                         <label>Name</label>
-                        <input class="form-control" type="text" name="card_name" value="" data-omise="holder_name">
+                        <input class="form-control" type="text" name="card_name" value="" placeholder="FULL NAME" data-omise="holder_name">
                       </div>
                       <div class="form-group col-xs-12 col-md-6">
                         <label>Card Number</label>
-                        <input class="form-control" type="text" name="card_number" value="" data-omise="number" />
+                        <input class="form-control" type="text" name="card_number" value="" placeholder="•••• •••• •••• ••••" data-omise="number" />
                       </div>
                     </div>
                     <div class="row">
                       <div class="form-group col-xs-12 col-md-6">
                         <label>Expire Date</label>
-                        <input class="form-control" type="text" name="card_expiry" value="" data-omise="expiry" />
+                        <input class="form-control" type="text" name="card_expiry" value="" placeholder="••/••" data-omise="expiry" />
                         <!--div class="form-inline">
                           <select class="form-control" name="expire_month" data-omise="expiration_month">
                             <option value="">Month</option>
@@ -196,7 +195,7 @@
                       </div>
                       <div class="form-group col-xs-12 col-md-6">
                         <label>CVC</label>
-                        <input class="form-control" type="text" name="card_cvc" value="" data-omise="security_code" />
+                        <input class="form-control" type="text" name="card_cvc" maxlength="3" value="" placeholder="•••" data-omise="security_code" />
                       </div>
                       <div class="col-xs-12">
                         <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
@@ -246,7 +245,6 @@
 <script src="https://cdn.omise.co/omise.js"></script>
 <script src="/src/packages/card/card.js"></script>
 <script src="/src/packages/card/jquery.card.js"></script>
-<script src="/src/packages/jquery-validate/jquery.validate.min.js"></script>
 
 <script type="text/javascript"> //Init Function
 
@@ -277,33 +275,42 @@ function init_form_validate() {
 
   $('#checkout').validate({
     highlight: function(element) {
-        $(element).closest('.form-group').addClass('has-error');
+      $(element).closest('.form-group').addClass('has-error');
     },
     unhighlight: function(element) {
-        $(element).closest('.form-group').removeClass('has-error');
+      $(element).closest('.form-group').removeClass('has-error');
     },
     submitHandler: function() {
 
       var form = $('#checkout');
+
+      $('.btn-submit').button('loading');
+      $('#token_errors').hide();
 
       if(form.find("[name=payment_method]").val() == 'credit_card') {
         omise_submit(form);
         return false;
       }
       else {
+        transfer_submit(form);
         return true;
       }
     }
   });
 }
 
+function transfer_submit(form) {
+  try {
+    form.get(0).submit();
+  } catch(e) {
+    $('.btn-submit').button('reset');
+  }
+}
+
 function omise_submit(form) {
 
   try {
     Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
-
-    $('.btn-submit').button('loading');
-    $('#token_errors').hide();
 
     var expiry = $("[name=card_expiry]").val();
     var match = null;

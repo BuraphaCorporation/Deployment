@@ -17,6 +17,7 @@
 #  order_id             :integer
 #  price                :integer
 #  stages               :string
+#  event_date           :datetime
 #
 # Indexes
 #
@@ -44,6 +45,7 @@ class Ticket < ApplicationRecord
 
   before_create :set_default_ticket_code
   after_create :set_default_ticket_qr_code
+  after_create :set_event_date
   # after_commit :send_email_to_buyer, on: [:create, :update]
 
   enumerize :stages, in: [:active, :passed], default: :active
@@ -99,6 +101,9 @@ private
     self.update(qr_code: File.open(attachment, 'rb'))
   end
 
+  def set_event_date
+    self.update(event_date: self.section.event_time)
+  end
   # def send_email_to_buyer
   #   UserMailer.ticket(self.order).deliver! if status.available?
   # rescue

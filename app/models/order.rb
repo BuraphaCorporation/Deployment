@@ -45,8 +45,10 @@ class Order < ApplicationRecord
   after_create :set_invoice_no
 
   enumerize :status, in: [:paid, :unpaid, :pending, :cancel], default: :pending
-  scope :available, -> { all.reject{ |o| o.tickets.empty? } }
+  scope :available,               -> { all.reject{ |o| o.tickets.empty? } }
   scope :order_by_event_upcoming, -> { order(id: :desc).available }
+  scope :paid,                    -> { where(status: :paid) }
+  scope :event_today,             -> { joins(:tickets).paid.where("tickets.event_date >= ? and tickets.event_date <= ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day) }
 
   def approve!
     self.update(status: :paid)

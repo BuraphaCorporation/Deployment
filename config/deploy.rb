@@ -20,10 +20,10 @@ set :repo_url, 'git@github.com:hongklay/daydash.git'
 set :deploy_to, '/home/deploy/daydash'
 set :ssh_options, {:forward_agent => true}
 
-# set :slackistrano, {
-#   channel: '#system',
-#   webhook: 'https://hooks.slack.com/services/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'
-# }
+set :slackistrano, {
+  channel: '#system',
+  webhook: 'https://hooks.slack.com/services/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'
+}
 
 # set :format, :pretty
 # set :log_level, :debug
@@ -58,9 +58,10 @@ namespace :deploy do
   end
 
   desc 'run workers'
-  task :workers do
+  task :restart_workers do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "su - deploy -c 'cd /home/deploy/daydash/current && $HOME/.rbenv/bin/rbenv exec bundle exec sidekiq -i 5 -e production' > /dev/null 2>&1 &"
+      # execute "su - deploy -c 'cd /home/deploy/daydash/current && $HOME/.rbenv/bin/rbenv exec bundle exec sidekiq -i 5 -e production' > /dev/null 2>&1 &"
+      execute :sudo, "restart sidekiq index=5"
     end
   end
 
@@ -78,9 +79,8 @@ namespace :deploy do
 
   after :finishing, 'deploy:cleanup'
   after :publishing, 'deploy:restart'
-  after "deploy:published", :generate_error_html
-
-  # after "deploy:published", "restart_sidekiq"
+  after :published, :generate_error_html
+  after :published, :restart_workers
 end
 
 namespace :rails do
@@ -97,7 +97,7 @@ namespace :rails do
   task :logs do
     on roles(:web) do
       within current_path do
-        execute :tail, '-f log/puma_error.log'
+        execute :sudo, 'tail -f /var/log/nginx/error.log'
       end
     end
   end

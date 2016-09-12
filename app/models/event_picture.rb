@@ -26,7 +26,7 @@ class EventPicture < ApplicationRecord
 
   has_attached_file :media,
     styles: {
-              full:     "1600x650#",
+              full:     "1600x550#",
               normal2x: "750x590#",
               normal3x: "1125x885#",
               thumb2x:  "750x450#",

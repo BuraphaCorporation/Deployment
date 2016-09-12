@@ -6,16 +6,14 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.welcome.subject
   #
-  def welcome(user)
-    @user    = user
+  def welcome(user_id)
+    @user    = User.find(user_id)
     @subject = "Welcome to daydash.co"
-
-    mail to: @user.email, subject: 'Welcome to daydash.co'
+    mail to: @user.email, subject: @subject
   end
 
-  def order(order)
-
-    @order    = order
+  def order(order_id)
+    @order    = Order.find(order_id)
     @user     = @order.user
     @event    = @order.event
     @payment  = @order.payment
@@ -27,8 +25,8 @@ class UserMailer < ApplicationMailer
     mail to: @user.email, subject: @title
   end
 
-  def ticket(order)
-    @order    = order
+  def ticket(order_id)
+    @order    = Order.find(order_id)
     @user     = @order.user
     @event    = @order.event
     @payment  = @order.payment
@@ -39,8 +37,8 @@ class UserMailer < ApplicationMailer
     mail to: @user.email, subject: @title
   end
 
-  def reminder(order)
-    @order    = order
+  def reminder(order_id)
+    @order    = Order.find(order_id)
     @user     = @order.user
     @event    = @order.event
     @payment  = @order.payment

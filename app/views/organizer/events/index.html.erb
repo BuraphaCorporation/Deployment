@@ -4,7 +4,7 @@
 <script>$('#organizer-nav #menu-event-list').addClass('active');</script>
 
 <div class="section" id="event-list-section">
-  
+
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
@@ -25,13 +25,13 @@
                       <div class="ticket-sold-panel">
                         <div class="row">
                           <div class="col-xs-7 ticket-sold-label">จำนวนบัตรขายไป</div>
-                          <div class="col-xs-5 ticket-sold-value">0 / 35</div>
+                          <div class="col-xs-5 ticket-sold-value"><%= event.sections.sum(:bought) %> / <%= event.sections.sum(:total) %></div>
                         </div>
                         <div class="row">
                           <div class="col-xs-12">
                             <div class="progress">
-                              <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                <span class="sr-only">60% Complete</span>
+                              <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= event.sections.sum(:bought).to_f / event.sections.sum(:total).to_f * 100 %>%;">
+                                <span class="sr-only"><%= event.sections.sum(:bought).to_f / event.sections.sum(:total).to_f * 100 %>% Complete</span>
                               </div>
                             </div>
                           </div>
@@ -47,10 +47,14 @@
                           <a href="<%= checkin_organizer_event_path(event) %>"><i class="icon icon-xs icon-checkin"></i> Check in</a>
                         </li>
                         <li>
-                          <a href="<%= edit_organizer_event_path(event) %>"><i class="icon icon-xs icon-edit"></i> Edit</a>
+                          <a href="<%= edit_organizer_event_path(event) %>" target="_self"><i class="icon icon-xs icon-edit"></i> Edit</a>
                         </li>
                         <li>
-                          <a href="<%= unpublish_organizer_event_path(event) %>"><i class="icon icon-xs icon-unpublish"></i> Unpublish</a>
+                          <% if event.status.published? %>
+                            <a href="<%= unpublish_organizer_event_path(event) %>"><i class="icon icon-xs icon-unpublish"></i> Unpublish</a>
+                          <% else %>
+                            <a href="<%= published_organizer_event_path(event) %>"><i class="icon icon-xs icon-checked"></i> Published</a>
+                          <% end %>
                         </li>
                       </ul>
                     </div>

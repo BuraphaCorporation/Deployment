@@ -19,6 +19,7 @@
 #  slug             :string
 #  name             :string
 #  ticket_type      :string
+#  status           :string
 #
 # Indexes
 #
@@ -53,12 +54,13 @@ class Event < ApplicationRecord
   # end
 
   enumerize :ticket_type, in: [:general, :deal], default: :general
+  enumerize :status, in: [:published, :unpublish], default: :unpublish
 
   scope :available, -> { joins(:sections).where('sections.event_time > ?', Time.zone.now).uniq }
   scope :today,     -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
-  scope :list,      -> { where('uptime > ?', Time.zone.now).order(:uptime) }
+  scope :list,      -> { where(status: :published).where('uptime > ?', Time.zone.now).order(:uptime) }
 
 
   def to_url
@@ -81,17 +83,16 @@ class Event < ApplicationRecord
     self.event_pictures.present? ? self.event_pictures.first.try(:media, :thumb) : ''
   end
 
-  def self.update_uptime
-    all.each do |event|
-      event_time = event.sections.available.min_by(&:event_time).event_time
-      event.update(uptime: event_time)
-    end
-  end
-
   def get_total_sales
     orders.sum(:price).to_f / 100
   end
 
+  def self.update_uptime_present
+    all.each do |event|
+      p event_time = event.sections.available.min_by(&:event_time).try(:event_time)
+      event.update(uptime: event_time) unless event_time.nil?
+    end
+  end
   private
     def set_organizer
       self.user ||= User.find_by_email('hello@daydash.co')

@@ -1,3 +1,35 @@
+<script> //Init Function
+  function initDatetimepicker(element) {
+    $('.datepicker', element).datetimepicker({
+      format: 'DD/MM/YYYY'
+    });
+
+    $('.timepicker', element).datetimepicker({
+      format: 'LT',
+      stepping: 15
+    });
+  }
+
+  function onTicketAdd(button) {
+    var template = $('#new-ticket-template').html();
+    Mustache.parse(template);
+    var rendered = Mustache.render(template, {});
+    var element = $(rendered);
+    $('.ticket-list tbody').append(element);
+
+    initDatetimepicker(element);
+
+    return false;
+  }
+
+  function onTicketDelete(button) {
+    var element = $(button).parents('.ticket');
+    console.log(element);
+    element.remove();
+
+    return false;
+  }
+</script>
 
 <!-- Template -->
 <script id="new-ticket-template" type="x-tmpl-mustache">
@@ -24,8 +56,8 @@
     </td>
 
     <td width="100" align="right">
-      <a class="btn btn-sm btn-default btn-ticket-delete" href="#" onclick="return on_ticket_delete(this);"><i class="fa fa-minus"></i></a>
-      <a class="btn btn-sm btn-default btn-ticket-add" href="#" onclick="return on_ticket_add(this);"><i class="fa fa-plus"></i></a>
+      <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this);"><i class="fa fa-minus"></i></a>
+      <a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-plus"></i></a>
     </td>
   </tr>
 </script>

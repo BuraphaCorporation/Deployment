@@ -15,5 +15,8 @@ module Daydash
     config.active_record.time_zone_aware_types = [:datetime, :time]
     config.active_record.default_timezone = :local
     config.exceptions_app = self.routes
+
+    config.autoload_paths += %W(#{config.root}/app/jobs/workers)
+    config.eager_load_paths += %W(#{config.root}/app/jobs/workers)
   end
 end

@@ -410,7 +410,7 @@
 </head>
 <body>
   <center>
-    <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable" style="background-color:#FAFAFA;">
       <tr>
         <td align="center" valign="top" id="bodyCell">
         <!-- BEGIN TEMPLATE // -->
@@ -420,7 +420,7 @@
         <td align="center" valign="top" width="600" style="width:600px;">
         <![endif]-->
 
-          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer">
+          <table border="0" cellpadding="0" cellspacing="0" width="100%" class="templateContainer" style="background-color: #FFFFFF; max-width:600px; ">
 
             <!-- Pre Header -->
             <tr class="pre-header">
@@ -442,7 +442,7 @@
                           <tbody>
                             <tr>
                               <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:9px; padding-right:18px;">
-                                Use this area to offer a short preview of your email's content.
+                                <!-- Use this area to offer a short preview of your email's content. -->
                               </td>
                             </tr>
                           </tbody>
@@ -460,7 +460,7 @@
                           <tbody>
                             <tr>
                               <td valign="top" class="mcnTextContent" style="padding-top:0; padding-left:18px; padding-bottom:9px; padding-right:18px;">
-                                <a href="*|ARCHIVE|*" target="_blank">View this email in your browser</a>
+                                <!--a href="*|ARCHIVE|*" target="_blank">View this email in your browser</a-->
                               </td>
                             </tr>
                           </tbody>
@@ -492,8 +492,8 @@
                           <tbody>
                             <tr>
                               <td class="mcnImageContent" valign="top" style="padding-right: 9px; padding-left: 9px; padding-top: 0; padding-bottom: 0;">
-                                <a href="http://daydash.co/">
-                                  <%= image_tag "#{App.domain}/src/images/theme/logo.png" %>
+                                <a href="<%= "#{App.domain}" %>">
+                                  <img src="<%= "#{App.domain}/src/images/theme/logo.png" %>" style="height: 60px" />
                                 </a>
                                 <table style="width:564px;" class="mcpreview-image-uploader">
                                 </table>

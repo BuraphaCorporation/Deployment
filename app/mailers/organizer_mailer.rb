@@ -6,8 +6,8 @@ class OrganizerMailer < ApplicationMailer
   #
   #   en.organizer_mailer.order.subject
   #
-  def order(order)
-    @order    = order
+  def order(order_id)
+    @order    = Order.find(order_id)
     @user     = @order.user
     @event    = @order.event
     @payment  = @order.payment
@@ -16,7 +16,11 @@ class OrganizerMailer < ApplicationMailer
     @title    = "Someone just booked your event!"
     @subtitle = "And here’s the detail :)"
 
-    mail to: @event.user.email, subject: @title, bcc: "hello@daydash.co,daydash.app@gmail.com,nonmadden@gmail.com"
+    if @event.user.nil?
+      mail to: "hello@daydash.co", subject: @title, bcc: "daydash.app@gmail.com,nonmadden@gmail.com"
+    else
+      mail to: @event.user.email, subject: @title, bcc: "hello@daydash.co,daydash.app@gmail.com,nonmadden@gmail.com"
+    end
   end
 end
 

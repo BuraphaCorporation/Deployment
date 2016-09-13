@@ -104,12 +104,12 @@
                 </div>
               </td>
               <% if section.ticket_availability? %>
-              <td width="100" align="right">
+              <td width="150" align="right">
                 <div class="ticket-meta" style="margin-top: 8px;">
                   <span class="ticket-price">฿ <%= section.price %></span>
                 </div>
               </td>
-              <td width="100" align="right">
+              <td width="150" align="right">
                 <select class="form-control" name="section[<%= section.id %>]">
                   <% (0..section.show_ticket_available).each do |i| %>
                     <option value="<%= i %>"><%= i %></option>

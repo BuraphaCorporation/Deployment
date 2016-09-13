@@ -25,26 +25,12 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="fa fa-navmenu"></i></button>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="icon icon-menu"></i></button>
               <%= link_to root_path, class: 'navbar-brand', target: '_self' do %>
                 <img src="/src/images/theme/logo.png" />
               <% end %>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-left">
-                <li>
-                  <%= link_to 'ALL', root_path, target: '_self' %>
-                </li>
-                <% @global_categories.each do |category| %>
-                  <li>
-                    <% if is_index_with_categories? %>
-                      <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
-                    <% else %>
-                      <a href="/categories/<%= category.slug %>" target="_self"><%= category.title %></a>
-                    <% end %>
-                  </li>
-                <% end unless @global_categories.nil? %>
-              </ul>
               <ul class="nav navbar-nav navbar-right">
                 <% if current_user.present? %>
                   <% if current_user.can_organizer? %>
@@ -71,6 +57,20 @@
                 <% else %>
                   <li><a id="menu-login" class="btn btn-daydash btn-daydash-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal">สมัครสมาชิกฟรี / เข้าสู่ระบบ</a></li>
                 <% end %>
+              </ul>
+              <ul class="nav navbar-nav navbar-left">
+                <li>
+                  <%= link_to 'ALL', root_path, target: '_self' %>
+                </li>
+                <% @global_categories.each do |category| %>
+                  <li>
+                    <% if is_index_with_categories? %>
+                      <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
+                    <% else %>
+                      <a href="/categories/<%= category.slug %>" target="_self"><%= category.title %></a>
+                    <% end %>
+                  </li>
+                <% end unless @global_categories.nil? %>
               </ul>
             </div>
           </div>

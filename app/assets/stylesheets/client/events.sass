@@ -71,18 +71,12 @@ html, body
     img
       height: 40px
   .navbar-left
-    padding-left: 20px
     > li
       > a
-        padding: 20px 15px
-        font-size: 16px
         color: #444
         text-transform: uppercase
   .navbar-right
     > li
-      > a
-        padding: 20px
-        font-size: 18px
       .btn-daydash-green-2
         background: #19D4D6
         color: white
@@ -118,7 +112,38 @@ html, body
           font-size: 14px
           font-weight: 200
           border-bottom: 1px solid #eee
+  @media (max-width: 767px)
+    .navbar-right
+      border-bottom: 1px solid #eee
+      
+  @media (min-width: 768px)
+    .navbar-right
+      > li
+        > a
+          padding: 20px
+          font-size: 18px
 
+  @media (min-width: 768px) and (max-width: 991px)  
+    .navbar
+      .navbar-left
+        display: none
+
+  @media (min-width: 992px) and (max-width: 1199px)
+    .navbar
+      .navbar-left, .navbar-right
+        li
+          a
+            padding: 20px 10px
+            font-size: 14px
+  @media (min-width: 1200px)
+    .navbar
+      .navbar-left, .navbar-right
+        li
+          a
+          padding: 20px 15px
+          font-size: 16px
+
+  
 #wrapper
   position: relative
   min-height: 100%
@@ -235,6 +260,20 @@ label
   background: linear-gradient(90deg, #433B8F, #2F9687)
   color: white
 
+
+
+
+
+
+.mobile-only
+  @media (min-width: 992px)
+    display: none !important
+
+.mobile-hide
+  @media (max-width: 991px)
+    display: none !important
+
+
 .color-daydash-green
   color: #19D4D6
 
@@ -259,6 +298,8 @@ label
   width: 64px
   height: 64px
 
+.icon-menu
+  background-image: asset-url('icons/icon-menu.png')
 .icon-facebook
   background-image: asset-url('icons/icon-facebook.png')
 .icon-facebook-color
@@ -368,6 +409,9 @@ label
   padding: 30px
   border: 1px solid #eee
   background: white
+
+  @media (max-width: 991px)
+    padding: 15px
 
 .event.card, .ticket.card
   display: block
@@ -795,12 +839,34 @@ label
           font-weight: bold
         .subtitle
           font-size: 24px
+
+    @media (max-width: 991px)
+      .info
+        .caption
+          margin-top: 100px
+
+          .title
+            font-size: 32px
+          .subtitle
+            font-size: 20px
   #event-section
     background-color: #fcfcfc
     padding-top: 30px
     padding-bottom: 30px
+    .nav
+      .dropdown.mobile-only
+        width: 100%
+        a
+          width: 100%
+          text-align: center
+          i
+            float: right
+            margin-top: 7px
+        .dropdown-menu
+          width: 100%
     .event-list
       padding-top: 15px
+
 
 #event-page
   #cover-section
@@ -834,6 +900,13 @@ label
         width: 300px
     .right
       padding-left: 0px
+    @media (max-width: 991px)
+      height: 300px
+      .info
+        padding-bottom: 0px
+        .title
+          font-size: 24px
+
   #info-section
     padding-top: 45px
     padding-bottom: 60px
@@ -887,6 +960,15 @@ label
         text-align: center
         *
           vertical-align: text-top
+
+    @media (max-width: 991px)
+      padding-top: 15px
+
+      .meta
+        margin-bottom: 15px
+      .description
+        font-size: 14px
+
   #ticket-list-modal
     margin-top: 100px
     .table
@@ -896,6 +978,13 @@ label
         padding-right: 15px
     .ticket .ticket-title
       font-weight: bold
+
+    @media (max-width: 991px)
+      .table-responsive
+        margin-bottom: 0px
+
+      select.form-control
+        min-width: 60px
 
 #payment-page
   .form-section.highlight
@@ -928,9 +1017,14 @@ label
   .card-wrapper
     margin-bottom: 30px
 
-@media (max-width: 991px)
-  #payment-page .gender-form-group .form-inline
-    padding-left: 30px
+  @media (max-width: 991px)
+    .gender-form-group .form-inline
+      padding-left: 30px
+    .nav-tabs
+      li
+        display: table-cell
+        width: 1%
+
 
 #payment-complete-page
   #credit-card-inform-section
@@ -953,7 +1047,7 @@ label
       font-weight: 200
 
       .panel-heading
-        padding-bottom: 30px
+        padding-bottom: 15px
         border-bottom: 1px solid #eee
 
         .back-btn
@@ -971,11 +1065,12 @@ label
 
         .meta
           li
+            margin-bottom: 15px
             margin-right: 15px
 
       .panel-body
         padding-top: 30px
-        padding-bottom: 30px
+        padding-bottom: 15px
 
         ul
           margin-bottom: 30px
@@ -995,6 +1090,7 @@ label
         .panel-action
           .btn
             margin-right: 10px
+            margin-bottom: 15px
             padding: 10px 30px
             font-weight: 200
 
@@ -1044,6 +1140,18 @@ label
               margin-left: -30px
               margin-top: 5px
 
+    @media (max-width: 991px)
+      .main-panel
+        .panel-heading
+          .panel-title
+            font-size: 24px
+        .panel-body
+          ul
+            li
+              font-size: 14px
+          .panel-action
+            .btn
+              width: 100%
 
 #related-event-section
   padding-top: 40px

@@ -18,12 +18,27 @@
 <div class="section" id="event-section">
   <div class="container">
     <ul class="nav nav-pills nav-daydash">
-      <li class="active">
+      <li class="dropdown mobile-only">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">All <i class="caret"></i></a>
+        <ul class="dropdown-menu">
+          <% @global_categories.each do |category| %>
+            <li>
+              <% if is_index_with_categories? %>
+                <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
+              <% else %>
+                <a href="/categories/<%= category.slug %>" target="_self"><%= category.title %></a>
+              <% end %>
+            </li>
+          <% end unless @global_categories.nil? %>
+        </ul>
+      </li>
+
+      <li class="mobile-hide active">
         <%= link_to 'ALL', 'javascript:;', class: 'category-filter' %>
         <!-- <a href="#" onclick="return"></a> -->
       </li>
       <% @global_categories.each do |category| %>
-        <li>
+        <li class="mobile-hide">
           <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
         </li>
       <% end %>

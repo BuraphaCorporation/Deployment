@@ -4,7 +4,7 @@
 <%= render partial: "client/profile/parts/profile-nav" %>
 <script>$('#profile-nav #menu-settings').addClass('active');</script>
 
-<div class="section">
+<div class="section" id="profile-settings-section">
   <div class="container">
 <!--     <div class="row">
       <div class="col-xs-12 col-md-9">
@@ -20,7 +20,7 @@
       </div>
     </div> -->
     <div class="row">
-      <div class="col-xs-12 col-md-9">
+      <div class="col-xs-12">
         <%= form_for(@user, as: @user, url: client_profile_settings_path(@user), html: { method: :put }) do |f| %>
           <div class="form-header">
             <h1 class="form-title">Account Settings</h1>
@@ -34,7 +34,7 @@
               <label>Lastname</label>
               <%= f.text_field :last_name, value: @user.last_name, class: 'form-control' %>
             </div>
-            <div class="form-group col-xs-12 col-md-6">
+            <div class="form-group dob-form-group col-xs-12 col-md-6">
               <label>Date of Birth</label>
               <div class="form-inline">
                 <select class="form-control" name="dob_date" required >
@@ -60,11 +60,11 @@
             <div class="form-group col-xs-12 col-md-6">
               <label>Gender</label>
               <div class="form-inline">
-                <label class="radio">
+                <label>
                   <%= f.radio_button :gender, 'male' %>
                   Male
                 </label>
-                <label class="radio">
+                <label>
                   <%= f.radio_button :gender, 'female' %>
                   Female
                 </label>

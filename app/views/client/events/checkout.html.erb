@@ -24,7 +24,7 @@
                 <i class="icon icon-xs icon-checked"></i>
 
                 <span>ได้รับคำสั่งซื้อ <span class="color-daydash-green">#<%= @order.code %></span> :</span>
-                <span>ยอดรวม <%= @order.to_price %></span>
+                <span>ยอดรวม <%= convert_to_currency @order.to_price %></span>
 
                 <% if @order.transfer? %>
                 <span class="color-daydash-red"><%= @order.payment.stages %></span>

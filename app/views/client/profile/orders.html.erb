@@ -19,7 +19,7 @@
                     เลขที่ออร์เดอร์: <strong><%= order.code %></strong>
                   </div>
                   <div class="col-xs-12 col-md-6 right">
-                    สั่งซื้อเมื่อ <%= order.created_at.try(:strftime, "%A %d %B, %H:%M") %>
+                    สั่งซื้อเมื่อ <span class="created-at" data-created-at="<%= order.created_at %>"><%= order.to_created_at %></span>
                   </div>
                 </div>
                 <div class="row">
@@ -74,8 +74,8 @@
                         <div class="info-footer">
                           <ul class="nav nav-justified">
                           <% if order.transfer? %>
-                            <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
-                            <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
+                            <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
+                            <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
                           <% else %>
                             <li><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></li>
                           <% end %>
@@ -112,7 +112,7 @@
               <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                 <p style="font-size: 24px; font-weight: 200; padding-top: 15px; padding-bottom: 15px; border-bottom: 1px solid black;">วิธีการชำระเงิน</p>
                 <p style="font-weight: 200;">
-                  1. เลือกโอนยอดเงิน 1,300 บาท ผ่านธนาคารที่คุณสะดวก
+                  1. เลือกโอนยอดเงิน <span class="order-price"></span> บาท ผ่านธนาคารที่คุณสะดวก
                 </p>
                 <table width="100%">
                   <tbody>
@@ -189,8 +189,17 @@
 
 <script type="text/javascript">
   $(document).on("click", ".open-payment", function(){
-     var time = $(this).data('time');
-     time = moment(time).format('LLL')
-     $(".time-payment").html("(ชำระภายใน วันที่ " + time + ")");
+    var time = $(this).data('time');
+    $(".time-payment").html("(ชำระภายใน วันที่ " + convert_to_datetime(time) + ")");
+    $(".order-price").html($(this).data('price'))
+  });
+
+  function convert_to_datetime(dt) {
+    moment.locale('th');
+    return moment(dt).format('D MMMM YYYY เวลา HH:mm')
+  }
+
+  $(document).ready(function(){
+    $('.created-at').html(convert_to_datetime($('.created-at').attr("data-created-at")));
   });
 </script>

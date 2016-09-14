@@ -24,7 +24,7 @@
                 <i class="icon icon-xs icon-checked"></i>
 
                 <span>ได้รับคำสั่งซื้อ <span class="color-daydash-green">#<%= @order.code %></span> :</span>
-                <span>ยอดรวม <%= @order.to_price %></span>
+                <span>ยอดรวม <%= convert_to_currency @order.to_price %></span>
 
                 <% if @order.transfer? %>
                 <span class="color-daydash-red"><%= @order.payment.stages %></span>
@@ -43,7 +43,7 @@
                 <i class="icon icon-xs icon-waiting"></i>
                 <span class="color-daydash-red">
                   กรุณาทำการชำระเงินและแจ้งชำระเงินภายใน 60 นาทีค่ะ <br />
-                  (ชำระภายใน วันที่ <%= @order.expires_on %>)
+                  (ชำระภายใน วันที่ <%= @order.to_expires_on %>)
                 </span>
                 <p>หากพ้นเวลาดังกล่าว คำสั่งซื้อของคุณจะถูกยกเลิก และคุณจะต้องทำการสั่งซื้อใหม่อีกครั้ง</p>
               </li>

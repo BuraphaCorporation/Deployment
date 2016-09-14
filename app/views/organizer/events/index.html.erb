@@ -1,4 +1,4 @@
-<script>$('body').attr('id', 'organizer-event-list');</script>
+<script>$('body').attr('id', 'organizer-event-list').addClass('organizer-event-page');</script>
 
 <%= render partial: "organizer/parts/organizer-nav" %>
 <script>$('#organizer-nav #menu-event-list').addClass('active');</script>
@@ -12,7 +12,7 @@
           <div class="list-body">
             <% @events.each do |event| %>
             <div class="event card-side-cover event-for-organizer">
-              <a class="cover" style="background-image: url(<%= event.event_pictures.first.try(:media, :thumb) %>);" href="#"></a>
+              <div class="cover" style="background-image: url(<%= event.event_pictures.first.try(:media, :thumb) %>);"></div>
               <div class="info">
                 <div class="info-body">
                   <h4 class="title"><%= event.title %></h4>

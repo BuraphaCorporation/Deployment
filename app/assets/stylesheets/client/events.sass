@@ -510,7 +510,6 @@ label
     background-position: center
     background-repeat: no-repeat
     background-color: #ccc
-    height: 170px
     padding: 30px
 
 
@@ -546,6 +545,11 @@ label
         margin-top: 2px
         margin-right: 5px
 
+  @media (max-width: 991px)
+    .info
+      .info-footer
+        padding-bottom: 15px
+
 .order.order-1
   margin-bottom: 30px
   padding: 15px
@@ -557,8 +561,7 @@ label
 
   .order-header
     padding-bottom: 15px
-    .right
-      text-align: right
+
   .cover
     display: block
     background-size: cover
@@ -624,6 +627,10 @@ label
               background: #444
 
   @media (min-width: 992px)
+    .order-header
+      .right
+        text-align: right
+
     .order-body
       display: table
       width: 100%
@@ -633,10 +640,15 @@ label
         float: none
         vertical-align: top
         position: relative
-
     .info-2
       position: absolute
       bottom: 0px
+
+  @media (max-width: 991px)
+    .order-header
+      .right
+        margin-top: 5px
+
 
 .event-for-organizer
   .list-action-nav
@@ -1273,8 +1285,24 @@ label
   .event-list .event .cover
     height: 200px
 
-#profile-settings-page form .form-group:nth-child(2n+1)
-  clear: left
+#profile-settings-page
+  #profile-settings-section
+    .container
+      max-width: 800px
+    form
+      .form-body
+        padding-top: 15px
+        padding-bottom: 30px
+
+      .form-group:nth-child(2n+1)
+        clear: left
+    @media (max-width: 991px)
+      .dob-form-group
+        select.form-control
+          display: inline-block
+          width: 30%
+
+
 
 #organizer-event-list
   #event-list-section

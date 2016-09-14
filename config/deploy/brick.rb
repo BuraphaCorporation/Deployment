@@ -1,4 +1,6 @@
 server 'brick.daydash.co', user: 'deploy', roles: %w{web app db}
 set :stage, :production
 set :rails_env, :production
-set :branch, git_branch('brick')
+
+# Set the deploy branch to the current branch
+set :branch, current_git_branch

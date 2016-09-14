@@ -74,6 +74,10 @@ class Order < ApplicationRecord
     (created_at + 60.minutes)
   end
 
+  def to_expires_on
+    expires_on.try(:strftime, "%A %d %B, %H:%M")
+  end
+
   def to_price
     '%.2f' % (price.to_f / 100)
   end

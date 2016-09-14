@@ -74,7 +74,7 @@
                       <tr>
                         <td align="center" style="color: red;">
                           <strong>*** กรุณาทำการชำระเงินภายใน 60 นาที นับจากการสั่งซื้อ ***</strong><br />
-                          (ชำระภายใน วันที่ <%= @order.expires_on %>)
+                          (ชำระภายใน วันที่ <%= @order.to_expires_on %>)
                         </td>
                       </tr>
                     </table>

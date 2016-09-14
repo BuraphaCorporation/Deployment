@@ -421,48 +421,60 @@ label
   overflow: hidden
   text-decoration: none
 
-.event.card .cover, .ticket.card .cover
-  background-size: cover
-  background-position: center
-  background-repeat: no-repeat
-  background-color: #ccc
-  height: 250px
+  .cover
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    background-color: #ccc
+    height: 250px
 
-.event.card .info, .ticket.card .info
-  background-color: #fff
-  color: #444
-  padding: 15px
-  font-size: 16px
+  .info
+    background-color: #fff
+    color: #444
+    padding: 15px
+    font-size: 16px
 
-.event.card .info a, .ticket.card .info a
-  color: #444
+    a
+      color: #444
 
-.event.card .title, .ticket.card .title
-  margin-bottom: 25px
-  height: 64px
-  font-size: 20px
+  .title
+    margin-bottom: 25px
+    height: 64px
+    font-size: 20px
 
-.event.card .icon, .ticket.card .icon
-  float: left
-  margin-top: 1px
-  margin-right: 5px
+  .icon
+    float: left
+    margin-top: 1px
+    margin-right: 5px
 
-.event.card .meta, .ticket.card .meta
-  margin-bottom: 10px
+  .meta
+    margin-bottom: 10px
 
-.event.card.payment-card .title, .ticket.card.payment-card .title
-  height: auto
+  &.payment-card
+    .title
+      height: auto
 
-.event.card.payment-card .info, .ticket.card.payment-card .info
-  padding-bottom: 0px
+    .info
+      padding-bottom: 0px
 
-.event.card.payment-card .info .row, .ticket.card.payment-card .info .row
-  padding-top: 15px
-  padding-bottom: 15px
-  border-bottom: 1px solid #eee
+      .row
+        padding-top: 15px
+        padding-bottom: 15px
+        border-bottom: 1px solid #eee
 
-.event.card.payment-card .ticket-list .ticket .ticket-price, .ticket.card.payment-card .ticket-list .ticket .ticket-price, .event.card.payment-card .ticket-list .list-footer, .ticket.card.payment-card .ticket-list .list-footer
-  text-align: right
+    .ticket-list
+      .ticket .ticket-price
+        text-align: right
+
+      .list-footer
+        text-align: right
+
+  @media (max-width: 991px)
+    .title
+      height: auto
+      line-height: 1.5em
+      margin-bottom: 15px
+
 
 .card-side-cover
   margin-bottom: 40px
@@ -712,26 +724,26 @@ label
   margin-bottom: 15px
   li
     a
-      background: transparent
-      padding-bottom: 8px
-      color: #444
-      &:visited, &:link, &:active
+      &, &:visited, &:link, &:active
         background: transparent
         padding-bottom: 8px
         color: #444
       &:hover, &:visited:hover, &:link:hover, &:active:hover
         color: #444
     &.active a
-      border-radius: 0px
-      background: transparent
-      color: #444
-      border-bottom: 3px solid #00CFD1
-      &:hover, &:active, &:link, &:visited
+      &, &:hover, &:active, &:link, &:visited
         border-radius: 0px
         background: transparent
         color: #444
         // border-bottom: 3px solid #00CFD1
         border-bottom: 3px solid #444
+
+.nav-daydash-green
+  li.active
+    a
+      &, &:hover, &:active, &:link, &:visited
+        border-bottom: 2px solid #00CFD1
+
 
 .nav-tabs-daydash
   margin-bottom: 15px
@@ -875,9 +887,11 @@ label
           font-size: 24px
 
     @media (max-width: 991px)
+      .page-cover
+        height: 250px
       .info
         .caption
-          margin-top: 100px
+          margin-top: 60px
 
           .title
             font-size: 32px
@@ -887,19 +901,28 @@ label
     background-color: #fcfcfc
     padding-top: 30px
     padding-bottom: 30px
-    .nav
-      .dropdown.mobile-only
-        width: 100%
-        a
-          width: 100%
-          text-align: center
-          i
-            float: right
-            margin-top: 7px
-        .dropdown-menu
-          width: 100%
+
     .event-list
       padding-top: 15px
+
+    @media (max-width: 991px)
+      padding-top: 5px
+
+      .nav
+        margin-left: -15px
+        margin-right: -15px
+        white-space: nowrap
+        overflow-x: auto
+        -webkit-overflow-scrolling: touch
+        border-bottom: 1px solid #eee
+
+        li
+          float: none
+          display: inline-block
+
+      .event-list
+        padding-top: 0px
+
 
 
 #event-page

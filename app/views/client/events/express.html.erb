@@ -29,17 +29,17 @@
                 <% next if @tickets["#{section.id}"].nil? %>
                 <div class="ticket row">
                   <div class="col-xs-8 ticket-title">
-                    <%= section.title %> <%= @tickets["#{section.id}"]["quantity"] %> x ฿ <%= section.price %>
+                    <%= section.title %> <%= @tickets["#{section.id}"]["quantity"] %> x <%= convert_to_currency section.price %>
                   </div>
                   <div class="col-xs-4 ticket-price">
-                  ฿ <%= section.price * @tickets["#{section.id}"]["quantity"] %>
+                  <%= convert_to_currency(section.price * @tickets["#{section.id}"]["quantity"]) %>
                   </div>
                 </div>
                 <% end %>
               </div>
               <div class="row list-footer">
                 <div class="col-xs-12">
-                  Total: ฿ <%= @tickets["total"].to_i / 100 %>
+                  Total: <%= convert_to_currency(@tickets["total"].to_i / 100) %>
                 </div>
               </div>
             </div>
@@ -208,7 +208,7 @@
                           By submitting, you agree to <a target="_blank" href="<%= terms_and_conditions_path %>">Payment Policy</a>
                         </label>
                       </div>
-                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @tickets["total"] /100 %></button>
+                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - <%= convert_to_currency(@tickets["total"] / 100) %></button>
                     </div>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">

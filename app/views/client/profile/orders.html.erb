@@ -37,7 +37,7 @@
                           <table class="table">
                             <tr>
                               <td width="150">ราคารวม</td>
-                              <td>฿ <%= order.to_price %></td>
+                              <td><%= convert_to_currency order.to_price %></td>
                             </tr>
                             <tr>
                               <td>วิธีการชำระเงิน</td>
@@ -61,13 +61,13 @@
                               <tr class="ticket">
                                 <td class="ticket-title" width="150"><%= ticket.section.title %></td>
                                 <td class="ticket-code"><%= ticket.code %></td>
-                                <td class="ticket-price" width="100" align="right">฿ <%= ticket.to_price %></td>
+                                <td class="ticket-price" width="100" align="right"><%= ticket.to_price %></td>
                               </tr>
                             <% end %>
                             <tr class="total">
                               <td></td>
                               <td><strong>TOTAL</strong></td>
-                              <td align="right"><strong>฿ <%= order.to_price %></strong></td>
+                              <td align="right"><strong><%= convert_to_currency order.to_price %></strong></td>
                             </tr>
                           </table>
                         </div>

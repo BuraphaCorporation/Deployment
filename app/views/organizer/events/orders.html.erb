@@ -41,7 +41,7 @@
                   <td><%= order.code %></td>
                   <td><%= order.user.first_name %> <%= order.user.last_name %></td>
                   <td><%= order.tickets.count %></td>
-                  <td>฿ <%= order.to_price %></td>
+                  <td><%= convert_to_currency(order.to_price) %></td>
                   <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
                   <td>
                     <span class="order-status"><%= order.status %></span>

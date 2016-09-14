@@ -39,7 +39,7 @@
                     </li>
                   <% end %>
                   <li class="dropdown user-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    <a href="/" target="_self" class="dropdown-toggle" data-toggle="dropdown" role="button">
                       <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>"></div>
                       <div class="user-name"><%= current_user.first_name %></div>
                       <i class="fa fa-caret-down"></i>
@@ -95,12 +95,11 @@
               <div class="list-panel">
                 <div class="list-title">Explore</div>
                 <ul class="list-body nav">
-                  <li><a href="#">Nightlife</a></li>
-                  <li><a href="#">Entertainment</a></li>
-                  <li><a href="#">Outdoor &amp; Adventure</a></li>
-                  <li><a href="#">Gaming</a></li>
-                  <li><a href="#">Workshops</a></li>
-                  <li><a href="#">Tours</a></li>
+                  <% @global_categories.each do |category| %>
+                    <li>
+                      <a href="/categories/<%= category.slug %>" target="_self"><%= category.title %></a>
+                    </li>
+                  <% end %>
                 </ul>
               </div>
             </div>
@@ -108,12 +107,12 @@
               <div class="list-panel">
                 <div class="list-title">Support</div>
                 <ul class="list-body nav">
-                  <li><a href="#">List Event on Daydash</a></li>
-                  <li><a href="#">Daydashzine</a></li>
-                  <li><a href="#">Our Story</a></li>
-                  <li><a href="#">How to Pay</a></li>
-                  <li><a href="#">FAQ</a></li>
-                  <li><a href="#">Contact</a></li>
+                  <!-- <li><a href="/" target="_self">List Event on Daydash</a></li> -->
+                  <li><a href="https://blog.daydash.co/" target="_blank">Daydashzine</a></li>
+                  <li><a href="/about" target="_self">Our Story</a></li>
+                  <!-- <li><a href="/" target="_self">How to Pay</a></li> -->
+                  <!-- <li><a href="/" target="_self">FAQ</a></li> -->
+                  <li><a href="/contact" target="_self">Contact</a></li>
                 </ul>
               </div>
             </div>
@@ -121,10 +120,10 @@
               <div class="list-panel social-list">
                 <div class="list-title">Connect</div>
                 <ul class="list-body list-inline">
-                  <li><a href="#"><i class="icon icon-line"></i></a></li>
-                  <li><a href="#"><i class="icon icon-facebook"></i></a></li>
-                  <li><a href="#"><i class="icon icon-instagram"></i></a></li>
-                  <li><a href="#"><i class="icon icon-twitter"></i></a></li>
+                  <li><a href="<%= "#{App.line_link}" %>" target="_blank"><i class="icon icon-line"></i></a></li>
+                  <li><a href="<%= "#{App.facebook_link}" %>" target="_blank"><i class="icon icon-facebook"></i></a></li>
+                  <li><a href="<%= "#{App.instagram_link}" %>" target="_blank"><i class="icon icon-instagram"></i></a></li>
+                  <li><a href="<%= "#{App.twitter_link}" %>" target="_blank"><i class="icon icon-twitter"></i></a></li>
                 </ul>
               </div>
 
@@ -133,8 +132,8 @@
             <div class="col col-xs-12 col-md-3">
               <div class="list-panel">
                 <ul class="list-body list-inline">
-                  <li><a href="#"><img src="/src/images/theme/appstore.png" height="40" /></a></li>
-                  <li><a href="#"><img src="/src/images/theme/playstore.png" height="40" /></a></li>
+                  <li><a href="/" target="_self"><img src="/src/images/theme/appstore.png" height="40" /></a></li>
+                  <li><a href="/" target="_self"><img src="/src/images/theme/playstore.png" height="40" /></a></li>
                 </ul>
               </div>
 

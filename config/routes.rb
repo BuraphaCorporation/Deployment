@@ -103,9 +103,11 @@ Rails.application.routes.draw do
     get '/blog/:slug',  to: 'greetings#blog'
     get '/rating',      to: 'greetings#rating'
 
-    get '/faq',                    to: 'greetings#faq'
-    get '/terms-and-conditions',   to: 'greetings#terms'
-    get '/privacy-policy',         to: 'greetings#policy'
+    get '/about',                 to: 'greetings#about'
+    get 'contact',                to: 'greetings#contact'
+    get '/faq',                   to: 'greetings#faq'
+    get '/terms-and-conditions',  to: 'greetings#terms'
+    get '/privacy-policy',        to: 'greetings#policy'
 
     get '/campaign/dash-your-day',        to: 'greetings#campaign'
     get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'

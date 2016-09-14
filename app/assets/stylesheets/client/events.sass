@@ -480,6 +480,26 @@ label
     padding-bottom: 0px
     .info-body
       padding-bottom: 15px
+      .title
+        line-height: 1.5em
+      .meta
+        margin-bottom: 5px
+
+  @media (max-width: 991px)
+    .cover
+      height: 150px
+    .info
+      padding: 5px
+
+  @media (min-width: 992px)
+    width: 100%
+    display: table
+    .cover
+      display: table-cell
+      width: 180px
+    .info
+      display: table-cell
+
 
 .ticket.ticket-1
   margin-bottom: 30px
@@ -671,20 +691,22 @@ label
       .progress-bar
         background-color: #17A41D
 
+  @media (max-width: 991px)
+    .list-action-nav
+      li
+        padding-left: 0px
+        padding-right: 0px
+        a
+          font-size: 12px
 
-@media (max-width: 991px)
-  .card-side-cover .cover
-    height: 150px
+          .icon
+            height: 12px
 
-@media (min-width: 992px)
-  .card-side-cover
-    width: 100%
-    display: table
-    .cover
-      display: table-cell
-      width: 150px
-    .info
-      display: table-cell
+      li:not(:last-child):after
+        padding-left: 5px
+
+
+
 
 .nav-daydash
   margin-bottom: 15px
@@ -1205,8 +1227,18 @@ label
       font-weight: 200
       margin-bottom: 5px
 
+.organizer-event-page
+  @media (max-width: 991px)
+    .section
+      .section-header
+        .event-title
+          font-size: 24px
+          line-height: 1.5em
+
 .organizer-event-nav
   border-top: 1px solid #ddd
+  margin-bottom: 30px
+
   li
     a
       &, &:active, &:link, &:visited
@@ -1221,6 +1253,31 @@ label
       .icon
         float: left
         margin-right: 15px
+
+  @media (max-width: 991px)
+    border-top: 0px
+
+    li
+      display: table-cell
+      width: 1%
+      padding: 0px
+      text-align: center
+
+      a
+        &, &:active, &:link, &:visited
+          padding: 5px
+          border-bottom: 0px
+          border-right: 1px solid #ddd
+          font-size: 12px
+
+          .icon
+            margin-right: 5px
+
+      &:last-child
+        a
+          &, &:active, &:link, &:visited
+            border-right: 0px
+
 
 
 #profile-ticket-list-page
@@ -1320,22 +1377,44 @@ label
     .section-header
       margin-bottom: 30px
 
-    h1
-      margin-top: 0px
+    .form-section
+      margin-bottom: 30px
 
-  .form-section
-    margin-bottom: 30px
 
-#organizer-events-new .ticket-list .ticket:first-child .btn-ticket-delete, #organizer-events-edit .ticket-list .ticket:first-child .btn-ticket-delete
-  display: none
+    @media (max-width: 991px)
+      padding-top: 15px
 
-#organizer-events-new .image-list .image, #organizer-events-edit .image-list .image
-  margin-bottom: 30px
-  height: 150px
-  background-size: cover
-  background-position: center
-  background-repeat: no-repeat
-  background-color: #ccc
+      .section-header
+        margin-bottom: 15px
+
+      .form-control
+        min-width: 120px
+
+      .form-inline
+        .form-control
+          display: table-cell
+          width: 1%
+
+#organizer-events-new, #organizer-events-edit
+  .ticket-list
+    .ticket:first-child
+      .btn-ticket-delete
+        display: none
+
+  .image-list
+    .image
+      margin-bottom: 30px
+      height: 150px
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+      background-color: #ccc
+
+  .form-title
+    margin-top: 0px
+  @media (max-width: 991px)
+    .form-title
+      font-size: 24px
 
 #organizer-settings-page form .form-group:nth-child(2n+1)
   clear: left
@@ -1349,6 +1428,12 @@ label
 
     .section-header
       margin-bottom: 30px
+    @media (max-width: 991px)
+      padding-top: 15px
+
+      .section-header
+        margin-bottom: 15px
+
 
 #organizer-event-checkin
 
@@ -1373,6 +1458,12 @@ label
 
         .meta-info
           margin-top: 5px
+
+    @media (max-width: 991px)
+      padding-top: 15px
+
+      .section-header
+        margin-bottom: 15px
 
 
 

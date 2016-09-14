@@ -25,18 +25,23 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
+
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="icon icon-menu"></i></button>
+              <% if current_user.present? %>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profile-navbar" aria-expanded="false" aria-controls="navbar">
+                <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>)"></div>
+              </button>
+              <% end %>
+
               <%= link_to root_path, class: 'navbar-brand', target: '_self' do %>
                 <img src="/src/images/theme/logo.png" />
               <% end %>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-right">
-                <% if current_user.present? %>
+              <% if current_user.present? %>
+              <ul class="nav navbar-nav navbar-right mobile-hide">
                   <% if current_user.can_organizer? %>
-                    <li>
-                      <%= link_to "Organizer", "/organizer", target: '_self' %>
-                    </li>
+                  <li><%= link_to "Organizer", "/organizer", target: '_self' %></li>
                   <% end %>
                   <li class="dropdown user-dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
@@ -54,8 +59,11 @@
                       </li>
                     </ul>
                   </li>
+                </ul>
                 <% else %>
+                <ul class="nav navbar-nav navbar-right">
                   <li><a id="menu-login" class="btn btn-daydash btn-daydash-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal">สมัครสมาชิกฟรี / เข้าสู่ระบบ</a></li>
+                </ul>
                 <% end %>
               </ul>
               <ul class="nav navbar-nav navbar-left">
@@ -73,6 +81,23 @@
                 <% end unless @global_categories.nil? %>
               </ul>
             </div>
+
+            <% if current_user.present? %>
+            <div id="profile-navbar" class="navbar-collapsse collapse">
+              <ul class="nav navbar-nav mobile-only">
+                <% if current_user.can_organizer? %>
+                <li><%= link_to "Organizer", "/organizer", target: '_self' %></li>
+                <% end %>
+                <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
+                <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
+                <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
+                <li><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
+                <li>
+                <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+                </li>
+              </ul>
+            </div>
+            <% end %>
           </div>
         </nav>
       </div>

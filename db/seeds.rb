@@ -201,103 +201,104 @@ beam.sections.create([
     price:      4500,
     total:      100,
     bought:     0
-  },
-  {
-    title:      "General",
-    event_time: Time.zone.tomorrow,
-    end_time:   Time.zone.tomorrow,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "VIP",
-    event_time: Time.zone.tomorrow,
-    end_time:   Time.zone.tomorrow,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "General",
-    event_time: Time.zone.tomorrow + 1.days,
-    end_time:   Time.zone.tomorrow + 1.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "VIP",
-    event_time: Time.zone.tomorrow + 1.days,
-    end_time:   Time.zone.tomorrow + 1.days,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "General",
-    event_time: Time.zone.tomorrow + 2.days,
-    end_time:   Time.zone.tomorrow + 2.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "VIP",
-    event_time: Time.zone.tomorrow + 2.days,
-    end_time:   Time.zone.tomorrow + 2.days,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "General",
-    event_time: Time.zone.tomorrow + 3.days,
-    end_time:   Time.zone.tomorrow + 3.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "VIP",
-    event_time: Time.zone.tomorrow + 3.days,
-    end_time:   Time.zone.tomorrow + 3.days,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "General",
-    event_time: Time.zone.tomorrow + 4.days,
-    end_time:   Time.zone.tomorrow + 4.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "VIP",
-    event_time: Time.zone.tomorrow + 4.days,
-    end_time:   Time.zone.tomorrow + 4.days,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "General",
-    event_time: Time.zone.now + rand(5..30).days + 30.days,
-    end_time:   Time.zone.now + rand(5..30).days + 30.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "VIP",
-    event_time: Time.zone.now + rand(5..30).days + 30.days,
-    end_time:   Time.zone.now + rand(5..30).days + 30.days,
-    price:      4500,
-    total:      100,
-    bought:     0
   }
+  #,
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow,
+  #   end_time:   Time.zone.tomorrow,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow,
+  #   end_time:   Time.zone.tomorrow,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow + 1.days,
+  #   end_time:   Time.zone.tomorrow + 1.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow + 1.days,
+  #   end_time:   Time.zone.tomorrow + 1.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow + 2.days,
+  #   end_time:   Time.zone.tomorrow + 2.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow + 2.days,
+  #   end_time:   Time.zone.tomorrow + 2.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow + 3.days,
+  #   end_time:   Time.zone.tomorrow + 3.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow + 3.days,
+  #   end_time:   Time.zone.tomorrow + 3.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow + 4.days,
+  #   end_time:   Time.zone.tomorrow + 4.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow + 4.days,
+  #   end_time:   Time.zone.tomorrow + 4.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.now + rand(5..30).days + 30.days,
+  #   end_time:   Time.zone.now + rand(5..30).days + 30.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.now + rand(5..30).days + 30.days,
+  #   end_time:   Time.zone.now + rand(5..30).days + 30.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # }
 ])
 
 shopspot1.sections.create([
@@ -347,15 +348,16 @@ studiolam.sections.create([
     price:      500,
     total:      100,
     bought:     0
-  },
-  {
-    title:      "VIP",
-    event_time: Time.zone.now + rand(5..30).days,
-    end_time:   Time.zone.now + rand(5..30).days,
-    price:      2000,
-    total:      100,
-    bought:     0
   }
+  # ,
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.now + rand(5..30).days,
+  #   end_time:   Time.zone.now + rand(5..30).days,
+  #   price:      2000,
+  #   total:      100,
+  #   bought:     0
+  # }
 ])
 
 lazgam.sections.create([
@@ -398,36 +400,36 @@ olive.sections.create([
 ])
 
 
-# puts "upload image"
-# Dir["#{Rails.root}/public/event_content/lazgam/*"].each do |attachment|
-#   puts attachment
-#   EventPicture.create(event: lazgam, media: File.open(attachment, 'rb'))
-# end
-#
-# Dir["#{Rails.root}/public/event_content/shopspot/Candle Aroma Perfume/*"].each do |attachment|
-#   puts attachment
-#   EventPicture.create(event: shopspot1, media: File.open(attachment, 'rb'))
-# end
-#
-# Dir["#{Rails.root}/public/event_content/shopspot/Give Me Soap/*"].each do |attachment|
-#   puts attachment
-#   EventPicture.create(event: shopspot2, media: File.open(attachment, 'rb'))
-# end
-#
-# Dir["#{Rails.root}/public/event_content/studiolam/*"].each do |attachment|
-#   puts attachment
-#   EventPicture.create(event: studiolam, media: File.open(attachment, 'rb'))
-# end
-#
-# Dir["#{Rails.root}/public/event_content/beam/*"].each do |attachment|
-#   puts attachment
-#   EventPicture.create(event: beam, media: File.open(attachment, 'rb'))
-# end
-#
-# Dir["#{Rails.root}/public/event_content/olive/*"].each do |attachment|
-#   puts attachment
-#   EventPicture.create(event: olive, media: File.open(attachment, 'rb'))
-# end
+puts "upload image"
+Dir["#{Rails.root}/public/event_content/lazgam/*"].each do |attachment|
+  puts attachment
+  EventPicture.create(event: lazgam, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/shopspot/Candle Aroma Perfume/*"].each do |attachment|
+  puts attachment
+  EventPicture.create(event: shopspot1, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/shopspot/Give Me Soap/*"].each do |attachment|
+  puts attachment
+  EventPicture.create(event: shopspot2, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/studiolam/*"].each do |attachment|
+  puts attachment
+  EventPicture.create(event: studiolam, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/beam/*"].each do |attachment|
+  puts attachment
+  EventPicture.create(event: beam, media: File.open(attachment, 'rb'))
+end
+
+Dir["#{Rails.root}/public/event_content/olive/*"].each do |attachment|
+  puts attachment
+  EventPicture.create(event: olive, media: File.open(attachment, 'rb'))
+end
 
 puts "update event uptime"
 Event.update_uptime_present

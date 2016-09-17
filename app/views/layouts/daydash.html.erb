@@ -70,6 +70,7 @@
                 <li>
                   <%= link_to 'ALL', root_path, target: '_self' %>
                 </li>
+
                 <% @global_categories.each do |category| %>
                   <li>
                     <% if is_index_with_categories? %>
@@ -124,7 +125,7 @@
                     <li>
                       <a href="/categories/<%= category.slug %>" target="_self"><%= category.title %></a>
                     </li>
-                  <% end %>
+                  <% end unless @global_categories.nil? %>
                 </ul>
               </div>
             </div>

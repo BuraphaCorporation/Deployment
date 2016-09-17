@@ -1,7 +1,7 @@
 class GreetingsController < ApplicationController
-  include GreetingsHelper
-
   before_action :global_categories
+
+  include GreetingsHelper
 
   layout :resolve_layout
 
@@ -64,9 +64,5 @@ private
     else
       false
     end
-  end
-
-  def global_categories
-    @global_categories = Category.all
   end
 end

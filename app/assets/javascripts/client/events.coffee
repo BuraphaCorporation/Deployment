@@ -16,11 +16,12 @@ $(document).on 'ready', (event) ->
     false
 
   set_category = (category_id) ->
-    if category_id != undefined
+    if category_id == undefined or category_id == '0'
+      $('#event-section .event-list .event-wrapper').show()
+    else
       $('#event-section .event-list .event-wrapper').not('.event-category-' + category_id).hide()
       $('#event-section .event-list .event-wrapper.event-category-' + category_id).show()
-    else
-      $('#event-section .event-list .event-wrapper').show()
+
     selected = $("[data-filter=" + category_id + "]")
     selected.parents('.nav').find('li').removeClass 'active'
     selected.parent().addClass 'active'

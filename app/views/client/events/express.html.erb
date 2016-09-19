@@ -59,7 +59,7 @@
               <div class="form-section-header">
                 <h2 class="form-section-title">Quick Checkout</h2>
                 <div class="form-section-description">
-                  ซื้อตั๋วผ่าน Facebook Login ในคลิกเดียว
+                  ซื้อตั๋วโดยใช้ Facebook ในคลิกเดียว
                 </div>
               </div>
               <div class="form-section-body">
@@ -75,9 +75,8 @@
                 <div class="form-section-header">
                   <h2 class="form-sectiont-title">Checkout with E-mail</h2>
                   <div class="form-section-description">
-                    We need a couple details in case something changes.<br />
-                    We'll send the tickets to your phone and email.
-                    or <a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login</a>
+                    หากคุณเป็นสมาชิกอยู่แล้ว กรุณา <a data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #register-form').hide(); $('#login-modal #login-form').show(); return false;">Login</a> ค่ะ <br>
+                    คุณสามารถลงทะเบียนเป็นสมาชิก Daydash ได้ฟรี! คลิก <a data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #login-form').hide(); $('#login-modal #register-form').show(); return false;">Signup</a>
                   </div>
                 </div>
               <% end %>

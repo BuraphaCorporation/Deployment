@@ -34,7 +34,7 @@
       <div class="col-md-1"></div>
       <div class="col-xs-12 col-md-4">
         <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1" data-toggle="modal" data-target="#ticket-list-modal">
-          ซื้อตั๋ว - <%= convert_to_currency(@section.price) %>
+          ซื้อตั๋ว - <%= "เริ่มที่" if @section_count > 1 %> <%= convert_to_currency(@section.price) %>
         </button>
         <div class="map-panel">
           <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>"></div>
@@ -104,38 +104,54 @@
                 </div>
               </td>
               <% if section.ticket_availability? %>
-              <td width="150" align="right">
-                <div class="ticket-meta" style="margin-top: 8px;">
-                  <span class="ticket-price"><%= convert_to_currency section.price %></span>
-                </div>
-              </td>
-              <td width="150" align="right">
-                <select class="form-control" name="section[<%= section.id %>]">
-                  <% (0..section.show_ticket_available).each do |i| %>
-                    <option value="<%= i %>"><%= i %></option>
-                  <% end %>
-                </select>
-              </td>
+                <td width="150" align="right">
+                  <div class="ticket-meta" style="margin-top: 8px;">
+                    <span class="ticket-price"><%= convert_to_currency section.price %></span>
+                  </div>
+                </td>
+                <td align="right" colspan="2">
+                  <select class="form-control" name="section[<%= section.id %>]">
+                    <% (0..section.show_ticket_available).each do |i| %>
+                      <option value="<%= i %>"><%= i %></option>
+                    <% end %>
+                  </select>
+                </td>
               <% else %>
-              <td width="100" align="right">
-                <div class="ticket-meta" style="margin-top: 8px; color: #ccc;">
-                  <span class="ticket-price"><%= convert_to_currency section.price %></span>
-                </div>
-              </td>
-              <td align="right" colspan="2">
-                <div class="ticket-meta" style="margin-top: 8px; margin-right: 5px; color: red;">
-                  <span class="ticket-not-available">SOLD OUT</span>
-                </div>
-              </td>
+                <td width="100" align="right">
+                  <div class="ticket-meta" style="margin-top: 8px; color: #ccc;">
+                    <span class="ticket-price"><%= convert_to_currency section.price %></span>
+                  </div>
+                </td>
+                <td align="right" colspan="2">
+                  <div class="ticket-meta" style="margin-top: 8px; margin-right: 5px; color: red;">
+                    <span class="ticket-not-available">SOLD OUT</span>
+                  </div>
+                </td>
               <% end %>
             </tr>
             <% end %>
           </table>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-daydash btn-daydash-green-1">NEXT</button>
+          <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToExpress()">NEXT</a>
         </div>
       </div>
     <% end %>
   </div>
 </div>
+
+<script type="text/javascript">
+  function nextToExpress(){
+    $("select[name*='section']").each(function(i, l){
+      select = $("select[name='section[" + (i + 1) + "]']").val();
+      // console.log(select)
+      // console.log(select != undefined && select != 0);
+      if(select != undefined && select != 0) {
+        $("#payment").submit();
+        return true;
+      }
+    });
+
+    return false;
+  }
+</script>

@@ -22,7 +22,8 @@ class Client::EventsController < Client::CoreController
 
   def show
     @event    = Event.friendly.find(params[:id])
-    @section  = @event.first_section
+    @section_count = @event.sections.count
+    @section  = @event.sections.min_by { |m| m.price }
   end
 
   def selection
@@ -31,7 +32,9 @@ class Client::EventsController < Client::CoreController
     session[:tickets]  = {}
     session[:sections] = []
 
+    sections = []
     @event.sections.each do |section|
+      sections << params[:section]["#{section.id}"].to_i
       if params[:section]["#{section.id}"].to_i > 0
         raise "you need to hack more limit tickets" if params[:section]["#{section.id}"].to_i > section.show_ticket_available
         total += section.price * params[:section]["#{section.id}"].to_i
@@ -46,10 +49,11 @@ class Client::EventsController < Client::CoreController
       end
     end
 
+    raise unless sections.any?{ |x| x > 0 }
+
     session[:tickets][:total] = total.to_i * 100
 
     redirect_to client_event_express_path(@event.to_url)
-
   rescue Exception => e
     session[:event]    = nil
     session[:tickets]  = nil

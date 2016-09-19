@@ -28,6 +28,7 @@
         </li>
       <% end %>
     </ul>
+
     <div class="row event-list">
       <% @events.each do |event| %>
         <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">

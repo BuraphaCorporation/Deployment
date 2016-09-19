@@ -2,7 +2,7 @@
 <script>$('body').attr('id', 'event-page');</script>
 <div class="section" id="cover-section">
   <% if @event.event_pictures.present? %>
-    <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :thumb) %>);"></div>
+    <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :full) %>);"></div>
   <% end %>
   <div class="info">
     <div class="container">
@@ -65,7 +65,7 @@
           <div class="event card">
             <%= link_to client_event_path(event.to_url), target: '_self' do %>
               <% if event.event_pictures.present? %>
-                <div class="cover" style="background-image: url(<%= event.event_pictures.first.try(:media, :thumb) %>);"></div>
+                <div class="cover" style="background-image: url(<%= event.event_pictures.first.try(:media, :full) %>);"></div>
               <% else %>
                 <div class="cover"></div>
               <% end %>

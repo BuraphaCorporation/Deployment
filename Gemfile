@@ -24,6 +24,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
 gem 'simple_form'
 gem 'show_for'
 gem 'cocoon'
+gem 'rails_autolink'
 
 # helper model
 gem 'figaro'

@@ -85,7 +85,7 @@
                                                 <p style="font-weight: 200; font-size: 14px; margin-top: 0px;"><%= ticket.section.title %></p>
                                                 <br />
                                                 <label style="font-weight: 200; font-size: 14px; color: #999;">TICKET PRICE</label>
-                                                <p style="font-weight: 200; font-size: 14px; margin-top: 0px;">฿<%= ticket.to_price %></p>
+                                                <p style="font-weight: 200; font-size: 14px; margin-top: 0px;"><%= convert_to_currency ticket.to_price %></p>
                                               </td>
                                             </tr>
                                           </tbody>
@@ -141,10 +141,16 @@
                       </tr>
                       <% end %>
                     </table>
-                    <p style="font-weight: 200; padding-bottom: 30px;">
-                      คุณสามารถใช้อีเมลนี้เพื่อเป็นบัตรเข้างานได้ทันที่ หรือแจ้งชื่อของคุณพร้อมแสดงบัตรประชาชน กับเจ้าหน้าที่หน้างาน เพื่อเข้างานได้ทันทีค่ะ :)
+                    <p style="font-size: 24px; font-weight: 200; padding-top: 30px; padding-bottom: 15px; border-bottom: 1px solid black;">
+                      วิธีการใช้บัตร
                     </p>
-
+                      <% if @order.event.instruction.present? %>
+                        <%= simple_format(auto_link(@order.event.instruction), style: 'font-weight: 200; padding-bottom: 30px;') %>
+                      <% else %>
+                        <p style="font-weight: 200; padding-bottom: 30px;">
+                          คุณสามารถใช้อีเมลนี้เพื่อเป็นบัตรเข้างานได้ทันที่ หรือแจ้งชื่อของคุณพร้อมแสดงบัตรประชาชน กับเจ้าหน้าที่หน้างาน เพื่อเข้างานได้ทันทีค่ะ :)
+                        </p>
+                      <% end %>
                     <table width="100%">
                       <tr>
                         <td align="center" style="background: #DFFFFB; padding: 15px; font-size: 14px; font-weight: 200;">

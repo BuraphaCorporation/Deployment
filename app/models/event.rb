@@ -83,6 +83,10 @@ class Event < ApplicationRecord
     self.event_pictures.present? ? self.event_pictures.first.try(:media, :thumb) : ''
   end
 
+  def get_cover
+    self.event_pictures.present? ? self.event_pictures.first.try(:media, :full) : ''
+  end
+
   def get_total_sales
     orders.sum(:price).to_f / 100
   end

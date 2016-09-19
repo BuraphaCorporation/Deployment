@@ -110,7 +110,7 @@
                   </div>
                 </td>
                 <td align="right" colspan="2">
-                  <select class="form-control" name="section[<%= section.id %>]">
+                  <select class="form-control" name="section[<%= section.id %>]" id="section-<%= section.id %>">
                     <% (0..section.show_ticket_available).each do |i| %>
                       <option value="<%= i %>"><%= i %></option>
                     <% end %>
@@ -142,10 +142,10 @@
 
 <script type="text/javascript">
   function nextToExpress(){
-    $("select[name*='section']").each(function(i, l){
-      select = $("select[name='section[" + (i + 1) + "]']").val();
+    $("select[name*='section']").each(function(){
+      select = $(this).val()
       // console.log(select)
-      // console.log(select != undefined && select != 0);
+      // console.log($(this).val() != undefined && $(this).val() != 0);
       if(select != undefined && select != 0) {
         $("#payment").submit();
         return true;

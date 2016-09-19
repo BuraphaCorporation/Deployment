@@ -117,7 +117,7 @@ class Client::EventsController < Client::CoreController
 
 private
   def related_events
-    @related_events = Event.list.first(3)
+    @related_events = Event.where.not(slug: params[:id]).list.first(3)
   end
 
   def event_payment

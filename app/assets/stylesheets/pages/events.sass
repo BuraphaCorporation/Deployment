@@ -1,55 +1,12 @@
-@font-face
-  font-family: 'Kanit'
-  src: font-url('Kanit/Kanit-Regular.ttf')
 
+$gray-color-3: #333
+$gray-color-4: #444
+$gray-color-8: #888
+$gray-color-a: #aaa
+$gray-color-c: #ccc
+$gray-color-e: #eee
 
-@font-face
-  font-family: 'Kanit'
-  src: font-url('Kanit/Kanit-Italic.ttf')
-  font-style: italic
-
-
-@font-face
-  font-family: 'Kanit'
-  src: font-url('Kanit/Kanit-Bold.ttf')
-  font-weight: 600
-
-
-@font-face
-  font-family: 'Kanit'
-  src: font-url('Kanit/Kanit-BoldItalic.ttf')
-  font-weight: 600
-  font-style: italic
-
-
-@font-face
-  font-family: 'Kanit'
-  src: font-url('Kanit/Kanit-Light.ttf')
-  font-weight: 200
-
-
-@font-face
-  font-family: 'Kanit'
-  src: font-url('Kanit/Kanit-LightItalic.ttf')
-  font-weight: 200
-  font-style: italic
-
-
-@font-face
-  font-family: 'Athiti'
-  src: font-url('Athiti/Athiti-Regular.ttf')
-
-
-@font-face
-  font-family: 'Athiti'
-  src: font-url('Athiti/Athiti-Bold.ttf')
-  font-weight: 600
-
-
-@font-face
-  font-family: 'Athiti'
-  src: font-url('Athiti/Athiti-Light.ttf')
-  font-weight: 200
+$green-color: #19D4D6
 
 #error_explanation
   font-size: 16px
@@ -59,65 +16,115 @@
 html, body
   height: 100%
   font-family: "Athiti", "Helvetica Neue", "sans-serif"
-  color: #444
+  color: $gray-color-4
 
 #topbar
   .navbar
     margin-bottom: 0px
-    border-bottom: 1px solid #eee
+    border-bottom: 1px solid $gray-color-e
   .navbar-brand
     padding: 10px 15px
     height: 60px
     img
       height: 40px
   .navbar-left
-    padding-left: 20px
     > li
       > a
-        padding: 20px 15px
-        font-size: 16px
-        color: #444
+        color: $gray-color-4
         text-transform: uppercase
   .navbar-right
     > li
-      > a
-        padding: 20px
-        font-size: 18px
       .btn-daydash-green-2
-        background: #19D4D6
+        background: $green-color
         color: white
         border: 0px
         &:hover, &:active, &:visited, &:link
-          background: #19D4D6
+          background: $green-color
           color: white
-    .user-dropdown
-      .user-profile-photo
-        width: 30px
-        height: 30px
-        border-radius: 50%
-        background-size: cover
-        background-position: center
-        background-repeat: no-repeat
-        background-color: #ccc
-        float: left
-      .user-name
-        display: inline-block
-        padding: 5px
-        padding-left: 15px
-        color: #444
-      .fa
-        color: #444
+  .user-profile-photo
+    width: 30px
+    height: 30px
+    border-radius: 50%
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    background-color: $gray-color-c
+    float: left
 
-      .dropdown-toggle
-        padding: 15px
-      .dropdown-menu
-        min-width: 200px
-        padding: 0px
-        li a
-          padding: 15px 20px
-          font-size: 14px
-          font-weight: 200
-          border-bottom: 1px solid #eee
+  .user-dropdown
+    .user-name
+      display: inline-block
+      padding: 5px
+      padding-left: 15px
+      color: $gray-color-4
+    .fa
+      color: $gray-color-4
+
+    .dropdown-toggle
+      padding: 15px
+    .dropdown-menu
+      min-width: 200px
+      padding: 0px
+      li a
+        padding: 15px 20px
+        font-size: 14px
+        font-weight: 200
+        border-bottom: 1px solid $gray-color-e
+  @media (max-width: 767px)
+    .navbar-header
+      border-bottom: 1px solid $gray-color-e
+
+    .navbar-nav
+      margin: 0px -15px
+
+      li
+        a
+          color: $gray-color-4
+          text-align: center
+          border-bottom: 1px solid $gray-color-e
+
+    .navbar-right
+      border-bottom: 1px solid $gray-color-e
+
+  @media (min-width: 768px)
+    .navbar-right
+      > li
+        > a
+          padding: 20px
+          font-size: 18px
+
+  @media (min-width: 768px) and (max-width: 991px)
+    .navbar
+      .navbar-left
+        display: none
+
+  @media (min-width: 992px) and (max-width: 1199px)
+    .navbar
+      .navbar-left, .navbar-right
+        li
+          a
+            padding: 20px 10px
+            font-size: 14px
+
+      .navbar-right
+        li.dropdown a
+          padding: 15px
+        #menu-login
+          padding: 20px
+
+  @media (min-width: 1200px)
+    .navbar
+      .navbar-left, .navbar-right
+        li
+          a
+            padding: 20px 15px
+            font-size: 16px
+
+      .navbar-right
+        li.dropdown a
+          padding: 15px
+        #menu-login
+          padding: 20px
 
 #wrapper
   position: relative
@@ -137,27 +144,27 @@ html, body
   left: 0px
   right: 0px
   height: auto
-  background-color: #333
-  color: #aaa
+  background-color: $gray-color-3
+  color: $gray-color-a
   padding-bottom: 100px
   .col
     margin-top: 80px
   a
     text-decoration: none
-    color: #aaa
+    color: $gray-color-a
     &:hover
       color: white
   .list-panel
     .list-title
       margin-bottom: 25px
-      color: #eee
+      color: $gray-color-e
       font-size: 16px
     .list-body li a
       display: inline-block
       width: auto
       padding: 0px
       font-size: 14px
-      color: #aaa
+      color: $gray-color-a
       margin-bottom: 5px
       &:hover, &:active, &:focus, &.active
         background: transparent
@@ -172,6 +179,11 @@ html, body
   .cert-list
     margin-top: 50px
 
+  @media (max-width: 991px)
+
+    .col
+      margin-top: 40px
+
 #login-modal
   .modal-title
     text-align: center
@@ -181,7 +193,7 @@ html, body
     img
       height: 40px
   .seperator
-    border-top: 1px solid #444
+    border-top: 1px solid $gray-color-4
     margin-top: 25px
     margin-bottom: 15px
     .inner
@@ -198,7 +210,7 @@ html, body
 
 @media (max-width: 991px)
   #main
-    padding-bottom: 1400px
+    padding-bottom: 1200px
 
 a
   color: #00CFD1
@@ -235,190 +247,87 @@ label
   background: linear-gradient(90deg, #433B8F, #2F9687)
   color: white
 
-.color-daydash-green
-  color: #19D4D6
 
-.color-daydash-green-2
-  color: #17A41D
+.mobile-only
+  @media (min-width: 992px)
+    display: none !important
 
-.color-daydash-red
-  color: #EB585B
-
-.icon
-  display: inline-block
-  width: 25px
-  height: 25px
-  background-size: contain
-  background-repeat: no-repeat
-  background-position: center
-
-.icon-xs
-  width: 16px
-  height: 16px
-.icon-lg
-  width: 64px
-  height: 64px
-
-.icon-facebook
-  background-image: asset-url('icons/icon-facebook.png')
-.icon-facebook-color
-  background-image: asset-url('icons/icon-facebook-color.png')
-.icon-line
-  background-image: asset-url('icons/icon-line.png')
-.icon-line-black
-  background-image: asset-url('icons/icon-line-black.png')
-.icon-instagram
-  background-image: asset-url('icons/icon-instagram.png')
-.icon-twitter
-  background-image: asset-url('icons/icon-twitter.png')
-.icon-twitter-color
-  background-image: asset-url('icons/icon-twitter-color.png')
-.icon-map-pin
-  background-image: asset-url('icons/icon-map-pin.png')
-.icon-calendar
-  background-image: asset-url('icons/icon-calendar.png')
-.icon-order
-  background-image: asset-url('icons/icon-order.png')
-.icon-checkin
-  background-image: asset-url('icons/icon-checkin.png')
-.icon-edit
-  background-image: asset-url('icons/icon-edit.png')
-.icon-unpublish
-  background-image: asset-url('icons/icon-unpublish.png')
-.icon-waiting
-  background-image: asset-url('icons/icon-waiting.png')
-.icon-checked
-  background-image: asset-url('icons/icon-checked.png')
-.icon-envelope
-  background-image: asset-url('icons/icon-envelope.png')
-.icon-chrome
-  background-image: asset-url('icons/icon-chrome.png')
-.icon-mobile
-  background-image: asset-url('icons/icon-mobile.png')
-.icon-phone
-  background-image: asset-url('icons/icon-phone.png')
-.icon-comments
-  background-image: asset-url('icons/icon-comments.png')
-.icon-arrow-left
-  background-image: asset-url('icons/icon-arrow-left.png')
-.icon-info
-  background-image: asset-url('icons/icon-info.png')
-.icon-submit
-  background-image: asset-url('icons/icon-submit.png')
-.icon-ticket
-  background-image: asset-url('icons/icon-ticket.png')
-.icon-shopping
-  background-image: asset-url('icons/icon-shopping.png')
-
-
-.btn-daydash
-  border-radius: 0px
-  color: #444
-  &:hover, &:active, &:visited, &:link
-    color: black
-
-.btn-daydash-md
-  padding: 10px 15px
-  font-size: 18px
-
-.btn-daydash-lg
-  padding: 15px
-  font-size: 24px
-
-.btn-daydash-round
-  border-radius: 2px
-
-.btn-daydash-inverse
-  &, &:active, &:visited, &:link
-    background: #444
-    color: white
-    border: 0px
-
-  &:hover
-    background: #888
-    color: white
-
-.btn-daydash-green-1
-  background: linear-gradient(90deg, #00CFD1, #00E9CA)
-  color: white
-  border: 0px
-  &:hover, &:active, &:visited, &:link
-    background: linear-gradient(90deg, #00CFD1, #00E9CA)
-    color: white
-
-.btn-daydash-green-2
-  background: #19D4D6
-  color: white
-  border: 0px
-  &:hover, &:active, &:visited, &:link
-    background: #19D4D6
-    color: white
-
-.btn-daydash-pink
-  background: linear-gradient(90deg, #DF1E68, #DD2993)
-  color: white
-  border: 0px
-  &:hover, &:active, &:visited, &:link
-    background: linear-gradient(90deg, #DF1E68, #DD2993)
-    color: white
+.mobile-hide
+  @media (max-width: 991px)
+    display: none !important
 
 .panel-daydash
   border-radius: 0px
   box-shadow: none
   padding: 30px
-  border: 1px solid #eee
+  border: 1px solid $gray-color-e
   background: white
+
+  @media (max-width: 991px)
+    padding: 15px
 
 .event.card, .ticket.card
   display: block
   margin-bottom: 30px
   border-radius: 2px
-  border: 1px solid #eee
+  border: 1px solid $gray-color-e
   overflow: hidden
   text-decoration: none
 
-.event.card .cover, .ticket.card .cover
-  background-size: cover
-  background-position: center
-  background-repeat: no-repeat
-  background-color: #ccc
-  height: 250px
+  .cover
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
+    background-color: $gray-color-c
+    height: 250px
 
-.event.card .info, .ticket.card .info
-  background-color: #fff
-  color: #444
-  padding: 15px
-  font-size: 16px
+  .info
+    background-color: #fff
+    color: $gray-color-4
+    padding: 15px
+    font-size: 16px
 
-.event.card .info a, .ticket.card .info a
-  color: #444
+    a
+      color: $gray-color-4
 
-.event.card .title, .ticket.card .title
-  margin-bottom: 25px
-  height: 64px
-  font-size: 20px
+  .title
+    margin-bottom: 25px
+    height: 64px
+    font-size: 20px
 
-.event.card .icon, .ticket.card .icon
-  float: left
-  margin-top: 1px
-  margin-right: 5px
+  .icon
+    float: left
+    margin-top: 1px
+    margin-right: 5px
 
-.event.card .meta, .ticket.card .meta
-  margin-bottom: 10px
+  .meta
+    margin-bottom: 10px
 
-.event.card.payment-card .title, .ticket.card.payment-card .title
-  height: auto
+  &.payment-card
+    .title
+      height: auto
 
-.event.card.payment-card .info, .ticket.card.payment-card .info
-  padding-bottom: 0px
+    .info
+      padding-bottom: 0px
 
-.event.card.payment-card .info .row, .ticket.card.payment-card .info .row
-  padding-top: 15px
-  padding-bottom: 15px
-  border-bottom: 1px solid #eee
+      .row
+        padding-top: 15px
+        padding-bottom: 15px
+        border-bottom: 1px solid $gray-color-e
 
-.event.card.payment-card .ticket-list .ticket .ticket-price, .ticket.card.payment-card .ticket-list .ticket .ticket-price, .event.card.payment-card .ticket-list .list-footer, .ticket.card.payment-card .ticket-list .list-footer
-  text-align: right
+    .ticket-list
+      .ticket .ticket-price
+        text-align: right
+
+      .list-footer
+        text-align: right
+
+  @media (max-width: 991px)
+    .title
+      height: auto
+      line-height: 1.5em
+      margin-bottom: 15px
+
 
 .card-side-cover
   margin-bottom: 40px
@@ -430,12 +339,32 @@ label
     background-size: cover
     background-position: center
     background-repeat: no-repeat
-    background-color: #ccc
+    background-color: $gray-color-c
   .info
     padding: 15px
     padding-bottom: 0px
     .info-body
       padding-bottom: 15px
+      .title
+        line-height: 1.5em
+      .meta
+        margin-bottom: 5px
+
+  @media (max-width: 991px)
+    .cover
+      height: 150px
+    .info
+      padding: 5px
+
+  @media (min-width: 992px)
+    width: 100%
+    display: table
+    .cover
+      display: table-cell
+      width: 180px
+    .info
+      display: table-cell
+
 
 .ticket.ticket-1
   margin-bottom: 30px
@@ -444,7 +373,7 @@ label
   box-shadow: 0px 5px 10px rgba(0,0,0,0.05)
 
   a
-    color: #444
+    color: $gray-color-4
 
   .event-date-lg
     padding-top: 30px
@@ -465,8 +394,7 @@ label
     background-size: cover
     background-position: center
     background-repeat: no-repeat
-    background-color: #ccc
-    height: 170px
+    background-color: $gray-color-c
     padding: 30px
 
 
@@ -488,11 +416,11 @@ label
         text-align: right
 
         label
-          color: #aaa
+          color: $gray-color-a
 
     .info-footer
       padding-top: 15px
-      border-top: 1px solid #444
+      border-top: 1px solid $gray-color-4
 
       .meta
         margin-bottom: 5px
@@ -502,6 +430,11 @@ label
         margin-top: 2px
         margin-right: 5px
 
+  @media (max-width: 991px)
+    .info
+      .info-footer
+        padding-bottom: 15px
+
 .order.order-1
   margin-bottom: 30px
   padding: 15px
@@ -509,18 +442,17 @@ label
   box-shadow: 0px 5px 10px rgba(0,0,0,0.05)
 
   a:not(.btn)
-    color: #444
+    color: $gray-color-4
 
   .order-header
     padding-bottom: 15px
-    .right
-      text-align: right
+
   .cover
     display: block
     background-size: cover
     background-position: center
     background-repeat: no-repeat
-    background-color: #ccc
+    background-color: $gray-color-c
     height: 170px
     padding: 30px
 
@@ -543,7 +475,7 @@ label
   .info
     .info-header, .info-body
       padding-top: 15px
-      border-top: 1px solid #444
+      border-top: 1px solid $gray-color-4
 
     .table
       tr
@@ -552,7 +484,7 @@ label
       .total
         td
           padding-top: 15px
-          border-top: 1px solid #444
+          border-top: 1px solid $gray-color-4
     .info-body
       padding-top: 10px
 
@@ -577,9 +509,13 @@ label
 
           .btn-daydash-inverse
             &:hover, &:active, &:link, &:visited
-              background: #444
+              background: $gray-color-4
 
   @media (min-width: 992px)
+    .order-header
+      .right
+        text-align: right
+
     .order-body
       display: table
       width: 100%
@@ -589,10 +525,15 @@ label
         float: none
         vertical-align: top
         position: relative
-
     .info-2
       position: absolute
       bottom: 0px
+
+  @media (max-width: 991px)
+    .order-header
+      .right
+        margin-top: 5px
+
 
 .event-for-organizer
   .list-action-nav
@@ -600,7 +541,7 @@ label
 
     li
       a
-        color: #444
+        color: $gray-color-4
 
   .ticket-sold-panel
     font-weight: 200
@@ -615,45 +556,45 @@ label
       .progress-bar
         background-color: #17A41D
 
+  @media (max-width: 991px)
+    .list-action-nav
+      li
+        padding-left: 0px
+        padding-right: 0px
+        a
+          font-size: 12px
 
-@media (max-width: 991px)
-  .card-side-cover .cover
-    height: 150px
+          .icon
+            height: 12px
 
-@media (min-width: 992px)
-  .card-side-cover
-    width: 100%
-    display: table
-    .cover
-      display: table-cell
-      width: 150px
-    .info
-      display: table-cell
+      li:not(:last-child):after
+        padding-left: 5px
+
 
 .nav-daydash
   margin-bottom: 15px
   li
     a
-      background: transparent
-      padding-bottom: 8px
-      color: #444
-      &:visited, &:link, &:active
+      &, &:visited, &:link, &:active
         background: transparent
         padding-bottom: 8px
-        color: #444
+        color: $gray-color-4
       &:hover, &:visited:hover, &:link:hover, &:active:hover
-        color: #444
+        color: $gray-color-4
     &.active a
-      border-radius: 0px
-      background: transparent
-      color: #444
-      border-bottom: 3px solid #00CFD1
-      &:hover, &:active, &:link, &:visited
+      &, &:hover, &:active, &:link, &:visited
         border-radius: 0px
         background: transparent
-        color: #444
+        color: $gray-color-4
         // border-bottom: 3px solid #00CFD1
-        border-bottom: 3px solid #444
+        border-bottom: 3px solid $gray-color-4
+
+.nav-daydash-green
+  li.active
+    a
+      &, &:hover, &:active, &:link, &:visited
+        border-bottom: 2px solid #00CFD1
+
 
 .nav-tabs-daydash
   margin-bottom: 15px
@@ -661,96 +602,96 @@ label
     margin-bottom: 15px
   li a
     background: transparent
-    color: #aaa
+    color: $gray-color-a
     border: 0px
-    border-bottom: 3px solid #eee
+    border-bottom: 3px solid $gray-color-e
     &:visited, &:link, &:active
       background: transparent
-      color: #aaa
+      color: $gray-color-a
       border: 0px
-      border-bottom: 3px solid #eee
+      border-bottom: 3px solid $gray-color-e
   &.nav-justified li a
     background: transparent
-    color: #aaa
+    color: $gray-color-a
     border: 0px
-    border-bottom: 3px solid #eee
+    border-bottom: 3px solid $gray-color-e
     &:visited, &:link, &:active
       background: transparent
-      color: #aaa
+      color: $gray-color-a
       border: 0px
-      border-bottom: 3px solid #eee
+      border-bottom: 3px solid $gray-color-e
   li:hover a, &.nav-justified li:hover a
-    color: #444
+    color: $gray-color-4
     &:hover
-      color: #444
+      color: $gray-color-4
   li.active
     a
       border-radius: 0px
       background: transparent
-      color: #444
+      color: $gray-color-4
       border: 0px
       border-bottom: 3px solid #00CFD1
       &:visited, &:link, &:active
         border-radius: 0px
         background: transparent
-        color: #444
+        color: $gray-color-4
         border: 0px
         border-bottom: 3px solid #00CFD1
     &:hover a
       border-radius: 0px
       background: transparent
-      color: #444
+      color: $gray-color-4
       border: 0px
       border-bottom: 3px solid #00CFD1
       &:visited, &:link, &:active
         border-radius: 0px
         background: transparent
-        color: #444
+        color: $gray-color-4
         border: 0px
         border-bottom: 3px solid #00CFD1
   &.nav-justified li.active
     a
       border-radius: 0px
       background: transparent
-      color: #444
+      color: $gray-color-4
       border: 0px
       border-bottom: 3px solid #00CFD1
       &:visited, &:link, &:active
         border-radius: 0px
         background: transparent
-        color: #444
+        color: $gray-color-4
         border: 0px
         border-bottom: 3px solid #00CFD1
     &:hover a
       border-radius: 0px
       background: transparent
-      color: #444
+      color: $gray-color-4
       border: 0px
       border-bottom: 3px solid #00CFD1
       &:visited, &:link, &:active
         border-radius: 0px
         background: transparent
-        color: #444
+        color: $gray-color-4
         border: 0px
         border-bottom: 3px solid #00CFD1
   &.nav-tabs-black li.active
     a
-      border-bottom: 3px solid #444
+      border-bottom: 3px solid $gray-color-4
       &:visited, &:link, &:active
-        border-bottom: 3px solid #444
+        border-bottom: 3px solid $gray-color-4
     &:hover a
-      border-bottom: 3px solid #444
+      border-bottom: 3px solid $gray-color-4
       &:visited, &:link, &:active
-        border-bottom: 3px solid #444
+        border-bottom: 3px solid $gray-color-4
   &.nav-justified.nav-tabs-black li.active
     a
-      border-bottom: 3px solid #444
+      border-bottom: 3px solid $gray-color-4
       &:visited, &:link, &:active
-        border-bottom: 3px solid #444
+        border-bottom: 3px solid $gray-color-4
     &:hover a
-      border-bottom: 3px solid #444
+      border-bottom: 3px solid $gray-color-4
       &:visited, &:link, &:active
-        border-bottom: 3px solid #444
+        border-bottom: 3px solid $gray-color-4
 
 .list-action-nav li:not(:last-child):after
   content: "|"
@@ -795,12 +736,45 @@ label
           font-weight: bold
         .subtitle
           font-size: 24px
+
+    @media (max-width: 991px)
+      .page-cover
+        height: 250px
+      .info
+        .caption
+          margin-top: 60px
+
+          .title
+            font-size: 32px
+          .subtitle
+            font-size: 20px
   #event-section
     background-color: #fcfcfc
     padding-top: 30px
     padding-bottom: 30px
+
     .event-list
       padding-top: 15px
+
+    @media (max-width: 991px)
+      padding-top: 5px
+
+      .nav
+        margin-left: -15px
+        margin-right: -15px
+        white-space: nowrap
+        overflow-x: auto
+        -webkit-overflow-scrolling: touch
+        border-bottom: 1px solid $gray-color-e
+
+        li
+          float: none
+          display: inline-block
+
+      .event-list
+        padding-top: 0px
+
+
 
 #event-page
   #cover-section
@@ -834,6 +808,13 @@ label
         width: 300px
     .right
       padding-left: 0px
+    @media (max-width: 991px)
+      height: 300px
+      .info
+        padding-bottom: 0px
+        .title
+          font-size: 24px
+
   #info-section
     padding-top: 45px
     padding-bottom: 60px
@@ -866,13 +847,13 @@ label
         background-size: cover
         background-position: center
         background-repeat: no-repeat
-        background-color: #ccc
+        background-color: $gray-color-c
     .btn-daydash-lg
       margin-bottom: 15px
     .map-panel
       margin-bottom: 15px
       border-radius: 2px
-      background: #eee
+      background: $gray-color-e
       #google-map
         width: 100%
         height: 400px
@@ -880,13 +861,22 @@ label
       padding-top: 15px
       padding-bottom: 15px
       border-radius: 2px
-      border: 1px solid #eee
+      border: 1px solid $gray-color-e
       .btn-daydash
         margin-bottom: 5px
       .social-list
         text-align: center
         *
           vertical-align: text-top
+
+    @media (max-width: 991px)
+      padding-top: 15px
+
+      .meta
+        margin-bottom: 15px
+      .description
+        font-size: 14px
+
   #ticket-list-modal
     margin-top: 100px
     .table
@@ -896,6 +886,13 @@ label
         padding-right: 15px
     .ticket .ticket-title
       font-weight: bold
+
+    @media (max-width: 991px)
+      .table-responsive
+        margin-bottom: 0px
+
+      select.form-control
+        min-width: 60px
 
 #payment-page
   .form-section.highlight
@@ -928,9 +925,16 @@ label
   .card-wrapper
     margin-bottom: 30px
 
-@media (max-width: 991px)
-  #payment-page .gender-form-group .form-inline
-    padding-left: 30px
+  @media (max-width: 991px)
+    .gender-form-group .form-inline
+      padding-left: 30px
+    .nav-tabs
+      li
+        display: table-cell
+        width: 1%
+
+#payment-section
+  padding-top: 40px
 
 #payment-complete-page
   #credit-card-inform-section
@@ -953,8 +957,8 @@ label
       font-weight: 200
 
       .panel-heading
-        padding-bottom: 30px
-        border-bottom: 1px solid #eee
+        padding-bottom: 15px
+        border-bottom: 1px solid $gray-color-e
 
         .back-btn
           .icon
@@ -971,11 +975,12 @@ label
 
         .meta
           li
+            margin-bottom: 15px
             margin-right: 15px
 
       .panel-body
         padding-top: 30px
-        padding-bottom: 30px
+        padding-bottom: 15px
 
         ul
           margin-bottom: 30px
@@ -995,6 +1000,7 @@ label
         .panel-action
           .btn
             margin-right: 10px
+            margin-bottom: 15px
             padding: 10px 30px
             font-weight: 200
 
@@ -1005,7 +1011,7 @@ label
 
         .social-list
           padding-top: 5px
-          
+
           *
             vertical-align: text-top !important
 
@@ -1044,214 +1050,26 @@ label
               margin-left: -30px
               margin-top: 5px
 
+    @media (max-width: 991px)
+      .main-panel
+        .panel-heading
+          .panel-title
+            font-size: 24px
+        .panel-body
+          ul
+            li
+              font-size: 14px
+          .panel-action
+            .btn
+              width: 100%
 
 #related-event-section
   padding-top: 40px
   padding-bottom: 50px
   background: #fcfcfc
-  border-top: 1px solid #eee
+  border-top: 1px solid $gray-color-e
   .section-header
     margin-bottom: 20px
     text-align: center
     .section-title
       font-size: 30px
-
-
-#profile-nav-section
-  padding-top: 15px
-  border-bottom: 1px solid #eee
-  background: #f8f8f8
-
-  #profile-nav, #organizer-nav
-    text-align: center
-    margin: 0px auto
-    width: 285px
-    margin-top: 15px
-
-
-  .current-user-panel
-    text-align: center
-
-    .profile-photo
-      width: 80px
-      height: 80px
-      border-radius: 50%
-      background-size: cover
-      background-position: center
-      background-repeat: no-repeat
-      margin: 10px auto
-    .user-name
-      font-size: 20px
-      font-weight: 200
-      margin-bottom: 5px
-
-.organizer-event-nav
-  border-top: 1px solid #ddd
-  li
-    a
-      &, &:active, &:link, &:visited
-        padding: 8px 10px
-        color: #444
-        background: transparent
-        border-bottom: 1px solid #ddd
-
-      &:hover
-        background: #eee
-
-      .icon
-        float: left
-        margin-right: 15px
-
-
-#profile-ticket-list-page
-  #main
-    background-color: #fcfcfc
-    .container
-      max-width: 850px
-
-      .ticket-list
-        .list-body
-          padding-top: 30px
-
-          .past-event-section
-            margin-top: 50px
-            margin-bottom: 30px
-            border-top: 3px dotted #ccc
-
-            .past-event-header
-              margin-top: -13px
-              text-align: center
-
-              .past-event-title
-                margin: 0px
-                display: inline-block
-                padding: 0px 15px
-                font-size: 12px
-                color: #aaa
-                background: #fcfcfc
-                letter-spacing: 1px
-
-        .empty
-          padding: 30px 0px
-          text-align: center
-
-          .description
-            margin-top: 20px
-            margin-bottom: 20px
-
-
-#profile-order-list-page
-  #main
-    background-color: #fcfcfc
-    .container
-      max-width: 850px
-
-      .order-list
-        .list-body
-          padding-top: 30px
-
-        .empty
-          padding: 30px 0px
-          text-align: center
-
-          .description
-            margin-top: 20px
-            margin-bottom: 20px
-
-
-#profile-wishlist-page
-  h1 small
-    font-size: 20px
-  .event-list .event .cover
-    height: 200px
-
-#profile-settings-page form .form-group:nth-child(2n+1)
-  clear: left
-
-#organizer-event-list
-  #event-list-section
-    .container
-      max-width: 900px
-    .event-list
-      .list-body
-        padding-top: 40px
-
-
-#organizer-events-new, #organizer-events-edit
-  .section
-    padding-top: 30px
-
-    .section-header
-      margin-bottom: 30px
-
-    h1
-      margin-top: 0px
-
-  .form-section
-    margin-bottom: 30px
-
-#organizer-events-new .ticket-list .ticket:first-child .btn-ticket-delete, #organizer-events-edit .ticket-list .ticket:first-child .btn-ticket-delete
-  display: none
-
-#organizer-events-new .image-list .image, #organizer-events-edit .image-list .image
-  margin-bottom: 30px
-  height: 150px
-  background-size: cover
-  background-position: center
-  background-repeat: no-repeat
-  background-color: #ccc
-
-#organizer-settings-page form .form-group:nth-child(2n+1)
-  clear: left
-
-#organizer-event-orders
-  #main
-    background: #fcfcfc
-
-  #order-list-section
-    padding-top: 30px
-
-    .section-header
-      margin-bottom: 30px
-
-#organizer-event-checkin
-
-  #main
-    background: #fcfcfc
-
-  #checkin-section
-    padding-top: 30px
-
-    .section-header
-      margin-bottom: 30px
-
-    .event-section-panel
-      margin-bottom: 50px
-
-      .panel-header
-        margin-bottom: 15px
-
-        .panel-title
-          margin-bottom: 5px
-          font-weight: bold
-
-        .meta-info
-          margin-top: 5px
-
-
-
-.organizer-table
-  background: white
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.1)
-  margin-bottom: 30px
-
-  .table
-    margin-bottom: 0px
-
-    thead
-      tr
-        td, th
-          background: #444
-          color: white
-          font-weight: 200
-

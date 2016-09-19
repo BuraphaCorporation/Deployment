@@ -15,7 +15,12 @@
               <% @tickets_active.each do |ticket| %>
                 <div class="ticket ticket-1">
                   <div class="row">
-                    <div class="col-xs-12 col-md-3">
+                    <div class="col-xs-12 col-md-3 pull-right">
+                      <div class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);">
+                        <img src="<%= ticket.qr_code(:medium) %>" width="100%" />
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3 mobile-hide">
                       <div class="event-date-lg">
                         <div class="month"><%= ticket.section.event_time.try(:strftime, "%b") %></div>
                         <div class="date"><%= ticket.section.event_time.try(:strftime, "%d") %></div>
@@ -34,7 +39,7 @@
                             <div class="col-xs-6">
                               <div>
                                 <span class="ticket-type"><%= ticket.section.title %></span>
-                                <span class="ticket-price">฿ <%= ticket.to_price %></span>
+                                <span class="ticket-price"><%= convert_to_currency ticket.to_price %></span>
                               </div>
                             </div>
                             <div class="col-xs-6">
@@ -53,11 +58,6 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-md-3">
-                      <div class="cover" style="background-image: url(<%= ticket.event.event_pictures.first.try(:media, :thumb) %>);">
-                        <img src="<%= ticket.qr_code(:medium) %>" width="100%" />
                       </div>
                     </div>
                   </div>
@@ -94,7 +94,7 @@
                             <div class="col-xs-6">
                               <div>
                                 <span class="ticket-type"><%= ticket.section.title %></span>
-                                <span class="ticket-price">฿ <%= ticket.to_price %></span>
+                                <span class="ticket-price"><%= convert_to_currency ticket.to_price %></span>
                               </div>
                             </div>
                             <div class="col-xs-6">
@@ -127,7 +127,7 @@
               <div class="empty">
                 <i class="icon icon-lg icon-ticket"></i>
                 <h4 class="description">คุณยังไม่มีบัตรเข้าร่วมงานเลยค่ะ</h4>
-                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
+                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/" target="_self">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
               </div>
 
             <% end %>

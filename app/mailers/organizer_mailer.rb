@@ -1,5 +1,6 @@
 class OrganizerMailer < ApplicationMailer
   default :template_path => 'layouts_mailer/organizer'
+  add_template_helper ApplicationHelper
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -17,10 +18,9 @@ class OrganizerMailer < ApplicationMailer
     @subtitle = "And here’s the detail :)"
 
     if @event.user.nil?
-      mail to: "hello@daydash.co", subject: @title, bcc: "daydash.app@gmail.com,nonmadden@gmail.com"
+      mail to: "hello@daydash.co", subject: @title, bcc: "bow.kraivanich@gmail.com, daydash.app@gmail.com,nonmadden@gmail.com"
     else
-      mail to: @event.user.email, subject: @title, bcc: "hello@daydash.co,daydash.app@gmail.com,nonmadden@gmail.com"
+      mail to: @event.user.email, subject: @title, bcc: "bow.kraivanich@gmail.com, hello@daydash.co, daydash.app@gmail.com,nonmadden@gmail.com"
     end
   end
 end
-

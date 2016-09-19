@@ -1,4 +1,4 @@
-<script>$('body').attr('id', 'organizer-event-orders');</script>
+<script>$('body').attr('id', 'organizer-event-orders').addClass('organizer-event-page');</script>
 
 <%= render partial: "organizer/parts/organizer-nav" %>
 <script>$('#organizer-nav #menu-event-list').addClass('active');</script>
@@ -41,7 +41,7 @@
                   <td><%= order.code %></td>
                   <td><%= order.user.first_name %> <%= order.user.last_name %></td>
                   <td><%= order.tickets.count %></td>
-                  <td>฿ <%= order.to_price %></td>
+                  <td><%= convert_to_currency(order.to_price) %></td>
                   <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
                   <td>
                     <span class="order-status"><%= order.status %></span>

@@ -187,7 +187,7 @@ CategoriesEvent.create(event: olive, category: Category.find_by_name('art-and-cu
 puts "update sections"
 beam.sections.create([
   {
-    title:      "1 person",
+    title:      "General",
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
@@ -195,171 +195,174 @@ beam.sections.create([
     bought:     0
   },
   {
-    title:      "5 person",
+    title:      "VIP",
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "1 person",
-    event_time: Time.zone.tomorrow,
-    end_time:   Time.zone.tomorrow,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "5 person",
-    event_time: Time.zone.tomorrow,
-    end_time:   Time.zone.tomorrow,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "1 person",
-    event_time: Time.zone.tomorrow + 1.days,
-    end_time:   Time.zone.tomorrow + 1.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "5 person",
-    event_time: Time.zone.tomorrow + 1.days,
-    end_time:   Time.zone.tomorrow + 1.days,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "1 person",
-    event_time: Time.zone.tomorrow + 2.days,
-    end_time:   Time.zone.tomorrow + 2.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "5 person",
-    event_time: Time.zone.tomorrow + 2.days,
-    end_time:   Time.zone.tomorrow + 2.days,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "1 person",
-    event_time: Time.zone.tomorrow + 3.days,
-    end_time:   Time.zone.tomorrow + 3.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "5 person",
-    event_time: Time.zone.tomorrow + 3.days,
-    end_time:   Time.zone.tomorrow + 3.days,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "1 person",
-    event_time: Time.zone.tomorrow + 4.days,
-    end_time:   Time.zone.tomorrow + 4.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "5 person",
-    event_time: Time.zone.tomorrow + 4.days,
-    end_time:   Time.zone.tomorrow + 4.days,
-    price:      4500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "1 person",
-    event_time: Time.zone.now + rand(5..30).days + 30.days,
-    end_time:   Time.zone.now + rand(5..30).days + 30.days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "5 person",
-    event_time: Time.zone.now + rand(5..30).days + 30.days,
-    end_time:   Time.zone.now + rand(5..30).days + 30.days,
     price:      4500,
     total:      100,
     bought:     0
   }
+  #,
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow,
+  #   end_time:   Time.zone.tomorrow,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow,
+  #   end_time:   Time.zone.tomorrow,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow + 1.days,
+  #   end_time:   Time.zone.tomorrow + 1.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow + 1.days,
+  #   end_time:   Time.zone.tomorrow + 1.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow + 2.days,
+  #   end_time:   Time.zone.tomorrow + 2.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow + 2.days,
+  #   end_time:   Time.zone.tomorrow + 2.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow + 3.days,
+  #   end_time:   Time.zone.tomorrow + 3.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow + 3.days,
+  #   end_time:   Time.zone.tomorrow + 3.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.tomorrow + 4.days,
+  #   end_time:   Time.zone.tomorrow + 4.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.tomorrow + 4.days,
+  #   end_time:   Time.zone.tomorrow + 4.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.now + rand(5..30).days + 30.days,
+  #   end_time:   Time.zone.now + rand(5..30).days + 30.days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # },
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.now + rand(5..30).days + 30.days,
+  #   end_time:   Time.zone.now + rand(5..30).days + 30.days,
+  #   price:      4500,
+  #   total:      100,
+  #   bought:     0
+  # }
 ])
 
 shopspot1.sections.create([
   {
-    title:      "1 person",
+    title:      "General",
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
-    price:      2500,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "5 person",
-    event_time: Time.zone.now + rand(5..30).days,
-    end_time:   Time.zone.now + rand(5..30).days,
-    price:      10000,
-    total:      100,
+    price:      1720,
+    total:      12,
     bought:     0
   }
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.now + rand(5..30).days,
+  #   end_time:   Time.zone.now + rand(5..30).days,
+  #   price:      10000,
+  #   total:      100,
+  #   bought:     0
+  # }
 ])
 
 shopspot2.sections.create([
   {
-    title:      "1 person",
+    title:      "General",
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
-    price:      3000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "1 person",
-    event_time: Time.zone.now + rand(5..30).days,
-    end_time:   Time.zone.now + rand(5..30).days,
-    price:      12000,
-    total:      100,
+    price:      1630,
+    total:      15,
     bought:     0
   }
+  # ,
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.now + rand(5..30).days,
+  #   end_time:   Time.zone.now + rand(5..30).days,
+  #   price:      12000,
+  #   total:      100,
+  #   bought:     0
+  # }
 ])
 
 studiolam.sections.create([
   {
-    title:      "1 person",
+    title:      "General",
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      500,
     total:      100,
     bought:     0
-  },
-  {
-    title:      "5 person",
-    event_time: Time.zone.now + rand(5..30).days,
-    end_time:   Time.zone.now + rand(5..30).days,
-    price:      2000,
-    total:      100,
-    bought:     0
   }
+  # ,
+  # {
+  #   title:      "VIP",
+  #   event_time: Time.zone.now + rand(5..30).days,
+  #   end_time:   Time.zone.now + rand(5..30).days,
+  #   price:      2000,
+  #   total:      100,
+  #   bought:     0
+  # }
 ])
 
 lazgam.sections.create([
   {
-    title:      "1 person",
+    title:      "General",
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
     price:      1000,
@@ -367,7 +370,7 @@ lazgam.sections.create([
     bought:     0
   }
   # {
-  #   title:      "1 person",
+  #   title:      "General",
   #   event_time: Time.zone.now + rand(5..30).days,
   #   end_time:   Time.zone.now + rand(5..30).days,
   #   price:      1000,
@@ -378,21 +381,22 @@ lazgam.sections.create([
 
 olive.sections.create([
   {
-    title:      "1 person",
+    title:      "General",
     event_time: Time.zone.now + rand(5..30).days,
     end_time:   Time.zone.now + rand(5..30).days,
-    price:      1000,
-    total:      100,
-    bought:     0
-  },
-  {
-    title:      "1 person",
-    event_time: Time.zone.now + rand(5..30).days,
-    end_time:   Time.zone.now + rand(5..30).days,
-    price:      1000,
-    total:      100,
+    price:      2800,
+    total:      12,
     bought:     0
   }
+  # ,
+  # {
+  #   title:      "General",
+  #   event_time: Time.zone.now + rand(5..30).days,
+  #   end_time:   Time.zone.now + rand(5..30).days,
+  #   price:      1000,
+  #   total:      100,
+  #   bought:     0
+  # }
 ])
 
 

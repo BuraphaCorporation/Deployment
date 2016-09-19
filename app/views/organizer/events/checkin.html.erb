@@ -1,4 +1,4 @@
-<script>$('body').attr('id', 'organizer-event-checkin');</script>
+<script>$('body').attr('id', 'organizer-event-checkin').addClass('organizer-event-page');</script>
 
 <%= render partial: "organizer/parts/organizer-nav" %>
 <script>$('#organizer-nav #menu-event-list').addClass('active');</script>
@@ -39,6 +39,7 @@
             <table class="table table-hover">
               <thead>
                 <tr>
+                  <td class="mobile-only"></td>
                   <td>ATTENDEE NAME</td>
                   <td>EMAIL</td>
                   <td>TEL</td>
@@ -49,6 +50,11 @@
               <tbody>
                 <% section.tickets.each do |ticket| %>
                 <tr>
+                  <% if ticket.status.used? %>
+                    <td class="mobile-only">Checked</td>
+                  <% else %>
+                    <td class="mobile-only"><%= link_to "CHECK IN", organizer_event_ticket_checking_path(@event.id, ticket.id), method: :post %></td>
+                  <% end %>
                   <td><%= ticket.user.first_name %> <%= ticket.user.last_name %></td>
                   <td><%= ticket.user.email %></td>
                   <td><%= ticket.user.phone %></td>

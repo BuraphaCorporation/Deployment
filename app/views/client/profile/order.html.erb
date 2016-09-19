@@ -42,7 +42,7 @@
                   <div class="info-footer">
                     <div class="row">
                       <div class="col-xs-12 col-md-7">
-                        <span class="ticket-price">฿ <%= ticket.event.first_section.price %></span>
+                        <span class="ticket-price"><%= convert_to_currency ticket.event.first_section.price %></span>
                         <span class="purchase-date">purchased on <%#= ticket.payment.purchased_status %></span>
                       </div>
                     </div>

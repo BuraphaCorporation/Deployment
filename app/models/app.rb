@@ -127,6 +127,22 @@ class App < Struct.new(:region, :environment, :version)
     10
   end
 
+  def facebook_link
+    'https://www.facebook.com/daydashapp'
+  end
+
+  def line_link
+    'http://line.me/ti/p/@kjy4951o'
+  end
+
+  def instagram_link
+    'https://www.instagram.com/daydashapp/'
+  end
+
+  def twitter_link
+    'http://www.twitter.com/daydashapp'
+  end
+
   class << self
     attr_accessor :current
 

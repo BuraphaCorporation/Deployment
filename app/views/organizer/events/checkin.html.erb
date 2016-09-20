@@ -24,7 +24,7 @@
                 <ul class="meta-info list-inline">
                   <li>Attendee: <%= section.tickets.count %></li>
                   <li>Checked-in: <%= section.tickets.where(status: :used).count %></li>
-                  <li>Remaining: <%= section.tickets.where(stages: :unusable).count %></li>
+                  <li>Remaining: <%= section.tickets.count - section.tickets.where(status: :used).count %></li>
                 </ul>
               </div>
               <div class="col-xs-12 col-md-6">

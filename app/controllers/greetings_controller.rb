@@ -36,6 +36,9 @@ class GreetingsController < ApplicationController
   def policy
   end
 
+  def landing
+  end
+
   def campaign
     @selected_campaign = ''
     if params[:campaign] == 'olive'

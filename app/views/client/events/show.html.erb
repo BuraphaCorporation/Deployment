@@ -65,7 +65,7 @@
           <div class="event card">
             <%= link_to client_event_path(event.to_url), target: '_self' do %>
               <% if event.event_pictures.present? %>
-                <div class="cover" style="background-image: url(<%= event.event_pictures.first.try(:media, :full) %>);"></div>
+                <div class="cover" style="background-image: url(<%= event.event_pictures.first.try(:media, :thumb) %>);"></div>
               <% else %>
                 <div class="cover"></div>
               <% end %>
@@ -110,7 +110,7 @@
                   </div>
                 </td>
                 <td align="right" colspan="2">
-                  <select class="form-control" name="section[<%= section.id %>]" id="section-<%= section.id %>">
+                  <select class="form-control" name="section[<%= section.id %>]">
                     <% (0..section.show_ticket_available).each do |i| %>
                       <option value="<%= i %>"><%= i %></option>
                     <% end %>
@@ -133,7 +133,10 @@
           </table>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToExpress()">NEXT</a>
+          <p id="selection-error" style="display: none;">
+            <span style="color: red;">กรุณาเลือกจำนวนตั๋วอย่างน้อย 1 ใบค่ะ</span>
+          </p>
+          <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToCheckout()">NEXT</a>
         </div>
       </div>
     <% end %>
@@ -141,17 +144,26 @@
 </div>
 
 <script type="text/javascript">
-  function nextToExpress(){
-    $("select[name*='section']").each(function(){
+  function nextToCheckout(){
+    $("#selection-error").hide();
+
+    var is_error = true;
+
+    var total = $("select[name*='section']").length
+    $("select[name*='section']").each(function(index){
       select = $(this).val()
-      // console.log(select)
-      // console.log($(this).val() != undefined && $(this).val() != 0);
+
       if(select != undefined && select != 0) {
+        is_error = false;
+        $("#selection-error").hide();
         $("#payment").submit();
         return true;
       }
-    });
 
-    return false;
+      if(index === total - 1 && is_error){
+        $("#selection-error").show();
+        return false;
+      }
+    });
   }
 </script>

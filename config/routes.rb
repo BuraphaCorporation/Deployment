@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   constraints(subdomain: App.host)  do
     mount Sidekiq::Web => '/workers'
-    mount ActionCable.server => "/cable"
+    # mount ActionCable.server => "/cable"
 
     devise_for :users,
       path: 'auth',

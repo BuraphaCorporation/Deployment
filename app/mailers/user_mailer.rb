@@ -23,7 +23,7 @@ class UserMailer < ApplicationMailer
     @title     = "Hi #{@user.first_name}, we’ve got your order!"
     @subtitle = "Just one more step :)"
 
-    mail to: @user.email, subject: @title
+    mail to: @user.email, subject: "Daydash.co - Payment Pending: #{@event.title}"
   end
 
   def ticket(order_id)
@@ -33,9 +33,10 @@ class UserMailer < ApplicationMailer
     @payment  = @order.payment
     @tickets  = @order.tickets
 
-    @title = "your ticket"
+    @title     = "Hi #{@user.first_name}, here’s your tickets!"
+    @subtitle = "Just one more step :)"
 
-    mail to: @user.email, subject: @title
+    mail to: @user.email, subject: "Daydash.co - Your Tickets: #{@event.title}"
   end
 
   def reminder(order_id)

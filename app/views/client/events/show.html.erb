@@ -136,7 +136,7 @@
           <p id="selection-error" style="display: none;">
             <span style="color: red;">กรุณาเลือกจำนวนตั๋วอย่างน้อย 1 ใบค่ะ</span>
           </p>
-          <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToExpress()">NEXT</a>
+          <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToCheckout()">NEXT</a>
         </div>
       </div>
     <% end %>
@@ -144,20 +144,26 @@
 </div>
 
 <script type="text/javascript">
-  function nextToExpress(){
-    $("#selection-error").hide()
+  function nextToCheckout(){
+    $("#selection-error").hide();
 
-    $("select[name*='section']").each(function(){
+    var is_error = true;
+
+    var total = $("select[name*='section']").length
+    $("select[name*='section']").each(function(index){
       select = $(this).val()
-      // console.log(select)
-      // console.log($(this).val() != undefined && $(this).val() != 0);
+
       if(select != undefined && select != 0) {
+        is_error = false;
+        $("#selection-error").hide();
         $("#payment").submit();
         return true;
       }
-    });
 
-    $("#selection-error").show()
-    return false;
+      if(index === total - 1 && is_error){
+        $("#selection-error").show();
+        return false;
+      }
+    });
   }
 </script>

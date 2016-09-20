@@ -63,7 +63,9 @@ private
         'daydash'
       end
     when 'campaign', 'campaign_terms'
-      'campaign'
+      'landing'
+    when 'landing'
+      'landing'
     else
       false
     end

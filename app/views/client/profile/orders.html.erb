@@ -45,7 +45,11 @@
                             </tr>
                             <tr>
                               <td>สถานะการชำระเงิน</td>
-                              <td><%= order.status %></td>
+                              <% if order.status.paid? %>
+                                <td style="text-transform: capitalize;"><%= order.status %></td>
+                              <% else %>
+                                <td style="text-transform: capitalize; color: red"><%= order.status %> - กรุณาชำระภายในเวลา <%= order.to_expores_on_time %></td>
+                              <% end %>
                             </tr>
                             <% if order.transfer? %>
                               <tr>
@@ -60,7 +64,7 @@
                             <% order.tickets.each do |ticket| %>
                               <tr class="ticket">
                                 <td class="ticket-title" width="150"><%= ticket.section.title %></td>
-                                <td class="ticket-code"><%= ticket.code %></td>
+                                <td class="ticket-code"><%= ticket.code if order.status.paid? %></td>
                                 <td class="ticket-price" width="100" align="right"><%= convert_to_currency ticket.to_price %></td>
                               </tr>
                             <% end %>
@@ -174,7 +178,7 @@
                   <tr>
                     <td align="center" style="background: #DFFFFB; padding: 15px; font-size: 14px; font-weight: 200;">
                       หากคุณพบปัญหาหรือมีคำถาม ต้องการความช่วยเหลือ สามารถติดต่อเราได้ที่<br />
-                      Tel. 080-456-9465  หรือ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a>
+                      Tel. 080-4569465 หรือ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a>
                     </td>
                   </tr>
                 </table>

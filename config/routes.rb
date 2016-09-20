@@ -91,11 +91,14 @@ Rails.application.routes.draw do
         unlocks:            'users/unlocks',
       }
 
-    if App.environment.production?
-      root :to => redirect('/campaign/dash-your-day')
-    else
-      root 'client/events#index'
-    end
+    root 'greetings#landing'
+
+    # if App.environment.production?
+    #   # root :to => redirect('/campaign/dash-your-day')
+    #   root 'greetings#landing'
+    # else
+    #   root 'client/events#index'
+    # end
 
     get '/react-api' => 'application#index', defaults: { format: :json }
 

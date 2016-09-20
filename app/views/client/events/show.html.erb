@@ -110,7 +110,7 @@
                   </div>
                 </td>
                 <td align="right" colspan="2">
-                  <select class="form-control" name="section[<%= section.id %>]" id="section-<%= section.id %>">
+                  <select class="form-control" name="section[<%= section.id %>]">
                     <% (0..section.show_ticket_available).each do |i| %>
                       <option value="<%= i %>"><%= i %></option>
                     <% end %>
@@ -133,6 +133,9 @@
           </table>
         </div>
         <div class="modal-footer">
+          <p id="selection-error" style="display: none;">
+            <span style="color: red;">กรุณาเลือกจำนวนตั๋วอย่างน้อย 1 ใบค่ะ</span>
+          </p>
           <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToExpress()">NEXT</a>
         </div>
       </div>
@@ -142,6 +145,8 @@
 
 <script type="text/javascript">
   function nextToExpress(){
+    $("#selection-error").hide()
+
     $("select[name*='section']").each(function(){
       select = $(this).val()
       // console.log(select)
@@ -152,6 +157,7 @@
       }
     });
 
+    $("#selection-error").show()
     return false;
   }
 </script>

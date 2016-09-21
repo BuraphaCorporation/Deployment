@@ -20,6 +20,7 @@
 #  name             :string
 #  ticket_type      :string
 #  status           :string
+#  show_highlight   :boolean          default(FALSE)
 #
 # Indexes
 #

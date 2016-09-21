@@ -39,8 +39,8 @@ protected
   end
 
   def meta_tag
-    @title = Event.first.title
-    @description = Event.first.description
-    @image = Event.first.event_pictures.first.media(:facebook)
+    @title       = "" # Event.first.title
+    @description = "" # Event.first.description
+    @image       = "" # Event.first.event_pictures.first.media(:facebook)
   end
 end

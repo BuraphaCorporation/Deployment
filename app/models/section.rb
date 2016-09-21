@@ -13,6 +13,7 @@
 #  bought     :integer          default(0)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  unit       :integer          default(1)
 #
 # Indexes
 #
@@ -55,8 +56,15 @@ class Section < ApplicationRecord
     self.event.ticket_type
   end
 
-  def self.cut_in(id, qty)
-    find(id).update(bought: find(id).bought + qty)
+  def self.cut_in(id, qty, event)
+    section_selected = find(id)
+    if event.share_ticket
+      event.sections.each do |section|
+        section.update(bought: section.bought + (section_selected.unit * qty))
+      end
+    else
+      section_selected(id).update(bought: find(id).bought + qty)
+    end
   end
 
   def to_event_human

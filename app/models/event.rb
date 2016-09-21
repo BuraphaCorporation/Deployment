@@ -21,6 +21,8 @@
 #  ticket_type      :string
 #  status           :string
 #  show_highlight   :boolean          default(FALSE)
+#  total_of_ticket  :integer          default(0)
+#  share_ticket     :boolean          default(FALSE)
 #
 # Indexes
 #

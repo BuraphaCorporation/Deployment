@@ -34,7 +34,7 @@ class UserMailer < ApplicationMailer
     @tickets  = @order.tickets
 
     @title     = "Hi #{@user.first_name}, here’s your tickets!"
-    @subtitle = "It's time to get excited!"
+    @subtitle = "It's time to get excited! 😎"
 
     mail to: @user.email, subject: "Daydash.co - Your Tickets: #{@event.title}"
   end

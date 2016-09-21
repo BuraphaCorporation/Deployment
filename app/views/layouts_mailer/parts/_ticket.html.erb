@@ -141,10 +141,10 @@
                       </tr>
                       <% end %>
                     </table>
-                    <% if @order.event.instruction.present? %>
                       <p style="font-size: 24px; font-weight: 200; padding-top: 30px; padding-bottom: 15px; border-bottom: 1px solid black;">
                         วิธีการใช้บัตร
                       </p>
+                    <% if @order.event.instruction.present? %>
                       <%= simple_format(auto_link(@order.event.instruction), style: 'font-weight: 200; padding-bottom: 30px;') %>
                     <% else %>
                       <p style="font-weight: 200; padding-bottom: 30px;">

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   skip_after_action :intercom_rails_auto_include
 
   before_action :store_current_location, :unless => :devise_controller?
-  before_action :meta_tag
+  before_action :seo
 
 protected
   def not_found
@@ -38,7 +38,7 @@ protected
     @global_categories = Category.all
   end
 
-  def meta_tag
+  def seo
     @title       = "" # Event.first.title
     @description = "" # Event.first.description
     @image       = "" # Event.first.event_pictures.first.media(:facebook)

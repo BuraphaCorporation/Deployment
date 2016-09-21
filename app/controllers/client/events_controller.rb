@@ -108,7 +108,7 @@ class Client::EventsController < Client::CoreController
         UserOrderWorker.perform_async(@order.id)
       end
       OrganizerOrderWorker.perform_async(@order.id)
-      UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
+      # UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
       # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
     end
 

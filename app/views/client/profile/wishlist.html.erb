@@ -1,11 +1,11 @@
 <script>$('body').attr('id', 'profile-wishlist-page');</script>
 <script>$('body').addClass('profile-page');</script>
 
+<%= render partial: "client/profile/parts/profile_nav" %>
+<script>$('#profile-nav #menu-wishlist').addClass('active');</script>
+
 <div class="section">
   <div class="container">
-    <%= render partial: "client/profile/parts/profile-nav" %>
-    <script>$('#profile-nav #menu-wishlist').addClass('active');</script>
-
     <div class="row">
       <div class="col-xs-12">
         <div class="event-list">

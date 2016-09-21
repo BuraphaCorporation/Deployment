@@ -6,6 +6,12 @@
   <% end %>
   <div class="info">
     <div class="container">
+      <span style="background: #C04F8B;
+        color: #fff;
+        padding: 5px 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;">Daydash Exclusive</span>
       <h1 class="title"><%= @event.title %></h1>
     </div>
   </div>
@@ -42,7 +48,7 @@
         <div class="social-panel">
           <div class="row">
             <div class="col-xs-12">
-              <a class="btn btn-block btn-daydash">Add to my Wishlist</a>
+              <!-- <a class="btn btn-block btn-daydash">Add to my Wishlist</a> -->
               <div class="social-list">
                 <div class="fb-share-button" data-href="<%= client_event_path(@event.to_url) %>" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%= client_event_path(@event.to_url) %>">Share</a></div>
                 <a href="<%= client_event_path(@event.to_url) %>" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -74,7 +80,7 @@
               <h4 class="title text-left">
                 <%= link_to event.title, client_event_path(event.to_url), target: '_self' %>
               </h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.first_section.to_event_human %></div>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.uptime %></div>
               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
             </div>
           </div>

@@ -8,7 +8,7 @@
         <div class="panel panel-daydash main-panel">
           <div class="panel-heading">
             <div class="back-btn">
-              <a href="<%= client_event_path(@event) %>"><i class="icon icon-arrow-left"></i> <%= @event.title %></a>
+              <a href="<%= client_event_path(@event) %>" target="_blank"><i class="icon icon-arrow-left"></i> <%= @event.title %></a>
             </div>
             <h1 class="panel-title event-name">คุณได้ทำการสั่งซื้อ: <%= @event.title %></h1>
 
@@ -113,7 +113,11 @@
                   3. เราจะส่งตั๋วให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 60 นาที :)
                 </p>
               <% end %>
-              <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
+              <% if @order.omise? %>
+                <a target="_self" href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูตั๋วของคุณ</a>
+              <% else %>
+                <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
+              <% end %>
             </div>
           </div> <!-- .panel-body -->
           <div class="panel-footer">

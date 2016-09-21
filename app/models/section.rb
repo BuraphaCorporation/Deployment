@@ -63,7 +63,7 @@ class Section < ApplicationRecord
         section.update(bought: section.bought + (section_selected.unit * qty))
       end
     else
-      section_selected(id).update(bought: find(id).bought + qty)
+      section_selected.update(bought: find(id).bought + qty)
     end
   end
 

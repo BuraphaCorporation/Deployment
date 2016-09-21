@@ -4,7 +4,7 @@ class Organizer::EventsController < Organizer::CoreController
   before_action :all_users, only: [:new, :edit]
 
   def index
-    @events = current_user.events
+    @events = current_user.events.order(created_at: :desc)
   end
 
   def new
@@ -121,7 +121,7 @@ private
         s.title       = params[:new_ticket_names][section]
         s.total       = params[:new_ticket_totals][section]
         s.price       = params[:new_ticket_prices][section]
-        s.price       = params[:new_ticket_units][section]
+        s.unit        = params[:new_ticket_units][section]
         s.event_time  = event_time
         s.end_time    = end_time
       end
@@ -162,7 +162,7 @@ private
         s.title       = params[:new_ticket_names][section]
         s.total       = params[:new_ticket_totals][section]
         s.price       = params[:new_ticket_prices][section]
-        s.price       = params[:new_ticket_units][section]
+        s.unit        = params[:new_ticket_units][section]
         s.event_time  = event_time
         s.end_time    = end_time
       end

@@ -19,7 +19,7 @@
           <div class="panel-header">
             <ul class="list-inline">
               <li>Orders: <%= @event.orders.count %></li>
-              <li>Total Sales: ฿<%= @event.get_total_sales %></li>
+              <li>Total Sales: <%= convert_to_currency @event.get_total_sales %></li>
               <li>Attendees: <%= @event.tickets.count %></li>
             </ul>
           </div>

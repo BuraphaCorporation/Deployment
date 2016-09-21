@@ -143,6 +143,7 @@ Rails.application.routes.draw do
           get 'checkin', to: 'events#checkin'
           get 'unpublish', to: 'events#unpublish'
           get 'published', to: 'events#published'
+          get 'update_time_event', to: 'events#update_time_event'
         end
 
         post 'checked/:ticket_id', to: 'events#ticket_checking', as: :ticket_checking

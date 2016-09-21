@@ -81,6 +81,13 @@ class Organizer::EventsController < Organizer::CoreController
 
   def published
     @event.update(status: :published)
+    EventUpdateJob.perform_now
+
+    redirect_to :back
+  end
+
+  def update_time_event
+    EventUpdateJob.perform_now
     redirect_to :back
   end
 
@@ -105,9 +112,9 @@ private
     (0..params[:new_ticket_names].count - 1).each do |section|
       next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present?
 
-      if params[:new_ticket_dates][section].present? and params[:new_ticket_start_times][section].present? and params[:new_ticket_end_times][section].present?
-        event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
-        end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+      if params[:new_ticket_event_time][section].present? and params[:new_ticket_end_time][section].present?
+        event_time = Time.zone.parse(params[:new_ticket_event_time][section])
+        end_time   = Time.zone.parse(params[:new_ticket_end_time][section])
       end
 
       @event.sections.create do |s|
@@ -144,9 +151,9 @@ private
     (0..params[:new_ticket_names].count - 1).each do |section|
       next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present?
 
-      if params[:new_ticket_dates][section].present? and params[:new_ticket_start_times][section].present? and params[:new_ticket_end_times][section].present?
-        event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
-        end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+      if params[:new_ticket_event_time][section].present? and params[:new_ticket_end_time][section].present?
+        event_time = Time.zone.parse(params[:new_ticket_event_time][section])
+        end_time   = Time.zone.parse(params[:new_ticket_end_time][section])
       end
 
       @event.sections.create do |s|
@@ -164,7 +171,7 @@ private
   end
 
   def event_params
-    params.permit(:title, :slug, :ticket_type, :description, :instruction, :max_price, :min_price, :location_name, :location_address, :latitude, :longitude)
+    params.permit(:title, :slug, :ticket_type, :show_highlight, :description, :instruction, :max_price, :min_price, :location_name, :location_address, :latitude, :longitude)
   end
 
   def all_categories

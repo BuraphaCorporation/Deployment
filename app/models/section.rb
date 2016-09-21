@@ -24,7 +24,7 @@
 #
 
 class Section < ApplicationRecord
-  SHOW_TICKET_AVAILABLE = 10
+  SHOW_TICKET_AVAILABLE = 5
 
   belongs_to :event
   has_many :tickets
@@ -32,6 +32,7 @@ class Section < ApplicationRecord
   attr_accessor :section_name, :section_event_date, :section_end_date, :section_event_time, :section_end_time, :section_price, :section_available
 
   scope :available, -> { where("event_time > ?", Time.zone.now).order(:event_time) }
+
   enumerize :status, in: [:on, :off, :draft], default: :draft
 
   def ticket_availability?
@@ -43,7 +44,15 @@ class Section < ApplicationRecord
   end
 
   def show_ticket_available
-    self.ticket_available > SHOW_TICKET_AVAILABLE ? SHOW_TICKET_AVAILABLE : self.ticket_available
+    if self.ticket_type.general?
+      self.ticket_available > SHOW_TICKET_AVAILABLE ? SHOW_TICKET_AVAILABLE : self.ticket_available
+    else
+      SHOW_TICKET_AVAILABLE
+    end
+  end
+
+  def ticket_type
+    self.event.ticket_type
   end
 
   def self.cut_in(id, qty)

@@ -23,6 +23,9 @@ class Client::EventsController < Client::CoreController
   def show
     @event    = Event.friendly.find(params[:id])
     @section_count = @event.sections.count
+
+    @sections = @event.ticket_type.deal? ? @event.sections : @event.sections.available
+
     @section  = @event.sections.min_by { |m| m.price }
   end
 

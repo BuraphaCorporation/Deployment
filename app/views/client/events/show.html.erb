@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="description">
-            <%= simple_format(@event.description) %>
+            <%= auto_link(simple_format(@event.description), :link => :all, :html => {:target => "_blank"}) %>
         </div>
         <div class="gallery row">
           <% @event.event_pictures.each do |image| %>

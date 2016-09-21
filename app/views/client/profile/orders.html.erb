@@ -45,7 +45,7 @@
                             <tr>
                               <td>สถานะการชำระเงิน</td>
                               <% if order.status.paid? %>
-                                <td style="text-transform: capitalize;"><%= order.status %></td>
+                                <td style="text-transform: capitalize; color: green"><%= order.status %></td>
                               <% elsif order.status.pending? %>
                                 <td style="text-transform: capitalize; color: red"><%= order.status %> - กรุณาชำระภายในเวลา <%= order.to_expores_on_time %></td>
                               <% else %>
@@ -83,10 +83,10 @@
                               <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
                               <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
                             <% else %>
-                              <li>
+                              <!-- <li> -->
                                 รายการการสั่งซื้อนี้ถูกยกเลิก เนื่องจากเลยกำหนดการชำระเงิน
                                 หากคุณต้องความช่วยเหลือกรุณาติดต่อ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> หรือ 080-4569465
-                              </li>
+                              <!-- </li> -->
                             <% end %>
                           <% else %>
                             <li><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></li>

@@ -23,6 +23,9 @@ class Client::EventsController < Client::CoreController
   def show
     @event    = Event.friendly.find(params[:id])
     @section_count = @event.sections.count
+
+    @sections = @event.ticket_type.deal? ? @event.sections : @event.sections.available
+
     @section  = @event.sections.min_by { |m| m.price }
   end
 
@@ -95,7 +98,7 @@ class Client::EventsController < Client::CoreController
         (1..section.qty).each do |i|
           Ticket.create_ticket(current_user, @order, @event, section)
         end
-        Section.cut_in(section.id, section.qty)
+        Section.cut_in(section.id, section.qty, @event)
       end
     else
       @payment[:message]

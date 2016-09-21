@@ -1,13 +1,14 @@
 <script> //Init Function
   function initDatetimepicker(element) {
     $('.datepicker', element).datetimepicker({
-      format: 'DD/MM/YYYY'
+      format: 'DD/MM/YYYY HH:mm'
     });
 
-    $('.timepicker', element).datetimepicker({
-      format: 'LT',
-      stepping: 15
+    $('.event-time', element).on("dp.change", function (e) {
+      element.find('.end-time').data("DateTimePicker").minDate(e.date);
     });
+
+    return false;
   }
 
   function onTicketAdd(button) {
@@ -37,21 +38,26 @@
     <td><input class="form-control" type="text" name="new_ticket_names[]" value="" placeholder="eg. General, VIP" /></td>
     <td><input class="form-control" type="number" name="new_ticket_totals[]" value="" /></td>
     <td><input class="form-control" type="number" name="new_ticket_prices[]" value="" /></td>
+    <td><input class="form-control" type="number" name="new_ticket_units[]" value="" /></td>
+
     <td width="200">
-      <div class="input-group datepicker">
-        <input type="text" class="form-control" name="new_ticket_dates[]" />
-        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      <div class="form-group">
+        <div class='input-group date datepicker event-time'>
+          <input type="text" class="form-control" name="new_ticket_event_time[]" />
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
       </div>
     </td>
     <td width="200">
-      <div class="input-group timepicker">
-        <input class="form-control" type="text" name="new_ticket_start_times[]" value="" />
-        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-      </div>
-    <td width="200">
-      <div class="input-group timepicker">
-        <input class="form-control" type="text" name="new_ticket_end_times[]" value="" />
-        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+      <div class="form-group">
+        <div class='input-group date datepicker end-time'>
+          <input type="text" class="form-control" name="new_ticket_end_time[]" />
+          <span class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </span>
+        </div>
       </div>
     </td>
 

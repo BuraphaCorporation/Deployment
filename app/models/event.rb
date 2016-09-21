@@ -20,6 +20,9 @@
 #  name             :string
 #  ticket_type      :string
 #  status           :string
+#  show_highlight   :boolean          default(FALSE)
+#  total_of_ticket  :integer          default(0)
+#  share_ticket     :boolean          default(FALSE)
 #
 # Indexes
 #
@@ -60,15 +63,18 @@ class Event < ApplicationRecord
   scope :today,     -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
-  scope :list,      -> { where(status: :published).where('uptime > ?', Time.zone.now).order(:uptime) }
-
+  scope :list,      -> { where(status: :published).where.not('uptime < ?', Time.zone.now).order(:uptime) }
 
   def to_url
     slug || id
   end
 
   def to_uptime
-    uptime.try(:strftime, "%A %d %B, %H:%M")
+    if self.ticket_type.general?
+      uptime.try(:strftime, "%A %d %B, %H:%M")
+    else
+      'สามารถเข้าร่วมได้ทุกวัน'
+    end
   end
 
   def order_by_section
@@ -93,12 +99,13 @@ class Event < ApplicationRecord
 
   def self.update_uptime_present
     all.each do |event|
-      p event_time = event.sections.available.min_by(&:event_time).try(:event_time)
+      event_time = event.sections.available.min_by(&:event_time).try(:event_time)
       event.update(uptime: event_time) unless event_time.nil?
     end
   end
-  private
-    def set_organizer
-      self.user ||= User.find_by_email('hello@daydash.co')
-    end
+
+private
+  def set_organizer
+    self.user ||= User.find_by_email('hello@daydash.co')
+  end
 end

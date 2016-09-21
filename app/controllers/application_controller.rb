@@ -2,7 +2,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_after_action :intercom_rails_auto_include
 
-  before_filter :store_current_location, :unless => :devise_controller?
+  before_action :store_current_location, :unless => :devise_controller?
+  before_action :meta_tag
 
 protected
   def not_found
@@ -29,10 +30,17 @@ protected
   end
 
   def after_sign_out_path_for(resource)
-    request.referrer || root_path
+    root_path
+    # request.referrer || root_path
   end
 
   def global_categories
     @global_categories = Category.all
+  end
+
+  def meta_tag
+    @title = Event.first.title
+    @description = Event.first.description
+    @image = Event.first.event_pictures.first.media(:facebook)
   end
 end

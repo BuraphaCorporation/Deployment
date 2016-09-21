@@ -6,11 +6,16 @@ class OrderInspectorJob < ApplicationJob
 
     orders.each do |order|
       order.tickets.each do |ticket|
-        ticket.section.update(bought: ticket.section.bought + 1)
+        restore = ticket.section.bought - ticket.section.unit
+        if order.event.share_ticket
+          order.event.sections.update_all(bought: restore)
+        else
+          ticket.section.update(bought: restore)
+        end
       end
-      order.payment.update(status: :failure)
-    end
 
-    orders.update_all(status: :unpaid)
+      order.update(status: :unpaid)
+      order.payment.update(status: :failure) if order.payment.present?
+    end
   end
 end

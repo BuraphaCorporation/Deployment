@@ -22,3 +22,9 @@ OrderInspectorJob:
   class: "OrderInspectorJob"
   queue: default
   active_job: true
+
+TicketInspectorJob:
+  cron: "0 1 * * *"
+  class: "TicketInspectorJob"
+  queue: default
+  active_job: true

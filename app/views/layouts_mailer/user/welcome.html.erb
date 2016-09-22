@@ -18,7 +18,7 @@
                 <tr>
                   <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                     <h1 style="background: black; color: white; padding: 5px; margin-bottom: 3px; display: inline-block;">Welcome, <%= "#{@user.first_name}" %>!</h1>
-                    <h1 style="padding: 0px 5px;">You’ve made a <span style="display: inline-block; background: #DFFFFB; padding: 5px;">great choice!</span></h1>
+                    <h1 style="margin: 0px; padding: 0px 5px;">You’ve made a <span style="display: inline-block; background: #DFFFFB; padding: 5px;">great choice!</span></h1>
                     <p style="font-weight: 200; margin-top: 30px;">ขอบคุณสำหรับการลงทะเบียนกับเรา คุณสามารถได้พบกับกิจกรรมและอีเว้นท์ที่คุณสนใจ และทำการซื้อตั๋วเพื่อเข้าร่วมได้ทันทีในไม่กี่คลิกใน Daydash</p>
                   </td>
                 </tr>
@@ -63,9 +63,9 @@
                         </td>
                       </tr>
                       <tr>
-                        <td valign="top" style="padding: 5px 0px;" width="16"><%= image_tag "#{App.domain}/src/images/email/welcome/icon-search.png", style: 'width: 15px;' %></td>
+                        <td valign="top" style="padding: 0px;" width="16"><%= image_tag "#{App.domain}/src/images/email/welcome/icon-search.png", style: 'width: 15px;' %></td>
                         <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;">
-                          <strong>Discover</strong><br>
+                          <div style="line-height: 1em;"><strong>Discover</strong></div>
                           <p style="font-size: 14px; font-weight: 200;">อยากรู้มั้ย วันนี้ พรุ่งนี้ มีกิจกรรมอะไรน่าสนใจบ้าง? เรารวบรวมมาให้คุณแล้ว</p>
                         </td>
                       </tr>
@@ -97,9 +97,9 @@
                         </td>
                       </tr>
                       <tr>
-                        <td valign="top" style="padding: 5px 0px;" width="16"><%= image_tag "#{App.domain}/src/images/email/welcome/icon-ticket.png", style: 'width: 15px;' %></td>
+                        <td valign="top" style="padding: 0px;" width="16"><%= image_tag "#{App.domain}/src/images/email/welcome/icon-ticket.png", style: 'width: 15px;' %></td>
                         <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;">
-                          <strong>Buy ticket pass</strong>
+                          <div style="line-height: 1em;"><strong>Buy ticket pass</strong></div>
                           <p style="font-size: 14px; font-weight: 200;">คุณสามารถชำระเงินโดยใช้บัตรเครดิตและโอนเงิน</p>
                         </td>
                       </tr>
@@ -131,9 +131,9 @@
                         </td>
                       </tr>
                       <tr>
-                        <td valign="top" style="padding: 5px 0px;" width="16"><%= image_tag "#{App.domain}/src/images/email/welcome/icon-emo.png", style: 'width: 15px;' %></td>
+                        <td valign="top" style="padding: 0px;" width="16"><%= image_tag "#{App.domain}/src/images/email/welcome/icon-emo.png", style: 'width: 15px;' %></td>
                         <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;">
-                          <strong>Enjoy!</strong>
+                          <div style="line-height: 1em;"><strong>Enjoy!</strong></div>
                           <p style="font-size: 14px; font-weight: 200;">โชว์หน้า Ticket บนแอพ หรือจากอีเมล ก็สามารถเข้างานได้ทันที</p>
                         </td>
                       </tr>
@@ -202,6 +202,7 @@
                       หวังว่าคุณจะได้ลองทำสิ่งใหม่ๆ และได้พบประสบการณ์ดีๆ จากการใช้ Daydash 😁<br />
                       — ทีมงาน Daydash.co
                     </p>
+
                   </td>
                 </tr>
               </tbody>

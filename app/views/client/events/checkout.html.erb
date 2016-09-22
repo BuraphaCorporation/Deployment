@@ -8,7 +8,7 @@
         <div class="panel panel-daydash main-panel">
           <div class="panel-heading">
             <div class="back-btn">
-              <a href="<%= client_event_path(@event) %>"><i class="icon icon-arrow-left"></i> <%= @event.title %></a>
+              <a href="<%= client_event_path(@event) %>" target="_blank"><i class="icon icon-arrow-left"></i> <%= @event.title %></a>
             </div>
             <h1 class="panel-title event-name">คุณได้ทำการสั่งซื้อ: <%= @event.title %></h1>
 
@@ -24,12 +24,12 @@
                 <i class="icon icon-xs icon-checked"></i>
 
                 <span>ได้รับคำสั่งซื้อ <span class="color-daydash-green">#<%= @order.code %></span> :</span>
-                <span>ยอดรวม <%= @order.to_price %></span>
+                <span>ยอดรวม <%= convert_to_currency @order.to_price %></span>
 
                 <% if @order.transfer? %>
-                <span class="color-daydash-red"><%= @order.payment.stages %></span>
+                  <span class="color-daydash-red"><%= @order.payment.stages %></span>
                 <% else %>
-                <span class="color-daydash-green-2"><%= @order.payment.stages %></span>
+                  <span class="color-daydash-green-2"><%= @order.payment.stages %></span>
                 <% end %> โดย <%= @order.payment.channel %></li>
               </li>
 
@@ -43,7 +43,7 @@
                 <i class="icon icon-xs icon-waiting"></i>
                 <span class="color-daydash-red">
                   กรุณาทำการชำระเงินและแจ้งชำระเงินภายใน 60 นาทีค่ะ <br />
-                  (ชำระภายใน วันที่ <%= @order.expires_on %>)
+                  (ชำระภายใน วันที่ <%= @order.to_expires_on %>)
                 </span>
                 <p>หากพ้นเวลาดังกล่าว คำสั่งซื้อของคุณจะถูกยกเลิก และคุณจะต้องทำการสั่งซื้อใหม่อีกครั้ง</p>
               </li>
@@ -59,9 +59,65 @@
             </ul>
             <div class="panel-action">
               <% if @order.transfer? %>
-              <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a>
+              <!--
+              <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a> -->
+
+                <h3>วิธีการชำระเงิน</h3>
+                <p style="font-weight: 200;">
+                  1. เลือกโอนยอดเงิน <span style="font-size: 16px"><%= convert_to_currency @order.to_price %></span> บาท ผ่านธนาคารที่คุณสะดวก
+                </p>
+                <table width="100%">
+                  <tbody>
+                    <tr>
+                      <td width="50%" style="vertical-align: top;">
+                        <table>
+                          <tr>
+                            <td width="60" valign="top">
+                              <%= image_tag "#{App.domain}/src/images/email/order/kbank-logo.png", width: "50"  %>
+                            </td>
+                            <td valign="top">
+                              <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
+                                ธนาคารกสิกรไทย สาขาเอกมัย<br />
+                                บัญชีออมทรัพย์ <strong>001-3-42202-8</strong>​<br />
+                                ชื่อบัญชี นางสาวลินดา ไกรวณิช
+                              </p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td width="50%" style="vertical-align: top;">
+                        <table>
+                          <tr>
+                            <td width="60" valign="top">
+                              <%= image_tag "#{App.domain}/src/images/email/order/scb-logo.png", width: "50"  %>
+                            </td>
+                            <td valign="top">
+                              <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
+                                ธนาคารไทยพาณิชย์<br />
+                                สาขาเอกมัย พาวเวอร์ เซ็นเตอร์<br />
+                                บัญชีออมทรัพย์ <strong>250-217556-5</strong>​<br />
+                                ชื่อบัญชี นางสาวลินดา ไกรวณิช
+                              </p>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p style="font-weight: 200; padding-bottom: 30px;">
+                  2. แจ้งยืนยันการชำระเงินโดยส่งรูปถ่ายหลักฐานการโอนเงิน<br />
+                  พร้อมรหัสการโอนเงิน <strong style="color: #21A4A5; "><%= @order.code %></strong> ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)
+                </p>
+                <p style="font-weight: 200; padding-bottom: 30px;">
+                  3. เราจะส่งตั๋วให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 60 นาที :)
+                </p>
               <% end %>
-              <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
+              <% if @order.omise? %>
+                <a target="_self" href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูตั๋วของคุณ</a>
+              <% else %>
+                <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
+              <% end %>
             </div>
           </div> <!-- .panel-body -->
           <div class="panel-footer">
@@ -85,9 +141,10 @@
               <li><i class="icon icon-chrome"></i></li>
               <li><i class="icon icon-mobile"></i></li>
             </ul>
-            <p>คุณไม่จำเป็นต้องพิมพ์ตั๋วใดๆ เพียงโชว์ตั๋วที่เราส่งให้คุณทางอีเมล หน้า My Tickets หรือบน Daydash iOS App ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
+            <p>คุณไม่จำเป็นต้องพิมพ์ตั๋วใดๆ เพียงโชว์ตั๋วที่เราส่งให้คุณทางอีเมล หน้า My Tickets ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
+            <!-- <p>คุณไม่จำเป็นต้องพิมพ์ตั๋วใดๆ เพียงโชว์ตั๋วที่เราส่งให้คุณทางอีเมล หน้า My Tickets หรือบน Daydash iOS App ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
             <p><img src="/src/images/theme/appstore.png" height="50" /></p>
-            <div>สะดวกกว่า ค้นหา ซื้อบัตร และเข้าร่วมงานได้ใน 2 นาที!</div>
+            <div>สะดวกกว่า ค้นหา ซื้อบัตร และเข้าร่วมงานได้ใน 2 นาที!</div> -->
           </div>
         </div>
         <div class="panel panel-daydash side-panel-2">
@@ -96,10 +153,10 @@
           </div>
           <div class="panel-body">
             <ul>
-              <li><i class="icon icon-xs icon-comments"></i> สอบถามพูดคุยแบบ real time</li>
-              <li><i class="icon icon-xs icon-line-black"></i> @daydash</li>
-              <li><i class="icon icon-xs icon-phone"></i> 090-4569465</li>
-              <li><i class="icon icon-xs icon-envelope"></i> hello@daydash.co</li>
+              <!-- <li><i class="icon icon-xs icon-comments"></i> สอบถามพูดคุยแบบ real time</li> -->
+              <li><i class="icon icon-xs icon-line-black"></i> <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a></li>
+              <li><i class="icon icon-xs icon-phone"></i> 080-4569465</li>
+              <li><i class="icon icon-xs icon-envelope"></i> <a href="mailto:hello@daydash.co">hello@daydash.co</a></li>
             </ul>
           </div>
         </div>
@@ -128,8 +185,8 @@
               <h4 class="title text-left">
                 <%= link_to event.title, client_event_path(event.to_url), target: '_self' %>
               </h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
-              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %> </div>
+              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %> </div>
             </div>
           </div>
         </div>

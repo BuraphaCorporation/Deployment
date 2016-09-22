@@ -3,9 +3,4 @@ class Client::CoreController < ApplicationController
 
   include DaydashHelper
   layout "daydash"
-
-protected
-  def global_categories
-    @global_categories = Category.all
-  end
 end

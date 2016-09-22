@@ -1,12 +1,11 @@
 <script>$('body').attr('id', 'profile-order-list-page');</script>
 <script>$('body').addClass('profile-page');</script>
 
-<%= render partial: "client/profile/parts/profile-nav" %>
+<%= render partial: "client/profile/parts/profile_nav" %>
 <script>$('#profile-nav #menu-my-orders').addClass('active');</script>
 
 <div class="section">
   <div class="container">
-
     <div class="row">
       <div class="col-xs-12">
         <div class="order-list">
@@ -19,7 +18,7 @@
                     เลขที่ออร์เดอร์: <strong><%= order.code %></strong>
                   </div>
                   <div class="col-xs-12 col-md-6 right">
-                    สั่งซื้อเมื่อ <%= order.created_at.try(:strftime, "%A %d %B, %H:%M") %>
+                    สั่งซื้อเมื่อ <span data-created-at="<%= order.created_at %>"><%= order.to_created_at %></span>
                   </div>
                 </div>
                 <div class="row">
@@ -37,7 +36,7 @@
                           <table class="table">
                             <tr>
                               <td width="150">ราคารวม</td>
-                              <td>฿ <%= order.to_price %></td>
+                              <td><%= convert_to_currency order.to_price %></td>
                             </tr>
                             <tr>
                               <td>วิธีการชำระเงิน</td>
@@ -45,7 +44,13 @@
                             </tr>
                             <tr>
                               <td>สถานะการชำระเงิน</td>
-                              <td><%= order.status %></td>
+                              <% if order.status.paid? %>
+                                <td style="text-transform: capitalize; color: green"><%= order.status %></td>
+                              <% elsif order.status.pending? %>
+                                <td style="text-transform: capitalize; color: red"><%= order.status %> - กรุณาชำระภายในเวลา <%= order.to_expores_on_time %></td>
+                              <% else %>
+                                <td style="text-transform: capitalize; color: red"><%= order.status %></td>
+                              <% end %>
                             </tr>
                             <% if order.transfer? %>
                               <tr>
@@ -60,22 +65,29 @@
                             <% order.tickets.each do |ticket| %>
                               <tr class="ticket">
                                 <td class="ticket-title" width="150"><%= ticket.section.title %></td>
-                                <td class="ticket-code"><%= ticket.code %></td>
-                                <td class="ticket-price" width="100" align="right">฿ <%= ticket.to_price %></td>
+                                <td class="ticket-code"><%= ticket.code if order.status.paid? %></td>
+                                <td class="ticket-price" width="100" align="right"><%= convert_to_currency ticket.to_price %></td>
                               </tr>
                             <% end %>
                             <tr class="total">
                               <td></td>
                               <td><strong>TOTAL</strong></td>
-                              <td align="right"><strong>฿ <%= order.to_price %></strong></td>
+                              <td align="right"><strong><%= convert_to_currency order.to_price %></strong></td>
                             </tr>
                           </table>
                         </div>
                         <div class="info-footer">
                           <ul class="nav nav-justified">
                           <% if order.transfer? %>
-                            <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
-                            <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.created_at %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
+                            <% if order.status.pending? %>
+                              <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
+                              <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
+                            <% else %>
+                              <!-- <li> -->
+                                รายการการสั่งซื้อนี้ถูกยกเลิก เนื่องจากเลยกำหนดการชำระเงิน
+                                หากคุณต้องความช่วยเหลือกรุณาติดต่อ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> หรือ 080-4569465
+                              <!-- </li> -->
+                            <% end %>
                           <% else %>
                             <li><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></li>
                           <% end %>
@@ -91,7 +103,7 @@
               <div class="empty">
                 <i class="icon icon-lg icon-shopping"></i>
                 <h4 class="description">ยังไม่มีรายการสั่งซื้อ</h4>
-                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
+                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/" target="_self">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
               </div>
             <% end %>
           </div>
@@ -106,13 +118,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-body">
+        <a href="#" class="pull-right" data-dismiss="modal" aria-label="Close" aria-hidden="true">Close</a>
+
         <table border="0" cellpadding="0" cellspacing="0" style="max-width:100%; min-width:100%;" width="100%" class="mcnTextContentContainer">
           <tbody>
             <tr>
               <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
                 <p style="font-size: 24px; font-weight: 200; padding-top: 15px; padding-bottom: 15px; border-bottom: 1px solid black;">วิธีการชำระเงิน</p>
                 <p style="font-weight: 200;">
-                  1. เลือกโอนยอดเงิน 1,300 บาท ผ่านธนาคารที่คุณสะดวก
+                  1. เลือกโอนยอดเงิน <span class="order-price"></span> บาท ผ่านธนาคารที่คุณสะดวก
                 </p>
                 <table width="100%">
                   <tbody>
@@ -174,7 +188,7 @@
                   <tr>
                     <td align="center" style="background: #DFFFFB; padding: 15px; font-size: 14px; font-weight: 200;">
                       หากคุณพบปัญหาหรือมีคำถาม ต้องการความช่วยเหลือ สามารถติดต่อเราได้ที่<br />
-                      Tel. 080-456-9465  หรือ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a>
+                      Tel. 080-4569465 หรือ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a>
                     </td>
                   </tr>
                 </table>
@@ -189,8 +203,17 @@
 
 <script type="text/javascript">
   $(document).on("click", ".open-payment", function(){
-     var time = $(this).data('time');
-     time = moment(time).format('LLL')
-     $(".time-payment").html("(ชำระภายใน วันที่ " + time + ")");
+    var time = $(this).data('time');
+    $(".time-payment").html("(ชำระภายใน วันที่ " + convert_to_datetime(time) + ")");
+    $(".order-price").html($(this).data('price'))
+  });
+
+  function convert_to_datetime(dt) {
+    moment.locale('th');
+    return moment(dt).format('D MMMM YYYY เวลา HH:mm')
+  }
+
+  $(document).ready(function(){
+    $('.created-at').html(convert_to_datetime($('.created-at').attr("data-created-at")));
   });
 </script>

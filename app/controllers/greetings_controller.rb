@@ -1,4 +1,6 @@
 class GreetingsController < ApplicationController
+  before_action :global_categories
+
   include GreetingsHelper
 
   layout :resolve_layout
@@ -19,6 +21,12 @@ class GreetingsController < ApplicationController
     redirect_to "#{App.blog}/#{slug}", status: :moved_permanently
   end
 
+  def about
+  end
+
+  def contact
+  end
+
   def faq
   end
 
@@ -26,6 +34,9 @@ class GreetingsController < ApplicationController
   end
 
   def policy
+  end
+
+  def landing
   end
 
   def campaign
@@ -45,14 +56,16 @@ class GreetingsController < ApplicationController
 private
   def resolve_layout
     case action_name
-    when 'faq', 'terms', 'policy'
+    when 'about', 'faq', 'terms', 'policy', 'contact'
       if mobile_device?
         'greetings'
       else
         'daydash'
       end
     when 'campaign', 'campaign_terms'
-      'campaign'
+      'landing'
+    when 'landing'
+      'landing'
     else
       false
     end

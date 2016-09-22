@@ -2,10 +2,18 @@
 <script>$('body').attr('id', 'event-page');</script>
 <div class="section" id="cover-section">
   <% if @event.event_pictures.present? %>
-    <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :thumb) %>);"></div>
+    <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :full) %>);"></div>
   <% end %>
   <div class="info">
     <div class="container">
+      <% if @event.show_highlight %>
+        <span style="background: #C04F8B;
+          color: #fff;
+          padding: 5px 10px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;">Daydash Exclusive</span>
+      <% end %>
       <h1 class="title"><%= @event.title %></h1>
     </div>
   </div>
@@ -21,7 +29,7 @@
           </div>
         </div>
         <div class="description">
-            <%= simple_format(@event.description) %>
+            <%= auto_link(simple_format(@event.description), :link => :all, :html => {:target => "_blank"}) %>
         </div>
         <div class="gallery row">
           <% @event.event_pictures.each do |image| %>
@@ -34,7 +42,7 @@
       <div class="col-md-1"></div>
       <div class="col-xs-12 col-md-4">
         <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1" data-toggle="modal" data-target="#ticket-list-modal">
-          ซื้อตั๋ว - ฿<%= @section.price %>
+          ซื้อตั๋ว - <%= "เริ่มที่" if @section_count > 1 %> <%= convert_to_currency(@section.price) %>
         </button>
         <div class="map-panel">
           <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>"></div>
@@ -42,7 +50,7 @@
         <div class="social-panel">
           <div class="row">
             <div class="col-xs-12">
-              <a class="btn btn-block btn-daydash">Add to my Wishlist</a>
+              <!-- <a class="btn btn-block btn-daydash">Add to my Wishlist</a> -->
               <div class="social-list">
                 <div class="fb-share-button" data-href="<%= client_event_path(@event.to_url) %>" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%= client_event_path(@event.to_url) %>">Share</a></div>
                 <a href="<%= client_event_path(@event.to_url) %>" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
@@ -74,7 +82,7 @@
               <h4 class="title text-left">
                 <%= link_to event.title, client_event_path(event.to_url), target: '_self' %>
               </h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.first_section.to_event_human %></div>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
             </div>
           </div>
@@ -94,49 +102,76 @@
         </div>
         <div class="table-responsive">
           <table class="table table-hover">
-            <% @event.sections.available.each do |section| %>
-            <!-- <input type="hidden" name="" value="<%= section.id %>"> -->
-            <tr>
-              <td>
-                <div class="ticket-name"><%= section.title %></div>
-                <div class="ticket-meta">
-                  <span class="ticket-time"><%= section.to_event_human %></span>
-                </div>
-              </td>
-              <% if section.ticket_availability? %>
-              <td width="100" align="right">
-                <div class="ticket-meta" style="margin-top: 8px;">
-                  <span class="ticket-price">฿ <%= section.price %></span>
-                </div>
-              </td>
-              <td width="100" align="right">
-                <select class="form-control" name="section[<%= section.id %>]">
-                  <% (0..section.show_ticket_available).each do |i| %>
-                    <option value="<%= i %>"><%= i %></option>
-                  <% end %>
-                </select>
-              </td>
-              <% else %>
-              <td width="100" align="right">
-                <div class="ticket-meta" style="margin-top: 8px; color: #ccc;">
-                  <span class="ticket-price">฿ <%= section.price %></span>
-                </div>
-              </td>
-              <td align="right" colspan="2">
-                <div class="ticket-meta" style="margin-top: 8px; margin-right: 5px; color: red;">
-                  <span class="ticket-not-available">SOLD OUT</span>
-                </div>
-              </td>
-              <% end %>
-            </tr>
+            <% @sections.each do |section| %>
+              <!-- <input type="hidden" name="" value="<%= section.id %>"> -->
+              <tr>
+                <td>
+                  <div class="ticket-name"><%= section.title %></div>
+                  <div class="ticket-meta">
+                    <span class="ticket-time"><%= section.to_event_human %></span>
+                  </div>
+                </td>
+                <% if section.ticket_availability? %>
+                  <td width="150" align="right">
+                    <div class="ticket-meta" style="margin-top: 8px;">
+                      <span class="ticket-price"><%= convert_to_currency section.price %></span>
+                    </div>
+                  </td>
+                  <td align="right" colspan="2">
+                    <select class="form-control" name="section[<%= section.id %>]">
+                      <% (0..section.show_ticket_available).each do |i| %>
+                        <option value="<%= i %>"><%= i %></option>
+                      <% end %>
+                    </select>
+                  </td>
+                <% else %>
+                  <td width="100" align="right">
+                    <div class="ticket-meta" style="margin-top: 8px; color: #ccc;">
+                      <span class="ticket-price"><%= convert_to_currency section.price %></span>
+                    </div>
+                  </td>
+                  <td align="right" colspan="2">
+                    <div class="ticket-meta" style="margin-top: 8px; margin-right: 5px; color: red;">
+                      <span class="ticket-not-available">SOLD OUT</span>
+                    </div>
+                  </td>
+                <% end %>
+              </tr>
             <% end %>
           </table>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-daydash btn-daydash-green-1">NEXT</button>
+          <p id="selection-error" style="display: none;">
+            <span style="color: red;">กรุณาเลือกจำนวนตั๋วอย่างน้อย 1 ใบค่ะ</span>
+          </p>
+          <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToCheckout()">NEXT</a>
         </div>
       </div>
     <% end %>
   </div>
 </div>
 
+<script type="text/javascript">
+  function nextToCheckout(){
+    $("#selection-error").hide();
+
+    var is_error = true;
+
+    var total = $("select[name*='section']").length
+    $("select[name*='section']").each(function(index){
+      select = $(this).val()
+
+      if(select != undefined && select != 0) {
+        is_error = false;
+        $("#selection-error").hide();
+        $("#payment").submit();
+        return true;
+      }
+
+      if(index === total - 1 && is_error){
+        $("#selection-error").show();
+        return false;
+      }
+    });
+  }
+</script>

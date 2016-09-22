@@ -18,5 +18,5 @@ Rails.application.config.assets.precompile << /(^[^_\/]|\/[^_])[^\/]*$/
 # Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
 Rails.application.config.assets.precompile += %w( *.svg *.eot *.woff *.ttf *.gif *.png *.ico )
 # Rails.application.config.assets.precompile += %w( *.js *.css *.scss *.less )
-Rails.application.config.assets.precompile += %w( client/core.css )
-Rails.application.config.assets.precompile += %w( client/core.js )
+Rails.application.config.assets.precompile += %w( daydash.css )
+Rails.application.config.assets.precompile += %w( daydsah.js )

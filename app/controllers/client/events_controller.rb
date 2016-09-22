@@ -22,7 +22,11 @@ class Client::EventsController < Client::CoreController
 
   def show
     @event    = Event.friendly.find(params[:id])
-    @section  = @event.first_section
+    @section_count = @event.sections.count
+
+    @sections = @event.ticket_type.deal? ? @event.sections : @event.sections.available
+
+    @section  = @event.sections.min_by { |m| m.price }
   end
 
   def selection
@@ -31,7 +35,9 @@ class Client::EventsController < Client::CoreController
     session[:tickets]  = {}
     session[:sections] = []
 
+    sections = []
     @event.sections.each do |section|
+      sections << params[:section]["#{section.id}"].to_i
       if params[:section]["#{section.id}"].to_i > 0
         raise "you need to hack more limit tickets" if params[:section]["#{section.id}"].to_i > section.show_ticket_available
         total += section.price * params[:section]["#{section.id}"].to_i
@@ -46,10 +52,11 @@ class Client::EventsController < Client::CoreController
       end
     end
 
+    raise unless sections.any?{ |x| x > 0 }
+
     session[:tickets][:total] = total.to_i * 100
 
     redirect_to client_event_express_path(@event.to_url)
-
   rescue Exception => e
     session[:event]    = nil
     session[:tickets]  = nil
@@ -78,7 +85,12 @@ class Client::EventsController < Client::CoreController
     when 'credit_card'
       @payment = Payment.omise_token_charge(@order, params[:omise_token])
 
-      @order.approve! unless @payment[:status] == :error
+      if @payment[:status] == :error
+        raise "error"
+      else
+        @order.approve!
+      end
+
     when 'bank_transfer'
       @payment = Payment.transfer_notify(@order)
     end
@@ -91,25 +103,32 @@ class Client::EventsController < Client::CoreController
         (1..section.qty).each do |i|
           Ticket.create_ticket(current_user, @order, @event, section)
         end
-        Section.cut_in(section.id, section.qty)
+        Section.cut_in(section.id, section.qty, @event)
       end
     else
-      @payment[:message]
+      raise @payment[:message]
     end
 
     if @order.tickets.present?
-      UserOrderWorker.perform_async(@order.id)
+      if @order.omise?
+        UserTicketWorker.perform_async(@order.id)
+      else
+        UserOrderWorker.perform_async(@order.id)
+      end
       OrganizerOrderWorker.perform_async(@order.id)
-      UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
+      # UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
       # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
     end
 
     render :checkout
+  rescue Exception => e
+    flash[:notice] = 'ข้อมูลบัตรไม่ถูกต้องค่ะ กรุณาตรวจสอบอีกครั้งค่ะ'
+    redirect_back
   end
 
 private
   def related_events
-    @related_events = Event.list.first(3)
+    @related_events = Event.where.not(slug: params[:id]).list.first(3)
   end
 
   def event_payment

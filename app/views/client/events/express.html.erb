@@ -8,7 +8,7 @@
         <div class="event card payment-card">
           <%= link_to client_event_path(@event.to_url), target: '_self' do %>
             <% if @event.event_pictures.present? %>
-              <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :thumb) %>);"></div>
+              <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :full) %>);"></div>
             <% else %>
               <div class="cover"></div>
             <% end %>
@@ -29,17 +29,17 @@
                 <% next if @tickets["#{section.id}"].nil? %>
                 <div class="ticket row">
                   <div class="col-xs-8 ticket-title">
-                    <%= section.title %> <%= @tickets["#{section.id}"]["quantity"] %> x ฿ <%= section.price %>
+                    <%= section.title %> <%= @tickets["#{section.id}"]["quantity"] %> x <%= convert_to_currency section.price %>
                   </div>
                   <div class="col-xs-4 ticket-price">
-                  ฿ <%= section.price * @tickets["#{section.id}"]["quantity"] %>
+                  <%= convert_to_currency(section.price * @tickets["#{section.id}"]["quantity"]) %>
                   </div>
                 </div>
                 <% end %>
               </div>
               <div class="row list-footer">
                 <div class="col-xs-12">
-                  Total: ฿ <%= @tickets["total"].to_i / 100 %>
+                  Total: <%= convert_to_currency(@tickets["total"].to_i / 100) %>
                 </div>
               </div>
             </div>
@@ -59,7 +59,7 @@
               <div class="form-section-header">
                 <h2 class="form-section-title">Quick Checkout</h2>
                 <div class="form-section-description">
-                  ซื้อตั๋วผ่าน Facebook Login ในคลิกเดียว
+                  ซื้อตั๋วโดยใช้ Facebook ในคลิกเดียว
                 </div>
               </div>
               <div class="form-section-body">
@@ -75,9 +75,8 @@
                 <div class="form-section-header">
                   <h2 class="form-sectiont-title">Checkout with E-mail</h2>
                   <div class="form-section-description">
-                    We need a couple details in case something changes.<br />
-                    We'll send the tickets to your phone and email.
-                    or <a data-toggle="modal" data-target="#login-modal" href="#login-modal">Login</a>
+                    หากคุณเป็นสมาชิกอยู่แล้ว กรุณา <a data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #register-form').hide(); $('#login-modal #login-form').show(); return false;">Login</a> ค่ะ <br>
+                    คุณสามารถลงทะเบียนเป็นสมาชิก Daydash ได้ฟรี! คลิก <a data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #login-form').hide(); $('#login-modal #register-form').show(); return false;">Signup</a>
                   </div>
                 </div>
               <% end %>
@@ -130,11 +129,11 @@
                         <label class="radio">
                           <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> required />
                           Female
-                        </label>
+                        </label><!--
                         <label class="radio">
                           <input type="radio" name="gender" value="not_specify" required />
                           Not specify
-                        </label>
+                        </label> -->
                       </div>
                     </div>
                     <div class="form-group col-xs-12 col-md-6" style="clear: left;">
@@ -199,16 +198,18 @@
                       </div>
                       <div class="col-xs-12">
                         <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
+                        <% flash.each do |name, msg| %>
+                          <%= content_tag :div, msg, class: "alert alert-danger" %>
+                        <% end %>
                       </div>
                     </div>
                     <div class="form-section-footer">
                       <div>
                         <label>
-
                           By submitting, you agree to <a target="_blank" href="<%= terms_and_conditions_path %>">Payment Policy</a>
                         </label>
                       </div>
-                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - ฿ <%= @tickets["total"] /100 %></button>
+                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - <%= convert_to_currency(@tickets["total"] / 100) %></button>
                     </div>
                   </div>
                   <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
@@ -243,8 +244,8 @@
 </div>
 
 <script src="https://cdn.omise.co/omise.js"></script>
-<script src="/src/packages/card/card.js"></script>
-<script src="/src/packages/card/jquery.card.js"></script>
+<%= javascript_include_tag 'card/card', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'card/jquery.card', 'data-turbolinks-track' => true %>
 
 <script type="text/javascript"> //Init Function
 
@@ -310,7 +311,7 @@ function transfer_submit(form) {
 function omise_submit(form) {
 
   try {
-    Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
+    Omise.setPublicKey("<%= Rails.application.secrets.omise_pkey %>");
 
     var expiry = $("[name=card_expiry]").val();
     var match = null;

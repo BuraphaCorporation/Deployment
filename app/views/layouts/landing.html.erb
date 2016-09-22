@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Daydash “Dash Your Day” - ได้เวลาเปิดใจ ทดลองทำกิจกรรมใหม่ๆ </title>
+    <!-- <title>Discover amazing hand-selected event and activity in Bangkok - Daydash</title> -->
+
+    <link rel="icon" href="/favicon-194x194.png?v=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="เพราะเชื่อว่า การได้ทดลองทำกิจกรรมใหม่ๆ เป็นการเปิดโลกของเราให้กว้างขึ้น Daydash จึงเลือก 3 กิจกรรมเด็ด มาให้คุณได้ทดลองกันฟรีๆ เพียงเลือกกิจกรรมที่อยากทำ กรอกข้อมูล และแชร์ให้เพื่อน เท่านี้คุณก็มีสิทธิ์ลุ้นเป็นผู้โชคดี ได้ทดลองทำกิจกรรมสนุกๆ กับ Daydash ฟรี!">
+    <meta property="og:title"              content="ลุ้นรับบัตรเพื่อร่วมทำกิจกรรมสนุกๆ กับเรา ฟรี!" />
+    <meta property="og:description"        content="Daydash ให้คุณร่วมลุ้นได้ง่ายๆ เพียงเลือกกิจกรรมที่อยากทำ กรอกข้อมูล และแชร์ให้เพื่อน เท่านี้ก็มีสิทธิ์ลุ้นเป็นผู้โชคดี ได้ทดลองทำกิจกรรมสนุกๆ กับเราฟรี!" />
+    <meta property="og:image"              content="<%= "#{App.domain}/src/images/content/campaign/fb-og.jpg" %>" />
+<!--
+    <meta name="keywords" content="event bangkok, อีเว้น กรุงเทพ, งานอีเว้นท์, กิจกรรม, กิจกรรม กรุงเทพ">
+    <meta name="description" content="เพราะชีวิตคนเรานั้นมีเวลาจำกัด เราจึงรวบรวมกิจกรรมสนุกๆ อีเว้นท์ดีๆ เพื่อให้คุณ ใช้ชีวิตได้เต็มที่ทุกวัน"> -->
+
+    <meta property="og:url"                content="http://daydash.co" />
+    <meta property="og:type"               content="website" />
+    <!-- <meta property="og:title"              content="Daydash.co - ค้นพบกิจกรรมและอีเว้นท์ดีๆ รอบตัวคุณได้ทุกวัน" /> -->
+    <!-- <meta property="og:description"        content="เพราะชีวิตคนเรานั้นมีเวลาจำกัด เราจึงรวบรวมกิจกรรมสนุกๆ อีเว้นท์ดีๆ เพื่อให้คุณใช้ชีวิตได้เต็มที่ทุกวัน" /> -->
+    <!-- <meta property="og:image"              content="http://daydash.co/uploads/daydash-fb-ogimage.jpg" /> -->
+
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= render partial: "layouts/parts/tracking" %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

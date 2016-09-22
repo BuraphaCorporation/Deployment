@@ -33,4 +33,8 @@ module ApplicationHelper
   def resource_class
     @devise_mapping.to
   end
+
+  def convert_to_currency(money)
+    number_to_currency(money, unit: '฿', precision: 0)
+  end
 end

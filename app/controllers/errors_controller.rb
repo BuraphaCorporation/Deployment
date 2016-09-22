@@ -1,4 +1,6 @@
 class ErrorsController < ApplicationController
+  before_action :global_categories
+
   layout 'daydash'
 
   def not_found

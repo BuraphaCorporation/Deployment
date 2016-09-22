@@ -60,8 +60,7 @@ namespace :deploy do
   desc 'run workers'
   task :restart_workers do
     on roles(:app), in: :sequence, wait: 5 do
-      # execute "su - deploy -c 'cd /home/deploy/daydash/current && $HOME/.rbenv/bin/rbenv exec bundle exec sidekiq -i 5 -e production' > /dev/null 2>&1 &"
-      execute :sudo, "restart sidekiq index=5"
+      execute :sudo, "systemctl restart sidekiq"
     end
   end
 
@@ -102,21 +101,3 @@ namespace :rails do
     end
   end
 end
-
-
-# namespace :sidekiq do
-#   task :quiet do
-#     on roles(:app) do
-#       puts capture("pgrep -f 'workers' | xargs kill -USR1")
-#     end
-#   end
-#   task :restart do
-#     on roles(:app) do
-#       execute :sudo, :initctl, :restart, :workers
-#     end
-#   end
-# end
-
-# after 'deploy:starting', 'sidekiq:quiet'
-# after 'deploy:reverted', 'sidekiq:restart'
-# after 'deploy:published', 'sidekiq:restart'

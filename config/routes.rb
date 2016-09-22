@@ -70,7 +70,6 @@
 Rails.application.routes.draw do
 
   get 'errors/not_found'
-
   get 'errors/internal_server_error'
 
   match "/404", :to => "errors#not_found", :via => :all
@@ -79,6 +78,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   constraints(subdomain: App.host)  do
     mount Sidekiq::Web => '/workers'
+    # mount ActionCable.server => "/cable"
 
     devise_for :users,
       path: 'auth',
@@ -92,10 +92,14 @@ Rails.application.routes.draw do
       }
 
     if App.environment.production?
-      root :to => redirect('/campaign/dash-your-day')
+      # root :to => redirect('/campaign/dash-your-day')
+      root 'greetings#landing'
     else
       root 'client/events#index'
     end
+
+    get '/test', to: 'client/events#index'
+
 
     get '/react-api' => 'application#index', defaults: { format: :json }
 
@@ -103,9 +107,11 @@ Rails.application.routes.draw do
     get '/blog/:slug',  to: 'greetings#blog'
     get '/rating',      to: 'greetings#rating'
 
-    get '/faq',                    to: 'greetings#faq'
-    get '/terms-and-conditions',   to: 'greetings#terms'
-    get '/privacy-policy',         to: 'greetings#policy'
+    get '/about',                 to: 'greetings#about'
+    get 'contact',                to: 'greetings#contact'
+    get '/faq',                   to: 'greetings#faq'
+    get '/terms-and-conditions',  to: 'greetings#terms'
+    get '/privacy-policy',        to: 'greetings#policy'
 
     get '/campaign/dash-your-day',        to: 'greetings#campaign'
     get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
@@ -140,6 +146,7 @@ Rails.application.routes.draw do
           get 'checkin', to: 'events#checkin'
           get 'unpublish', to: 'events#unpublish'
           get 'published', to: 'events#published'
+          get 'update_time_event', to: 'events#update_time_event'
         end
 
         post 'checked/:ticket_id', to: 'events#ticket_checking', as: :ticket_checking

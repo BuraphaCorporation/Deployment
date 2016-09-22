@@ -1,7 +1,15 @@
 
           <div class="form-section">
             <div class="form-header">
-              <h1 class="form-title">1. Event Detail</h1>
+              <h1 class="form-title">1. Event Detail
+                <span style="font-size: 14px;">
+                <% if @event.status.published? %>
+                  <i class="fa fa-check-circle" aria-hidden="true"></i> <%= @event.status %>
+                <% else %>
+                  <i class="fa fa-chevron-circle-down" aria-hidden="true"></i> <%= @event.status %>
+                <% end %>
+                </span>
+              </h1>
             </div>
             <div class="form-body row">
               <div class="col-xs-12 col-md-6">
@@ -16,10 +24,19 @@
                 <div class="form-group">
                   <label>Ticket type</label>
                   <div class="radio">
-                    <label><input type="radio" name="ticket_type" value="general" checked>General</label>
+                    <label><input type="radio" name="ticket_type" value="general" <%= "checked" if @event.ticket_type.general? %>>General</label>
                   </div>
                   <div class="radio">
-                    <label><input type="radio" name="ticket_type" value="deal">Deal</label>
+                    <label><input type="radio" name="ticket_type" value="deal" <%= "checked" if @event.ticket_type.deal? %>>Deal</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Show Highlight</label>
+                  <div class="radio">
+                    <label><input type="radio" name="show_highlight" value="true" <%= "checked" if @event.show_highlight %>>Show</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="show_highlight" value="false" <%= "checked" unless @event.show_highlight %>>Hide</label>
                   </div>
                 </div>
                 <div class="form-group">
@@ -89,59 +106,94 @@
             <div class="form-header">
               <h1 class="form-title">2. Ticket Detail</h1>
             </div>
+
+            <div class="form-body row">
+              <div class="col-xs-12 col-md-6">
+                <div class="form-group">
+                  <label>Share total of tickets</label>
+                    <label><input type="radio" name="share_ticket" value="true" <%= "checked" if @event.share_ticket %>> Yes</label>
+                    <label><input type="radio" name="share_ticket" value="false" <%= "checked" unless @event.share_ticket %>> No</label>
+                 </div>
+<!--
+                <div class="form-group">
+                  <label>Total tickets of this event</label>
+                  <input class="form-control" type="number" name="total_of_ticket" value="<%= @event.total_of_ticket %>" />
+                </div> -->
+              </div>
+            </div>
+
             <div class="form-body">
-              <table class="table table-hover ticket-list">
-                <thead>
-                  <tr>
-                    <td>Ticket Title</td>
-                    <td>Ticket Available</td>
-                    <td>Ticket Price</td>
-                    <td>Date</td>
-                    <td>From</td>
-                    <td>To</td>
-                    <td><!-- Action --></td>
-                  </tr>
-                </thead>
-                <tbody
+              <!-- <div class="table-responsive"> -->
+                <table class="table table-hover ticket-list">
+                  <thead>
+                    <tr>
+                      <td>Ticket Title</td>
+                      <td>Ticket Available</td>
+                      <td>Ticket Price</td>
+                      <td>Ticket Unit</td>
+                      <td>From</td>
+                      <td>To</td>
+                      <td><!-- Action --></td>
+                    </tr>
+                  </thead>
+                  <tbody
+                    <% if @sections.present? %>
+                      <% @sections.each do |section| %>
+                        <tr class="tickets" id="ticket-<%= section.id %>" data-ticket-id="<%= section.id %>">
+                          <td><input class="form-control" type="text" name="tickets[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
+                          <td><input class="form-control" type="number" name="tickets[<%= section.id %>][total]" value="<%= section.total %>" /></td>
+                          <td><input class="form-control" type="number" name="tickets[<%= section.id %>][price]" value="<%= section.price %>" /></td>
+                          <td><input class="form-control" type="number" name="tickets[<%= section.id %>][unit]" value="<%= section.unit %>" /></td>
 
-                  <% if @sections.present? %>
-                    <% @sections.each do |section| %>
-                      <tr class="tickets" id="ticket-<%= section.id %>" data-ticket-id="<%= section.id %>">
-                        <td><input class="form-control" type="text" name="tickets[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
-                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][total]" value="<%= section.total %>" /></td>
-                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][price]" value="<%= section.price %>" /></td>
-                        <td width="200">
-                          <div class="input-group datepicker">
-                            <input type="text" class="form-control" name="tickets[<%= section.id %>][event_time]" value="<%= section.event_time.strftime("%d/%m/%Y") %>" />
-                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                          </div>
-                        </td>
-                        <td width="200">
-                          <div class="input-group timepicker">
-                            <input class="form-control" type="text" name="tickets[<%= section.id %>][event_time]" value="<%= section.event_time.strftime("%H:%M") %>" />
-                            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                          </div>
-                        <td width="200">
-                          <div class="input-group timepicker">
-                            <input class="form-control" type="text" name="tickets[<%= section.id %>][end_time]" value="<%= section.end_time.strftime("%H:%M") %>" />
-                            <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-                          </div>
-                        </td>
+                          <td width="200">
+                            <div class="form-group">
+                              <div class='input-group date datepicker'>
+                                <input class="form-control" type="text" name="tickets[<%= section.id %>][event_time]" value="<%= section.event_time.try(:strftime, '%d/%m/%y %H:%M') %>" />
+                                <span class="input-group-addon">
+                                  <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td width="200">
+                            <div class="form-group">
+                              <div class='input-group date datepicker'>
+                                <input class="form-control" type="text" name="tickets[<%= section.id %>][end_time]" value="<%= section.end_time.try(:strftime, '%d/%m/%y %H:%M') %>" />
+                                <span class="input-group-addon">
+                                  <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                              </div>
+                            </div>
+                          </td>
 
-                        <td width="100" align="right">
-                          <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this);"><i class="fa fa-minus"></i></a>
-                          <a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-plus"></i></a>
-                        </td>
-                      </tr>
+                          <td width="100" align="right">
+                            <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this);"><i class="fa fa-minus"></i></a>
+                            <a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-plus"></i></a>
+                          </td>
+                        </tr>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              <!-- </div> -->
             </div>
           </div>
           <div class="form-footer">
-            <button class="btn btn-daydash btn-daydash-green-1">Submit</button>
+            <button class="btn btn-daydash btn-daydash-green-1">Submit for review</button>
+            <!-- <button class="btn btn-daydash btn-daydash-green-1" value="published">Submit</button>
             or
-            <button class="btn btn-default">Save as Draft</button>
+            <button class="btn btn-default" value="unpublish">Save as Draft</button> -->
           </div>
 
+<!--           <script type="text/javascript">
+            $(document).ready(function(){
+              $('input[name="share_ticket"]')[0].on('checked', function(){
+                $('input[name="total_of_ticket"]').show()
+              })
+
+              $('input[name="share_ticket"]')[1].on('checked', function(){
+                $('input[name="total_of_ticket"]').hide()
+              })
+
+            });
+          </script> -->

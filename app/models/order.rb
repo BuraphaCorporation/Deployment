@@ -49,6 +49,7 @@ class Order < ApplicationRecord
   scope :order_by_event_upcoming, -> { order(id: :desc).available }
   scope :paid,                    -> { where(status: :paid) }
   scope :event_today,             -> { joins(:tickets).paid.where("tickets.event_date >= ? and tickets.event_date <= ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day) }
+  scope :has_payments,            -> { joins(:payment).where.not(payments: { id: nil }) }
 
   def approve!
     self.update(status: :paid)
@@ -71,7 +72,15 @@ class Order < ApplicationRecord
   end
 
   def expires_on
-    (created_at + 60.minutes).try(:strftime, "%A %d %B, %H:%M")
+    (created_at + 60.minutes)
+  end
+
+  def to_expires_on
+    expires_on.try(:strftime, "%A %d %B, %H:%M")
+  end
+
+  def to_expores_on_time
+    expires_on.try(:strftime, "%H:%M")
   end
 
   def to_price

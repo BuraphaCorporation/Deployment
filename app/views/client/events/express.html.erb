@@ -311,7 +311,7 @@ function transfer_submit(form) {
 function omise_submit(form) {
 
   try {
-    Omise.setPublicKey("pkey_test_54rvq6seh8u6mkyxhuh");
+    Omise.setPublicKey("<%= Rails.application.secrets.omise_pkey %>");
 
     var expiry = $("[name=card_expiry]").val();
     var match = null;

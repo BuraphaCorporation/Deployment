@@ -185,8 +185,8 @@
               <h4 class="title text-left">
                 <%= link_to event.title, client_event_path(event.to_url), target: '_self' %>
               </h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
-              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> Thonglor House Club, ซอยทองหล่อ</div>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %> </div>
+              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location %> </div>
             </div>
           </div>
         </div>

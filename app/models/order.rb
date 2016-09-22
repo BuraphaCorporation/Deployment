@@ -49,6 +49,7 @@ class Order < ApplicationRecord
   scope :order_by_event_upcoming, -> { order(id: :desc).available }
   scope :paid,                    -> { where(status: :paid) }
   scope :event_today,             -> { joins(:tickets).paid.where("tickets.event_date >= ? and tickets.event_date <= ?", Time.zone.now.beginning_of_day, Time.zone.now.end_of_day) }
+  scope :has_payments,            -> { joins(:payment).where.not(payments: { id: nil }) }
 
   def approve!
     self.update(status: :paid)

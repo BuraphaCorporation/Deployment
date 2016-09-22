@@ -13,7 +13,7 @@ class Client::ProfileController < Client::CoreController
   end
 
   def orders
-    @orders       = current_user.orders.order(id: :desc)
+    @orders       = current_user.orders.has_payments.order(id: :desc)
     @has_tickets  = @orders.present?
   end
 

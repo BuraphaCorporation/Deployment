@@ -66,7 +66,7 @@
                       </tr>
                       <tr>
                         <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;">
-                          <strong><%= @event.title %></strong><br>
+                          <p style="font-size: 18px;"><%= @event.title %></p>
                           <p style="font-size: 14px; font-weight: 200;">
                             Sunday 04 September, 02:54<br />
                             <%= @event.location_name %>
@@ -105,7 +105,7 @@
                         <td class="mcnTextContent" valign="top">
                           <table class="invoice-info" width="100%">
                             <tr>
-                              <td style="font-size: 14px; font-weight: 200;" >คำสั่งซื้อเลขที่ <a href='<%= "#{App.domain}/profile/#{@user.id}/tickets" %>'>#<%= @order.code %></a></td>
+                              <td style="font-size: 14px; font-weight: 200;" >คำสั่งซื้อเลขที่ <a href='<%= "#{App.domain}/profile/#{@user.id}/orders" %>'>#<%= @order.code %></a></td>
                               <td style="font-size: 14px; font-weight: 200;" colspan="2" align="right"><%= @order.to_created_at %></td>
                             </tr>
                             <tr>
@@ -116,8 +116,8 @@
                             <% @order.tickets.each do |ticket| %>
                               <tr>
                                 <td style="font-size: 14px; font-weight: 200; padding-bottom: 5px;"><%= ticket.section.title %></td>
-                                <td style="font-size: 14px; font-weight: 200;" align="right">฿<%= ticket.to_price %> x 1</td>
-                                <td style="font-size: 14px; font-weight: 200;" align="right">฿<%= ticket.to_price %></td>
+                                <td style="font-size: 14px; font-weight: 200;" align="right"><%= convert_to_currency ticket.to_price %> x 1</td>
+                                <td style="font-size: 14px; font-weight: 200;" align="right"><%= convert_to_currency ticket.to_price %></td>
                               </tr>
                             <% end %>
                             <tr>
@@ -126,7 +126,7 @@
                               </td>
                             </tr>
                             <tr>
-                              <td style="font-size: 14px; font-weight: 200;" colspan="3" align="right">Total ฿<%= @order.to_price %></td>
+                              <td style="font-size: 14px; font-weight: 200;" colspan="3" align="right">Total <%= convert_to_currency @order.to_price %></td>
                             </tr>
                             <tr>
                               <td colspan="3" style="padding: 10px 0px;">
@@ -135,7 +135,11 @@
                             </tr>
                             <tr>
                               <td style="font-size: 14px; font-weight: 200;">ชำระเงินโดย: <%= @payment.channel %></td>
-                              <td style="font-size: 14px; font-weight: 200;" colspan="2" align="right">สถานะ: <strong style="color: #AC0000;"><%= @payment.stages %></strong></td>
+                              <% if @payment.status.success? %>
+                                <td style="font-size: 14px; font-weight: 200;" colspan="2" align="right">สถานะ: <strong style="color: #17A41D;"><%= @payment.stages %></strong></td>
+                              <% else %>
+                                <td style="font-size: 14px; font-weight: 200;" colspan="2" align="right">สถานะ: <strong style="color: #AC0000;"><%= @payment.stages %></strong></td>
+                              <% end %>
                             </tr>
                           </table>
                         </td>

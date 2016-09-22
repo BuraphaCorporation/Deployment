@@ -1,0 +1,19 @@
+<div class="section" id="profile-nav-section">
+  <div class="container">
+    <div class="current-user-panel">
+      <div class="profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>);"></div>
+      <div class="user-name"><%= current_user.first_name %> <%= current_user.last_name %></div>
+    </div>
+    <ul class="nav nav-pills nav-daydash" id="profile-nav">
+      <li id="menu-my-tickets">
+        <%= link_to "My Tickets", client_profile_tickets_path %>
+      </li>
+      <li id="menu-my-orders">
+        <%= link_to "My Orders", client_profile_orders_path %>
+      </li>
+      <!-- <li id="menu-wishlist"><a href="/profile/wishlist">Wishlist</a></li>   -->
+      <li id="menu-settings"><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
+      <!-- <li id="menu-logout"><a href="/profile/logout">Log out</a></li> -->
+    </ul>
+  </div>
+</div>

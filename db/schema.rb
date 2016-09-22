@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901113804) do
+ActiveRecord::Schema.define(version: 20160921212525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,11 +55,15 @@ ActiveRecord::Schema.define(version: 20160901113804) do
     t.datetime "uptime"
     t.integer  "max_price"
     t.integer  "min_price"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.string   "slug"
     t.string   "name"
     t.string   "ticket_type"
+    t.string   "status"
+    t.boolean  "show_highlight",                            default: false
+    t.integer  "total_of_ticket",                           default: 0
+    t.boolean  "share_ticket",                              default: false
     t.index ["slug"], name: "index_events_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
@@ -122,6 +126,7 @@ ActiveRecord::Schema.define(version: 20160901113804) do
     t.integer  "bought",     default: 0
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.integer  "unit",       default: 1
     t.index ["event_id"], name: "index_sections_on_event_id", using: :btree
   end
 
@@ -156,6 +161,7 @@ ActiveRecord::Schema.define(version: 20160901113804) do
     t.integer  "order_id"
     t.integer  "price"
     t.string   "stages"
+    t.datetime "event_date"
     t.index ["event_id"], name: "index_tickets_on_event_id", using: :btree
     t.index ["order_id"], name: "index_tickets_on_order_id", using: :btree
     t.index ["section_id"], name: "index_tickets_on_section_id", using: :btree

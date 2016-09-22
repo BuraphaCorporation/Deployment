@@ -75,8 +75,8 @@ class App < Struct.new(:region, :environment, :version)
 
     case environment
     when 'production', 'staging', 'brick'
-      config.facebook_app_id      = '286214348393614'
-      config.facebook_app_secret  = 'fe56812591fad8625997a9ceecc133bf'
+      config.facebook_app_id      = '259929777688738'
+      config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
     when 'production'
       config.firebase             = 'https://daydash.firebaseio.com/'
       config.redis                = { host: 'redis.daydash.co', port: 6379, timeout: 25 }
@@ -86,8 +86,8 @@ class App < Struct.new(:region, :environment, :version)
     else
       config.firebase             = 'https://daydash-development.firebaseio.com/'
       config.redis                = { host: '127.0.0.1', port: 6379, timeout: 25 }
-      config.facebook_app_id      = '259929777688738'
-      config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
+      config.facebook_app_id      = '286214348393614'
+      config.facebook_app_secret  = 'fe56812591fad8625997a9ceecc133bf'
     end
 
     config
@@ -125,6 +125,22 @@ class App < Struct.new(:region, :environment, :version)
 
   def limit_buy_ticket
     10
+  end
+
+  def facebook_link
+    'https://www.facebook.com/daydashapp'
+  end
+
+  def line_link
+    'http://line.me/ti/p/@kjy4951o'
+  end
+
+  def instagram_link
+    'https://www.instagram.com/daydashapp/'
+  end
+
+  def twitter_link
+    'http://www.twitter.com/daydashapp'
   end
 
   class << self

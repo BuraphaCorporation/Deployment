@@ -3,19 +3,45 @@
   <head>
     <meta charset="utf-8">
     <title>Daydash</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 "/>
+    <meta name="description" content="<%= @description %>" />
+
+    <meta property="fb:app_id" content="<%= App.configure.facebook_app_id %>" />
+    <meta property="og:title" content="<%= @title %>"/>
+    <meta property="og:type" content="event"/>
+    <meta property="og:description" content="<%= @description %>"/>
+    <meta property="og:image" content="<% @image %>" />
+    <meta property="og:site_name" content="daydash.co"/>
+    <meta property="og:latitude" content="<% @event.try(:latitute) %>"/>
+    <meta property="og:longitude" content="<% @event.try(:latitute) %>"/>
+    <meta property="og:email" content="<% @event.try(:latitute) %>"/>
+    <meta property="og:phone-number" content="<% @event.try(:latitute) %>"/>
+    <meta property="og:street-address" content="<% @event.try(:address_name) %>"/>
+    <meta property="og:location" content="<% @event.try(:address_location) %>" />
+    <meta property="og:start_time" content="<% @event.try(:uptime) %>" />
+    <meta property="og:end_time" content="<% @event.try(:uptime) %>" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@daydashapp" />
+    <meta name="twitter:title" content="จิบกาแฟคนทำเว็บ หัวข้อ &quot;EPayment&quot; และ งานประชุมใหญ่สามัญประจำปี 2559" />
+    <meta name="twitter:image" content="<% @image %>" />
+
     <meta name= "category-id" content="<%= @category_id %>">
+
     <%= csrf_meta_tags %>
     <%= render partial: "layouts/parts/tracking" %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
+    <%= stylesheet_link_tag 'daydash', media: 'all', 'data-turbolinks-track' => true %>
+
     <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places" async defer></script>
+    <%= javascript_include_tag '//maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places', 'data-turbolinks-track' => true, media: 'all' %>
 
-    <%= stylesheet_link_tag 'client/core', media: 'all', 'data-turbolinks-track' => true %>
-
+    <%= javascript_include_tag 'daydash', 'data-turbolinks-track' => true %>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -24,35 +50,26 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="fa fa-navmenu"></i></button>
-              <%= link_to root_path, class: 'navbar-brand' do %>
+
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="icon icon-menu"></i></button>
+              <% if current_user.present? %>
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profile-navbar" aria-expanded="false" aria-controls="navbar">
+                <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>)"></div>
+              </button>
+              <% end %>
+
+              <%= link_to root_path, class: 'navbar-brand', target: '_self' do %>
                 <img src="/src/images/theme/logo.png" />
               <% end %>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav navbar-left">
-                <li>
-                  <a href="/">ALL</a>
-                </li>
-                <% @global_categories.each do |category| %>
-                  <li>
-                    <% if is_index_with_categories? %>
-                      <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
-                    <% else %>
-                      <a href="/categories/<%= category.slug %>"><%= category.title %></a>
-                    <% end %>
-                  </li>
-                <% end unless @global_categories.nil? %>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <% if current_user.present? %>
+              <% if current_user.present? %>
+              <ul class="nav navbar-nav navbar-right mobile-hide">
                   <% if current_user.can_organizer? %>
-                    <li>
-                      <%= link_to "Organizer", "/organizer", target: '_self' %>
-                    </li>
+                  <li><%= link_to "Organizer", "/organizer", target: '_self' %></li>
                   <% end %>
                   <li class="dropdown user-dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    <a href="/" target="_self" class="dropdown-toggle" data-toggle="dropdown" role="button">
                       <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>"></div>
                       <div class="user-name"><%= current_user.first_name %></div>
                       <i class="fa fa-caret-down"></i>
@@ -61,17 +78,52 @@
                       <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
                       <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
                       <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
-                      <li><%= link_to "Account Settings", client_profile_settings_path(current_user) %></li>
+                      <li><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
                       <li>
                       <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
                       </li>
                     </ul>
                   </li>
+                </ul>
                 <% else %>
+                <ul class="nav navbar-nav navbar-right">
                   <li><a id="menu-login" class="btn btn-daydash btn-daydash-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal">สมัครสมาชิกฟรี / เข้าสู่ระบบ</a></li>
+                </ul>
                 <% end %>
               </ul>
+              <ul class="nav navbar-nav navbar-left">
+                <li>
+                  <%= link_to 'ALL', root_path, target: '_self' %>
+                </li>
+
+                <% @global_categories.each do |category| %>
+                  <li>
+                    <% if is_index_with_categories? %>
+                      <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
+                    <% else %>
+                      <a href="/categories/<%= category.slug %>" target="_self"><%= category.title %></a>
+                    <% end %>
+                  </li>
+                <% end unless @global_categories.nil? %>
+              </ul>
             </div>
+
+            <% if current_user.present? %>
+            <div id="profile-navbar" class="navbar-collapsse collapse">
+              <ul class="nav navbar-nav mobile-only">
+                <% if current_user.can_organizer? %>
+                <li><%= link_to "Organizer", "/organizer", target: '_self' %></li>
+                <% end %>
+                <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
+                <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
+                <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
+                <li><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
+                <li>
+                <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+                </li>
+              </ul>
+            </div>
+            <% end %>
           </div>
         </nav>
       </div>
@@ -94,12 +146,11 @@
               <div class="list-panel">
                 <div class="list-title">Explore</div>
                 <ul class="list-body nav">
-                  <li><a href="#">Nightlife</a></li>
-                  <li><a href="#">Entertainment</a></li>
-                  <li><a href="#">Outdoor &amp; Adventure</a></li>
-                  <li><a href="#">Gaming</a></li>
-                  <li><a href="#">Workshops</a></li>
-                  <li><a href="#">Tours</a></li>
+                  <% @global_categories.each do |category| %>
+                    <li>
+                      <a href="/categories/<%= category.slug %>" target="_self"><%= category.title %></a>
+                    </li>
+                  <% end unless @global_categories.nil? %>
                 </ul>
               </div>
             </div>
@@ -107,12 +158,12 @@
               <div class="list-panel">
                 <div class="list-title">Support</div>
                 <ul class="list-body nav">
-                  <li><a href="#">List Event on Daydash</a></li>
-                  <li><a href="#">Daydashzine</a></li>
-                  <li><a href="#">Our Story</a></li>
-                  <li><a href="#">How to Pay</a></li>
-                  <li><a href="#">FAQ</a></li>
-                  <li><a href="#">Contact</a></li>
+                  <!-- <li><a href="/" target="_self">List Event on Daydash</a></li> -->
+                  <li><a href="https://blog.daydash.co/" target="_blank">Daydash Blog</a></li>
+                  <li><a href="/about" target="_self">Our Story</a></li>
+                  <!-- <li><a href="/" target="_self">How to Pay</a></li> -->
+                  <!-- <li><a href="/" target="_self">FAQ</a></li> -->
+                  <li><a href="/contact" target="_self">Contact</a></li>
                 </ul>
               </div>
             </div>
@@ -120,33 +171,38 @@
               <div class="list-panel social-list">
                 <div class="list-title">Connect</div>
                 <ul class="list-body list-inline">
-                  <li><a href="#"><i class="icon icon-line"></i></a></li>
-                  <li><a href="#"><i class="icon icon-facebook"></i></a></li>
-                  <li><a href="#"><i class="icon icon-instagram"></i></a></li>
-                  <li><a href="#"><i class="icon icon-twitter"></i></a></li>
+                  <li><a href="<%= "#{App.line_link}" %>" target="_blank"><i class="icon icon-line"></i></a></li>
+                  <li><a href="<%= "#{App.facebook_link}" %>" target="_blank"><i class="icon icon-facebook"></i></a></li>
+                  <li><a href="<%= "#{App.instagram_link}" %>" target="_blank"><i class="icon icon-instagram"></i></a></li>
+                  <li><a href="<%= "#{App.twitter_link}" %>" target="_blank"><i class="icon icon-twitter"></i></a></li>
                 </ul>
               </div>
 
               <div class="fb-page" data-href="https://www.facebook.com/daydashapp/" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/daydashapp/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/daydashapp/">Daydash</a></blockquote></div>
             </div>
             <div class="col col-xs-12 col-md-3">
-              <div class="list-panel">
+              <!-- <div class="list-panel">
                 <ul class="list-body list-inline">
-                  <li><a href="#"><img src="/src/images/theme/appstore.png" height="40" /></a></li>
-                  <li><a href="#"><img src="/src/images/theme/playstore.png" height="40" /></a></li>
+                  <li><a href="/" target="_self"><img src="/src/images/theme/appstore.png" height="40" /></a></li>
+                  <li><a href="/" target="_self"><img src="/src/images/theme/playstore.png" height="40" /></a></li>
                 </ul>
-              </div>
+              </div> -->
 
               <div>
-                <div class="copyright">© 2016 Daydash.co</div>
+                <div>© 2016 Daydash.co</div>
+                <!-- <div class="copyright">© 2016 Daydash.co</div> -->
                 <ul class="list-body list-inline">
-                  <li><a href="<%= terms_and_conditions_path %>">Terms &amp; Conditions</a></li>
-                  <li><a href="<%= privacy_policy_path %>">Privacy Policy</a></li>
+                  <li>
+                    <%= link_to "Terms & Conditions", terms_and_conditions_path, target: '_self' %>
+                  </li>
+                  <li>
+                    <%= link_to "Privacy Policy", privacy_policy_path, target: '_self' %>
+                  </li>
                 </ul>
               </div>
 
-              <div class="cert-list">
-                <img src="/src/images/theme/comodo.png" height="30" />
+              <div class="cert-list" style="margin-top: 25px;">
+                <!-- <img src="/src/images/theme/comodo.png" height="30" /> -->
                 <img src="/src/images/theme/visa_master.png" height="30"/>
                 <img src="/src/images/theme/mixpanel.png" height="30"/>
               </div>
@@ -155,62 +211,22 @@
         </div>
       </div>
     </div>
-
-  <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
-    <div class="modal-dialog modal-sm" role="document">
-      <%= render partial: "layouts/parts/login-form" %>
-      <%= render partial: "layouts/parts/register-form" %>
+    <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
+      <div class="modal-dialog modal-sm" role="document">
+        <%= render partial: "layouts/parts/login-form" %>
+        <%= render partial: "layouts/parts/register-form" %>
+      </div>
     </div>
-  </div>
-  <%= javascript_include_tag 'client/core', 'data-turbolinks-track' => true %>
 
-  <!-- Bootstrap Datetimepicker -->
-  <!-- <link type="stylesheet" href="/src/packages/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
-  <script src="/src/packages/bootstrap-datetimepicker/js/moment.js"></script>
-  <script src="/src/packages/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script> -->
-
-  <!-- Mustache -->
-  <!-- <script src="/src/packages/mustache/mustache.min.js"></script> -->
-
-  <!-- Jquery UI - Sortable -->
-  <!-- <link rel="stylesheet" href="/src/packages/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.min.css" />
-  <script src="/src/packages/jquery-ui/js/jquery-ui-1.10.4.custom.min.js"></script> -->
-<!--
-  <script type="text/javascript">
-  var init_datetimepicker, on_ticket_add, on_ticket_delete;
-
-    init_datetimepicker = function(element) {
-      $('.datepicker', element).datetimepicker({
-        format: 'DD/MM/YYYY'
-      });
-      $('.timepicker', element).datetimepicker({
-        format: 'LT',
-        stepping: 15
-      });
-    };
-
-    on_ticket_add = function(button) {
-      var element, rendered, template;
-      template = $('#new-ticket-template').html();
-      Mustache.parse(template);
-      rendered = Mustache.render(template, {});
-      element = $(rendered);
-      $('.ticket-list tbody').append(element);
-      init_datetimepicker(element);
-      return false;
-    };
-
-    on_ticket_delete = function(button) {
-      var element;
-      element = $(button).parents('.ticket');
-      element.remove();
-      return false;
-    };
-
-    $(function() {
-      init_datetimepicker($('body'));
-      on_ticket_add();
-    });
-  </script> -->
-</body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <!-- Template -->
+    <%= render partial: "layouts/parts/section" %>
+  </body>
 </html>

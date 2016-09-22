@@ -1,4 +1,4 @@
-<script>$('body').attr('id', 'organizer-event-checkin');</script>
+<script>$('body').attr('id', 'organizer-event-checkin').addClass('organizer-event-page');</script>
 
 <%= render partial: "organizer/parts/organizer-nav" %>
 <script>$('#organizer-nav #menu-event-list').addClass('active');</script>
@@ -23,8 +23,8 @@
               <div class="col-xs-12 col-md-6">
                 <ul class="meta-info list-inline">
                   <li>Attendee: <%= section.tickets.count %></li>
-                  <li>Checked-in: <%= section.tickets.where(stages: 'checked-in').count %></li>
-                  <li>Remaining: <%= section.tickets.where(stages: 'new').count %></li>
+                  <li>Checked-in: <%= section.tickets.where(status: :used).count %></li>
+                  <li>Remaining: <%= section.tickets.count - section.tickets.where(status: :used).count %></li>
                 </ul>
               </div>
               <div class="col-xs-12 col-md-6">
@@ -39,6 +39,7 @@
             <table class="table table-hover">
               <thead>
                 <tr>
+                  <td class="mobile-only"></td>
                   <td>ATTENDEE NAME</td>
                   <td>EMAIL</td>
                   <td>TEL</td>
@@ -49,11 +50,20 @@
               <tbody>
                 <% section.tickets.each do |ticket| %>
                 <tr>
+                  <% if ticket.status.used? %>
+                    <td class="mobile-only">Checked</td>
+                  <% else %>
+                    <td class="mobile-only"><%= link_to "CHECK IN", organizer_event_ticket_checking_path(@event.id, ticket.id), method: :post %></td>
+                  <% end %>
                   <td><%= ticket.user.first_name %> <%= ticket.user.last_name %></td>
                   <td><%= ticket.user.email %></td>
                   <td><%= ticket.user.phone %></td>
                   <td><%= ticket.code %></td>
-                  <td>CHECK IN</td>
+                  <% if ticket.status.used? %>
+                    <td>Checked</td>
+                  <% else %>
+                    <td><%= link_to "CHECK IN", organizer_event_ticket_checking_path(@event.id, ticket.id), method: :post %></td>
+                  <% end %>
                 </tr>
                 <% end %>
               </tbody>
@@ -66,7 +76,6 @@
   </div>
 </div>
 <script>
-
   function init_table_filter() {
     $('.table-filter').keyup(function () {
       var element = this;
@@ -76,7 +85,7 @@
       $('tbody tr', table).filter(function () {
           return rex.test($(this).text());
       }).show();
-    })    
+    })
   }
 
   $(function() {

@@ -1,10 +1,10 @@
 class Organizer::EventsController < Organizer::CoreController
-  before_action :event, only: [:edit, :update, :destroy, :delete_attachment, :orders, :checkin, :unpublish]
+  before_action :event, only: [:edit, :update, :destroy, :delete_attachment, :orders, :checkin, :published, :unpublish]
   before_action :all_categories, only: [:new, :edit]
   before_action :all_users, only: [:new, :edit]
 
   def index
-    @events = current_user.events
+    @events = current_user.events.order(created_at: :desc)
   end
 
   def new
@@ -57,23 +57,45 @@ class Organizer::EventsController < Organizer::CoreController
     redirect_to :back
   end
 
-  def tickets
-    @event = Event.friendly.find(params[:id])
+  def orders
   end
 
-  def orders
-    @event = Event.friendly.find(params[:id])
+  def tickets
   end
 
   def checkin
-    @event = Event.friendly.find(params[:id])
+  end
+
+  def ticket_checking
+    @event = Event.friendly.find(params[:event_id])
+    @ticket = @event.tickets.find(params[:ticket_id])
+
+    @ticket.update(status: :used)
+    redirect_to :back
   end
 
   def unpublish
+    @event.update(status: :unpublish)
+    redirect_to :back
+  end
+
+  def published
+    @event.update(status: :published)
+    EventUpdateJob.perform_now
+
+    redirect_to :back
+  end
+
+  def update_time_event
+    EventUpdateJob.perform_now
     redirect_to :back
   end
 
 private
+
+  def serialize_data
+
+  end
 
   def serialize_data_create
     user_id = params[:user].to_i.eql?(0) ? current_user.id : params[:user].to_i
@@ -88,14 +110,18 @@ private
     end unless params[:event_pictures].nil?
 
     (0..params[:new_ticket_names].count - 1).each do |section|
-      event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
-      end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+      next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_units][section].present?
 
-      Section.create do |s|
-        s.event_id    = @event.id
+      if params[:new_ticket_event_time][section].present? and params[:new_ticket_end_time][section].present?
+        event_time = Time.zone.parse(params[:new_ticket_event_time][section])
+        end_time   = Time.zone.parse(params[:new_ticket_end_time][section])
+      end
+
+      @event.sections.create do |s|
         s.title       = params[:new_ticket_names][section]
         s.total       = params[:new_ticket_totals][section]
         s.price       = params[:new_ticket_prices][section]
+        s.unit        = params[:new_ticket_units][section]
         s.event_time  = event_time
         s.end_time    = end_time
       end
@@ -112,15 +138,31 @@ private
       EventPicture.create(event: @event, media: attachments)
     end unless params[:event_pictures].nil?
 
-    (0..params[:new_ticket_names].count - 1).each do |section|
-      event_time = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_start_times][section]}")
-      end_time   = DateTime.parse("#{params[:new_ticket_dates][section]} #{params[:new_ticket_end_times][section]}")
+    # update section
+    @event.sections.each do |section|
+      section.update(
+        title:      params["tickets"]["#{section.id}"]["title"],
+        total:      params["tickets"]["#{section.id}"]["total"],
+        price:      params["tickets"]["#{section.id}"]["price"],
+        unit:       params["tickets"]["#{section.id}"]["unit"],
+        event_time: params["tickets"]["#{section.id}"]["event_time"],
+        end_time:   params["tickets"]["#{section.id}"]["end_time"]
+      )
+    end unless params[:tickets].nil?
 
-      Section.create do |s|
-        s.event_id    = @event.id
+    (0..params[:new_ticket_names].count - 1).each do |section|
+      next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_units][section].present?
+
+      if params[:new_ticket_event_time][section].present? and params[:new_ticket_end_time][section].present?
+        event_time = Time.zone.parse(params[:new_ticket_event_time][section])
+        end_time   = Time.zone.parse(params[:new_ticket_end_time][section])
+      end
+
+      @event.sections.create do |s|
         s.title       = params[:new_ticket_names][section]
         s.total       = params[:new_ticket_totals][section]
         s.price       = params[:new_ticket_prices][section]
+        s.unit        = params[:new_ticket_units][section]
         s.event_time  = event_time
         s.end_time    = end_time
       end
@@ -132,7 +174,7 @@ private
   end
 
   def event_params
-    params.permit(:title, :description, :location_name, :location_address, :latitude, :longitude)
+    params.permit(:title, :slug, :ticket_type, :show_highlight, :description, :instruction, :max_price, :min_price, :location_name, :location_address, :latitude, :longitude, :share_ticket)
   end
 
   def all_categories

@@ -98,6 +98,9 @@ Rails.application.routes.draw do
       root 'client/events#index'
     end
 
+    get '/test', to: 'client/events#index'
+
+
     get '/react-api' => 'application#index', defaults: { format: :json }
 
     get '/blog',        to: 'greetings#blog'

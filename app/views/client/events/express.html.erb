@@ -198,12 +198,14 @@
                       </div>
                       <div class="col-xs-12">
                         <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
+                        <% flash.each do |name, msg| %>
+                          <%= content_tag :div, msg, class: "alert alert-danger" %>
+                        <% end %>
                       </div>
                     </div>
                     <div class="form-section-footer">
                       <div>
                         <label>
-
                           By submitting, you agree to <a target="_blank" href="<%= terms_and_conditions_path %>">Payment Policy</a>
                         </label>
                       </div>

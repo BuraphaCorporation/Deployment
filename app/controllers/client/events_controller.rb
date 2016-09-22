@@ -85,7 +85,12 @@ class Client::EventsController < Client::CoreController
     when 'credit_card'
       @payment = Payment.omise_token_charge(@order, params[:omise_token])
 
-      @order.approve! unless @payment[:status] == :error
+      if @payment[:status] == :error
+        raise "error"
+      else
+        @order.approve!
+      end
+
     when 'bank_transfer'
       @payment = Payment.transfer_notify(@order)
     end
@@ -101,7 +106,7 @@ class Client::EventsController < Client::CoreController
         Section.cut_in(section.id, section.qty, @event)
       end
     else
-      @payment[:message]
+      raise @payment[:message]
     end
 
     if @order.tickets.present?
@@ -116,6 +121,9 @@ class Client::EventsController < Client::CoreController
     end
 
     render :checkout
+  rescue Exception => e
+    flash[:notice] = 'ข้อมูลบัตรไม่ถูกต้องค่ะ กรุณาตรวจสอบอีกครั้งค่ะ'
+    redirect_back
   end
 
 private

@@ -54,7 +54,7 @@ $(document).on 'ready', (event) ->
 
     map = new (google.maps.Map)(document.getElementById('google-map'),
       center: eventLocation
-      zoom: 13
+      zoom: 16
       scrollwheel: false)
 
     marker = new (google.maps.Marker)(

@@ -164,7 +164,6 @@ class Payment < ApplicationRecord
     end
 
     def free(order)
-      binding.pry
       create(status: :success, methods: 'free', order: order, amount: 0, fee: 0)
     rescue Exception => error
       { status: :error, message: error }

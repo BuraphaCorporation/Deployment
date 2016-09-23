@@ -38,10 +38,12 @@
                               <td width="150">ราคารวม</td>
                               <td><%= convert_to_currency order.to_price %></td>
                             </tr>
+                            <% unless order.free? %>
                             <tr>
                               <td>วิธีการชำระเงิน</td>
                               <td><%= order.payment.channel %></td>
                             </tr>
+                            <% end %>
                             <tr>
                               <td>สถานะการชำระเงิน</td>
                               <% if order.status.paid? %>

@@ -26,20 +26,20 @@
             <div class="ticket-list">
               <div class="list-body">
                 <% @event.sections.each do |section| %>
-                <% next if @tickets["#{section.id}"].nil? %>
-                <div class="ticket row">
-                  <div class="col-xs-8 ticket-title">
-                    <%= section.title %> <%= @tickets["#{section.id}"]["quantity"] %> x <%= convert_to_currency section.price %>
+                  <% next if @tickets["#{section.id}"].nil? %>
+                  <div class="ticket row">
+                    <div class="col-xs-8 ticket-title">
+                      <%= section.title %> <%= @tickets["#{section.id}"]["quantity"] %> x <%= convert_to_currency section.price %>
+                    </div>
+                    <div class="col-xs-4 ticket-price">
+                    <%= convert_to_currency(section.price * @tickets["#{section.id}"]["quantity"]) %>
+                    </div>
                   </div>
-                  <div class="col-xs-4 ticket-price">
-                  <%= convert_to_currency(section.price * @tickets["#{section.id}"]["quantity"]) %>
-                  </div>
-                </div>
-                <% end %>
+                <% end unless @is_free %>
               </div>
               <div class="row list-footer">
                 <div class="col-xs-12">
-                  Total: <%= convert_to_currency(@tickets["total"].to_i / 100) %>
+                  Total: <%= @is_free ? "Free" : convert_to_currency(@tickets["total"].to_i / 100) %>
                 </div>
               </div>
             </div>
@@ -52,8 +52,11 @@
         <%= form_tag client_event_checkout_path(@event.to_url), id: :checkout do  %>
           <input type="hidden" name="event_id" value="<%= @event.id %>" />
           <input type="hidden" name="omise_token">
-          <input type="hidden" name="payment_method" value="credit_card">
-
+          <% if @is_free %>
+            <input type="hidden" name="payment_method" value="free">
+          <% else %>
+            <input type="hidden" name="payment_method" value="credit_card">
+          <% end %>
           <% if current_user.nil? %>
             <div class="form-section highlight" id="general-info-section">
               <div class="form-section-header">
@@ -148,7 +151,8 @@
                 </div>
               <% end %>
             </div>
-          <% unless current_user.nil? %>
+
+          <% unless current_user.nil? || @is_free %>
             <div class="form-section" id="payment-method-section">
               <div class="form-section-header">
                 <h2 class="form-section-title">Payment Method</h2>
@@ -231,6 +235,9 @@
               </div>
             </div>
           <% end %>
+
+            <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="free" >Place an order</button>
+
         <% end %>
       </div>
     </div>
@@ -292,8 +299,12 @@ function init_form_validate() {
         omise_submit(form);
         return false;
       }
-      else {
+      else if(form.find("[name=payment_method]").val() == 'bank_transfer') {
         transfer_submit(form);
+        return true;
+      }
+      else {
+        free(form);
         return true;
       }
     }
@@ -301,6 +312,14 @@ function init_form_validate() {
 }
 
 function transfer_submit(form) {
+  try {
+    form.get(0).submit();
+  } catch(e) {
+    $('.btn-submit').button('reset');
+  }
+}
+
+function free(form) {
   try {
     form.get(0).submit();
   } catch(e) {

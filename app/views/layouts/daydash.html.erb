@@ -10,9 +10,14 @@
 
     <meta property="fb:app_id" content="<%= App.configure.facebook_app_id %>" />
     <meta property="og:title" content="<%= @event.try(:title) || @seo_title %>"/>
+    <meta property="og:url" content="<%= request.original_url %>">
     <meta property="og:type" content="event"/>
     <meta property="og:description" content="<%= @event.try(:description) || @seo_description %>"/>
     <meta property="og:image" content="<%= @event.try(:event_pictures).try(:first).try(:media, :thumb) || @seo_image %>" />
+    <meta property="og:image:url" content="<%= @event.try(:event_pictures).try(:first).try(:media, :thumb) || @seo_image %>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
     <meta property="og:site_name" content="daydash.co"/>
     <meta property="og:latitude" content="<%= @event.try(:latitude) %>"/>
     <meta property="og:longitude" content="<%= @event.try(:longitude) %>"/>

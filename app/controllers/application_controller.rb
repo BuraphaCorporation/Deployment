@@ -39,8 +39,8 @@ protected
   end
 
   def seo
-    @title       = "" # Event.first.title
-    @description = "" # Event.first.description
-    @image       = "" # Event.first.event_pictures.first.media(:facebook)
+    @seo_title       = "เพราะเราเชื่อว่า ชีวิตไม่ได้มีแค่ด้านเดียว"
+    @seo_description = "เพราะเชื่อว่า การได้ทดลองทำกิจกรรมใหม่ๆ เป็นการเปิดโลกของเราให้กว้างขึ้น Daydash จึงเลือก 3 กิจกรรมเด็ด มาให้คุณได้ทดลองกันฟรีๆ เพียงเลือกกิจกรรมที่อยากทำ กรอกข้อมูล และแชร์ให้เพื่อน เท่านี้คุณก็มีสิทธิ์ลุ้นเป็นผู้โชคดี ได้ทดลองทำกิจกรรมสนุกๆ กับ Daydash ฟรี!" # Event.first.description
+    @seo_image       = "#{App.domain}/facebook-og.jpg"
   end
 end

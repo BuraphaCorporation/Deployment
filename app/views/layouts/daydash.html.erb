@@ -2,31 +2,31 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Daydash</title>
+    <title><%= @event.try(:title) || @seo_title %> - Daydash</title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="MobileOptimized" content="320" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0 "/>
-    <meta name="description" content="<%= @description %>" />
+    <meta name="description" content="<%= @event.try(:description) || @seo_description %>" />
 
     <meta property="fb:app_id" content="<%= App.configure.facebook_app_id %>" />
-    <meta property="og:title" content="<%= @title %>"/>
+    <meta property="og:title" content="<%= @event.try(:title) || @seo_title %>"/>
     <meta property="og:type" content="event"/>
-    <meta property="og:description" content="<%= @description %>"/>
-    <meta property="og:image" content="<% @image %>" />
+    <meta property="og:description" content="<%= @event.try(:description) || @seo_description %>"/>
+    <meta property="og:image" content="<%= @event.try(:event_pictures).try(:first).try(:media, :facebook) || @seo_image %>" />
     <meta property="og:site_name" content="daydash.co"/>
-    <meta property="og:latitude" content="<% @event.try(:latitute) %>"/>
-    <meta property="og:longitude" content="<% @event.try(:latitute) %>"/>
-    <meta property="og:email" content="<% @event.try(:latitute) %>"/>
-    <meta property="og:phone-number" content="<% @event.try(:latitute) %>"/>
-    <meta property="og:street-address" content="<% @event.try(:address_name) %>"/>
-    <meta property="og:location" content="<% @event.try(:address_location) %>" />
-    <meta property="og:start_time" content="<% @event.try(:uptime) %>" />
-    <meta property="og:end_time" content="<% @event.try(:uptime) %>" />
+    <meta property="og:latitude" content="<%= @event.try(:latitude) %>"/>
+    <meta property="og:longitude" content="<%= @event.try(:longitude) %>"/>
+    <meta property="og:email" content="<%= @event.try(:user).try(:email) %>"/>
+    <meta property="og:phone-number" content="<%= @event.try(:user).try(:phone) %>"/>
+    <meta property="og:street-address" content="<%= @event.try(:location_address) %>"/>
+    <meta property="og:location" content="<%= @event.try(:location_name) %>" />
+    <meta property="og:start_time" content="<%= @event.try(:uptime) %>" />
+    <meta property="og:end_time" content="<%= @event.try(:uptime) %>" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@daydashapp" />
-    <meta name="twitter:title" content="จิบกาแฟคนทำเว็บ หัวข้อ &quot;EPayment&quot; และ งานประชุมใหญ่สามัญประจำปี 2559" />
-    <meta name="twitter:image" content="<% @image %>" />
+    <meta name="twitter:title" content="<%= @event.try(:title) || @seo_title %>" />
+    <meta name="twitter:image" content="<%= @event.try(:event_pictures).try(:first).try(:media, :facebook) || @seo_image %>" />
 
     <meta name= "category-id" content="<%= @category_id %>">
 

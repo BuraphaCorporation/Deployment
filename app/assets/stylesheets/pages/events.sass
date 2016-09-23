@@ -435,30 +435,51 @@ label
   .meta
     margin-bottom: 10px
 
-  &.payment-card
+  &.payment-card      
     .title
+      line-height: 1.5em
       height: auto
 
     .info
+      margin: 0px
       padding-bottom: 0px
 
-      .row
-        padding-top: 15px
-        padding-bottom: 15px
-        border-bottom: 1px solid $gray-color-e
-
     .ticket-list
-      .ticket .ticket-price
-        text-align: right
+      border-top: 1px solid #eee
+      .ticket
+        margin: 0px
+        padding: 10px 0px
+        border-bottom: 1px solid #eee
+
+        .ticket-price
+          text-align: right
 
       .list-footer
+        margin: 0px
+        padding: 10px 0px
         text-align: right
 
   @media (max-width: 991px)
+    .card-header
+      padding: 0px
+      margin: 0px
+
+      .col
+        padding: 10px
+
+    .cover
+      height: 100px
+    .info
+      padding: 0px 5px
+
     .title
+      font-size: 18px
+      margin-top: 0px
       height: auto
       line-height: 1.5em
-      margin-bottom: 15px
+      margin-bottom: 10px
+    .meta
+      font-size: 14px
 
 .card-side-cover
   margin-bottom: 40px
@@ -899,6 +920,9 @@ label
         min-width: 60px
 
 #payment-page
+  #payment-section
+    padding-top: 40px
+
   .panel-login
     padding-top: 0px
     padding-bottom: 0px
@@ -951,7 +975,7 @@ label
       margin-top: 15px
       .btn
         margin-top: 15px
-        
+
         .icon
           float: left
 
@@ -989,6 +1013,9 @@ label
     padding: 10px 15px
 
   @media (max-width: 991px)
+    #payment-section
+      padding-top: 15px
+
     .gender-form-group .form-inline
       padding-left: 30px
     .nav-tabs
@@ -996,8 +1023,6 @@ label
         display: table-cell
         width: 1%
 
-#payment-section
-  padding-top: 40px
 
 #payment-complete-page
   #credit-card-inform-section

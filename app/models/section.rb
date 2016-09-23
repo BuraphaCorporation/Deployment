@@ -26,6 +26,7 @@
 
 class Section < ApplicationRecord
   SHOW_TICKET_AVAILABLE = 5
+  SHOW_TICKET_FREE = 1
 
   belongs_to :event
   has_many :tickets
@@ -44,7 +45,15 @@ class Section < ApplicationRecord
     total - bought
   end
 
+  def free?
+    price == 0
+  end
+
   def show_ticket_available
+    if self.free?
+      return SHOW_TICKET_FREE
+    end
+
     if self.ticket_type.general?
       self.ticket_available > SHOW_TICKET_AVAILABLE ? SHOW_TICKET_AVAILABLE : self.ticket_available
     else

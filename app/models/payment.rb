@@ -162,6 +162,12 @@ class Payment < ApplicationRecord
     def transfer_approval(user, event, payment)
       Ticket.create_ticket(user, event, payment)
     end
+
+    def free(order)
+      create(status: :success, methods: 'free', order: order, amount: 0, fee: 0)
+    rescue Exception => error
+      { status: :error, message: error }
+    end
   end
 
 private

@@ -24,7 +24,7 @@ class Client::EventsController < Client::CoreController
     @event    = Event.friendly.find(params[:id])
     @section_count = @event.sections.count
 
-    @sections = @event.ticket_type.deal? ? @event.sections : @event.sections.available
+    @sections = @event.ticket_type.deal? ? @event.sections.order(:event_time): @event.sections.available
 
     @section  = @event.sections.min_by { |m| m.price }
   end
@@ -67,6 +67,7 @@ class Client::EventsController < Client::CoreController
   def express
     redirect_to root_url unless @event.id == session[:event]
     @tickets = session[:tickets]
+    @is_free = true if @tickets["total"].to_i == 0
   end
 
   def checkout
@@ -93,6 +94,9 @@ class Client::EventsController < Client::CoreController
 
     when 'bank_transfer'
       @payment = Payment.transfer_notify(@order)
+    when 'free'
+      @payment = Payment.free(@order)
+      @order.approve!
     end
 
     sections = []

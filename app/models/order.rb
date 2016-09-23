@@ -95,6 +95,10 @@ class Order < ApplicationRecord
     payment.methods == 'transfer'
   end
 
+  def free?
+    payment.methods == 'free'
+  end
+
 private
   def generate_code
     loop do

@@ -17,6 +17,7 @@ html, body
   height: 100%
   font-family: "Athiti", "Helvetica Neue", "sans-serif"
   color: $gray-color-4
+  font-size: 16px
 
 #topbar
   .navbar
@@ -263,8 +264,139 @@ label
   border: 1px solid $gray-color-e
   background: white
 
+  .panel-body:not(:last-child)
+    border-bottom: 1px solid $gray-color-e
+
   @media (max-width: 991px)
     padding: 15px
+
+
+
+
+
+
+
+.nav-daydash
+  margin-bottom: 15px
+  li
+    a
+      &, &:visited, &:link, &:active
+        background: transparent
+        padding-bottom: 8px
+        color: $gray-color-4
+      &:hover, &:visited:hover, &:link:hover, &:active:hover
+        color: $gray-color-4
+    &.active a
+      &, &:hover, &:active, &:link, &:visited
+        border-radius: 0px
+        background: transparent
+        color: $gray-color-4
+        // border-bottom: 3px solid #00CFD1
+        border-bottom: 3px solid $gray-color-4
+
+.nav-daydash-green
+  li.active
+    a
+      &, &:hover, &:active, &:link, &:visited
+        border-bottom: 2px solid #00CFD1
+
+
+.nav-tabs-daydash
+  margin-bottom: 15px
+  &.nav-justified
+    margin-bottom: 15px
+  li a
+    background: transparent
+    color: $gray-color-a
+    border: 0px
+    border-bottom: 3px solid $gray-color-e
+    &:visited, &:link, &:active
+      background: transparent
+      color: $gray-color-a
+      border: 0px
+      border-bottom: 3px solid $gray-color-e
+  &.nav-justified li a
+    background: transparent
+    color: $gray-color-a
+    border: 0px
+    border-bottom: 3px solid $gray-color-e
+    &:visited, &:link, &:active
+      background: transparent
+      color: $gray-color-a
+      border: 0px
+      border-bottom: 3px solid $gray-color-e
+  li:hover a, &.nav-justified li:hover a
+    color: $gray-color-4
+    &:hover
+      color: $gray-color-4
+  li.active
+    a
+      border-radius: 0px
+      background: transparent
+      color: $gray-color-4
+      border: 0px
+      border-bottom: 3px solid #00CFD1
+      &:visited, &:link, &:active
+        border-radius: 0px
+        background: transparent
+        color: $gray-color-4
+        border: 0px
+        border-bottom: 3px solid #00CFD1
+    &:hover a
+      border-radius: 0px
+      background: transparent
+      color: $gray-color-4
+      border: 0px
+      border-bottom: 3px solid #00CFD1
+      &:visited, &:link, &:active
+        border-radius: 0px
+        background: transparent
+        color: $gray-color-4
+        border: 0px
+        border-bottom: 3px solid #00CFD1
+  &.nav-justified li.active
+    a
+      border-radius: 0px
+      background: transparent
+      color: $gray-color-4
+      border: 0px
+      border-bottom: 3px solid #00CFD1
+      &:visited, &:link, &:active
+        border-radius: 0px
+        background: transparent
+        color: $gray-color-4
+        border: 0px
+        border-bottom: 3px solid #00CFD1
+    &:hover a
+      border-radius: 0px
+      background: transparent
+      color: $gray-color-4
+      border: 0px
+      border-bottom: 3px solid #00CFD1
+      &:visited, &:link, &:active
+        border-radius: 0px
+        background: transparent
+        color: $gray-color-4
+        border: 0px
+        border-bottom: 3px solid #00CFD1
+  &.nav-tabs-black li.active
+    a
+      border-bottom: 3px solid $gray-color-4
+      &:visited, &:link, &:active
+        border-bottom: 3px solid $gray-color-4
+    &:hover a
+      border-bottom: 3px solid $gray-color-4
+      &:visited, &:link, &:active
+        border-bottom: 3px solid $gray-color-4
+  &.nav-justified.nav-tabs-black li.active
+    a
+      border-bottom: 3px solid $gray-color-4
+      &:visited, &:link, &:active
+        border-bottom: 3px solid $gray-color-4
+    &:hover a
+      border-bottom: 3px solid $gray-color-4
+      &:visited, &:link, &:active
+        border-bottom: 3px solid $gray-color-4
 
 .event.card, .ticket.card
   display: block
@@ -328,7 +460,6 @@ label
       line-height: 1.5em
       margin-bottom: 15px
 
-
 .card-side-cover
   margin-bottom: 40px
   padding: 10px
@@ -364,7 +495,6 @@ label
       width: 180px
     .info
       display: table-cell
-
 
 .ticket.ticket-1
   margin-bottom: 30px
@@ -534,7 +664,6 @@ label
       .right
         margin-top: 5px
 
-
 .event-for-organizer
   .list-action-nav
     margin-top: 15px
@@ -569,129 +698,6 @@ label
 
       li:not(:last-child):after
         padding-left: 5px
-
-
-.nav-daydash
-  margin-bottom: 15px
-  li
-    a
-      &, &:visited, &:link, &:active
-        background: transparent
-        padding-bottom: 8px
-        color: $gray-color-4
-      &:hover, &:visited:hover, &:link:hover, &:active:hover
-        color: $gray-color-4
-    &.active a
-      &, &:hover, &:active, &:link, &:visited
-        border-radius: 0px
-        background: transparent
-        color: $gray-color-4
-        // border-bottom: 3px solid #00CFD1
-        border-bottom: 3px solid $gray-color-4
-
-.nav-daydash-green
-  li.active
-    a
-      &, &:hover, &:active, &:link, &:visited
-        border-bottom: 2px solid #00CFD1
-
-
-.nav-tabs-daydash
-  margin-bottom: 15px
-  &.nav-justified
-    margin-bottom: 15px
-  li a
-    background: transparent
-    color: $gray-color-a
-    border: 0px
-    border-bottom: 3px solid $gray-color-e
-    &:visited, &:link, &:active
-      background: transparent
-      color: $gray-color-a
-      border: 0px
-      border-bottom: 3px solid $gray-color-e
-  &.nav-justified li a
-    background: transparent
-    color: $gray-color-a
-    border: 0px
-    border-bottom: 3px solid $gray-color-e
-    &:visited, &:link, &:active
-      background: transparent
-      color: $gray-color-a
-      border: 0px
-      border-bottom: 3px solid $gray-color-e
-  li:hover a, &.nav-justified li:hover a
-    color: $gray-color-4
-    &:hover
-      color: $gray-color-4
-  li.active
-    a
-      border-radius: 0px
-      background: transparent
-      color: $gray-color-4
-      border: 0px
-      border-bottom: 3px solid #00CFD1
-      &:visited, &:link, &:active
-        border-radius: 0px
-        background: transparent
-        color: $gray-color-4
-        border: 0px
-        border-bottom: 3px solid #00CFD1
-    &:hover a
-      border-radius: 0px
-      background: transparent
-      color: $gray-color-4
-      border: 0px
-      border-bottom: 3px solid #00CFD1
-      &:visited, &:link, &:active
-        border-radius: 0px
-        background: transparent
-        color: $gray-color-4
-        border: 0px
-        border-bottom: 3px solid #00CFD1
-  &.nav-justified li.active
-    a
-      border-radius: 0px
-      background: transparent
-      color: $gray-color-4
-      border: 0px
-      border-bottom: 3px solid #00CFD1
-      &:visited, &:link, &:active
-        border-radius: 0px
-        background: transparent
-        color: $gray-color-4
-        border: 0px
-        border-bottom: 3px solid #00CFD1
-    &:hover a
-      border-radius: 0px
-      background: transparent
-      color: $gray-color-4
-      border: 0px
-      border-bottom: 3px solid #00CFD1
-      &:visited, &:link, &:active
-        border-radius: 0px
-        background: transparent
-        color: $gray-color-4
-        border: 0px
-        border-bottom: 3px solid #00CFD1
-  &.nav-tabs-black li.active
-    a
-      border-bottom: 3px solid $gray-color-4
-      &:visited, &:link, &:active
-        border-bottom: 3px solid $gray-color-4
-    &:hover a
-      border-bottom: 3px solid $gray-color-4
-      &:visited, &:link, &:active
-        border-bottom: 3px solid $gray-color-4
-  &.nav-justified.nav-tabs-black li.active
-    a
-      border-bottom: 3px solid $gray-color-4
-      &:visited, &:link, &:active
-        border-bottom: 3px solid $gray-color-4
-    &:hover a
-      border-bottom: 3px solid $gray-color-4
-      &:visited, &:link, &:active
-        border-bottom: 3px solid $gray-color-4
 
 .list-action-nav li:not(:last-child):after
   content: "|"
@@ -773,8 +779,6 @@ label
 
       .event-list
         padding-top: 0px
-
-
 
 #event-page
   #cover-section
@@ -895,12 +899,47 @@ label
         min-width: 60px
 
 #payment-page
-  .form-section.highlight
-    padding: 15px
-    background: #f4f4f4
-  .form-section-description
-    margin-bottom: 15px
+  .panel-login
+    padding-top: 0px
+    padding-bottom: 0px
+
+    .panel-body
+      padding-top: 50px
+      padding-bottom: 50px
+      font-size: 16px
+      text-align: center
+
+      .form-section-title
+        font-size: 22px
+        margin-top: 0px
+        margin-bottom: 15px
+
+      .form-section-description
+        margin-bottom: 15px
+
+      .btn-login
+        padding: 10px 30px
+        font-size: 16px
+
+  .panel-payment
+    .form-section-title
+      margin-top: 0px
+      margin-bottom: 30px
+    #general-info-section
+      margin-bottom: 50px
+
+      .dob-form-group
+        .list-inline
+          width: 100%
+          margin-bottom: 0px
+          li
+            display: table-cell
+            width: 1%
+      .form-group .radio
+        margin-right: 15px
+
   #payment-method-section
+
     .nav-tabs
       margin-bottom: 30px
       border-bottom: 0px
@@ -912,18 +951,42 @@ label
       margin-top: 15px
       .btn
         margin-top: 15px
-  .dob-form-group .form-inline .form-control
-    display: inline-block
-    width: 30%
-  .form-group .radio
-    margin-right: 15px
+        
+        .icon
+          float: left
+
+  #payment-method-credit-card-panel
+    .form-section-body
+      max-width: 380px
+      margin: auto
+
+      .card-wrapper
+        margin-bottom: 30px
+
+    .form-section-footer
+      text-align: center
+
+      .credit-icon
+        height: 36px
+        margin-bottom: 15px
+      .btn
+        .icon
+          float: left
+
+  #payment-method-bank-panel
+    .form-section-footer
+      text-align: center
+
+      .bank-icon
+        height: 36px
+        margin-bottom: 15px
+
+
   .form-group label.error
     display: none !important
   .alert
     margin-bottom: 0px
     padding: 10px 15px
-  .card-wrapper
-    margin-bottom: 30px
 
   @media (max-width: 991px)
     .gender-form-group .form-inline

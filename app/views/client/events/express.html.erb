@@ -58,184 +58,191 @@
             <input type="hidden" name="payment_method" value="credit_card">
           <% end %>
           <% if current_user.nil? %>
-            <div class="form-section highlight" id="general-info-section">
-              <div class="form-section-header">
-                <h2 class="form-section-title">Quick Checkout</h2>
-                <div class="form-section-description">
-                  ซื้อตั๋วโดยใช้ Facebook ในคลิกเดียว
+            <div class="panel panel-daydash panel-daydash-2 panel-login">
+              <div class="panel-body">
+                <div class="form-section">
+                  <div class="form-section-header">
+                    <h3 class="form-section-title">Quick Checkout</h3>
+                    <div class="form-section-description">
+                      ซื้อตั๋วโดยใช้ Facebook ในคลิกเดียว
+                    </div>
+                  </div>
+                  <div class="form-section-body">
+                    <div class="form-section-description">
+                      <a class="btn btn-facebook btn-daydash btn-daydash-round" href="/auth/facebook"><i class="icon icon-xs icon-facebook-white"></i> ลงทะเบียนด้วย Facebook</a>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="form-section-body">
-                <div class="form-section-description">
-                  <a href="/auth/facebook"><img src="/src/images/theme/fb-login.png" height="40" /></a>
+              <div class="panel-body">
+                <div class="form-section">
+                  <div class="form-section-header">
+                    <h3 class="form-sectiont-title">Checkout with E-mail</h3>
+                    <div class="form-section-description">
+                      หากคุณเป็นสมาชิกอยู่แล้ว กรุณา Login<br />
+                      คุณสามารถลงทะเบียนเป็นสมาชิก Daydash ได้ฟรี!                    
+                    </div>
+                    <div><a class="btn btn-login btn-daydash btn-daydash-round btn-daydash-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #register-form').hide(); $('#login-modal #login-form').show(); return false;">สมัครสมาชิก / เข้าสู่ระบบ</a></div>
+                  </div>
                 </div>
               </div>
             </div>
           <% end %>
 
-            <div class="form-section" id="general-info-section">
-              <% if current_user.nil? %>
-                <div class="form-section-header">
-                  <h2 class="form-sectiont-title">Checkout with E-mail</h2>
-                  <div class="form-section-description">
-                    หากคุณเป็นสมาชิกอยู่แล้ว กรุณา <a data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #register-form').hide(); $('#login-modal #login-form').show(); return false;">Login</a> ค่ะ <br>
-                    คุณสามารถลงทะเบียนเป็นสมาชิก Daydash ได้ฟรี! คลิก <a data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #login-form').hide(); $('#login-modal #register-form').show(); return false;">Signup</a>
-                  </div>
-                </div>
-              <% end %>
+          <% unless current_user.nil? %>
+          <div class="panel panel-daydash panel-payment">
 
-              <% unless current_user.nil? %>
-                <div class="form-section-body">
-                  <div class="row">
-                    <div class="form-group col-xs-12 col-md-6">
-                      <label>Firstname</label>
-                      <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" required />
-                    </div>
-                    <div class="form-group col-xs-12 col-md-6">
-                      <label>Lastname</label>
-                      <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" required />
-                    </div>
-                    <div class="form-group col-xs-12 col-md-6">
-                      <label>Phone Number</label>
-                      <input class="form-control" type="text" name="phone" value="<%= current_user.phone %>" required />
-                    </div>
-                    <div class="form-group dob-form-group col-xs-12 col-md-6">
-                      <label>Date of Birth</label>
-                      <div class="form-inline">
+            <div class="form-section" id="general-info-section">
+              <div class="form-section-header">
+                <h3 class="form-section-title">ข้อมูลผู้ซื้อ</h3>
+              </div>
+              <div class="form-section-body">
+                <div class="row">
+                  <div class="form-group col-xs-12 col-md-6">
+                    <label>ชื่อ</label>
+                    <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" required />
+                  </div>
+                  <div class="form-group col-xs-12 col-md-6">
+                    <label>นามสกุล</label>
+                    <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" required />
+                  </div>
+                  <div class="form-group dob-form-group col-xs-12 col-md-6">
+                    <label>วันเกิด (วัน เดือน ปี)</label>
+                    <ul class="list-inline">
+                      <li>
                         <select class="form-control" name="dob_date" required >
                           <option value="">Date</option>
                           <% (1..31).each do |date| %>
                             <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
                           <% end %>
                         </select>
+                      </li>
+                      <li>
                         <select class="form-control" name="dob_month" required >
                           <option value="">Month</option>
                           <% (1..12).each do |month| %>
                             <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= Date::MONTHNAMES[month] %></option>
                           <% end %>
                         </select>
+                      </li>
+                      <li>
                         <select class="form-control" name="dob_year" required >
                           <option value="">Year</option>
                           <% (0..99).each do |year| %>
                             <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
                           <% end %>
                         </select>
-                      </div>
-                    </div>
-                    <div class="form-group gender-form-group col-xs-12 col-md-6">
-                      <label>Gender</label>
-                      <div class="form-inline">
-                        <label class="radio">
-                          <input type="radio" name="gender" value="male" <%= "checked" if current_user.gender == "male" %> required />
-                          Male
-                        </label>
-                        <label class="radio">
-                          <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> required />
-                          Female
-                        </label><!--
-                        <label class="radio">
-                          <input type="radio" name="gender" value="not_specify" required />
-                          Not specify
-                        </label> -->
-                      </div>
-                    </div>
-                    <div class="form-group col-xs-12 col-md-6" style="clear: left;">
-                      <label>E-mail</label>
-                      <input class="form-control" type="email" name="email" value="<%= current_user.email %>" required />
-                    </div>
-                    <!-- <div class="form-group col-xs-12 col-md-6">
-                      <label>Password</label>
-                      <input class="form-control" type="password" name="password" value="" />
-                    </div> -->
-                  </div>
-                </div>
-              <% end %>
-            </div>
-
-          <% unless current_user.nil? || @is_free %>
-            <div class="form-section" id="payment-method-section">
-              <div class="form-section-header">
-                <h2 class="form-section-title">Payment Method</h2>
-                <ul class="nav nav-tabs nav-justified nav-tabs-black nav-tabs-daydash" role="tablist">
-                  <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('credit_card');">Credit Card</a></li>
-                  <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('bank_transfer');">Bank Transfer</a></li>
-                </ul>
-              </div>
-              <div class="form-section-body">
-                <div class="tab-content">
-                  <div role="tabpanel" class="tab-pane active" id="payment-method-credit-card-panel">
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="card-wrapper"></div>
-                      </div>
-                      <div class="form-group col-xs-12 col-md-6">
-                        <label>Name</label>
-                        <input class="form-control" type="text" name="card_name" value="" placeholder="FULL NAME" data-omise="holder_name">
-                      </div>
-                      <div class="form-group col-xs-12 col-md-6">
-                        <label>Card Number</label>
-                        <input class="form-control" type="text" name="card_number" value="" placeholder="•••• •••• •••• ••••" data-omise="number" />
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-xs-12 col-md-6">
-                        <label>Expire Date</label>
-                        <input class="form-control" type="text" name="card_expiry" value="" placeholder="••/••" data-omise="expiry" />
-                        <!--div class="form-inline">
-                          <select class="form-control" name="expire_month" data-omise="expiration_month">
-                            <option value="">Month</option>
-                            <% (1..12).each do |month| %>
-                            <option value="<%= month %>"><%= month %></option>
-                            <% end %>
-                          </select>
-                          <select class="form-control" name="expire_month" data-omise="expiration_year">
-                            <option value="">Year</option>
-                            <% (0..50).each do |i| %>
-                            <option value="<%= Time.now.year + i %>"><%= Time.now.year + i %></option>
-                            <% end %>
-                          </select>
-                        </div-->
-                      </div>
-                      <div class="form-group col-xs-12 col-md-6">
-                        <label>CVC</label>
-                        <input class="form-control" type="text" name="card_cvc" maxlength="3" value="" placeholder="•••" data-omise="security_code" />
-                      </div>
-                      <div class="col-xs-12">
-                        <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
-                        <%= content_tag :div, flash[:credit_card_error], class: "alert alert-danger" if flash[:credit_card_error].present? %>
-                      </div>
-                    </div>
-                    <div class="form-section-footer">
-                      <div>
-                        <label>
-                          By submitting, you agree to <a target="_blank" href="<%= terms_and_conditions_path %>">Payment Policy</a>
-                        </label>
-                      </div>
-                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="credit_card">PAY NOW - <%= convert_to_currency(@tickets["total"] / 100) %></button>
-                    </div>
-                  </div>
-                  <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
-                    <ul>
-                      <li>We will provide payment details for you as soon as you click 'place an order'</li>
-                      <li>Please make and confirm payment within 1 hr otherwise your order will be cancelled</li>
-                      <li>Please noted that some events might not accept bank transfer due to the time constrain,<br />please consider make a purchase via credit card instead.</li>
+                      </li>
                     </ul>
-                    <div class="form-section-footer">
-                      <div>
-                        <label>
-                          By submitting, you agree to <a target="_blank" href="<%= terms_and_conditions_path %>">Payment Policy</a>
-                        </label>
-                      </div>
-                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="bank_transfer" >Place an order</button>
+                  </div>
+                  <div class="form-group gender-form-group col-xs-12 col-md-6">
+                    <label>เพศ</label>
+                    <div class="form-inline">
+                      <label class="radio">
+                        <input type="radio" name="gender" value="male" <%= "checked" if current_user.gender == "male" %> required />
+                        ชาย
+                      </label>
+                      <label class="radio">
+                        <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> required />
+                        หญิง
+                      </label>
                     </div>
+                  </div>
+                  <div class="form-group col-xs-12 col-md-6" style="clear: left;">
+                    <label>อีเมล</label>
+                    <input class="form-control" type="email" name="email" value="<%= current_user.email %>" required />
+                  </div>
+                  <div class="form-group col-xs-12 col-md-6">
+                    <label>เบอร์โทร</label>
+                    <input class="form-control" type="text" name="phone" value="<%= current_user.phone %>" required />
                   </div>
                 </div>
               </div>
             </div>
+
+            <% if !@is_free %>
+              <div class="form-section" id="payment-method-section">
+                <div class="form-section-header">
+                  <h3 class="form-section-title">การชำระเงิน</h3>
+                  <ul class="nav nav-tabs nav-justified nav-tabs-black nav-tabs-daydash" role="tablist">
+                    <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('credit_card');">ชำระโดยบัตรเครดิต</a></li>
+                    <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('bank_transfer');">ชำระโดยการโอนเงิน</a></li>
+                  </ul>
+                </div>
+                <div class="form-section-body">
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="payment-method-credit-card-panel">
+                      <div class="form-section-body row">
+                        <div class="col-xs-12">
+                          <div class="card-wrapper"></div>
+                        </div>
+                        <div class="form-group col-xs-12">
+                          <label>Card Number</label>
+                          <input class="form-control" type="text" name="card_number" value="" placeholder="•••• •••• •••• ••••" data-omise="number" />
+                        </div>
+                        <div class="form-group col-xs-12">
+                          <label>Card's Holder Name</label>
+                          <input class="form-control" type="text" name="card_name" value="" placeholder="FULL NAME" data-omise="holder_name">
+                        </div>
+                        <div class="form-group col-xs-6">
+                          <label>Expire Date</label>
+                          <input class="form-control" type="text" name="card_expiry" value="" placeholder="••/••" data-omise="expiry" />
+                        </div>
+                        <div class="form-group col-xs-6">
+                          <label>CVC</label>
+                          <input class="form-control" type="text" name="card_cvc" maxlength="3" value="" placeholder="•••" data-omise="security_code" />
+                        </div>
+                        <div class="col-xs-12">
+                          <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
+                          <%= content_tag :div, flash[:credit_card_error], class: "alert alert-danger" if flash[:credit_card_error].present? %>
+                        </div>
+                      </div>
+                      <div class="form-section-footer">
+                        <div>
+                          <%= image_tag "icons/icon-visa.png", class:"credit-icon" %>
+                          <%= image_tag "icons/icon-mastercard.png", class:"credit-icon"  %>
+                        </div>
+                        <div>
+                          <label>
+                            BY PROCESSING THIS ORDER, YOU AGREE TO OUR <a target="_blank" href="<%= terms_and_conditions_path %>">PAYMENT POLICY</a>
+                          </label>
+                        </div>
+                        <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-btn="payment-method" value="credit_card">
+                          <i class="icon icon-lock"></i> 
+                          ยืนยันการชำระเงิน - <%= convert_to_currency(@tickets["total"] / 100) %>
+                        </button>
+                        <div style="margin-top: 15px">
+                          Your statement will be shown Omise*DAYDASH
+                        </div>
+                      </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
+                      <ul>
+                        <li>เราจะทำการแจ้งรายละเอียดการชำระเงินหลังจากคุณคลิกปุ่ม “ยืนยันการสั่งซื้อ”</li>
+                        <li>คุณจะต้องทำการโอนและแจ้งโอนภายใน 1 ชั่วโมง นับจากเวลาที่สั่งซื้อ หากพ้นช่วงเวลาดังกล่าว รายการของคุณจะถูกยกเลิก และคุณจะต้องทำการสั่งซื้อใหม่อีกครั้ง</li>
+                      </ul>
+                      <div class="form-section-footer">
+                        <div>
+                          <%= image_tag "icons/icon-kbank.png", class:"bank-icon" %>
+                          <%= image_tag "icons/icon-scb.png", class:"bank-icon"  %>
+                        </div>
+                        <div>
+                          <label>
+                            BY PROCESSING THIS ORDER, YOU AGREE TO OUR <a target="_blank" href="<%= terms_and_conditions_path %>">PAYMENT POLICY</a>
+                          </label>
+                        </div>
+                        <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-btn="payment-method" value="bank_transfer" >
+                          <i class="icon icon-lock"></i>
+                          ยืนยันการสั่งซื้อ
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
           <% end %>
-
-            <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-1" data-btn="payment-method" value="free" >Place an order</button>
-
         <% end %>
       </div>
     </div>

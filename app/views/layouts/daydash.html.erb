@@ -12,7 +12,7 @@
     <meta property="og:title" content="<%= @event.try(:title) || @seo_title %>"/>
     <meta property="og:type" content="event"/>
     <meta property="og:description" content="<%= @event.try(:description) || @seo_description %>"/>
-    <meta property="og:image" content="<%= @event.try(:event_pictures).try(:first).try(:media, :facebook) || @seo_image %>" />
+    <meta property="og:image" content="<%= @event.try(:event_pictures).try(:first).try(:media, :thumb) || @seo_image %>" />
     <meta property="og:site_name" content="daydash.co"/>
     <meta property="og:latitude" content="<%= @event.try(:latitude) %>"/>
     <meta property="og:longitude" content="<%= @event.try(:longitude) %>"/>
@@ -26,7 +26,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@daydashapp" />
     <meta name="twitter:title" content="<%= @event.try(:title) || @seo_title %>" />
-    <meta name="twitter:image" content="<%= @event.try(:event_pictures).try(:first).try(:media, :facebook) || @seo_image %>" />
+    <meta name="twitter:image" content="<%= @event.try(:event_pictures).try(:first).try(:media, :thumb) || @seo_image %>" />
 
     <meta name= "category-id" content="<%= @category_id %>">
 

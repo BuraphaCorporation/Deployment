@@ -34,7 +34,7 @@
         <div class="gallery row">
           <% @event.event_pictures.each do |image| %>
           <div class="col col-xs-6 col-md-4">
-            <a class="image" href="#" style="background-image: url(<%= image.try(:media, :thumb) %>);"></a>
+            <a class="image" style="background-image: url(<%= image.try(:media, :thumb) %>);"></a>
           </div>
           <% end %>
         </div>

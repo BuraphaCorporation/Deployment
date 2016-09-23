@@ -54,6 +54,7 @@ class Ticket < ApplicationRecord
   scope :current_tickets, -> { joins(:section).select{ |s| s.section.event_time >= Date.today } }
   scope :active, -> { includes(:section).where(stages: :active).order("sections.event_time asc") }
   scope :passed, -> { includes(:section).where(stages: :passed).order("sections.event_time desc") }
+  scope :order_by_title, -> { joins(:section).order("sections.title desc") }
 
   def to_s
     "#TK-#{code}"

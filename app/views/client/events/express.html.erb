@@ -198,7 +198,7 @@
                       </div>
                       <div class="col-xs-12">
                         <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
-                        <%= content_tag :div, flash[:credit_card_error], class: "alert alert-danger" %>
+                        <%= content_tag :div, flash[:credit_card_error], class: "alert alert-danger" if flash[:credit_card_error].present? %>
                       </div>
                     </div>
                     <div class="form-section-footer">

@@ -111,6 +111,7 @@ class App < Struct.new(:region, :environment, :version)
 
   def generate_code(digit = 5)
     o = [(0..9), ('A'..'Z')].map { |i| i.to_a }.flatten
+    o = o - [0 , 'O', 'I', 'L', 1]
     (0...digit).map { o[rand(o.length)] }.join
   end
 

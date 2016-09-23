@@ -17,7 +17,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def failure
-    super
+    redirect_to root_path
+    # super
   end
 
 protected

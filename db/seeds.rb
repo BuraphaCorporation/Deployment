@@ -1,10 +1,9 @@
 
 puts "add category"
 {
-  'nightlife-and-entertainment': 'Nightlife / Entertainment',
+  'entertainment': 'Entertainment',
   'art-and-culture': 'Art & Culture',
-  'sport-and-wellness': 'Sport & Wellness',
-  'food-and-drink': 'Food & Drink'
+  'fitness-and-sport': 'Fitness & Sport',
 }.map do |key, value|
   Category.find_or_create_by({name: key, title: value})
 end

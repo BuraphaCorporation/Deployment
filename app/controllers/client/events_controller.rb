@@ -122,7 +122,7 @@ class Client::EventsController < Client::CoreController
 
     render :checkout
   rescue Exception => e
-    flash[:notice] = 'ข้อมูลบัตรไม่ถูกต้องค่ะ กรุณาตรวจสอบอีกครั้งค่ะ'
+    flash[:credit_card_error] = 'ข้อมูลบัตรไม่ถูกต้องค่ะ กรุณาตรวจสอบอีกครั้งค่ะ'
     redirect_back
   end
 

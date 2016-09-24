@@ -65,6 +65,8 @@ class Event < ApplicationRecord
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
   scope :list,      -> { where(status: :published).where.not('uptime < ?', Time.zone.now).order(:uptime) }
 
+  before_create :set_slug
+
   def to_url
     slug || id
   end
@@ -105,6 +107,20 @@ class Event < ApplicationRecord
   end
 
 private
+  def set_slug
+    set_slug_var = self.title.parameterize
+    if Event.exists?(slug: set_slug_var)
+      i = 0
+      loop do
+        break self.slug = "#{set_slug_var}-#{i}" unless Event.exists?(slug: "#{set_slug_var}-#{i}")
+        i += 1
+      end
+    else
+      self.slug = set_slug_var
+    end
+  end
+
+
   def set_organizer
     self.user ||= User.find_by_email('hello@daydash.co')
   end

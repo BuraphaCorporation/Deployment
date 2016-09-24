@@ -95,6 +95,7 @@ class Client::EventsController < Client::CoreController
     when 'bank_transfer'
       @payment = Payment.transfer_notify(@order)
     when 'free'
+      raise "error" if @event.sections.min_by(&:price).price > 0
       @payment = Payment.free(@order)
       @order.approve!
     end

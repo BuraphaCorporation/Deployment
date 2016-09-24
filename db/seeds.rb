@@ -167,19 +167,21 @@ lazgam    = Event.friendly.find('lazgam')
 shopspot1 = Event.friendly.find('give-me-soap')
 shopspot2 = Event.friendly.find('candle-aroma-perfume-workshop')
 studiolam = Event.friendly.find('isan-connection-kammao-friends')
-beam      = Event.friendly.find('beam-x-zudrangma')
+beam      = Event.friendly.find('beam-x-zudrangma-maft-sai-dangdut-banget')
 olive     = Event.friendly.find('watercolor-realistic-flowers')
 
-# 'nightlife-and-entertainment': 'Nightlife / Entertainment',
+
+# 'entertainment': 'Entertainment',
 # 'art-and-culture': 'Art & Culture',
-# 'sport-and-wellness': 'Sport & Wellness',
-# 'food-and-drink': 'Food & Drink'
+# 'fitness-and-sport': 'Fitness & Sport',
+
+
 puts "categories"
-CategoriesEvent.create(event: lazgam, category: Category.find_by_name('sport-and-wellness'))
+CategoriesEvent.create(event: lazgam, category: Category.find_by_name('fitness-and-sport'))
 CategoriesEvent.create(event: shopspot1, category: Category.find_by_name('art-and-culture'))
 CategoriesEvent.create(event: shopspot2, category: Category.find_by_name('art-and-culture'))
-CategoriesEvent.create(event: studiolam, category: Category.find_by_name('nightlife-and-entertainment'))
-CategoriesEvent.create(event: beam, category: Category.find_by_name('nightlife-and-entertainment'))
+CategoriesEvent.create(event: studiolam, category: Category.find_by_name('entertainment'))
+CategoriesEvent.create(event: beam, category: Category.find_by_name('entertainment'))
 CategoriesEvent.create(event: olive, category: Category.find_by_name('art-and-culture'))
 
 

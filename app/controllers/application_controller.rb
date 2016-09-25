@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_after_action :intercom_rails_auto_include
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_current_location, :unless => :devise_controller?
   before_action :seo
 
@@ -12,6 +13,10 @@ protected
 
   def redirect_back
     redirect_to :back
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :email, :password])
   end
 
   def store_current_location

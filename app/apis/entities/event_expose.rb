@@ -7,10 +7,14 @@ class Entities::EventExpose < Grape::Entity
   expose :latitude
   expose :longitude
   expose :max_price do |item, option|
-
+    item.sections.available.max_by{|s| s.price }.price
   end
   expose :min_price do |item, option|
-    item.sections.available.min_by{|s| s.price }.price
+    if item.sections.available.min_by{|s| s.price }.price == 0
+      'free'
+    else
+      item.sections.available.min_by{|s| s.price }.price
+    end
   end
   expose :uptime, as: :up_time do |item, option|
     item.uptime.utc.iso8601

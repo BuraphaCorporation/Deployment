@@ -104,12 +104,6 @@ class Mobile::PaymentAPI < ApplicationAPI
           @order = Order.create(user: @user, event: @event, price: params[:total_price].to_i * 100)
           @payment = Payment.transfer_notify(@order)
 
-          if @payment[:status] == :error
-            raise "error"
-          else
-            @order.approve!
-          end
-
           sections = @params[:sections]
 
           if @payment[:status] != :error

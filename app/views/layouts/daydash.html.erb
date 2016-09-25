@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= @event.try(:title) || @seo_title %> - Daydash</title>
+    <title>Daydash - <%= @event.try(:title) || @seo_title %></title>
     <meta name="HandheldFriendly" content="True" />
     <meta name="MobileOptimized" content="320" />
     <meta name="description" content="<%= truncate(@event.try(:description), :length => 300) || @seo_description %>" />
 
     <meta property="fb:app_id" content="<%= App.configure.facebook_app_id %>" />
-    <meta property="og:title" content="<%= @event.try(:title) || @seo_title %>"/>
+    <meta property="og:title" content="Daydash - <%= @event.try(:title) || @seo_title %>"/>
     <meta property="og:url" content="<%= request.original_url %>">
     <meta property="og:site_name" content="daydash.co"/>
     <meta property="og:type" content="event"/>
@@ -29,7 +29,7 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@daydashapp" />
-    <meta name="twitter:title" content="<%= @event.try(:title) || @seo_title %>" />
+    <meta name="twitter:title" content="Daydash - <%= @event.try(:title) || @seo_title %>" />
     <meta name="twitter:image" content="<%= @event.try(:event_pictures).try(:first).try(:media, :thumb) || @seo_image %>" />
 
     <meta name= "category-id" content="<%= @category_id %>">

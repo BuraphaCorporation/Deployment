@@ -51,6 +51,8 @@ class Payment < ApplicationRecord
       'บัตรเครดิต'
     when 'transfer'
       'โอนเงิน'
+    when 'free'
+      'ฟรี'
     end
   end
 

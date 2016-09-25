@@ -109,7 +109,10 @@ class Event < ApplicationRecord
 private
   def set_slug
     set_slug_var = self.title.parameterize
-    if Event.exists?(slug: set_slug_var)
+
+    if  set_slug_var.blank?
+      self.slug = self.title
+    elsif Event.exists?(slug: set_slug_var)
       i = 0
       loop do
         break self.slug = "#{set_slug_var}-#{i}" unless Event.exists?(slug: "#{set_slug_var}-#{i}")

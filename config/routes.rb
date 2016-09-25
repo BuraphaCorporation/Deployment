@@ -109,7 +109,7 @@ Rails.application.routes.draw do
     get '/rating',      to: 'greetings#rating'
 
     get '/about',                 to: 'greetings#about'
-    get 'contact',                to: 'greetings#contact'
+    get '/contact',               to: 'greetings#contact'
     get '/faq',                   to: 'greetings#faq'
     get '/terms-and-conditions',  to: 'greetings#terms'
     get '/privacy-policy',        to: 'greetings#policy'

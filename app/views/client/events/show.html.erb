@@ -42,7 +42,7 @@
       <div class="col-md-1"></div>
       <div class="col-xs-12 col-md-4">
         <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
-          ซื้อตั๋ว - <%= "เริ่มที่" if @section_count > 1 %> <%= convert_to_currency(@section.price) %>
+          ซื้อบัตร - <%= "เริ่มที่" if @section_count > 1 %> <%= convert_to_currency(@section.price) %>
         </button>
         <div class="map-panel">
           <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>"></div>
@@ -142,7 +142,7 @@
         </div>
         <div class="modal-footer">
           <p id="selection-error" style="display: none;">
-            <span style="color: red;">กรุณาเลือกจำนวนตั๋วอย่างน้อย 1 ใบค่ะ</span>
+            <span style="color: red;">กรุณาเลือกจำนวนบัตรอย่างน้อย 1 ใบค่ะ</span>
           </p>
           <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToCheckout()">NEXT</a>
         </div>

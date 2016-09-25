@@ -50,7 +50,7 @@
               <% else %>
               <li>
                 <i class="icon icon-xs icon-checked"></i>
-                เราได้ทำการส่งรายละเอียดการสั่งซื้อและตั๋วสำหรับเข้าร่วมงานไปที่อีเมล <br />
+                เราได้ทำการส่งรายละเอียดการสั่งซื้อและบัตรสำหรับเข้าร่วมงานไปที่อีเมล <br />
                 <%= @order.user.email %> เรียบร้อยแล้ว
               </li>
 
@@ -110,11 +110,11 @@
                   พร้อมรหัสการโอนเงิน <strong style="color: #21A4A5; "><%= @order.code %></strong> ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)
                 </p>
                 <p style="font-weight: 200; padding-bottom: 30px;">
-                  3. เราจะส่งตั๋วให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 60 นาที :)
+                  3. เราจะส่งบัตรให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 60 นาที :)
                 </p>
               <% end %>
               <% if @order.omise? %>
-                <a target="_self" href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูตั๋วของคุณ</a>
+                <a target="_self" href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูบัตรของคุณ</a>
               <% else %>
                 <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
               <% end %>
@@ -141,8 +141,8 @@
               <li><i class="icon icon-chrome"></i></li>
               <li><i class="icon icon-mobile"></i></li>
             </ul>
-            <p>คุณไม่จำเป็นต้องพิมพ์ตั๋วใดๆ เพียงโชว์ตั๋วที่เราส่งให้คุณทางอีเมล หน้า My Tickets ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
-            <!-- <p>คุณไม่จำเป็นต้องพิมพ์ตั๋วใดๆ เพียงโชว์ตั๋วที่เราส่งให้คุณทางอีเมล หน้า My Tickets หรือบน Daydash iOS App ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
+            <p>คุณไม่จำเป็นต้องพิมพ์บัตรใดๆ เพียงโชว์บัตรที่เราส่งให้คุณทางอีเมล หน้า My Tickets ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
+            <!-- <p>คุณไม่จำเป็นต้องพิมพ์บัตรใดๆ เพียงโชว์บัตรที่เราส่งให้คุณทางอีเมล หน้า My Tickets หรือบน Daydash iOS App ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
             <p><img src="/src/images/theme/appstore.png" height="50" /></p>
             <div>สะดวกกว่า ค้นหา ซื้อบัตร และเข้าร่วมงานได้ใน 2 นาที!</div> -->
           </div>

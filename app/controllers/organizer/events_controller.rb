@@ -45,7 +45,8 @@ class Organizer::EventsController < Organizer::CoreController
   def update
     @event.update(event_params)
     serialize_data_update
-    redirect_to :back
+
+    redirect_to edit_organizer_event_path(@event.to_url), flash: { notice: "Success!" }
   end
 
   def destroy

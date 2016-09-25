@@ -18,6 +18,11 @@
                   <input class="form-control" name="title" value="<%= @event.title %>" />
                 </div>
                 <div class="form-group">
+                  <label>Event Slug</label>
+                  <input class="form-control" name="slug" value="<%= @event.slug %>" />
+                </div>
+
+                <div class="form-group">
                   <label>Ticket type</label>
                   <div class="radio">
                     <label><input type="radio" name="ticket_type" value="general" <%= "checked" if @event.ticket_type.general? %>>General</label>

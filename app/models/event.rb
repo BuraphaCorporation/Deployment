@@ -65,7 +65,7 @@ class Event < ApplicationRecord
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
   scope :list,      -> { where(status: :published).where.not('uptime < ?', Time.zone.now).order(:uptime) }
 
-  before_create :set_slug
+  after_create :set_slug
 
   def to_url
     slug || id
@@ -108,18 +108,20 @@ class Event < ApplicationRecord
 
 private
   def set_slug
-    set_slug_var = self.title.parameterize
+    if self.slug.blank?
+      set_slug_var = self.title.parameterize
 
-    if  set_slug_var.blank?
-      self.slug = self.title
-    elsif Event.exists?(slug: set_slug_var)
-      i = 0
-      loop do
-        break self.slug = "#{set_slug_var}-#{i}" unless Event.exists?(slug: "#{set_slug_var}-#{i}")
-        i += 1
+      if set_slug_var.blank?
+        self.slug = self.title
+      elsif Event.exists?(slug: set_slug_var)
+        i = 0
+        loop do
+          break self.slug = "#{set_slug_var}-#{i}" unless Event.exists?(slug: "#{set_slug_var}-#{i}")
+          i += 1
+        end
+      else
+        self.slug = set_slug_var
       end
-    else
-      self.slug = set_slug_var
     end
   end
 

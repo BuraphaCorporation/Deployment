@@ -36,7 +36,7 @@ module ApplicationHelper
 
   def convert_to_currency(money)
     if money.to_i == 0
-      "Free"
+      "ฟรี"
     else
       number_to_currency(money, unit: '฿', precision: 0)
     end

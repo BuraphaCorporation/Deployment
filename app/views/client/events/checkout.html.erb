@@ -24,13 +24,17 @@
                 <i class="icon icon-xs icon-checked"></i>
 
                 <span>ได้รับคำสั่งซื้อ <span class="color-daydash-green">#<%= @order.code %></span> :</span>
-                <span>ยอดรวม <%= convert_to_currency @order.to_price %></span>
-
-                <% if @order.transfer? %>
-                  <span class="color-daydash-red"><%= @order.payment.stages %></span>
+                <% if @order.price == 0 %>
+                  <span>ยอดรวม: <%= convert_to_currency @order.to_price %> ทำรายการสำเร็จเรียบร้อย</span>
                 <% else %>
-                  <span class="color-daydash-green-2"><%= @order.payment.stages %></span>
-                <% end %> โดย <%= @order.payment.channel %></li>
+                  <span>ยอดรวม: <%= convert_to_currency @order.to_price %></span>
+
+                  <% if @order.transfer? %>
+                    <span class="color-daydash-red"><%= @order.payment.stages %></span>
+                  <% else %>
+                    <span class="color-daydash-green-2"><%= @order.payment.stages %></span>
+                  <% end %> โดย <%= @order.payment.channel %></li>
+                <% end %>
               </li>
 
               <% if @order.transfer? %>

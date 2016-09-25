@@ -21,6 +21,11 @@ class UserPreview < ActionMailer::Preview
     UserMailer.ticket(order.id)
   end
 
+  def free
+    order = Payment.where(methods: 'free').first.order
+    UserMailer.ticket(order.id)
+  end
+
   def reminder
     UserMailer.reminder(Order.first.id)
   end

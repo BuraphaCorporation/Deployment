@@ -115,7 +115,7 @@ class Client::EventsController < Client::CoreController
     end
 
     if @order.tickets.present?
-      if @order.omise?
+      if @order.omise? && @order.free?
         UserTicketWorker.perform_async(@order.id)
       else
         UserOrderWorker.perform_async(@order.id)

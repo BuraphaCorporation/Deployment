@@ -87,7 +87,7 @@ class Client::EventsController < Client::CoreController
       @payment = Payment.omise_token_charge(@order, params[:omise_token])
 
       if @payment[:status] == :error
-        raise "error"
+        raise @payment[:message]
       else
         @order.approve!
       end

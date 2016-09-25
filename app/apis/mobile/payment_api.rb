@@ -41,25 +41,38 @@ class Mobile::PaymentAPI < ApplicationAPI
     post '/credit-card' do
       begin
         if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:omise_token].present? and params[:total_price].present?
-          user = User.find_by_access_token(params[:user_token])
-          event = Event.find(params[:event_id])
+          @user = User.find_by_access_token(params[:user_token])
+          @event = Event.find(params[:event_id])
 
-          order = Order.create(user: user, event: event, price: params[:total_price].to_i * 100)
-          payment = Payment.omise_customer_charge(order, params[:omise_token])
+          @order = Order.create(user: @user, event: @event, price: params[:total_price].to_i * 100)
+          @payment = Payment.omise_token_charge(@order, params[:omise_token])
 
-          order.approve! unless payment[:status] == :error
+          if @payment[:status] == :error
+            raise "error"
+          else
+            @order.approve!
+          end
 
-          sections = params[:sections]
+          sections = @params[:sections]
 
-          if payment[:status] != :error
+          if @payment[:status] != :error
             sections.each do |section|
               (1..section.qty).each do |i|
-                Ticket.create_ticket(user, order, event, section)
+                Ticket.create_ticket(@user, @order, @event, section)
               end
-              Section.cut_in(section.id, section.qty)
+              Section.cut_in(section.id, section.qty, @event)
             end
           else
-            payment[:message]
+            raise @payment[:message]
+          end
+
+          if @order.tickets.present?
+            if @order.omise? && @order.free?
+              UserTicketWorker.perform_async(@order.id)
+            else
+              UserOrderWorker.perform_async(@order.id)
+            end
+            OrganizerOrderWorker.perform_async(@order.id)
           end
 
           present :status, :success
@@ -85,23 +98,38 @@ class Mobile::PaymentAPI < ApplicationAPI
     post '/bank-transfer' do
       begin
         if params[:user_token].present? and params[:event_id].present? and params[:sections].present? and params[:total_price].present?
-          user = User.find_by_access_token(params[:user_token])
-          event = Event.find(params[:event_id])
+          @user = User.find_by_access_token(params[:user_token])
+          @event = Event.find(params[:event_id])
 
-          order = Order.create(user: user, event: event, price: params[:total_price].to_i * 100)
-          payment = Payment.transfer_notify(order)
+          @order = Order.create(user: @user, event: @event, price: params[:total_price].to_i * 100)
+          @payment = Payment.transfer_notify(@order)
 
-          sections = params[:sections]
+          if @payment[:status] == :error
+            raise "error"
+          else
+            @order.approve!
+          end
 
-          if payment[:status] != :error
+          sections = @params[:sections]
+
+          if @payment[:status] != :error
             sections.each do |section|
               (1..section.qty).each do |i|
-                Ticket.create_ticket(user, order, event, section)
+                Ticket.create_ticket(@user, @order, @event, section)
               end
-              Section.cut_in(section.id, section.qty)
+              Section.cut_in(section.id, section.qty, @event)
             end
           else
-            payment[:message]
+            raise @payment[:message]
+          end
+
+          if @order.tickets.present?
+            if @order.omise? && @order.free?
+              UserTicketWorker.perform_async(@order.id)
+            else
+              UserOrderWorker.perform_async(@order.id)
+            end
+            OrganizerOrderWorker.perform_async(@order.id)
           end
 
           present :status, :success

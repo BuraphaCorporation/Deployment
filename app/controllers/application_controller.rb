@@ -39,8 +39,8 @@ protected
   end
 
   def seo
-    @seo_title       = "เพราะเราเชื่อว่า ชีวิตไม่ได้มีแค่ด้านเดียว"
-    @seo_description = "เพราะเชื่อว่า การได้ทดลองทำกิจกรรมใหม่ๆ เป็นการเปิดโลกของเราให้กว้างขึ้น Daydash จึงเลือก 3 กิจกรรมเด็ด มาให้คุณได้ทดลองกันฟรีๆ เพียงเลือกกิจกรรมที่อยากทำ กรอกข้อมูล และแชร์ให้เพื่อน เท่านี้คุณก็มีสิทธิ์ลุ้นเป็นผู้โชคดี ได้ทดลองทำกิจกรรมสนุกๆ กับ Daydash ฟรี!" # Event.first.description
+    @seo_title       = "Discover activities and events in Bangkok every day"
+    @seo_description = "ค้นพบกิจกรรมและอีเว้นท์สนุกๆ ในกรุงเทพฯ ที่พร้อมให้คุณมาทดลองและสัมผัสประสบการณ์ใหม่ได้ทุกวัน ไม่ว่าจะเป็น Live Music, DJ, Party, Craft & Art Workshop, Beer Tasting, Cool Exhbition ไปจนถึง Fitness, Sport, Outdoor activity etc."
     @seo_image       = "#{App.domain}/facebook-og.jpg"
   end
 end

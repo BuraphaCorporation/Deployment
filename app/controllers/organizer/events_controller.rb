@@ -93,10 +93,6 @@ class Organizer::EventsController < Organizer::CoreController
 
 private
 
-  def serialize_data
-
-  end
-
   def serialize_data_create
     user_id = params[:user].to_i.eql?(0) ? current_user.id : params[:user].to_i
     @event.update(user_id: user_id)
@@ -174,7 +170,7 @@ private
   end
 
   def event_params
-    params.permit(:title, :ticket_type, :show_highlight, :description, :instruction, :location_name, :location_address, :latitude, :longitude, :share_ticket)
+    params.permit(:title, :slug, :ticket_type, :show_highlight, :description, :instruction, :location_name, :location_address, :latitude, :longitude, :share_ticket)
   end
 
   def all_categories

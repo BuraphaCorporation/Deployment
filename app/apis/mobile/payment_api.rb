@@ -76,7 +76,7 @@ class Mobile::PaymentAPI < ApplicationAPI
           end
 
           present :status, :success
-          present :data, order, with: Entities::PaymentOmiseExpose
+          present :data, @order, with: Entities::PaymentOmiseExpose
         else
           present :status, :failure
           present :data, nil
@@ -133,7 +133,7 @@ class Mobile::PaymentAPI < ApplicationAPI
           end
 
           present :status, :success
-          present :data, order, with: Entities::PaymentTransferExpose
+          present :data, @order, with: Entities::PaymentTransferExpose
         else
           present :status, :failure
           present :data, 'params invalid'

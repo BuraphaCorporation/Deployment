@@ -45,7 +45,7 @@ class Mobile::PaymentAPI < ApplicationAPI
           @event = Event.find(params[:event_id])
 
           @order = Order.create(user: @user, event: @event, price: params[:total_price].to_i * 100)
-          @payment = Payment.omise_token_charge(@order, params[:omise_token])
+          @payment = Payment.omise_customer_charge(@order, params[:omise_token])
 
           if @payment[:status] == :error
             raise @payment[:message]

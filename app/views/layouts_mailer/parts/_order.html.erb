@@ -68,7 +68,9 @@
                         <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;">
                           <p style="font-size: 18px;"><%= @event.title %></p>
                           <p style="font-size: 14px; font-weight: 200;">
-                            Sunday 04 September, 02:54<br />
+                            <% if @event.ticket_type.general? %>
+                              <%= @tickets.group(:event_date).count.count > 1 ? @tickets.first(:event_date) : "Multiple date" %><br />
+                            <% end %>
                             <%= @event.location_name %>
                             [<a href='https://www.google.co.th/maps?q=loc:<%= "#{@event.latitude},#{@event.longitude}" %>' target="_blank">ดูแผนที่</a>]
                           </p>

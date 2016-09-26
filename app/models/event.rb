@@ -2,27 +2,32 @@
 #
 # Table name: events
 #
-#  id               :integer          not null, primary key
-#  user_id          :integer
-#  title            :string
-#  description      :text
-#  instruction      :text
-#  location_name    :string
-#  location_address :string
-#  latitude         :decimal(10, 6)
-#  longitude        :decimal(10, 6)
-#  uptime           :datetime
-#  max_price        :integer
-#  min_price        :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  slug             :string
-#  name             :string
-#  ticket_type      :string
-#  status           :string
-#  show_highlight   :boolean          default(FALSE)
-#  total_of_ticket  :integer          default(0)
-#  share_ticket     :boolean          default(FALSE)
+#  id                 :integer          not null, primary key
+#  user_id            :integer
+#  title              :string
+#  description        :text
+#  instruction        :text
+#  location_name      :string
+#  location_address   :string
+#  latitude           :decimal(10, 6)
+#  longitude          :decimal(10, 6)
+#  uptime             :datetime
+#  max_price          :integer
+#  min_price          :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  slug               :string
+#  name               :string
+#  ticket_type        :string
+#  status             :string
+#  show_highlight     :boolean          default(FALSE)
+#  total_of_ticket    :integer          default(0)
+#  share_ticket       :boolean          default(FALSE)
+#  cover_file_name    :string
+#  cover_content_type :string
+#  cover_file_size    :integer
+#  cover_updated_at   :datetime
+#  short_description  :text
 #
 # Indexes
 #
@@ -50,6 +55,9 @@ class Event < ApplicationRecord
   has_many :sections,       dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
 
+  has_attached_file :cover, styles: { full: "1600x550#", facebook: "1200x630#", thumb: '800x500#' }
+  validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
+
   # after_create :set_organizer
   # after_create :set_uptime
   # def set_uptime
@@ -64,6 +72,8 @@ class Event < ApplicationRecord
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
   scope :list,      -> { where(status: :published).where.not('uptime < ?', Time.zone.now).order(:uptime) }
+
+  after_create :set_slug
 
   def to_url
     slug || id
@@ -86,11 +96,11 @@ class Event < ApplicationRecord
   end
 
   def get_thumbnail
-    self.event_pictures.present? ? self.event_pictures.first.try(:media, :thumb) : ''
+    self.try(:cover, :thumb) || ''
   end
 
   def get_cover
-    self.event_pictures.present? ? self.event_pictures.first.try(:media, :full) : ''
+    self.try(:cover, :full) || ''
   end
 
   def get_total_sales
@@ -105,6 +115,24 @@ class Event < ApplicationRecord
   end
 
 private
+  def set_slug
+    if self.slug.blank?
+      set_slug_var = self.title.parameterize
+
+      if set_slug_var.blank?
+        self.slug = self.title
+      elsif Event.exists?(slug: set_slug_var)
+        i = 0
+        loop do
+          break self.slug = "#{set_slug_var}-#{i}" unless Event.exists?(slug: "#{set_slug_var}-#{i}")
+          i += 1
+        end
+      else
+        self.slug = set_slug_var
+      end
+    end
+  end
+
   def set_organizer
     self.user ||= User.find_by_email('hello@daydash.co')
   end

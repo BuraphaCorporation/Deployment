@@ -24,7 +24,7 @@
                   <div class="row">
                     <div class="order-body">
                       <div class="col-xs-12 col-md-6 left">
-                        <a class="cover" style="background-image: url(<%= order.event.event_pictures.first.try(:media, :thumb) %>);" target="_blank" href="<%= client_event_path(order.event.id) %>"></a>
+                        <a class="cover" style="background-image: url(<%= order.event.try(:cover, :thumb) %>);" target="_blank" href="<%= client_event_path(order.event.id) %>"></a>
                         <h4 class="title"><a target="_blank" href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
                         <div class="info-2">
                           <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
@@ -38,10 +38,12 @@
                                 <td width="150">ราคารวม</td>
                                 <td><%= convert_to_currency order.to_price %></td>
                               </tr>
-                              <tr>
-                                <td>วิธีการชำระเงิน</td>
-                                <td><%= order.payment.channel %></td>
-                              </tr>
+                              <% unless order.free? %>
+                                <tr>
+                                  <td>วิธีการชำระเงิน</td>
+                                  <td><%= order.payment.channel %></td>
+                                </tr>
+                              <% end %>
                               <tr>
                                 <td>สถานะการชำระเงิน</td>
                                 <% if order.status.paid? %>
@@ -172,7 +174,7 @@
                   พร้อมรหัสการโอนเงิน ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)
                 </p>
                 <p style="font-weight: 200; padding-bottom: 30px;">
-                  3. เราจะส่งตั๋วให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 60 นาที :)
+                  3. เราจะส่งบัตรให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 60 นาที :)
                 </p>
                 <table width="100%">
                   <tr>

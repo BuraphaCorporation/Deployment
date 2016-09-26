@@ -38,11 +38,11 @@ Event.create([
 
 เพราะเลเซอร์เกมส์สามารถรองรับผู้เข้าแข่งขันได้ถึง 32 คน ในพื้นที่ 630 ตารางเมตร
 
-เงื่อนไขการใช้ตั๋วจาก Daydash
-- ตั๋ว 1 ใบสามารถใช้เล่น Lazgam ได้ 1 session (15 นาที)
+เงื่อนไขการใช้บัตรจาก Daydash
+- บัตร 1 ใบสามารถใช้เล่น Lazgam ได้ 1 session (15 นาที)
 - กรุณาจอง session ล่วงหน้า ที่เว็บไซต์ของ Lazgam [BOOK] http://bookeo.com/lazgamlasergames
-- คุณสามารถใช้ตั๋ว ที่ซื้อจาก Daydash ได้ทุกวัน session ใดก็ได้ โดยสามารถใช้ได้ 1 ใบต่อวัน โดย session ต่อไปจะต้องชำระเงินกับ Lazgam ในราคาปกติ
-- ตั๋วมีอายุ 90 วัน นับจากวันที่ซื้อ",
+- คุณสามารถใช้บัตร ที่ซื้อจาก Daydash ได้ทุกวัน session ใดก็ได้ โดยสามารถใช้ได้ 1 ใบต่อวัน โดย session ต่อไปจะต้องชำระเงินกับ Lazgam ในราคาปกติ
+- บัตรมีอายุ 90 วัน นับจากวันที่ซื้อ",
     location_name: 'Holiday Inns, 5th Floor, Sukhumvit 22',
     latitude: '13.733237',
     longitude: '100.563145'
@@ -122,7 +122,7 @@ K. SHUN (NATURAL TELLER)
     longitude: '100.5743194'
   },
   {
-    slug: 'beam-x-zudrangma',
+    slug: 'beam-x-zudrangma-maft-sai-dangdut-banget',
     user: user,
     status: :published,
     title: 'BEAM X ZUDRANGMA: Maft Sai / Dangdut Banget',
@@ -167,19 +167,21 @@ lazgam    = Event.friendly.find('lazgam')
 shopspot1 = Event.friendly.find('give-me-soap')
 shopspot2 = Event.friendly.find('candle-aroma-perfume-workshop')
 studiolam = Event.friendly.find('isan-connection-kammao-friends')
-beam      = Event.friendly.find('beam-x-zudrangma')
+beam      = Event.friendly.find('beam-x-zudrangma-maft-sai-dangdut-banget')
 olive     = Event.friendly.find('watercolor-realistic-flowers')
 
-# 'nightlife-and-entertainment': 'Nightlife / Entertainment',
+
+# 'entertainment': 'Entertainment',
 # 'art-and-culture': 'Art & Culture',
-# 'sport-and-wellness': 'Sport & Wellness',
-# 'food-and-drink': 'Food & Drink'
+# 'fitness-and-sport': 'Fitness & Sport',
+
+
 puts "categories"
-CategoriesEvent.create(event: lazgam, category: Category.find_by_name('sport-and-wellness'))
+CategoriesEvent.create(event: lazgam, category: Category.find_by_name('fitness-and-sport'))
 CategoriesEvent.create(event: shopspot1, category: Category.find_by_name('art-and-culture'))
 CategoriesEvent.create(event: shopspot2, category: Category.find_by_name('art-and-culture'))
-CategoriesEvent.create(event: studiolam, category: Category.find_by_name('nightlife-and-entertainment'))
-CategoriesEvent.create(event: beam, category: Category.find_by_name('nightlife-and-entertainment'))
+CategoriesEvent.create(event: studiolam, category: Category.find_by_name('entertainment'))
+CategoriesEvent.create(event: beam, category: Category.find_by_name('entertainment'))
 CategoriesEvent.create(event: olive, category: Category.find_by_name('art-and-culture'))
 
 
@@ -400,34 +402,52 @@ olive.sections.create([
 
 
 puts "upload image"
-Dir["#{Rails.root}/public/event_content/lazgam/*"].each do |attachment|
+Dir["#{Rails.root}/public/event_content/lazgam/*"].each_with_index do |attachment, index|
   puts attachment
   EventPicture.create(event: lazgam, media: File.open(attachment, 'rb'))
+  if index == 0
+    lazgam.update(cover: File.open(attachment, 'rb'))
+  end
 end
 
-Dir["#{Rails.root}/public/event_content/shopspot/Candle Aroma Perfume/*"].each do |attachment|
+Dir["#{Rails.root}/public/event_content/shopspot/Candle Aroma Perfume/*"].each_with_index do |attachment, index|
   puts attachment
   EventPicture.create(event: shopspot1, media: File.open(attachment, 'rb'))
+  if index == 0
+    shopspot1.update(cover: File.open(attachment, 'rb'))
+  end
 end
 
-Dir["#{Rails.root}/public/event_content/shopspot/Give Me Soap/*"].each do |attachment|
+Dir["#{Rails.root}/public/event_content/shopspot/Give Me Soap/*"].each_with_index do |attachment, index|
   puts attachment
   EventPicture.create(event: shopspot2, media: File.open(attachment, 'rb'))
+  if index == 0
+    shopspot2.update(cover: File.open(attachment, 'rb'))
+  end
 end
 
-Dir["#{Rails.root}/public/event_content/studiolam/*"].each do |attachment|
+Dir["#{Rails.root}/public/event_content/studiolam/*"].each_with_index do |attachment, index|
   puts attachment
   EventPicture.create(event: studiolam, media: File.open(attachment, 'rb'))
+  if index == 0
+    studiolam.update(cover: File.open(attachment, 'rb'))
+  end
 end
 
-Dir["#{Rails.root}/public/event_content/beam/*"].each do |attachment|
+Dir["#{Rails.root}/public/event_content/beam/*"].each_with_index do |attachment, index|
   puts attachment
   EventPicture.create(event: beam, media: File.open(attachment, 'rb'))
+  if index == 0
+    beam.update(cover: File.open(attachment, 'rb'))
+  end
 end
 
-Dir["#{Rails.root}/public/event_content/olive/*"].each do |attachment|
+Dir["#{Rails.root}/public/event_content/olive/*"].each_with_index do |attachment, index|
   puts attachment
   EventPicture.create(event: olive, media: File.open(attachment, 'rb'))
+  if index == 0
+    olive.update(cover: File.open(attachment, 'rb'))
+  end
 end
 
 puts "update event uptime"

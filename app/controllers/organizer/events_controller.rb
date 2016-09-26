@@ -45,7 +45,8 @@ class Organizer::EventsController < Organizer::CoreController
   def update
     @event.update(event_params)
     serialize_data_update
-    redirect_to :back
+
+    redirect_to edit_organizer_event_path(@event.to_url), flash: { notice: "Success!" }
   end
 
   def destroy
@@ -92,10 +93,6 @@ class Organizer::EventsController < Organizer::CoreController
   end
 
 private
-
-  def serialize_data
-
-  end
 
   def serialize_data_create
     user_id = params[:user].to_i.eql?(0) ? current_user.id : params[:user].to_i
@@ -174,7 +171,7 @@ private
   end
 
   def event_params
-    params.permit(:title, :slug, :ticket_type, :show_highlight, :description, :instruction, :max_price, :min_price, :location_name, :location_address, :latitude, :longitude, :share_ticket)
+    params.permit(:title, :slug, :ticket_type, :short_description, :cover, :show_highlight, :description, :instruction, :location_name, :location_address, :latitude, :longitude, :share_ticket)
   end
 
   def all_categories

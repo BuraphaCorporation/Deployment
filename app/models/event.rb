@@ -96,11 +96,11 @@ class Event < ApplicationRecord
   end
 
   def get_thumbnail
-    self.event_pictures.present? ? self.try(:cover, :thumb) : ''
+    self.try(:cover, :thumb) || ''
   end
 
   def get_cover
-    self.event_pictures.present? ? self.try(:cover, :full) : ''
+    self.try(:cover, :full) || ''
   end
 
   def get_total_sales

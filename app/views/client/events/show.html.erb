@@ -1,9 +1,7 @@
 
 <script>$('body').attr('id', 'event-page');</script>
 <div class="section" id="cover-section">
-  <% if @event.event_pictures.present? %>
-    <div class="cover" style="background-image: url(<%= @event.try(:cover, :full) %>);"></div>
-  <% end %>
+  <div class="cover" style="background-image: url(<%= @event.try(:cover, :full) %>);"></div>
   <div class="info">
     <div class="container">
       <% if @event.show_highlight %>
@@ -76,11 +74,7 @@
         <div class="col-sm-6 col-md-4">
           <div class="event card">
             <%= link_to client_event_path(event.to_url), target: '_self' do %>
-              <% if event.event_pictures.present? %>
-                <div class="cover" style="background-image: url(<%= event.try(:cover, :thumb) %>);"></div>
-              <% else %>
-                <div class="cover"></div>
-              <% end %>
+              <div class="cover" style="background-image: url(<%= event.try(:cover, :thumb) %>);"></div>
             <% end %>
             <div class="info">
               <h4 class="title text-left">

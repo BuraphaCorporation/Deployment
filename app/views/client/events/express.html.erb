@@ -9,11 +9,7 @@
           <div class="card-header row">
             <div class="col col-xs-4 col-md-12">
               <%= link_to client_event_path(@event.to_url), target: '_self' do %>
-                <% if @event.event_pictures.present? %>
-                  <div class="cover" style="background-image: url(<%= @event.try(:cover, :full) %>);"></div>
-                <% else %>
-                  <div class="cover"></div>
-                <% end %>
+                <div class="cover" style="background-image: url(<%= @event.try(:cover, :full) %>);"></div>
               <% end %>
             </div>
             <div class="col col-xs-8 col-md-12">

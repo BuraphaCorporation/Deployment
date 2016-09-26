@@ -5,8 +5,8 @@ class Client::EventsController < Client::CoreController
 
   def index
     @covers = [
-      { image: '/src/images/content/cover-1.jpg', caption: '<h1 class="title">เพราะเราเชื่อว่า ชีวิตไม่ได้มีด้านเดียว</h1><div class="subtitle">ค้นพบกิจกรรมและอีเว้นท์เจ๋งๆ พร้อมสัมผัสประสบการณ์ใหม่ๆ ได้ที่นี่</div>' },
-      { image: '/src/images/content/cover-2.jpg', caption: '<h1 class="title">เพราะเราเชื่อว่า ชีวิตไม่ได้มีด้านเดียว</h1><div class="subtitle">ค้นพบกิจกรรมและอีเว้นท์เจ๋งๆ พร้อมสัมผัสประสบการณ์ใหม่ๆ ได้ที่นี่</div>' },
+      { image: '/src/images/content/cover-1.jpg', caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">Daydash ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>' },
+      # { image: '/src/images/content/cover-2.jpg', caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">Daydash ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>' },
     ]
 
     # @events = if params[:category].present? and @categories.pluck(:name).include?(params[:category])
@@ -24,7 +24,7 @@ class Client::EventsController < Client::CoreController
     @event    = Event.friendly.find(params[:id])
     @section_count = @event.sections.count
 
-    @sections = @event.ticket_type.deal? ? @event.sections : @event.sections.available
+    @sections = @event.ticket_type.deal? ? @event.sections.order(:event_time): @event.sections.available
 
     @section  = @event.sections.min_by { |m| m.price }
   end
@@ -67,6 +67,7 @@ class Client::EventsController < Client::CoreController
   def express
     redirect_to root_url unless @event.id == session[:event]
     @tickets = session[:tickets]
+    @is_free = true if @tickets["total"].to_i == 0
   end
 
   def checkout
@@ -86,13 +87,17 @@ class Client::EventsController < Client::CoreController
       @payment = Payment.omise_token_charge(@order, params[:omise_token])
 
       if @payment[:status] == :error
-        raise "error"
+        raise @payment[:message]
       else
         @order.approve!
       end
 
     when 'bank_transfer'
       @payment = Payment.transfer_notify(@order)
+    when 'free'
+      raise "error" if @event.sections.min_by(&:price).price > 0
+      @payment = Payment.free(@order)
+      @order.approve!
     end
 
     sections = []
@@ -110,7 +115,7 @@ class Client::EventsController < Client::CoreController
     end
 
     if @order.tickets.present?
-      if @order.omise?
+      if @order.omise? || @order.free?
         UserTicketWorker.perform_async(@order.id)
       else
         UserOrderWorker.perform_async(@order.id)
@@ -122,7 +127,7 @@ class Client::EventsController < Client::CoreController
 
     render :checkout
   rescue Exception => e
-    flash[:notice] = 'ข้อมูลบัตรไม่ถูกต้องค่ะ กรุณาตรวจสอบอีกครั้งค่ะ'
+    flash[:credit_card_error] = 'ข้อมูลบัตรไม่ถูกต้องค่ะ กรุณาตรวจสอบอีกครั้งค่ะ'
     redirect_back
   end
 

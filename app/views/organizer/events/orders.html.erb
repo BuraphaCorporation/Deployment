@@ -44,9 +44,9 @@
                   <td><%= convert_to_currency(order.to_price) %></td>
                   <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
                   <td>
-                    <span class="order-status"><%= order.status %></span>
+                    <span class="order-status <%= order.status %>"><%= order.status %></span>
                     <% if !order.payment.nil? %>
-                      - <%= order.payment.methods %>
+                      - <%= order.payment.channel %>
                     <% end %>
                   </td>
                 </tr>

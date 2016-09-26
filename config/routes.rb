@@ -91,14 +91,15 @@ Rails.application.routes.draw do
         unlocks:            'users/unlocks',
       }
 
-    if App.environment.production?
-      # root :to => redirect('/campaign/dash-your-day')
-      root 'greetings#landing'
-    else
-      root 'client/events#index'
-    end
+    # if App.environment.production?
+    #   # root :to => redirect('/campaign/dash-your-day')
+    #   root 'greetings#landing'
+    # else
+    #   root 'client/events#index'
+    # end
 
-    get '/test', to: 'client/events#index'
+    root 'client/events#index'
+    get '/landing', to: 'greetings#landing'
 
 
     get '/react-api' => 'application#index', defaults: { format: :json }
@@ -108,7 +109,7 @@ Rails.application.routes.draw do
     get '/rating',      to: 'greetings#rating'
 
     get '/about',                 to: 'greetings#about'
-    get 'contact',                to: 'greetings#contact'
+    get '/contact',               to: 'greetings#contact'
     get '/faq',                   to: 'greetings#faq'
     get '/terms-and-conditions',  to: 'greetings#terms'
     get '/privacy-policy',        to: 'greetings#policy'

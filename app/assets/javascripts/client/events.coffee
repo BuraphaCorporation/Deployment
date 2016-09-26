@@ -35,7 +35,6 @@ $(document).on 'ready', (event) ->
     set_category(category_id)
     false
 
-
   initGoogleMapEvent =  ->
     lat = $("#google-map").attr('data-lat')
     lng = $("#google-map").attr('data-lng')
@@ -54,7 +53,7 @@ $(document).on 'ready', (event) ->
 
     map = new (google.maps.Map)(document.getElementById('google-map'),
       center: eventLocation
-      zoom: 13
+      zoom: 16
       scrollwheel: false)
 
     marker = new (google.maps.Marker)(
@@ -67,8 +66,6 @@ $(document).on 'ready', (event) ->
 
   initSlick()
   initCategory()
-
-  initDatetimepicker($('body'))
 
   initGoogleMapOrganizer = ->
     map = new (google.maps.Map)(document.getElementById('map'),

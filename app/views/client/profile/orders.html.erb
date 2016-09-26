@@ -10,95 +10,97 @@
       <div class="col-xs-12">
         <div class="order-list">
           <div class="list-body">
-            <% if @orders.count > 0 %>
+            <% if @has_tickets %>
               <% @orders.each do |order| %>
-              <div class="order order-1">
-                <div class="order-header row">
-                  <div class="col-xs-12 col-md-6 left">
-                    เลขที่ออร์เดอร์: <strong><%= order.code %></strong>
-                  </div>
-                  <div class="col-xs-12 col-md-6 right">
-                    สั่งซื้อเมื่อ <span data-created-at="<%= order.created_at %>"><%= order.to_created_at %></span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="order-body">
+                <div class="order order-1">
+                  <div class="order-header row">
                     <div class="col-xs-12 col-md-6 left">
-                      <a class="cover" style="background-image: url(<%= order.event.event_pictures.first.try(:media, :thumb) %>);" target="_blank" href="<%= client_event_path(order.event.id) %>"></a>
-                      <h4 class="title"><a target="_blank" href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
-                      <div class="info-2">
-                        <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
-                      </div>
+                      เลขที่ออร์เดอร์: <strong><%= order.code %></strong>
                     </div>
                     <div class="col-xs-12 col-md-6 right">
-                      <div class="info">
-                        <div class="info-header">
-                          <table class="table">
-                            <tr>
-                              <td width="150">ราคารวม</td>
-                              <td><%= convert_to_currency order.to_price %></td>
-                            </tr>
-                            <tr>
-                              <td>วิธีการชำระเงิน</td>
-                              <td><%= order.payment.channel %></td>
-                            </tr>
-                            <tr>
-                              <td>สถานะการชำระเงิน</td>
-                              <% if order.status.paid? %>
-                                <td style="text-transform: capitalize; color: green"><%= order.status %></td>
-                              <% elsif order.status.pending? %>
-                                <td style="text-transform: capitalize; color: red"><%= order.status %> - กรุณาชำระภายในเวลา <%= order.to_expores_on_time %></td>
-                              <% else %>
-                                <td style="text-transform: capitalize; color: red"><%= order.status %></td>
-                              <% end %>
-                            </tr>
-                            <% if order.transfer? %>
+                      สั่งซื้อเมื่อ <span data-created-at="<%= order.created_at %>"><%= order.to_created_at %></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="order-body">
+                      <div class="col-xs-12 col-md-6 left">
+                        <a class="cover" style="background-image: url(<%= order.event.try(:cover, :thumb) %>);" target="_blank" href="<%= client_event_path(order.event.id) %>"></a>
+                        <h4 class="title"><a target="_blank" href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
+                        <div class="info-2">
+                          <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-md-6 right">
+                        <div class="info">
+                          <div class="info-header">
+                            <table class="table">
                               <tr>
-                                <td>รหัสชำระเงิน</td>
-                                <td><%= order.code %></td>
+                                <td width="150">ราคารวม</td>
+                                <td><%= convert_to_currency order.to_price %></td>
                               </tr>
-                            <% end %>
-                          </table>
-                        </div>
-                        <div class="info-body">
-                          <table class="table ticket-list">
-                            <% order.tickets.each do |ticket| %>
-                              <tr class="ticket">
-                                <td class="ticket-title" width="150"><%= ticket.section.title %></td>
-                                <td class="ticket-code"><%= ticket.code if order.status.paid? %></td>
-                                <td class="ticket-price" width="100" align="right"><%= convert_to_currency ticket.to_price %></td>
+                              <% unless order.free? %>
+                                <tr>
+                                  <td>วิธีการชำระเงิน</td>
+                                  <td><%= order.payment.channel %></td>
+                                </tr>
+                              <% end %>
+                              <tr>
+                                <td>สถานะการชำระเงิน</td>
+                                <% if order.status.paid? %>
+                                  <td style="text-transform: capitalize; color: green"><%= order.status %></td>
+                                <% elsif order.status.pending? %>
+                                  <td style="text-transform: capitalize; color: red"><%= order.status %> - กรุณาชำระภายในเวลา <%= order.to_expores_on_time %></td>
+                                <% else %>
+                                  <td style="text-transform: capitalize; color: red"><%= order.status %></td>
+                                <% end %>
                               </tr>
-                            <% end %>
-                            <tr class="total">
-                              <td></td>
-                              <td><strong>TOTAL</strong></td>
-                              <td align="right"><strong><%= convert_to_currency order.to_price %></strong></td>
-                            </tr>
-                          </table>
-                        </div>
-                        <div class="info-footer">
-                          <ul class="nav nav-justified">
-                          <% if order.transfer? %>
-                            <% if order.status.pending? %>
-                              <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
-                              <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
+                              <% if order.transfer? %>
+                                <tr>
+                                  <td>รหัสชำระเงิน</td>
+                                  <td><%= order.code %></td>
+                                </tr>
+                              <% end %>
+                            </table>
+                          </div>
+                          <div class="info-body">
+                            <table class="table ticket-list">
+                              <% order.tickets.order_by_title.each do |ticket| %>
+                                <tr class="ticket">
+                                  <td class="ticket-title" width="150"><%= ticket.section.title %></td>
+                                  <td class="ticket-code"><%= ticket.code if order.status.paid? %></td>
+                                  <td class="ticket-price" width="100" align="right"><%= convert_to_currency ticket.to_price %></td>
+                                </tr>
+                              <% end %>
+                              <tr class="total">
+                                <td></td>
+                                <td><strong>TOTAL</strong></td>
+                                <td align="right"><strong><%= convert_to_currency order.to_price %></strong></td>
+                              </tr>
+                            </table>
+                          </div>
+                          <div class="info-footer">
+                            <ul class="nav nav-justified">
+                            <% if order.transfer? %>
+                              <% if order.status.pending? %>
+                                <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
+                                <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
+                              <% else %>
+                                <!-- <li> -->
+                                  รายการการสั่งซื้อนี้ถูกยกเลิก เนื่องจากเลยกำหนดการชำระเงิน
+                                  หากคุณต้องความช่วยเหลือกรุณาติดต่อ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> หรือ 080-4569465
+                                <!-- </li> -->
+                              <% end %>
                             <% else %>
-                              <!-- <li> -->
-                                รายการการสั่งซื้อนี้ถูกยกเลิก เนื่องจากเลยกำหนดการชำระเงิน
-                                หากคุณต้องความช่วยเหลือกรุณาติดต่อ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> หรือ 080-4569465
-                              <!-- </li> -->
+                              <li><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></li>
                             <% end %>
-                          <% else %>
-                            <li><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></li>
-                          <% end %>
-                          </ul>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <% end if @has_tickets %>
+              <% end %>
             <% else %>
               <div class="empty">
                 <i class="icon icon-lg icon-shopping"></i>
@@ -172,7 +174,7 @@
                   พร้อมรหัสการโอนเงิน ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)
                 </p>
                 <p style="font-weight: 200; padding-bottom: 30px;">
-                  3. เราจะส่งตั๋วให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 60 นาที :)
+                  3. เราจะส่งบัตรให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 60 นาที :)
                 </p>
                 <table width="100%">
                   <tr>

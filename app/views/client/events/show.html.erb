@@ -1,9 +1,7 @@
 
 <script>$('body').attr('id', 'event-page');</script>
 <div class="section" id="cover-section">
-  <% if @event.event_pictures.present? %>
-    <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :full) %>);"></div>
-  <% end %>
+  <div class="cover" style="background-image: url(<%= @event.try(:cover, :full) %>);"></div>
   <div class="info">
     <div class="container">
       <% if @event.show_highlight %>
@@ -23,7 +21,7 @@
     <div class="row">
       <div class="col-xs-12 col-md-7">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="meta-list col-xs-12">
             <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></div>
             <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location_name %></div>
           </div>
@@ -34,15 +32,19 @@
         <div class="gallery row">
           <% @event.event_pictures.each do |image| %>
           <div class="col col-xs-6 col-md-4">
-            <a class="image" href="#" style="background-image: url(<%= image.try(:media, :thumb) %>);"></a>
+            <a class="image" style="background-image: url(<%= image.try(:media, :thumb) %>);" data-toggle="lightbox" href="<%= image.try(:media, :thumb) %>" data-parent=".gallery" data-gallery="multiimages"></a>
           </div>
           <% end %>
         </div>
       </div>
       <div class="col-md-1"></div>
       <div class="col-xs-12 col-md-4">
-        <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1" data-toggle="modal" data-target="#ticket-list-modal">
-          ซื้อตั๋ว - <%= "เริ่มที่" if @section_count > 1 %> <%= convert_to_currency(@section.price) %>
+        <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
+          <% if @section.price == 0 %>
+            รับบัตร<%= convert_to_currency(@section.price) %>
+          <% else %>
+            ซื้อบัตร - <%= "เริ่มที่" if @section_count > 1 %> <%= convert_to_currency(@section.price) %>
+          <% end %>
         </button>
         <div class="map-panel">
           <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>"></div>
@@ -72,11 +74,7 @@
         <div class="col-sm-6 col-md-4">
           <div class="event card">
             <%= link_to client_event_path(event.to_url), target: '_self' do %>
-              <% if event.event_pictures.present? %>
-                <div class="cover" style="background-image: url(<%= event.event_pictures.first.try(:media, :thumb) %>);"></div>
-              <% else %>
-                <div class="cover"></div>
-              <% end %>
+              <div class="cover" style="background-image: url(<%= event.try(:cover, :thumb) %>);"></div>
             <% end %>
             <div class="info">
               <h4 class="title text-left">
@@ -142,7 +140,7 @@
         </div>
         <div class="modal-footer">
           <p id="selection-error" style="display: none;">
-            <span style="color: red;">กรุณาเลือกจำนวนตั๋วอย่างน้อย 1 ใบค่ะ</span>
+            <span style="color: red;">กรุณาเลือกจำนวนบัตรอย่างน้อย 1 ใบค่ะ</span>
           </p>
           <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToCheckout()">NEXT</a>
         </div>
@@ -151,7 +149,16 @@
   </div>
 </div>
 
+<!-- Ekko Lightbox -->
+<link rel="stylesheet" href="/src/packages/ekko-lightbox/ekko-lightbox.min.css" />
+<script src="/src/packages/ekko-lightbox/ekko-lightbox.min.js"></script>
+
 <script type="text/javascript">
+  $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
+      event.preventDefault();
+      $(this).ekkoLightbox();
+  });
+
   function nextToCheckout(){
     $("#selection-error").hide();
 

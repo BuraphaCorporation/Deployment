@@ -46,21 +46,27 @@ namespace :deploy do
     end
   end
 
+  desc 'run workers'
+  task :restart_workers do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute :sudo, "systemctl restart sidekiq"
+    end
+  end
+
+  after :finishing, 'deploy:cleanup'
+  after :publishing, 'deploy:restart'
+  after :published, :restart_workers
+end
+
+namespace :setup do
   desc 'Runs rake db:seed'
-  task :seed => [:set_rails_env] do
+  task :seed do
     on primary fetch(:migration_role) do
       within release_path do
         with rails_env: fetch(:rails_env) do
           execute :rake, "db:schema:load db:seed DISABLE_DATABASE_ENVIRONMENT_CHECK=1"
         end
       end
-    end
-  end
-
-  desc 'run workers'
-  task :restart_workers do
-    on roles(:app), in: :sequence, wait: 5 do
-      execute :sudo, "systemctl restart sidekiq"
     end
   end
 
@@ -75,11 +81,6 @@ namespace :deploy do
       execute :curl, "-k", "https://brick.daydash.co/404", "> #{public_402_html}"
     end
   end
-
-  after :finishing, 'deploy:cleanup'
-  after :publishing, 'deploy:restart'
-  after :published, :generate_error_html
-  after :published, :restart_workers
 end
 
 namespace :rails do
@@ -96,7 +97,7 @@ namespace :rails do
   task :logs do
     on roles(:web) do
       within current_path do
-        execute :sudo, 'tail -f /var/log/nginx/error.log'
+        execute :sudo, 'tail -f -n 20 /var/log/nginx/error.log'
       end
     end
   end

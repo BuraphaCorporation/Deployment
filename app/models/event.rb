@@ -105,7 +105,7 @@ class Event < ApplicationRecord
   end
 
   def get_total_sales
-    orders.sum(:price).to_f / 100
+    orders.paid.sum(:price).to_f / 100
   end
 
   def self.update_uptime_present

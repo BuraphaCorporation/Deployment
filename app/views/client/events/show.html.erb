@@ -2,7 +2,7 @@
 <script>$('body').attr('id', 'event-page');</script>
 <div class="section" id="cover-section">
   <% if @event.event_pictures.present? %>
-    <div class="cover" style="background-image: url(<%= @event.event_pictures.first.try(:media, :full) %>);"></div>
+    <div class="cover" style="background-image: url(<%= @event.try(:cover, :full) %>);"></div>
   <% end %>
   <div class="info">
     <div class="container">

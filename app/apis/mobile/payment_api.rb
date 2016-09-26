@@ -67,7 +67,7 @@ class Mobile::PaymentAPI < ApplicationAPI
           end
 
           if @order.tickets.present?
-            if @order.omise? && @order.free?
+            if @order.omise? || @order.free?
               UserTicketWorker.perform_async(@order.id)
             else
               UserOrderWorker.perform_async(@order.id)
@@ -118,7 +118,7 @@ class Mobile::PaymentAPI < ApplicationAPI
           end
 
           if @order.tickets.present?
-            if @order.omise? && @order.free?
+            if @order.omise? || @order.free?
               UserTicketWorker.perform_async(@order.id)
             else
               UserOrderWorker.perform_async(@order.id)

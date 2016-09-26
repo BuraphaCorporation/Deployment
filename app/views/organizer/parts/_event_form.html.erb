@@ -54,6 +54,10 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label>Shot Description</label>
+                  <textarea class="form-control" name="short_description" rows="10"><%= @event.short_description %></textarea>
+                </div>
+                <div class="form-group">
                   <label>Description</label>
                   <textarea class="form-control" name="description" rows="10"><%= @event.description %></textarea>
                 </div>
@@ -81,14 +85,23 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
+                  <label>Cover</label>
+                  <input class="form-control" type="file" name="cover" />
+                </div>
+                <div class="image-list row">
+                  <div class="col-xs-12">
+                    <div class="image" style="background-image: url(<%= @event.cover(:full) %>);"></div>
+                  </div>
+                </div>
+                <div class="form-group">
                   <label>Images</label>
                   <input class="form-control" type="file" name="event_pictures[]" multiple />
                 </div>
                 <div class="image-list sortable row">
                   <% @images.each do |image| %>
-                  <div class="col-xs-6" data-id="<%= image.sort_index %>">
-                    <div class="image" style="background-image: url(<%= image.media(:thumb) %>);"></div>
-                  </div>
+                    <div class="col-xs-6" data-id="<%= image.sort_index %>">
+                      <div class="image" style="background-image: url(<%= image.media(:thumb) %>);"></div>
+                    </div>
                   <% end unless @images.nil? %>
                 </div>
               </div>

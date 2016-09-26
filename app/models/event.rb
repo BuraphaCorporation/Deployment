@@ -2,27 +2,32 @@
 #
 # Table name: events
 #
-#  id               :integer          not null, primary key
-#  user_id          :integer
-#  title            :string
-#  description      :text
-#  instruction      :text
-#  location_name    :string
-#  location_address :string
-#  latitude         :decimal(10, 6)
-#  longitude        :decimal(10, 6)
-#  uptime           :datetime
-#  max_price        :integer
-#  min_price        :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  slug             :string
-#  name             :string
-#  ticket_type      :string
-#  status           :string
-#  show_highlight   :boolean          default(FALSE)
-#  total_of_ticket  :integer          default(0)
-#  share_ticket     :boolean          default(FALSE)
+#  id                 :integer          not null, primary key
+#  user_id            :integer
+#  title              :string
+#  description        :text
+#  instruction        :text
+#  location_name      :string
+#  location_address   :string
+#  latitude           :decimal(10, 6)
+#  longitude          :decimal(10, 6)
+#  uptime             :datetime
+#  max_price          :integer
+#  min_price          :integer
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  slug               :string
+#  name               :string
+#  ticket_type        :string
+#  status             :string
+#  show_highlight     :boolean          default(FALSE)
+#  total_of_ticket    :integer          default(0)
+#  share_ticket       :boolean          default(FALSE)
+#  cover_file_name    :string
+#  cover_content_type :string
+#  cover_file_size    :integer
+#  cover_updated_at   :datetime
+#  short_description  :text
 #
 # Indexes
 #
@@ -49,6 +54,9 @@ class Event < ApplicationRecord
   has_many :tickets,        dependent: :destroy
   has_many :sections,       dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
+
+  has_attached_file :cover, styles: { full: "1600x550#" }
+  validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
 
   # after_create :set_organizer
   # after_create :set_uptime

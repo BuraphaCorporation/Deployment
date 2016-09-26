@@ -113,6 +113,10 @@
               <h1 class="form-title">2. Ticket Detail</h1>
             </div>
 
+            <% if @sections.blank? and not @sections.nil? %>
+              <a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-plus"></i></a>
+            <% end %>
+
             <div class="form-body">
               <!-- <div class="table-responsive"> -->
                 <table class="table table-hover ticket-list">
@@ -128,42 +132,40 @@
                     </tr>
                   </thead>
                   <tbody
-                    <% if @sections.present? %>
-                      <% @sections.each do |section| %>
-                        <tr class="tickets" id="ticket-<%= section.id %>" data-ticket-id="<%= section.id %>">
-                          <td><input class="form-control" type="text" name="tickets[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
-                          <td><input class="form-control" type="number" name="tickets[<%= section.id %>][total]" value="<%= section.total %>" /></td>
-                          <td><input class="form-control" type="number" name="tickets[<%= section.id %>][price]" value="<%= section.price %>" /></td>
-                          <td><input class="form-control" type="number" name="tickets[<%= section.id %>][unit]" value="<%= section.unit %>" /></td>
+                    <% @sections.each do |section| %>
+                      <tr class="tickets" id="ticket-<%= section.id %>" data-ticket-id="<%= section.id %>">
+                        <td><input class="form-control" type="text" name="tickets[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
+                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][total]" value="<%= section.total %>" /></td>
+                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][price]" value="<%= section.price %>" /></td>
+                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][unit]" value="<%= section.unit %>" /></td>
 
-                          <td width="200">
-                            <div class="form-group">
-                              <div class='input-group date datepicker'>
-                                <input class="form-control" type="text" name="tickets[<%= section.id %>][event_time]" value="<%= section.event_time.try(:strftime, '%d/%m/%y %H:%M') %>" />
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                              </div>
+                        <td width="200">
+                          <div class="form-group">
+                            <div class='input-group date datepicker'>
+                              <input class="form-control" type="text" name="tickets[<%= section.id %>][event_time]" value="<%= section.event_time.try(:strftime, '%d/%m/%y %H:%M') %>" />
+                              <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                              </span>
                             </div>
-                          </td>
-                          <td width="200">
-                            <div class="form-group">
-                              <div class='input-group date datepicker'>
-                                <input class="form-control" type="text" name="tickets[<%= section.id %>][end_time]" value="<%= section.end_time.try(:strftime, '%d/%m/%y %H:%M') %>" />
-                                <span class="input-group-addon">
-                                  <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                              </div>
+                          </div>
+                        </td>
+                        <td width="200">
+                          <div class="form-group">
+                            <div class='input-group date datepicker'>
+                              <input class="form-control" type="text" name="tickets[<%= section.id %>][end_time]" value="<%= section.end_time.try(:strftime, '%d/%m/%y %H:%M') %>" />
+                              <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                              </span>
                             </div>
-                          </td>
+                          </div>
+                        </td>
 
-                          <td width="100" align="right">
-                            <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this);"><i class="fa fa-minus"></i></a>
-                            <a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-plus"></i></a>
-                          </td>
-                        </tr>
-                      <% end %>
-                    <% end %>
+                        <td width="100" align="right">
+                          <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this);"><i class="fa fa-minus"></i></a>
+                          <a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-plus"></i></a>
+                        </td>
+                      </tr>
+                    <% end if @sections.present? %>
                   </tbody>
                 </table>
               <!-- </div> -->
@@ -175,19 +177,6 @@
             or
             <button class="btn btn-default" value="unpublish">Save as Draft</button> -->
           </div>
-
-<!--           <script type="text/javascript">
-            $(document).ready(function(){
-              $('input[name="share_ticket"]')[0].on('checked', function(){
-                $('input[name="total_of_ticket"]').show()
-              })
-
-              $('input[name="share_ticket"]')[1].on('checked', function(){
-                $('input[name="total_of_ticket"]').hide()
-              })
-
-            });
-          </script> -->
 
     <!-- Template -->
     <%= render partial: "layouts/parts/section" %>

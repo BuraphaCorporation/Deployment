@@ -122,7 +122,7 @@ K. SHUN (NATURAL TELLER)
     longitude: '100.5743194'
   },
   {
-    slug: 'beam-x-zudrangma',
+    slug: 'beam-x-zudrangma-maft-sai-dangdut-banget',
     user: user,
     status: :published,
     title: 'BEAM X ZUDRANGMA: Maft Sai / Dangdut Banget',

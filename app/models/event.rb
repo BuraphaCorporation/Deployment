@@ -55,7 +55,7 @@ class Event < ApplicationRecord
   has_many :sections,       dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
 
-  has_attached_file :cover, styles: { full: "1600x550#", facebook: "1200x630#" }
+  has_attached_file :cover, styles: { full: "1600x550#", facebook: "1200x630#", thumb: '800x500#' }
   validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
 
   # after_create :set_organizer
@@ -96,11 +96,11 @@ class Event < ApplicationRecord
   end
 
   def get_thumbnail
-    self.event_pictures.present? ? self.event_pictures.first.try(:media, :thumb) : ''
+    self.event_pictures.present? ? self.try(:cover, :thumb) : ''
   end
 
   def get_cover
-    self.event_pictures.present? ? self.event_pictures.first.try(:media, :full) : ''
+    self.event_pictures.present? ? self.try(:cover, :full) : ''
   end
 
   def get_total_sales

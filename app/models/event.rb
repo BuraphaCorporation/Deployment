@@ -71,7 +71,8 @@ class Event < ApplicationRecord
   scope :today,     -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
-  scope :list,      -> { where(status: :published).where.not('uptime < ?', Time.zone.now).order(:uptime) }
+
+  scope :list,      -> { available.where(status: :published).where.not('uptime < ?', Time.zone.now).order(:uptime) }
 
   after_create :set_slug
 

@@ -44,6 +44,7 @@
 #  updated_at             :datetime         not null
 #  referal_code           :string
 #  referrer_id            :integer
+#  slug                   :string
 #
 # Indexes
 #
@@ -51,10 +52,14 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_referrer_id           (referrer_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_slug                  (slug) UNIQUE
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 
 class User < ApplicationRecord
+  extend FriendlyId
+  friendly_id :username, use: :slugged
+
   devise :database_authenticatable, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]

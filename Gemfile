@@ -18,6 +18,8 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
 gem 'react-rails'
+gem "react_on_rails", "~> 6"
+gem 'react-rails-hot-loader'
 gem 'slick_rails'
 gem 'momentjs-rails'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'

@@ -18,5 +18,6 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require react-rails-hot-loader
 //= require moment
 //= require moment/th.js

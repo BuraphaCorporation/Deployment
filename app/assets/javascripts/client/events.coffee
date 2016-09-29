@@ -49,8 +49,12 @@ $(document).on 'turbolinks:load', (event) ->
 
     map = new (google.maps.Map)(document.getElementById('google-map'),
       center: eventLocation
-      zoom: 16
-      scrollwheel: false)
+      zoom: 15
+      scrollwheel: false
+      draggable: false
+      zoomControl: false
+      scrollwheel: false
+      disableDoubleClickZoom: true)
 
     marker = new (google.maps.Marker)(
       position: eventLocation

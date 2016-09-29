@@ -32,7 +32,7 @@
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
                   <label>Event Title</label>
-                  <input class="form-control" name="title" value="<%= @event.title %>" />
+                  <input class="form-control" name="title" value="<%= @event.title %>" data-parsley-required="true" />
                 </div>
                 <div class="form-group">
                   <label>Event Slug</label>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group">
                   <label>Location</label>
-                  <input class="form-control" name="location_name" value="<%= @event.location_name %>" placeholder="eg. Hubba Thailand" />
+                  <input class="form-control" name="location_name" value="<%= @event.location_name %>" placeholder="eg. Hubba Thailand" data-parsley-required="true" />
                 </div>
                 <div class="form-group">
                   <label>Address</label>
@@ -97,13 +97,13 @@
                     <input class="form-control" type="text" name="longitude" id="event_longitude" value="<%= @event.longitude %>" placeholder="Longitude" />
                   </div>
                   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
-                  <div id="map" style="margin-top: 15px; height: 300px;"></div>
+                  <div id="organizer-map" style="margin-top: 15px; height: 300px;"></div>
                 </div>
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
                   <label>Cover</label>
-                  <input class="form-control" type="file" name="cover" />
+                  <input class="form-control" type="file" name="cover" data-parsley-required="true" />
                 </div>
                 <div class="image-list row">
                   <div class="col-xs-12">
@@ -112,7 +112,7 @@
                 </div>
                 <div class="form-group">
                   <label>Images</label>
-                  <input class="form-control" type="file" name="event_pictures[]" multiple />
+                  <input class="form-control" type="file" name="event_pictures[]" multiple data-parsley-required="true" />
                 </div>
                 <div class="image-list sortable row">
                   <% @images.each do |image| %>

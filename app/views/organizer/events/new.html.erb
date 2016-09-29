@@ -9,7 +9,7 @@
 
 <div class="section">
   <div class="container">
-    <%= form_tag organizer_events_path(@event), multipart: true do %>
+    <%= form_tag organizer_events_path(@event), multipart: true, 'data-parsley-validate': true do %>
       <%= render partial: "organizer/parts/event_form" %>
     <% end %>
   </div>

@@ -1,5 +1,3 @@
-//= require webpack-bundle
-
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -12,14 +10,18 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
+//= require_self
 //= require jquery2
 //= require jquery-ui
 //= require jquery_ujs
 //= require bootstrap
+//= require components
 //= require turbolinks
+//= require react-server
 //= require react
 //= require react_ujs
-//= require components
 //= require react-rails-hot-loader
 //= require moment
 //= require moment/th.js
+//= require webpack-bundle

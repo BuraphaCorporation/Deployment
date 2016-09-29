@@ -17,6 +17,7 @@ gem 'sprockets-es6'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
+gem "parsley-rails"
 gem 'react-rails'
 gem 'slick_rails'
 gem 'momentjs-rails'

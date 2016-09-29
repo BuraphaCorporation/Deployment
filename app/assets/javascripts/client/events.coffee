@@ -1,4 +1,4 @@
-$(document).on 'ready', (event) ->
+$(document).on 'turbolinks:load', (event) ->
   bodyId = $('body').attr('id')
 
   initSlick = ->
@@ -47,10 +47,6 @@ $(document).on 'ready', (event) ->
       lat: lat || 13.725275
       lng: lng || 100.5871969
 
-    eventMaker =
-      lat: lat
-      lng: lng
-
     map = new (google.maps.Map)(document.getElementById('google-map'),
       center: eventLocation
       zoom: 16
@@ -62,36 +58,34 @@ $(document).on 'ready', (event) ->
       title: 'Hello World!')
     return
 
-  google.maps.event.addDomListener window, 'load', initGoogleMapEvent
+  initGoogleMapEvent()
+  # google.maps.event.addDomListener window, 'load', initGoogleMapEvent
 
   initSlick()
   initCategory()
 
   initGoogleMapOrganizer = ->
-    map = new (google.maps.Map)(document.getElementById('map'),
+    dLat = parseFloat($('#event_latitude').val()) || 13.7563309
+    dLng = parseFloat($('#event_longitude').val()) || 100.50176510000006
+    map = new (google.maps.Map)(document.getElementById('organizer-map'),
       center:
-        lat: 13.7563309
-        lng: 100.50176510000006
+        lat: dLat
+        lng: dLng
       zoom: 13
       mapTypeId: google.maps.MapTypeId.ROADMAP)
     markers = []
-    # Create the search box and link it to the UI element.
+
     input = document.getElementById('pac-input')
     searchBox = new (google.maps.places.SearchBox)(input)
 
-    setMarkers = ->
-      i = 0
-      while i < markers.length
-        markers[i].setMap yourMap
-        #Add the marker to the map
-        i++
+    map.addListener 'idle', ->
+      addMarker new (google.maps.LatLng)(dLat, dLng)
       return
 
     hideMarkers = ->
       i = 0
       while i < markers.length
         markers[i].setMap null
-        #Remove the marker from the map
         i++
       return
 
@@ -110,25 +104,20 @@ $(document).on 'ready', (event) ->
       return
 
     map.controls[google.maps.ControlPosition.TOP_LEFT].push input
-    # Bias the SearchBox results towards current map's viewport.
+
     map.addListener 'bounds_changed', ->
       searchBox.setBounds map.getBounds()
       return
+
     map.addListener 'click', (event) ->
       addMarker event.latLng
       return
-    # Listen for the event fired when the user selects a prediction and retrieve
-    # more details for that place.
+
     searchBox.addListener 'places_changed', ->
       places = searchBox.getPlaces()
       if places.length == 0
         return
-      # Clear out the old markers.
-      # markers.forEach(function(marker) {
-      #   marker.setMap(null);
-      # });
-      # markers = [];
-      # For each place, get the icon, name and location.
+
       bounds = new (google.maps.LatLngBounds)
       places.forEach (place) ->
         icon =
@@ -138,15 +127,8 @@ $(document).on 'ready', (event) ->
           anchor: new (google.maps.Point)(17, 34)
           scaledSize: new (google.maps.Size)(25, 25)
         addMarker place.geometry.location
-        # Create a marker for each place.
-        # markers.push(new google.maps.Marker({
-        #   map: map,
-        #   title: place.name,
-        #   position: place.geometry.location,
-        #   draggable: true
-        # }));
+
         if place.geometry.viewpor
-          # Only geocodes have viewport.
           bounds.union place.geometry.viewport
         else
           bounds.extend place.geometry.location
@@ -160,7 +142,9 @@ $(document).on 'ready', (event) ->
     $('#event_longitude').val lng
     return
 
-  google.maps.event.addDomListener window, 'load', initGoogleMapOrganizer
+  if $("#organizer-events-new").html() != undefined || $("#organizer-events-edit").html() != undefined
+    initGoogleMapOrganizer()
+  # google.maps.event.addDomListener window, 'load', initGoogleMapOrganizer
 
   if bodyId == "organizer-events-new"
     onTicketAdd()

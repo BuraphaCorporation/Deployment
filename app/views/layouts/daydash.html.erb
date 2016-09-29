@@ -62,7 +62,7 @@
               </button>
               <% end %>
 
-              <%= link_to root_path, class: 'navbar-brand', target: '_self' do %>
+              <%= link_to root_path, class: 'navbar-brand' do %>
                 <img src="/src/images/theme/logo.png" />
               <% end %>
             </div>
@@ -70,10 +70,10 @@
               <% if current_user.present? %>
               <ul class="nav navbar-nav navbar-right mobile-hide">
                   <% if current_user.can_organizer? %>
-                  <li><%= link_to "Organizer", "/organizer", target: '_self' %></li>
+                  <li><%= link_to "Organizer", "/organizer" %></li>
                   <% end %>
                   <li class="dropdown user-dropdown">
-                    <a href="/" target="_self" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                    <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button">
                       <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>"></div>
                       <div class="user-name"><%= current_user.first_name %></div>
                       <i class="fa fa-caret-down"></i>
@@ -97,7 +97,7 @@
               </ul>
               <ul class="nav navbar-nav navbar-left">
                 <li>
-                  <%= link_to 'ALL', root_path, target: '_self' %>
+                  <%= link_to 'ALL', root_path %>
                 </li>
 
                 <% @global_categories.each do |category| %>
@@ -105,7 +105,7 @@
                     <% if is_index_with_categories? %>
                       <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
                     <% else %>
-                      <a href="/categories/<%= category.slug %>" target="_self"><%= category.title %></a>
+                      <a href="/categories/<%= category.slug %>"><%= category.title %></a>
                     <% end %>
                   </li>
                 <% end unless @global_categories.nil? %>
@@ -116,7 +116,7 @@
             <div id="profile-navbar" class="navbar-collapsse collapse">
               <ul class="nav navbar-nav mobile-only">
                 <% if current_user.can_organizer? %>
-                <li><%= link_to "Organizer", "/organizer", target: '_self' %></li>
+                <li><%= link_to "Organizer", "/organizer" %></li>
                 <% end %>
                 <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
                 <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
@@ -152,7 +152,7 @@
                 <ul class="list-body nav">
                   <% @global_categories.each do |category| %>
                     <li>
-                      <a href="/categories/<%= category.slug %>" target="_self"><%= category.title %></a>
+                      <a href="/categories/<%= category.slug %>"><%= category.title %></a>
                     </li>
                   <% end unless @global_categories.nil? %>
                 </ul>
@@ -162,12 +162,12 @@
               <div class="list-panel">
                 <div class="list-title">Support</div>
                 <ul class="list-body nav">
-                  <!-- <li><a href="/" target="_self">List Event on Daydash</a></li> -->
+                  <!-- <li><a href="/">List Event on Daydash</a></li> -->
                   <li><a href="https://blog.daydash.co/" target="_blank">Daydash Blog</a></li>
-                  <li><a href="/about" target="_self">Our Story</a></li>
-                  <!-- <li><a href="/" target="_self">How to Pay</a></li> -->
-                  <!-- <li><a href="/" target="_self">FAQ</a></li> -->
-                  <li><a href="/contact" target="_self">Contact</a></li>
+                  <li><a href="/about">Our Story</a></li>
+                  <!-- <li><a href="/">How to Pay</a></li> -->
+                  <!-- <li><a href="/">FAQ</a></li> -->
+                  <li><a href="/contact">Contact</a></li>
                 </ul>
               </div>
             </div>
@@ -187,8 +187,8 @@
             <div class="col col-xs-12 col-md-3">
               <!-- <div class="list-panel">
                 <ul class="list-body list-inline">
-                  <li><a href="/" target="_self"><img src="/src/images/theme/appstore.png" height="40" /></a></li>
-                  <li><a href="/" target="_self"><img src="/src/images/theme/playstore.png" height="40" /></a></li>
+                  <li><a href="/"><img src="/src/images/theme/appstore.png" height="40" /></a></li>
+                  <li><a href="/"><img src="/src/images/theme/playstore.png" height="40" /></a></li>
                 </ul>
               </div> -->
 
@@ -197,10 +197,10 @@
                 <!-- <div class="copyright">© 2016 Daydash.co</div> -->
                 <ul class="list-body list-inline">
                   <li>
-                    <%= link_to "Terms & Conditions", terms_and_conditions_path, target: '_self' %>
+                    <%= link_to "Terms & Conditions", terms_and_conditions_path %>
                   </li>
                   <li>
-                    <%= link_to "Privacy Policy", privacy_policy_path, target: '_self' %>
+                    <%= link_to "Privacy Policy", privacy_policy_path %>
                   </li>
                 </ul>
               </div>

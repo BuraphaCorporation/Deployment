@@ -11,6 +11,23 @@
                 </span>
               </h1>
             </div>
+
+            <% if current_user.admin? %>
+              <div class="form-body row">
+                <div class="col-xs-12 col-md-6">
+                  <div class="form-group">
+                    <label>Organizer</label>
+                    <select name="organizer">
+                      <option name="">Select organizer</option>
+                      <% @organizer.each do |organizer| %>
+                        <option value="<%= organizer.id %>"><%= "#{organizer.first_name} #{organizer.last_name}" %></option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
             <div class="form-body row">
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
@@ -55,15 +72,15 @@
                 </div>
                 <div class="form-group">
                   <label>Shot Description</label>
-                  <textarea class="form-control" name="short_description" rows="10"><%= @event.short_description %></textarea>
+                  <textarea style="height: 100px" class="form-control" name="short_description" rows="10"><%= @event.short_description %></textarea>
                 </div>
                 <div class="form-group">
                   <label>Description</label>
-                  <textarea class="form-control" name="description" rows="10"><%= @event.description %></textarea>
+                  <textarea style="height: 300px" class="form-control" name="description" rows="10"><%= @event.description %></textarea>
                 </div>
                 <div class="form-group">
                   <label>Instruction</label>
-                  <textarea class="form-control" name="instruction" rows="10"><%= @event.instruction %></textarea>
+                  <textarea style="height: 200px"  class="form-control" name="instruction" rows="10"><%= @event.instruction %></textarea>
                 </div>
                 <div class="form-group">
                   <label>Location</label>

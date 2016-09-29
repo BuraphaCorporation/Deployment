@@ -21,8 +21,12 @@
                     </div>
                     <div class="col-xs-12 col-md-3 mobile-hide">
                       <div class="event-date-lg">
-                        <div class="month"><%= ticket.section.event_time.try(:strftime, "%b") %></div>
-                        <div class="date"><%= ticket.section.event_time.try(:strftime, "%d") %></div>
+                        <% if ticket.event.ticket_type.deal? %>
+                          <div style="font-size: 40px; font-weight: 500; margin-top: 35px;">Any Day</div>
+                        <% else %>
+                            <div class="month"><%= ticket.section.event_time.try(:strftime, "%b") %></div>
+                            <div class="date"><%= ticket.section.event_time.try(:strftime, "%d") %></div>
+                        <% end %>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-6">

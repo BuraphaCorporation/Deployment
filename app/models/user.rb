@@ -44,6 +44,7 @@
 #  updated_at             :datetime         not null
 #  referal_code           :string
 #  referrer_id            :integer
+#  slug                   :string
 #
 # Indexes
 #
@@ -51,10 +52,14 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_referrer_id           (referrer_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_slug                  (slug) UNIQUE
 #  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 
 class User < ApplicationRecord
+  extend FriendlyId
+  friendly_id :username, use: :slugged
+
   devise :database_authenticatable, :registerable, # :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: [:facebook]
@@ -100,12 +105,16 @@ class User < ApplicationRecord
     birthday.try(:strftime, "%d/%m/%Y")
   end
 
+  def self.organizer
+    self.where(role: 'organizer')
+  end
+
   def self.from_oauth_api(token)
     graph = Koala::Facebook::API.new(token)
     profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
     image = graph.get_picture(profile['id'], type: :large)
 
-    p profile
+    # p profile
 
     if find_by_email(profile['email']).nil?
       where(provider: 'facebook', uid: profile['id']).first_or_create(

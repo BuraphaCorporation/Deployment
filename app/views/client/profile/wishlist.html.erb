@@ -16,8 +16,8 @@
             <% @events.each do |event| %>
               <div class="col-sm-6 col-md-4">
                 <div class="event card">
-                  <%= link_to client_event_path(event.to_url), target: '_self' do %>
-                    <div class="cover" style="background-image: url(<%= event.try(:cover, :thumb) %>);"></div>
+                  <%= link_to client_event_path(event.to_url) do %>
+                    <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
                   <% end %>
                   <div class="info">
                     <h4 class="title text-left">

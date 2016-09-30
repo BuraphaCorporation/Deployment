@@ -64,7 +64,7 @@
             <div class="panel-action">
               <% if @order.transfer? %>
               <!--
-              <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a> -->
+              <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a> -->
 
                 <h3>วิธีการชำระเงิน</h3>
                 <p style="font-weight: 200;">
@@ -118,9 +118,9 @@
                 </p>
               <% end %>
               <% if @order.omise? %>
-                <a target="_self" href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูบัตรของคุณ</a>
+                <a href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูบัตรของคุณ</a>
               <% else %>
-                <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
+                <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
               <% end %>
             </div>
           </div> <!-- .panel-body -->
@@ -178,12 +178,12 @@
       <% @related_events.each do |event| %>
         <div class="col-sm-6 col-md-4">
           <div class="event card">
-            <%= link_to client_event_path(event.to_url), target: '_self' do %>
-              <div class="cover" style="background-image: url(<%= event.try(:cover, :thumb) %>);"></div>
+            <%= link_to client_event_path(event.to_url) do %>
+              <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
             <% end %>
             <div class="info">
               <h4 class="title text-left">
-                <%= link_to event.title, client_event_path(event.to_url), target: '_self' %>
+                <%= link_to event.title, client_event_path(event.to_url) %>
               </h4>
               <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %> </div>
               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %> </div>

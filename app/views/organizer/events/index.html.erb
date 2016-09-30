@@ -12,7 +12,7 @@
           <div class="list-body">
             <% @events.each do |event| %>
             <div class="event card-side-cover event-for-organizer">
-              <div class="cover" style="background-image: url(<%= event.try(:cover, :thumb) %>);"></div>
+              <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
               <div class="info">
                 <div class="info-body">
                   <h4 class="title"><%= event.title %></h4>
@@ -47,7 +47,7 @@
                           <a href="<%= checkin_organizer_event_path(event) %>"><i class="icon icon-xs icon-checkin"></i> Check in</a>
                         </li>
                         <li>
-                          <a href="<%= edit_organizer_event_path(event) %>" target="_self"><i class="icon icon-xs icon-edit"></i> Edit</a>
+                          <a href="<%= edit_organizer_event_path(event) %>"><i class="icon icon-xs icon-edit"></i> Edit</a>
                         </li>
                         <li>
                           <% if event.status.published? %>

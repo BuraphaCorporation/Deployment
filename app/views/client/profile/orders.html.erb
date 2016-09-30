@@ -24,7 +24,7 @@
                   <div class="row">
                     <div class="order-body">
                       <div class="col-xs-12 col-md-6 left">
-                        <a class="cover" style="background-image: url(<%= order.event.try(:cover, :thumb) %>);" target="_blank" href="<%= client_event_path(order.event.id) %>"></a>
+                        <a class="cover" style="background-image: url(<%= order.event.get_thumbnail %>);" target="_blank" href="<%= client_event_path(order.event.id) %>"></a>
                         <h4 class="title"><a target="_blank" href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
                         <div class="info-2">
                           <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
@@ -105,7 +105,7 @@
               <div class="empty">
                 <i class="icon icon-lg icon-shopping"></i>
                 <h4 class="description">ยังไม่มีรายการสั่งซื้อ</h4>
-                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/" target="_self">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
+                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
               </div>
             <% end %>
           </div>

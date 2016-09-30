@@ -2,6 +2,7 @@ class Organizer::EventsController < Organizer::CoreController
   before_action :event, only: [:edit, :update, :destroy, :delete_attachment, :orders, :checkin, :published, :unpublish]
   before_action :all_categories, only: [:new, :edit]
   before_action :all_users, only: [:new, :edit]
+  before_action :admin_only, only: [:unpublish, :published, :update_time_event]
 
   def index
     @events = current_user.events.order(created_at: :desc)
@@ -10,6 +11,7 @@ class Organizer::EventsController < Organizer::CoreController
   def new
     @event = Event.new
     @categories = Category.all
+    @organizer = User.organizer
   end
 
   def create
@@ -30,6 +32,8 @@ class Organizer::EventsController < Organizer::CoreController
   def edit
     @event = Event.friendly.find(params[:id])
     @categories = Category.all
+
+    @organizer = User.organizer
 
     @sections = @event.sections
     @images = @event.event_pictures.order(:sort_index)
@@ -95,7 +99,7 @@ class Organizer::EventsController < Organizer::CoreController
 private
 
   def serialize_data_create
-    user_id = params[:user].to_i.eql?(0) ? current_user.id : params[:user].to_i
+    user_id = params[:organizer].to_i.eql?(0) ? current_user.id : params[:organizer].to_i
     @event.update(user_id: user_id)
 
     params[:category_ids].each do |category|
@@ -126,6 +130,10 @@ private
   end
 
   def serialize_data_update
+    unless params[:organizer].to_i.eql?(0)
+      @event.update(user_id: params[:organizer].to_i)
+    end
+
     CategoriesEvent.where(event: @event).where.not(category: params[:category_ids]).delete_all
     params[:category_ids].each do |category|
       CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?

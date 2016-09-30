@@ -2,7 +2,7 @@ class Organizer::EventsController < Organizer::CoreController
   before_action :event, only: [:edit, :update, :destroy, :delete_attachment, :orders, :checkin, :published, :unpublish]
   before_action :all_categories, only: [:new, :edit]
   before_action :all_users, only: [:new, :edit]
-  before_action :admin_only, only: [:unpublish :published, :update_time_event]
+  before_action :admin_only, only: [:unpublish, :published, :update_time_event]
 
   def index
     @events = current_user.events.order(created_at: :desc)

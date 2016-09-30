@@ -12,8 +12,6 @@ bindFacebookEvents = ->
     .on('turbolinks:change', restoreFacebookRoot)
     .on('turbolinks:load', ->
       console.log "load"
-      saveFacebookRoot()
-      restoreFacebookRoot()
       FB?.XFBML.parse()
     )
   @fbEventsBound = true

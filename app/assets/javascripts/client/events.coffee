@@ -1,3 +1,5 @@
+
+
 $(document).on 'turbolinks:load', (event) ->
   bodyId = $('body').attr('id')
 

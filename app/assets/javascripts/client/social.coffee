@@ -2,10 +2,10 @@
 $(document).on 'turbolinks:load', ->
   loadFacebookSDK()
   bindFacebookEvents() unless window.fbEventsBound
-
-  # loadTwitterSDK()
-  # bindTwitterEventHandlers() unless twttr_events_bound
-
+#
+#   # loadTwitterSDK()
+#   # bindTwitterEventHandlers() unless twttr_events_bound
+#
 bindFacebookEvents = ->
   $(document)
     .on('turbolinks:fetch', saveFacebookRoot)

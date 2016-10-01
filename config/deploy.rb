@@ -27,7 +27,7 @@ set :slackistrano, {
 
 # set :format, :pretty
 # set :log_level, :debug
-set :pty, true
+# set :pty, true
 
 set :linked_files, %w{config/database.yml config/application.yml config/instance.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
@@ -37,6 +37,8 @@ set :keep_releases, 50
 set :rollbar_token, 'a7c214f1a0164e748d688ef15cc1c9ea'
 set :rollbar_env, Proc.new { fetch :stage }
 set :rollbar_role, Proc.new { :app }
+
+set :console_env, :production
 
 namespace :deploy do
   desc 'Restart application'
@@ -84,21 +86,27 @@ namespace :setup do
 end
 
 namespace :rails do
-  desc 'Console to production'
-  task :console do
-    on roles(:web) do
-      within current_path do
-        execute :rails, 'console production'
-      end
-    end
+  desc "Remote console"
+  task :console, :roles => :app do
+    run_interactively "bundle exec rails console #{rails_env}"
   end
 
-  desc "Task log"
-  task :logs do
-    on roles(:web) do
-      within current_path do
-        execute :sudo, 'tail -f -n 20 /var/log/nginx/error.log'
-      end
-    end
+  desc "Remote dbconsole"
+  task :dbconsole, :roles => :app do
+    run_interactively "bundle exec rails dbconsole #{rails_env}"
   end
+
+  def run_interactively(command, server=nil)
+    server ||= find_servers_for_task(current_task).first
+    exec %Q(ssh #{server.host} -t 'sudo su - #{application} -c "cd #{current_path} && #{command}"')
+  end
+
+  # desc "Task log"
+  # task :logs do
+  #   on roles(:web) do
+  #     within current_path do
+  #       execute :tail, '-f log/puma_error.log'
+  #     end
+  #   end
+  # end
 end

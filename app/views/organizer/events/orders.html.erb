@@ -1,7 +1,10 @@
 <script>$('body').attr('id', 'organizer-event-orders').addClass('organizer-event-page');</script>
 
 <%= render partial: "organizer/parts/organizer-nav" %>
-<script>$('#organizer-nav #menu-event-list').addClass('active');</script>
+<script>
+  $('#organizer-nav #menu-event-list').addClass('active');
+  $('.organizer-event-nav .organizer-event-nav-orders').addClass('active');
+</script>
 
 <div class="section" id="order-list-section">
   <div class="container">
@@ -17,6 +20,7 @@
       <div class="col-xs-12 col-md-10">
         <div class="event-section-panel">
           <div class="panel-header">
+            <h3>Attendees / Check In</h3>
             <ul class="list-inline">
               <li>Orders: <%= @event.orders.count %></li>
               <li>Total Sales: <%= convert_to_currency @event.get_total_sales %></li>
@@ -36,7 +40,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% @event.orders.each do |order| %>
+                <% @orders.each do |order| %>
                 <tr>
                   <td><%= order.code %></td>
                   <td><%= order.user.first_name %> <%= order.user.last_name %></td>

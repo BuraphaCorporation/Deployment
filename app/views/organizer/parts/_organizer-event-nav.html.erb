@@ -8,17 +8,4 @@
   <li class="organizer-event-nav-edit">
     <a href="<%= edit_organizer_event_path(@event) %>"><i class="icon icon-xs icon-edit"></i> Edit</a>
   </li>
-
-  <% if current_user.admin? %>
-    <li>
-      <% if @event.status.published? %>
-        <a href="<%= unpublish_organizer_event_path(@event) %>"><i class="icon icon-xs icon-unpublish"></i> Unpublish</a>
-      <% else %>
-        <a href="<%= published_organizer_event_path(@event) %>"><i class="icon icon-xs icon-checked"></i> Published</a>
-      <% end %>
-    </li>
-    <li>
-      <a href="<%= update_time_event_organizer_event_path(@event) %>"><i class="fa fa-wrench" aria-hidden="true"></i> Force update events</a>
-    </li>
-  <% end %>
 </ul>

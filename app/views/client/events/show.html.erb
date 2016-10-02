@@ -106,7 +106,7 @@
                 <td>
                   <div class="ticket-name"><%= section.title %></div>
                   <div class="ticket-meta">
-                    <span class="ticket-time"><%= section.to_event_human %></span>
+                    <span class="ticket-time"><%= section.event.ticket_type.deal? ? 'สามารถเข้าร่วมได้ทุกวัน' : section.to_event_human %></span>
                   </div>
                 </td>
                 <% if section.ticket_availability? %>

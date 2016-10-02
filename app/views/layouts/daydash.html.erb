@@ -3,37 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daydash - <%= @event.try(:title) || @seo_title %></title>
+    <%= display_meta_tags %>
     <meta name="HandheldFriendly" content="True" />
     <meta name="MobileOptimized" content="320" />
-    <meta name="description" content="<%= truncate(@event.try(:short_description), :length => 300) || @seo_description %>" />
-
-    <meta property="fb:app_id" content="<%= App.configure.facebook_app_id %>" />
-    <meta property="og:title" content="Daydash - <%= @event.try(:title) || @seo_title %>"/>
-    <meta property="og:url" content="<%= request.original_url %>">
-    <meta property="og:site_name" content="daydash.co"/>
-    <meta property="og:type" content="event"/>
-    <meta property="og:description" content="<%= truncate(@event.try(:short_description), :length => 300) || @seo_description %>"/>
-    <meta property="og:image" content="<%= @event.try(:cover, :facebook) || @seo_image %>" />
-    <meta property="og:image:url" content="<%= @event.try(:cover, :facebook) || @seo_image %>">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:latitude" content="<%= @event.try(:latitude) %>"/>
-    <meta property="og:longitude" content="<%= @event.try(:longitude) %>"/>
-    <meta property="og:email" content="<%= @event.try(:user).try(:email) %>"/>
-    <meta property="og:phone-number" content="<%= @event.try(:user).try(:phone) %>"/>
-    <meta property="og:street-address" content="<%= @event.try(:location_address) %>"/>
-    <meta property="og:location" content="<%= @event.try(:location_name) %>" />
-    <meta property="og:start_time" content="<%= @event.try(:uptime) %>" />
-    <meta property="og:end_time" content="<%= @event.try(:uptime) %>" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@daydashapp" />
-    <meta name="twitter:title" content="Daydash - <%= @event.try(:title) || @seo_title %>" />
-    <meta name="twitter:image" content="<%= @event.try(:cover, :facebook) || @seo_image %>" />
-
     <meta name= "category-id" content="<%= @category_id %>">
-
     <%= csrf_meta_tags %>
     <%= render partial: "layouts/parts/tracking" %>
 
@@ -162,10 +135,10 @@
                 <ul class="list-body nav">
                   <!-- <li><a href="/">List Event on Daydash</a></li> -->
                   <li><a href="https://blog.daydash.co/" target="_blank">Daydash Blog</a></li>
-                  <li><a href="/about">Our Story</a></li>
+                  <li><a href="/about">About</a></li>
                   <!-- <li><a href="/">How to Pay</a></li> -->
                   <!-- <li><a href="/">FAQ</a></li> -->
-                  <li><a href="/contact">Contact</a></li>
+                  <!-- <li><a href="/contact">Contact</a></li> -->
                 </ul>
               </div>
             </div>

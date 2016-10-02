@@ -47,6 +47,8 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'has_scope'
 gem 'enumerize'
 
+gem 'meta-tags'
+
 # make api
 gem 'jbuilder', '~> 2.5'
 gem 'grape'

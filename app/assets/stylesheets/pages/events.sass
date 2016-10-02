@@ -133,18 +133,18 @@ html, body
 
 #main
   min-height: 800px
-  padding-bottom: 550px
+  padding-bottom: 450px
 
 @media all and (max-width: 991px)
   #main
-    padding-bottom: 785px
+    padding-bottom: 760px
 
 #footer
   position: absolute
   bottom: 0px
   left: 0px
   right: 0px
-  height: auto
+  height: 450px
   background-color: $gray-color-3
   color: $gray-color-a
   padding-bottom: 100px
@@ -181,7 +181,8 @@ html, body
     margin-top: 50px
 
   @media (max-width: 991px)
-
+    height: 900px
+    padding-bottom: 50px
     .col
       margin-top: 40px
 
@@ -211,7 +212,8 @@ html, body
 
 @media (max-width: 991px)
   #main
-    padding-bottom: 1200px
+    padding-bottom: 900px
+
 
 a
   color: #00CFD1
@@ -916,7 +918,7 @@ label
         left: 0px
         right: 0px
         height: auto
-        z-index: 9999
+        z-index: 999
         margin-bottom: 0px
         font-size: 20px
 
@@ -926,22 +928,59 @@ label
 
   #ticket-list-modal
     margin-top: 100px
-    .table
-      margin-bottom: 0px
-      td
-        padding-left: 15px
-        padding-right: 15px
-    .ticket .ticket-title
-      font-weight: bold
+
+    .modal-content
+      font-size: 20px
+      font-weight: 200
+      border-radius: 0px
+
+    .modal-header
+      .close
+        opacity: 1
+        padding-top: 5px
+
+    .modal-title
+      font-size: 20px
+      font-weight: 200
+
+    .modal-body
+      background-color: #fcfcfc
+
+      .ticket-type
+        margin-bottom: 15px
+        padding: 15px
+        border: 1px solid #eee
+        background-color: white
+
+        &:hover, &.active
+          padding: 14px
+          border: 2px solid #B0E0E0
+
+        .header
+          font-weight: 200
+
+        .datetime
+          font-size: 16px
+          font-weight: 200
+          color: #777
+
+        select
+          width: 80px
+          float: right
+
+    .modal-footer
+      .btn-daydash
+        margin-left: 15px
+        font-size: 20px
+        font-weight: 200
+        padding: 10px 20px
 
     @media (max-width: 991px)
-      .table-responsive
-        margin-bottom: 0px
-
-      select.form-control
-        min-width: 60px
-
-
+      .modal-footer
+        .btn-daydash
+          margin-top: 15px
+          margin-left: 0px
+          width: 100%
 
 #payment-page
   #payment-section

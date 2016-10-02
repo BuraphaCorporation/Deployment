@@ -47,6 +47,8 @@ gem 'friendly_id', '~> 5.1.0'
 gem 'has_scope'
 gem 'enumerize'
 
+gem 'meta-tags'
+
 # make api
 gem 'jbuilder', '~> 2.5'
 gem 'grape'
@@ -115,7 +117,6 @@ group :development do
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rbenv', git: 'https://github.com/capistrano/rbenv'
-  # gem 'capistrano-rails-console'
 
   gem 'airbrussh', require: false
   gem 'slackistrano', '3.1.0.beta'

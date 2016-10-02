@@ -55,6 +55,9 @@ class Order < ApplicationRecord
     self.update(status: :paid)
   end
 
+  def paid?
+    self.status.paid?
+  end
   # def order_by_event_upcoming
     # available.order_by()
   # end

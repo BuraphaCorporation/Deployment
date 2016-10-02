@@ -63,12 +63,15 @@ class Organizer::EventsController < Organizer::CoreController
   end
 
   def orders
+    @orders = @event.orders.order(created_at: :desc)
   end
 
   def tickets
   end
 
   def checkin
+    @orders = @event.orders.order(created_at: :desc)
+    @sections = @event.sections
   end
 
   def ticket_checking

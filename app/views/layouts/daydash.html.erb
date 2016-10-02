@@ -3,37 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daydash - <%= @event.try(:title) || @seo_title %></title>
+    <%= display_meta_tags %>
     <meta name="HandheldFriendly" content="True" />
     <meta name="MobileOptimized" content="320" />
-    <meta name="description" content="<%= truncate(@event.try(:short_description), :length => 300) || @seo_description %>" />
-
-    <meta property="fb:app_id" content="<%= App.configure.facebook_app_id %>" />
-    <meta property="og:title" content="Daydash - <%= @event.try(:title) || @seo_title %>"/>
-    <meta property="og:url" content="<%= request.original_url %>">
-    <meta property="og:site_name" content="daydash.co"/>
-    <meta property="og:type" content="event"/>
-    <meta property="og:description" content="<%= truncate(@event.try(:short_description), :length => 300) || @seo_description %>"/>
-    <meta property="og:image" content="<%= @event.try(:cover, :facebook) || @seo_image %>" />
-    <meta property="og:image:url" content="<%= @event.try(:cover, :facebook) || @seo_image %>">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:latitude" content="<%= @event.try(:latitude) %>"/>
-    <meta property="og:longitude" content="<%= @event.try(:longitude) %>"/>
-    <meta property="og:email" content="<%= @event.try(:user).try(:email) %>"/>
-    <meta property="og:phone-number" content="<%= @event.try(:user).try(:phone) %>"/>
-    <meta property="og:street-address" content="<%= @event.try(:location_address) %>"/>
-    <meta property="og:location" content="<%= @event.try(:location_name) %>" />
-    <meta property="og:start_time" content="<%= @event.try(:uptime) %>" />
-    <meta property="og:end_time" content="<%= @event.try(:uptime) %>" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@daydashapp" />
-    <meta name="twitter:title" content="Daydash - <%= @event.try(:title) || @seo_title %>" />
-    <meta name="twitter:image" content="<%= @event.try(:cover, :facebook) || @seo_image %>" />
-
     <meta name= "category-id" content="<%= @category_id %>">
-
     <%= csrf_meta_tags %>
     <%= render partial: "layouts/parts/tracking" %>
 
@@ -66,9 +39,11 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <% if current_user.present? %>
-              <ul class="nav navbar-nav navbar-right mobile-hide">
+                <ul class="nav navbar-nav navbar-right mobile-hide">
                   <% if current_user.can_organizer? %>
-                  <li><%= link_to "Organizer", "/organizer" %></li>
+                    <li>
+                      <div class="role-badge organizer-badge nav-badge">ORGANIZER</div>
+                    </li>
                   <% end %>
                   <li class="dropdown user-dropdown">
                     <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button">
@@ -77,17 +52,21 @@
                       <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                      <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
-                      <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
-                      <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
+                      <% if current_user.can_organizer? %>
+                        <li><%= link_to "Manage Event", organizer_events_path %></li>
+                        <li><%= link_to "Create New Event", new_organizer_event_path %></li>
+                      <% else %>
+                        <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
+                        <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
+                      <% end %>
                       <li><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
                       <li>
-                      <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+                        <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
                       </li>
                     </ul>
                   </li>
                 </ul>
-                <% else %>
+              <% else %>
                 <ul class="nav navbar-nav navbar-right">
                   <li><a id="menu-login" class="btn btn-daydash btn-daydash-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal">สมัครสมาชิกฟรี / เข้าสู่ระบบ</a></li>
                 </ul>
@@ -111,20 +90,21 @@
             </div>
 
             <% if current_user.present? %>
-            <div id="profile-navbar" class="navbar-collapsse collapse">
-              <ul class="nav navbar-nav mobile-only">
-                <% if current_user.can_organizer? %>
-                <li><%= link_to "Organizer", "/organizer" %></li>
-                <% end %>
-                <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
-                <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
-                <!-- <li><a href="/profile/wishlist">Wish List</a></li> -->
-                <li><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
-                <li>
-                <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
-                </li>
-              </ul>
-            </div>
+              <div id="profile-navbar" class="navbar-collapsse collapse">
+                <ul class="nav navbar-nav mobile-only">
+                  <% if current_user.can_organizer? %>
+                    <li><%= link_to "Manage Event", organizer_events_path %></li>
+                    <li><%= link_to "Create New Event", new_organizer_event_path %></li>
+                  <% else %>
+                    <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
+                    <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
+                  <% end %>
+                  <li><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
+                  <li>
+                  <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+                  </li>
+                </ul>
+              </div>
             <% end %>
           </div>
         </nav>
@@ -162,10 +142,10 @@
                 <ul class="list-body nav">
                   <!-- <li><a href="/">List Event on Daydash</a></li> -->
                   <li><a href="https://blog.daydash.co/" target="_blank">Daydash Blog</a></li>
-                  <li><a href="/about">Our Story</a></li>
+                  <li><a href="/about">About</a></li>
                   <!-- <li><a href="/">How to Pay</a></li> -->
                   <!-- <li><a href="/">FAQ</a></li> -->
-                  <li><a href="/contact">Contact</a></li>
+                  <!-- <li><a href="/contact">Contact</a></li> -->
                 </ul>
               </div>
             </div>

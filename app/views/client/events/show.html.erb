@@ -95,54 +95,44 @@
     <%= form_tag client_event_selection_path(@event.to_url), method: :post, id: :payment do  %>
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Select Ticket</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="icon icon-close"></i></button>
+          <h4 class="modal-title">เลือก Ticket</h4>
         </div>
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <% @sections.each do |section| %>
-              <!-- <input type="hidden" name="" value="<%= section.id %>"> -->
-              <tr>
-                <td>
-                  <div class="ticket-name"><%= section.title %></div>
-                  <div class="ticket-meta">
-                    <span class="ticket-time"><%= section.to_event_human %></span>
-                  </div>
-                </td>
+        <div class="modal-body">
+          <% @sections.each do |section| %>
+          <div class="ticket-type">
+            <div class="row">
+              <div class="col-xs-8">
+                <div class="header">
+                  <span class="price"><%= convert_to_currency section.price %></span>
+                  -
+                  <span class="title"><%= section.title %></span>
+                </div>
+                <div>
+                  <span class="datetime"><%= section.to_event_human %></span>
+                </div>
+              </div>
+              <div class="col-xs-4">
                 <% if section.ticket_availability? %>
-                  <td width="150" align="right">
-                    <div class="ticket-meta" style="margin-top: 8px;">
-                      <span class="ticket-price"><%= convert_to_currency section.price %></span>
-                    </div>
-                  </td>
-                  <td align="right" colspan="2">
-                    <select class="form-control" name="section[<%= section.id %>]">
-                      <% (0..section.show_ticket_available).each do |i| %>
-                        <option value="<%= i %>"><%= i %></option>
-                      <% end %>
-                    </select>
-                  </td>
+                  <select class="ticket-quantity form-control" name="section[<%= section.id %>]" data-price="<%= section.price %>" onchange="return update_total_price();">
+                    <% (0..section.show_ticket_available).each do |i| %>
+                      <option value="<%= i %>"><%= i %></option>
+                    <% end %>
+                  </select>
                 <% else %>
-                  <td width="100" align="right">
-                    <div class="ticket-meta" style="margin-top: 8px; color: #ccc;">
-                      <span class="ticket-price"><%= convert_to_currency section.price %></span>
-                    </div>
-                  </td>
-                  <td align="right" colspan="2">
-                    <div class="ticket-meta" style="margin-top: 8px; margin-right: 5px; color: red;">
-                      <span class="ticket-not-available">SOLD OUT</span>
-                    </div>
-                  </td>
+                  <span class="ticket-not-available">SOLD OUT</span>
                 <% end %>
-              </tr>
-            <% end %>
-          </table>
+              </div>
+            </div>
+          </div>
+          <% end %>
         </div>
         <div class="modal-footer">
           <p id="selection-error" style="display: none;">
             <span style="color: red;">กรุณาเลือกจำนวนบัตรอย่างน้อย 1 ใบค่ะ</span>
           </p>
-          <a class="btn btn-daydash btn-daydash-green-1" onclick="nextToCheckout()">NEXT</a>
+          <span class="total-price-label">ราคารวม: </span><span class="total-price">฿0</span>
+          <a class="btn btn-daydash btn-daydash-green-2" onclick="nextToCheckout()">ขั้นตอนต่อไป: การชำระเงิน</a>
         </div>
       </div>
     <% end %>
@@ -180,5 +170,30 @@
         return false;
       }
     });
+  }
+</script>
+<script>
+  function update_total_price() {
+    var total = 0.0;
+    $('#ticket-list-modal .ticket-quantity').each(function(index, element) {
+      var quantity = parseInt($(element).val());
+      var price = parseFloat($(element).attr('data-price'));
+      var subtotal = quantity * price;
+      total += subtotal;
+
+      //Update ticket-type border
+      if(quantity > 0) {
+        $(element).parents('.ticket-type').addClass('active');
+      }
+      else {
+        $(element).parents('.ticket-type').removeClass('active'); 
+      }
+    });
+
+    $('#ticket-list-modal .total-price').html('฿'+number_format(total));
+  }
+
+  function number_format(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 </script>

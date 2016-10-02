@@ -56,7 +56,7 @@
                         <div class="info-footer">
                           <div class="row">
                             <div class="col-xs-12">
-                              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= ticket.section.to_event_human %></div>
+                              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= ticket.event.ticket_type.deal? ? 'สามารถเข้าร่วมได้ทุกวัน' : ticket.section.to_event_human %></div>
                               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= ticket.event.location_name %></div>
                             </div>
                           </div>

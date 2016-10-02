@@ -5,7 +5,7 @@ class MobileAPI < ApplicationAPI
   mount Mobile::UserAPI
   mount Mobile::EventAPI
   mount Mobile::PaymentAPI
-  # Docs
+
   add_swagger_documentation mount_path: "/mobile",
                             base_path: "/",
                             api_version: "1.0.0",

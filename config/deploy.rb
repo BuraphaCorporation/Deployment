@@ -18,6 +18,7 @@ end
 set :application, 'Daydash'
 set :repo_url, 'git@github.com:hongklay/daydash.git'
 set :deploy_to, '/home/deploy/daydash'
+set :deploy_user, 'deploy'
 set :ssh_options, {:forward_agent => true}
 
 set :slackistrano, {
@@ -27,7 +28,7 @@ set :slackistrano, {
 
 # set :format, :pretty
 # set :log_level, :debug
-# set :pty, true
+set :pty, true
 
 set :linked_files, %w{config/database.yml config/application.yml config/instance.yml}
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
@@ -37,8 +38,6 @@ set :keep_releases, 50
 set :rollbar_token, 'a7c214f1a0164e748d688ef15cc1c9ea'
 set :rollbar_env, Proc.new { fetch :stage }
 set :rollbar_role, Proc.new { :app }
-
-set :console_env, :production
 
 namespace :deploy do
   desc 'Restart application'
@@ -87,26 +86,37 @@ end
 
 namespace :rails do
   desc "Remote console"
-  task :console, :roles => :app do
-    run_interactively "bundle exec rails console #{rails_env}"
+  task :console do
+    on roles(:app), primary: true do
+      run_interactively "bundle exec rails console"
+    end
   end
 
   desc "Remote dbconsole"
-  task :dbconsole, :roles => :app do
-    run_interactively "bundle exec rails dbconsole #{rails_env}"
+  task :dbconsole do
+    on roles(:app), primary: true do
+      run_interactively "bundle exec rails dbconsole"
+    end
+  end
+
+  desc "Remote log"
+  task :log do
+    on roles(:web) do
+      within current_path do
+        execute :sudo, 'tail -f /var/log/nginx/error.log'
+      end
+    end
   end
 
   def run_interactively(command, server=nil)
-    server ||= find_servers_for_task(current_task).first
-    exec %Q(ssh #{server.host} -t 'sudo su - #{application} -c "cd #{current_path} && #{command}"')
+    exec "ssh #{fetch(:deploy_user)}@#{host} -t 'cd #{deploy_to}/current && #{bundle_cmd_with_rbenv} #{command} #{fetch(:rails_env)}'"
   end
 
-  # desc "Task log"
-  # task :logs do
-  #   on roles(:web) do
-  #     within current_path do
-  #       execute :tail, '-f log/puma_error.log'
-  #     end
-  #   end
-  # end
+  def bundle_cmd_with_rbenv
+    if fetch(:rbenv_ruby)
+      "RBENV_VERSION=#{fetch(:rbenv_ruby)} RBENV_ROOT=#{fetch(:rbenv_path)} #{File.join(fetch(:rbenv_path), '/bin/rbenv')} exec bundle exec"
+    else
+      "ruby "
+    end
+  end
 end

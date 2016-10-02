@@ -130,45 +130,37 @@
                 <p style="font-weight: 200;">
                   1. เลือกโอนยอดเงิน <span class="order-price"></span> บาท ผ่านธนาคารที่คุณสะดวก
                 </p>
-                <table width="100%">
-                  <tbody>
-                    <tr>
-                      <td width="50%" style="vertical-align: top;">
-                        <table>
-                          <tr>
-                            <td width="60" valign="top">
-                              <%= image_tag "#{App.domain}/src/images/email/order/kbank-logo.png", width: "50"  %>
-                            </td>
-                            <td valign="top">
-                              <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
-                                ธนาคารกสิกรไทย สาขาเอกมัย<br />
-                                บัญชีออมทรัพย์ <strong>001-3-42202-8</strong>​<br />
-                                ชื่อบัญชี นางสาวลินดา ไกรวณิช
-                              </p>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td width="50%" style="vertical-align: top;">
-                        <table>
-                          <tr>
-                            <td width="60" valign="top">
-                              <%= image_tag "#{App.domain}/src/images/email/order/scb-logo.png", width: "50"  %>
-                            </td>
-                            <td valign="top">
-                              <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
-                                ธนาคารไทยพาณิชย์<br />
-                                สาขาเอกมัย พาวเวอร์ เซ็นเตอร์<br />
-                                บัญชีออมทรัพย์ <strong>250-217556-5</strong>​<br />
-                                ชื่อบัญชี นางสาวลินดา ไกรวณิช
-                              </p>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xs-3" style="padding-top: 3px;">
+                        <%= image_tag "#{App.domain}/src/images/email/order/kbank-logo.png", width: "50"  %>
+                      </div>
+                      <div class="col-xs-9">
+                        <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
+                          ธนาคารกสิกรไทย สาขาเอกมัย<br />
+                          บัญชีออมทรัพย์ <strong>001-3-42202-8</strong>​<br />
+                          ชื่อบัญชี นางสาวลินดา ไกรวณิช
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xs-3" style="padding-top: 3px;">
+                        <%= image_tag "#{App.domain}/src/images/email/order/scb-logo.png", width: "50"  %>
+                      </div>
+                      <div class="col-xs-9">
+                        <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
+                          ธนาคารไทยพาณิชย์<br />
+                          สาขาเอกมัย พาวเวอร์ เซ็นเตอร์<br />
+                          บัญชีออมทรัพย์ <strong>250-217556-5</strong>​<br />
+                          ชื่อบัญชี นางสาวลินดา ไกรวณิช
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <p style="font-weight: 200; padding-bottom: 30px;">
                   2. แจ้งยืนยันการชำระเงินโดยส่งรูปถ่ายหลักฐานการโอนเงิน<br />
                   พร้อมรหัสการโอนเงิน ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)

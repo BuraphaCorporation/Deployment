@@ -45,6 +45,8 @@
 #  referal_code           :string
 #  referrer_id            :integer
 #  slug                   :string
+#  latitude               :decimal(10, 6)
+#  longitude              :decimal(10, 6)
 #
 # Indexes
 #

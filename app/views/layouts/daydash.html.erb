@@ -41,13 +41,17 @@
                 <ul class="nav navbar-nav navbar-right mobile-hide">
                   <% if current_user.can_organizer? %>
                     <li>
-                      <div class="role-badge organizer-badge nav-badge">ORGANIZER</div>
+                      <%= link_to "<div class=\"role-badge organizer-badge nav-badge\">ORGANIZER</div>".html_safe, organizer_events_path, class: 'organizer-nav' %>
                     </li>
                   <% end %>
                   <li class="dropdown user-dropdown">
                     <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button">
                       <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>"></div>
-                      <div class="user-name"><%= current_user.first_name %></div>
+                      <% if current_user.organizer? %>
+                        <div class="user-name"><%= current_user.company %></div>
+                      <% else %>
+                        <div class="user-name"><%= current_user.first_name %></div>
+                      <% end %>
                       <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">

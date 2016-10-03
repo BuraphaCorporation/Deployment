@@ -2,9 +2,11 @@
   <div class="container">
     <div class="current-user-panel">
       <div class="profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>);"></div>
-      <div class="user-name"><%= current_user.first_name %> <%= current_user.last_name %></div>
-      <% if current_user.organizer? %>
-        <div><div class="role-badge organizer-badge">ORGANIZER</div></div>
+      <% if current_user.can_organizer? %>
+        <div class="user-name"><%= current_user.company %></div>
+        <!-- <div class="role-badge organizer-badge">ORGANIZER</div> -->
+      <% else %>
+        <div class="user-name"><%= current_user.first_name %> <%= current_user.last_name %></div>
       <% end %>
     </div>
 

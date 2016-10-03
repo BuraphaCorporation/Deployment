@@ -15,11 +15,23 @@ puts "add tag list"
 end
 
 user = User.create do |user|
+  user.email                  = "organizer@daydash.co"
+  user.first_name             = 'Organizer'
+  user.last_name              = 'Daydash'
+  user.password               = '1234567890'
+  user.password_confirmation  = '1234567890'
+  user.company                = 'Daydash'
+  user.confirmed_at           = Time.zone.now
+  user.role                   = 'organizer'
+end
+
+user = User.create do |user|
   user.email                  = "hello@daydash.co"
   user.first_name             = 'Bow'
   user.last_name              = 'Kai'
   user.password               = '1234567890'
   user.password_confirmation  = '1234567890'
+  user.company                = 'Daydash'
   user.confirmed_at           = Time.zone.now
   user.role                   = 'admin'
 end

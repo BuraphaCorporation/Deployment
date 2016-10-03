@@ -97,8 +97,8 @@
               <div class="form-group col-xs-12 col-md-12">
                 <label>Location on Map</label>
                 <div class="form-inline">
-                  <input class="form-control" type="text" name="latitude" id="event_latitude" value="" placeholder="Latitude" />
-                  <input class="form-control" type="text" name="longitude" id="event_longitude" value="" placeholder="Longitude" />
+                  <%= f.text_field :latitude, value: @user.latitude, class: 'form-control', id: 'event_latitude', placeholder: 'Latitude' %>
+                  <%= f.text_field :longitude, value: @user.longitude, class: 'form-control', id: 'event_longitude', placeholder: 'Longitude' %>
                 </div>
                 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
                 <div id="organizer-map" style="margin-top: 15px; height: 300px;"></div>

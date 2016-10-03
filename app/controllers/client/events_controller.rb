@@ -2,16 +2,11 @@ class Client::EventsController < Client::CoreController
   before_action :event_payment, only: [:selection, :express, :checkout]
   before_action :related_events, only: [:show, :checkout]
 
-
   def index
     @covers = [
       { image: '/src/images/content/cover-1.jpg', caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">Daydash ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>' },
-      # { image: '/src/images/content/cover-2.jpg', caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">Daydash ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>' },
     ]
 
-    # @events = if params[:category].present? and @categories.pluck(:name).include?(params[:category])
-    #   @categories.friendly.find(params[:category]).events
-    # end
     if params[:category].present?
       @category_id = Category.friendly.find(params[:category]).id
     else
@@ -27,9 +22,23 @@ class Client::EventsController < Client::CoreController
     @sections = @event.ticket_type.deal? ? @event.sections.order(:event_time): @event.sections.available
 
     @section  = @event.sections.min_by { |m| m.price }
+
+    set_seo_title @event.try(:title)
+    set_meta_tags og: {
+      latitude:       @event.try(:latitude),
+      longitude:      @event.try(:longitude),
+      email:          @event.try(:email),
+      phone:          @event.try(:phone),
+      street_address: @event.try(:location_address),
+      location:       @event.try(:location_name),
+      start_time:     @event.try(:uptime),
+      end_time:       @event.try(:uptime),
+    }
   end
 
   def selection
+    set_seo_title @event.try(:title)
+
     total = 0
     session[:event]    = @event.id
     session[:tickets]  = {}
@@ -65,12 +74,16 @@ class Client::EventsController < Client::CoreController
   end
 
   def express
+    set_seo_title @event.try(:title)
+
     redirect_to root_url unless @event.id == session[:event]
     @tickets = session[:tickets]
     @is_free = true if @tickets["total"].to_i == 0
   end
 
   def checkout
+    set_seo_title 'Checkout'
+
     dob = Date.strptime("#{params[:dob_date]}/#{params[:dob_month]}/#{params[:dob_year]}", "%d/%m/%Y")
 
     current_user.update(

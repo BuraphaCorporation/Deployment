@@ -34,7 +34,7 @@
                         <div class="info-body">
                           <h4 class="title">
                             <%#= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
-                              <a href="<%= client_event_path(ticket.event.id) %>"><%= ticket.event.title %></a>
+                              <a href="<%= client_event_path(ticket.event.slug) %>"><%= ticket.event.title %></a>
                             <%# end %>
                           </h4>
 
@@ -56,7 +56,7 @@
                         <div class="info-footer">
                           <div class="row">
                             <div class="col-xs-12">
-                              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= ticket.section.to_event_human %></div>
+                              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= ticket.event.ticket_type.deal? ? 'สามารถเข้าร่วมได้ทุกวัน' : ticket.section.to_event_human %></div>
                               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= ticket.event.location_name %></div>
                             </div>
                           </div>

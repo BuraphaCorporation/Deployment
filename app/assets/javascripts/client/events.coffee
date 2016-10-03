@@ -148,7 +148,9 @@ $(document).on 'turbolinks:load', (event) ->
     $('#event_longitude').val lng
     return
 
-  if $("#organizer-events-new").html() != undefined || $("#organizer-events-edit").html() != undefined
+  if $("#organizer-events-new").html() != undefined ||
+     $("#organizer-events-edit").html() != undefined ||
+     $("#profile-settings-section").html() != undefined
     initGoogleMapOrganizer()
   # google.maps.event.addDomListener window, 'load', initGoogleMapOrganizer
 

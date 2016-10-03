@@ -168,7 +168,7 @@
                 <div class="form-section" id="payment-method-section">
                   <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
                     <div class="form-section-footer">
-                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-btn="payment-method" value="bank_transfer" >
+                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="bank_transfer" >
                         <i class="icon icon-lock"></i>
                         ยืนยันการสั่งซื้อ
                       </button>
@@ -223,7 +223,7 @@
                               BY PROCESSING THIS ORDER, YOU AGREE TO OUR <a target="_blank" href="<%= terms_and_conditions_path %>">PAYMENT POLICY</a>
                             </label>
                           </div>
-                          <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-btn="payment-method" value="credit_card">
+                          <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="credit_card">
                             <i class="icon icon-lock"></i>
                             ยืนยันการชำระเงิน - <%= convert_to_currency(@tickets["total"] / 100) %>
                           </button>
@@ -247,7 +247,7 @@
                               BY PROCESSING THIS ORDER, YOU AGREE TO OUR <a target="_blank" href="<%= terms_and_conditions_path %>">PAYMENT POLICY</a>
                             </label>
                           </div>
-                          <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-btn="payment-method" value="bank_transfer" >
+                          <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="bank_transfer" >
                             <i class="icon icon-lock"></i>
                             ยืนยันการสั่งซื้อ
                           </button>
@@ -262,12 +262,6 @@
         <% end %>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="modal fade" tabindex="-1" role="dialog" id="policy-modal">
-  <div class="modal-dialog" role="document">
-    <%= render partial: "layouts/parts/payment-policy" %>
   </div>
 </div>
 

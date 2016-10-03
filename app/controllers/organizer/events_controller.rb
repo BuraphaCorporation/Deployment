@@ -5,7 +5,11 @@ class Organizer::EventsController < Organizer::CoreController
   before_action :admin_only, only: [:unpublish, :published, :update_time_event]
 
   def index
-    @events = current_user.events.order(created_at: :desc)
+    if current_user.organizer?
+      @events = current_user.events.order(created_at: :desc)
+    else
+      @events = Event.order(created_at: :desc)
+    end
   end
 
   def new

@@ -64,51 +64,44 @@
             <div class="panel-action">
               <% if @order.transfer? %>
               <!--
-              <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a> -->
+              <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a> -->
 
                 <h3>วิธีการชำระเงิน</h3>
                 <p style="font-weight: 200;">
                   1. เลือกโอนยอดเงิน <span style="font-size: 16px"><%= convert_to_currency @order.to_price %></span> บาท ผ่านธนาคารที่คุณสะดวก
                 </p>
-                <table width="100%">
-                  <tbody>
-                    <tr>
-                      <td width="50%" style="vertical-align: top;">
-                        <table>
-                          <tr>
-                            <td width="60" valign="top">
-                              <%= image_tag "#{App.domain}/src/images/email/order/kbank-logo.png", width: "50"  %>
-                            </td>
-                            <td valign="top">
-                              <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
-                                ธนาคารกสิกรไทย สาขาเอกมัย<br />
-                                บัญชีออมทรัพย์ <strong>001-3-42202-8</strong>​<br />
-                                ชื่อบัญชี นางสาวลินดา ไกรวณิช
-                              </p>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td width="50%" style="vertical-align: top;">
-                        <table>
-                          <tr>
-                            <td width="60" valign="top">
-                              <%= image_tag "#{App.domain}/src/images/email/order/scb-logo.png", width: "50"  %>
-                            </td>
-                            <td valign="top">
-                              <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
-                                ธนาคารไทยพาณิชย์<br />
-                                สาขาเอกมัย พาวเวอร์ เซ็นเตอร์<br />
-                                บัญชีออมทรัพย์ <strong>250-217556-5</strong>​<br />
-                                ชื่อบัญชี นางสาวลินดา ไกรวณิช
-                              </p>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xs-3" style="padding-top: 3px;">
+                        <%= image_tag "#{App.domain}/src/images/email/order/kbank-logo.png", width: "50"  %>
+                      </div>
+                      <div class="col-xs-9">
+                        <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
+                          ธนาคารกสิกรไทย สาขาเอกมัย<br />
+                          บัญชีออมทรัพย์ <strong>001-3-42202-8</strong>​<br />
+                          ชื่อบัญชี นางสาวลินดา ไกรวณิช
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xs-3" style="padding-top: 3px;">
+                        <%= image_tag "#{App.domain}/src/images/email/order/scb-logo.png", width: "50"  %>
+                      </div>
+                      <div class="col-xs-9">
+                        <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
+                          ธนาคารไทยพาณิชย์<br />
+                          สาขาเอกมัย พาวเวอร์ เซ็นเตอร์<br />
+                          บัญชีออมทรัพย์ <strong>250-217556-5</strong>​<br />
+                          ชื่อบัญชี นางสาวลินดา ไกรวณิช
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
                 <p style="font-weight: 200; padding-bottom: 30px;">
                   2. แจ้งยืนยันการชำระเงินโดยส่งรูปถ่ายหลักฐานการโอนเงิน<br />
                   พร้อมรหัสการโอนเงิน <strong style="color: #21A4A5; "><%= @order.code %></strong> ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)
@@ -118,9 +111,9 @@
                 </p>
               <% end %>
               <% if @order.omise? %>
-                <a target="_self" href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูบัตรของคุณ</a>
+                <a href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูบัตรของคุณ</a>
               <% else %>
-                <a target="_self" href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
+                <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
               <% end %>
             </div>
           </div> <!-- .panel-body -->
@@ -178,12 +171,12 @@
       <% @related_events.each do |event| %>
         <div class="col-sm-6 col-md-4">
           <div class="event card">
-            <%= link_to client_event_path(event.to_url), target: '_self' do %>
+            <%= link_to client_event_path(event.to_url) do %>
               <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
             <% end %>
             <div class="info">
               <h4 class="title text-left">
-                <%= link_to event.title, client_event_path(event.to_url), target: '_self' %>
+                <%= link_to event.title, client_event_path(event.to_url) %>
               </h4>
               <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %> </div>
               <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %> </div>

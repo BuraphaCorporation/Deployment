@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_current_location, :unless => :devise_controller?
-  before_action :seo
+  before_action :default_seo
 
 protected
   def not_found
@@ -43,9 +43,46 @@ protected
     @global_categories = Category.all
   end
 
-  def seo
-    @seo_title       = "Discover activities and events in Bangkok every day"
-    @seo_description = "ค้นพบกิจกรรมและอีเว้นท์สนุกๆ ในกรุงเทพฯ ที่พร้อมให้คุณมาทดลองและสัมผัสประสบการณ์ใหม่ได้ทุกวัน ไม่ว่าจะเป็น Live Music, DJ, Party, Craft & Art Workshop, Beer Tasting, Cool Exhbition ไปจนถึง Fitness, Sport, Outdoor activity etc."
-    @seo_image       = "#{App.domain}/facebook-og.jpg"
+
+  def set_seo_title(title)
+    set_meta_tags title: "#{title} - Daydash"
+  end
+
+  def default_seo
+    site_name   = "daydash.co"
+    url         = request.original_url
+    title       = "Daydash - Discover activities and events in Bangkok every day"
+    description = "ค้นพบกิจกรรมและอีเว้นท์สนุกๆ ในกรุงเทพฯ ที่พร้อมให้คุณมาทดลองและสัมผัสประสบการณ์ใหม่ได้ทุกวัน ไม่ว่าจะเป็น Live Music, DJ, Party, Craft & Art Workshop, Beer Tasting, Cool Exhbition ไปจนถึง Fitness, Sport, Outdoor activity etc."
+    image       = "#{App.domain}/facebook-og.jpg"
+
+    set_meta_tags title:  title,
+      description:        description,
+      keywords:           description,
+      image:              image,
+      fb: {
+        app_id:           App.configure.facebook_app_id
+      },
+      og: {
+        title:            title,
+        type:             'website',
+        url:              request.original_url,
+        image: {
+          _:              image,
+          url:            image,
+          width:          1200,
+          height:         630,
+        }
+      },
+      twitter: {
+        title:            title,
+        site:             site_name,
+        image: {
+          _:              image,
+          url:            image,
+          width:          1200,
+          height:         630,
+        },
+        card:             'summary_large_image'
+      }
   end
 end

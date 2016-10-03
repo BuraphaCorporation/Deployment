@@ -1,7 +1,7 @@
 <script>$('body').attr('id', 'profile-wishlist-page');</script>
 <script>$('body').addClass('profile-page');</script>
 
-<%= render partial: "client/profile/parts/profile_nav" %>
+<%= render partial: "layouts/parts/nav" %>
 <script>$('#profile-nav #menu-wishlist').addClass('active');</script>
 
 <div class="section">
@@ -16,7 +16,7 @@
             <% @events.each do |event| %>
               <div class="col-sm-6 col-md-4">
                 <div class="event card">
-                  <%= link_to client_event_path(event.to_url), target: '_self' do %>
+                  <%= link_to client_event_path(event.to_url) do %>
                     <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
                   <% end %>
                   <div class="info">

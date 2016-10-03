@@ -1,7 +1,10 @@
 <script>$('body').attr('id', 'organizer-event-checkin').addClass('organizer-event-page');</script>
 
-<%= render partial: "organizer/parts/organizer-nav" %>
-<script>$('#organizer-nav #menu-event-list').addClass('active');</script>
+<%= render partial: "layouts/parts/nav" %>
+<script>
+  $('#organizer-nav #menu-event-list').addClass('active');
+  $('.organizer-event-nav .organizer-event-nav-check-in').addClass('active');
+</script>
 
 <div class="section" id="checkin-section">
   <div class="container">
@@ -15,9 +18,10 @@
         <%= render partial: "organizer/parts/organizer-event-nav" %>
       </div>
       <div class="col-xs-12 col-md-10">
-        <% @event.sections.each do |section| %>
+        <% @sections.each do |section| %>
         <div class="event-section-panel">
           <div class="panel-header">
+            <h3>Attendees / Check In</h3>
             <h4 class="panel-title"><%= section.title %> - <%= section.event_time.strftime("%d %B %Y, %H:%M") %></h4>
             <div class="row">
               <div class="col-xs-12 col-md-6">
@@ -49,22 +53,23 @@
               </thead>
               <tbody>
                 <% section.tickets.each do |ticket| %>
-                <tr>
-                  <% if ticket.status.used? %>
-                    <td class="mobile-only">Checked</td>
-                  <% else %>
-                    <td class="mobile-only"><%= link_to "CHECK IN", organizer_event_ticket_checking_path(@event.id, ticket.id), method: :post %></td>
-                  <% end %>
-                  <td><%= ticket.user.first_name %> <%= ticket.user.last_name %></td>
-                  <td><%= ticket.user.email %></td>
-                  <td><%= ticket.user.phone %></td>
-                  <td><%= ticket.code %></td>
-                  <% if ticket.status.used? %>
-                    <td>Checked</td>
-                  <% else %>
-                    <td><%= link_to "CHECK IN", organizer_event_ticket_checking_path(@event.id, ticket.id), method: :post %></td>
-                  <% end %>
-                </tr>
+                  <% next unless ticket.order.paid? %>
+                  <tr>
+                    <% if ticket.status.used? %>
+                      <td class="mobile-only">Checked</td>
+                    <% else %>
+                      <td class="mobile-only"><%= link_to "CHECK IN", organizer_event_ticket_checking_path(@event.id, ticket.id), method: :post %></td>
+                    <% end %>
+                    <td><%= ticket.user.first_name %> <%= ticket.user.last_name %></td>
+                    <td><%= ticket.user.email %></td>
+                    <td><%= ticket.user.phone %></td>
+                    <td><%= ticket.code %></td>
+                    <% if ticket.status.used? %>
+                      <td>Checked</td>
+                    <% else %>
+                      <td><%= link_to "CHECK IN", organizer_event_ticket_checking_path(@event.id, ticket.id), method: :post %></td>
+                    <% end %>
+                  </tr>
                 <% end %>
               </tbody>
             </table>

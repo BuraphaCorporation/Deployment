@@ -24,7 +24,8 @@ class Client::EventsController < Client::CoreController
     @section  = @event.sections.min_by { |m| m.price }
 
     set_seo_title @event.try(:title)
-    set_meta_tags og: {
+    set_meta_tags description: @event.try(:short_description),
+    og: {
       title:          @event.try(:title),
       image: {
           _:          @event.event_pictures.try(:first).try(:media, :facebook),

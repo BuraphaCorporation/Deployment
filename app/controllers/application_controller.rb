@@ -64,7 +64,7 @@ protected
       },
       og: {
         title:            title,
-        type:             'website',
+        type:             'events',
         url:              request.original_url,
         image: {
           _:              image,

@@ -27,8 +27,8 @@ class Client::EventsController < Client::CoreController
     set_meta_tags og: {
       title:          @event.try(:title),
       image: {
-          _:          @event.event_pictures.try(:first).try(:media, :small),
-          url:        @event.event_pictures.try(:first).try(:media, :small),
+          _:          @event.event_pictures.try(:first).try(:media, :facebook),
+          url:        @event.event_pictures.try(:first).try(:media, :facebook),
           width:      1200,
           height:     630,
         },
@@ -40,6 +40,16 @@ class Client::EventsController < Client::CoreController
       location:       @event.try(:location_name),
       start_time:     @event.try(:uptime),
       end_time:       @event.try(:uptime),
+    },
+    twitter: {
+      title:            @event.try(:title),
+      image: {
+        _:              @event.event_pictures.try(:first).try(:media, :facebook),
+        url:            @event.event_pictures.try(:first).try(:media, :facebook),
+        width:          1200,
+        height:         630,
+      },
+      card:             'summary_large_image'
     }
   end
 

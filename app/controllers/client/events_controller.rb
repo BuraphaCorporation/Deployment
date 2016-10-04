@@ -25,6 +25,13 @@ class Client::EventsController < Client::CoreController
 
     set_seo_title @event.try(:title)
     set_meta_tags og: {
+      title:          @event.try(:title),
+      image: {
+          _:          @event.event_pictures.try(:first).try(:media, :small),
+          url:        @event.event_pictures.try(:first).try(:media, :small),
+          width:      1200,
+          height:     630,
+        },
       latitude:       @event.try(:latitude),
       longitude:      @event.try(:longitude),
       email:          @event.try(:email),

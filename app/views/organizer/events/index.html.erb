@@ -16,7 +16,7 @@
               <div class="info">
                 <div class="info-body">
                   <h4 class="title"><%= event.title %></h4>
-                  <div class="meta date"><%#= event.sections.first.try.event_time.strftime("%d %B %Y, %H:%M") %></div>
+                  <div class="meta date"><%= event.to_uptime %></div>
                   <div class="meta location"><%= event.location_name %></div>
                   <div class="meta">By <%= "#{event.user.company}" %></div>
                 </div>
@@ -25,7 +25,7 @@
                     <div class="col-xs-12 col-md-4 pull-right">
                       <div class="ticket-sold-panel">
                         <div class="row">
-                          <div class="col-xs-7 ticket-sold-label">จำนวนบัตรขายไป</div>
+                          <div class="col-xs-7 ticket-sold-label" style="font-size: 14px">จำนวนบัตรขายไป</div>
                           <div class="col-xs-5 ticket-sold-value"><%= event.sections.sum(:bought) %> / <%= event.sections.sum(:total) %></div>
                         </div>
                         <div class="row">
@@ -41,22 +41,34 @@
                     </div>
                     <div class="col-xs-12 col-md-8">
                       <ul class="list-inline list-action-nav">
-                        <li>
-                          <a href="<%= orders_organizer_event_path(event) %>"><i class="icon icon-xs icon-order"></i> Orders</a>
-                        </li>
-                        <li>
-                          <a href="<%= checkin_organizer_event_path(event) %>"><i class="icon icon-xs icon-checkin"></i> Check in</a>
-                        </li>
+
+                        <% if event.status.published? %>
+                          <li>
+                            <a href="<%= orders_organizer_event_path(event) %>"><i class="icon icon-xs icon-order"></i> Orders</a>
+                          </li>
+                          <li>
+                            <a href="<%= checkin_organizer_event_path(event) %>"><i class="icon icon-xs icon-checkin"></i> Check in</a>
+                          </li>
+                        <% end %>
                         <li>
                           <a href="<%= edit_organizer_event_path(event) %>"><i class="icon icon-xs icon-edit"></i> Edit</a>
                         </li>
-                        <li>
-                          <% if event.status.published? %>
-                            <a href="<%= unpublish_organizer_event_path(event) %>"><i class="icon icon-xs icon-unpublish"></i> Unpublish</a>
-                          <% else %>
-                            <a href="<%= published_organizer_event_path(event) %>"><i class="icon icon-xs icon-checked"></i> Published</a>
-                          <% end %>
-                        </li>
+                        <% if event.status.published? %>
+                          <li>
+                            <% if event.sections.sum(:bought) == 0%>
+                              <a href="<%= unpublish_organizer_event_path(event) %>"><i class="icon icon-xs icon-unpublish"></i> Unpublish</a>
+                            <% else %>
+                              <a href="javascrip:;" style="color: #ccc;"><i class="icon icon-xs icon-unpublish"></i> Unpublish</a>
+                            <% end %>
+                          </li>
+                        <% else %>
+                          <li>
+                            <a href="<%= published_organizer_event_path(event) %>"><i class="icon icon-xs icon-publish"></i> Publish</a>
+                          </li>
+                          <li>
+                            <a><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> Delete</a>
+                          </li>
+                        <% end %>
                       </ul>
                     </div>
                   </div>

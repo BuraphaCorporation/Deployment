@@ -16,7 +16,7 @@
               <div class="info">
                 <div class="info-body">
                   <h4 class="title"><%= event.title %></h4>
-                  <div class="meta date"><%#= event.sections.first.try.event_time.strftime("%d %B %Y, %H:%M") %></div>
+                  <div class="meta date"><%= event.to_uptime %></div>
                   <div class="meta location"><%= event.location_name %></div>
                   <div class="meta">By <%= "#{event.user.company}" %></div>
                 </div>

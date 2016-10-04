@@ -27,8 +27,8 @@ gem 'simple_form'
 gem 'show_for'
 gem 'cocoon'
 gem 'rails_autolink'
-gem 'sweet-alert'
-gem 'sweet-alert-confirm'
+# gem 'sweet-alert'
+# gem 'sweet-alert-confirm'
 
 # helper model
 gem 'figaro'

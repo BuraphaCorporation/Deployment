@@ -2,11 +2,19 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   skip_after_action :intercom_rails_auto_include
 
+  before_action :redirect_subdomain
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_current_location, :unless => :devise_controller?
   before_action :default_seo
 
 protected
+
+  def redirect_subdomain
+    if request.host.eql?("www.daydash.co")
+      redirect_to App.domain + request.fullpath, :status => 301
+    end
+  end
+
   def not_found
     raise ActionController::RoutingError.new('Not Found')
   end

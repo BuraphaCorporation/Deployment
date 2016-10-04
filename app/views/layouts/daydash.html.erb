@@ -17,6 +17,7 @@
     <!-- Google Map -->
     <%= javascript_include_tag '//maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places', 'data-turbolinks-track' => true, media: 'all' %>
     <%= javascript_include_tag 'daydash', 'data-turbolinks-track' => true %>
+
   </head>
   <body>
     <div id="fb-root"></div>
@@ -25,12 +26,11 @@
         <nav class="navbar navbar-static-top">
           <div class="container">
             <div class="navbar-header">
-
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="icon icon-menu"></i></button>
               <% if current_user.present? %>
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profile-navbar" aria-expanded="false" aria-controls="navbar">
-                <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>)"></div>
-              </button>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profile-navbar" aria-expanded="false" aria-controls="navbar">
+                  <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>)"></div>
+                </button>
               <% end %>
 
               <%= link_to root_path, class: 'navbar-brand' do %>
@@ -42,13 +42,17 @@
                 <ul class="nav navbar-nav navbar-right mobile-hide">
                   <% if current_user.can_organizer? %>
                     <li>
-                      <div class="role-badge organizer-badge nav-badge">ORGANIZER</div>
+                      <%= link_to "<div class=\"role-badge organizer-badge nav-badge\">ORGANIZER</div>".html_safe, organizer_events_path, class: 'organizer-nav' %>
                     </li>
                   <% end %>
                   <li class="dropdown user-dropdown">
                     <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button">
                       <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>"></div>
-                      <div class="user-name"><%= current_user.first_name %></div>
+                      <% if current_user.organizer? %>
+                        <div class="user-name"><%= current_user.company %></div>
+                      <% else %>
+                        <div class="user-name"><%= current_user.first_name %></div>
+                      <% end %>
                       <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
@@ -206,4 +210,30 @@
       </div>
     </div>
   </body>
+
+  <!-- Start of Async Drift Code -->
+  <script>
+  !function() {
+    var t;
+    if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0,
+    t.methods = [ "identify", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
+    t.factory = function(e) {
+      return function() {
+        var n;
+        return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+      };
+    }, t.methods.forEach(function(e) {
+      t[e] = t.factory(e);
+    }), t.load = function(t) {
+      var e, n, o, r;
+      e = 3e5, r = Math.ceil(new Date() / e) * e, o = document.createElement("script"),
+      o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + r + "/" + t + ".js",
+      n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+    });
+  }();
+  drift.SNIPPET_VERSION = '0.2.0'
+  drift.load('xswzh2iewdvu')
+  </script>
+  <!-- End of Async Drift Code -->
+
 </html>

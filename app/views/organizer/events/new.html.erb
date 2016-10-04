@@ -5,12 +5,17 @@
   });
 </script>
 
-<%= render partial: "organizer/parts/organizer-nav" %>
+<%= render partial: "layouts/parts/nav" %>
 
 <div class="section">
   <div class="container">
-    <%= form_tag organizer_events_path(@event), multipart: true, 'data-parsley-validate': true do %>
-      <%= render partial: "organizer/parts/event_form" %>
-    <% end %>
+    <div class="section-header row"></div>
+    <div class="section-body row">
+      <div class="col-xs-12">
+        <%= form_tag organizer_events_path(@event), multipart: true, 'data-parsley-validate': true do %>
+          <%= render partial: "organizer/parts/event_form" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

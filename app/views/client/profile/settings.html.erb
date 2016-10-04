@@ -1,8 +1,11 @@
 <script>$('body').attr('id', 'profile-settings-page');</script>
 <script>$('body').addClass('profile-page');</script>
 
-<%= render partial: "client/profile/parts/profile_nav" %>
-<script>$('#profile-nav #menu-settings').addClass('active');</script>
+<%= render partial: "layouts/parts/nav" %>
+<script>
+  $('#organizer-nav #menu-settings').addClass('active');
+  $('#profile-nav #menu-settings').addClass('active');
+</script>
 
 <div class="section" id="profile-settings-section">
   <div class="container">
@@ -22,47 +25,50 @@
               <label>Lastname</label>
               <%= f.text_field :last_name, value: @user.last_name, class: 'form-control' %>
             </div>
-            <div class="form-group dob-form-group col-xs-12 col-md-6">
-              <label>Date of Birth</label>
-              <div class="form-inline">
-                <select class="form-control" name="dob_date" required >
-                  <option value="">Date</option>
-                  <% (1..31).each do |date| %>
-                    <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
-                  <% end %>
-                </select>
-                <select class="form-control" name="dob_month" required >
-                  <option value="">Month</option>
-                  <% (1..12).each do |month| %>
-                    <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= Date::MONTHNAMES[month] %></option>
-                  <% end %>
-                </select>
-                <select class="form-control" name="dob_year" required >
-                  <option value="">Year</option>
-                  <% (0..99).each do |year| %>
-                    <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
-                  <% end %>
-                </select>
+            <% unless @user.can_organizer? %>
+              <div class="form-group dob-form-group col-xs-12 col-md-6">
+                <label>Date of Birth</label>
+                <div class="form-inline">
+                  <select class="form-control" name="dob_date" required >
+                    <option value="">Date</option>
+                    <% (1..31).each do |date| %>
+                      <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
+                    <% end %>
+                  </select>
+                  <select class="form-control" name="dob_month" required >
+                    <option value="">Month</option>
+                    <% (1..12).each do |month| %>
+                      <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= Date::MONTHNAMES[month] %></option>
+                    <% end %>
+                  </select>
+                  <select class="form-control" name="dob_year" required >
+                    <option value="">Year</option>
+                    <% (0..99).each do |year| %>
+                      <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
+                    <% end %>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="form-group col-xs-12 col-md-6">
-              <label>Gender</label>
-              <div class="form-inline">
-                <label>
-                  <%= f.radio_button :gender, 'male' %>
-                  Male
-                </label>
-                <label>
-                  <%= f.radio_button :gender, 'female' %>
-                  Female
-                </label>
-                <!-- <label class="radio">
-                  <input type="radio" name="gender" value="not_specific" />
-                  <%#= f.radio_button :gender %>
-                  Not specific
-                </label> -->
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Gender</label>
+                <div class="form-inline">
+                  <label>
+                    <%= f.radio_button :gender, 'male' %>
+                    Male
+                  </label>
+                  <label>
+                    <%= f.radio_button :gender, 'female' %>
+                    Female
+                  </label>
+                  <!-- <label class="radio">
+                    <input type="radio" name="gender" value="not_specific" />
+                    <%#= f.radio_button :gender %>
+                    Not specific
+                  </label> -->
+                </div>
               </div>
-            </div>
+            <% end %>
+
             <div class="form-group col-xs-12 col-md-6">
               <label>E-mail</label>
               <%= f.email_field :email, value: @user.email, class: 'form-control' %>
@@ -97,8 +103,8 @@
               <div class="form-group col-xs-12 col-md-12">
                 <label>Location on Map</label>
                 <div class="form-inline">
-                  <input class="form-control" type="text" name="latitude" id="event_latitude" value="" placeholder="Latitude" />
-                  <input class="form-control" type="text" name="longitude" id="event_longitude" value="" placeholder="Longitude" />
+                  <%= f.text_field :latitude, value: @user.latitude, class: 'form-control', id: 'event_latitude', placeholder: 'Latitude' %>
+                  <%= f.text_field :longitude, value: @user.longitude, class: 'form-control', id: 'event_longitude', placeholder: 'Longitude' %>
                 </div>
                 <input id="pac-input" class="controls" type="text" placeholder="Search Box">
                 <div id="organizer-map" style="margin-top: 15px; height: 300px;"></div>

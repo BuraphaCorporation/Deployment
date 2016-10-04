@@ -4,7 +4,11 @@ class ErrorsController < ApplicationController
   layout 'daydash'
 
   def not_found
-    render(:status => 404)
+    if request.host.eql?("www.daydash.co")
+      redirect_to App.domain, :status => 301
+    else
+      render(:status => 404)
+    end
   end
 
   def internal_server_error

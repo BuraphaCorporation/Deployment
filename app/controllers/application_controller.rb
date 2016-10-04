@@ -11,7 +11,7 @@ protected
 
   def redirect_subdomain
     if request.host.eql?("www.daydash.co")
-      redirect_to App.domain + request.fullpath, :status => 301
+      redirect_to App.domain, :status => 301
     end
   end
 

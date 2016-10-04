@@ -71,7 +71,9 @@ class Client::ProfileController < Client::CoreController
 
 private
   def user_params
-    params[:user][:birthday] = Date.strptime("#{params[:dob_date]}/#{params[:dob_month]}/#{params[:dob_year]}", "%d/%m/%Y")
+    if params[:dob_date].present? and params[:dob_month].present? and params[:dob_year].present?
+      params[:user][:birthday] = Date.strptime("#{params[:dob_date]}/#{params[:dob_month]}/#{params[:dob_year]}", "%d/%m/%Y")
+    end
     params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone, :company, :url, :short_description, :picture, :latitude, :longitude)
   end
 

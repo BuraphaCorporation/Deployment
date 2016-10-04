@@ -116,8 +116,6 @@ class User < ApplicationRecord
     profile = graph.get_object("me?fields=id,email,first_name,last_name,birthday,about,gender,location")
     image = graph.get_picture(profile['id'], type: :large)
 
-    # p profile
-
     if find_by_email(profile['email']).nil?
       where(provider: 'facebook', uid: profile['id']).first_or_create(
         email:      profile['email'],
@@ -142,8 +140,7 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    p auth
-    if find_by_email(auth.info.email).nil?
+    if find_by(uid: auth.uid).nil?
       where(provider: auth.provider, uid: auth.uid).first_or_create(
         email:      auth.extra.raw_info.email,
         password:   Devise.friendly_token[0,20],
@@ -154,9 +151,7 @@ class User < ApplicationRecord
         picture:    process_uri(auth.info.image)
       )
     else
-      where(email: auth.info.email).update(
-        provider:   auth.provider,
-        uid:        auth.uid,
+      where(uid: auth.uid).update(
         first_name: auth.extra.raw_info.first_name,
         last_name:  auth.extra.raw_info.last_name,
         birthday:   process_date_of_birth(auth.extra.raw_info.birthday),

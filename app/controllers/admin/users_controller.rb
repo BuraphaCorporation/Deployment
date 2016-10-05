@@ -3,6 +3,14 @@ class Admin::UsersController < Admin::CoreController
 
   def index
     @users = User.all
+    @event = Event.first
+    @orders = Order.all
+  end
+
+  def transactions
+    @users = User.all
+    @event = Event.first
+    @orders = Order.all
   end
 
   def new

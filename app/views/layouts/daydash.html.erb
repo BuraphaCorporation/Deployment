@@ -42,6 +42,11 @@
                 <ul class="nav navbar-nav navbar-right mobile-hide">
                   <% if current_user.can_organizer? %>
                     <li>
+                      <%= link_to "<div class=\"role-badge organizer-badge nav-badge\">Admin</div>".html_safe, admin_users_path, class: 'organizer-nav' %>
+                    </li>
+                  <% end %>
+                  <% if current_user.can_organizer? %>
+                    <li>
                       <%= link_to "<div class=\"role-badge organizer-badge nav-badge\">ORGANIZER</div>".html_safe, organizer_events_path, class: 'organizer-nav' %>
                     </li>
                   <% end %>

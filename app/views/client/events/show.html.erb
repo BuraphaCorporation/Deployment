@@ -23,7 +23,7 @@
         <div class="row">
           <div class="meta-list col-xs-12">
             <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></div>
-            <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location_name %></div>
+            <div class="meta location" id="location" data-location="<%= @event.location_name %>"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location_name %></div>
           </div>
         </div>
         <div class="description">

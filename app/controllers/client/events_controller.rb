@@ -24,7 +24,15 @@ class Client::EventsController < Client::CoreController
     @section  = @event.sections.min_by { |m| m.price }
 
     set_seo_title @event.try(:title)
-    set_meta_tags og: {
+    set_meta_tags description: @event.try(:short_description),
+    og: {
+      title:          @event.try(:title),
+      image: {
+          _:          @event.event_pictures.try(:first).try(:media, :facebook),
+          url:        @event.event_pictures.try(:first).try(:media, :facebook),
+          width:      1200,
+          height:     630,
+        },
       latitude:       @event.try(:latitude),
       longitude:      @event.try(:longitude),
       email:          @event.try(:email),
@@ -33,6 +41,16 @@ class Client::EventsController < Client::CoreController
       location:       @event.try(:location_name),
       start_time:     @event.try(:uptime),
       end_time:       @event.try(:uptime),
+    },
+    twitter: {
+      title:            @event.try(:title),
+      image: {
+        _:              @event.event_pictures.try(:first).try(:media, :facebook),
+        url:            @event.event_pictures.try(:first).try(:media, :facebook),
+        width:          1200,
+        height:         630,
+      },
+      card:             'summary_large_image'
     }
   end
 
@@ -130,10 +148,10 @@ class Client::EventsController < Client::CoreController
     if @order.tickets.present?
       if @order.omise? || @order.free?
         UserTicketWorker.perform_async(@order.id)
+        OrganizerOrderWorker.perform_async(@order.id)
       else
         UserOrderWorker.perform_async(@order.id)
       end
-      OrganizerOrderWorker.perform_async(@order.id)
       # UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
       # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
     end

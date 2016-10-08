@@ -55,7 +55,7 @@ class Event < ApplicationRecord
   has_many :sections,       dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
 
-  has_attached_file :cover, styles: { full: "1600x550#" }
+  has_attached_file :cover, styles: { full: "1600x500#" }
   validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
 
   # after_create :set_organizer

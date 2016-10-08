@@ -2,7 +2,11 @@ class Admin::UsersController < Admin::CoreController
   before_action :user, only: [:edit, :update, :destroy]
 
   def index
-    @users = User.all
+    @users = User.order(:created_at)
+  end
+
+  def transactions
+    @orders = Order.order(:created_at, :status)
   end
 
   def new

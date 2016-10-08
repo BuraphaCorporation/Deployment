@@ -39,6 +39,8 @@ $(document).on 'turbolinks:load', (event) ->
   initGoogleMapEvent =  ->
     lat = $("#google-map").attr('data-lat')
     lng = $("#google-map").attr('data-lng')
+    location = $("#location").attr('data-location')
+
     return if lat == undefined || lng == undefined
 
     lat = parseFloat lat
@@ -48,20 +50,26 @@ $(document).on 'turbolinks:load', (event) ->
       lat: lat || 13.725275
       lng: lng || 100.5871969
 
+
     map = new (google.maps.Map)(document.getElementById('google-map'),
       center: eventLocation
       zoom: 15
       scrollwheel: false
       draggable: false
-      zoomControl: false
-      scrollwheel: false
+      # zoomControl: false
       disableDoubleClickZoom: true)
 
     marker = new (google.maps.Marker)(
       position: eventLocation
       map: map
       title: 'Hello World!')
-    return
+    # return
+
+    infowindow = new (google.maps.InfoWindow)(content: location)
+    infowindow.open map, marker
+    # marker.addListener 'click', ->
+    #   return
+
 
   initGoogleMapEvent()
   # google.maps.event.addDomListener window, 'load', initGoogleMapEvent

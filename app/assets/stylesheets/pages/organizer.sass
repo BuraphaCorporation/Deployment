@@ -8,6 +8,10 @@ $gray-color-e: #eee
 
 $green-color: #19D4D6
 
+
+.section-body
+  margin-bottom: 40px
+
 #organizer-event-list
   #event-list-section
     .container
@@ -19,17 +23,15 @@ $green-color: #19D4D6
 
 .list-inline > li
   font-size: 14px
-
+.event-section-panel h3
+  margin-top: 0
 #organizer-events-new, #organizer-events-edit
   .section
-    padding-top: 30px
-
     .section-header
       margin-bottom: 30px
 
     .form-section
       margin-bottom: 30px
-
 
     @media (max-width: 991px)
       padding-top: 15px
@@ -103,7 +105,8 @@ $green-color: #19D4D6
 
     .event-section-panel
       margin-bottom: 50px
-
+      h3
+        margin-top: 0
       .panel-header
         margin-bottom: 15px
 
@@ -163,6 +166,9 @@ $green-color: #19D4D6
         float: left
         margin-right: 15px
 
+  .active
+    background: #efefef
+
   @media (max-width: 991px)
     border-top: 0px
 
@@ -186,3 +192,4 @@ $green-color: #19D4D6
         a
           &, &:active, &:link, &:visited
             border-right: 0px
+

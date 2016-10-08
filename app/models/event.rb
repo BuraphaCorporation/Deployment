@@ -55,7 +55,7 @@ class Event < ApplicationRecord
   has_many :sections,       dependent: :destroy
   accepts_nested_attributes_for :sections, reject_if: :all_blank, allow_destroy: true
 
-  has_attached_file :cover, styles: { full: "1600x550#", facebook: "1200x630#", thumb: '800x500#' }
+  has_attached_file :cover, styles: { full: "1600x500#" }
   validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
 
   # after_create :set_organizer
@@ -71,7 +71,8 @@ class Event < ApplicationRecord
   scope :today,     -> { joins(:sections).where('sections.event_time': Time.zone.now.beginning_of_day..Time.zone.now.end_of_day) }
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
-  scope :list,      -> { where(status: :published).where.not('uptime < ?', Time.zone.now).order(:uptime) }
+
+  scope :list,      -> { available.where(status: :published).where.not('uptime < ?', Time.zone.now).order(:uptime) }
 
   after_create :set_slug
 
@@ -96,15 +97,15 @@ class Event < ApplicationRecord
   end
 
   def get_thumbnail
-    self.try(:cover, :thumb) || ''
+    self.event_pictures.try(:first).try(:media, :thumb) || ''
   end
 
   def get_cover
-    self.try(:cover, :full) || ''
+    self.try(:cover, :full) || self.event_pictures.try(:first).try(:media, :full)
   end
 
   def get_total_sales
-    orders.sum(:price).to_f / 100
+    orders.paid.sum(:price).to_f / 100
   end
 
   def self.update_uptime_present

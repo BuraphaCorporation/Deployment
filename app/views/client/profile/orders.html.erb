@@ -1,7 +1,7 @@
 <script>$('body').attr('id', 'profile-order-list-page');</script>
 <script>$('body').addClass('profile-page');</script>
 
-<%= render partial: "client/profile/parts/profile_nav" %>
+<%= render partial: "layouts/parts/nav" %>
 <script>$('#profile-nav #menu-my-orders').addClass('active');</script>
 
 <div class="section">
@@ -24,7 +24,7 @@
                   <div class="row">
                     <div class="order-body">
                       <div class="col-xs-12 col-md-6 left">
-                        <a class="cover" style="background-image: url(<%= order.event.try(:cover, :thumb) %>);" target="_blank" href="<%= client_event_path(order.event.id) %>"></a>
+                        <a class="cover" style="background-image: url(<%= order.event.get_thumbnail %>);" target="_blank" href="<%= client_event_path(order.event.id) %>"></a>
                         <h4 class="title"><a target="_blank" href="<%= client_event_path(order.event.id) %>"><%= order.event.title %></a></h4>
                         <div class="info-2">
                           <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= order.event.location_name %></div>
@@ -105,7 +105,7 @@
               <div class="empty">
                 <i class="icon icon-lg icon-shopping"></i>
                 <h4 class="description">ยังไม่มีรายการสั่งซื้อ</h4>
-                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/" target="_self">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
+                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
               </div>
             <% end %>
           </div>
@@ -130,45 +130,37 @@
                 <p style="font-weight: 200;">
                   1. เลือกโอนยอดเงิน <span class="order-price"></span> บาท ผ่านธนาคารที่คุณสะดวก
                 </p>
-                <table width="100%">
-                  <tbody>
-                    <tr>
-                      <td width="50%" style="vertical-align: top;">
-                        <table>
-                          <tr>
-                            <td width="60" valign="top">
-                              <%= image_tag "#{App.domain}/src/images/email/order/kbank-logo.png", width: "50"  %>
-                            </td>
-                            <td valign="top">
-                              <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
-                                ธนาคารกสิกรไทย สาขาเอกมัย<br />
-                                บัญชีออมทรัพย์ <strong>001-3-42202-8</strong>​<br />
-                                ชื่อบัญชี นางสาวลินดา ไกรวณิช
-                              </p>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td width="50%" style="vertical-align: top;">
-                        <table>
-                          <tr>
-                            <td width="60" valign="top">
-                              <%= image_tag "#{App.domain}/src/images/email/order/scb-logo.png", width: "50"  %>
-                            </td>
-                            <td valign="top">
-                              <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
-                                ธนาคารไทยพาณิชย์<br />
-                                สาขาเอกมัย พาวเวอร์ เซ็นเตอร์<br />
-                                บัญชีออมทรัพย์ <strong>250-217556-5</strong>​<br />
-                                ชื่อบัญชี นางสาวลินดา ไกรวณิช
-                              </p>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="row">
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xs-3" style="padding-top: 3px;">
+                        <%= image_tag "#{App.domain}/src/images/email/order/kbank-logo.png", width: "50"  %>
+                      </div>
+                      <div class="col-xs-9">
+                        <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
+                          ธนาคารกสิกรไทย สาขาเอกมัย<br />
+                          บัญชีออมทรัพย์ <strong>001-3-42202-8</strong>​<br />
+                          ชื่อบัญชี นางสาวลินดา ไกรวณิช
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="row">
+                      <div class="col-xs-3" style="padding-top: 3px;">
+                        <%= image_tag "#{App.domain}/src/images/email/order/scb-logo.png", width: "50"  %>
+                      </div>
+                      <div class="col-xs-9">
+                        <p style="font-size: 13px; font-weight: 200; margin-top: 0px;">
+                          ธนาคารไทยพาณิชย์<br />
+                          สาขาเอกมัย พาวเวอร์ เซ็นเตอร์<br />
+                          บัญชีออมทรัพย์ <strong>250-217556-5</strong>​<br />
+                          ชื่อบัญชี นางสาวลินดา ไกรวณิช
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <p style="font-weight: 200; padding-bottom: 30px;">
                   2. แจ้งยืนยันการชำระเงินโดยส่งรูปถ่ายหลักฐานการโอนเงิน<br />
                   พร้อมรหัสการโอนเงิน ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)

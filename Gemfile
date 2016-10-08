@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rails', '5.0.0.1'
-gem 'sinatra', github: 'sinatra'
+gem 'sinatra', git: 'https://github.com/sinatra/sinatra', branch: 'v2.0.0.beta2'
 
 # helper views
 gem 'turbolinks', '~> 5'
@@ -15,8 +15,10 @@ gem 'coffee-rails', '~> 4.2'
 gem 'sprockets'
 gem 'sprockets-es6'
 gem 'jquery-rails'
+gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
 gem 'jquery-validation-rails'
+gem 'parsley-rails'
 gem 'react-rails'
 gem 'slick_rails'
 gem 'momentjs-rails'
@@ -25,12 +27,14 @@ gem 'simple_form'
 gem 'show_for'
 gem 'cocoon'
 gem 'rails_autolink'
+# gem 'sweet-alert'
+# gem 'sweet-alert-confirm'
 
 # helper model
 gem 'figaro'
 gem 'annotate'
 gem 'bcrypt', '~> 3.1.7'
-gem 'paranoia', github: 'rubysherpas/paranoia', branch: 'rails5'
+gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', branch: 'rails5'
 gem 'active_model_serializers'
 gem 'activemodel-serializers-xml'
 gem 'rails-controller-testing'
@@ -44,6 +48,8 @@ gem 'dragonfly', '~> 1.0.12'
 gem 'friendly_id', '~> 5.1.0'
 gem 'has_scope'
 gem 'enumerize'
+
+gem 'meta-tags'
 
 # make api
 gem 'jbuilder', '~> 2.5'
@@ -112,8 +118,7 @@ group :development do
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1.2'
-  gem 'capistrano-rbenv', github: 'capistrano/rbenv'
-  gem 'capistrano-rails-console'
+  gem 'capistrano-rbenv', git: 'https://github.com/capistrano/rbenv'
 
   gem 'airbrussh', require: false
   gem 'slackistrano', '3.1.0.beta'

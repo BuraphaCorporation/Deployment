@@ -18,6 +18,7 @@ end
 set :application, 'Daydash'
 set :repo_url, 'git@github.com:hongklay/daydash.git'
 set :deploy_to, '/home/deploy/daydash'
+set :deploy_user, 'deploy'
 set :ssh_options, {:forward_agent => true}
 
 set :slackistrano, {
@@ -84,21 +85,38 @@ namespace :setup do
 end
 
 namespace :rails do
-  desc 'Console to production'
+  desc "Remote console"
   task :console do
+    on roles(:app), primary: true do
+      run_interactively "bundle exec rails console"
+    end
+  end
+
+  desc "Remote dbconsole"
+  task :dbconsole do
+    on roles(:app), primary: true do
+      run_interactively "bundle exec rails dbconsole"
+    end
+  end
+
+  desc "Remote log"
+  task :log do
     on roles(:web) do
       within current_path do
-        execute :rails, 'console production'
+        execute :sudo, 'tail -f /var/log/nginx/error.log'
       end
     end
   end
 
-  desc "Task log"
-  task :logs do
-    on roles(:web) do
-      within current_path do
-        execute :sudo, 'tail -f -n 20 /var/log/nginx/error.log'
-      end
+  def run_interactively(command, server=nil)
+    exec "ssh #{fetch(:deploy_user)}@#{host} -t 'cd #{deploy_to}/current && #{bundle_cmd_with_rbenv} #{command} #{fetch(:rails_env)}'"
+  end
+
+  def bundle_cmd_with_rbenv
+    if fetch(:rbenv_ruby)
+      "RBENV_VERSION=#{fetch(:rbenv_ruby)} RBENV_ROOT=#{fetch(:rbenv_path)} #{File.join(fetch(:rbenv_path), '/bin/rbenv')} exec bundle exec"
+    else
+      "ruby "
     end
   end
 end

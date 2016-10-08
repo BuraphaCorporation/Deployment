@@ -6,9 +6,6 @@ class Entities::EventExpose < Grape::Entity
   expose :location_address
   expose :latitude
   expose :longitude
-  expose :max_price do |item, option|
-    item.sections.available.max_by{|s| s.price }.price
-  end
   expose :min_price do |item, option|
     if item.sections.available.min_by{|s| s.price }.price == 0
       'free'

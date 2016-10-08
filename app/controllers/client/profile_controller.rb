@@ -6,6 +6,8 @@ class Client::ProfileController < Client::CoreController
   end
 
   def tickets
+    set_seo_title 'Profile'
+
     @ticket = current_user.tickets.where.not(status: :unusable)
     @tickets_active = @ticket.active
     @tickets_passed = @ticket.passed
@@ -13,12 +15,16 @@ class Client::ProfileController < Client::CoreController
   end
 
   def orders
+    set_seo_title 'Orders'
+
     @data       = current_user.orders.includes(:tickets)
     @orders       = @data.has_payments.order(id: :desc)
     @has_tickets  = @orders.present?
   end
 
   def order
+    set_seo_title 'Order'
+
     begin
       @payment = current_user.orders.find(params[:ticket_id])
       @tickets = @payment.tickets
@@ -28,10 +34,14 @@ class Client::ProfileController < Client::CoreController
   end
 
   def wishlist
+    set_seo_title 'Wishlist'
+
     @events = Event.all
   end
 
   def settings
+    set_seo_title 'Setting'
+
     @user = current_user
   end
 
@@ -61,8 +71,10 @@ class Client::ProfileController < Client::CoreController
 
 private
   def user_params
-    params[:user][:birthday] = Date.strptime("#{params[:dob_date]}/#{params[:dob_month]}/#{params[:dob_year]}", "%d/%m/%Y")
-    params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone)
+    if params[:dob_date].present? and params[:dob_month].present? and params[:dob_year].present?
+      params[:user][:birthday] = Date.strptime("#{params[:dob_date]}/#{params[:dob_month]}/#{params[:dob_year]}", "%d/%m/%Y")
+    end
+    params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone, :company, :url, :short_description, :picture, :latitude, :longitude)
   end
 
   def check_password

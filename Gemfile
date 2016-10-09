@@ -2,7 +2,12 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rails', '5.0.0.1'
-gem 'sinatra', git: 'https://github.com/sinatra/sinatra', branch: 'v2.0.0.beta2'
+# gem 'sinatra', github: 'sinatra/sinatra'
+# gem 'rack', github: 'rack/rack'
+
+gem 'refile', github: 'refile/refile', require: 'refile/rails'
+gem 'refile-mini_magick', github: 'refile/refile-mini_magick'
+gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
 
 # helper views
 gem 'turbolinks', '~> 5'
@@ -48,7 +53,6 @@ gem 'dragonfly', '~> 1.0.12'
 gem 'friendly_id', '~> 5.1.0'
 gem 'has_scope'
 gem 'enumerize'
-
 gem 'meta-tags'
 
 # make api
@@ -64,7 +68,7 @@ gem 'redis', '~>3.2'
 gem 'redis-namespace'
 gem 'dalli', '~> 2.7.4'
 gem 'firebase'
-gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
+gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client'
 
 # API
 gem 'devise'
@@ -92,6 +96,14 @@ gem 'google-api-client'
 gem 'mixpanel-ruby'
 gem 'vanity'
 gem 'split'
+
+gem 'administrate', git: 'https://github.com/thoughtbot/administrate', branch: 'master'
+gem 'bourbon'
+gem 'neat'
+# gem 'administrate', git: 'https://github.com/greetpoint/administrate', branch: 'rails5'
+# gem 'bourbon', '~> 5.0.0.beta.6'
+
+
 
 group :development, :test do
   gem 'pry'

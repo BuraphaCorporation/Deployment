@@ -100,6 +100,7 @@ gem 'split'
 gem 'administrate', git: 'git@github.com:arnonhongklay/administrate.git', branch: 'master'
 gem 'bourbon'
 gem 'neat'
+gem 'kaminari'
 
 
 group :development, :test do

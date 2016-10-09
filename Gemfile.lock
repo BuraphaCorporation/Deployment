@@ -741,6 +741,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   jquery-validation-rails
+  kaminari
   koala
   listen (~> 3.0.5)
   mailgun

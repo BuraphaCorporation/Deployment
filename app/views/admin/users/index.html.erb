@@ -1,42 +1,45 @@
-<%= render partial: "layouts/parts/nav" %>
-<script>$('#organizer-nav #menu-user-list').addClass('active');</script>
+<%#
+# Index
 
-<div class="section">
-  <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-md-12">
-          <div class="transaction-list">
-            <div class="list-header">
-              <h1 class="list-title">User list all (<%= @users.count %> users)</h1>
-            </div>
-            <div class="list-body table-responsive">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <td>Name</td>
-                    <td>Phone</td>
-                    <td>Email</td>
-                    <td>Facebook</td>
-                    <td>Gender</td>
-                    <td>created_at</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @users.each do |user| %>
-                  <tr>
-                    <td><%= "#{user.first_name} #{user.last_name}" %></td>
-                    <td><%= user.phone %></td>
-                    <td><%= user.email %></td>
-                    <td><%= user.uid %></td>
-                    <td><%= user.gender %></td>
-                    <td><%= user.created_at %></td>
-                  </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
+This view is the template for the index page.
+It is responsible for rendering the search bar, header and pagination.
+It renders the `_table` partial to display details about the resources.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Collection][1].
+  Contains helper methods to help display a table,
+  and knows which attributes should be displayed in the resource's table.
+- `resources`:
+  An instance of `ActiveRecord::Relation` containing the resources
+  that match the user's search criteria.
+  By default, these resources are passed to the table partial to be displayed.
+- `search_term`:
+  A string containing the term the user has searched for, if any.
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
+%>
+
+<% content_for(:title) do %>
+  <%= display_resource_name(page.resource_name) %>
+<% end %>
+
+<% content_for(:search) do %>
+  <%#= render "search", search_term: search_term %>
+<% end %>
+
+<header class="header">
+  <h1 class="header__heading" id="page-title"><%= content_for(:title) %></h1>
+  <div class="header__actions">
+    <%= link_to(
+      "New #{page.resource_name.titleize.downcase}",
+      [:new, namespace, page.resource_name],
+      class: "button",
+    ) %>
   </div>
-</div>
+</header>
+
+<%= render "collection", collection_presenter: page, resources: resources %>
+
+<%= paginate resources %>

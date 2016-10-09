@@ -8,24 +8,14 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_admin
 
-    include AdminHelper
-    include DaydashHelper
-
-    layout 'daydash'
-
     def authenticate_admin
       # TODO Add authentication logic here.
-      not_found unless current_user && current_user.admin?
-    end
-
-    def not_found
-      raise ActionController::RoutingError.new('Not Found')
     end
 
     # Override this value to specify the number of elements to display at a time
     # on index pages. Defaults to 20.
-    # def records_per_page
-    #   params[:per_page] || 20
-    # end
+    def records_per_page
+      params[:per_page] || 20
+    end
   end
 end

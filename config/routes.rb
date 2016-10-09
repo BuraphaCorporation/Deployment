@@ -68,8 +68,8 @@
 #
 
 Rails.application.routes.draw do
-
   get 'hello_world', to: 'hello_world#index'
+
   get 'errors/not_found'
   get 'errors/internal_server_error'
 
@@ -159,16 +159,33 @@ Rails.application.routes.draw do
       # resources :users, except: :show
     end
 
+    # namespace :admin do
+    #   # get '/', to: 'events#index'
+    #   get '/users', to: 'users#index'
+    #   get '/transactions', to: 'users#transactions'
+    #   # resources :events do
+    #   #   collection do
+    #   #     delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
+    #   #   end
+    #   # end
+    #   # resources :users, except: :show
+    # end
+
     namespace :admin do
-      # get '/', to: 'events#index'
-      get '/users', to: 'users#index'
-      get '/transactions', to: 'users#transactions'
-      # resources :events do
-      #   collection do
-      #     delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
-      #   end
-      # end
-      # resources :users, except: :show
+      resources :users
+      resources :events
+      resources :sections
+      resources :categories
+      # resources :categories_events
+      # resources :event_pictures
+      resources :orders
+      resources :payments
+      # resources :tags
+      # resources :taggings
+      # resources :tickets
+      # resources :wishlists
+
+      root to: "users#index"
     end
   end
 

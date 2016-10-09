@@ -2,7 +2,12 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rails', '5.0.0.1'
-gem 'sinatra', git: 'https://github.com/sinatra/sinatra', branch: 'v2.0.0.beta2'
+# gem 'sinatra', github: 'sinatra/sinatra'
+# gem 'rack', github: 'rack/rack'
+
+gem 'refile',             git: 'git@github.com:arnonhongklay/refile.git', require: 'refile/rails'
+gem 'refile-mini_magick', git: 'git@github.com:arnonhongklay/refile-mini_magick.git'
+gem 'sinatra',            git: 'git@github.com:arnonhongklay/sinatra.git', branch: 'master'
 
 # helper views
 gem 'turbolinks', '~> 5'
@@ -50,7 +55,6 @@ gem 'dragonfly', '~> 1.0.12'
 gem 'friendly_id', '~> 5.1.0'
 gem 'has_scope'
 gem 'enumerize'
-
 gem 'meta-tags'
 
 # make api
@@ -66,7 +70,7 @@ gem 'redis', '~>3.2'
 gem 'redis-namespace'
 gem 'dalli', '~> 2.7.4'
 gem 'firebase'
-gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
+gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client'
 
 # API
 gem 'devise'
@@ -94,6 +98,12 @@ gem 'google-api-client'
 gem 'mixpanel-ruby'
 gem 'vanity'
 gem 'split'
+
+gem 'administrate', git: 'git@github.com:arnonhongklay/administrate.git', branch: 'rails-5'
+gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'bourbon'
+gem 'neat'
+gem 'kaminari' #, git: "https://github.com/amatsuda/kaminari.git", branch: 'master'
 
 group :development, :test do
   gem 'pry'

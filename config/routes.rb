@@ -171,13 +171,13 @@ Rails.application.routes.draw do
 
     namespace :admin do
       resources :users
-      # resources :categories_events
-      # resources :categories
       resources :events
+      resources :sections
+      resources :categories
+      # resources :categories_events
       # resources :event_pictures
       resources :orders
       resources :payments
-      resources :sections
       # resources :tags
       # resources :taggings
       # resources :tickets

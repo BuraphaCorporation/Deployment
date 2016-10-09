@@ -8,6 +8,11 @@ module Admin
   class ApplicationController < Administrate::ApplicationController
     before_action :authenticate_admin
 
+    include AdminHelper
+    include DaydashHelper
+
+    layout 'daydash'
+
     def authenticate_admin
       # TODO Add authentication logic here.
       not_found unless current_user && current_user.admin?

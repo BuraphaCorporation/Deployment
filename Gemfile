@@ -5,9 +5,9 @@ gem 'rails', '5.0.0.1'
 # gem 'sinatra', github: 'sinatra/sinatra'
 # gem 'rack', github: 'rack/rack'
 
-gem 'refile', github: 'refile/refile', require: 'refile/rails'
-gem 'refile-mini_magick', github: 'refile/refile-mini_magick'
-gem 'sinatra', github: 'sinatra/sinatra', branch: 'master'
+gem 'refile',             git: 'git@github.com:arnonhongklay/refile.git', require: 'refile/rails'
+gem 'refile-mini_magick', git: 'git@github.com:arnonhongklay/refile-mini_magick.git'
+gem 'sinatra',            git: 'git@github.com:arnonhongklay/sinatra.git', branch: 'master'
 
 # helper views
 gem 'turbolinks', '~> 5'
@@ -97,12 +97,9 @@ gem 'mixpanel-ruby'
 gem 'vanity'
 gem 'split'
 
-gem 'administrate', git: 'https://github.com/thoughtbot/administrate', branch: 'master'
+gem 'administrate', git: 'git@github.com:arnonhongklay/administrate.git', branch: 'master'
 gem 'bourbon'
 gem 'neat'
-# gem 'administrate', git: 'https://github.com/greetpoint/administrate', branch: 'rails5'
-# gem 'bourbon', '~> 5.0.0.beta.6'
-
 
 
 group :development, :test do

@@ -1,5 +1,23 @@
 GIT
-  remote: git://github.com/refile/refile-mini_magick.git
+  remote: git@github.com:arnonhongklay/administrate.git
+  revision: 84096ca0b90c91f3033d123ad4c2ff691123e73a
+  branch: master
+  specs:
+    administrate (0.2.2)
+      autoprefixer-rails (~> 6.0)
+      bourbon (~> 4.2)
+      datetime_picker_rails (~> 0.0.7)
+      jquery-rails (~> 4.0)
+      kaminari (~> 0.16)
+      momentjs-rails (~> 2.8)
+      neat (~> 1.1)
+      normalize-rails (~> 3.0)
+      rails (>= 4.2, < 5.1)
+      sass-rails (~> 5.0)
+      selectize-rails (~> 0.6)
+
+GIT
+  remote: git@github.com:arnonhongklay/refile-mini_magick.git
   revision: 9c74f7b61c794837a02af3f21d1be96286b7ce4d
   specs:
     refile-mini_magick (0.2.0)
@@ -7,7 +25,7 @@ GIT
       refile (~> 0.5)
 
 GIT
-  remote: git://github.com/refile/refile.git
+  remote: git@github.com:arnonhongklay/refile.git
   revision: d7a42dcd7cf631ba94b01231f535bda061f6af92
   specs:
     refile (0.6.2)
@@ -16,7 +34,7 @@ GIT
       sinatra (>= 1.4.5)
 
 GIT
-  remote: git://github.com/sinatra/sinatra.git
+  remote: git@github.com:arnonhongklay/sinatra.git
   revision: af6dad2a6c31e31617712b15f455b2a3d3eb1c06
   branch: master
   specs:
@@ -51,24 +69,6 @@ GIT
   specs:
     paranoia (2.2.0.pre)
       activerecord (>= 4.0, < 5.1)
-
-GIT
-  remote: https://github.com/thoughtbot/administrate
-  revision: 84096ca0b90c91f3033d123ad4c2ff691123e73a
-  branch: master
-  specs:
-    administrate (0.2.2)
-      autoprefixer-rails (~> 6.0)
-      bourbon (~> 4.2)
-      datetime_picker_rails (~> 0.0.7)
-      jquery-rails (~> 4.0)
-      kaminari (~> 0.16)
-      momentjs-rails (~> 2.8)
-      neat (~> 1.1)
-      normalize-rails (~> 3.0)
-      rails (>= 4.2, < 5.1)
-      sass-rails (~> 5.0)
-      selectize-rails (~> 0.6)
 
 GEM
   remote: https://rubygems.org/

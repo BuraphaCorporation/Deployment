@@ -68,24 +68,6 @@
 #
 
 Rails.application.routes.draw do
-
-  namespace :admin do
-    resources :users
-resources :categories_events
-resources :categories
-resources :events
-resources :event_pictures
-resources :orders
-resources :payments
-resources :sections
-resources :tags
-resources :taggings
-resources :tickets
-resources :wishlists
-
-    root to: "users#index"
-  end
-
   get 'errors/not_found'
   get 'errors/internal_server_error'
 
@@ -186,6 +168,23 @@ resources :wishlists
     #   # end
     #   # resources :users, except: :show
     # end
+
+    namespace :admin do
+      resources :users
+      resources :categories_events
+      resources :categories
+      resources :events
+      resources :event_pictures
+      resources :orders
+      resources :payments
+      resources :sections
+      resources :tags
+      resources :taggings
+      resources :tickets
+      resources :wishlists
+
+      root to: "users#index"
+    end
   end
 
   constraints(subdomain: App.api_host) do

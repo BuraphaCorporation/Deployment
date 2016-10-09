@@ -10,6 +10,11 @@ module Admin
 
     def authenticate_admin
       # TODO Add authentication logic here.
+      not_found unless current_user && current_user.admin?
+    end
+
+    def not_found
+      raise ActionController::RoutingError.new('Not Found')
     end
 
     # Override this value to specify the number of elements to display at a time

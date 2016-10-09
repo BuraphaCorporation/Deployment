@@ -16,7 +16,7 @@ def current_git_branch
 end
 
 set :application, 'Daydash'
-set :repo_url, 'git@github.com:hongklay/daydash.git'
+set :repo_url, 'git@github.com:hongklay/daydash-api.git'
 set :deploy_to, '/home/deploy/daydash'
 set :deploy_user, 'deploy'
 set :ssh_options, {:forward_agent => true}

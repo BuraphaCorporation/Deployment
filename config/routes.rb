@@ -178,9 +178,9 @@ Rails.application.routes.draw do
       # resources :event_pictures
       resources :orders
       resources :payments
+      resources :tickets
       # resources :tags
       # resources :taggings
-      # resources :tickets
       # resources :wishlists
 
       root to: "users#index"

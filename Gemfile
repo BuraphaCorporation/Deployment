@@ -61,23 +61,23 @@ gem 'grape-swagger'
 gem 'grape-swagger-rails'
 gem 'grape-active_model_serializers'
 
-# nosql
+# integration
 gem 'redis', '~>3.2'
 gem 'redis-namespace'
 gem 'dalli', '~> 2.7.4'
-gem 'firebase'
+# gem 'firebase'
 gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
+# gem 'gcloud'
+# gem 'aws-sdk', '>= 2.0.34'
+gem 'one_signal'
+gem 'mailgun'
+gem 'omise'
+# gem 'intercom-rails'
 
-# API
+
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'koala'
-gem 'omise'
-gem 'aws-sdk', '>= 2.0.34'
-gem 'gcloud'
-# gem 'intercom-rails'
-gem 'one_signal'
-gem 'mailgun'
 gem 'slack-notifier'
 
 # worker

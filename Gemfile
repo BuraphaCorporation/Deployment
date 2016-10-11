@@ -143,10 +143,9 @@ platform :ruby do
   gem 'pg'
   gem 'puma'
   gem 'unicorn'
+  gem 'mini_racer'
 end
 
 group :production do
   gem 'rails_12factor'
 end
-
-gem 'mini_racer', platforms: :ruby

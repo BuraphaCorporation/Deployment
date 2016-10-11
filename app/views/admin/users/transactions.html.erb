@@ -30,7 +30,7 @@
                     <td><%= order.status %></td>
                     <td><%= order.code %></td>
                     <td><%= order.event.title %></td>
-                    <td><%= "#{order.user.first_name} #{order.user.last_name}" %></td>
+                    <td><%= "#{order.user.try(:first_name)} #{order.user.try(:last_name)}" %></td>
                     <td><%= order.user.phone %></td>
                     <td><%= order.tickets.count %></td>
                     <td><%= order.payment.channel %></td>

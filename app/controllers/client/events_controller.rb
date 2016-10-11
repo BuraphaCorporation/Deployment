@@ -153,7 +153,9 @@ class Client::EventsController < Client::CoreController
         UserOrderWorker.perform_async(@order.id)
       end
       # UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
-      # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
+      p "========================================================"
+      p "@channel Order ##{@order.code} #{@order.event.try(:title)}\n  #{@order.user.try(:first_name)} #{@order.user.try(:last_name)} เบอร์โทร #{@order.user.try(:phone)}"
+      $slack.ping "@channel Order ##{@order.code} #{@order.event.try(:title)}\n  #{@order.user.try(:first_name)} #{@order.user.try(:last_name)} เบอร์โทร #{@order.user.try(:phone)}"
     end
 
     render :checkout

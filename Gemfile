@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'rails', '5.0.0.1'
-# gem 'sinatra', github: 'sinatra/sinatra'
-# gem 'rack', github: 'rack/rack'
 
 gem 'refile',             git: 'git@github.com:arnonhongklay/refile.git', require: 'refile/rails'
 gem 'refile-mini_magick', git: 'git@github.com:arnonhongklay/refile-mini_magick.git'
@@ -39,10 +37,7 @@ gem 'rails_autolink'
 gem 'figaro'
 gem 'annotate'
 gem 'bcrypt', '~> 3.1.7'
-gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', branch: 'rails5'
-gem 'active_model_serializers'
-gem 'rack-cors'
-gem 'rack-attack'
+gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia.git', branch: 'rails5'
 gem 'activemodel-serializers-xml'
 gem 'rails-controller-testing'
 gem 'open_uri_redirections'
@@ -57,6 +52,9 @@ gem 'meta-tags'
 
 # make api
 gem 'jbuilder', '~> 2.5'
+gem 'active_model_serializers'
+gem 'rack-cors'
+gem 'rack-attack'
 gem 'grape'
 gem 'grape-entity'
 gem 'grape-swagger'
@@ -68,7 +66,7 @@ gem 'redis', '~>3.2'
 gem 'redis-namespace'
 gem 'dalli', '~> 2.7.4'
 gem 'firebase'
-gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client'
+gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
 
 # API
 gem 'devise'
@@ -128,7 +126,7 @@ group :development do
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-rails', '~> 1.1'
   gem 'capistrano-bundler', '~> 1.1.2'
-  gem 'capistrano-rbenv', git: 'https://github.com/capistrano/rbenv'
+  gem 'capistrano-rbenv', git: 'https://github.com/capistrano/rbenv.git'
 
   gem 'airbrussh', require: false
   gem 'slackistrano', '3.1.0.beta'

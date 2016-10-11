@@ -7,6 +7,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_tags_on_title  (title) UNIQUE
+#
 
 FactoryGirl.define do
   factory :tag do

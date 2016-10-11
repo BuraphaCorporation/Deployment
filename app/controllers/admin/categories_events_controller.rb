@@ -13,7 +13,7 @@ module Admin
     #   CategoriesEvent.find_by!(slug: param)
     # end
 
-    # See https://administrate-docs.herokuapp.com/customizing_controller_actions
+    # See https://admin-docs.herokuapp.com/customizing_controller_actions
     # for more information
   end
 end

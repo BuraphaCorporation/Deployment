@@ -1,10 +1,10 @@
-require "administrate/base_dashboard"
+require "admin/base_dashboard"
 
-class TagDashboard < Administrate::BaseDashboard
+class TagDashboard < Admin::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
-  # Each different type represents an Administrate::Field object,
+  # Each different type represents an Admin::Field object,
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {

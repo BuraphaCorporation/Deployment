@@ -3,16 +3,27 @@
 # Table name: users
 #
 #  id                     :integer          not null, primary key
+#  username               :string
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string
 #  last_name              :string
-#  gender                 :boolean
+#  gender                 :string
 #  birthday               :date
 #  phone                  :string
-#  interesting            :string
+#  picture_file_name      :string
+#  picture_content_type   :string
+#  picture_file_size      :integer
+#  picture_updated_at     :datetime
+#  role                   :string
+#  provider               :string
+#  uid                    :string
+#  access_token           :string
+#  omise_customer_id      :string
+#  onesignal_id           :string
 #  company                :string
 #  url                    :string
+#  interest               :string
 #  short_description      :text
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
@@ -31,18 +42,20 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  provider               :string
-#  uid                    :string
-#  role_id                :integer
-#  picture_file_name       :string
-#  picture_content_type    :string
-#  picture_file_size       :integer
-#  picture_updated_at      :datetime
-#  token                  :string
 #  referal_code           :string
 #  referrer_id            :integer
-#  onesignal_id           :string
-#  customer_token         :string
+#  slug                   :string
+#  latitude               :decimal(10, 6)
+#  longitude              :decimal(10, 6)
+#
+# Indexes
+#
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_referrer_id           (referrer_id)
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_slug                  (slug) UNIQUE
+#  index_users_on_unlock_token          (unlock_token) UNIQUE
 #
 
 class UserSerializer < ActiveModel::Serializer

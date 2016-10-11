@@ -7,7 +7,7 @@ to display a collection of resources in an HTML table.
 ## Local variables:
 
 - `collection_presenter`:
-  An instance of [Administrate::Page::Collection][1].
+  An instance of [Admin::Page::Collection][1].
   The table presenter uses `ResourceDashboard::COLLECTION_ATTRIBUTES` to determine
   the columns displayed in the table
 - `resources`:
@@ -15,7 +15,7 @@ to display a collection of resources in an HTML table.
   By default, the number of resources is limited by pagination
   or by a hard limit to prevent excessive page load times
 
-[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Collection
+[1]: http://www.rubydoc.info/gems/admin/Admin/Page/Collection
 %>
 
 <table class="collection-data" aria-labelledby="page-title">
@@ -37,7 +37,7 @@ to display a collection of resources in an HTML table.
             <% if collection_presenter.ordered_by?(attr_name) %>
               <span class="cell-label__sort-indicator cell-label__sort-indicator--<%= collection_presenter.ordered_html_class(attr_name) %>">
                 <%= svg_tag(
-                  "administrate/sort_arrow.svg",
+                  "admin/sort_arrow.svg",
                   "sort_arrow",
                   width: "13",
                   height: "13"
@@ -65,17 +65,17 @@ to display a collection of resources in an HTML table.
         <% end %>
 
         <td><%= link_to(
-          t("administrate.actions.edit"),
+          t("admin.actions.edit"),
           [:edit, namespace, resource],
           class: "action-edit",
         ) %></td>
 
         <td><%= link_to(
-          t("administrate.actions.destroy"),
+          t("admin.actions.destroy"),
           [namespace, resource],
           class: "table__action--destroy",
           method: :delete,
-          data: { confirm: t("administrate.actions.confirm") }
+          data: { confirm: t("admin.actions.confirm") }
         ) %></td>
       </tr>
     <% end %>

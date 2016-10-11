@@ -95,7 +95,7 @@ gem 'mixpanel-ruby'
 gem 'vanity'
 gem 'split'
 
-# gem 'administrate', git: 'git@github.com:arnonhongklay/administrate.git', branch: 'rails-5'
+# gem 'admin', git: 'git@github.com:arnonhongklay/admin.git', branch: 'rails-5'
 # gem 'ransack', github: 'activerecord-hackery/ransack'
 # gem 'bourbon'
 # gem 'neat'

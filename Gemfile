@@ -97,10 +97,10 @@ gem 'mixpanel-ruby'
 gem 'vanity'
 gem 'split'
 
-gem 'administrate', git: 'git@github.com:arnonhongklay/administrate.git', branch: 'rails-5'
-gem 'ransack', github: 'activerecord-hackery/ransack'
-gem 'bourbon'
-gem 'neat'
+# gem 'administrate', git: 'git@github.com:arnonhongklay/administrate.git', branch: 'rails-5'
+# gem 'ransack', github: 'activerecord-hackery/ransack'
+# gem 'bourbon'
+# gem 'neat'
 gem 'kaminari' #, git: "https://github.com/amatsuda/kaminari.git", branch: 'master'
 
 group :development, :test do

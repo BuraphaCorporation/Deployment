@@ -29,8 +29,8 @@ class Mobile::UserAPI < ApplicationAPI
       requires :first_name, type: String, desc: 'first name'
       requires :last_name, type: String, desc: 'last_name'
       requires :phone, type: String, desc: 'phone'
-      requires :birthday, type: String, desc: 'birthday formatting dd/MM/YYYY'
-      requires :gender, type: String, desc: 'male, female input'
+      optional :birthday, type: String, desc: 'birthday formatting dd/MM/YYYY'
+      optional :gender, type: String, desc: 'male, female input'
       requires :onesignal_id, type: String, desc: "token for notification"
     end
     put '/' do

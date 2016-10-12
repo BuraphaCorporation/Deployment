@@ -50,7 +50,6 @@ $(document).on 'turbolinks:load', (event) ->
       lat: lat || 13.725275
       lng: lng || 100.5871969
 
-
     map = new (google.maps.Map)(document.getElementById('google-map'),
       center: eventLocation
       zoom: 15
@@ -65,7 +64,7 @@ $(document).on 'turbolinks:load', (event) ->
       title: 'Hello World!')
     # return
 
-    infowindow = new (google.maps.InfoWindow)(content: location)
+    infowindow = new (google.maps.InfoWindow)(content: "<a href=\"https://www.google.co.th/maps?q=loc:#{lat},#{lng}\" target=\"_blank\">#{location}</a>")
     infowindow.open map, marker
     # marker.addListener 'click', ->
     #   return

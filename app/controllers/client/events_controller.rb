@@ -28,8 +28,8 @@ class Client::EventsController < Client::CoreController
     og: {
       title:          @event.try(:title),
       image: {
-          _:          @event.event_pictures.try(:first).try(:media, :facebook),
-          url:        @event.event_pictures.try(:first).try(:media, :facebook),
+          _:          @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
+          url:        @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
           width:      1200,
           height:     630,
         },
@@ -45,8 +45,8 @@ class Client::EventsController < Client::CoreController
     twitter: {
       title:            @event.try(:title),
       image: {
-        _:              @event.event_pictures.try(:first).try(:media, :facebook),
-        url:            @event.event_pictures.try(:first).try(:media, :facebook),
+        _:              @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
+        url:            @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
         width:          1200,
         height:         630,
       },

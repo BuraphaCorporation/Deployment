@@ -29,12 +29,12 @@
                   <tr>
                     <td><%= order.status %></td>
                     <td><%= order.code %></td>
-                    <td><%= order.event.title %></td>
-                    <td><%= "#{order.user.first_name} #{order.user.last_name}" %></td>
-                    <td><%= order.user.phone %></td>
-                    <td><%= order.tickets.count %></td>
-                    <td><%= order.payment.channel %></td>
-                    <td><%= order.payment.amount %></td>
+                    <td><%= order.event.try(:title) %></td>
+                    <td><%= "#{order.user.try(:first_name)} #{order.user.try(:last_name)}" %></td>
+                    <td><%= order.user.try(:phone) %></td>
+                    <td><%= order.tickets.try(:count) %></td>
+                    <td><%= order.payment.try(:channel) %></td>
+                    <td><%= convert_to_currency(order.payment.try(:to_amount)) %></td>
                     <td><%= order.created_at %></td>
                   </tr>
                   <% end %>

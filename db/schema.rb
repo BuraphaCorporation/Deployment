@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161003011808) do
+ActiveRecord::Schema.define(version: 20161012044331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,25 +50,29 @@ ActiveRecord::Schema.define(version: 20161003011808) do
     t.text     "instruction"
     t.string   "location_name"
     t.string   "location_address"
-    t.decimal  "latitude",           precision: 10, scale: 6
-    t.decimal  "longitude",          precision: 10, scale: 6
+    t.decimal  "latitude",                  precision: 10, scale: 6
+    t.decimal  "longitude",                 precision: 10, scale: 6
     t.datetime "uptime"
     t.integer  "max_price"
     t.integer  "min_price"
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
     t.string   "slug"
     t.string   "name"
     t.string   "ticket_type"
     t.string   "status"
-    t.boolean  "show_highlight",                              default: false
-    t.integer  "total_of_ticket",                             default: 0
-    t.boolean  "share_ticket",                                default: false
+    t.boolean  "show_highlight",                                     default: false
+    t.integer  "total_of_ticket",                                    default: 0
+    t.boolean  "share_ticket",                                       default: false
     t.string   "cover_file_name"
     t.string   "cover_content_type"
     t.integer  "cover_file_size"
     t.datetime "cover_updated_at"
     t.text     "short_description"
+    t.string   "social_share_file_name"
+    t.string   "social_share_content_type"
+    t.integer  "social_share_file_size"
+    t.datetime "social_share_updated_at"
     t.index ["slug"], name: "index_events_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end

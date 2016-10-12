@@ -28,8 +28,8 @@ class Client::EventsController < Client::CoreController
     og: {
       title:          @event.try(:title),
       image: {
-          _:          @event.event_pictures.try(:first).try(:media, :facebook),
-          url:        @event.event_pictures.try(:first).try(:media, :facebook),
+          _:          @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
+          url:        @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
           width:      1200,
           height:     630,
         },
@@ -45,8 +45,8 @@ class Client::EventsController < Client::CoreController
     twitter: {
       title:            @event.try(:title),
       image: {
-        _:              @event.event_pictures.try(:first).try(:media, :facebook),
-        url:            @event.event_pictures.try(:first).try(:media, :facebook),
+        _:              @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
+        url:            @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
         width:          1200,
         height:         630,
       },
@@ -153,7 +153,9 @@ class Client::EventsController < Client::CoreController
         UserOrderWorker.perform_async(@order.id)
       end
       # UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
-      # $slack.ping "#{@order.inspect}\n #{@order.user.inspect}"
+      p "========================================================"
+      p "@channel Order ##{@order.code} #{@order.event.try(:title)}\n  #{@order.user.try(:first_name)} #{@order.user.try(:last_name)} เบอร์โทร #{@order.user.try(:phone)}"
+      $slack.ping "@channel Order ##{@order.code} #{@order.event.try(:title)}\n  #{@order.user.try(:first_name)} #{@order.user.try(:last_name)} เบอร์โทร #{@order.user.try(:phone)}"
     end
 
     render :checkout

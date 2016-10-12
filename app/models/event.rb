@@ -2,32 +2,36 @@
 #
 # Table name: events
 #
-#  id                 :integer          not null, primary key
-#  user_id            :integer
-#  title              :string
-#  description        :text
-#  instruction        :text
-#  location_name      :string
-#  location_address   :string
-#  latitude           :decimal(10, 6)
-#  longitude          :decimal(10, 6)
-#  uptime             :datetime
-#  max_price          :integer
-#  min_price          :integer
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  slug               :string
-#  name               :string
-#  ticket_type        :string
-#  status             :string
-#  show_highlight     :boolean          default(FALSE)
-#  total_of_ticket    :integer          default(0)
-#  share_ticket       :boolean          default(FALSE)
-#  cover_file_name    :string
-#  cover_content_type :string
-#  cover_file_size    :integer
-#  cover_updated_at   :datetime
-#  short_description  :text
+#  id                        :integer          not null, primary key
+#  user_id                   :integer
+#  title                     :string
+#  description               :text
+#  instruction               :text
+#  location_name             :string
+#  location_address          :string
+#  latitude                  :decimal(10, 6)
+#  longitude                 :decimal(10, 6)
+#  uptime                    :datetime
+#  max_price                 :integer
+#  min_price                 :integer
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  slug                      :string
+#  name                      :string
+#  ticket_type               :string
+#  status                    :string
+#  show_highlight            :boolean          default(FALSE)
+#  total_of_ticket           :integer          default(0)
+#  share_ticket              :boolean          default(FALSE)
+#  cover_file_name           :string
+#  cover_content_type        :string
+#  cover_file_size           :integer
+#  cover_updated_at          :datetime
+#  short_description         :text
+#  social_share_file_name    :string
+#  social_share_content_type :string
+#  social_share_file_size    :integer
+#  social_share_updated_at   :datetime
 #
 # Indexes
 #
@@ -58,6 +62,8 @@ class Event < ApplicationRecord
   has_attached_file :cover, styles: { full: "1600x500#" }
   validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
 
+  has_attached_file :social_share, styles: { facebook: "1200x630#" }
+  validates_attachment_content_type :social_share, content_type: /\Aimage\/.*\z/
   # after_create :set_organizer
   # after_create :set_uptime
   # def set_uptime

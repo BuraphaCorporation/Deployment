@@ -114,6 +114,15 @@
                   </div>
                 </div>
                 <div class="form-group">
+                  <label>Facebook og</label>
+                  <input class="form-control" type="file" name="social_share" data-parsley-required="true" />
+                </div>
+                <div class="image-list row">
+                  <div class="col-xs-12">
+                    <div class="image" style="background-image: url(<%= @event.social_share(:facebook) %>);"></div>
+                  </div>
+                </div>
+                <div class="form-group">
                   <label>Images</label>
                   <input class="form-control" type="file" name="event_pictures[]" multiple data-parsley-required="true" />
                 </div>

@@ -186,7 +186,7 @@ private
   end
 
   def event_params
-    params.permit(:title, :slug, :ticket_type, :short_description, :cover, :show_highlight, :description, :instruction, :location_name, :location_address, :latitude, :longitude, :share_ticket)
+    params.permit(:title, :slug, :ticket_type, :short_description, :cover, :social_share, :show_highlight, :description, :instruction, :location_name, :location_address, :latitude, :longitude, :share_ticket)
   end
 
   def all_categories

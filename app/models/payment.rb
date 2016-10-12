@@ -45,6 +45,14 @@ class Payment < ApplicationRecord
   #   "#PM-#{code}"
   # end
 
+  def to_amount
+    if amount.nil?
+      0
+    else
+      amount / 100
+    end
+  end
+
   def channel
     case methods
     when 'omise'

@@ -42,7 +42,8 @@ class Mobile::UserAPI < ApplicationAPI
             present :status, :success
             present :data, user, with: Entities::UserExpose
           else
-            present :status, :failure
+            user.update(first_name: params[:first_name], last_name: params[:last_name], phone: params[:phone], birthday: params[:birthday], gender: params[:gender], onesignal_id: params[:onesignal_id])
+            present :status, :success
             present :data, "gender has male or female not #{params[:gender]}"
           end
         else

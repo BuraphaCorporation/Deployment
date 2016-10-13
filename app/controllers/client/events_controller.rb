@@ -121,14 +121,15 @@ class Client::EventsController < Client::CoreController
         raise @payment[:message]
       else
         @order.approve!
+        @order.sendmail!
       end
-
     when 'bank_transfer'
       @payment = Payment.transfer_notify(@order)
     when 'free'
       raise "error" if @event.sections.min_by(&:price).price > 0
       @payment = Payment.free(@order)
       @order.approve!
+      @order.sendmail!
     end
 
     sections = []
@@ -152,9 +153,9 @@ class Client::EventsController < Client::CoreController
       else
         UserOrderWorker.perform_async(@order.id)
       end
-      # UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
-      p "========================================================"
-      p "@channel Order ##{@order.code} #{@order.event.try(:title)}\n  #{@order.user.try(:first_name)} #{@order.user.try(:last_name)} เบอร์โทร #{@order.user.try(:phone)}"
+    #   UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
+    #   p "========================================================"
+    #   p "@channel Order ##{@order.code} #{@order.event.try(:title)}\n  #{@order.user.try(:first_name)} #{@order.user.try(:last_name)} เบอร์โทร #{@order.user.try(:phone)}"
       $slack.ping "@channel Order ##{@order.code} #{@order.event.try(:title)}\n  #{@order.user.try(:first_name)} #{@order.user.try(:last_name)} เบอร์โทร #{@order.user.try(:phone)}"
     end
 

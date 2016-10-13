@@ -7,6 +7,7 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.welcome.subject
   #
+
   def welcome(user_id)
     @user    = User.find(user_id)
     @subject = "Welcome to daydash.co"
@@ -23,6 +24,8 @@ class UserMailer < ApplicationMailer
     @title     = "Hi #{@user.first_name}, we’ve got your order!"
     @subtitle = "Just one more step :)"
 
+    @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
+
     mail to: @user.email, subject: "Daydash.co - Payment Pending: #{@event.title}"
   end
 
@@ -36,6 +39,8 @@ class UserMailer < ApplicationMailer
     @title     = "Hi #{@user.first_name}, here’s your tickets!"
     @subtitle = "It's time to get excited! 😎"
 
+    @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
+
     mail to: @user.email, subject: "Daydash.co - Your Tickets: #{@event.title}"
   end
 
@@ -46,8 +51,11 @@ class UserMailer < ApplicationMailer
     @payment  = @order.payment
     @tickets  = @order.tickets
 
-    @title = "reminder"
+    @title = "Something cool will happen tomorrow"
+    @subtitle = "Because you can :)"
 
-    mail to: @user.email, subject: @title
+    @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
+
+    mail to: @user.email, subject: "Daydash.co - พรุ่งนี้แล้ว! ชื่องาน"
   end
 end

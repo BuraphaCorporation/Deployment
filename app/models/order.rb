@@ -55,9 +55,15 @@ class Order < ApplicationRecord
     self.update(status: :paid)
     self.payment.update(status: success)
     self.tickets.each{ |ticket| ticket.update(status: :available ) }
+  end
 
+  def send_email
     OrganizerOrderWorker.perform_async(self.id)
     UserOrderWorker.perform_async(self.id)
+  end
+
+  def send_slack
+
   end
 
   def paid?

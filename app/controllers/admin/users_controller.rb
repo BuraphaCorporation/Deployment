@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::CoreController
   before_action :order, only: [:approving, :send_email]
 
   def index
-    @users = User.order(:created_at)
+    @users = User.where(role: :user).order(created_at: :desc)
   end
 
   def transactions

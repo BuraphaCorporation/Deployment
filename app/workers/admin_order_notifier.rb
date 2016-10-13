@@ -5,7 +5,7 @@ class AdminOrderNotifier
   def perform(order_id)
     @order = Order.find(order_id)
 
-    order = "Order ##{@order.code} ยอดขาย #{@order.try(:payment).try(:amount)} (#{@order.status})\n"
+    order = "Order ##{@order.code} ยอดขาย #{@order.try(:payment).try(:to_amount)} (#{@order.status}) by #{@order.payment.methods} \n"
     event = "#{@order.event.try(:title)}\n"
     customer = "#{@order.user.try(:first_name)} #{@order.user.try(:last_name)}\nเบอร์โทร #{@order.user.try(:phone)}"
 

@@ -44,10 +44,7 @@ class Admin::UsersController < Admin::CoreController
   end
 
   def send_email
-    # @order.sendmail!
-    OrganizerOrderWorker.perform_async(@order.id)
-    UserOrderWorker.perform_async(@order.id)
-
+    @order.send_notify!
     redirect_back
   end
 

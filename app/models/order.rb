@@ -63,14 +63,17 @@ class Order < ApplicationRecord
     self.tickets.each{ |ticket| ticket.update(status: :unusable) }
   end
 
-  def sendmail!
-    OrganizerOrderWorker.perform_async(self.id)
-    UserOrderWorker.perform_async(self.id)
-  end
+  def send_notify!
+    if self.tickets.present?
+      if self.omise? || self.free?
+        OrganizerOrderWorker.perform_async(self.id)
+        UserOrderWorker.perform_async(self.id)
+      else
+        UserOrderWorker.perform_async(self.id)
+      end
+    end
 
-  def sendslack!
-    OrganizerOrderWorker.perform_async(self.id)
-    UserOrderWorker.perform_async(self.id)
+    AdminOrderNotifier.perform_async(self.id)
   end
 
   def paid?

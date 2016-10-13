@@ -39,7 +39,8 @@ $(document).on 'turbolinks:load', (event) ->
   initGoogleMapEvent =  ->
     lat = $("#google-map").attr('data-lat')
     lng = $("#google-map").attr('data-lng')
-    location = $("#location").attr('data-location')
+    location_name = $("#location").attr('data-location-name')
+    location_address = $("#location").attr('data-location-address')
 
     return if lat == undefined || lng == undefined
 
@@ -64,7 +65,12 @@ $(document).on 'turbolinks:load', (event) ->
       title: 'Hello World!')
     # return
 
-    infowindow = new (google.maps.InfoWindow)(content: "<a href=\"https://www.google.co.th/maps?q=loc:#{lat},#{lng}\" target=\"_blank\">#{location}</a>")
+    info = "<center>
+      <h5>#{location_name}</h5>
+      <p>#{location_address}</p>
+      <p><a href=\"https://www.google.co.th/maps?q=loc:#{lat},#{lng}\" target=\"_blank\">View on Google Map</a></p>
+    </center>"
+    infowindow = new (google.maps.InfoWindow)(content: info)
     infowindow.open map, marker
     # marker.addListener 'click', ->
     #   return

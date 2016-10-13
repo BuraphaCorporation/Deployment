@@ -19,7 +19,7 @@
             <div class="meta date" style="color: #fff"><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></div>
           </div>
           <div class="col-xs-6">
-            <div class="meta location" id="location" data-location="<%= @event.location_name %>"><i class="icon icon-xs icon-map-pin"></i>
+            <div class="meta location" id="location" data-location-name="<%= @event.location_name %>" data-location-address="<%= @event.location_address %>"><i class="icon icon-xs icon-map-pin"></i>
               <a href="https://www.google.co.th/maps?q=loc:<%= @event.latitude %>,<%= @event.longitude %>"  style="color: #fff" target="_blank"><%= @event.location_name %></a>
             </div>
           </div>

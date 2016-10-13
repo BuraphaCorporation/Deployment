@@ -122,7 +122,6 @@ class Client::EventsController < Client::CoreController
       else
         @order.approve!
       end
-
     when 'bank_transfer'
       @payment = Payment.transfer_notify(@order)
     when 'free'
@@ -145,19 +144,7 @@ class Client::EventsController < Client::CoreController
       raise @payment[:message]
     end
 
-    if @order.tickets.present?
-      if @order.omise? || @order.free?
-        UserTicketWorker.perform_async(@order.id)
-        OrganizerOrderWorker.perform_async(@order.id)
-      else
-        UserOrderWorker.perform_async(@order.id)
-      end
-      # UserTicketWorker.perform_async(@order.id) if @order.payment.status.success?
-      p "========================================================"
-      p "@channel Order ##{@order.code} #{@order.event.try(:title)}\n  #{@order.user.try(:first_name)} #{@order.user.try(:last_name)} เบอร์โทร #{@order.user.try(:phone)}"
-      $slack.ping "@channel Order ##{@order.code} #{@order.event.try(:title)}\n  #{@order.user.try(:first_name)} #{@order.user.try(:last_name)} เบอร์โทร #{@order.user.try(:phone)}"
-    end
-
+    @order.send_notify!
     render :checkout
   rescue Exception => e
     flash[:credit_card_error] = 'ข้อมูลบัตรไม่ถูกต้องค่ะ กรุณาตรวจสอบอีกครั้งค่ะ'

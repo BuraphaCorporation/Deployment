@@ -17,6 +17,5 @@ module Daydash
     config.exceptions_app = self.routes
 
     config.autoload_paths += %W(#{config.root}/lib)
-    # config.eager_load_paths += %W(#{config.root}/app/jobs/workers #{config.root}/lib)
   end
 end

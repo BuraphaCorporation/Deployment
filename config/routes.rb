@@ -162,6 +162,9 @@ Rails.application.routes.draw do
       # get '/', to: 'events#index'
       get '/users', to: 'users#index'
       get '/transactions', to: 'users#transactions'
+      put '/approve/:order_id', to: 'users#approving', as: :approve
+      put '/cancel/:order_id', to: 'users#approving', as: :cancel
+      post '/send_email/:order_id', to: 'users#send_email', as: :send_email
       # resources :events do
       #   collection do
       #     delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment

@@ -17,6 +17,8 @@ class OrganizerMailer < ApplicationMailer
     @title    = "Someone just booked your event!"
     @subtitle = "And here’s the detail :)"
 
+    @link_to_order = "#{App.domain}/organizer/events/#{@event.slug}/orders"
+
     if @event.user.nil?
       mail to: "hello@daydash.co", subject: @title, bcc: "daydash.app@gmail.com"
     else

@@ -1,12 +1,13 @@
 class Admin::UsersController < Admin::CoreController
   before_action :user, only: [:edit, :update, :destroy]
+  before_action :order, only: [:approving, :send_email]
 
   def index
-    @users = User.order(:created_at)
+    @users = User.where(role: :user).order(created_at: :desc)
   end
 
   def transactions
-    @orders = Order.order(:created_at, :status)
+    @orders = Order.order(created_at: :desc, status: :asc)
   end
 
   def new
@@ -33,7 +34,25 @@ class Admin::UsersController < Admin::CoreController
     @user.destroy
   end
 
+  def approving
+    if @order.paid?
+      @order.cancel!
+    else
+      @order.approve!
+    end
+    redirect_back
+  end
+
+  def send_email
+    @order.send_notify!
+    redirect_back
+  end
+
 private
+  def order
+    @order = Order.find(params[:order_id])
+  end
+
   def user
     @user = User.find(params[:id])
   end

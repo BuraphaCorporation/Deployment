@@ -53,11 +53,17 @@ class Order < ApplicationRecord
 
   def approve!
     self.update(status: :paid)
+    self.payment.update(status: success)
+    self.tickets.each{ |ticket| ticket.update(status: :available ) }
+
+    OrganizerOrderWorker.perform_async(self.id)
+    UserOrderWorker.perform_async(self.id)
   end
 
   def paid?
     self.status.paid?
   end
+
   # def order_by_event_upcoming
     # available.order_by()
   # end

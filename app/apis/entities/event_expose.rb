@@ -1,7 +1,9 @@
 class Entities::EventExpose < Grape::Entity
   expose :id
   expose :title
-  expose :description
+  expose :description do |item, option|
+    "<body>#{item.description}</body>"
+  end
   expose :location_name
   expose :location_address
   expose :latitude

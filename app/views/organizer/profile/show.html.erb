@@ -1,0 +1,94 @@
+<script>$('body').attr('id', 'index-page');</script>
+<div class="section" id="cover-section">
+  <div class="slick" id="cover-slick">
+    <% @covers.each do |cover| %>
+      <div>
+        <div class="page-cover" style="background-image: url(<%= cover[:image] %>)">
+          <div class="info">
+            <div class="container">
+              <div class="caption"><%= raw(cover[:caption]) %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="section" id="about-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12 content">
+        <%= @organizer.short_description %>
+        <div class="row">
+          <div class="col-xs-12">
+            <h3>กิจกรรม/อีเว้นท์ ที่จัดโดย <%= @organizer.company %> (<%= @events.count %>)</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+        <div class="row event-list">
+          <% @events.each do |event| %>
+            <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
+              <%= link_to client_event_path(event.to_url), class: "event card", "data-turbolinks" => false do %>
+                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
+                <div class="info">
+                  <h4 class="title text-left"><%= event.title %></h4>
+                  <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
+                  <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+    var initSlick;
+    initSlick = function() {
+      return $('#cover-slick').not('.slick-initialized').slick({
+        infinite: true,
+        dots: false,
+        arrows: false,
+        fade: true,
+        autoplay: true,
+        autoplaySpeed: 4000
+      });
+    };
+
+    initSlick();
+  });
+</script>
+
+<style type="text/css">
+  #about-section {
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 30px;
+    border: 1px solid #eee;
+    background: white;
+    /*margin-top: -110px*/
+  }
+
+  #about-section .content {
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 30px;
+    border: 1px solid #eee;
+    background: white;
+  }
+
+ .about {
+    margin-top: -120px;
+    width: 800px;
+    z-index: 20px;
+    position: relative;
+ }
+ p {
+    line-height: 25px;
+ }
+</style>

@@ -137,10 +137,6 @@ Rails.application.routes.draw do
     end
 
     namespace :organizer do
-      get '/', to: 'dashboard#index'
-      # get '/settings', to: 'dashboard#settings'
-      # post '/settings', to: 'dashboard#settings_update'
-      # get '/logout', to: 'dashboard#logout'
       resources :events do
         member do
           get 'orders', to: 'events#orders'
@@ -156,6 +152,8 @@ Rails.application.routes.draw do
         # end
       end
       # resources :users, except: :show
+      root to: "profile#index"
+      get '/:organizer', to: 'profile#show'
     end
 
     namespace :admin do

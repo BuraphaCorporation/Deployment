@@ -46,6 +46,7 @@ class Client::ProfileController < Client::CoreController
   end
 
   def settings_update
+    p user_params
     current_user.update(user_params)
     redirect_to :back
   end

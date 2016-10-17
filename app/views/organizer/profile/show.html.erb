@@ -6,7 +6,18 @@
         <div class="page-cover" style="background-image: url(<%= cover[:image] %>)">
           <div class="info">
             <div class="container">
-              <div class="caption"><%= raw(cover[:caption]) %></div>
+              <div class="organizer">
+                <%= image_tag @organizer.picture(:medium), width: '120px', height: '120px', style: 'border-radius: 60px; margin: 0 auto' %>
+                <div class="title">
+                  <%= @organizer.company %>
+                </div>
+                <div class="social">
+                  <%= @organizer.facebook %>
+                  <%= @organizer.twitter %>
+                  <%= @organizer.instagram %>
+                  <%= @organizer.url %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -17,7 +28,7 @@
 <div class="section" id="about-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12 content">
+      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12">
         <%= @organizer.short_description %>
         <div class="row">
           <div class="col-xs-12">
@@ -27,21 +38,28 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-xs-12">
+        <p>
+          &nbsp;
+        </p>
+      </div>
+    </div>
 
-        <div class="row event-list">
-          <% @events.each do |event| %>
-            <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
-              <%= link_to client_event_path(event.to_url), class: "event card", "data-turbolinks" => false do %>
-                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
-                <div class="info">
-                  <h4 class="title text-left"><%= event.title %></h4>
-                  <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
-                  <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
-                </div>
-              <% end %>
+    <div class="row event-list">
+      <% @events.each do |event| %>
+        <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
+          <%= link_to client_event_path(event.to_url), class: "event card", "data-turbolinks" => false do %>
+            <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
+            <div class="info">
+              <h4 class="title text-left"><%= event.title %></h4>
+              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
+              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
             </div>
           <% end %>
         </div>
+      <% end %>
+    </div>
   </div>
 </div>
 

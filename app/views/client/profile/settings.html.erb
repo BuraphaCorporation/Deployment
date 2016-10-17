@@ -88,6 +88,22 @@
                 <%= f.text_field :url, value: @user.url, class: 'form-control' %>
               </div>
               <div class="form-group col-xs-12 col-md-6">
+                <label>Facebook URL</label>
+                <%= f.text_field :facebook, value: @user.facebook, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Twitter URL</label>
+                <%= f.text_field :twitter, value: @user.twitter, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>instagram URL</label>
+                <%= f.text_field :instagram, value: @user.instagram, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Youtube URL</label>
+                <%= f.text_field :youtube, value: @user.youtube, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
                 <label>Short Description</label>
                 <%= f.text_area :short_description, size: '50x10', class: 'form-control' do %>
                   <%= @user.short_description %>

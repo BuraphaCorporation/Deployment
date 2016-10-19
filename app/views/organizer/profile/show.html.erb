@@ -3,19 +3,20 @@
   <div class="slick" id="cover-slick">
     <% @covers.each do |cover| %>
       <div>
-        <div class="page-cover" style="background-image: url(<%= cover[:image] %>)">
+        <div class="page-cover" style="height: 300px; background-image: url(<%= cover[:image] %>)">
           <div class="info">
             <div class="container">
               <div class="organizer">
                 <%= image_tag @organizer.picture(:medium), width: '120px', height: '120px', style: 'border-radius: 60px; margin: 0 auto' %>
+                <i class="icon icon-md icon-verified" style="position: absolute; top: 140px; margin-left: 35px;"></i>
                 <div class="title">
                   <%= @organizer.company %>
                 </div>
-                <div class="social">
-                  <%= @organizer.facebook %>
-                  <%= @organizer.twitter %>
-                  <%= @organizer.instagram %>
-                  <%= @organizer.url %>
+                <div class="social" style="margin-top: 20px">
+                  <a href="<%= "https://www.facebook.com/#{@organizer.facebook}" || '#' %>" class="icon icon-md icon-facebook" target="_blank"></a>
+                  <a href="<%= "https://www.instagram.com/#{@organizer.instagram}" || '#' %>" class="icon icon-md icon-instagram" target="_blank"></a>
+                  <a href="<%= "https://www.twitter.com/#{@organizer.twitter}" || '#' %>" class="icon icon-md icon-twitter" target="_blank"></a>
+                  <a href="<%= @organizer.url || '#' %>" class="icon icon-md icon-website" target="_blank"></a>
                 </div>
               </div>
             </div>
@@ -28,21 +29,23 @@
 <div class="section" id="about-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12">
+      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12" style="margin-top: 50px; margin-bottom: 50px;">
         <%= @organizer.short_description %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section" style="background: #FCFBFC">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12">
+        <p> &nbsp; </p>
         <div class="row">
           <div class="col-xs-12">
             <h3>กิจกรรม/อีเว้นท์ ที่จัดโดย <%= @organizer.company %> (<%= @events.count %>)</h3>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-xs-12">
-        <p>
-          &nbsp;
-        </p>
+        <p> &nbsp; </p>
       </div>
     </div>
 

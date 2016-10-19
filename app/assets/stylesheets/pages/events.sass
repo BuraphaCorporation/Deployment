@@ -897,12 +897,15 @@ label
         margin-top: 1px
         margin-right: 5px
     .why-this ul
-      li:before
-        font-size: 18px
+      li
+        font-weight: inherit
+        font-size: 14px
         line-height: 35px
-        list-style-image: asset-url('icons/icon-check-guarantee.png')
-
+        list-style-image: asset-url('icons/icon-highlight-24px@2x.png')
+        font-family: sans-serif
     .guarantee
+      margin-left: -5px
+      margin-right: -5px
       background: #F5F9F8
       text-align: center
       font-size: 14px
@@ -923,6 +926,7 @@ label
         font-weight: 500
         line-height: 1.1
         color: inherit
+        margin-bottom: 40px
       p
         margin: 0px 0px 20px
     .gallery
@@ -962,12 +966,11 @@ label
           vertical-align: text-top
     .buy-panel
       font-family: sans-serif
-      height: 240px
+      font-weight: lighter
       position: relative
       top: -60px
       background: #fff
-      border: 1px solid #eee
-      box-shadow: 0px 4px 20px 2px rgba(0, 0, 0, 0.1)
+      box-shadow: 0px 2px 40px 0px rgba(0, 0, 0, 0.1)
       padding: 20px
       padding-top: 110px
       border-radius: 2px
@@ -976,7 +979,7 @@ label
         font-size: 12px
       .btn-buy
         border-radius: 2px
-        box-shadow: inset 0px -4px
+        // box-shadow: inset 0px -4px
     @media (max-width: 991px)
       padding-top: 15px
 

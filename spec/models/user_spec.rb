@@ -47,6 +47,10 @@
 #  slug                   :string
 #  latitude               :decimal(10, 6)
 #  longitude              :decimal(10, 6)
+#  facebook               :string
+#  twitter                :string
+#  instagram              :string
+#  youtube                :string
 #
 # Indexes
 #

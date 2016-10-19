@@ -21,9 +21,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass', '~> 4.6.2'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
 
-gem 'react-rails'
 gem "react_on_rails", "~> 6"
-gem 'react-rails-hot-loader'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'

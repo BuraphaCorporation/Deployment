@@ -15,12 +15,7 @@
 //= require jquery2
 //= require jquery-ui
 //= require jquery_ujs
-//= require bootstrap
-//= require components
 //= require turbolinks
-//= require react-server
-//= require react
-//= require react_ujs
-//= require react-rails-hot-loader
 //= require moment
 //= require moment/th.js
+//= require bootstrap

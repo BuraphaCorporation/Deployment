@@ -216,6 +216,7 @@
     </div>
   </body>
 
+  <% if App.environment.production? %>
   <!-- Start of Async Drift Code -->
   <script>
   !function() {
@@ -240,5 +241,5 @@
   drift.load('xswzh2iewdvu')
   </script>
   <!-- End of Async Drift Code -->
-
+  <% end %>
 </html>

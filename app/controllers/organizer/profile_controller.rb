@@ -16,7 +16,7 @@ module Organizer
 
     private
       def organizer
-        @organizer = User.where.not(role: :user).find_by_slug(params[:organizer])
+        @organizer = User.where.not(role: :user).find_by_username(params[:organizer])
         not_found if @organizer.blank?
       end
   end

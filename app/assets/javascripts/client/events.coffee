@@ -50,20 +50,27 @@ $(document).on 'turbolinks:load', (event) ->
     eventLocation =
       lat: lat || 13.725275
       lng: lng || 100.5871969
+    centerLocation =
+      lat: lat + 0.001
+      lng: lng
 
     map = new (google.maps.Map)(document.getElementById('google-map'),
-      center: eventLocation
-      zoom: 15
+      center: centerLocation
+      zoom: 16
       scrollwheel: false
       draggable: false
       # zoomControl: false
       disableDoubleClickZoom: true)
 
+    icon_map =
+      url: "#{$("#google-map").attr('data-icon-map-pin')}"
+      scaledSize: new google.maps.Size(64, 76)
+
     marker = new (google.maps.Marker)(
       position: eventLocation
       map: map
+      icon: icon_map
       title: 'Hello World!')
-    # return
 
     info = "<center>
       <h5>#{location_name}</h5>

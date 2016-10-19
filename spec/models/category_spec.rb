@@ -9,6 +9,10 @@
 #  name       :string
 #  slug       :string
 #
+# Indexes
+#
+#  index_categories_on_slug  (slug) UNIQUE
+#
 
 require 'rails_helper'
 

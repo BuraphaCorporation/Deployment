@@ -13,17 +13,9 @@
           letter-spacing: 0.04em;">Daydash Exclusive</span>
       <% end %>
       <h1 class="title"><%= @event.title %></h1>
-      <div class="col-xs-12 col-md-8">
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="meta date" style="color: #fff"><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></div>
-          </div>
-          <div class="col-xs-6">
-            <div class="meta location" id="location" data-location-name="<%= @event.location_name %>" data-location-address="<%= @event.location_address %>"><i class="icon icon-xs icon-map-pin"></i>
-              <a href="https://www.google.co.th/maps?q=loc:<%= @event.latitude %>,<%= @event.longitude %>"  style="color: #fff" target="_blank"><%= @event.location_name %></a>
-            </div>
-          </div>
-        </div>
+      <div class="meta date" style="display: inline-block; float: left; color: #fff"><i class="icon icon-xs icon-calendar-white"></i> <%= @event.to_uptime %></div> &nbsp;
+      <div class="meta location" style="display: inline-block; float: left; margin-left: 10px" id="location" data-location-name="<%= @event.location_name %>" data-location-address="<%= @event.location_address %>"><i class="icon icon-xs icon-location-white"></i>
+        <a href="https://www.google.co.th/maps?q=loc:<%= @event.latitude %>,<%= @event.longitude %>"  style="color: #fff" target="_blank"><%= @event.location_name %></a>
       </div>
     </div>
   </div>
@@ -173,8 +165,8 @@
               <h4 class="title text-left">
                 <%= link_to event.title, client_event_path(event.to_url) %>
               </h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
-              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
+              <div class="meta date"><i class="icon icon-xs icon-calendar-white"></i> <%= event.to_uptime %></div>
+              <div class="meta location"><i class="icon icon-xs icon-location-white"></i> <%= event.location_name %></div>
             </div>
           </div>
         </div>

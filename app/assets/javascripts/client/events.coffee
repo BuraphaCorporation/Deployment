@@ -75,7 +75,10 @@ $(document).on 'turbolinks:load', (event) ->
     info = "<center>
       <h5>#{location_name}</h5>
       <p>#{location_address}</p>
-      <p><a href=\"https://www.google.co.th/maps?q=loc:#{lat},#{lng}\" target=\"_blank\">View on Google Map</a></p>
+      <p>
+        <i class='icon icon-xs icon-direction-flag'></i>
+        <a href=\"https://www.google.co.th/maps?q=loc:#{lat},#{lng}\" target=\"_blank\">View on Google Map</a>
+      </p>
     </center>"
     infowindow = new (google.maps.InfoWindow)(content: info)
     infowindow.open map, marker

@@ -13,6 +13,10 @@
           letter-spacing: 0.04em;">Daydash Exclusive</span>
       <% end %>
       <h1 class="title"><%= @event.title %></h1>
+      <div class="meta date" style="display: inline-block; float: left; color: #fff"><i class="icon icon-xs icon-calendar-white" style="padding-right: 20px"></i> <%= @event.to_uptime %></div> &nbsp;
+      <div class="meta location" style="display: inline-block; float: left; margin-left: 10px" id="location" data-location-name="<%= @event.location_name %>" data-location-address="<%= @event.location_address %>"><i class="icon icon-xs icon-location-white" style="padding-right: 20px"></i>
+        <a href="https://www.google.co.th/maps?q=loc:<%= @event.latitude %>,<%= @event.longitude %>"  style="color: #fff" target="_blank"><%= @event.location_name %></a>
+      </div>
     </div>
   </div>
 </div>
@@ -21,15 +25,78 @@
     <div class="row">
       <div class="col-xs-12 col-md-7">
         <div class="row">
-          <div class="meta-list col-xs-12">
-            <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></div>
-            <div class="meta location" id="location" data-location="<%= @event.location_name %>"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location_name %></div>
+          <div class="col-xs-12 col-md-4">
+            <div class="row">
+              <div class="col-xs-2 col-md-12">
+                <%= image_tag @event.user.picture(:thumb), width: 70, height: 70, style: 'border-radius: 50px; border: 1px solid #EFEFEF' %>
+                <div style="position: absolute; top: 50px; left: 70px">
+                  <i class="icon icon-md icon-verified"></i>
+                </div>
+              </div>
+              <div class="col-xs-10 col-md-12">
+                <p style="margin-top: 20px; font-size: 12px;">Organized By</p>
+                <h3 style="margin-top: 0;"><%= link_to  @event.user.company, organizer_path(@event.user.username), style: 'color: #000' %></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-8">
+            <h2>Why This?</h2>
+            <div class="why-this">
+              <ul>
+                <li>เวิร์คช็อปหนึ่งวันเต็มกับมืออาชีพตัวจริง</li>
+                <li>ราคารวมอุปกรณ์พร้อมให้กลับไปฝึกฝนต่อที่บ้านได้</li>
+                <li>ไม่จำเป็นต้องมีพื้นฐานมาก่อน</li>
+              </ul>
+            </div>
           </div>
         </div>
-        <div class="description">
-            <%= auto_link(simple_format(@event.description), :link => :all, :html => {:target => "_blank"}) %>
+        <div class="row">
+          <div class="col-xs-12">
+            <hr>
+          </div>
         </div>
-        <div class="gallery row">
+        <div class="row description">
+          <div class="col col-xs-12">
+            <h2>Details</h2>
+            <%= auto_link(simple_format(@event.description), :link => :all, :html => {:target => "_blank"}) %>
+          </div>
+        </div>
+        <div class="row guarantee">
+          <div class="col col-xs-12 col-md-4">
+            <p>
+              <i class="icon icon-md icon-check-guarantee"></i>
+            </p>
+            <p>
+              100% Guaranteed<br>
+              รับประกันความพอใจ 100%
+            </p>
+          </div>
+          <div class="col col-xs-12 col-md-4">
+            <p>
+              <i class="icon icon-md icon-check-like"></i>
+            </p>
+            <p>
+              What You see is what you get <br>
+              โปร่งใส ไม่มีค่าธรรมเนียมเพิ่มเติม
+            </p>
+          </div>
+          <div class="col col-xs-12 col-md-4">
+            <p>
+              <i class="icon icon-md icon-check-lock"></i>
+            </p>
+            <p>
+              Secured Payment<br>
+              ชำระผ่านบัตรเครดิตที่ปลอดภัย
+            </p>
+          </div>
+        </div>
+        <% if @event.instruction.present? %>
+        <div class="instruction">
+          <h2>More Details and Conditions</h2>
+          <%= auto_link(simple_format(@event.instruction), :link => :all, :html => {:target => "_blank"}) %>
+        </div>
+        <% end %>
+        <div class="row gallery">
           <% @event.event_pictures.each do |image| %>
           <div class="col col-xs-6 col-md-4">
             <a class="image" style="background-image: url(<%= image.try(:media, :thumb) %>);" data-toggle="lightbox" href="<%= image.try(:media, :thumb) %>" data-parent=".gallery" data-gallery="multiimages"></a>
@@ -39,15 +106,34 @@
       </div>
       <div class="col-md-1"></div>
       <div class="col-xs-12 col-md-4">
-        <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
+        <div class="buy-panel">
+          <div style="position: absolute;top: 30px;">
+            เริ่มต้นที่
+          </div>
+          <div style="position: absolute;top: 50px;font-size: 34px;">
+            <%= convert_to_currency(@section.price) %>
+          </div>
+          <!-- <div style="position: absolute;top: 50px;right: 20px;">
+            จากราคาปกติ: ฿2,800
+          </div>
+          <div style="position: absolute;top: 70px;right: 20px;color: #D85B56;">
+            ลดไป ฿300 (11% off)
+          </div> -->
+
+          <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
+            Buy Ticket
+          </button>
+          <p class="comment">* เลือกจำนวนและชนิดของบัตรในขั้นตอนต่อไป</p>
+        </div>
+        <!-- <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
           <% if @section.price == 0 %>
             รับบัตร<%= convert_to_currency(@section.price) %>
           <% else %>
             ซื้อบัตร - <%= "เริ่มที่" if @section_count > 1 %> <%= convert_to_currency(@section.price) %>
           <% end %>
-        </button>
+        </button> -->
         <div class="map-panel">
-          <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>"></div>
+          <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>" data-icon-map-pin="<%= asset_url('icons/map-pin-blue-32px@2x.png') %>"></div>
         </div>
         <div class="social-panel">
           <div class="row">
@@ -81,8 +167,8 @@
               <h4 class="title text-left">
                 <%= link_to event.title, client_event_path(event.to_url) %>
               </h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
-              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
+              <div class="meta date"><i class="icon icon-xs icon-calendar-white"></i> <%= event.to_uptime %></div>
+              <div class="meta location"><i class="icon icon-xs icon-location-white"></i> <%= event.location_name %></div>
             </div>
           </div>
         </div>

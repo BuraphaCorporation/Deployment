@@ -451,6 +451,7 @@ label
       display: inline-block
       overflow: hidden
       text-overflow: ellipsis
+      float: left
 
   .title
     margin-bottom: 25px
@@ -791,6 +792,18 @@ label
           font-weight: bold
         .subtitle
           font-size: 24px
+      .organizer
+        font-family: "Athiti"
+        margin-top: 50px
+        text-align: center
+        color: white
+        text-shadow: 0px 1px rgba(0, 0, 0, 0.3)
+        .title
+          // font-family: "Kanit", "Helvetica Neue", "sans-serif"
+          font-size: 30px
+          font-weight: 100
+        .social
+          font-size: 24px
 
     @media (max-width: 991px)
       .page-cover
@@ -883,6 +896,23 @@ label
         float: left
         margin-top: 1px
         margin-right: 5px
+    .why-this ul
+      li
+        font-weight: inherit
+        font-size: 14px
+        line-height: 35px
+        list-style-image: asset-url('icons/icon-highlight-24px@2x.png')
+        font-family: sans-serif
+    .guarantee
+      margin-left: -5px
+      margin-right: -5px
+      background: #F5F9F8
+      text-align: center
+      font-size: 14px
+      margin-bottom: 20px
+      padding: 20px 0px
+      .col
+        padding: 20px 0px
     .description
       font-family: sans-serif
       font-size: 16px
@@ -891,6 +921,12 @@ label
       margin-bottom: 50px
       line-height: 1.7em
       word-wrap: break-word
+      h2
+        font-family: "Athiti"
+        font-weight: 500
+        line-height: 1.1
+        color: inherit
+        margin-bottom: 40px
       p
         margin: 0px 0px 20px
     .gallery
@@ -910,6 +946,7 @@ label
     .btn-daydash-lg
       margin-bottom: 15px
     .map-panel
+      margin-top: -40px
       margin-bottom: 15px
       border-radius: 2px
       background: $gray-color-e
@@ -927,7 +964,22 @@ label
         text-align: center
         *
           vertical-align: text-top
-
+    .buy-panel
+      font-family: sans-serif
+      font-weight: lighter
+      position: relative
+      top: -60px
+      background: #fff
+      box-shadow: 0px 2px 40px 0px rgba(0, 0, 0, 0.1)
+      padding: 20px
+      padding-top: 110px
+      border-radius: 2px
+      .comment
+        text-align: center
+        font-size: 12px
+      .btn-buy
+        border-radius: 2px
+        // box-shadow: inset 0px -4px
     @media (max-width: 991px)
       padding-top: 15px
 
@@ -946,6 +998,8 @@ label
         margin-bottom: 0px
         font-size: 20px
 
+      .buy-panel
+        display: none
       .map-panel
         #google-map
           height: 200px

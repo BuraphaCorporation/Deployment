@@ -24,4 +24,3 @@
 //= require react-rails-hot-loader
 //= require moment
 //= require moment/th.js
-//= require webpack-bundle

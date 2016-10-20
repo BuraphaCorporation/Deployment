@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function(event) {
+$(document).on('ready turbolinks:load', function(event) {
   var bodyId, initCategory, initGoogleMapEvent, initGoogleMapOrganizer, initSlick, set_category, updateLatLng;
   bodyId = $('body').attr('id');
   initSlick = function() {

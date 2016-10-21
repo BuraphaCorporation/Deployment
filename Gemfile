@@ -53,6 +53,7 @@ gem 'rqrcode_png'
 gem 'dragonfly', '~> 1.0.12'
 
 gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
 gem 'devise'
 gem 'omniauth-facebook'
 gem 'koala'

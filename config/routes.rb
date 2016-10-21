@@ -253,14 +253,14 @@ Rails.application.routes.draw do
       resources :events
       resources :sections
       resources :categories
-      # resources :categories_events
-      # resources :event_pictures
+      resources :categories_events
+      resources :event_pictures
       resources :orders
       resources :payments
       resources :tickets
-      # resources :tags
-      # resources :taggings
-      # resources :wishlists
+      resources :tags
+      resources :taggings
+      resources :wishlists
 
       root to: "users#index"
       # get '/', to: 'events#index'

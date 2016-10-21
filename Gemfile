@@ -39,7 +39,7 @@ gem 'rails_autolink'
 gem 'rails-controller-testing'
 gem 'kaminari' #, git: "https://github.com/amatsuda/kaminari.git", branch: 'master'
 
-# helper model
+# ActiveRecord Helper
 gem 'figaro'
 gem 'annotate'
 gem 'has_scope'
@@ -51,6 +51,7 @@ gem "paperclip", git: "https://github.com/thoughtbot/paperclip.git"
 gem 'paperclip-ffmpeg'
 gem 'rqrcode_png'
 gem 'dragonfly', '~> 1.0.12'
+gem 'money-rails'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
@@ -85,8 +86,8 @@ gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git
 # gem 'firebase'
 # gem 'gcloud'
 gem 'aws-sdk', '~> 2'
-gem 'mailgun'
 gem 'omise'
+gem 'mailgun'
 gem 'one_signal'
 
 gem 'slack-notifier'

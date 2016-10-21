@@ -370,6 +370,16 @@ GEM
     mixpanel-ruby (2.2.0)
     momentjs-rails (2.15.1)
       railties (>= 3.1)
+    monetize (1.4.0)
+      money (~> 6.7)
+    money (6.7.1)
+      i18n (>= 0.6.4, <= 0.7.0)
+      sixarm_ruby_unaccent (>= 1.1.1, < 2)
+    money-rails (1.7.0)
+      activesupport (>= 3.0)
+      monetize (~> 1.4.0)
+      money (~> 6.7)
+      railties (>= 3.0)
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
@@ -573,6 +583,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
+    sixarm_ruby_unaccent (1.1.1)
     slack-notifier (1.5.1)
     slackistrano (3.1.0.beta)
       capistrano (>= 3.5.0)
@@ -701,6 +712,7 @@ DEPENDENCIES
   mini_racer
   mixpanel-ruby
   momentjs-rails
+  money-rails
   omise
   omniauth-facebook
   one_signal

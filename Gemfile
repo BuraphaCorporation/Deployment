@@ -47,7 +47,7 @@ gem 'enumerize'
 gem 'friendly_id', '~> 5.1.0'
 gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia.git', branch: 'rails5'
 gem 'activemodel-serializers-xml'
-gem 'paperclip'
+gem "paperclip", git: "https://github.com/thoughtbot/paperclip.git"
 gem 'paperclip-ffmpeg'
 gem 'rqrcode_png'
 gem 'dragonfly', '~> 1.0.12'
@@ -111,11 +111,11 @@ gem 'mixpanel-ruby'
 gem 'vanity'
 gem 'split'
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-pluralize'
-  gem 'rails-assets-es6-promise'
-  gem 'rails-assets-fetch'
-end
+# source 'https://rails-assets.org' do
+#   gem 'rails-assets-pluralize'
+#   gem 'rails-assets-es6-promise'
+#   gem 'rails-assets-fetch'
+# end
 
 platform :ruby do
   gem 'pg'
@@ -177,6 +177,7 @@ group :test do
   gem 'shoulda'
   gem 'shoulda-matchers'#, '~> 3.0'
   gem 'poltergeist'
+  gem 'foreman'
   gem 'launchy'
   gem 'rspec-collection_matchers'
   gem 'simplecov'

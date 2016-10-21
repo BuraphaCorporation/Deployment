@@ -52,9 +52,19 @@ GIT
     paranoia (2.2.0.pre)
       activerecord (>= 4.0, < 5.1)
 
+GIT
+  remote: https://github.com/thoughtbot/paperclip.git
+  revision: 915c904d9a1382f53f4dcc822878ebb7c2024bb6
+  specs:
+    paperclip (5.1.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (~> 0.3.0)
+
 GEM
   remote: https://rubygems.org/
-  remote: https://rails-assets.org/
   specs:
     actioncable (5.0.0.1)
       actionpack (= 5.0.0.1)
@@ -112,12 +122,12 @@ GEM
     arel (7.1.4)
     autoprefixer-rails (6.5.1)
       execjs
-    aws-sdk (2.3.22)
-      aws-sdk-resources (= 2.3.22)
-    aws-sdk-core (2.3.22)
+    aws-sdk (2.6.12)
+      aws-sdk-resources (= 2.6.12)
+    aws-sdk-core (2.6.12)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.3.22)
-      aws-sdk-core (= 2.3.22)
+    aws-sdk-resources (2.6.12)
+      aws-sdk-core (= 2.6.12)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -398,12 +408,6 @@ GEM
     open_uri_redirections (0.2.1)
     orm_adapter (0.5.0)
     os (0.9.6)
-    paperclip (5.1.0)
-      activemodel (>= 4.2.0)
-      activesupport (>= 4.2.0)
-      cocaine (~> 0.5.5)
-      mime-types
-      mimemagic (~> 0.3.0)
     paperclip-ffmpeg (1.2.0)
       paperclip (>= 2.5.2)
       rails
@@ -451,9 +455,6 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.0.0.1)
       sprockets-rails (>= 2.0.0)
-    rails-assets-es6-promise (4.0.5)
-    rails-assets-fetch (1.0.0)
-    rails-assets-pluralize (3.0.0)
     rails-controller-testing (1.0.1)
       actionpack (~> 5.x)
       actionview (~> 5.x)
@@ -673,6 +674,7 @@ DEPENDENCIES
   ffaker
   figaro
   font-awesome-sass (~> 4.6.2)
+  foreman
   friendly_id (~> 5.1.0)
   google-api-client
   grape
@@ -703,7 +705,7 @@ DEPENDENCIES
   omniauth-facebook
   one_signal
   open_uri_redirections
-  paperclip
+  paperclip!
   paperclip-ffmpeg
   paranoia!
   parse-ruby-client!
@@ -719,9 +721,6 @@ DEPENDENCIES
   rack-attack
   rack-cors
   rails (= 5.0.0.1)
-  rails-assets-es6-promise!
-  rails-assets-fetch!
-  rails-assets-pluralize!
   rails-controller-testing
   rails_12factor
   rails_autolink

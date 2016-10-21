@@ -18,6 +18,6 @@
 //= require jquery-ui
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap
 //= require moment
 //= require moment/th.js
-//= require bootstrap

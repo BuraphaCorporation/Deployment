@@ -1,7 +1,6 @@
 
-Rails.application.configure do |config|
-  config.paperclip_defaults = {
-    storage: :s3,
+Rails.application.config.paperclip_defaults = {
+    storage:              :s3,
     s3_host_name:         's3-ap-southeast-1.amazonaws.com',
     s3_protocol:          'https',
     url:                  ':s3_domain_url',
@@ -13,7 +12,6 @@ Rails.application.configure do |config|
       s3_region:          ENV.fetch('AWS_REGION'),
     }
   }
-end
 
 # Aws.config.update({
 #   region: ENV.fetch('AWS_REGION'),

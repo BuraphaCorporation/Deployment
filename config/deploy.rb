@@ -54,6 +54,16 @@ namespace :deploy do
     end
   end
 
+  desc 'Bower Install'
+  task :bower_install do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute :bower, :install
+      end
+    end
+  end
+
+  before 'deploy:assets:precompile', :bower_install
   after :finishing, 'deploy:cleanup'
   after :publishing, 'deploy:restart'
   after :published, :restart_workers

@@ -72,7 +72,7 @@ namespace :deploy do
     end
   end
 
-  before 'deploy:assets:precompile', :npm_install
+  # before 'deploy:assets:precompile', :npm_install
   after :finishing, 'deploy:cleanup'
   after :publishing, 'deploy:restart'
   after :published, :restart_workers

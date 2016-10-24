@@ -12,10 +12,12 @@
 
 // webpack-bundle
 
+//= require turbolinks
 //= require jquery2
 //= require jquery-ui
 //= require jquery_ujs
-//= require turbolinks
+//= require jquery.turbolinks
+
 //= require bootstrap
 //= require moment
 //= require moment/th.js

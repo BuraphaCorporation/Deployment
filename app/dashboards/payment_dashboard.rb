@@ -1,4 +1,4 @@
-require "admin/base_dashboard"
+require 'admin/base_dashboard'
 
 class PaymentDashboard < Admin::BaseDashboard
   # ATTRIBUTE_TYPES

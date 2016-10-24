@@ -1,4 +1,4 @@
-require "admin/base_dashboard"
+require 'admin/base_dashboard'
 
 class CategoriesEventDashboard < Admin::BaseDashboard
   # ATTRIBUTE_TYPES

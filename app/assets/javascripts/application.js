@@ -9,14 +9,13 @@
 //
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
-//
+
+// webpack-bundle
+
 //= require jquery2
 //= require jquery-ui
 //= require jquery_ujs
-//= require bootstrap
 //= require turbolinks
-//= require react
-//= require react_ujs
-//= require components
+//= require bootstrap
 //= require moment
 //= require moment/th.js

@@ -3,17 +3,6 @@ $(document).on('turbolinks:load', function() {
 
   bodyId = $('body').attr('id');
 
-  // initSlick = function() {
-    $('#cover-slick').not('.slick-initialized').slick({
-      infinite: true,
-      dots: false,
-      arrows: false,
-      fade: true,
-      autoplay: true,
-      autoplaySpeed: 4000
-    });
-  // };
-
   $('.category-filter').on('click', function() {
     var category_id;
     category_id = $(this).attr('data-filter');
@@ -47,6 +36,21 @@ $(document).on('turbolinks:load', function() {
     return false;
   };
 
-  // initSlick();
   initCategory();
+});
+
+// $(document).ready('ready', function(){
+$(document).on('turbolinks:load', function() {
+  initSlick = function() {
+    $('#cover-slick').not('.slick-initialized').slick({
+      infinite: true,
+      dots: false,
+      arrows: false,
+      fade: true,
+      autoplay: true,
+      autoplaySpeed: 4000
+    });
+  };
+
+  initSlick();
 });

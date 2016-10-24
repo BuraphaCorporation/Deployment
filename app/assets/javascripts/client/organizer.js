@@ -1,5 +1,6 @@
 
-$(document).on('turbolinks:load', function(event) {
+$(document).on('turbolinks:load', function() {
+  var bodyId = $('body').attr('id');
   if (bodyId === "organizer-events-new") {
     return onTicketAdd();
   }

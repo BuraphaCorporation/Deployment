@@ -248,6 +248,12 @@ Rails.application.routes.draw do
     #   # resources :users, except: :show
     # end
 
+    get 'admin/users', to: 'temporary#index', as: :admin_users
+    get 'admin/transactions', to: 'temporary#transactions', as: :admin_transactions
+    put 'admin/approve/:order_id', to: 'temporary#approving', as: :admin_approve
+    put 'admin/cancel/:order_id', to: 'temporary#approving', as: :admin_cancel
+    post 'admin/send_email/:order_id', to: 'temporary#send_email', as: :admin_send_email
+
     namespace :admin do
       resources :users
       resources :events
@@ -263,13 +269,8 @@ Rails.application.routes.draw do
       resources :wishlists
 
       root to: "users#index"
-      # get '/', to: 'events#index'
-      # get '/users', to: 'users#index'
-      # get '/transactions', to: 'users#transactions'
-      # put '/approve/:order_id', to: 'users#approving', as: :approve
-      # put '/cancel/:order_id', to: 'users#approving', as: :cancel
-      # post '/send_email/:order_id', to: 'users#send_email', as: :send_email
     end
+
   end
 
   constraints(subdomain: App.api_host) do

@@ -250,11 +250,11 @@ Rails.application.routes.draw do
     #   # resources :users, except: :show
     # end
 
-    # get 'admin/users', to: 'temporary#index', as: :admin_users
-    # get 'admin/transactions', to: 'temporary#transactions', as: :admin_transactions
-    # put 'admin/approve/:order_id', to: 'temporary#approving', as: :admin_approve
-    # put 'admin/cancel/:order_id', to: 'temporary#approving', as: :admin_cancel
-    # post 'admin/send_email/:order_id', to: 'temporary#send_email', as: :admin_send_email
+    get 'manage/users', to: 'temporary#index', as: :manage_users
+    get 'manage/transactions', to: 'temporary#transactions', as: :manage_transactions
+    put 'manage/approve/:order_id', to: 'temporary#approving', as: :manage_approve
+    put 'manage/cancel/:order_id', to: 'temporary#approving', as: :manage_cancel
+    post 'manage/send_email/:order_id', to: 'temporary#send_email', as: :manage_send_email
     #
     # namespace :admin do
     #   resources :users

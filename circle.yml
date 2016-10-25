@@ -36,7 +36,7 @@ dependencies:
     # - gem uninstall bundler # use a custom version of bundler
     - gem install bundler -v 1.13.6
   override:
-    - bundle install
+    # - bundle install
     - npm install
   post:
     - bundle exec rake assets:precompile

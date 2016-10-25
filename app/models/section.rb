@@ -78,7 +78,7 @@ class Section < ApplicationRecord
   end
 
   def percent
-    ((self.initial_price.to_f - self.price.to_f) / self.initial_price.to_f * 100.0)
+    ((self.initial_price.to_f - self.price.to_f) / self.initial_price.to_f * 100.0).to_i
   end
 
   def discount

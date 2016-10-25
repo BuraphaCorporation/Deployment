@@ -43,9 +43,13 @@
             <h2>Why This?</h2>
             <div class="why-this">
               <ul>
+                <% if @event.whythis.present? %>
+                  <%= @event.whythis.html_safe %>
+                <% else %>
                 <li>เวิร์คช็อปหนึ่งวันเต็มกับมืออาชีพตัวจริง</li>
                 <li>ราคารวมอุปกรณ์พร้อมให้กลับไปฝึกฝนต่อที่บ้านได้</li>
                 <li>ไม่จำเป็นต้องมีพื้นฐานมาก่อน</li>
+                <% end %>
               </ul>
             </div>
           </div>
@@ -113,12 +117,14 @@
           <div style="position: absolute; top: 50px; font-size: 34px;">
             <%= convert_to_currency(@section.price) %>
           </div>
-          <!-- <div style="position: absolute; top: 50px; right: 20px;">
-            จากราคาปกติ: ฿2,800
-          </div>
-          <div style="position: absolute; top: 70px; right: 20px; color: #D85B56;">
-            ลดไป ฿300 (11% off)
-          </div> -->
+          <% if @section.initial_price.present? %>
+            <div style="position: absolute; top: 50px; right: 20px;">
+              จากราคาปกติ: <%= convert_to_currency(@section.initial_price) %>
+            </div>
+            <div style="position: absolute; top: 70px; right: 20px; color: #D85B56;">
+              ลดไป <%= convert_to_currency(@section.discount) %> (<%= @section.percent %>% off)
+            </div>
+          <%end %>
 
           <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
             Buy Ticket

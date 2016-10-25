@@ -8,8 +8,8 @@ gem 'refile-mini_magick', git: 'git@github.com:arnonhongklay/refile-mini_magick.
 gem 'sinatra',            git: 'git@github.com:arnonhongklay/sinatra.git', branch: 'master'
 
 # gem 'activeadmin'
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-gem 'activeadmin', github: 'activeadmin'
+gem 'inherited_resources', git: 'git@github.com:activeadmin/inherited_resources.git'
+gem 'activeadmin',         git: 'git@github.com:activeadmin/activeadmin.git'
 
 # core lib for views
 gem 'uglifier', '>= 1.3.0'

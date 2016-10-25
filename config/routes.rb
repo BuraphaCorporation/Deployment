@@ -272,7 +272,6 @@ Rails.application.routes.draw do
     #
     #   root to: "users#index"
     # end
-
   end
 
   constraints(subdomain: App.api_host) do

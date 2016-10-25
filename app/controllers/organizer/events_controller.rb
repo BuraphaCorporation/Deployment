@@ -119,7 +119,7 @@ module Organizer
       end unless params[:event_pictures].nil?
 
       (0..params[:new_ticket_names].count - 1).each do |section|
-        next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_units][section].present?
+        next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_initials][section].present?
 
         if params[:new_ticket_event_time][section].present? and params[:new_ticket_end_time][section].present?
           event_time = Time.zone.parse(params[:new_ticket_event_time][section])
@@ -166,7 +166,7 @@ module Organizer
       end unless params[:tickets].nil?
 
       (0..params[:new_ticket_names].count - 1).each do |section|
-        next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_units][section].present?
+        next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_initials][section].present?
 
         if params[:new_ticket_event_time][section].present? and params[:new_ticket_end_time][section].present?
           event_time = Time.zone.parse(params[:new_ticket_event_time][section])

@@ -149,7 +149,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  get 'hello_world', to: 'hello_world#index'
+  # get 'hello_world', to: 'hello_world#index'
 
   get 'errors/not_found'
   get 'errors/internal_server_error'

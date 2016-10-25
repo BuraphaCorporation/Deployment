@@ -1,0 +1,6 @@
+pages:
+
+- statics: # Page Statics
+  - statics: # bhf can work from this point on because there is a model named Static
+      table:
+        per_page: 2

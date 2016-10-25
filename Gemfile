@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.3.1'
 
-gem 'rails', '5.0.0.1'
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
 gem 'refile',             git: 'git@github.com:arnonhongklay/refile.git', require: 'refile/rails'
 gem 'refile-mini_magick', git: 'git@github.com:arnonhongklay/refile-mini_magick.git'
@@ -55,7 +55,10 @@ gem "paperclip", git: "https://github.com/thoughtbot/paperclip.git"
 gem 'paperclip-ffmpeg'
 gem 'rqrcode_png'
 gem 'dragonfly', '~> 1.0.12'
+gem 'money'
+gem 'monetize'
 gem 'money-rails'
+
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
@@ -122,9 +125,11 @@ gem 'split'
 #   gem 'rails-assets-fetch'
 # end
 
+# gem 'bhf', git: 'git@github.com:antpaw/bhf.git'
+
 platform :ruby do
-  gem 'pg'
-  gem 'puma'
+  gem 'pg', '~> 0.18'
+  gem 'puma', '~> 3.0'
   gem 'unicorn'
   gem 'mini_racer'
 end

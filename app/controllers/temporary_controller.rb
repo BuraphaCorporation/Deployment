@@ -2,6 +2,8 @@ class TemporaryController < ApplicationController
   before_action :authenticate_admin
   before_action :order, only: [:approving, :send_email]
 
+  http_basic_authenticate_with name: 'admin', password: 'x'
+
   layout 'daydash'
 
   def index
@@ -27,6 +29,12 @@ class TemporaryController < ApplicationController
     UserOrderWorker.perform_async(@order.id)
 
     redirect_back
+  end
+
+  def login
+    # bhf checks for this session in a before_filter, if it's true user will pass
+    session[:is_admin] = true
+    redirect_to x.root_url
   end
 
   private

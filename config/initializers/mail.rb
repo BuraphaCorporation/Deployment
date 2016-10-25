@@ -9,6 +9,7 @@
 # }
 
 Rails.application.configure do
+
   config.app_domain                           = App.domain
   config.action_mailer.default_url_options    = { host: App.domain }
   config.action_mailer.delivery_method        = :smtp

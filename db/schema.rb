@@ -57,12 +57,6 @@ ActiveRecord::Schema.define(version: 20161024140842) do
     t.index ["user_id"], name: "index_api_keys_on_user_id", using: :btree
   end
 
-  create_table "application_models", force: :cascade do |t|
-    t.string   "model"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at", null: false
@@ -123,70 +117,6 @@ ActiveRecord::Schema.define(version: 20161024140842) do
     t.datetime "social_share_updated_at"
     t.index ["slug"], name: "index_events_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
-  end
-
-  create_table "faalis_groups", force: :cascade do |t|
-    t.string   "name"
-    t.string   "role"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["role"], name: "index_faalis_groups_on_role", unique: true, using: :btree
-  end
-
-  create_table "faalis_groups_permissions", force: :cascade do |t|
-    t.integer "permission_id"
-    t.integer "group_id"
-  end
-
-  create_table "faalis_groups_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "group_id"
-    t.index ["user_id", "group_id"], name: "by_user_and_group", unique: true, using: :btree
-  end
-
-  create_table "faalis_permissions", force: :cascade do |t|
-    t.string   "model"
-    t.string   "permission_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["model"], name: "index_faalis_permissions_on_model", using: :btree
-  end
-
-  create_table "faalis_user_messages", force: :cascade do |t|
-    t.integer  "sender_id"
-    t.integer  "receiver_id"
-    t.boolean  "read_only"
-    t.text     "content"
-    t.text     "raw_content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["receiver_id"], name: "index_faalis_user_messages_on_receiver_id", using: :btree
-    t.index ["sender_id"], name: "index_faalis_user_messages_on_sender_id", using: :btree
-  end
-
-  create_table "faalis_users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "provider",               default: ""
-    t.string   "uid"
-    t.integer  "failed_attempts",        default: 0
-    t.string   "unlock_token"
-    t.datetime "locked_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["email"], name: "index_faalis_users_on_email", unique: true, using: :btree
-    t.index ["reset_password_token"], name: "index_faalis_users_on_reset_password_token", unique: true, using: :btree
-    t.index ["unlock_token"], name: "index_faalis_users_on_unlock_token", unique: true, using: :btree
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

@@ -8,9 +8,9 @@ $green-color: #19D4D6;
 
 #error_explanation {
   font-size: 16px;
-  h2{
+  h2 {
     font-size: 20px;
-}
+  }
 }
 html,
 body{
@@ -18,7 +18,7 @@ body{
   font-family: "Athiti", "Helvetica Neue", "sans-serif";
   color: $gray-color-4;
   font-size: 16px;}
-#topbar{
+#topbar {
   .navbar{
     margin-bottom: 0px;
     border-bottom: 1px solid $gray-color-e;}
@@ -829,7 +829,6 @@ label{
     .btn-daydash-lg{
       margin-bottom: 15px;}
     .map-panel{
-      margin-top: -40px;
       margin-bottom: 15px;
       border-radius: 2px;
       background: $gray-color-e;
@@ -847,28 +846,36 @@ label{
         text-align: center;
         *{
           vertical-align: text-top;}}}
-    .buy-panel{
+    .event-right-panel {
+      margin-top: -60px;
+    }
+    .buy-panel {
       font-family: sans-serif;
       font-weight: lighter;
-      position: relative;
-      top: -60px;
       background: #fff;
       box-shadow: 0px 2px 40px 0px rgba(0, 0, 0, 0.1);
       padding: 20px;
       padding-top: 110px;
       border-radius: 2px;
-      .comment{
+      margin-bottom: 15px;
+      .comment {
         text-align: center;
         font-size: 12px;}
-      .btn-buy{
-        border-radius: 2px;}}
+      .btn-buy {
+        border-radius: 2px;
+      }
+    }
+
     @media (max-width: 991px){
+      .event-right-panel {
+        margin-top: 15px;
+      }
       padding-top: 15px;
       .meta{
         margin-bottom: 15px;}
       .description{
         font-size: 14px;}
-      .btn-buy{
+      .btn-buy {
         position: fixed;
         bottom: 0px;
         left: 0px;
@@ -876,9 +883,11 @@ label{
         height: auto;
         z-index: 999;
         margin-bottom: 0px;
-        font-size: 20px;}
-      .buy-panel{
-        display: none;}
+        font-size: 20px;
+      }
+      // .buy-panel{
+      //   display: none;
+      // }
       .map-panel{
         #google-map{
           height: 200px;}}}}

@@ -464,3 +464,4 @@ end
 
 puts "update event uptime"
 Event.update_uptime_present
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

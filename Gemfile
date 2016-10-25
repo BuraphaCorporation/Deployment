@@ -10,6 +10,7 @@ gem 'sinatra',            git: 'git@github.com:arnonhongklay/sinatra.git', branc
 # gem 'activeadmin'
 gem 'inherited_resources', git: 'git@github.com:activeadmin/inherited_resources.git'
 gem 'activeadmin',         git: 'git@github.com:activeadmin/activeadmin.git'
+gem 'jsonapi'
 
 # core lib for views
 gem 'uglifier', '>= 1.3.0'
@@ -89,7 +90,7 @@ gem 'redis', '~>3.2'
 gem 'redis-namespace'
 gem 'dalli', '~> 2.7.4'
 
-gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
+# gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client.git'
 # gem 'firebase'
 # gem 'gcloud'
 gem 'aws-sdk', '~> 2'

@@ -72,7 +72,7 @@ gem 'sidekiq-cron'
 # make api
 gem 'jbuilder', '~> 2.5'
 gem 'jsonapi'
-gem 'jsonapi-parser'
+gem 'jsonapi-parser', '~> 0.1.1.beta2'
 gem 'active_model_serializers'
 gem 'rack-cors'
 gem 'rack-attack'

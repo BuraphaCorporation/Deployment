@@ -734,7 +734,7 @@ DEPENDENCIES
   jquery-ui-rails
   jquery-validation-rails
   jsonapi
-  jsonapi-parser
+  jsonapi-parser (~> 0.1.1.beta2)
   jwt
   kaminari
   koala

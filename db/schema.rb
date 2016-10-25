@@ -10,10 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161021021540) do
+ActiveRecord::Schema.define(version: 20161024140842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace"
+    t.text     "body"
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
+    t.string   "author_type"
+    t.integer  "author_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+  end
 
   create_table "api_keys", force: :cascade do |t|
     t.string   "access_token"
@@ -24,6 +55,12 @@ ActiveRecord::Schema.define(version: 20161021021540) do
     t.datetime "updated_at",   null: false
     t.index ["access_token"], name: "index_api_keys_on_access_token", unique: true, using: :btree
     t.index ["user_id"], name: "index_api_keys_on_user_id", using: :btree
+  end
+
+  create_table "application_models", force: :cascade do |t|
+    t.string   "model"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -86,6 +123,70 @@ ActiveRecord::Schema.define(version: 20161021021540) do
     t.datetime "social_share_updated_at"
     t.index ["slug"], name: "index_events_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
+  end
+
+  create_table "faalis_groups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "role"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["role"], name: "index_faalis_groups_on_role", unique: true, using: :btree
+  end
+
+  create_table "faalis_groups_permissions", force: :cascade do |t|
+    t.integer "permission_id"
+    t.integer "group_id"
+  end
+
+  create_table "faalis_groups_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "group_id"
+    t.index ["user_id", "group_id"], name: "by_user_and_group", unique: true, using: :btree
+  end
+
+  create_table "faalis_permissions", force: :cascade do |t|
+    t.string   "model"
+    t.string   "permission_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["model"], name: "index_faalis_permissions_on_model", using: :btree
+  end
+
+  create_table "faalis_user_messages", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.boolean  "read_only"
+    t.text     "content"
+    t.text     "raw_content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["receiver_id"], name: "index_faalis_user_messages_on_receiver_id", using: :btree
+    t.index ["sender_id"], name: "index_faalis_user_messages_on_sender_id", using: :btree
+  end
+
+  create_table "faalis_users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "provider",               default: ""
+    t.string   "uid"
+    t.integer  "failed_attempts",        default: 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["email"], name: "index_faalis_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_faalis_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["unlock_token"], name: "index_faalis_users_on_unlock_token", unique: true, using: :btree
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

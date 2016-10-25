@@ -147,6 +147,8 @@
 #
 
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   get 'hello_world', to: 'hello_world#index'
 
   get 'errors/not_found'
@@ -248,28 +250,28 @@ Rails.application.routes.draw do
     #   # resources :users, except: :show
     # end
 
-    get 'admin/users', to: 'temporary#index', as: :admin_users
-    get 'admin/transactions', to: 'temporary#transactions', as: :admin_transactions
-    put 'admin/approve/:order_id', to: 'temporary#approving', as: :admin_approve
-    put 'admin/cancel/:order_id', to: 'temporary#approving', as: :admin_cancel
-    post 'admin/send_email/:order_id', to: 'temporary#send_email', as: :admin_send_email
-
-    namespace :admin do
-      resources :users
-      resources :events
-      resources :sections
-      resources :categories
-      resources :categories_events
-      resources :event_pictures
-      resources :orders
-      resources :payments
-      resources :tickets
-      resources :tags
-      resources :taggings
-      resources :wishlists
-
-      root to: "users#index"
-    end
+    # get 'admin/users', to: 'temporary#index', as: :admin_users
+    # get 'admin/transactions', to: 'temporary#transactions', as: :admin_transactions
+    # put 'admin/approve/:order_id', to: 'temporary#approving', as: :admin_approve
+    # put 'admin/cancel/:order_id', to: 'temporary#approving', as: :admin_cancel
+    # post 'admin/send_email/:order_id', to: 'temporary#send_email', as: :admin_send_email
+    #
+    # namespace :admin do
+    #   resources :users
+    #   resources :events
+    #   resources :sections
+    #   resources :categories
+    #   resources :categories_events
+    #   resources :event_pictures
+    #   resources :orders
+    #   resources :payments
+    #   resources :tickets
+    #   resources :tags
+    #   resources :taggings
+    #   resources :wishlists
+    #
+    #   root to: "users#index"
+    # end
 
   end
 

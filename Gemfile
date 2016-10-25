@@ -7,6 +7,10 @@ gem 'refile',             git: 'git@github.com:arnonhongklay/refile.git', requir
 gem 'refile-mini_magick', git: 'git@github.com:arnonhongklay/refile-mini_magick.git'
 gem 'sinatra',            git: 'git@github.com:arnonhongklay/sinatra.git', branch: 'master'
 
+# gem 'activeadmin'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'activeadmin', github: 'activeadmin'
+
 # core lib for views
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'

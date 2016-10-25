@@ -7,10 +7,6 @@ gem 'refile',             git: 'git@github.com:arnonhongklay/refile.git', requir
 gem 'refile-mini_magick', git: 'git@github.com:arnonhongklay/refile-mini_magick.git'
 gem 'sinatra',            git: 'git@github.com:arnonhongklay/sinatra.git', branch: 'master'
 
-# gem 'activeadmin'
-gem 'inherited_resources', git: 'git@github.com:activeadmin/inherited_resources.git'
-gem 'activeadmin',         git: 'git@github.com:activeadmin/activeadmin.git'
-
 # core lib for views
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
@@ -128,6 +124,10 @@ gem 'split'
 # end
 
 # gem 'bhf', git: 'git@github.com:antpaw/bhf.git'
+
+gem 'inherited_resources', git: 'git@github.com:activeadmin/inherited_resources.git'
+gem 'activeadmin',         git: 'git@github.com:activeadmin/activeadmin.git'
+
 
 platform :ruby do
   gem 'pg', '~> 0.18'

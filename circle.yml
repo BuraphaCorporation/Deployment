@@ -34,7 +34,7 @@ dependencies:
   pre:
     # - npm install coffeescript # install from a different package manager
     # - gem uninstall bundler # use a custom version of bundler
-    - gem install bundler -v 1.13.5
+    - gem install bundler -v 1.13.6
   override:
     - bundle install
     - npm install

@@ -58,14 +58,6 @@ GIT
       tilt (~> 2.0)
 
 GIT
-  remote: https://github.com/adelevie/parse-ruby-client.git
-  revision: 6762affe7dc3f51b340cec50ba8509972e55e363
-  specs:
-    parse-ruby-client (1.0.0.alpha2)
-      faraday (~> 0.9.2)
-      faraday_middleware (~> 0.10.0)
-
-GIT
   remote: https://github.com/capistrano/rbenv.git
   revision: e056efc0c361cc15b76ff961d6c5f65ed5e2c57e
   specs:
@@ -263,8 +255,6 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.10.0)
-      faraday (>= 0.7.4, < 0.10)
     ffaker (2.2.0)
     ffi (1.9.14)
     figaro (1.1.1)
@@ -748,6 +738,8 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   jquery-validation-rails
+  jsonapi
+  jsonapi-parser
   jwt
   kaminari
   koala
@@ -769,7 +761,6 @@ DEPENDENCIES
   paperclip!
   paperclip-ffmpeg
   paranoia!
-  parse-ruby-client!
   parsley-rails
   pg (~> 0.18)
   poltergeist
@@ -822,4 +813,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.13.5
+   1.13.6

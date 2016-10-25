@@ -10,7 +10,6 @@ gem 'sinatra',            git: 'git@github.com:arnonhongklay/sinatra.git', branc
 # gem 'activeadmin'
 gem 'inherited_resources', git: 'git@github.com:activeadmin/inherited_resources.git'
 gem 'activeadmin',         git: 'git@github.com:activeadmin/activeadmin.git'
-gem 'jsonapi'
 
 # core lib for views
 gem 'uglifier', '>= 1.3.0'
@@ -76,6 +75,8 @@ gem 'sidekiq-cron'
 
 # make api
 gem 'jbuilder', '~> 2.5'
+gem 'jsonapi'
+gem 'jsonapi-parser'
 gem 'active_model_serializers'
 gem 'rack-cors'
 gem 'rack-attack'

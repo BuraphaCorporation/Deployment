@@ -126,7 +126,8 @@ gem 'split'
 # gem 'bhf', git: 'git@github.com:antpaw/bhf.git'
 
 gem 'inherited_resources', git: 'git@github.com:activeadmin/inherited_resources.git'
-gem 'activeadmin',         git: 'git@github.com:activeadmin/activeadmin.git'
+# gem 'activeadmin',         git: 'git@github.com:activeadmin/activeadmin.git'
+gem 'activeadmin', '~> 1.0.0.pre4'
 
 
 platform :ruby do

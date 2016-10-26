@@ -112,11 +112,19 @@
       <div class="col-xs-12 col-md-4 event-right-panel">
         <div class="buy-panel">
           <div style="position: absolute; top: 30px;">
-            เริ่มต้นที่
+            <%= @section_count > 1 ? "เริ่มต้นที่" : 'ราคา' %>
           </div>
-          <div style="position: absolute; top: 50px; font-size: 34px;">
-            <%= convert_to_currency(@section.price) %>
-          </div>
+
+          <% if @section.initial_price.present?  %>
+            <div style="position: absolute; top: 50px; font-size: 34px;">
+              <%= convert_to_currency(@section.price) %>
+            </div>
+          <% else %>
+            <div style="position: absolute; top: 50px; right: 20px; font-size: 34px;">
+              <%= convert_to_currency(@section.price) %>
+            </div>
+          <% end %>
+
           <% if @section.initial_price.present? %>
             <div style="position: absolute; top: 50px; right: 20px;">
               จากราคาปกติ: <%= convert_to_currency(@section.initial_price) %>

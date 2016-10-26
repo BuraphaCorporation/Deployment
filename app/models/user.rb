@@ -174,12 +174,14 @@ class User < ApplicationRecord
   end
 
   def self.process_date_of_birth(data)
+    return if data.nil?
     p "process_date_of_birth data #{data}"
     date = data.split('/')
     date = Date.new(date[2].to_i, date[0].to_i, date[1].to_i)
   end
 
   def self.process_uri(uri)
+    return if url.nil?
     open(uri, allow_redirections: :safe) { |r| r.base_uri.to_s }
   end
 

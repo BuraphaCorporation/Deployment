@@ -16,7 +16,7 @@ class Client::EventsController < Client::CoreController
   end
 
   def show
-    @event    = Event.friendly.find(params[:id])
+    @event    = Event.where('lower(slug) = ?', params[:id].downcase).first
     @section_count = @event.sections.count
 
     @sections = @event.ticket_type.deal? ? @event.sections.order(:event_time): @event.sections.available
@@ -157,6 +157,6 @@ private
   end
 
   def event_payment
-    @event = Event.friendly.find(params[:event_id])
+    @event = Event.friendly.find(params[:event_id].downcase)
   end
 end

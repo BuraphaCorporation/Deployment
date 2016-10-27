@@ -65,7 +65,7 @@ class Order < ApplicationRecord
 
   def send_notify!
     return unless self.tickets.present?
-    binding.pry
+
     if self.paid?
       OrganizerOrderWorker.perform_async(self.id)
       UserTicketWorker.perform_async(self.id)

@@ -125,7 +125,7 @@ class Event < ApplicationRecord
 private
   def set_slug
     if self.slug.blank?
-      set_slug_var = self.title.parameterize
+      set_slug_var = self.title.parameterize.downcase
 
       if set_slug_var.blank?
         self.slug = self.title

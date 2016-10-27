@@ -181,7 +181,7 @@ class User < ApplicationRecord
   end
 
   def self.process_uri(uri)
-    return if url.nil?
+    return if uri.nil?
     open(uri, allow_redirections: :safe) { |r| r.base_uri.to_s }
   end
 

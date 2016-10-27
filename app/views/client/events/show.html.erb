@@ -95,9 +95,11 @@
           </div>
         </div>
         <% if @event.instruction.present? %>
-        <div class="instruction">
-          <h2>More Details and Conditions</h2>
-          <%= auto_link(simple_format(@event.instruction), :link => :all, :html => {:target => "_blank"}) %>
+        <div class="row description">
+          <div class="col col-xs-12 col-md-4">
+            <h2>More Details and Conditions</h2>
+            <%= auto_link(simple_format(@event.instruction), :link => :all, :html => {:target => "_blank"}) %>
+          </div>
         </div>
         <% end %>
         <div class="row gallery">

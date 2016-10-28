@@ -13,10 +13,27 @@
                   <%= @organizer.company %>
                 </div>
                 <div class="social" style="margin-top: 20px">
-                  <a href="<%= @organizer.facebook.present? ? "https://www.facebook.com/#{@organizer.facebook}" : '#' %>" class="icon icon-md icon-facebook" <%= 'target="_blank"' if @organizer.facebook.present? %>></a>
-                  <a href="<%= @organizer.instagram.present? ? "https://www.instagram.com/#{@organizer.instagram}" : '#' %>" class="icon icon-md icon-instagram" <%= 'target="_blank"' if @organizer.instagram.present? %>></a>
-                  <a href="<%= @organizer.twitter.present? ? "https://www.twitter.com/#{@organizer.twitter}" : '#' %>" class="icon icon-md icon-twitter" <%= 'target="_blank"' if @organizer.twitter.present? %>></a>
-                  <a href="<%= @organizer.url || '#' %>" class="icon icon-md icon-website" <%= 'target="_blank"' if @organizer.facebook.present? %>></a>
+                  <% if @organizer.facebook.present? %>
+                    <%= link_to @organizer.facebook, target: "_blank" do %>
+                      <i class="icon icon-md icon-facebook"></i>
+                    <% end %>
+                  <% end %>
+                  <% if @organizer.instagram.present? %>
+                    <%= link_to @organizer.instagram, target: "_blank" do %>
+                      <i class="icon icon-md icon-instagram"></i>
+                    <% end %>
+                  <% end %>
+                  <% if @organizer.twitter.present? %>
+                    <%= link_to @organizer.instagram, target: "_blank" do %>
+                      <i class="icon icon-md icon-twitter"></i>
+                    <% end %>
+                  <% end %>
+                  <% if @organizer.url.present? %>
+                    <%= link_to @organizer.url, target: "_blank" do %>
+                      <i class="icon icon-md icon-website"></i>
+                    <% end %>
+                  <% end %>
+
                 </div>
               </div>
             </div>
@@ -29,7 +46,7 @@
 <div class="section" id="about-section">
   <div class="container">
     <div class="row">
-      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12" style="margin-top: 50px; margin-bottom: 50px;">
+      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12" style="margin-top: 20px; margin-bottom: 20px;">
         <%= @organizer.short_description %>
       </div>
     </div>

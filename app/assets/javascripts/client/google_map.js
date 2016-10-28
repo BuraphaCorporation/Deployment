@@ -17,30 +17,37 @@ $(document).on('turbolinks:load', function() {
       lng: lng || 100.5871969
     };
     centerLocation = {
-      lat: lat + 0.001,
+      lat: lat + 0.002,
       lng: lng
     };
     map = new google.maps.Map(document.getElementById('google-map'), {
       center: centerLocation,
       zoom: 16,
       scrollwheel: false,
-      draggable: false,
+      draggable: true,
       disableDoubleClickZoom: true
     });
     icon_map = {
       url: "" + ($("#google-map").attr('data-icon-map-pin')),
       scaledSize: new google.maps.Size(64, 76)
     };
+
     marker = new google.maps.Marker({
       position: eventLocation,
       map: map,
       icon: icon_map,
       title: 'Hello World!'
     });
+
+    marker.addListener('click', function() {
+      infowindow.open(map, marker);
+    });
+
     info = "<center> <h5>" + location_name + "</h5> <p>" + location_address + "</p> <p> <i class='icon icon-xs icon-direction-flag'></i> <a href=\"https://www.google.co.th/maps?q=loc:" + lat + "," + lng + "\" target=\"_blank\">View on Google Map</a> </p> </center>";
     infowindow = new google.maps.InfoWindow({
       content: info
     });
+
     return infowindow.open(map, marker);
   };
 

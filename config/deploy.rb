@@ -118,11 +118,20 @@ namespace :rails do
     end
   end
 
-  desc "Remote log"
-  task :log do
+  desc "log error"
+  task :log_access do
     on roles(:web) do
       within current_path do
-        execute :sudo, 'tail -f /var/log/nginx/error.log'
+        execute :sudo, 'tail -f /home/deploy/log/access.log'
+      end
+    end
+  end
+
+  desc "log access"
+  task :log_error do
+    on roles(:web) do
+      within current_path do
+        execute :sudo, 'tail -f /home/deploy/log/error.log'
       end
     end
   end

@@ -186,8 +186,8 @@ Rails.application.routes.draw do
 
     get '/react-api' => 'application#index', defaults: { format: :json }
 
-    get '/blog',        to: 'greetings#blog'
-    get '/blog/:slug',  to: 'greetings#blog'
+    # get '/blog',        to: 'greetings#blog'
+    # get '/blog/:slug',  to: 'greetings#blog'
     get '/rating',      to: 'greetings#rating'
 
     get '/about',                 to: 'greetings#about'

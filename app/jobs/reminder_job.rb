@@ -6,6 +6,6 @@ class ReminderJob < ApplicationJob
       UserReminderWorker.perform_async(order.id) if order.events.ticket_type.general?
     end
   rescue Exception => e
-    put e
+    p e
   end
 end

@@ -68,7 +68,7 @@ module Organizer
     end
 
     def orders
-      @orders = @event.orders.order(created_at: :desc)
+      @orders = @event.orders.where(status: :paid).order(created_at: :desc)
     end
 
     def tickets

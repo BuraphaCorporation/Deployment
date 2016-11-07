@@ -5,7 +5,6 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-  <%= App.configure.ga_tracking_code %>
   ga('create', '<%= App.configure.ga_tracking_code %>', 'auto');
   <% unless current_user.try(:admin?) %>
     ga('send', 'pageview');

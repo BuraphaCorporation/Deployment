@@ -73,7 +73,7 @@
         <div class="row description">
           <div class="col col-xs-12">
             <h2>Details</h2>
-            <%= auto_link(simple_format(@event.description), :link => :all, :html => {:target => "_blank"}) %>
+            <%= auto_link(simple_format(@event.description), :link => :all, :html => { :target => "_blank" }) %>
           </div>
         </div>
         <div class="row guarantee">
@@ -303,4 +303,10 @@
   function number_format(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+</script>
+
+<script type="text/javascript">
+  $('.description a').each(function() {
+    $(this).attr('target', '_blank')
+  });
 </script>

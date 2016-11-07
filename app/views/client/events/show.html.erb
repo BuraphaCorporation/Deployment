@@ -259,6 +259,12 @@
   function nextToCheckout(){
     $("#selection-error").hide();
 
+    ga('send', 'event', {
+      eventCategory: 'Button',
+      eventAction: 'Clicked',
+      eventLabel: 'Select Ticket'
+    });
+
     var is_error = true;
 
     var total = $("select[name*='section']").length
@@ -308,5 +314,13 @@
 <script type="text/javascript">
   $('.description a').each(function() {
     $(this).attr('target', '_blank')
+  });
+
+  $('.btn-buy').on('click', function(){
+    ga('send', 'event', {
+      eventCategory: 'Button',
+      eventAction: 'Clicked',
+      eventLabel: 'Buy Ticket'
+    });
   });
 </script>

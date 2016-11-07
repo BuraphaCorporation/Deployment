@@ -259,13 +259,11 @@
   function nextToCheckout(){
     $("#selection-error").hide();
 
-    <% unless current_user.admin? %>
-      ga('send', 'event', {
-        eventCategory: 'Button',
-        eventAction: 'Clicked',
-        eventLabel: 'Select Ticket'
-      });
-    <% end %>
+    ga('send', 'event', {
+      eventCategory: 'Button',
+      eventAction: 'Clicked',
+      eventLabel: 'Select Ticket'
+    });
 
     var is_error = true;
 
@@ -317,13 +315,12 @@
   $('.description a').each(function() {
     $(this).attr('target', '_blank')
   });
-  <% unless current_user.admin? %>
-    $('.btn-buy').on('click', function(){
-      ga('send', 'event', {
-        eventCategory: 'Button',
-        eventAction: 'Clicked',
-        eventLabel: 'Buy Ticket'
-      });
+
+  $('.btn-buy').on('click', function(){
+    ga('send', 'event', {
+      eventCategory: 'Button',
+      eventAction: 'Clicked',
+      eventLabel: 'Buy Ticket'
     });
-  <% end %>
+  });
 </script>

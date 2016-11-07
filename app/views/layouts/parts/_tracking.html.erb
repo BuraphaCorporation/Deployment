@@ -1,6 +1,5 @@
 
 <% if App.environment.production? %>
-  <% if current_user.nil? or not current_user.admin? %>
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -9,9 +8,6 @@
 
     ga('create', 'UA-82041608-1', 'auto');
     ga('send', 'pageview');
-
-   //  ga('create', 'UA-82041608-2', 'auto');
-   //  ga('send', 'pageview');
   </script>
 
   <!-- Google Tag Manager --><!--
@@ -50,6 +46,4 @@
           a.appendChild(r);
       })(window,document,'//static.hotjar.com/c/hotjar-','.js?sv=');
   </script>
-
-  <% end %>
 <% end %>

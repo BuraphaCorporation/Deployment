@@ -80,14 +80,20 @@ class App < Struct.new(:region, :environment, :version)
     when 'production'
       config.firebase             = 'https://daydash.firebaseio.com/'
       config.redis                = { host: 'redis.daydash.co', port: 6379, timeout: 25 }
+      config.ga_tracking_code     = 'UA-82041608-1'
+      config.hotjar_id            = '281788'
     when 'staging', 'brick'
       config.firebase             = 'https://daydash-staging.firebaseio.com/'
       config.redis                = { host: 'redis-staging.daydash.co', port: 6379, timeout: 25 }
+      config.ga_tracking_code     = 'UA-82041608-2'
+      config.hotjar_id            = '281789'
     else
       config.firebase             = 'https://daydash-development.firebaseio.com/'
       config.redis                = { host: '127.0.0.1', port: 6379, timeout: 25 }
       config.facebook_app_id      = '286214348393614'
       config.facebook_app_secret  = 'fe56812591fad8625997a9ceecc133bf'
+      config.ga_tracking_code     = 'UA-82041608-2'
+      config.hotjar_id            = '281790'
     end
 
     config

@@ -109,7 +109,7 @@
         <div class="row description">
           <div class="col col-xs-12">
             <h2>More Details and Conditions</h2>
-            <%= auto_link(simple_format(@event.instruction), :link => :all, :html => {:target => "_blank"}) %>
+            <%= auto_link(simple_format(@event.instruction), :link => :all, :html => { :target => "_blank" }) %>
           </div>
         </div>
         <% end %>
@@ -259,11 +259,13 @@
   function nextToCheckout(){
     $("#selection-error").hide();
 
-    ga('send', 'event', {
-      eventCategory: 'Button',
-      eventAction: 'Clicked',
-      eventLabel: 'Select Ticket'
-    });
+    <% unless current_user.admin? %>
+      ga('send', 'event', {
+        eventCategory: 'Button',
+        eventAction: 'Clicked',
+        eventLabel: 'Select Ticket'
+      });
+    <% end %>
 
     var is_error = true;
 
@@ -315,12 +317,13 @@
   $('.description a').each(function() {
     $(this).attr('target', '_blank')
   });
-
-  $('.btn-buy').on('click', function(){
-    ga('send', 'event', {
-      eventCategory: 'Button',
-      eventAction: 'Clicked',
-      eventLabel: 'Buy Ticket'
+  <% unless current_user.admin? %>
+    $('.btn-buy').on('click', function(){
+      ga('send', 'event', {
+        eventCategory: 'Button',
+        eventAction: 'Clicked',
+        eventLabel: 'Buy Ticket'
+      });
     });
-  });
+  <% end %>
 </script>

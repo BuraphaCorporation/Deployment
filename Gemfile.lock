@@ -477,19 +477,11 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rainbow (2.1.0)
     raindrops (0.17.0)
     rake (11.3.0)
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
-    react_on_rails (6.1.1)
-      addressable
-      connection_pool
-      execjs (~> 2.5)
-      foreman
-      rails (>= 3.2)
-      rainbow (~> 2.1)
     redis (3.3.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
@@ -729,7 +721,6 @@ DEPENDENCIES
   rails-controller-testing
   rails_12factor
   rails_autolink
-  react_on_rails (~> 6)
   redis (~> 3.2)
   redis-namespace
   refile!

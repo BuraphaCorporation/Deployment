@@ -25,4 +25,8 @@ class OrganizerMailer < ApplicationMailer
       mail to: @event.user.email, subject: @title, bcc: "hello@daydash.co, daydash.app@gmail.com"
     end
   end
+
+  def test
+    mail to: "hello@daydash.co", subject: "ทดสอบ"
+  end
 end

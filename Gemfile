@@ -10,24 +10,23 @@ gem 'sinatra',            git: 'git@github.com:arnonhongklay/sinatra.git', branc
 # core lib for views
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
-gem 'sprockets'
+gem 'sprockets', '~> 3.0'
 gem 'sprockets-es6'
 gem 'turbolinks', '~> 5'
 gem 'sass-rails', '~> 5.0'
 
 # helper views
-# gem 'bootstrap', '~> 4.0.0.alpha3.1'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass', '~> 4.6.2'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
 
 # gem "react_on_rails", "~> 6"
 gem 'jquery-rails'
-gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
-gem 'jquery-validation-rails'
+gem 'jquery-turbolinks'
 gem 'parsley-rails'
-gem 'slick_rails'
+gem 'jquery-slick-rails'
+gem 'jquery-validation-rails'
 gem 'momentjs-rails'
 # gem 'sweet-alert'
 # gem 'sweet-alert-confirm'

@@ -56,6 +56,6 @@ class UserMailer < ApplicationMailer
 
     @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
 
-    mail to: @user.email, subject: "Daydash.co - พรุ่งนี้แล้ว! ชื่องาน", bcc: "hello@daydash.co, daydash.app@gmail.com"
+    mail to: @user.email, subject: "Daydash.co - พรุ่งนี้แล้ว! #{@event.title}", bcc: "daydash.app@gmail.com"
   end
 end

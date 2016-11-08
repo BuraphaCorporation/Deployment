@@ -81,7 +81,7 @@ class App < Struct.new(:region, :environment, :version)
       config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
       config.ga_tracking_code     = 'UA-82041608-1'
       config.hotjar_id            = 281788
-      config.slack_hook           = "https://hooks.slack.com/services/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"
+      config.slack_webhook           = "https://hooks.slack.com/services/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"
     when 'staging', 'brick', 'alpha'
       config.firebase             = 'https://daydash-staging.firebaseio.com/'
       config.redis                = { host: 'redis-staging.daydash.co', port: 6379, timeout: 25 }
@@ -89,7 +89,7 @@ class App < Struct.new(:region, :environment, :version)
       config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
       config.ga_tracking_code     = 'UA-82041608-2'
       config.hotjar_id            = 281789
-      config.slack_hook           = "https://hooks.slack.com/services/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"
+      config.slack_webhook        = "https://hooks.slack.com/services/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x"
     else
       config.firebase             = 'https://daydash-development.firebaseio.com/'
       config.redis                = { host: '127.0.0.1', port: 6379, timeout: 25 }
@@ -97,7 +97,7 @@ class App < Struct.new(:region, :environment, :version)
       config.facebook_app_secret  = 'fe56812591fad8625997a9ceecc133bf'
       config.ga_tracking_code     = 'UA-82041608-2'
       config.hotjar_id            = 281790
-      config.slack_hook           = "https://hooks.slack.com/services/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"
+      config.slack_webhook        = "https://hooks.slack.com/services/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x"
     end
 
     config

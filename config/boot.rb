@@ -6,7 +6,7 @@ require 'rails/commands/server'
 module Rails
   class Server
     def default_options
-      super.merge({ Host: 'dev.daydash.co', Port: 1337 })
+      super.merge({ Host: 'daydash.local', Port: 1337 })
     end
   end
 end

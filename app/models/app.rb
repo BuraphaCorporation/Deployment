@@ -22,12 +22,12 @@ class App < Struct.new(:region, :environment, :version)
                       end
   end
 
-  def blog
-    protocol + '//blog.' + root_domain
-  end
-
   def root_domain
-    'daydash.co'
+    if environment.development?
+      'daydash.co'
+    else
+      'daydash.local'
+    end
   end
 
   def protocol
@@ -42,14 +42,8 @@ class App < Struct.new(:region, :environment, :version)
 
   def host
     case environment
-    when 'staging', 'brick'
+    when 'staging', 'brick', 'alpha'
       'brick'
-    when 'non'
-      'dev-non'
-    when 'pop'
-      'dev-pop'
-    when 'development'
-      'dev'
     else
       ''
     end
@@ -57,12 +51,10 @@ class App < Struct.new(:region, :environment, :version)
 
   def api_host
     case environment
-    when 'production'
-      'api'
-    when 'staging', 'brick'
+    when 'staging', 'brick', 'alpha'
       'brick-api'
-    when 'development'
-      'dev-api'
+    else
+      'api'
     end
   end
 

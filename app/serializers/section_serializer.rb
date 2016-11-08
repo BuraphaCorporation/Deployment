@@ -2,18 +2,19 @@
 #
 # Table name: sections
 #
-#  id         :integer          not null, primary key
-#  status     :string
-#  event_id   :integer
-#  title      :string
-#  event_time :datetime
-#  end_time   :datetime
-#  price      :integer
-#  total      :integer          default(0)
-#  bought     :integer          default(0)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  unit       :integer          default(1)
+#  id            :integer          not null, primary key
+#  status        :string
+#  event_id      :integer
+#  title         :string
+#  event_time    :datetime
+#  end_time      :datetime
+#  price         :integer
+#  total         :integer          default(0)
+#  bought        :integer          default(0)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  unit          :integer          default(1)
+#  initial_price :integer
 #
 # Indexes
 #

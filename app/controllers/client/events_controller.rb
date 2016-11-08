@@ -4,10 +4,6 @@ module Client
     before_action :related_events, only: [:show, :checkout]
 
     def index
-      @covers = [
-        { image: '/src/images/content/cover-1.jpg', caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">Daydash ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>' },
-      ]
-
       if params[:category].present?
         @category_id = Category.friendly.find(params[:category]).id
       else

@@ -1,5 +1,5 @@
-module Organizer
-  class ProfileController < Organizer::BaseController
+module Admin
+  class ProfileController < Admin::BaseController
     before_action :authenticate_organizer!, except: :show
     before_action :organizer, only: :show
 

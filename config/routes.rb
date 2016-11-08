@@ -158,15 +158,15 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/workers'
     # mount ActionCable.server => "/cable"
 
-    devise_for :users,
+    devise_for :user,
       path: 'auth',
       controllers: {
-        confirmations:      'users/confirmations',
-        omniauth_callbacks: 'users/omniauth_callbacks',
-        passwords:          'users/passwords',
-        registrations:      'users/registrations',
-        sessions:           'users/sessions',
-        unlocks:            'users/unlocks',
+        confirmations:      'user/confirmations',
+        omniauth_callbacks: 'user/omniauth_callbacks',
+        passwords:          'user/passwords',
+        registrations:      'user/registrations',
+        sessions:           'user/sessions',
+        unlocks:            'user/unlocks',
       }
 
     # if App.environment.production?

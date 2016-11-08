@@ -1,4 +1,4 @@
-class Users::PasswordsController < Devise::PasswordsController
+class User::PasswordsController < Devise::PasswordsController
   layout 'daydash'
 
   # GET /resource/password/new

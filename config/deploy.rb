@@ -63,16 +63,16 @@ namespace :deploy do
     end
   end
 
-  desc 'NPM Install'
-  task :npm_install do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        execute "cd #{release_path}/client && npm install"
-      end
-    end
-  end
+  # desc 'NPM Install'
+  # task :npm_install do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     within release_path do
+  #       execute "cd #{release_path}/client && npm install"
+  #     end
+  #   end
+  # end
 
-  before 'deploy:assets:precompile', :npm_install
+  # before 'deploy:assets:precompile', :npm_install
   after :finishing, 'deploy:cleanup'
   after :publishing, 'deploy:restart'
   after :published, :restart_workers
@@ -132,6 +132,15 @@ namespace :rails do
     on roles(:web) do
       within current_path do
         execute :sudo, 'tail -f /home/deploy/log/error.log'
+      end
+    end
+  end
+
+  desc "nginx log"
+  task :nginx_log do
+    on roles(:web) do
+      within current_path do
+        execute :sudo, 'tail -f /var/log/nginx/error.log'
       end
     end
   end

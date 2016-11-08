@@ -14,10 +14,10 @@ class App < Struct.new(:region, :environment, :version)
                       when 'api'
                         "#{api_host}.#{root_domain}#{port}"
                       else
-                        if environment.production?
-                          "#{root_domain}"
-                        else
+                        if environment.development?
                           "#{root_domain}#{port}"
+                        else
+                          "#{root_domain}"
                         end
                       end
   end
@@ -35,9 +35,7 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def port
-    if environment.development?
-      ':1337'
-    end
+    ':1337' if environment.development?
   end
 
   def host

@@ -1,5 +1,5 @@
 module Client
-  class EventsController < Client::BaseController
+  class PaymentController < Client::BaseController
     before_action :event_payment, only: [:selection, :express, :checkout]
     before_action :related_events, only: [:show, :checkout]
 

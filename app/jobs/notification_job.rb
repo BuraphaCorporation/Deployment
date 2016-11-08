@@ -2,6 +2,6 @@ class NotificationJob < ApplicationJob
   queue_as :default
 
   def perform
-    p "xxx"
+    # p "xxx"
   end
 end

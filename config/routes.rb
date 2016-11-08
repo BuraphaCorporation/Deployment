@@ -158,15 +158,15 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/workers'
     # mount ActionCable.server => "/cable"
 
-    devise_for :users,
+    devise_for :user,
       path: 'auth',
       controllers: {
-        confirmations:      'users/confirmations',
-        omniauth_callbacks: 'users/omniauth_callbacks',
-        passwords:          'users/passwords',
-        registrations:      'users/registrations',
-        sessions:           'users/sessions',
-        unlocks:            'users/unlocks',
+        confirmations:      'user/confirmations',
+        omniauth_callbacks: 'user/omniauth_callbacks',
+        passwords:          'user/passwords',
+        registrations:      'user/registrations',
+        sessions:           'user/sessions',
+        unlocks:            'user/unlocks',
       }
 
     # if App.environment.production?
@@ -234,17 +234,20 @@ Rails.application.routes.draw do
       get '/:organizer', to: 'profile#show'
     end
 
-    # namespace :admin do
-    #   # get '/', to: 'events#index'
-    #   get '/users', to: 'users#index'
-    #   get '/transactions', to: 'users#transactions'
-    #   # resources :events do
-    #   #   collection do
-    #   #     delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
-    #   #   end
-    #   # end
-    #   # resources :users, except: :show
-    # end
+    namespace :admin do
+      # get '/', to: 'events#index'
+      get '/users', to: 'users#index'
+      get '/transactions', to: 'users#transactions'
+      put '/approve/:order_id', to: 'temporary#approving'
+      put '/cancel/:order_id', to: 'temporary#approving'
+      post '/send_email/:order_id', to: 'temporary#send_email'
+      # resources :events do
+      #   collection do
+      #     delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
+      #   end
+      # end
+      # resources :users, except: :show
+    end
 
     get 'manage/users', to: 'temporary#index', as: :manage_users
     get 'manage/transactions', to: 'temporary#transactions', as: :manage_transactions

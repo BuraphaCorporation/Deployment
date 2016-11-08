@@ -20,6 +20,7 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass', '~> 4.6.2'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
 
+# gem "react_on_rails", "~> 6"
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-turbolinks'
@@ -110,7 +111,6 @@ gem 'split'
 #   gem 'rails-assets-es6-promise'
 #   gem 'rails-assets-fetch'
 # end
-
 
 platform :ruby do
   gem 'pg', '~> 0.18'

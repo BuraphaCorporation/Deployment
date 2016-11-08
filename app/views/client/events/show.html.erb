@@ -73,7 +73,7 @@
         <div class="row description">
           <div class="col col-xs-12">
             <h2>Details</h2>
-            <%= auto_link(simple_format(@event.description), :link => :all, :html => {:target => "_blank"}) %>
+            <%= auto_link(simple_format(@event.description), :link => :all, :html => { :target => "_blank" }) %>
           </div>
         </div>
         <div class="row guarantee">
@@ -109,7 +109,7 @@
         <div class="row description">
           <div class="col col-xs-12">
             <h2>More Details and Conditions</h2>
-            <%= auto_link(simple_format(@event.instruction), :link => :all, :html => {:target => "_blank"}) %>
+            <%= auto_link(simple_format(@event.instruction), :link => :all, :html => { :target => "_blank" }) %>
           </div>
         </div>
         <% end %>
@@ -259,6 +259,14 @@
   function nextToCheckout(){
     $("#selection-error").hide();
 
+    <% unless current_user.try(:admin?) %>
+      ga('send', 'event', {
+        eventCategory: 'Button',
+        eventAction: 'Clicked',
+        eventLabel: 'Select Ticket'
+      });
+    <% end %>
+
     var is_error = true;
 
     var total = $("select[name*='section']").length
@@ -303,4 +311,20 @@
   function number_format(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+</script>
+
+<script type="text/javascript">
+  $('.description a').each(function() {
+    $(this).attr('target', '_blank')
+  });
+
+  <% unless current_user.try(:admin?) %>
+    $('.btn-buy').on('click', function(){
+      ga('send', 'event', {
+        eventCategory: 'Button',
+        eventAction: 'Clicked',
+        eventLabel: 'Buy Ticket'
+      });
+    });
+  <% end %>
 </script>

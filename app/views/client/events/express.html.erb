@@ -402,6 +402,15 @@ function omise_submit(form) {
 
 <script> //View Function
   function on_change_payment_method(method) {
+
+    <% unless current_user.try(:admin?) %>
+      ga('send', 'event', {
+        eventCategory: 'Switch Options',
+        eventAction: 'Clicked',
+        eventLabel: method
+      });
+    <% end %>
+
     $('[name=payment_method]').val(method);
   }
 </script>

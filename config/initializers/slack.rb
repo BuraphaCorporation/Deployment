@@ -1,3 +1,1 @@
-
-slack_webhook = "https://hooks.slack.com/services/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"
-$slack = Slack::Notifier.new slack_webhook
+$slack = Slack::Notifier.new App.configure.slack_webhook

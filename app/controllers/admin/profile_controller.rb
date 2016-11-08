@@ -8,9 +8,10 @@ module Admin
     end
 
     private
-      def organizer
-        @organizer = User.where.not(role: :user).find_by_username(params[:organizer])
-        not_found if @organizer.blank?
-      end
+    
+    def organizer
+      @organizer = User.where.not(role: :user).find_by_username(params[:organizer])
+      not_found if @organizer.blank?
+    end
   end
 end

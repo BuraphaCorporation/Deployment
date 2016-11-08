@@ -10,8 +10,6 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 
-// webpack-bundle
-
 //= require turbolinks
 //= require jquery2
 //= require jquery-ui

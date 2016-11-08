@@ -9,7 +9,7 @@ class App < Struct.new(:region, :environment, :version)
     attrs.each_pair { |k, v| self[k] = v.inquiry }
   end
 
-  def domain(subdomain=nil)
+  def domain(subdomain = nil)
     protocol + '//' + case subdomain
                       when 'api'
                         "#{api_host}.#{root_domain}#{port}"
@@ -17,16 +17,16 @@ class App < Struct.new(:region, :environment, :version)
                         if environment.production?
                           "#{root_domain}"
                         else
-                          "#{host}.#{root_domain}#{port}"
+                          "#{root_domain}#{port}"
                         end
                       end
   end
 
   def root_domain
     if environment.development?
-      'daydash.co'
-    else
       'daydash.local'
+    else
+      'daydash.co'
     end
   end
 

@@ -9,9 +9,9 @@ machine:
       2.3.1
 
   # Version of node to use
-  node:
-    version:
-      6.9.0
+  # node:
+  #   version:
+  #     6.9.0
 
 # # Override /etc/hosts
 # hosts:
@@ -30,16 +30,16 @@ machine:
 #     - git submodule update --init # use submodules
 
 # ## Customize dependencies
-dependencies:
-  pre:
-    # - npm install coffeescript # install from a different package manager
-    # - gem uninstall bundler # use a custom version of bundler
-    - gem install bundler -v 1.13.6
-  override:
-    # - bundle install
-    - npm install
-  post:
-    - bundle exec rake assets:precompile
+# dependencies:
+#   pre:
+#     # - npm install coffeescript # install from a different package manager
+#     # - gem uninstall bundler # use a custom version of bundler
+#     - gem install bundler -v 1.13.6
+#   override:
+#     # - bundle install
+#     - npm install
+#   post:
+#     - bundle exec rake assets:precompile
 
 #   # we automatically cache and restore many dependencies between
 #   # builds. If you need to, you can add custom paths to cache:

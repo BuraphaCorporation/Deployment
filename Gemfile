@@ -97,16 +97,6 @@ gem 'one_signal'
 
 gem 'slack-notifier'
 
-
-
-
-# gem 'admin', git: 'git@github.com:arnonhongklay/admin.git', branch: 'rails-5'
-# gem 'ransack', github: 'activerecord-hackery/ransack'
-# gem 'bourbon'
-# gem 'neat'
-
-
-
 # error handler
 gem 'rollbar'
 
@@ -122,13 +112,6 @@ gem 'split'
 #   gem 'rails-assets-es6-promise'
 #   gem 'rails-assets-fetch'
 # end
-
-# gem 'bhf', git: 'git@github.com:antpaw/bhf.git'
-
-gem 'inherited_resources', git: 'git@github.com:activeadmin/inherited_resources.git'
-# gem 'activeadmin',         git: 'git@github.com:activeadmin/activeadmin.git'
-gem 'activeadmin', '~> 1.0.0.pre4'
-
 
 platform :ruby do
   gem 'pg', '~> 0.18'

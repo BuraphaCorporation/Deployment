@@ -1,3 +1,2 @@
-
-# OneSignal::OneSignal.user_auth_key = YOUR_USER_AUTH_KEY
-# OneSignal::OneSignal.api_key = YOUR_API_KEY
+OneSignal::OneSignal.user_auth_key = Rails.application.secrets.one_signal_auth_key
+OneSignal::OneSignal.api_key       = Rails.application.secrets.one_signal_api_key

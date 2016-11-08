@@ -78,6 +78,10 @@
                   <textarea style="height: 100px" class="form-control" name="short_description" rows="10"><%= @event.short_description %></textarea>
                 </div>
                 <div class="form-group">
+                  <label>Why This?</label>
+                  <textarea style="height: 100px" class="form-control" name="whythis" rows="10"><%= @event.whythis %></textarea>
+                </div>
+                <div class="form-group">
                   <label>Description</label>
                   <textarea style="height: 300px" class="form-control" name="description" rows="10"><%= @event.description %></textarea>
                 </div>
@@ -153,8 +157,9 @@
                     <tr>
                       <td>Ticket Title</td>
                       <td>Ticket Available</td>
-                      <td>Ticket Price</td>
-                      <td>Ticket Unit</td>
+                      <td>Ticket Price (ราคาเต็ม)</td>
+                      <td>Ticket Price (ราคาลด)</td>
+                      <!-- <td>Ticket Unit</td> -->
                       <td>From</td>
                       <td>To</td>
                       <td><!-- Action --></td>
@@ -163,10 +168,11 @@
                   <tbody
                     <% @sections.each do |section| %>
                       <tr class="tickets" id="ticket-<%= section.id %>" data-ticket-id="<%= section.id %>">
-                        <td><input class="form-control" type="text" name="tickets[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
-                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][total]" value="<%= section.total %>" /></td>
-                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][price]" value="<%= section.price %>" /></td>
-                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][unit]" value="<%= section.unit %>" /></td>
+                        <td><input class="form-control" required="" type="text" name="tickets[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
+                        <td><input class="form-control" required="" type="number" name="tickets[<%= section.id %>][total]" value="<%= section.total %>" /></td>
+                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][initial_price]" value="<%= section.initial_price %>" /></td>
+                        <td><input class="form-control" required="" type="number" name="tickets[<%= section.id %>][price]" value="<%= section.price %>" /></td>
+                        <!-- <td><input class="form-control" type="number" name="tickets[<%= section.id %>][unit]" value="<%= section.unit %>" /></td> -->
 
                         <td width="200">
                           <div class="form-group">

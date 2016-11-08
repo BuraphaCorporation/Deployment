@@ -66,19 +66,87 @@
 #                                   GET      /organizer(.:format)                                     organizer/profile#index {:subdomain=>"dev"}
 #                         organizer GET      /organizer/:organizer(.:format)                          organizer/profile#show {:subdomain=>"dev"}
 #                       admin_users GET      /admin/users(.:format)                                   admin/users#index {:subdomain=>"dev"}
-#                admin_transactions GET      /admin/transactions(.:format)                            admin/users#transactions {:subdomain=>"dev"}
-#                     admin_approve PUT      /admin/approve/:order_id(.:format)                       admin/users#approving {:subdomain=>"dev"}
-#                      admin_cancel PUT      /admin/cancel/:order_id(.:format)                        admin/users#approving {:subdomain=>"dev"}
-#                  admin_send_email POST     /admin/send_email/:order_id(.:format)                    admin/users#send_email {:subdomain=>"dev"}
+#                                   POST     /admin/users(.:format)                                   admin/users#create {:subdomain=>"dev"}
+#                    new_admin_user GET      /admin/users/new(.:format)                               admin/users#new {:subdomain=>"dev"}
+#                   edit_admin_user GET      /admin/users/:id/edit(.:format)                          admin/users#edit {:subdomain=>"dev"}
+#                        admin_user GET      /admin/users/:id(.:format)                               admin/users#show {:subdomain=>"dev"}
+#                                   PATCH    /admin/users/:id(.:format)                               admin/users#update {:subdomain=>"dev"}
+#                                   PUT      /admin/users/:id(.:format)                               admin/users#update {:subdomain=>"dev"}
+#                                   DELETE   /admin/users/:id(.:format)                               admin/users#destroy {:subdomain=>"dev"}
+#                      admin_events GET      /admin/events(.:format)                                  admin/events#index {:subdomain=>"dev"}
+#                                   POST     /admin/events(.:format)                                  admin/events#create {:subdomain=>"dev"}
+#                   new_admin_event GET      /admin/events/new(.:format)                              admin/events#new {:subdomain=>"dev"}
+#                  edit_admin_event GET      /admin/events/:id/edit(.:format)                         admin/events#edit {:subdomain=>"dev"}
+#                       admin_event GET      /admin/events/:id(.:format)                              admin/events#show {:subdomain=>"dev"}
+#                                   PATCH    /admin/events/:id(.:format)                              admin/events#update {:subdomain=>"dev"}
+#                                   PUT      /admin/events/:id(.:format)                              admin/events#update {:subdomain=>"dev"}
+#                                   DELETE   /admin/events/:id(.:format)                              admin/events#destroy {:subdomain=>"dev"}
+#                    admin_sections GET      /admin/sections(.:format)                                admin/sections#index {:subdomain=>"dev"}
+#                                   POST     /admin/sections(.:format)                                admin/sections#create {:subdomain=>"dev"}
+#                 new_admin_section GET      /admin/sections/new(.:format)                            admin/sections#new {:subdomain=>"dev"}
+#                edit_admin_section GET      /admin/sections/:id/edit(.:format)                       admin/sections#edit {:subdomain=>"dev"}
+#                     admin_section GET      /admin/sections/:id(.:format)                            admin/sections#show {:subdomain=>"dev"}
+#                                   PATCH    /admin/sections/:id(.:format)                            admin/sections#update {:subdomain=>"dev"}
+#                                   PUT      /admin/sections/:id(.:format)                            admin/sections#update {:subdomain=>"dev"}
+#                                   DELETE   /admin/sections/:id(.:format)                            admin/sections#destroy {:subdomain=>"dev"}
+#                  admin_categories GET      /admin/categories(.:format)                              admin/categories#index {:subdomain=>"dev"}
+#                                   POST     /admin/categories(.:format)                              admin/categories#create {:subdomain=>"dev"}
+#                new_admin_category GET      /admin/categories/new(.:format)                          admin/categories#new {:subdomain=>"dev"}
+#               edit_admin_category GET      /admin/categories/:id/edit(.:format)                     admin/categories#edit {:subdomain=>"dev"}
+#                    admin_category GET      /admin/categories/:id(.:format)                          admin/categories#show {:subdomain=>"dev"}
+#                                   PATCH    /admin/categories/:id(.:format)                          admin/categories#update {:subdomain=>"dev"}
+#                                   PUT      /admin/categories/:id(.:format)                          admin/categories#update {:subdomain=>"dev"}
+#                                   DELETE   /admin/categories/:id(.:format)                          admin/categories#destroy {:subdomain=>"dev"}
+#                      admin_orders GET      /admin/orders(.:format)                                  admin/orders#index {:subdomain=>"dev"}
+#                                   POST     /admin/orders(.:format)                                  admin/orders#create {:subdomain=>"dev"}
+#                   new_admin_order GET      /admin/orders/new(.:format)                              admin/orders#new {:subdomain=>"dev"}
+#                  edit_admin_order GET      /admin/orders/:id/edit(.:format)                         admin/orders#edit {:subdomain=>"dev"}
+#                       admin_order GET      /admin/orders/:id(.:format)                              admin/orders#show {:subdomain=>"dev"}
+#                                   PATCH    /admin/orders/:id(.:format)                              admin/orders#update {:subdomain=>"dev"}
+#                                   PUT      /admin/orders/:id(.:format)                              admin/orders#update {:subdomain=>"dev"}
+#                                   DELETE   /admin/orders/:id(.:format)                              admin/orders#destroy {:subdomain=>"dev"}
+#                    admin_payments GET      /admin/payments(.:format)                                admin/payments#index {:subdomain=>"dev"}
+#                                   POST     /admin/payments(.:format)                                admin/payments#create {:subdomain=>"dev"}
+#                 new_admin_payment GET      /admin/payments/new(.:format)                            admin/payments#new {:subdomain=>"dev"}
+#                edit_admin_payment GET      /admin/payments/:id/edit(.:format)                       admin/payments#edit {:subdomain=>"dev"}
+#                     admin_payment GET      /admin/payments/:id(.:format)                            admin/payments#show {:subdomain=>"dev"}
+#                                   PATCH    /admin/payments/:id(.:format)                            admin/payments#update {:subdomain=>"dev"}
+#                                   PUT      /admin/payments/:id(.:format)                            admin/payments#update {:subdomain=>"dev"}
+#                                   DELETE   /admin/payments/:id(.:format)                            admin/payments#destroy {:subdomain=>"dev"}
+#                     admin_tickets GET      /admin/tickets(.:format)                                 admin/tickets#index {:subdomain=>"dev"}
+#                                   POST     /admin/tickets(.:format)                                 admin/tickets#create {:subdomain=>"dev"}
+#                  new_admin_ticket GET      /admin/tickets/new(.:format)                             admin/tickets#new {:subdomain=>"dev"}
+#                 edit_admin_ticket GET      /admin/tickets/:id/edit(.:format)                        admin/tickets#edit {:subdomain=>"dev"}
+#                      admin_ticket GET      /admin/tickets/:id(.:format)                             admin/tickets#show {:subdomain=>"dev"}
+#                                   PATCH    /admin/tickets/:id(.:format)                             admin/tickets#update {:subdomain=>"dev"}
+#                                   PUT      /admin/tickets/:id(.:format)                             admin/tickets#update {:subdomain=>"dev"}
+#                                   DELETE   /admin/tickets/:id(.:format)                             admin/tickets#destroy {:subdomain=>"dev"}
+#                                   GET      /admin(.:format)                                         admin/users#index {:subdomain=>"dev"}
 #                        mobile_api          /                                                        MobileAPI {:subdomain=>"dev-api"}
 #               grape_swagger_rails          /documentation                                           GrapeSwaggerRails::Engine {:subdomain=>"dev-api"}
+#                          v1_users GET      /v1/users(.:format)                                      api/v1/users#index {:subdomain=>"dev-api"}
+#                                   POST     /v1/users(.:format)                                      api/v1/users#create {:subdomain=>"dev-api"}
+#                       new_v1_user GET      /v1/users/new(.:format)                                  api/v1/users#new {:subdomain=>"dev-api"}
+#                      edit_v1_user GET      /v1/users/:id/edit(.:format)                             api/v1/users#edit {:subdomain=>"dev-api"}
+#                           v1_user GET      /v1/users/:id(.:format)                                  api/v1/users#show {:subdomain=>"dev-api"}
+#                                   PATCH    /v1/users/:id(.:format)                                  api/v1/users#update {:subdomain=>"dev-api"}
+#                                   PUT      /v1/users/:id(.:format)                                  api/v1/users#update {:subdomain=>"dev-api"}
+#                                   DELETE   /v1/users/:id(.:format)                                  api/v1/users#destroy {:subdomain=>"dev-api"}
+#                         v1_events GET      /v1/events(.:format)                                     api/v1/events#index {:subdomain=>"dev-api"}
+#                                   POST     /v1/events(.:format)                                     api/v1/events#create {:subdomain=>"dev-api"}
+#                      new_v1_event GET      /v1/events/new(.:format)                                 api/v1/events#new {:subdomain=>"dev-api"}
+#                     edit_v1_event GET      /v1/events/:id/edit(.:format)                            api/v1/events#edit {:subdomain=>"dev-api"}
+#                          v1_event GET      /v1/events/:id(.:format)                                 api/v1/events#show {:subdomain=>"dev-api"}
+#                                   PATCH    /v1/events/:id(.:format)                                 api/v1/events#update {:subdomain=>"dev-api"}
+#                                   PUT      /v1/events/:id(.:format)                                 api/v1/events#update {:subdomain=>"dev-api"}
+#                                   DELETE   /v1/events/:id(.:format)                                 api/v1/events#destroy {:subdomain=>"dev-api"}
+#                        refile_app          /attachments                                             #<Refile::App app_file="/Users/arnonhongklay/.rbenv/versions/2.3.1/lib/ruby/gems/2.3.0/bundler/gems/refile-d7a42dcd7cf6/lib/refile/app.rb">
 #
 # Routes for GrapeSwaggerRails::Engine:
 #   root GET  /           grape_swagger_rails/application#index
 #
 
 Rails.application.routes.draw do
-
   get 'errors/not_found'
   get 'errors/internal_server_error'
 
@@ -90,15 +158,15 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/workers'
     # mount ActionCable.server => "/cable"
 
-    devise_for :users,
+    devise_for :user,
       path: 'auth',
       controllers: {
-        confirmations:      'users/confirmations',
-        omniauth_callbacks: 'users/omniauth_callbacks',
-        passwords:          'users/passwords',
-        registrations:      'users/registrations',
-        sessions:           'users/sessions',
-        unlocks:            'users/unlocks',
+        confirmations:      'user/confirmations',
+        omniauth_callbacks: 'user/omniauth_callbacks',
+        passwords:          'user/passwords',
+        registrations:      'user/registrations',
+        sessions:           'user/sessions',
+        unlocks:            'user/unlocks',
       }
 
     # if App.environment.production?
@@ -114,8 +182,8 @@ Rails.application.routes.draw do
 
     get '/react-api' => 'application#index', defaults: { format: :json }
 
-    get '/blog',        to: 'greetings#blog'
-    get '/blog/:slug',  to: 'greetings#blog'
+    # get '/blog',        to: 'greetings#blog'
+    # get '/blog/:slug',  to: 'greetings#blog'
     get '/rating',      to: 'greetings#rating'
 
     get '/about',                 to: 'greetings#about'
@@ -170,9 +238,9 @@ Rails.application.routes.draw do
       # get '/', to: 'events#index'
       get '/users', to: 'users#index'
       get '/transactions', to: 'users#transactions'
-      put '/approve/:order_id', to: 'users#approving', as: :approve
-      put '/cancel/:order_id', to: 'users#approving', as: :cancel
-      post '/send_email/:order_id', to: 'users#send_email', as: :send_email
+      put '/approve/:order_id', to: 'temporary#approving'
+      put '/cancel/:order_id', to: 'temporary#approving'
+      post '/send_email/:order_id', to: 'temporary#send_email'
       # resources :events do
       #   collection do
       #     delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
@@ -180,16 +248,41 @@ Rails.application.routes.draw do
       # end
       # resources :users, except: :show
     end
+
+    get 'manage/users', to: 'temporary#index', as: :manage_users
+    get 'manage/transactions', to: 'temporary#transactions', as: :manage_transactions
+    put 'manage/approve/:order_id', to: 'temporary#approving', as: :manage_approve
+    put 'manage/cancel/:order_id', to: 'temporary#approving', as: :manage_cancel
+    post 'manage/send_email/:order_id', to: 'temporary#send_email', as: :manage_send_email
+    #
+    # namespace :admin do
+    #   resources :users
+    #   resources :events
+    #   resources :sections
+    #   resources :categories
+    #   resources :categories_events
+    #   resources :event_pictures
+    #   resources :orders
+    #   resources :payments
+    #   resources :tickets
+    #   resources :tags
+    #   resources :taggings
+    #   resources :wishlists
+    #
+    #   root to: "users#index"
+    # end
   end
 
   constraints(subdomain: App.api_host) do
     mount MobileAPI, at: "/"
     mount GrapeSwaggerRails::Engine, at: "/documentation"
-    # scope module: 'api' do
-    #   namespace :v1 do
-    #     resources :users
-    #     resources :events
-    #   end
-    # end
+
+    scope module: 'api' do
+      namespace :v1 do
+        resources :users
+        resources :events
+      end
+    end
+
   end
 end

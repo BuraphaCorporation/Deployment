@@ -20,9 +20,13 @@ class OrganizerMailer < ApplicationMailer
     @link_to_order = "#{App.domain}/organizer/events/#{@event.slug}/orders"
 
     if @event.user.nil?
-      mail to: "hello@daydash.co", subject: @title, bcc: "daydash.app@gmail.com"
+      mail to: "hello@daydash.co", subject: @title, bcc: "hello@daydash.co, daydash.app@gmail.com"
     else
       mail to: @event.user.email, subject: @title, bcc: "hello@daydash.co, daydash.app@gmail.com"
     end
+  end
+
+  def test
+    mail to: "hello@daydash.co", subject: "ทดสอบ"
   end
 end

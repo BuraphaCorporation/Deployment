@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :store_current_location, :unless => :devise_controller?
   before_action :default_seo
+  before_action :default_cover
 
 protected
   def not_found
@@ -83,5 +84,14 @@ protected
         },
         card:             'summary_large_image'
       }
+  end
+
+  def default_cover
+    @covers = [
+      {
+        image: '/src/images/content/cover-1.jpg',
+        caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">Daydash ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>'
+      }
+    ]
   end
 end

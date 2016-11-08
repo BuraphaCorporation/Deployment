@@ -32,7 +32,7 @@
     <div class="row event-list">
       <% @events.each do |event| %>
         <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
-          <%= link_to client_event_path(event.to_url), class: "event card", "data-turbolinks" => false do %>
+          <%= link_to client_event_path(event.to_url), class: "event card" do %>
             <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
             <div class="info">
               <h4 class="title text-left"><%= event.title %></h4>
@@ -45,24 +45,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-
-  $(document).ready(function(){
-
-    var initSlick;
-
-    initSlick = function() {
-      return $('#cover-slick').not('.slick-initialized').slick({
-        infinite: true,
-        dots: false,
-        arrows: false,
-        fade: true,
-        autoplay: true,
-        autoplaySpeed: 4000
-      });
-    };
-
-    initSlick();
-  });
-</script>

@@ -32,6 +32,7 @@
 #  social_share_content_type :string
 #  social_share_file_size    :integer
 #  social_share_updated_at   :datetime
+#  whythis                   :text
 #
 # Indexes
 #
@@ -45,6 +46,6 @@
 
 FactoryGirl.define do
   factory :event do
-    
+
   end
 end

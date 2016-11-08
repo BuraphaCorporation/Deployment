@@ -14,16 +14,6 @@ puts "add tag list"
   Tag.find_or_create_by({title: tag})
 end
 
-user = User.create do |user|
-  user.email                  = "organizer@daydash.co"
-  user.first_name             = 'Organizer'
-  user.last_name              = 'Daydash'
-  user.password               = '1234567890'
-  user.password_confirmation  = '1234567890'
-  user.company                = 'Daydash'
-  user.confirmed_at           = Time.zone.now
-  user.role                   = 'organizer'
-end
 
 user = User.create do |user|
   user.email                  = "hello@daydash.co"
@@ -36,6 +26,17 @@ user = User.create do |user|
   user.role                   = 'admin'
 end
 puts user
+
+user = User.create do |user|
+  user.email                  = "organizer@daydash.co"
+  user.first_name             = 'Organizer'
+  user.last_name              = 'Daydash'
+  user.password               = '1234567890'
+  user.password_confirmation  = '1234567890'
+  user.company                = 'Daydash'
+  user.confirmed_at           = Time.zone.now
+  user.role                   = 'organizer'
+end
 
 puts "add new events"
 Event.create([
@@ -464,3 +465,4 @@ end
 
 puts "update event uptime"
 Event.update_uptime_present
+# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')

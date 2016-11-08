@@ -10,13 +10,9 @@ Rails.application.config.assets.digest = true
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-# Rails.application.config.assets.precompile += %w( search.js )
-Rails.application.config.assets.paths << Rails.root.join("app", "vendor/plugins")
-
 Rails.application.config.assets.precompile << /(^[^_\/]|\/[^_])[^\/]*$/
 #
 # Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
 Rails.application.config.assets.precompile += %w( *.svg *.eot *.woff *.ttf *.gif *.png *.ico )
 # Rails.application.config.assets.precompile += %w( *.js *.css *.scss *.less )
-Rails.application.config.assets.precompile += %w( daydash.css )
-Rails.application.config.assets.precompile += %w( daydsah.js )
+Rails.application.config.assets.precompile += %w( daydash.css daydsah.js )

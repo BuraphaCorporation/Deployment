@@ -22,10 +22,6 @@ class GreetingsController < ApplicationController
   end
 
   def about
-    @covers = [
-      { image: '/src/images/content/cover-1.jpg',
-        caption: '<h1 class="title">We are on a mission to encourage people to live their lives to the fullest</h1><div class="subtitle">Why don\'t you join us :)</div>' },
-    ]
   end
 
   def contact

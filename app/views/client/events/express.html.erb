@@ -348,8 +348,10 @@ function omise_submit(form) {
     Omise.setPublicKey("<%= Rails.application.secrets.omise_pkey %>");
 
     var expiry = $("[name=card_expiry]").val();
+    var dataExpiry = expiry.replace(/\s/g, "");
     var match = null;
-    if(match = expiry.match(/^([0-9]+) \/ ([0-9]+)$/)) {
+
+    if(match = dataExpiry.match(/^([0-9]+)\/([0-9]+)$/)) {
       var expiration_month = match[1];
       var expiration_year = match[2];
     }
@@ -400,6 +402,15 @@ function omise_submit(form) {
 
 <script> //View Function
   function on_change_payment_method(method) {
+
+    <% unless current_user.try(:admin?) %>
+      ga('send', 'event', {
+        eventCategory: 'Switch Options',
+        eventAction: 'Clicked',
+        eventLabel: method
+      });
+    <% end %>
+
     $('[name=payment_method]').val(method);
   }
 </script>

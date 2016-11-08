@@ -32,6 +32,7 @@
 #  social_share_content_type :string
 #  social_share_file_size    :integer
 #  social_share_updated_at   :datetime
+#  whythis                   :text
 #
 # Indexes
 #
@@ -116,15 +117,19 @@ class Event < ApplicationRecord
 
   def self.update_uptime_present
     all.each do |event|
-      event_time = event.sections.available.min_by(&:event_time).try(:event_time)
-      event.update(uptime: event_time) unless event_time.nil?
+      if event.ticket_type.general?
+        event_time = event.sections.available.min_by(&:event_time).try(:event_time)
+        event.update(uptime: event_time) unless event_time.nil?
+      else
+        event.update(uptime: Time.zone.now + [*7..10].sample.days)
+      end
     end
   end
 
 private
   def set_slug
     if self.slug.blank?
-      set_slug_var = self.title.parameterize
+      set_slug_var = self.title.parameterize.downcase
 
       if set_slug_var.blank?
         self.slug = self.title

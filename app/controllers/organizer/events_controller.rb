@@ -68,7 +68,7 @@ module Organizer
     end
 
     def orders
-      @orders = @event.orders.order(created_at: :desc)
+      @orders = @event.orders.where(status: :paid).order(created_at: :desc)
     end
 
     def tickets
@@ -119,7 +119,7 @@ module Organizer
       end unless params[:event_pictures].nil?
 
       (0..params[:new_ticket_names].count - 1).each do |section|
-        next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_units][section].present?
+        next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_initials][section].present?
 
         if params[:new_ticket_event_time][section].present? and params[:new_ticket_end_time][section].present?
           event_time = Time.zone.parse(params[:new_ticket_event_time][section])
@@ -130,7 +130,8 @@ module Organizer
           s.title       = params[:new_ticket_names][section]
           s.total       = params[:new_ticket_totals][section]
           s.price       = params[:new_ticket_prices][section]
-          s.unit        = params[:new_ticket_units][section]
+          # s.unit        = params[:new_ticket_units][section]
+          s.initial_price = params[:new_ticket_initials][section]
           s.event_time  = event_time
           s.end_time    = end_time
         end
@@ -157,14 +158,15 @@ module Organizer
           title:      params["tickets"]["#{section.id}"]["title"],
           total:      params["tickets"]["#{section.id}"]["total"],
           price:      params["tickets"]["#{section.id}"]["price"],
-          unit:       params["tickets"]["#{section.id}"]["unit"],
+          # unit:       params["tickets"]["#{section.id}"]["unit"],
+          initial_price:       params["tickets"]["#{section.id}"]["initial_price"],
           event_time: params["tickets"]["#{section.id}"]["event_time"],
           end_time:   params["tickets"]["#{section.id}"]["end_time"]
         )
       end unless params[:tickets].nil?
 
       (0..params[:new_ticket_names].count - 1).each do |section|
-        next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_units][section].present?
+        next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present? and params[:new_ticket_initials][section].present?
 
         if params[:new_ticket_event_time][section].present? and params[:new_ticket_end_time][section].present?
           event_time = Time.zone.parse(params[:new_ticket_event_time][section])
@@ -175,7 +177,8 @@ module Organizer
           s.title       = params[:new_ticket_names][section]
           s.total       = params[:new_ticket_totals][section]
           s.price       = params[:new_ticket_prices][section]
-          s.unit        = params[:new_ticket_units][section]
+          # s.unit        = params[:new_ticket_units][section]
+          s.initial_price = params[:new_ticket_initials][section]
           s.event_time  = event_time
           s.end_time    = end_time
         end
@@ -187,7 +190,7 @@ module Organizer
     end
 
     def event_params
-      params.permit(:title, :slug, :ticket_type, :short_description, :cover, :social_share, :show_highlight, :description, :instruction, :location_name, :location_address, :latitude, :longitude, :share_ticket)
+      params.permit(:title, :slug, :ticket_type, :short_description, :whythis, :cover, :social_share, :show_highlight, :description, :instruction, :location_name, :location_address, :latitude, :longitude, :share_ticket)
     end
 
     def all_categories

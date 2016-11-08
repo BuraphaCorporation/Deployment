@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'Daydash <noreply@daydash.co>'
+  default from: 'Daydash <hello@daydash.co>'
 
   layout 'mailer'
 end

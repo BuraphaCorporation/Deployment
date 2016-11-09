@@ -194,7 +194,7 @@ Rails.application.routes.draw do
       resources :events, only: [:index, :show] do
         get '/express',             to: 'payments#express'
         post '/selection',          to: 'payments#selection'
-        post '/checkout',           to: 'payment#checkout'
+        post '/checkout',           to: 'payments#checkout'
       end
 
       resources :profiles, only: :index do

@@ -31,7 +31,7 @@ module Client
 
       session[:tickets][:total] = total.to_i * 100
 
-      redirect_to client_event_express_path(@event.to_url)
+      redirect_to client_payment_express_path(@event.to_url)
     rescue Exception => e
       session[:event]    = nil
       session[:tickets]  = nil
@@ -105,7 +105,7 @@ module Client
     end
 
     def event
-      @event = Event.friendly.find(params[:event_id].downcase)
+      @event = Event.friendly.find(params[:payment_id].downcase)
     end
 
     def seo_events

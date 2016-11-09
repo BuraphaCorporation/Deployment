@@ -51,7 +51,7 @@
 
       <!-- Right side -->
       <div class="col-xs-12 col-md-8">
-        <%= form_tag client_event_checkout_path(@event.to_url), id: :checkout do  %>
+        <%= form_tag client_payment_checkout_path(@event.to_url), id: :checkout do  %>
           <input type="hidden" name="event_id" value="<%= @event.id %>" />
           <input type="hidden" name="omise_token">
           <% if @is_free %>

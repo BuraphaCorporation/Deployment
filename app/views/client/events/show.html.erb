@@ -199,7 +199,8 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ticket-list-modal">
   <div class="modal-dialog" role="document">
-    <%= form_tag client_event_selection_path(@event.to_url), method: :post, id: :payment do  %>
+
+    <%= form_tag client_payment_selection_path(@event.to_url), method: :post, id: :payment do  %>
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="icon icon-close"></i></button>

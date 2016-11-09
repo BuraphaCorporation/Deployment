@@ -150,8 +150,8 @@ Rails.application.routes.draw do
   get 'errors/not_found'
   get 'errors/internal_server_error'
 
-  match "/404", :to => "errors#not_found", :via => :all
-  match "/500", :to => "errors#internal_server_error", :via => :all
+  match '/404', :to => 'errors#not_found', :via => :all
+  match '/500', :to => 'errors#internal_server_error', :via => :all
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   constraints(subdomain: App.host)  do
@@ -191,21 +191,19 @@ Rails.application.routes.draw do
 
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category
-      resources :events, only: [:index, :show]
-
-      resources :payments, only: nil do
-        get '/express', to: 'events#express'
-        post '/selection', to: 'events#selection'
-        post '/checkout', to: 'events#checkout'
+      resources :events, only: [:index, :show] do
+        get '/express',             to: 'payments#express'
+        post '/selection',          to: 'payments#selection'
+        post '/checkout',           to: 'payment#checkout'
       end
 
-      resources :profiles, only: [:index] do
-        get '/tickets', to: 'profile#tickets'
-        get '/orders', to: 'profile#orders'
-        get '/orders/:ticket_id/', to: 'profile#order', as: :ticket
-        get '/settings', to: 'profile#settings'
-        put '/settings', to: 'profile#settings_update'
-        put '/change_password', to: 'profile#change_password'
+      resources :profiles, only: :index do
+        get '/tickets',             to: 'profiles#tickets'
+        get '/orders',              to: 'profiles#orders'
+        get '/orders/:ticket_id/',  to: 'profiles#order', as: :ticket
+        get '/settings',            to: 'profiles#settings'
+        put '/settings',            to: 'profiles#settings_update'
+        put '/change_password',     to: 'profiles#change_password'
       end
     end
 

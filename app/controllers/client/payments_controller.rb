@@ -1,11 +1,10 @@
 module Client
   class PaymentsController < Client::BaseController
-    before_action :event, only: [:selection, :express, :checkout]
-    before_action :related_events, only: [:show, :checkout]
+    before_action :related_events, only: :checkout
+    before_action :event
+    before_action :seo_events, except: :checkout
 
     def selection
-      set_seo_title @event.try(:title)
-
       total = 0
       session[:event]    = @event.id
       session[:tickets]  = {}
@@ -107,6 +106,10 @@ module Client
 
     def event
       @event = Event.friendly.find(params[:event_id].downcase)
+    end
+
+    def seo_events
+      set_seo_title @event.try(:title)
     end
   end
 end

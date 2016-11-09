@@ -4,6 +4,12 @@ class GreetingsController < ApplicationController
   layout :resolve_layout
 
   def index
+    if params[:category].present?
+      @category_id = Category.friendly.find(params[:category]).id
+    else
+      @category_id = nil
+    end
+    @events = Event.list
   end
 
   def rating

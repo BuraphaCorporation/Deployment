@@ -177,14 +177,8 @@ Rails.application.routes.draw do
     # end
 
     root 'client/events#index'
-    get '/landing', to: 'greetings#landing'
-
-
-    get '/react-api' => 'application#index', defaults: { format: :json }
-
-    # get '/blog',        to: 'greetings#blog'
-    # get '/blog/:slug',  to: 'greetings#blog'
-    get '/rating',      to: 'greetings#rating'
+    get '/landing',               to: 'greetings#landing'
+    get '/rating',                to: 'greetings#rating'
 
     get '/about',                 to: 'greetings#about'
     get '/contact',               to: 'greetings#contact'
@@ -197,17 +191,18 @@ Rails.application.routes.draw do
 
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category
-      resources :events, only: [:index, :show] do
+      resources :events, only: [:index, :show]
+
+      resources :payments, only: nil do
         get '/express', to: 'events#express'
         post '/selection', to: 'events#selection'
         post '/checkout', to: 'events#checkout'
       end
 
-      resources :profile, only: [:index] do
+      resources :profiles, only: [:index] do
         get '/tickets', to: 'profile#tickets'
         get '/orders', to: 'profile#orders'
         get '/orders/:ticket_id/', to: 'profile#order', as: :ticket
-        # get '/profile/wishlist', to: 'profile#wishlist'
         get '/settings', to: 'profile#settings'
         put '/settings', to: 'profile#settings_update'
         put '/change_password', to: 'profile#change_password'
@@ -230,12 +225,12 @@ Rails.application.routes.draw do
         # end
       end
       # resources :users, except: :show
-      root to: "profile#index"
-      get '/:organizer', to: 'profile#show'
+      root to: "profiles#index"
+      get '/:organizer', to: 'profiles#show'
     end
 
     namespace :admin do
-      # get '/', to: 'events#index'
+      get '/', to: 'events#index'
       get '/users', to: 'users#index'
       get '/transactions', to: 'users#transactions'
       put '/approve/:order_id', to: 'temporary#approving'
@@ -254,7 +249,7 @@ Rails.application.routes.draw do
     put 'manage/approve/:order_id', to: 'temporary#approving', as: :manage_approve
     put 'manage/cancel/:order_id', to: 'temporary#approving', as: :manage_cancel
     post 'manage/send_email/:order_id', to: 'temporary#send_email', as: :manage_send_email
-    #
+
     # namespace :admin do
     #   resources :users
     #   resources :events
@@ -283,6 +278,5 @@ Rails.application.routes.draw do
         resources :events
       end
     end
-
   end
 end

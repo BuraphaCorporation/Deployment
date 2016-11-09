@@ -1,5 +1,5 @@
 module Client
-  class ProfileController < Client::BaseController
+  class ProfilesController < Client::BaseController
     before_action :authenticate_user!
 
     def index

@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   before_action :default_seo
   before_action :default_cover
 
+  http_basic_authenticate_with name: 'admin', password: 'x' if App.host == 'brick'
+
 protected
   def not_found
     raise ActionController::RoutingError.new('Not Found')

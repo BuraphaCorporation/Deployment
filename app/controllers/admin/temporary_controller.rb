@@ -10,7 +10,7 @@ module Admin
     end
 
     def transactions
-      @orders = Order.where.not(status: :unpaid).order(created_at: :desc, status: :asc)
+      @orders = Order.order(created_at: :desc, status: :asc)
     end
 
     def approving

@@ -146,11 +146,22 @@
               ลดไป <%= convert_to_currency(@section.discount) %> (<%= @section.percent %>% off)
             </div>
           <%end %>
-
-          <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
-            Buy Ticket
-          </button>
-          <p class="comment">* เลือกจำนวนและชนิดของบัตรในขั้นตอนต่อไป</p>
+          <% if @section.sold_out? or @section.expired_time? %>
+            <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-buy disabled" class="background: #ccc">
+              อีเว้นท์นี้ซื้อไม่ได้แล้ว
+            </button>
+            <% if @section.expired_time? %>
+              <p class="comment">เนื่องจากวันที่จัดได้ผ่านไปแล้ว</p>
+            <% else %>
+              <p class="comment">บัตรได้ขายหมดแล้ว</p>
+            <% end %>
+            <p class="comment">ไม่อยากพลาดอีก? คุณสามารถ <a data-toggle="modal" data-target="#login-modal" href="#login-modal">ลงทะเบียนเอาไว้</a><br>แล้วเราจะส่งอีเมลไปบอกคุณเมื่อมีกิจกรรมอย่างนี้จัดขึ้นอีก :)</p>
+          <% else %>
+            <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
+              Buy Ticket
+            </button>
+            <p class="comment">* เลือกจำนวนและชนิดของบัตรในขั้นตอนต่อไป</p>
+          <% end %>
         </div>
         <div class="map-panel">
           <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>" data-icon-map-pin="<%= asset_url('icons/map-pin-blue-32px@2x.png') %>"></div>
@@ -224,7 +235,7 @@
                 <% if section.ticket_availability? %>
                   <select class="ticket-quantity form-control" name="section[<%= section.id %>]" data-price="<%= section.price %>" onchange="return update_total_price();">
                     <% (0..section.show_ticket_available).each do |i| %>
-                      <option value="<%= i %>"><%= i %></option>
+                      <option value="<%= i %>" <%= "selected" if @sections.count < 2 and i == 1 %>><%= i %></option>
                     <% end %>
                   </select>
                 <% else %>

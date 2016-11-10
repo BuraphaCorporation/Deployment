@@ -89,6 +89,7 @@ class User < ApplicationRecord
   before_create :set_default_access_token
   before_create :set_default_referal
   after_create :set_customer_token
+  after_create :set_username
   after_create :send_welcome_email
 
   scope :latest, -> { order 'created_at desc' }
@@ -233,6 +234,10 @@ private
     self.update(omise_customer_id: customer.id)
   rescue Exception => e
     logger.warn e
+  end
+
+  def set_username
+    # slug =
   end
 
   def send_welcome_email

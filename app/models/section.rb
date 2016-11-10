@@ -62,6 +62,14 @@ class Section < ApplicationRecord
     end
   end
 
+  def sold_out?
+    show_ticket_available <= 0
+  end
+
+  def expired_time?
+    event_time <= Time.zone.now
+  end
+
   def ticket_type
     self.event.ticket_type
   end

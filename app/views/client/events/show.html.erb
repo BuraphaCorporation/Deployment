@@ -235,7 +235,7 @@
                 <% if section.ticket_availability? %>
                   <select class="ticket-quantity form-control" name="section[<%= section.id %>]" data-price="<%= section.price %>" onchange="return update_total_price();">
                     <% (0..section.show_ticket_available).each do |i| %>
-                      <option value="<%= i %>" <%= "selected" if @sections.count < 2 and i == 1 %>><%= i %></option>
+                      <option value="<%= i %>"><%= i %></option>
                     <% end %>
                   </select>
                 <% else %>
@@ -339,4 +339,11 @@
       });
     });
   <% end %>
+
+  $(document).ready(function(){
+    if($('.ticket-quantity').length == 1) {
+      $('.ticket-quantity').find('option')[1].selected = true;
+      update_total_price();
+    }
+  });
 </script>

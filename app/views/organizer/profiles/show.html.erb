@@ -50,16 +50,32 @@
   <div class="container">
     <div class="row event-list" style="padding-top: 30px;">
       <% @events.each do |event| %>
-        <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
-          <%= link_to client_event_path(event.to_url), class: "event card" do %>
-            <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
-            <div class="info">
-              <h4 class="title text-left"><%= event.title %></h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
-              <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= event.location_name %></div>
-            </div>
-          <% end %>
-        </div>
+          <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
+            <%= link_to client_event_path(event.to_url), class: "event card" do %>
+
+              <% if event.uptime > Time.zone.now %>
+                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
+              <% else %>
+                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>); opacity: 0.5;">
+                  <div style="color: #fff;
+                        font-weight: 600;
+                        position: absolute;
+                        top: 110px;
+                        text-align: center;
+                        left: 0;
+                        right: 0;
+                        font-size: 22px;">
+                    PAST EVENT
+                  </div>
+                </div>
+              <% end %>
+              <div class="info">
+                <h4 class="title text-left"><%= event.title %></h4>
+                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
+                <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= event.location_name %></div>
+              </div>
+            <% end %>
+          </div>
       <% end %>
     </div>
   </div>

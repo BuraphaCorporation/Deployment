@@ -4,7 +4,7 @@ module Organizer
     before_action :organizer, only: :show
 
     def show
-      @events = @organizer.events
+      @events = @organizer.events.order(uptime: :desc)
     end
 
     private

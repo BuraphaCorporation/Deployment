@@ -385,6 +385,7 @@ label{
   border: 1px solid $gray-color-e;
   overflow: hidden;
   text-decoration: none;
+  background: #fff;
   .cover{
     background-size: cover;
     background-position: center;
@@ -396,7 +397,8 @@ label{
     color: $gray-color-4;
     padding: 15px;
     font-size: 16px;
-    a{
+    min-height: 180px;
+    a {
       color: $gray-color-4;}
     .location{
       width: 100%;

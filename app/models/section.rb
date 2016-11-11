@@ -35,8 +35,15 @@ class Section < ApplicationRecord
   attr_accessor :section_name, :section_event_date, :section_end_date, :section_event_time, :section_end_time, :section_price, :section_available
 
   scope :available, -> { where("event_time > ?", Time.zone.now).order(:event_time) }
+  scope :total, -> { sum(:total) }
 
   enumerize :status, in: [:on, :off, :draft], default: :draft
+
+
+
+  def bought
+    self.tickets.count
+  end
 
   def ticket_availability?
     total - bought > 0

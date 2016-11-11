@@ -50,6 +50,8 @@ module Client
     def checkout
       set_seo_title 'Checkout'
 
+      raise if session["tickets"]["total"].nil?
+
       dob = Date.strptime("#{params[:dob_date]}/#{params[:dob_month]}/#{params[:dob_year]}", "%d/%m/%Y")
 
       current_user.update(

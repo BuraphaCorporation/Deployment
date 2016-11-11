@@ -39,10 +39,16 @@
                     <td><%= order.to_created_at %></td>
 
                     <% if order.pending? || order.status.cancel? %>
-                      <td colspan="2"><%= link_to "Approve", admin_manage_approve_path(order.id), method: :put %></td>
+                      <td colspan="2">
+                        <%= link_to "Approve", admin_manage_approve_path(order.id), method: :put %>
+                      </td>
                     <% elsif order.paid? %>
-                      <td><%= link_to "Cancel", admin_manage_cancel_path(order.id), method: :put %></td>
-                      <td><%= link_to "Send Email", admin_manage_send_email_path(order.id), method: :post  %></td>
+                      <td>
+                        <%= link_to "Cancel", admin_manage_cancel_path(order.id), method: :put %>
+                      </td>
+                      <td>
+                        <%= link_to "Send Email", admin_manage_send_email_path(order.id), method: :post  %>
+                      </td>
                     <% else %>
                       <td colspan="2"></td>
                     <% end %>

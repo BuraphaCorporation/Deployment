@@ -39,8 +39,6 @@ class Section < ApplicationRecord
 
   enumerize :status, in: [:on, :off, :draft], default: :draft
 
-
-
   def bought
     self.tickets.count
   end
@@ -74,7 +72,9 @@ class Section < ApplicationRecord
   end
 
   def expired_time?
-    event_time <= Time.zone.now
+    if self.ticket_type.general?
+      event_time <= Time.zone.now
+    end
   end
 
   def ticket_type

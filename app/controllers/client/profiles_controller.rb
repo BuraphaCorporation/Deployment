@@ -9,7 +9,7 @@ module Client
     def tickets
       set_seo_title 'Profile'
 
-      @ticket = current_user.tickets.where.not(status: :unusable)
+      @ticket = current_user.tickets.paid
       @tickets_active = @ticket.active
       @tickets_passed = @ticket.passed
       @has_tickets_passed = @tickets_passed.present?

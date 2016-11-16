@@ -57,7 +57,8 @@ class Ticket < ApplicationRecord
   scope :order_by_title, -> { joins(:section).order("sections.title desc") }
 
   scope :paid, -> { where.not(status: :unusable) }
-  scope :used, -> { where.not(status: :used) }
+  scope :available, -> { where(status: :available) }
+  scope :used, -> { where(status: :used) }
 
   def to_s
     "#TK-#{code}"

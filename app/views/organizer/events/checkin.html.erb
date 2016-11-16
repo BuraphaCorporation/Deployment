@@ -28,7 +28,7 @@
                 <ul class="meta-info list-inline">
                   <li>Attendee: <%= section.tickets.paid.count %></li>
                   <li>Checked-in: <%= section.tickets.used.count %></li>
-                  <li>Remaining: <%= section.tickets.paid.count - section.tickets.used.count %></li>
+                  <li>Remaining: <%= section.tickets.paid.count - section.tickets.paid.used.count %></li>
                 </ul>
               </div>
               <div class="col-xs-12 col-md-6">

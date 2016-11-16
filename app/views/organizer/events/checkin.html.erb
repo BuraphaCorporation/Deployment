@@ -22,7 +22,7 @@
         <div class="event-section-panel">
           <div class="panel-header">
             <h3>Attendees / Check In</h3>
-            <h4 class="panel-title"><%= section.title %> - <%= section.event_time.strftime("%d %B %Y, %H:%M") %></h4>
+            <h4 class="panel-title"><%= section.title %> - <%= section.event_time.try(:strftime, "%d %B %Y, %H:%M") %></h4>
             <div class="row">
               <div class="col-xs-12 col-md-6">
                 <ul class="meta-info list-inline">

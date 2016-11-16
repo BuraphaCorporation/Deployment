@@ -56,6 +56,10 @@ class Ticket < ApplicationRecord
   scope :passed, -> { includes(:section).where(stages: :passed).order("sections.event_time desc") }
   scope :order_by_title, -> { joins(:section).order("sections.title desc") }
 
+  scope :paid, -> { where.not(status: :unusable) }
+  scope :available, -> { where(status: :available) }
+  scope :used, -> { where(status: :used) }
+
   def to_s
     "#TK-#{code}"
   end

@@ -1,9 +1,10 @@
 <script>$('body').attr('id', 'index-page');</script>
+
 <div class="section" id="cover-section">
   <div class="slick" id="cover-slick">
     <% @covers.each do |cover| %>
       <div>
-        <div class="page-cover" style="height: 300px; background-image: url(<%= cover[:image] %>)">
+        <div class="page-cover" style="height: 350px; background-image: url(<%= cover[:image] %>)">
           <div class="info">
             <div class="container">
               <div class="organizer">
@@ -11,6 +12,9 @@
                 <i class="icon icon-md icon-verified" style="position: absolute; top: 140px; margin-left: 35px;"></i>
                 <div class="title">
                   <%= @organizer.company %>
+                </div>
+                <div style="width: 500px; margin: 10px auto;">
+                  <%= truncate @organizer.short_description, length: 150 %>
                 </div>
                 <div class="social" style="margin-top: 20px">
                   <% if @organizer.facebook.present? %>
@@ -33,7 +37,6 @@
                       <i class="icon icon-md icon-website"></i>
                     <% end %>
                   <% end %>
-
                 </div>
               </div>
             </div>
@@ -43,41 +46,37 @@
     <% end %>
   </div>
 </div>
-<div class="section" id="about-section">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12" style="margin-top: 20px; margin-bottom: 20px;">
-        <%= @organizer.short_description %>
-      </div>
-    </div>
-  </div>
-</div>
 <div class="section" style="background: #FCFBFC">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12">
-        <p> &nbsp; </p>
-        <div class="row">
-          <div class="col-xs-12">
-            <h3>กิจกรรม/อีเว้นท์ ที่จัดโดย <%= @organizer.company %> (<%= @events.count %>)</h3>
-          </div>
-        </div>
-        <p> &nbsp; </p>
-      </div>
-    </div>
-
-    <div class="row event-list">
+    <div class="row event-list" style="padding-top: 30px;">
       <% @events.each do |event| %>
-        <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
-          <%= link_to client_event_path(event.to_url), class: "event card" do %>
-            <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
-            <div class="info">
-              <h4 class="title text-left"><%= event.title %></h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
-              <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= event.location_name %></div>
-            </div>
-          <% end %>
-        </div>
+          <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
+            <%= link_to client_event_path(event.to_url), class: "event card" do %>
+              <% if event.ticket_type.deal? %>
+                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
+              <% elsif event.uptime > Time.zone.now %>
+                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
+              <% else %>
+                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>); filter: grayscale(100%);">
+                  <div style="color: #fff;
+                        font-weight: 600;
+                        position: absolute;
+                        top: 110px;
+                        text-align: center;
+                        left: 0;
+                        right: 0;
+                        font-size: 22px;">
+                    PAST EVENT
+                  </div>
+                </div>
+              <% end %>
+              <div class="info">
+                <h4 class="title text-left"><%= event.title %></h4>
+                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
+                <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= event.location_name %></div>
+              </div>
+            <% end %>
+          </div>
       <% end %>
     </div>
   </div>

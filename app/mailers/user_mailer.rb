@@ -21,12 +21,12 @@ class UserMailer < ApplicationMailer
     @payment  = @order.payment
     @tickets  = @order.tickets
 
-    @title     = "Hi #{@user.first_name}, we’ve got your order!"
+    @title    = "Hi #{@user.first_name}, we’ve got your order!"
     @subtitle = "Just one more step :)"
 
     @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
 
-    mail to: @user.email, subject: "Daydash.co - Payment Pending: #{@event.title}", bcc: "hello@daydash.co, daydash.app@gmail.com"
+    mail to: @user.email, subject: "Daydash.co - Payment #{@order.status}: #{@event.title}", bcc: "hello@daydash.co, daydash.app@gmail.com"
   end
 
   def ticket(order_id)

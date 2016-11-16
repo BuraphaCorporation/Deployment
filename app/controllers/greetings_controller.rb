@@ -1,9 +1,16 @@
 class GreetingsController < ApplicationController
   before_action :global_categories
-
   include GreetingsHelper
-
   layout :resolve_layout
+
+  def index
+    if params[:category].present?
+      @category_id = Category.friendly.find(params[:category]).id
+    else
+      @category_id = nil
+    end
+    @events = Event.list
+  end
 
   def rating
     redirect_to case request.user_agent.downcase
@@ -56,15 +63,17 @@ class GreetingsController < ApplicationController
 private
   def resolve_layout
     case action_name
+    when 'index'
+      'daydash'
     when 'about', 'faq', 'terms', 'policy', 'contact'
       if mobile_device?
         'greetings'
       else
         'daydash'
       end
-    when 'campaign', 'campaign_terms'
-      'landing'
     when 'landing'
+      'landing'
+    when 'campaign', 'campaign_terms'
       'landing'
     else
       false

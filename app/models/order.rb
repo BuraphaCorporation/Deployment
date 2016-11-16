@@ -100,7 +100,7 @@ class Order < ApplicationRecord
   end
 
   def expires_on
-    (created_at + 60.minutes)
+    (created_at + 4.hours)
   end
 
   def to_expires_on

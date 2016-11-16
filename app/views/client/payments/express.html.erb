@@ -51,7 +51,7 @@
 
       <!-- Right side -->
       <div class="col-xs-12 col-md-8">
-        <%= form_tag client_event_checkout_path(@event.to_url), id: :checkout do  %>
+        <%= form_tag client_payment_checkout_path(@event.to_url), id: :checkout do  %>
           <input type="hidden" name="event_id" value="<%= @event.id %>" />
           <input type="hidden" name="omise_token">
           <% if @is_free %>
@@ -206,7 +206,7 @@
                           </div>
                           <div class="form-group col-xs-6">
                             <label>CVC</label>
-                            <input class="form-control" type="text" name="card_cvc" maxlength="3" value="" placeholder="•••" data-omise="security_code" />
+                            <input class="form-control" type="password" name="card_cvc" maxlength="3" value="" placeholder="•••" data-omise="security_code" />
                           </div>
                           <div class="col-xs-12">
                             <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
@@ -235,7 +235,7 @@
                       <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
                         <ul>
                           <li>เราจะทำการแจ้งรายละเอียดการชำระเงินหลังจากคุณคลิกปุ่ม “ยืนยันการสั่งซื้อ”</li>
-                          <li>คุณจะต้องทำการโอนและแจ้งโอนภายใน 1 ชั่วโมง นับจากเวลาที่สั่งซื้อ หากพ้นช่วงเวลาดังกล่าว รายการของคุณจะถูกยกเลิก และคุณจะต้องทำการสั่งซื้อใหม่อีกครั้ง</li>
+                          <li>คุณจะต้องทำการโอนและแจ้งโอนภายใน 4 ชั่วโมง นับจากเวลาที่สั่งซื้อ หากพ้นช่วงเวลาดังกล่าว รายการของคุณจะถูกยกเลิก และคุณจะต้องทำการสั่งซื้อใหม่อีกครั้ง</li>
                         </ul>
                         <div class="form-section-footer">
                           <div>

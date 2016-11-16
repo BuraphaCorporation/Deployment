@@ -150,8 +150,8 @@ Rails.application.routes.draw do
   get 'errors/not_found'
   get 'errors/internal_server_error'
 
-  match "/404", :to => "errors#not_found", :via => :all
-  match "/500", :to => "errors#internal_server_error", :via => :all
+  match '/404', :to => 'errors#not_found', :via => :all
+  match '/500', :to => 'errors#internal_server_error', :via => :all
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   constraints(subdomain: App.host)  do
@@ -177,14 +177,8 @@ Rails.application.routes.draw do
     # end
 
     root 'client/events#index'
-    get '/landing', to: 'greetings#landing'
-
-
-    get '/react-api' => 'application#index', defaults: { format: :json }
-
-    # get '/blog',        to: 'greetings#blog'
-    # get '/blog/:slug',  to: 'greetings#blog'
-    get '/rating',      to: 'greetings#rating'
+    get '/landing',               to: 'greetings#landing'
+    get '/rating',                to: 'greetings#rating'
 
     get '/about',                 to: 'greetings#about'
     get '/contact',               to: 'greetings#contact'
@@ -197,49 +191,53 @@ Rails.application.routes.draw do
 
     namespace :client, path: nil do
       get 'categories/:category', to: 'events#index', as: :category
-      resources :events, only: [:index, :show] do
-        get '/express', to: 'events#express'
-        post '/selection', to: 'events#selection'
-        post '/checkout', to: 'events#checkout'
+
+      resources :events, only: [:index, :show]
+
+      resources :payments, path: 'events' do
+        get '/express',             to: 'payments#express'
+        post '/selection',          to: 'payments#selection'
+        post '/checkout',           to: 'payments#checkout'
       end
 
-      resources :profile, only: [:index] do
-        get '/tickets', to: 'profile#tickets'
-        get '/orders', to: 'profile#orders'
-        get '/orders/:ticket_id/', to: 'profile#order', as: :ticket
-        # get '/profile/wishlist', to: 'profile#wishlist'
-        get '/settings', to: 'profile#settings'
-        put '/settings', to: 'profile#settings_update'
-        put '/change_password', to: 'profile#change_password'
+      resources :profiles, only: :index do
+        get '/tickets',             to: 'profiles#tickets'
+        get '/orders',              to: 'profiles#orders'
+        get '/orders/:ticket_id/',  to: 'profiles#order', as: :ticket
+        get '/settings',            to: 'profiles#settings'
+        put '/settings',            to: 'profiles#settings_update'
+        put '/change_password',     to: 'profiles#change_password'
       end
     end
 
     namespace :organizer do
       resources :events do
         member do
-          get 'orders', to: 'events#orders'
-          get 'checkin', to: 'events#checkin'
-          get 'unpublish', to: 'events#unpublish'
-          get 'published', to: 'events#published'
-          get 'update_time_event', to: 'events#update_time_event'
+          get 'orders',             to: 'events#orders'
+          get 'checkin',            to: 'events#checkin'
+          get 'unpublish',          to: 'events#unpublish'
+          get 'published',          to: 'events#published'
+          get 'update_time_event',  to: 'events#update_time_event'
         end
 
-        post 'checked/:ticket_id', to: 'events#ticket_checking', as: :ticket_checking
+        post 'checked/:ticket_id',  to: 'events#ticket_checking', as: :ticket_checking
         # collection do
           # delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
         # end
       end
       # resources :users, except: :show
-      root to: "profile#index"
-      get '/:organizer', to: 'profile#show'
+
+      get '/:organizer', to: 'profiles#show'
+      root to: "profiles#index"
     end
 
     namespace :admin do
-      # get '/', to: 'events#index'
-      get '/users', to: 'users#index'
-      get '/transactions', to: 'users#transactions'
-      put '/approve/:order_id', to: 'temporary#approving'
-      put '/cancel/:order_id', to: 'temporary#approving'
+      # root to: 'events#index'
+      get '/',                      to: 'events#index'
+      get '/users',                 to: 'users#index'
+      get '/transactions',          to: 'users#transactions'
+      put '/approve/:order_id',     to: 'temporary#approving'
+      put '/cancel/:order_id',      to: 'temporary#approving'
       post '/send_email/:order_id', to: 'temporary#send_email'
       # resources :events do
       #   collection do
@@ -247,30 +245,27 @@ Rails.application.routes.draw do
       #   end
       # end
       # resources :users, except: :show
-    end
 
-    get 'manage/users', to: 'temporary#index', as: :manage_users
-    get 'manage/transactions', to: 'temporary#transactions', as: :manage_transactions
-    put 'manage/approve/:order_id', to: 'temporary#approving', as: :manage_approve
-    put 'manage/cancel/:order_id', to: 'temporary#approving', as: :manage_cancel
-    post 'manage/send_email/:order_id', to: 'temporary#send_email', as: :manage_send_email
-    #
-    # namespace :admin do
-    #   resources :users
-    #   resources :events
-    #   resources :sections
-    #   resources :categories
-    #   resources :categories_events
-    #   resources :event_pictures
-    #   resources :orders
-    #   resources :payments
-    #   resources :tickets
-    #   resources :tags
-    #   resources :taggings
-    #   resources :wishlists
-    #
-    #   root to: "users#index"
-    # end
+      get 'manage/users',                 to: 'temporary#index',        as: :manage_users
+      get 'manage/transactions',          to: 'temporary#transactions', as: :manage_transactions
+      put 'manage/approve/:order_id',     to: 'temporary#approving',    as: :manage_approve
+      put 'manage/cancel/:order_id',      to: 'temporary#approving',    as: :manage_cancel
+      post 'manage/send_email/:order_id', to: 'temporary#send_email',   as: :manage_send_email
+
+      # resources :users
+      # resources :events
+      # resources :sections
+      # resources :categories
+      # resources :categories_events
+      # resources :event_pictures
+      # resources :orders
+      # resources :payments
+      # resources :tickets
+      # resources :tags
+      # resources :taggings
+      # resources :wishlists
+      # root to: "users#index"
+    end
   end
 
   constraints(subdomain: App.api_host) do
@@ -283,6 +278,5 @@ Rails.application.routes.draw do
         resources :events
       end
     end
-
   end
 end

@@ -57,7 +57,7 @@
               <% elsif event.uptime > Time.zone.now %>
                 <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
               <% else %>
-                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>); opacity: 0.5;">
+                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>); filter: grayscale(100%);">
                   <div style="color: #fff;
                         font-weight: 600;
                         position: absolute;

@@ -7,9 +7,9 @@ module Organizer
 
     def index
       if current_user.organizer?
-        @events = current_user.events.order(created_at: :desc)
+        @events = current_user.events.order(uptime: :desc)
       else
-        @events = Event.order(created_at: :desc)
+        @events = Event.order(uptime: :desc)
       end
     end
 

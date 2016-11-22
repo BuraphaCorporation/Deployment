@@ -130,12 +130,16 @@
                   <label>Images (1200x800px - ไม่จำกัดจำนวน)</label>
                   <input class="form-control" type="file" name="event_pictures[]" multiple data-parsley-required="true" />
                 </div>
-                <div class="image-list sortable row">
-                  <% @images.each do |image| %>
-                    <div class="col-xs-6" data-id="<%= image.sort_index %>">
+                <div class="image-list sortable row attachments">
+                  <!-- <% @images.each_with_index do |image, index| %>
+                    <div class="col-xs-12" data-id="<%= image.id %>" data-index="<%= index %>">
+                      <div class="remove" style="position: absolute; top: -15px; right: 0px; z-index: 1000;" onclick="return removeImage('<%= image.id %>')">
+                        <i class="glyphicon glyphicon-remove-circle"></i>
+                      </div>
                       <div class="image" style="background-image: url(<%= image.media(:thumb) %>);"></div>
                     </div>
                   <% end unless @images.nil? %>
+                  -->
                 </div>
               </div>
             </div>
@@ -215,3 +219,70 @@
 
     <!-- Template -->
     <%= render partial: "organizer/parts/section" %>
+
+<script type="text/javascript">
+  function orderImage() {
+    $.ajax({
+      url: '<%= order_attachment_organizer_event_path(@event, format: :json) %>',
+      type: 'GET',
+      success: function(result) {
+        var attachment = $('.attachments');
+
+        console.log(result);
+        $.each(result, function(i){
+          var data = result[i]
+
+          var div = $('<div class="col-xs-12"></div>');
+          var remove = $('<div class="remove"><i class="glyphicon glyphicon-remove-circle"></i></div>');
+          var image = $('<div class="image"></div>');
+
+          div.attr('data-id', data.id);
+          div.attr('data-index', data.sort_index);
+
+          remove.css('position', 'absolute')
+                .css('top', '-15px')
+                .css('right', '0px')
+                .css('z-index', '1000');
+
+          // onclick="return removeImage('')"
+          console.log(data.media);
+          image.css('background-image', 'url(' + data.media + ')');
+
+          div.append(remove).append(image);
+
+          attachment.append(div);
+        })
+      }
+    })
+  }
+
+  orderImage();
+
+  function updateImage(media_id) {
+    $.ajax({
+      url: '<%= delete_attachment_organizer_event_path(@event) %>',
+      data: {
+        'media_id': media_id
+      },
+      type: 'PUT',
+      success: function(result) {
+        // orderImage()
+        console.log("ok");
+      }
+    });
+  }
+
+  function removeImage(media_id) {
+    $.ajax({
+      url: '<%= delete_attachment_organizer_event_path(@event) %>',
+      data: {
+        'media_id': media_id
+      },
+      type: 'DELETE',
+      success: function(result) {
+        // orderImage()
+        console.log("ok");
+      }
+    });
+  }
+</script>

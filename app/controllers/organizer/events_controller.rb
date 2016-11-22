@@ -1,6 +1,6 @@
 module Organizer
   class EventsController < Organizer::BaseController
-    before_action :event, only: [:edit, :update, :destroy, :delete_attachment, :orders, :checkin, :published, :unpublish]
+    before_action :event, only: [:edit, :update, :destroy, :delete_attachment, :orders, :checkin, :published, :unpublish, :order_attachment, :update_attachment]
     before_action :all_categories, only: [:new, :edit]
     before_action :all_users, only: [:new, :edit]
     before_action :admin_only, only: [:unpublish, :published, :update_time_event]
@@ -62,9 +62,21 @@ module Organizer
       @event.destroy
     end
 
+    def order_attachment
+      @images = @event.event_pictures.order(:sort_index)
+
+      respond_to do |format|
+        # format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+        format.json
+      end
+    end
+
+    def update_attachment
+      render json: @event.event_pictures.order(:sort_index)
+    end
+
     def delete_attachment
       @event.event_pictures.where(id: params[:media_id]).destroy_all
-      redirect_to :back
     end
 
     def orders

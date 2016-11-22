@@ -221,6 +221,24 @@
     <%= render partial: "organizer/parts/section" %>
 
 <script type="text/javascript">
+
+  function sortImage() {
+    $('.sortable').sortable({
+      cursor: 'move',
+      stop: function(event, ui){
+        var attachment = $('.attachments > .ui-sortable-handle');
+
+        attachment.each(function(i, el) {
+          var mediaId = $(el).attr('data-id');
+          var sortIndex = $(el).index();
+          // console.log(mediaId);
+          // console.log(sortIndex);
+          updateImage(mediaId, sortIndex);
+        });
+      }
+    });
+  }
+
   function orderImage() {
     $.ajax({
       url: '<%= order_attachment_organizer_event_path(@event, format: :json) %>',
@@ -228,7 +246,9 @@
       success: function(result) {
         var attachment = $('.attachments');
 
-        console.log(result);
+        attachment.empty()
+
+        // console.log(result);
         $.each(result, function(i){
           var data = result[i]
 
@@ -242,32 +262,37 @@
           remove.css('position', 'absolute')
                 .css('top', '-15px')
                 .css('right', '0px')
-                .css('z-index', '1000');
+                .css('z-index', '1000')
+                .css('cursor', 'pointer');
 
-          // onclick="return removeImage('')"
-          console.log(data.media);
+          remove.attr('onclick', 'return removeImage("'+ data.id +'")')
+
           image.css('background-image', 'url(' + data.media + ')');
 
           div.append(remove).append(image);
 
           attachment.append(div);
-        })
+        });
+
+        sortImage()
       }
-    })
+    });
   }
 
-  orderImage();
+  $(function(){
+    orderImage();
+  });
 
-  function updateImage(media_id) {
+  function updateImage(media_id, sort_index) {
     $.ajax({
-      url: '<%= delete_attachment_organizer_event_path(@event) %>',
+      url: '<%= update_attachment_organizer_event_path(@event) %>',
       data: {
-        'media_id': media_id
+        'media_id': media_id,
+        'sort_index': sort_index
       },
       type: 'PUT',
       success: function(result) {
-        // orderImage()
-        console.log("ok");
+        // console.log("ok");
       }
     });
   }
@@ -280,8 +305,7 @@
       },
       type: 'DELETE',
       success: function(result) {
-        // orderImage()
-        console.log("ok");
+        orderImage();
       }
     });
   }

@@ -72,7 +72,7 @@ module Organizer
     end
 
     def update_attachment
-      render json: @event.event_pictures.order(:sort_index)
+      @event.event_pictures.where(id: params[:media_id]).update(sort_index: params[:sort_index])
     end
 
     def delete_attachment

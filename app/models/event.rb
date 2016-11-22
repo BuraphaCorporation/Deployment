@@ -104,11 +104,11 @@ class Event < ApplicationRecord
   end
 
   def get_thumbnail
-    self.event_pictures.try(:first).try(:media, :thumb) || ''
+    self.event_pictures.order(:sort_index).try(:first).try(:media, :thumb) || ''
   end
 
   def get_cover
-    self.try(:cover, :full) || self.event_pictures.try(:first).try(:media, :full)
+    self.try(:cover, :full) || self.event_pictures.order(:sort_index).try(:first).try(:media, :full)
   end
 
   def get_total_sales

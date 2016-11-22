@@ -119,31 +119,52 @@ $(document).on 'turbolinks:load', ->
   initGoogleMapEvent()
 
   initGoogleMapOrganizer = ->
-    addMarker = undefined
-    dLat = undefined
-    dLng = undefined
-    hideMarkers = undefined
-    input = undefined
-    map = undefined
-    markers = undefined
-    searchBox = undefined
     dLat = parseFloat($('#event_latitude').val()) or 13.7563309
     dLng = parseFloat($('#event_longitude').val()) or 100.50176510000006
+
     map = new (google.maps.Map)(document.getElementById('organizer-map'),
       center:
         lat: dLat
         lng: dLng
       zoom: 13
       mapTypeId: google.maps.MapTypeId.ROADMAP)
+
     markers = []
     input = document.getElementById('pac-input')
     searchBox = new (google.maps.places.SearchBox)(input)
-    map.addListener 'idle', ->
-      addMarker new (google.maps.LatLng)(dLat, dLng)
-      return
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push input
+
+    map.addListener 'click', (event) ->
+      addMarker event.latLng
+
+    map.addListener 'bounds_changed', ->
+      searchBox.setBounds map.getBounds()
+
+    searchBox.addListener 'places_changed', ->
+      places = searchBox.getPlaces()
+      if places.length == 0
+        return
+
+      bounds = new (google.maps.LatLngBounds)
+      places.forEach (place) ->
+        icon =
+          url: place.icon
+          size: new (google.maps.Size)(71, 71)
+          origin: new (google.maps.Point)(0, 0)
+          anchor: new (google.maps.Point)(17, 34)
+          scaledSize: new (google.maps.Size)(25, 25)
+
+        addMarker place.geometry.location
+
+        if place.geometry.viewpor
+          bounds.union place.geometry.viewport
+        else
+          bounds.extend place.geometry.location
+
+      map.fitBounds bounds
 
     hideMarkers = ->
-      i = undefined
       i = 0
       while i < markers.length
         markers[i].setMap null
@@ -151,51 +172,22 @@ $(document).on 'turbolinks:load', ->
       return
 
     addMarker = (location) ->
-      marker = undefined
       hideMarkers()
       markers = []
+
       marker = new (google.maps.Marker)(
         position: location
         map: map
         draggable: true)
+
       markers.push marker
       updateLatLng location.lat(), location.lng()
+
       marker.addListener 'dragend', (event) ->
         updateLatLng event.latLng.lat(), event.latLng.lng()
-        return
-      return
 
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push input
-    map.addListener 'bounds_changed', ->
-      searchBox.setBounds map.getBounds()
-      return
-    map.addListener 'click', (event) ->
-      addMarker event.latLng
-      return
-    searchBox.addListener 'places_changed', ->
-      bounds = undefined
-      places = undefined
-      places = searchBox.getPlaces()
-      if places.length == 0
-        return
-      bounds = new (google.maps.LatLngBounds)
-      places.forEach (place) ->
-        icon = undefined
-        icon =
-          url: place.icon
-          size: new (google.maps.Size)(71, 71)
-          origin: new (google.maps.Point)(0, 0)
-          anchor: new (google.maps.Point)(17, 34)
-          scaledSize: new (google.maps.Size)(25, 25)
-        addMarker place.geometry.location
-        if place.geometry.viewpor
-          bounds.union place.geometry.viewport
-        else
-          bounds.extend place.geometry.location
-        return
-      map.fitBounds bounds
-      return
-    return
+    # map.addListener 'idle', (event) ->
+    addMarker new (google.maps.LatLng)(dLat, dLng)
 
   updateLatLng = (lat, lng) ->
     $('#event_latitude').val lat

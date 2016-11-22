@@ -10,6 +10,7 @@
     <%= csrf_meta_tags %>
     <%= render partial: "layouts/parts/tracking" %>
 
+    <% if App.environment.production? %>
     <!-- Start of Async Drift Code -->
     <script>
     !function() {
@@ -34,6 +35,8 @@
     drift.load('xswzh2iewdvu');
     </script>
     <!-- End of Async Drift Code -->
+
+    <% end %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= stylesheet_link_tag 'daydash', media: 'all', 'data-turbolinks-track' => true %>

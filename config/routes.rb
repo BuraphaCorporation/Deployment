@@ -218,6 +218,11 @@ Rails.application.routes.draw do
           get 'unpublish',          to: 'events#unpublish'
           get 'published',          to: 'events#published'
           get 'update_time_event',  to: 'events#update_time_event'
+
+
+          get 'order_attachment', to: 'events#order_attachment', format: :json
+          put 'update_attachment', to: 'events#update_attachment', format: :json
+          delete 'delete_attachment', to: 'events#delete_attachment', format: :json
         end
 
         post 'checked/:ticket_id',  to: 'events#ticket_checking', as: :ticket_checking

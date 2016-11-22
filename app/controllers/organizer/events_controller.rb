@@ -27,6 +27,8 @@ module Organizer
       else
         redirect_to organizer_events_path, flash: { error: @event.errors.full_messages }
       end
+
+      EventUpdateJob.perform_now
     end
 
     def show
@@ -56,6 +58,8 @@ module Organizer
       serialize_data_update
 
       redirect_to edit_organizer_event_path(@event.to_url), flash: { notice: "Success!" }
+
+      EventUpdateJob.perform_now
     end
 
     def destroy

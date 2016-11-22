@@ -220,6 +220,7 @@
     <!-- Template -->
     <%= render partial: "organizer/parts/section" %>
 
+<% if @event.id.present? %>
 <script type="text/javascript">
 
   function sortImage() {
@@ -310,3 +311,4 @@
     });
   }
 </script>
+<% end %>

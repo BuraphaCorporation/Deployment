@@ -1,4 +1,9 @@
 server 'daydash.co', user: 'deploy', roles: %w{web app db}
 set :stage, :production
 set :rails_env, :production
-set :branch, git_branch('master')
+
+set :branch, if ENV['BRANCH']
+  git_branch(ENV['BRANCH'])
+else
+  git_branch('master')
+end

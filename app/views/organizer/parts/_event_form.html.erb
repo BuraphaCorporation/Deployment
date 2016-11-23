@@ -130,17 +130,7 @@
                   <label>Images (1200x800px - ไม่จำกัดจำนวน)</label>
                   <input class="form-control" type="file" name="event_pictures[]" multiple data-parsley-required="true" />
                 </div>
-                <div class="image-list sortable row attachments">
-                  <!-- <% @images.each_with_index do |image, index| %>
-                    <div class="col-xs-12" data-id="<%= image.id %>" data-index="<%= index %>">
-                      <div class="remove" style="position: absolute; top: -15px; right: 0px; z-index: 1000;" onclick="return removeImage('<%= image.id %>')">
-                        <i class="glyphicon glyphicon-remove-circle"></i>
-                      </div>
-                      <div class="image" style="background-image: url('<%= image.media(:thumb) %>');"></div>
-                    </div>
-                  <% end unless @images.nil? %>
-                  -->
-                </div>
+                <div class="image-list sortable row attachments"></div>
               </div>
             </div>
           </div>
@@ -259,18 +249,17 @@
 
           div.attr('data-id', data.id);
           div.attr('data-index', data.sort_index);
-          div.css('width', '390px');
 
           remove.css('position', 'absolute')
                 .css('top', '-15px')
-                .css('right', '0px')
+                .css('left', '60%')
                 .css('z-index', '1000')
                 .css('cursor', 'pointer');
 
           remove.attr('onclick', 'return removeImage("'+ data.id +'")')
 
           image.css('background-image', 'url(' + data.media + ')')
-               .css('height', '250px');
+               .css('width', '60%')
 
           div.append(remove).append(image);
 

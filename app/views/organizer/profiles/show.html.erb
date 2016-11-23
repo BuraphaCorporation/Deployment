@@ -54,10 +54,10 @@
             <%= link_to client_event_path(event.to_url), class: "event card" do %>
               <% if event.ticket_type.deal? %>
                 <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
-              <% elsif event.ticket_type.general? %>
-                <% if event.uptime > Time.zone.now %>
-                <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
-                <% end %>
+              <%# elsif event.ticket_type.general? %>
+                <%# if event.uptime > Time.zone.now %>
+                <!-- <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div> -->
+                <%# end %>
               <% else %>
                 <div class="cover" style="background-image: url('<%= event.get_thumbnail %>'); filter: grayscale(100%);">
                   <div style="color: #fff;

@@ -1,7 +1,7 @@
 <div class="section" id="profile-nav-section">
   <div class="container">
     <div class="current-user-panel">
-      <div class="profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>);"></div>
+      <div class="profile-photo" style="background-image: url('<%= current_user.picture(:medium) %>');"></div>
       <% if current_user.can_organizer? %>
         <div class="user-name"><%= current_user.company %></div>
         <!-- <div class="role-badge organizer-badge">ORGANIZER</div> -->

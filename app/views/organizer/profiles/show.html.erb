@@ -4,7 +4,7 @@
   <div class="slick" id="cover-slick">
     <% @covers.each do |cover| %>
       <div>
-        <div class="page-cover" style="height: 350px; background-image: url(<%= cover[:image] %>)">
+        <div class="page-cover" style="height: 350px; background-image: url('<%= cover[:image] %>')">
           <div class="info">
             <div class="container">
               <div class="organizer">
@@ -53,11 +53,11 @@
           <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
             <%= link_to client_event_path(event.to_url), class: "event card" do %>
               <% if event.ticket_type.deal? %>
-                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
+                <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
               <% elsif event.uptime > Time.zone.now %>
-                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
+                <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
               <% else %>
-                <div class="cover" style="background-image: url(<%= event.get_thumbnail %>); filter: grayscale(100%);">
+                <div class="cover" style="background-image: url('<%= event.get_thumbnail %>'); filter: grayscale(100%);">
                   <div style="color: #fff;
                         font-weight: 600;
                         position: absolute;

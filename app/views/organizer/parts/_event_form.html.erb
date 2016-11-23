@@ -114,7 +114,7 @@
                 </div>
                 <div class="image-list row">
                   <div class="col-xs-12">
-                    <div class="image" style="background-image: url(<%= @event.cover(:full) %>);"></div>
+                    <div class="image" style="background-image: url('<%= @event.cover(:full) %>');"></div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -123,7 +123,7 @@
                 </div>
                 <div class="image-list row">
                   <div class="col-xs-12">
-                    <div class="image" style="background-image: url(<%= @event.social_share(:facebook) %>);"></div>
+                    <div class="image" style="background-image: url('<%= @event.social_share(:facebook) %>');"></div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -136,7 +136,7 @@
                       <div class="remove" style="position: absolute; top: -15px; right: 0px; z-index: 1000;" onclick="return removeImage('<%= image.id %>')">
                         <i class="glyphicon glyphicon-remove-circle"></i>
                       </div>
-                      <div class="image" style="background-image: url(<%= image.media(:thumb) %>);"></div>
+                      <div class="image" style="background-image: url('<%= image.media(:thumb) %>');"></div>
                     </div>
                   <% end unless @images.nil? %>
                   -->

@@ -9,7 +9,7 @@
           <div class="card-header row">
             <div class="col col-xs-4 col-md-12">
               <%= link_to client_event_path(@event.to_url) do %>
-                <div class="cover" style="background-image: url(<%= @event.get_thumbnail %>);"></div>
+                <div class="cover" style="background-image: url('<%= @event.get_thumbnail %>');"></div>
               <% end %>
             </div>
             <div class="col col-xs-8 col-md-12">

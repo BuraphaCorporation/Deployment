@@ -54,17 +54,17 @@
             <%= link_to client_event_path(event.to_url), class: "event card" do %>
               <% if event.uptime.present? %>
                 <% if event.uptime < Time.zone.now %>
-                  <div class="cover" style="background-image: url('<%= event.get_thumbnail %>'); filter: grayscale(100%);">
-                    <div style="color: #fff;
-                          font-weight: 600;
-                          position: absolute;
-                          top: 110px;
-                          text-align: center;
-                          left: 0;
-                          right: 0;
-                          font-size: 22px;">
-                      PAST EVENT
-                    </div>
+                  <div style="color: #fff;
+                        font-weight: 600;
+                        position: absolute;
+                        top: 110px;
+                        text-align: center;
+                        left: 0;
+                        right: 0;
+                        font-size: 22px;">
+                    PAST EVENT
+                  </div>
+                  <div class="cover" style="background-image: url('<%= event.get_thumbnail %>'); filter: brightness(.5);">
                   </div>
                 <% else %>
                   <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>

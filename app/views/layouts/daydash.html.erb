@@ -45,6 +45,9 @@
     <!-- Google Map -->
     <%= javascript_include_tag '//maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places', 'data-turbolinks-track' => true, media: 'all' %>
     <%= javascript_include_tag 'daydash', 'data-turbolinks-track' => true %>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.css" media="screen" title="sweetalert2">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.js"></script>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -56,7 +59,7 @@
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="icon icon-menu"></i></button>
               <% if current_user.present? %>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profile-navbar" aria-expanded="false" aria-controls="navbar">
-                  <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>)"></div>
+                  <div class="user-profile-photo" style="background-image: url('<%= current_user.picture(:medium) %>')"></div>
                 </button>
               <% end %>
 
@@ -79,7 +82,7 @@
                   <% end %>
                   <li class="dropdown user-dropdown">
                     <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                      <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>"></div>
+                      <div class="user-profile-photo" style="background-image: url('<%= current_user.picture(:medium) %>')"></div>
                       <% if current_user.organizer? %>
                         <div class="user-name"><%= current_user.company %></div>
                       <% else %>

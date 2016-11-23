@@ -8,6 +8,7 @@ class OrganizerMailer < ApplicationMailer
   #   en.organizer_mailer.order.subject
   #
   def order(order_id)
+    @organizer = true
     @order    = Order.find(order_id)
     @user     = @order.user
     @event    = @order.event

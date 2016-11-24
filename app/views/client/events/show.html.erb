@@ -247,7 +247,7 @@
               </div>
               <div class="col-xs-4">
                 <% if section.ticket_availability? %>
-                  <select class="ticket-quantity form-control" name="section[<%= section.id %>]" data-price="<%= section.price %>" onchange="return update_total_price();">
+                  <select class="ticket-quantity form-control" name="section[<%= section.id %>]" data-price="<%= section.sale_price %>" onchange="return update_total_price();">
                     <% (0..section.show_ticket_available).each do |i| %>
                       <option value="<%= i %>"><%= i %></option>
                     <% end %>

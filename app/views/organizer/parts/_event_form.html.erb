@@ -110,7 +110,7 @@
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
                   <label>Cover (1600x500px - 1 ภาพ)</label>
-                  <input class="form-control" type="file" name="cover" data-parsley-required="true" />
+                  <input class="form-control" type="file" name="cover" <%= 'data-parsley-required="true"' unless @event.cover.present? %> />
                 </div>
                 <div class="image-list row">
                   <div class="col-xs-12">
@@ -119,7 +119,7 @@
                 </div>
                 <div class="form-group">
                   <label>Facebook og (1200x630px - 1 ภาพ)</label>
-                  <input class="form-control" type="file" name="social_share" data-parsley-required="true" />
+                  <input class="form-control" type="file" name="social_share" />
                 </div>
                 <div class="image-list row">
                   <div class="col-xs-12">
@@ -128,7 +128,7 @@
                 </div>
                 <div class="form-group">
                   <label>Images (1200x800px - ไม่จำกัดจำนวน)</label>
-                  <input class="form-control" type="file" name="event_pictures[]" multiple data-parsley-required="true" />
+                  <input class="form-control" type="file" name="event_pictures[]" multiple <%= 'data-parsley-required="true"' unless @event.event_pictures.present? %> />
                 </div>
                 <div class="image-list sortable row attachments"></div>
               </div>
@@ -139,14 +139,9 @@
             <div class="form-header">
               <h1 class="form-title">2. Ticket Detail</h1>
             </div>
-
-            <% if @sections.blank? and not @sections.nil? %>
-              <a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-plus"></i></a>
-            <% end %>
-
             <% @sections.each do |section| %>
-              <div class="row">
-                <div class="col-xs-3 form-group">
+              <div class="row section-ticket">
+                <div class="col-xs-4 form-group">
                   <label for="tickets-name">Ticket name</label>
                   <input type="text"
                          name="tickets[<%= section.id %>][title]"
@@ -156,7 +151,7 @@
                          class="form-control"
                          required="true" />
                 </div>
-                <div class="col-xs-3 form-group">
+                <div class="col-xs-2 form-group">
                   <label for="tickets-quantity">Quantity available</label>
                   <input type="number"
                          name="tickets[<%= section.id %>][total]"
@@ -166,7 +161,7 @@
                          class="form-control"
                          required="true" />
                 </div>
-                <div class="col-xs-3 form-group">
+                <div class="col-xs-2 form-group">
                   <label for="tickets-price">Price</label>
                   <input type="number"
                          name="tickets[<%= section.id %>][price]"
@@ -176,7 +171,7 @@
                          class="form-control"
                          required="true" />
                 </div>
-                <div class="col-xs-3 form-group">
+                <div class="col-xs-2 form-group">
                   <label for="tickets-discount">Discount</label>
                   <input type="number"
                          name="tickets[<%= section.id %>][discount]"
@@ -185,9 +180,13 @@
                          placeholder="eg. 100, 200"
                          class="form-control" />
                 </div>
-              </div>
-
-              <div class="row">
+                <div class="col-xs-2 form-group">
+                  <label for="tickets-sales-end">Actions</label>
+                  <p>
+                    <!--<a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-cog"></i></a>-->
+                    <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this, '<%= section.id %>');"><i class="fa fa-trash"></i></a>
+                  </p>
+                </div>
                 <div class="col-xs-6">
                   <label for="tickets-sales-start">Ticket sales start</label>
                   <div class="row">
@@ -246,8 +245,8 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-xs-12"><hr></div>
               </div>
-              <hr>
             <% end if @sections.present? %>
             <div class="new-ticket"></div>
 

@@ -1,6 +1,6 @@
 module Organizer
   class EventsController < Organizer::BaseController
-    before_action :event, only: [:edit, :update, :destroy, :delete_attachment, :orders, :checkin, :published, :unpublish, :order_attachment, :update_attachment]
+    before_action :event, only: [:edit, :update, :destroy, :delete_section, :delete_attachment, :orders, :checkin, :published, :unpublish, :order_attachment, :update_attachment]
     before_action :all_categories, only: [:new, :edit]
     before_action :all_users, only: [:new, :edit]
     before_action :admin_only, only: [:unpublish, :published, :update_time_event]
@@ -83,6 +83,16 @@ module Organizer
       @event.event_pictures.where(id: params[:media_id]).destroy_all
     end
 
+    def delete_section
+      section = @event.sections.find(params[:section_id])
+      if section.tickets.present?
+        render json: :failure
+      else
+        section.delete
+        render json: :success
+      end
+    end
+
     def orders
       @orders = @event.orders.where(status: :paid).order(created_at: :desc)
     end
@@ -147,8 +157,7 @@ module Organizer
           end_time   = Time.zone.parse("#{end_date} #{end_time}")
         end
 
-        new_ticket_discounts = params[:new_ticket_discounts][section].present? ? 0 : params[:new_ticket_discounts][section]
-
+        new_ticket_discounts = params[:new_ticket_discounts][section].present? ? params[:new_ticket_discounts][section] : 0
         @event.sections.create do |s|
           s.title         = params[:new_ticket_names][section]
           s.total         = params[:new_ticket_totals][section]
@@ -204,8 +213,7 @@ module Organizer
           end_time   = Time.zone.parse("#{end_date} #{end_time}")
         end
 
-        new_ticket_discounts = params[:new_ticket_discounts][section].present? ? 0 : params[:new_ticket_discounts][section]
-
+        new_ticket_discounts = params[:new_ticket_discounts][section].present? ? params[:new_ticket_discounts][section] : 0
         @event.sections.create do |s|
           s.title         = params[:new_ticket_names][section]
           s.total         = params[:new_ticket_totals][section]

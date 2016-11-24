@@ -1,0 +1,107 @@
+
+  <script type="text/javascript">
+
+    function sortImage() {
+      $('.sortable').sortable({
+        cursor: 'move',
+        stop: function(event, ui){
+          var attachment = $('.attachments > .ui-sortable-handle');
+
+          attachment.each(function(i, el) {
+            var mediaId = $(el).attr('data-id');
+            var sortIndex = $(el).index();
+            // console.log(mediaId);
+            // console.log(sortIndex);
+            updateImage(mediaId, sortIndex);
+          });
+        }
+      });
+    }
+
+    function orderImage() {
+      $.ajax({
+        url: '<%= order_attachment_organizer_event_path(@event, format: :json) %>',
+        type: 'GET',
+        success: function(result) {
+          var attachment = $('.attachments');
+
+          attachment.empty()
+
+          // console.log(result);
+          $.each(result, function(i){
+            var data = result[i]
+
+            var div = $('<div class="col-xs-12"></div>');
+            var remove = $('<div class="remove"><i class="glyphicon glyphicon-remove-circle"></i></div>');
+            var image = $('<div class="image"></div>');
+
+            div.attr('data-id', data.id);
+            div.attr('data-index', data.sort_index);
+
+            remove.css('position', 'absolute')
+                  .css('top', '-15px')
+                  .css('left', '60%')
+                  .css('z-index', '1000')
+                  .css('cursor', 'pointer');
+
+            remove.attr('onclick', 'return removeImage("'+ data.id +'")')
+
+            image.css('background-image', 'url(' + data.media + ')')
+                 .css('width', '60%')
+
+            div.append(remove).append(image);
+
+            attachment.append(div);
+          });
+
+          sortImage()
+        }
+      });
+    }
+
+    $(function(){
+      orderImage();
+    });
+
+    function updateImage(media_id, sort_index) {
+      $.ajax({
+        url: '<%= update_attachment_organizer_event_path(@event) %>',
+        data: {
+          'media_id': media_id,
+          'sort_index': sort_index
+        },
+        type: 'PUT',
+        success: function(result) {
+          // console.log("ok");
+        }
+      });
+    }
+
+    function removeImage(media_id) {
+      swal({
+        title: 'Are you sure?',
+        // text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function(){
+        $.ajax({
+          url: '<%= delete_attachment_organizer_event_path(@event) %>',
+          data: {
+            'media_id': media_id
+          },
+          type: 'DELETE',
+          success: function(result) {
+            orderImage();
+            swal(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            )
+          }
+        });
+      })
+    }
+  </script>

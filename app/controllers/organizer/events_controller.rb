@@ -190,11 +190,12 @@ module Organizer
         end_date   = params["tickets"]["#{section.id}"]["end_date"]
         end_time   = params["tickets"]["#{section.id}"]["end_time"]
 
+        discount = params["tickets"]["#{section.id}"]["discount"].present? ? params["tickets"]["#{section.id}"]["discount"] : 0
         section.update(
           title:      params["tickets"]["#{section.id}"]["title"],
           total:      params["tickets"]["#{section.id}"]["total"],
           price:      params["tickets"]["#{section.id}"]["price"],
-          discount:   params["tickets"]["#{section.id}"]["discount"],
+          discount:   discount,
           event_time: "#{start_date} #{start_time}",
           end_time:   "#{end_date} #{end_time}"
         )

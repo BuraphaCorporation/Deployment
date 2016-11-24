@@ -131,10 +131,10 @@
           </div>
 
           <div style="position: absolute; top: 50px; font-size: 34px;">
-            <%= convert_to_currency(@section.price - @section.discount) %>
+            <%= convert_to_currency(@section.sale_price) %>
           </div>
 
-          <% if @section.discount.present? %>
+          <% if @section.discount > 0 %>
             <div style="position: absolute; top: 50px; right: 20px;">
               จากราคาปกติ: <%= convert_to_currency(@section.price) %>
             </div>
@@ -237,12 +237,12 @@
             <div class="row">
               <div class="col-xs-8">
                 <div class="header">
-                  <span class="price"><%= convert_to_currency section.price %></span>
+                  <span class="price"><%= convert_to_currency(section.sale_price) %></span>
                   -
                   <span class="title"><%= section.title %></span>
                 </div>
                 <div>
-                  <span class="datetime"><%= section.event.ticket_type.deal? ? 'สามารถเข้าร่วมได้ทุกวัน' : section.to_event_human %></span>
+                  <span class="datetime"><%= section.event.ticket_type.deal? ? 'สามารถเข้าร่วมได้ทุกวัน' : "#{section.to_end_time}" %></span>
                 </div>
               </div>
               <div class="col-xs-4">

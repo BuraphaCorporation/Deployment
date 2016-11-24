@@ -179,7 +179,7 @@
                 <div class="col-xs-3 form-group">
                   <label for="tickets-discount">Discount</label>
                   <input type="number"
-                         name="tickets[<%= section.id %>][initial_price]"
+                         name="tickets[<%= section.id %>][discount]"
                          id="tickets-discount"
                          value="<%= section.initial_price %>"
                          placeholder="eg. 100, 200"
@@ -196,7 +196,8 @@
                         <input type="text"
                               name="tickets[<%= section.id %>][start_date]"
                               value="<%= section.event_time.try(:strftime, '%d/%m/%y') %>"
-                              class="form-control datepicker" />
+                              class="form-control datepicker"
+                              placeholder="DD/MM/YY" />
                         <span class="input-group-addon">
                           <span class="fa fa-calendar"></span>
                         </span>
@@ -207,7 +208,8 @@
                         <input type="text"
                               name="tickets[<%= section.id %>][start_time]"
                               value="<%= section.event_time.try(:strftime, '%H:%M') %>"
-                              class="form-control timepicker" />
+                              class="form-control timepicker"
+                              placeholder="HH:mm" />
                         <span class="input-group-addon">
                           <span class="fa fa-clock-o"></span>
                         </span>
@@ -221,9 +223,10 @@
                     <div class="col-xs-8 form-group">
                       <div class='input-group date'>
                         <input type="text"
-                              name="tickets[<%= section.id %>][end_time]"
+                              name="tickets[<%= section.id %>][end_date]"
                               value="<%= section.end_time.try(:strftime, '%d/%m/%y') %>"
-                              class="form-control datepicker" />
+                              class="form-control datepicker"
+                              placeholder="DD/MM/YY" />
                         <span class="input-group-addon">
                           <span class="fa fa-calendar"></span>
                         </span>
@@ -234,7 +237,8 @@
                         <input type="text"
                               name="tickets[<%= section.id %>][end_time]"
                               value="<%= section.end_time.try(:strftime, '%H:%M') %>"
-                              class="form-control timepicker" />
+                              class="form-control timepicker"
+                              placeholder="HH:mm" />
                         <span class="input-group-addon">
                           <span class="fa fa-clock-o"></span>
                         </span>

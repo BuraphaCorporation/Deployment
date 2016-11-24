@@ -135,23 +135,27 @@ module Organizer
       end unless params[:event_pictures].nil?
 
       (0..params[:new_ticket_names].count - 1).each do |section|
-        next unless params[:new_ticket_names][section].present? && params[:new_ticket_totals][section].present? && params[:new_ticket_prices][section].present?
+        next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present?
 
-        if params[:new_ticket_event_time][section].present? && params[:new_ticket_end_time][section].present?
-          event_time = Time.zone.parse(params[:new_ticket_event_time][section])
-          end_time   = Time.zone.parse(params[:new_ticket_end_time][section])
+        start_date = params[:new_ticket_start_date][section]
+        start_time = params[:new_ticket_start_time][section]
+        end_date   = params[:new_ticket_end_date][section]
+        end_time   = params[:new_ticket_end_time][section]
+
+        if start_date.present? and start_time.present? and end_date.present? and end_time.present?
+          event_time = Time.zone.parse("#{start_date} #{start_time}")
+          end_time   = Time.zone.parse("#{end_date} #{end_time}")
         end
 
-        initial_price = params[:new_ticket_initials][section].present? ? 0 : params[:new_ticket_initials][section]
+        new_ticket_discounts = params[:new_ticket_discounts][section].present? ? 0 : params[:new_ticket_discounts][section]
 
         @event.sections.create do |s|
-          s.title       = params[:new_ticket_names][section]
-          s.total       = params[:new_ticket_totals][section]
-          s.price       = params[:new_ticket_prices][section]
-          # s.unit        = params[:new_ticket_units][section]
-          s.initial_price = initial_price
-          s.event_time  = event_time
-          s.end_time    = end_time
+          s.title         = params[:new_ticket_names][section]
+          s.total         = params[:new_ticket_totals][section]
+          s.price         = params[:new_ticket_prices][section]
+          s.initial_price = new_ticket_discounts
+          s.event_time    = event_time
+          s.end_time      = end_time
         end
       end unless params[:new_ticket_names].nil?
     end
@@ -161,7 +165,8 @@ module Organizer
         @event.update(user_id: params[:organizer].to_i)
       end
 
-      CategoriesEvent.where(event: @event).where.not(category: params[:category_ids]).delete_all
+      # CategoriesEvent.where(event: @event).where.not(category: params[:category_ids]).delete_all
+      CategoriesEvent.where(event: @event).delete_all
       params[:category_ids].each do |category|
         CategoriesEvent.create(category_id: category, event_id: @event.id) if category.present?
       end unless params[:category_ids].nil?
@@ -170,37 +175,44 @@ module Organizer
         EventPicture.create(event: @event, media: attachments)
       end unless params[:event_pictures].nil?
 
-      # update section
       @event.sections.each do |section|
+        start_date = params["tickets"]["#{section.id}"]["start_date"]
+        start_time = params["tickets"]["#{section.id}"]["start_time"]
+        end_date   = params["tickets"]["#{section.id}"]["end_date"]
+        end_time   = params["tickets"]["#{section.id}"]["end_time"]
+
         section.update(
           title:      params["tickets"]["#{section.id}"]["title"],
           total:      params["tickets"]["#{section.id}"]["total"],
           price:      params["tickets"]["#{section.id}"]["price"],
-          # unit:       params["tickets"]["#{section.id}"]["unit"],
-          initial_price: params["tickets"]["#{section.id}"]["initial_price"],
-          event_time: params["tickets"]["#{section.id}"]["event_time"],
-          end_time:   params["tickets"]["#{section.id}"]["end_time"]
+          initial_price: params["tickets"]["#{section.id}"]["discount"],
+          event_time: "#{start_date} #{start_time}",
+          end_time:   "#{end_date} #{end_time}"
         )
       end unless params[:tickets].nil?
 
       (0..params[:new_ticket_names].count - 1).each do |section|
         next unless params[:new_ticket_names][section].present? and params[:new_ticket_totals][section].present? and params[:new_ticket_prices][section].present?
 
-        if params[:new_ticket_event_time][section].present? and params[:new_ticket_end_time][section].present?
-          event_time = Time.zone.parse(params[:new_ticket_event_time][section])
-          end_time   = Time.zone.parse(params[:new_ticket_end_time][section])
+        start_date = params[:new_ticket_start_date][section]
+        start_time = params[:new_ticket_start_time][section]
+        end_date   = params[:new_ticket_end_date][section]
+        end_time   = params[:new_ticket_end_time][section]
+
+        if start_date.present? and start_time.present? and end_date.present? and end_time.present?
+          event_time = Time.zone.parse("#{start_date} #{start_time}")
+          end_time   = Time.zone.parse("#{end_date} #{end_time}")
         end
 
-        initial_price = params[:new_ticket_initials][section].present? ? 0 : params[:new_ticket_initials][section]
+        new_ticket_discounts = params[:new_ticket_discounts][section].present? ? 0 : params[:new_ticket_discounts][section]
 
         @event.sections.create do |s|
-          s.title       = params[:new_ticket_names][section]
-          s.total       = params[:new_ticket_totals][section]
-          s.price       = params[:new_ticket_prices][section]
-          # s.unit        = params[:new_ticket_units][section]
-          s.initial_price = initial_price
-          s.event_time  = event_time
-          s.end_time    = end_time
+          s.title         = params[:new_ticket_names][section]
+          s.total         = params[:new_ticket_totals][section]
+          s.price         = params[:new_ticket_prices][section]
+          s.initial_price = new_ticket_discounts
+          s.event_time    = event_time
+          s.end_time      = end_time
         end
       end unless params[:new_ticket_names].nil?
     end

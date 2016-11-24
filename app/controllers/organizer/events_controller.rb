@@ -153,7 +153,7 @@ module Organizer
           s.title         = params[:new_ticket_names][section]
           s.total         = params[:new_ticket_totals][section]
           s.price         = params[:new_ticket_prices][section]
-          s.initial_price = new_ticket_discounts
+          s.discount      = new_ticket_discounts
           s.event_time    = event_time
           s.end_time      = end_time
         end
@@ -185,7 +185,7 @@ module Organizer
           title:      params["tickets"]["#{section.id}"]["title"],
           total:      params["tickets"]["#{section.id}"]["total"],
           price:      params["tickets"]["#{section.id}"]["price"],
-          initial_price: params["tickets"]["#{section.id}"]["discount"],
+          discount:   params["tickets"]["#{section.id}"]["discount"],
           event_time: "#{start_date} #{start_time}",
           end_time:   "#{end_date} #{end_time}"
         )
@@ -210,7 +210,7 @@ module Organizer
           s.title         = params[:new_ticket_names][section]
           s.total         = params[:new_ticket_totals][section]
           s.price         = params[:new_ticket_prices][section]
-          s.initial_price = new_ticket_discounts
+          s.discount      = new_ticket_discounts
           s.event_time    = event_time
           s.end_time      = end_time
         end

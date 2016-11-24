@@ -93,12 +93,17 @@ class Section < ApplicationRecord
   end
 
   def percent
-    ((self.initial_price.to_f - self.price.to_f) / self.initial_price.to_f * 100.0).to_i
+    (self.discount / self.price.to_f * 100.0).to_i
   end
 
-  def discount
-    self.initial_price - self.price
-  end
+  # def discount
+  #   p self.initial_price
+  #   if self.initial_price.present?
+  #     self.initial_price - self.price
+  #   else
+  #     self.discount
+  #   end
+  # end
 
   def to_event_human
     event_time.try(:strftime, "%A %d %B, %H:%M")

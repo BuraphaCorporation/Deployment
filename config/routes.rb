@@ -223,6 +223,8 @@ Rails.application.routes.draw do
           get 'order_attachment', to: 'events#order_attachment', format: :json
           put 'update_attachment', to: 'events#update_attachment', format: :json
           delete 'delete_attachment', to: 'events#delete_attachment', format: :json
+
+          delete 'delete_section', to: 'events#delete_section'
         end
 
         post 'checked/:ticket_id',  to: 'events#ticket_checking', as: :ticket_checking

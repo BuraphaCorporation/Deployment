@@ -15,15 +15,15 @@ module Client
         sections << params[:section]["#{section.id}"].to_i
         if params[:section]["#{section.id}"].to_i > 0
           raise "you need to hack more limit tickets" if params[:section]["#{section.id}"].to_i > section.show_ticket_available
-          total += section.price * params[:section]["#{section.id}"].to_i
+          total += section.sale_price * params[:section]["#{section.id}"].to_i
           session[:tickets].merge!({
             "#{section.id}": {
               title: section.title,
-              price: section.price,
+              price: section.sale_price,
               quantity: params[:section]["#{section.id}"].to_i,
             }
           })
-          session[:sections] << { "id": section.id, "price": section.price.to_i * 100, "qty": params[:section]["#{section.id}"].to_i }
+          session[:sections] << { "id": section.id, "price": section.sale_price.to_i * 100, "qty": params[:section]["#{section.id}"].to_i }
         end
       end
 

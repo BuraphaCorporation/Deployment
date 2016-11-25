@@ -18,7 +18,7 @@
         <%= render partial: "organizer/parts/organizer-event-nav" %>
       </div>
       <div class="col-xs-12 col-md-10">
-        <%= form_tag organizer_event_path(@event), multipart: true, method: :put  do %>
+        <%= form_tag organizer_event_path(@event), multipart: true, 'data-parsley-validate': true, method: :put  do %>
           <input type="hidden" name="images_order" value="<%= @images_order.join(',') %>" />
           <input type="hidden" name="images_delete[]" value="" />
           <input type="hidden" name="sections_delete[]" value="" />

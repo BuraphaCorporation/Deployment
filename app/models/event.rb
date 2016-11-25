@@ -63,7 +63,7 @@ class Event < ApplicationRecord
   has_attached_file :cover, styles: { full: "1600x500#" }
   validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
 
-  has_attached_file :social_share, styles: { facebook: "1200x630#" }
+  has_attached_file :social_share, styles: { facebook: "1200x630#" }, default_url: '/facebook-og.png'
   validates_attachment_content_type :social_share, content_type: /\Aimage\/.*\z/
   # after_create :set_organizer
   # after_create :set_uptime
@@ -79,7 +79,7 @@ class Event < ApplicationRecord
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
 
-  scope :list,      -> { available.where(status: :published).where.not('uptime < ?', Time.zone.now).order(:uptime) }
+  scope :list,      -> { where(status: :published).where('uptime > ?', Time.zone.now).order(:uptime) }
 
   after_create :set_slug
 

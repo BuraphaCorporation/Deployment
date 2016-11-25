@@ -15,7 +15,7 @@ module Client
       @event    = Event.where('lower(slug) = ?', params[:id].downcase).first
       @section_count = @event.sections.count
 
-      @sections = @event.ticket_type.deal? ? @event.sections.order(:event_time): @event.sections.available
+      @sections = @event.ticket_type.deal? ? @event.sections : @event.sections.available
 
       @section  = @event.sections.min_by { |m| m.price }
 
@@ -24,8 +24,8 @@ module Client
       og: {
         title:          @event.try(:title),
         image: {
-            _:          @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
-            url:        @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
+            _:          @event.social_share.present? ? @event.try(:social_share, :facebook) : @event.event_pictures.try(:first).try(:media, :facebook),
+            url:        @event.social_share.present? ? @event.try(:social_share, :facebook) : @event.event_pictures.try(:first).try(:media, :facebook),
             width:      1200,
             height:     630,
           },
@@ -41,8 +41,8 @@ module Client
       twitter: {
         title:            @event.try(:title),
         image: {
-          _:              @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
-          url:            @event.try(:social_share, :facebook) || @event.event_pictures.try(:first).try(:media, :facebook),
+          _:              @event.social_share.present? ? @event.try(:social_share, :facebook) : @event.event_pictures.try(:first).try(:media, :facebook),
+          url:            @event.social_share.present? ? @event.try(:social_share, :facebook) : @event.event_pictures.try(:first).try(:media, :facebook),
           width:          1200,
           height:         630,
         },

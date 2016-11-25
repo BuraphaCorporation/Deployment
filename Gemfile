@@ -29,8 +29,6 @@ gem 'jquery-slick-rails'
 gem 'jquery-validation-rails'
 gem 'parsley-rails'
 gem 'momentjs-rails'
-# gem 'sweet-alert'
-# gem 'sweet-alert-confirm'
 # gem 'vuejs-rails'
 
 gem 'simple_form'

@@ -53,11 +53,36 @@ class Order < ApplicationRecord
 
   def approve!
     self.update(status: :paid)
+    self.payment.update(status: :success)
+    self.tickets.each{ |ticket| ticket.update(status: :available) }
+  end
+
+  def cancel!
+    self.update(status: :cancel)
+    self.payment.update(status: :cancel)
+    self.tickets.each{ |ticket| ticket.update(status: :unusable) }
+  end
+
+  def send_notify!
+    # return unless self.tickets.present?
+    if self.paid?
+      OrganizerOrderWorker.perform_async(self.id)
+      UserTicketWorker.perform_async(self.id)
+    else
+      UserOrderWorker.perform_async(self.id)
+    end
+
+    AdminOrderNotifier.perform_async(self.id)
   end
 
   def paid?
     self.status.paid?
   end
+
+  def pending?
+    self.status.pending?
+  end
+
   # def order_by_event_upcoming
     # available.order_by()
   # end
@@ -75,7 +100,7 @@ class Order < ApplicationRecord
   end
 
   def expires_on
-    (created_at + 60.minutes)
+    (created_at + 4.hours)
   end
 
   def to_expires_on

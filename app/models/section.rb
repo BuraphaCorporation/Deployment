@@ -2,18 +2,19 @@
 #
 # Table name: sections
 #
-#  id         :integer          not null, primary key
-#  status     :string
-#  event_id   :integer
-#  title      :string
-#  event_time :datetime
-#  end_time   :datetime
-#  price      :integer
-#  total      :integer          default(0)
-#  bought     :integer          default(0)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  unit       :integer          default(1)
+#  id            :integer          not null, primary key
+#  status        :string
+#  event_id      :integer
+#  title         :string
+#  event_time    :datetime
+#  end_time      :datetime
+#  price         :integer
+#  total         :integer          default(0)
+#  bought        :integer          default(0)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  unit          :integer          default(1)
+#  initial_price :integer
 #
 # Indexes
 #
@@ -34,8 +35,13 @@ class Section < ApplicationRecord
   attr_accessor :section_name, :section_event_date, :section_end_date, :section_event_time, :section_end_time, :section_price, :section_available
 
   scope :available, -> { where("event_time > ?", Time.zone.now).order(:event_time) }
+  scope :total, -> { sum(:total) }
 
   enumerize :status, in: [:on, :off, :draft], default: :draft
+
+  def bought
+    self.tickets.count
+  end
 
   def ticket_availability?
     total - bought > 0
@@ -61,6 +67,16 @@ class Section < ApplicationRecord
     end
   end
 
+  def sold_out?
+    show_ticket_available <= 0
+  end
+
+  def expired_time?
+    if self.ticket_type.general?
+      event_time <= Time.zone.now
+    end
+  end
+
   def ticket_type
     self.event.ticket_type
   end
@@ -74,6 +90,14 @@ class Section < ApplicationRecord
     else
       section_selected.update(bought: find(id).bought + qty)
     end
+  end
+
+  def percent
+    ((self.initial_price.to_f - self.price.to_f) / self.initial_price.to_f * 100.0).to_i
+  end
+
+  def discount
+    self.initial_price - self.price
   end
 
   def to_event_human

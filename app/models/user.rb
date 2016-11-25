@@ -47,6 +47,10 @@
 #  slug                   :string
 #  latitude               :decimal(10, 6)
 #  longitude              :decimal(10, 6)
+#  facebook               :string
+#  twitter                :string
+#  instagram              :string
+#  youtube                :string
 #
 # Indexes
 #
@@ -85,6 +89,7 @@ class User < ApplicationRecord
   before_create :set_default_access_token
   before_create :set_default_referal
   after_create :set_customer_token
+  after_create :set_username
   after_create :send_welcome_email
 
   scope :latest, -> { order 'created_at desc' }
@@ -142,7 +147,7 @@ class User < ApplicationRecord
   def self.from_omniauth(auth)
     if find_by(uid: auth.uid).nil?
       where(provider: auth.provider, uid: auth.uid).first_or_create(
-        email:      auth.extra.raw_info.email,
+        email:      auth.extra.raw_info.email || "#{auth.uid}@facebook.com",
         password:   Devise.friendly_token[0,20],
         first_name: auth.extra.raw_info.first_name,
         last_name:  auth.extra.raw_info.last_name,
@@ -170,12 +175,14 @@ class User < ApplicationRecord
   end
 
   def self.process_date_of_birth(data)
+    return if data.nil?
     p "process_date_of_birth data #{data}"
     date = data.split('/')
     date = Date.new(date[2].to_i, date[0].to_i, date[1].to_i)
   end
 
   def self.process_uri(uri)
+    return if uri.nil?
     open(uri, allow_redirections: :safe) { |r| r.base_uri.to_s }
   end
 
@@ -227,6 +234,10 @@ private
     self.update(omise_customer_id: customer.id)
   rescue Exception => e
     logger.warn e
+  end
+
+  def set_username
+    # slug =
   end
 
   def send_welcome_email

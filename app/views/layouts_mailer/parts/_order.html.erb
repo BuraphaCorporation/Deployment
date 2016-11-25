@@ -68,11 +68,18 @@
                         <td class="mcnTextContent" valign="top" style="padding:0 9px 0 9px;">
                           <p style="font-size: 18px;"><%= @event.title %></p>
                           <p style="font-size: 14px; font-weight: 200;">
-                            <% if @event.ticket_type.general? %>
-                              <%= @tickets.group(:event_date).count.count > 1 ? @tickets.first(:event_date) : "Multiple date" %><br />
+                            <% if @organizer.present? %>
+                              YOUR CUSTOMER <br>
+                              <b><%= @user.first_name %> <%= @user.last_name %></b><br>
+                              <%= @user.email %><br>
+                              <%= @user.phone %>
+                            <% else %>
+                              <% if @event.ticket_type.general? %>
+                                <%= @tickets.group(:event_date).count.count > 1 ? @tickets.first(:event_date) : "Multiple date" %><br />
+                              <% end %>
+                              <%= @event.location_name %>
+                              [<a href='https://www.google.co.th/maps?q=loc:<%= "#{@event.latitude},#{@event.longitude}" %>' target="_blank">ดูแผนที่</a>]
                             <% end %>
-                            <%= @event.location_name %>
-                            [<a href='https://www.google.co.th/maps?q=loc:<%= "#{@event.latitude},#{@event.longitude}" %>' target="_blank">ดูแผนที่</a>]
                           </p>
                         </td>
                       </tr>
@@ -95,7 +102,7 @@
           <table border="0" cellpadding="0" cellspacing="0" width="100%" class="mcnCaptionBlock">
             <tbody class="mcnCaptionBlockOuter">
               <tr>
-                <td class="mcnCaptionBlockInner" valign="top" style="padding:9px; background-image: url(<%= "#{App.domain}/src/images/email/order/tile-pattern.png" %>); background-repeat: repeat;">
+                <td class="mcnCaptionBlockInner" valign="top" style="padding:9px; background-image: url('<%= "#{App.domain}/src/images/email/order/tile-pattern.png" %>'); background-repeat: repeat;">
                   <table align="left" border="0" cellpadding="0" cellspacing="0" class="mcnCaptionBottomContent" width="100%">
                     <tbody>
                       <tr>
@@ -107,7 +114,7 @@
                         <td class="mcnTextContent" valign="top">
                           <table class="invoice-info" width="100%">
                             <tr>
-                              <td style="font-size: 14px; font-weight: 200;" >คำสั่งซื้อเลขที่ <a href='<%= "#{App.domain}/profile/#{@user.id}/orders" %>'>#<%= @order.code %></a></td>
+                              <td style="font-size: 14px; font-weight: 200;" >คำสั่งซื้อเลขที่ <a href="<%= @link_to_order %>">#<%= @order.code %></a></td>
                               <td style="font-size: 14px; font-weight: 200;" colspan="2" align="right"><%= @order.to_created_at %></td>
                             </tr>
                             <tr>

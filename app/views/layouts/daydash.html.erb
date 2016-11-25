@@ -10,6 +10,33 @@
     <%= csrf_meta_tags %>
     <%= render partial: "layouts/parts/tracking" %>
 
+    <% if App.environment.production? %>
+      <!-- Start of Async Drift Code -->
+      <script>
+      !function() {
+        var t;
+        if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0,
+        t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
+        t.factory = function(e) {
+          return function() {
+            var n;
+            return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
+          };
+        }, t.methods.forEach(function(e) {
+          t[e] = t.factory(e);
+        }), t.load = function(t) {
+          var e, n, o, i;
+          e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"),
+          o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js",
+          n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+        });
+      }();
+      drift.SNIPPET_VERSION = '0.3.1';
+      drift.load('xswzh2iewdvu');
+      </script>
+      <!-- End of Async Drift Code -->
+    <% end %>
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= stylesheet_link_tag 'daydash', media: 'all', 'data-turbolinks-track' => true %>
 
@@ -18,6 +45,8 @@
     <%= javascript_include_tag '//maps.googleapis.com/maps/api/js?key=AIzaSyBYyAbr0KMSO5pXyEqNYp9_c6KdbYb9P5A&libraries=places', 'data-turbolinks-track' => true, media: 'all' %>
     <%= javascript_include_tag 'daydash', 'data-turbolinks-track' => true %>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.css" media="screen" title="sweetalert2">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.js"></script>
   </head>
   <body>
     <div id="fb-root"></div>
@@ -29,7 +58,7 @@
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"><i class="icon icon-menu"></i></button>
               <% if current_user.present? %>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#profile-navbar" aria-expanded="false" aria-controls="navbar">
-                  <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>)"></div>
+                  <div class="user-profile-photo" style="background-image: url('<%= current_user.picture(:medium) %>')"></div>
                 </button>
               <% end %>
 
@@ -42,7 +71,7 @@
                 <ul class="nav navbar-nav navbar-right mobile-hide">
                   <% if current_user.admin? %>
                     <li>
-                      <%= link_to "<div class=\"role-badge organizer-badge nav-badge\">Admin</div>".html_safe, admin_users_path, class: 'organizer-nav' %>
+                      <%= link_to "<div class=\"role-badge organizer-badge nav-badge\">Admin</div>".html_safe, admin_manage_users_path, class: 'organizer-nav' %>
                     </li>
                   <% end %>
                   <% if current_user.can_organizer? %>
@@ -52,7 +81,7 @@
                   <% end %>
                   <li class="dropdown user-dropdown">
                     <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                      <div class="user-profile-photo" style="background-image: url(<%= current_user.picture(:medium) %>"></div>
+                      <div class="user-profile-photo" style="background-image: url('<%= current_user.picture(:medium) %>')"></div>
                       <% if current_user.organizer? %>
                         <div class="user-name"><%= current_user.company %></div>
                       <% else %>
@@ -150,7 +179,7 @@
                 <div class="list-title">Support</div>
                 <ul class="list-body nav">
                   <!-- <li><a href="/">List Event on Daydash</a></li> -->
-                  <li><a href="https://blog.daydash.co/" target="_blank">Daydash Blog</a></li>
+                  <li><a href="https://daydash.co/blog/" target="_blank">Daydash Blog</a></li>
                   <li><a href="/about">About</a></li>
                   <!-- <li><a href="/">How to Pay</a></li> -->
                   <!-- <li><a href="/">FAQ</a></li> -->
@@ -214,31 +243,7 @@
         <%= render partial: "layouts/parts/register-form" %>
       </div>
     </div>
+
+    <div id="drift-widget-container" data-turbolinks-permanent></div>
   </body>
-
-  <!-- Start of Async Drift Code -->
-  <script>
-  !function() {
-    var t;
-    if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0,
-    t.methods = [ "identify", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
-    t.factory = function(e) {
-      return function() {
-        var n;
-        return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
-      };
-    }, t.methods.forEach(function(e) {
-      t[e] = t.factory(e);
-    }), t.load = function(t) {
-      var e, n, o, r;
-      e = 3e5, r = Math.ceil(new Date() / e) * e, o = document.createElement("script"),
-      o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + r + "/" + t + ".js",
-      n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
-    });
-  }();
-  drift.SNIPPET_VERSION = '0.2.0'
-  drift.load('xswzh2iewdvu')
-  </script>
-  <!-- End of Async Drift Code -->
-
 </html>

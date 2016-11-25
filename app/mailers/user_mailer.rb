@@ -7,10 +7,11 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.welcome.subject
   #
+
   def welcome(user_id)
     @user    = User.find(user_id)
     @subject = "Welcome to daydash.co"
-    mail to: @user.email, subject: @subject
+    mail to: @user.email, subject: @subject, bcc: "hello@daydash.co, daydash.app@gmail.com"
   end
 
   def order(order_id)
@@ -20,10 +21,12 @@ class UserMailer < ApplicationMailer
     @payment  = @order.payment
     @tickets  = @order.tickets
 
-    @title     = "Hi #{@user.first_name}, we’ve got your order!"
+    @title    = "Hi #{@user.first_name}, we’ve got your order!"
     @subtitle = "Just one more step :)"
 
-    mail to: @user.email, subject: "Daydash.co - Payment Pending: #{@event.title}"
+    @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
+
+    mail to: @user.email, subject: "Daydash.co - Payment #{@order.status}: #{@event.title}", bcc: "hello@daydash.co, daydash.app@gmail.com"
   end
 
   def ticket(order_id)
@@ -36,7 +39,9 @@ class UserMailer < ApplicationMailer
     @title     = "Hi #{@user.first_name}, here’s your tickets!"
     @subtitle = "It's time to get excited! 😎"
 
-    mail to: @user.email, subject: "Daydash.co - Your Tickets: #{@event.title}"
+    @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
+
+    mail to: @user.email, subject: "Daydash.co - Your Tickets: #{@event.title}", bcc: "hello@daydash.co, daydash.app@gmail.com"
   end
 
   def reminder(order_id)
@@ -46,8 +51,11 @@ class UserMailer < ApplicationMailer
     @payment  = @order.payment
     @tickets  = @order.tickets
 
-    @title = "reminder"
+    @title = "Something cool will happen tomorrow"
+    @subtitle = "Because you can :)"
 
-    mail to: @user.email, subject: @title
+    @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
+
+    mail to: @user.email, subject: "Daydash.co - พรุ่งนี้แล้ว! #{@event.title}", bcc: "daydash.app@gmail.com"
   end
 end

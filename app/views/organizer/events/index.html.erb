@@ -12,7 +12,7 @@
           <div class="list-body">
             <% @events.each do |event| %>
             <div class="event card-side-cover event-for-organizer">
-              <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
+              <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
               <div class="info">
                 <div class="info-body">
                   <h4 class="title"><%= event.title %></h4>
@@ -26,13 +26,13 @@
                       <div class="ticket-sold-panel">
                         <div class="row">
                           <div class="col-xs-7 ticket-sold-label" style="font-size: 14px">จำนวนบัตรขายไป</div>
-                          <div class="col-xs-5 ticket-sold-value"><%= event.sections.sum(:bought) %> / <%= event.sections.sum(:total) %></div>
+                          <div class="col-xs-5 ticket-sold-value"><%= event.tickets.paid.count %> / <%= event.sections.total %></div>
                         </div>
                         <div class="row">
                           <div class="col-xs-12">
                             <div class="progress">
-                              <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= event.sections.sum(:bought).to_f / event.sections.sum(:total).to_f * 100 %>%;">
-                                <span class="sr-only"><%= event.sections.sum(:bought).to_f / event.sections.sum(:total).to_f * 100 %>% Complete</span>
+                              <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <%= event.tickets.paid.count / event.sections.total.to_f * 100 %>%;">
+                                <span class="sr-only"><%= event.tickets.paid.count / event.sections.total.to_f * 100 %>% Complete</span>
                               </div>
                             </div>
                           </div>

@@ -22,9 +22,9 @@
           <div class="panel-header">
             <h3>ALL ORDERS</h3>
             <ul class="list-inline">
-              <li>Orders: <%= @event.orders.count %></li>
+              <li>Orders: <%= @event.orders.paid.count %></li>
               <li>Total Sales: <%= convert_to_currency @event.get_total_sales %></li>
-              <li>Attendees: <%= @event.tickets.count %></li>
+              <li>Attendees: <%= @event.tickets.available.count %></li>
             </ul>
           </div>
           <div class="table-responsive organizer-table">

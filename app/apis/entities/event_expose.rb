@@ -1,7 +1,11 @@
 class Entities::EventExpose < Grape::Entity
+  include ActionView::Helpers::TextHelper
+
   expose :id
   expose :title
-  expose :description
+  expose :description do |item, option|
+    "<body>#{simple_format(item.description)}</body>"
+  end
   expose :location_name
   expose :location_address
   expose :latitude

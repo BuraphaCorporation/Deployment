@@ -10,10 +10,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161003011808) do
+ActiveRecord::Schema.define(version: 20161025090325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_admin_comments", force: :cascade do |t|
+    t.string   "namespace"
+    t.text     "body"
+    t.string   "resource_id",   null: false
+    t.string   "resource_type", null: false
+    t.string   "author_type"
+    t.integer  "author_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+    t.index ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+    t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string   "access_token"
+    t.datetime "expires_at"
+    t.integer  "user_id"
+    t.boolean  "active"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["access_token"], name: "index_api_keys_on_access_token", unique: true, using: :btree
+    t.index ["user_id"], name: "index_api_keys_on_user_id", using: :btree
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
@@ -50,25 +92,30 @@ ActiveRecord::Schema.define(version: 20161003011808) do
     t.text     "instruction"
     t.string   "location_name"
     t.string   "location_address"
-    t.decimal  "latitude",           precision: 10, scale: 6
-    t.decimal  "longitude",          precision: 10, scale: 6
+    t.decimal  "latitude",                  precision: 10, scale: 6
+    t.decimal  "longitude",                 precision: 10, scale: 6
     t.datetime "uptime"
     t.integer  "max_price"
     t.integer  "min_price"
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
     t.string   "slug"
     t.string   "name"
     t.string   "ticket_type"
     t.string   "status"
-    t.boolean  "show_highlight",                              default: false
-    t.integer  "total_of_ticket",                             default: 0
-    t.boolean  "share_ticket",                                default: false
+    t.boolean  "show_highlight",                                     default: false
+    t.integer  "total_of_ticket",                                    default: 0
+    t.boolean  "share_ticket",                                       default: false
     t.string   "cover_file_name"
     t.string   "cover_content_type"
     t.integer  "cover_file_size"
     t.datetime "cover_updated_at"
     t.text     "short_description"
+    t.string   "social_share_file_name"
+    t.string   "social_share_content_type"
+    t.integer  "social_share_file_size"
+    t.datetime "social_share_updated_at"
+    t.text     "whythis"
     t.index ["slug"], name: "index_events_on_slug", unique: true, using: :btree
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
   end
@@ -127,11 +174,12 @@ ActiveRecord::Schema.define(version: 20161003011808) do
     t.datetime "event_time"
     t.datetime "end_time"
     t.integer  "price"
-    t.integer  "total",      default: 0
-    t.integer  "bought",     default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "unit",       default: 1
+    t.integer  "total",         default: 0
+    t.integer  "bought",        default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "unit",          default: 1
+    t.integer  "initial_price"
     t.index ["event_id"], name: "index_sections_on_event_id", using: :btree
   end
 
@@ -218,6 +266,10 @@ ActiveRecord::Schema.define(version: 20161003011808) do
     t.string   "slug"
     t.decimal  "latitude",               precision: 10, scale: 6
     t.decimal  "longitude",              precision: 10, scale: 6
+    t.string   "facebook"
+    t.string   "twitter"
+    t.string   "instagram"
+    t.string   "youtube"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["referrer_id"], name: "index_users_on_referrer_id", using: :btree

@@ -1,0 +1,37 @@
+<script>$('body').attr('id', 'profile-wishlist-page');</script>
+<script>$('body').addClass('profile-page');</script>
+
+<%= render partial: "layouts/parts/nav" %>
+<script>$('#profile-nav #menu-wishlist').addClass('active');</script>
+
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="event-list">
+          <div class="list-header">
+            <h1 class="list-title">Wishlist <% if (@events.size > 0) %><small>(<%= @events.length %>)</small><% end %></h1>
+          </div>
+          <div class="list-body row">
+            <% @events.each do |event| %>
+              <div class="col-sm-6 col-md-4">
+                <div class="event card">
+                  <%= link_to client_event_path(event.to_url) do %>
+                    <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
+                  <% end %>
+                  <div class="info">
+                    <h4 class="title text-left">
+                      <%= link_to event.title, client_event_path(event.to_url) %>
+                    </h4>
+                    <div class="meta date"><i class="icon icon-xs icon-calendar"></i> วันเสาร์ ที่ 22 สิงหาคม, 8:00 PM</div>
+                    <div class="meta location"><i class="icon icon-xs icon-location"></i> Thonglor House Club, ซอยทองหล่อ</div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -78,6 +78,10 @@
                   <textarea style="height: 100px" class="form-control" name="short_description" rows="10"><%= @event.short_description %></textarea>
                 </div>
                 <div class="form-group">
+                  <label>Why This?</label>
+                  <textarea style="height: 100px" class="form-control" name="whythis" rows="10"><%= @event.whythis %></textarea>
+                </div>
+                <div class="form-group">
                   <label>Description</label>
                   <textarea style="height: 300px" class="form-control" name="description" rows="10"><%= @event.description %></textarea>
                 </div>
@@ -105,25 +109,28 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <div class="form-group">
-                  <label>Cover</label>
+                  <label>Cover (1600x500px - 1 ภาพ)</label>
                   <input class="form-control" type="file" name="cover" data-parsley-required="true" />
                 </div>
                 <div class="image-list row">
                   <div class="col-xs-12">
-                    <div class="image" style="background-image: url(<%= @event.cover(:full) %>);"></div>
+                    <div class="image" style="background-image: url('<%= @event.cover(:full) %>');"></div>
                   </div>
                 </div>
                 <div class="form-group">
-                  <label>Images</label>
+                  <label>Facebook og (1200x630px - 1 ภาพ)</label>
+                  <input class="form-control" type="file" name="social_share" data-parsley-required="true" />
+                </div>
+                <div class="image-list row">
+                  <div class="col-xs-12">
+                    <div class="image" style="background-image: url('<%= @event.social_share(:facebook) %>');"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Images (1200x800px - ไม่จำกัดจำนวน)</label>
                   <input class="form-control" type="file" name="event_pictures[]" multiple data-parsley-required="true" />
                 </div>
-                <div class="image-list sortable row">
-                  <% @images.each do |image| %>
-                    <div class="col-xs-6" data-id="<%= image.sort_index %>">
-                      <div class="image" style="background-image: url(<%= image.media(:thumb) %>);"></div>
-                    </div>
-                  <% end unless @images.nil? %>
-                </div>
+                <div class="image-list sortable row attachments"></div>
               </div>
             </div>
           </div>
@@ -144,8 +151,9 @@
                     <tr>
                       <td>Ticket Title</td>
                       <td>Ticket Available</td>
-                      <td>Ticket Price</td>
-                      <td>Ticket Unit</td>
+                      <td>Ticket Price (ราคาเต็ม)</td>
+                      <td>Ticket Price (ราคาลด)</td>
+                      <!-- <td>Ticket Unit</td> -->
                       <td>From</td>
                       <td>To</td>
                       <td><!-- Action --></td>
@@ -154,10 +162,11 @@
                   <tbody
                     <% @sections.each do |section| %>
                       <tr class="tickets" id="ticket-<%= section.id %>" data-ticket-id="<%= section.id %>">
-                        <td><input class="form-control" type="text" name="tickets[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
-                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][total]" value="<%= section.total %>" /></td>
-                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][price]" value="<%= section.price %>" /></td>
-                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][unit]" value="<%= section.unit %>" /></td>
+                        <td><input class="form-control" required="" type="text" name="tickets[<%= section.id %>][title]" value="<%= section.title %>" placeholder="eg. General, VIP" /></td>
+                        <td><input class="form-control" required="" type="number" name="tickets[<%= section.id %>][total]" value="<%= section.total %>" /></td>
+                        <td><input class="form-control" type="number" name="tickets[<%= section.id %>][initial_price]" value="<%= section.initial_price %>" /></td>
+                        <td><input class="form-control" required="" type="number" name="tickets[<%= section.id %>][price]" value="<%= section.price %>" /></td>
+                        <!-- <td><input class="form-control" type="number" name="tickets[<%= section.id %>][unit]" value="<%= section.unit %>" /></td> -->
 
                         <td width="200">
                           <div class="form-group">
@@ -200,3 +209,112 @@
 
     <!-- Template -->
     <%= render partial: "organizer/parts/section" %>
+
+<% if @event.id.present? %>
+<script type="text/javascript">
+
+  function sortImage() {
+    $('.sortable').sortable({
+      cursor: 'move',
+      stop: function(event, ui){
+        var attachment = $('.attachments > .ui-sortable-handle');
+
+        attachment.each(function(i, el) {
+          var mediaId = $(el).attr('data-id');
+          var sortIndex = $(el).index();
+          // console.log(mediaId);
+          // console.log(sortIndex);
+          updateImage(mediaId, sortIndex);
+        });
+      }
+    });
+  }
+
+  function orderImage() {
+    $.ajax({
+      url: '<%= order_attachment_organizer_event_path(@event, format: :json) %>',
+      type: 'GET',
+      success: function(result) {
+        var attachment = $('.attachments');
+
+        attachment.empty()
+
+        // console.log(result);
+        $.each(result, function(i){
+          var data = result[i]
+
+          var div = $('<div class="col-xs-12"></div>');
+          var remove = $('<div class="remove"><i class="glyphicon glyphicon-remove-circle"></i></div>');
+          var image = $('<div class="image"></div>');
+
+          div.attr('data-id', data.id);
+          div.attr('data-index', data.sort_index);
+
+          remove.css('position', 'absolute')
+                .css('top', '-15px')
+                .css('left', '60%')
+                .css('z-index', '1000')
+                .css('cursor', 'pointer');
+
+          remove.attr('onclick', 'return removeImage("'+ data.id +'")')
+
+          image.css('background-image', 'url(' + data.media + ')')
+               .css('width', '60%')
+
+          div.append(remove).append(image);
+
+          attachment.append(div);
+        });
+
+        sortImage()
+      }
+    });
+  }
+
+  $(function(){
+    orderImage();
+  });
+
+  function updateImage(media_id, sort_index) {
+    $.ajax({
+      url: '<%= update_attachment_organizer_event_path(@event) %>',
+      data: {
+        'media_id': media_id,
+        'sort_index': sort_index
+      },
+      type: 'PUT',
+      success: function(result) {
+        // console.log("ok");
+      }
+    });
+  }
+
+  function removeImage(media_id) {
+    swal({
+      title: 'Are you sure?',
+      // text: "You won't be able to revert this!",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(function(){
+      $.ajax({
+        url: '<%= delete_attachment_organizer_event_path(@event) %>',
+        data: {
+          'media_id': media_id
+        },
+        type: 'DELETE',
+        success: function(result) {
+          orderImage();
+          swal(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          )
+        }
+      });
+    })
+  }
+</script>
+<% end %>

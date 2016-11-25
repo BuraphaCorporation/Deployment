@@ -16,7 +16,7 @@ def current_git_branch
 end
 
 set :application, 'Daydash'
-set :repo_url, 'git@github.com:hongklay/daydash.git'
+set :repo_url, 'git@github.com:justfuckingdoit/daydash.git'
 set :deploy_to, '/home/deploy/daydash'
 set :deploy_user, 'deploy'
 set :ssh_options, {:forward_agent => true}
@@ -54,6 +54,25 @@ namespace :deploy do
     end
   end
 
+  desc 'Bower Install'
+  task :bower_install do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute :bower, :install
+      end
+    end
+  end
+
+  # desc 'NPM Install'
+  # task :npm_install do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     within release_path do
+  #       execute "cd #{release_path}/client && npm install"
+  #     end
+  #   end
+  # end
+
+  # before 'deploy:assets:precompile', :npm_install
   after :finishing, 'deploy:cleanup'
   after :publishing, 'deploy:restart'
   after :published, :restart_workers
@@ -99,8 +118,26 @@ namespace :rails do
     end
   end
 
-  desc "Remote log"
-  task :log do
+  desc "log error"
+  task :log_access do
+    on roles(:web) do
+      within current_path do
+        execute :sudo, 'tail -f /home/deploy/log/access.log'
+      end
+    end
+  end
+
+  desc "log access"
+  task :log_error do
+    on roles(:web) do
+      within current_path do
+        execute :sudo, 'tail -f /home/deploy/log/error.log'
+      end
+    end
+  end
+
+  desc "nginx log"
+  task :nginx_log do
     on roles(:web) do
       within current_path do
         execute :sudo, 'tail -f /var/log/nginx/error.log'

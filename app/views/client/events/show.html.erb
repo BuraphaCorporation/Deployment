@@ -1,18 +1,33 @@
 
 <script>$('body').attr('id', 'event-page');</script>
 <div class="section" id="cover-section">
-  <div class="cover" style="background-image: url(<%= @event.try(:cover, :full) %>);"></div>
+  <div class="cover" style="background-image: url('<%= @event.try(:cover, :full) %>');"></div>
   <div class="info">
     <div class="container">
-      <% if @event.show_highlight %>
-        <span style="background: #C04F8B;
-          color: #fff;
-          padding: 5px 10px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.04em;">Daydash Exclusive</span>
-      <% end %>
-      <h1 class="title"><%= @event.title %></h1>
+      <div class="row">
+        <div class="col-xs-12">
+          <% if @event.show_highlight %>
+            <span style="background: #C04F8B;
+              color: #fff;
+              padding: 5px 10px;
+              font-weight: 600;
+              text-transform: uppercase;
+              letter-spacing: 0.04em;">Daydash Exclusive</span>
+          <% end %>
+          <h1 class="title"><%= @event.title %></h1>
+        </div>
+        <div class="col-xs-12 col-md-3">
+          <div class="meta date" style="display: inline-block; float: left; color: #fff">
+            <i class="icon icon-xs icon-calendar-white" style="padding-right: 20px"></i> <%= @event.to_uptime %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-3">
+          <div class="meta location" style="display: inline-block; float: left;" id="location" data-location-name="<%= @event.location_name %>" data-location-address="<%= @event.location_address %>">
+            <i class="icon icon-xs icon-location-white" style="padding-right: 20px"></i>
+            <a href="https://www.google.co.th/maps?q=loc:<%= @event.latitude %>,<%= @event.longitude %>"  style="color: #fff" target="_blank"><%= @event.location_name %></a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -21,42 +36,164 @@
     <div class="row">
       <div class="col-xs-12 col-md-7">
         <div class="row">
-          <div class="meta-list col-xs-12">
-            <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></div>
-            <div class="meta location" id="location" data-location="<%= @event.location_name %>"><i class="icon icon-xs icon-map-pin"></i> <%= @event.location_name %></div>
+          <div class="col-xs-12 col-md-4">
+            <div class="row">
+              <div class="col-xs-3 col-sm-2 col-md-12">
+                <%= link_to organizer_path(@event.user.username) do %>
+                  <%= image_tag @event.user.picture(:thumb), width: 70, height: 70, style: 'border-radius: 50px; border: 1px solid #EFEFEF' %>
+                  <div style="position: absolute; top: 50px; left: 65px">
+                    <i class="icon icon-md icon-verified"></i>
+                  </div>
+                <% end %>
+              </div>
+              <div class="col-xs-9 col-sm-10 col-md-12">
+                <p style="margin-top: 20px; font-size: 12px;">Organized By</p>
+                <h3 style="margin-top: 0;"><%= link_to @event.user.company, organizer_path(@event.user.username), style: 'color: #000' %></h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-8">
+            <h2>Why This?</h2>
+            <div class="why-this">
+              <ul>
+                <% if @event.whythis.present? %>
+                  <%= @event.whythis.html_safe %>
+                <% else %>
+                <li>เวิร์คช็อปหนึ่งวันเต็มกับมืออาชีพตัวจริง</li>
+                <li>ราคารวมอุปกรณ์พร้อมให้กลับไปฝึกฝนต่อที่บ้านได้</li>
+                <li>ไม่จำเป็นต้องมีพื้นฐานมาก่อน</li>
+                <% end %>
+              </ul>
+            </div>
           </div>
         </div>
-        <div class="description">
-            <%= auto_link(simple_format(@event.description), :link => :all, :html => {:target => "_blank"}) %>
+        <div class="row">
+          <div class="col-xs-12">
+            <hr>
+          </div>
         </div>
-        <div class="gallery row">
+        <div class="row description">
+          <div class="col col-xs-12">
+            <h2>Details</h2>
+            <%= auto_link(simple_format(@event.description), :link => :all, :html => { :target => "_blank" }) %>
+          </div>
+        </div>
+        <div class="row guarantee">
+          <div class="col col-xs-12 col-md-4">
+            <p>
+              <i class="icon icon-md icon-check-guarantee"></i>
+            </p>
+            <p>
+              100% Guaranteed<br>
+              รับประกันความพอใจ 100%
+            </p>
+          </div>
+          <div class="col col-xs-12 col-md-4">
+            <p>
+              <i class="icon icon-md icon-check-like"></i>
+            </p>
+            <p>
+              What You see is what you get <br>
+              โปร่งใส ไม่มีค่าธรรมเนียมเพิ่มเติม
+            </p>
+          </div>
+          <div class="col col-xs-12 col-md-4">
+            <p>
+              <i class="icon icon-md icon-check-lock"></i>
+            </p>
+            <p>
+              Secured Payment<br>
+              ชำระผ่านบัตรเครดิตที่ปลอดภัย
+            </p>
+          </div>
+        </div>
+        <% if @event.instruction.present? %>
+        <div class="row description">
+          <div class="col col-xs-12">
+            <h2>More Details and Conditions</h2>
+            <%= auto_link(simple_format(@event.instruction), :link => :all, :html => { :target => "_blank" }) %>
+          </div>
+        </div>
+        <% end %>
+        <div class="row gallery">
           <% @event.event_pictures.each do |image| %>
           <div class="col col-xs-6 col-md-4">
-            <a class="image" style="background-image: url(<%= image.try(:media, :thumb) %>);" data-toggle="lightbox" href="<%= image.try(:media, :thumb) %>" data-parent=".gallery" data-gallery="multiimages"></a>
+            <a class="image" style="background-image: url('<%= image.try(:media, :thumb) %>');" data-toggle="lightbox" href="<%= image.try(:media, :thumb) %>" data-parent=".gallery" data-gallery="multiimages"></a>
           </div>
           <% end %>
         </div>
       </div>
       <div class="col-md-1"></div>
-      <div class="col-xs-12 col-md-4">
-        <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
-          <% if @section.price == 0 %>
-            รับบัตร<%= convert_to_currency(@section.price) %>
+      <div class="col-xs-12 col-md-4 event-right-panel">
+        <div class="buy-panel">
+          <div style="position: absolute; top: 30px;">
+            <%= @section_count > 1 ? "เริ่มต้นที่" : 'ราคา' %>
+          </div>
+
+          <% if @section.initial_price.present?  %>
+            <div style="position: absolute; top: 50px; font-size: 34px;">
+              <%= convert_to_currency(@section.price) %>
+            </div>
           <% else %>
-            ซื้อบัตร - <%= "เริ่มที่" if @section_count > 1 %> <%= convert_to_currency(@section.price) %>
+            <div style="position: absolute; top: 50px; font-size: 34px;">
+              <%= convert_to_currency(@section.price) %>
+            </div>
           <% end %>
-        </button>
+
+          <% if @section.initial_price.present? %>
+            <div style="position: absolute; top: 50px; right: 20px;">
+              จากราคาปกติ: <%= convert_to_currency(@section.initial_price) %>
+            </div>
+            <div style="position: absolute; top: 70px; right: 20px; color: #D85B56;">
+              ลดไป <%= convert_to_currency(@section.discount) %> (<%= @section.percent %>% off)
+            </div>
+          <%end %>
+          <% if @section.sold_out? or @section.expired_time? %>
+            <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-buy disabled" class="background: #ccc">
+              อีเว้นท์นี้ซื้อไม่ได้แล้ว
+            </button>
+            <% if @section.expired_time? %>
+              <p class="comment">เนื่องจากวันที่จัดได้ผ่านไปแล้ว</p>
+            <% else %>
+              <p class="comment">บัตรได้ขายหมดแล้ว</p>
+            <% end %>
+            <p class="comment">ไม่อยากพลาดอีก? คุณสามารถ <a data-toggle="modal" data-target="#login-modal" href="#login-modal">ลงทะเบียนเอาไว้</a><br>แล้วเราจะส่งอีเมลไปบอกคุณเมื่อมีกิจกรรมอย่างนี้จัดขึ้นอีก :)</p>
+          <% else %>
+            <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
+              Buy Ticket
+            </button>
+            <p class="comment">* เลือกจำนวนและชนิดของบัตรในขั้นตอนต่อไป</p>
+          <% end %>
+        </div>
         <div class="map-panel">
-          <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>"></div>
+          <div id="google-map" data-lat="<%= @event.latitude %>" data-lng="<%= @event.longitude %>" data-icon-map-pin="<%= asset_url('icons/map-pin-blue-32px@2x.png') %>"></div>
         </div>
         <div class="social-panel">
           <div class="row">
             <div class="col-xs-12">
-              <!-- <a class="btn btn-block btn-daydash">Add to my Wishlist</a> -->
               <div class="social-list">
-                <div class="fb-share-button" data-href="<%= client_event_path(@event.to_url) %>" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%= client_event_path(@event.to_url) %>">Share</a></div>
+                <style type="text/css">
+                  #share-buttons img {
+                  width: 35px;
+                  padding: 5px;
+                  border: 0;
+                  box-shadow: 0;
+                  display: inline;
+                  }
+                </style>
+                <div id="share-buttons">
+                  <a href="http://www.facebook.com/sharer.php?u=<%= "#{App.domain}#{client_event_path(@event.to_url)}" %>" target="_blank">
+                    <%= image_tag "social/facebook.png", alt: "Facebook" %>
+                  </a>
 
-                <a href="<%= client_event_path(@event.to_url) %>?text=Let's go! <%= @event.title %> @daydashapp" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                  <a href="https://twitter.com/share?url=<%= "#{App.domain}#{client_event_path(@event.to_url)}" %>&amp;text=Let's go! <%= @event.title %> @daydashapp" target="_blank">
+                    <%= image_tag "social/twitter.png", alt: "Twitter" %>
+                  </a>
+
+                  <a href="mailto:?Subject=Let's go! <%= @event.title %>&amp;Body=Let's go! <%= @event.title %> <%= "#{App.domain}#{client_event_path(@event.to_url)}" %>">
+                    <%= image_tag "social/email.png", alt: "Email" %>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -75,14 +212,14 @@
         <div class="col-sm-6 col-md-4">
           <div class="event card">
             <%= link_to client_event_path(event.to_url) do %>
-              <div class="cover" style="background-image: url(<%= event.get_thumbnail %>);"></div>
+              <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
             <% end %>
             <div class="info">
               <h4 class="title text-left">
                 <%= link_to event.title, client_event_path(event.to_url) %>
               </h4>
               <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
-              <div class="meta location"><i class="icon icon-xs icon-map-pin"></i> <%= event.location_name %></div>
+              <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= event.location_name %></div>
             </div>
           </div>
         </div>
@@ -93,7 +230,8 @@
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ticket-list-modal">
   <div class="modal-dialog" role="document">
-    <%= form_tag client_event_selection_path(@event.to_url), method: :post, id: :payment do  %>
+
+    <%= form_tag client_payment_selection_path(@event.to_url), method: :post, id: :payment do  %>
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="icon icon-close"></i></button>
@@ -153,6 +291,14 @@
   function nextToCheckout(){
     $("#selection-error").hide();
 
+    <% unless current_user.try(:admin?) %>
+      ga('send', 'event', {
+        eventCategory: 'Button',
+        eventAction: 'Clicked',
+        eventLabel: 'Select Ticket'
+      });
+    <% end %>
+
     var is_error = true;
 
     var total = $("select[name*='section']").length
@@ -197,4 +343,27 @@
   function number_format(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+</script>
+
+<script type="text/javascript">
+  $('.description a').each(function() {
+    $(this).attr('target', '_blank')
+  });
+
+  <% unless current_user.try(:admin?) %>
+    $('.btn-buy').on('click', function(){
+      ga('send', 'event', {
+        eventCategory: 'Button',
+        eventAction: 'Clicked',
+        eventLabel: 'Buy Ticket'
+      });
+    });
+  <% end %>
+
+  $(document).ready(function(){
+    if($('.ticket-quantity').length == 1) {
+      $('.ticket-quantity').find('option')[1].selected = true;
+      update_total_price();
+    }
+  });
 </script>

@@ -34,10 +34,14 @@ class Section < ApplicationRecord
 
   attr_accessor :section_name, :section_event_date, :section_end_date, :section_event_time, :section_end_time, :section_price, :section_available
 
-  scope :available, -> { where("event_time > ?", Time.zone.now).order(:event_time) }
+  scope :available, -> { where("event_time < ? and end_time > ?", Time.zone.now, Time.zone.now).order(:price, :discount) }
   scope :total, -> { sum(:total) }
 
   enumerize :status, in: [:on, :off, :draft], default: :draft
+
+  def sale_price
+    self.price - self.discount
+  end
 
   def bought
     self.tickets.count
@@ -73,7 +77,8 @@ class Section < ApplicationRecord
 
   def expired_time?
     if self.ticket_type.general?
-      event_time <= Time.zone.now
+      # event_time <= Time.zone.now
+      self.event.uptime <= Time.zone.now
     end
   end
 
@@ -93,14 +98,31 @@ class Section < ApplicationRecord
   end
 
   def percent
-    ((self.initial_price.to_f - self.price.to_f) / self.initial_price.to_f * 100.0).to_i
+    (self.discount / self.price.to_f * 100.0).to_i
   end
 
-  def discount
-    self.initial_price - self.price
-  end
+  # def discount
+  #   p self.initial_price
+  #   if self.initial_price.present?
+  #     self.initial_price - self.price
+  #   else
+  #     self.discount
+  #   end
+  # end
 
   def to_event_human
     event_time.try(:strftime, "%A %d %B, %H:%M")
+  end
+
+  def to_event_time
+    event_time.try(:strftime, "%A %d %B")
+  end
+
+  def to_start_time
+    event_time.try(:strftime, "%A %d %B, %H:%M")
+  end
+
+  def to_end_time
+    end_time.try(:strftime, "%A %d %B, %H:%M")
   end
 end

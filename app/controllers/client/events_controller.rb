@@ -15,7 +15,7 @@ module Client
       @event    = Event.where('lower(slug) = ?', params[:id].downcase).first
       @section_count = @event.sections.count
 
-      @sections = @event.ticket_type.deal? ? @event.sections.order(:event_time): @event.sections.available
+      @sections = @event.ticket_type.deal? ? @event.sections : @event.sections.available
 
       @section  = @event.sections.min_by { |m| m.price }
 

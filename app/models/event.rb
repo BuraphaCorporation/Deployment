@@ -63,7 +63,7 @@ class Event < ApplicationRecord
   has_attached_file :cover, styles: { full: "1600x500#" }
   validates_attachment_content_type :cover, content_type: /\Aimage\/.*\z/
 
-  has_attached_file :social_share, styles: { facebook: "1200x630#" }
+  has_attached_file :social_share, styles: { facebook: "1200x630#" }, default_url: '/facebook-og.png'
   validates_attachment_content_type :social_share, content_type: /\Aimage\/.*\z/
   # after_create :set_organizer
   # after_create :set_uptime

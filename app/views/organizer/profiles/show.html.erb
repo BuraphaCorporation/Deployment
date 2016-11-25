@@ -52,12 +52,8 @@
       <% @events.each do |event| %>
           <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
             <%= link_to client_event_path(event.to_url), class: "event card" do %>
-              <% if event.ticket_type.deal? %>
-                <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
-              <% elsif event.uptime > Time.zone.now %>
-                <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
-              <% else %>
-                <div class="cover" style="background-image: url('<%= event.get_thumbnail %>'); filter: grayscale(100%);">
+              <% if event.uptime.present? %>
+                <% if event.uptime < Time.zone.now %>
                   <div style="color: #fff;
                         font-weight: 600;
                         position: absolute;
@@ -65,10 +61,17 @@
                         text-align: center;
                         left: 0;
                         right: 0;
-                        font-size: 22px;">
+                        font-size: 22px;
+                        z-index: 1000;">
                     PAST EVENT
                   </div>
-                </div>
+                  <div class="cover" style="background-image: url('<%= event.get_thumbnail %>'); filter: brightness(.5);">
+                  </div>
+                <% else %>
+                  <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
+                <% end %>
+              <% else %>
+                <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
               <% end %>
               <div class="info">
                 <h4 class="title text-left"><%= event.title %></h4>

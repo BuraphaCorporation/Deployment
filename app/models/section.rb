@@ -15,6 +15,7 @@
 #  updated_at    :datetime         not null
 #  unit          :integer          default(1)
 #  initial_price :integer
+#  discount      :integer          default(0)
 #
 # Indexes
 #

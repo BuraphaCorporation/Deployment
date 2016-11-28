@@ -42,7 +42,7 @@
     return false;
   }
 
-  function onTicketDelete(button, section_id = null) {
+  function onTicketDelete(button, url, section_id = null) {
     var element = $(button).parents('.section-ticket');
 
     if(section_id != null)
@@ -56,7 +56,7 @@
         confirmButtonText: 'Yes, delete it!'
       }).then(function(){
         $.ajax({
-          url: '<%= delete_section_organizer_event_path(@event) %>',
+          url: url,
           data: {
             'section_id': section_id
           },

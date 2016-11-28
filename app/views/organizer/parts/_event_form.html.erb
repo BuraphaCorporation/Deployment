@@ -193,7 +193,7 @@
                   <label for="tickets-sales-end">Actions</label>
                   <p>
                     <!--<a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-cog"></i></a>-->
-                    <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this, '<%= section.id %>');"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this, '<%= delete_section_organizer_event_path(@event) %>', '<%= section.id %>');"><i class="fa fa-trash"></i></a>
                   </p>
                 </div>
                 <div class="col-xs-6">

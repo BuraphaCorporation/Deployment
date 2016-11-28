@@ -43,12 +43,20 @@ module Client
     def settings
       set_seo_title 'Setting'
 
-      @user = current_user
+      if current_user.admin?
+        @user = User.friendly.find(params[:profile_id])
+      else
+        @user = current_user
+      end
     end
 
     def settings_update
       p user_params
-      current_user.update(user_params)
+      if current_user.admin?
+        User.find_by_email(params[:user][:email]).update(user_params)
+      else
+        current_user.update(user_params)
+      end
       redirect_to :back
     end
 
@@ -76,7 +84,7 @@ module Client
       if params[:dob_date].present? and params[:dob_month].present? and params[:dob_year].present?
         params[:user][:birthday] = Date.strptime("#{params[:dob_date]}/#{params[:dob_month]}/#{params[:dob_year]}", "%d/%m/%Y")
       end
-      params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone, :company, :url, :facebook, :twitter, :instagram, :youtube, :short_description, :picture, :latitude, :longitude)
+      params.require(:user).permit(:email, :first_name, :last_name, :gender, :birthday, :phone, :company, :url, :facebook, :twitter, :instagram, :youtube, :short_description, :picture, :cover, :latitude, :longitude)
     end
 
     def check_password

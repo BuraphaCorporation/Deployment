@@ -51,6 +51,10 @@
 #  twitter                :string
 #  instagram              :string
 #  youtube                :string
+#  cover_file_name        :string
+#  cover_content_type     :string
+#  cover_file_size        :integer
+#  cover_updated_at       :datetime
 #
 # Indexes
 #
@@ -85,6 +89,11 @@ class User < ApplicationRecord
                     default_url: "#{App.domain}/src/images/profile/missing-profile.png"
 
   validates_attachment_content_type :picture, content_type: /\Aimage\/.*\Z/
+
+  has_attached_file :cover, styles: { full:"1600x550#" },
+                    default_url: "#{App.domain}/src/images/content/cover-1.jpg"
+
+  validates_attachment_content_type :cover, content_type: /\Aimage\/.*\Z/
 
   before_create :set_default_access_token
   before_create :set_default_referal

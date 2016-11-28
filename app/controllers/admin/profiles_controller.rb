@@ -1,7 +1,7 @@
 module Admin
   class ProfilesController < Admin::BaseController
-    before_action :authenticate_organizer!, except: :show
-    before_action :organizer, only: :show
+    before_action :authenticate_admin!, except: :show
+    before_action :admin, only: :show
 
     def show
       @events = @organizer.events
@@ -9,9 +9,9 @@ module Admin
 
     private
 
-    def organizer
-      @organizer = User.where.not(role: :user).find_by_username(params[:organizer])
-      not_found if @organizer.blank?
+    def admin
+      @user = User.where.not(role: :user).find_by_username(params[:user])
+      not_found if @user.blank?
     end
   end
 end

@@ -19,13 +19,20 @@
       </div>
       <div class="col-xs-12 col-md-10">
         <div class="event-section-panel">
-          <div class="panel-header">
-            <h3>ALL ORDERS</h3>
-            <ul class="list-inline">
-              <li>Orders: <%= @event.orders.paid.count %></li>
-              <li>Total Sales: <%= convert_to_currency @event.get_total_sales %></li>
-              <li>Attendees: <%= @event.tickets.available.count %></li>
-            </ul>
+          <div class="row panel-header">
+            <div class="col-xs-12">
+              <h3>ALL ORDERS</h3>
+            </div>
+            <div class="col-xs-9 text-left">
+              <ul class="list-inline">
+                <li>Orders: <%= @event.orders.paid.count %></li>
+                <li>Total Sales: <%= convert_to_currency @event.get_total_sales %></li>
+                <li>Attendees: <%= @event.tickets.available.count %></li>
+              </ul>
+            </div>
+            <div class="col-xs-3 text-right">
+              <%= link_to 'Download as .xlsx', orders_organizer_event_path(format: :xlsx) %>
+            </div>
           </div>
           <div class="table-responsive organizer-table">
             <table class="table table-hover">

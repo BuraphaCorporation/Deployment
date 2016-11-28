@@ -1,0 +1,15 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "All Orders") do |sheet|
+	@orders.each do |order|
+    sheet.add_row [
+      order.code,
+      order.status,
+      order.payment.channel,
+      order.user.first_name,
+      order.user.last_name,
+      order.tickets.count,
+      convert_to_currency(order.to_price),
+      order.created_at.strftime("%d %B %Y, %H:%M")
+    ]
+  end
+end

@@ -110,12 +110,19 @@
                 <% end %>
               </div>
             <% end %>
-            <div class="form-group col-xs-12 col-md-6">
+            <div class="form-group col-xs-12">
               <label>Picture</label>
-              <%= f.file_field :picture, value: @user.try(:picture, :medium), class: 'form-control' %>
+              <%= f.file_field :picture, class: 'form-control' %>
+              <img src="<%= @user.try(:picture, :medium) %>" alt="" width="300">
             </div>
 
             <% if @user.can_organizer? %>
+              <div class="form-group col-xs-12">
+                <label>Cover</label>
+                <%= f.file_field :cover, class: 'form-control' %>
+                <img src="<%= @user.try(:cover, :full) %>" alt="" width="100%">
+              </div>
+
               <div class="form-group col-xs-12 col-md-12">
                 <label>Location on Map</label>
                 <div class="form-inline">

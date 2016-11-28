@@ -95,6 +95,13 @@ module Organizer
 
     def orders
       @orders = @event.orders.where(status: :paid).order(created_at: :desc)
+      respond_to do |format|
+        format.html
+        format.xlsx {
+          render xlsx: 'orders', filename: "all_orders.xlsx"
+          # response.headers['Content-Disposition'] = 'attachment; filename="all_orders.xlsx"'
+        }
+      end
     end
 
     def tickets

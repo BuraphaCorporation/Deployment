@@ -213,7 +213,7 @@ Rails.application.routes.draw do
     namespace :organizer do
       resources :events do
         member do
-          get 'orders',             to: 'events#orders'
+          get 'orders',             to: 'events#orders', format: [:html, :xlsx]
           get 'checkin',            to: 'events#checkin'
           get 'unpublish',          to: 'events#unpublish'
           get 'published',          to: 'events#published'

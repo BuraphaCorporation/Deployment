@@ -54,6 +54,9 @@ gem 'money'
 gem 'monetize'
 gem 'money-rails'
 
+gem 'rubyzip', '= 1.0.0'
+gem 'axlsx', '= 2.0.1'
+gem 'axlsx_rails'
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'

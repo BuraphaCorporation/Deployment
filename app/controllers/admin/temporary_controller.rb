@@ -6,6 +6,7 @@ module Admin
     layout 'daydash'
 
     def index
+      @organizer = User.where(role: :organizer).order(created_at: :desc)
       @users = User.where(role: :user).order(created_at: :desc)
     end
 

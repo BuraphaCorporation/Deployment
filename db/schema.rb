@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124120605) do
+ActiveRecord::Schema.define(version: 20161128021625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -271,6 +271,10 @@ ActiveRecord::Schema.define(version: 20161124120605) do
     t.string   "twitter"
     t.string   "instagram"
     t.string   "youtube"
+    t.string   "cover_file_name"
+    t.string   "cover_content_type"
+    t.integer  "cover_file_size"
+    t.datetime "cover_updated_at"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["referrer_id"], name: "index_users_on_referrer_id", using: :btree

@@ -5,6 +5,12 @@ module Organizer
 
     def show
       @events = @organizer.events.order(uptime: :desc)
+
+      @covers = [
+        {
+          image: @organizer.cover(:full),
+        }
+      ]
     end
 
     private

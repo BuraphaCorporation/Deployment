@@ -1,0 +1,25 @@
+<div class="section" id="profile-nav-section">
+  <div class="container">
+
+    <div class="section-header row">
+      <div class="col-xs-12">
+        <h1 class="event-title"><%= @event.title %></h1>
+      </div>
+    </div>
+
+    <ul class="nav nav-pills nav-daydash" id="<%= current_user.can_organizer? ? 'organizer-nav' : 'profile-nav' %>">
+      <li class="organizer-event-nav-dashboard">
+        <a href="#"><i class="icon icon-xs icon-order"></i> Dashboard</a>
+      </li>
+      <li class="organizer-event-nav-orders">
+        <a href="<%= orders_organizer_event_path(@event) %>"><i class="icon icon-xs icon-order"></i> Orders</a>
+      </li>
+      <li class="organizer-event-nav-check-in">
+        <a href="<%= checkin_organizer_event_path(@event) %>"><i class="icon icon-xs icon-checkin"></i> Check in</a>
+      </li>
+      <li class="organizer-event-nav-edit">
+        <a href="<%= edit_organizer_event_path(@event) %>"><i class="icon icon-xs icon-edit"></i> Edit</a>
+      </li>
+    </ul>
+  </div>
+</div>

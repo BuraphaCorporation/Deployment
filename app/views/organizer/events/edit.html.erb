@@ -4,7 +4,7 @@
   $('.organizer-event-nav .organizer-event-nav-edit').addClass('active');
 </script>
 
-<%#= render partial: "layouts/parts/nav" %>
+<%= render partial: "layouts/parts/manage_nav" %>
 
 <div class="section">
   <div class="container">
@@ -14,9 +14,7 @@
       </div>
     </div>
     <div class="section-body row">
-      <div class="col-xs-12 col-md-2">
-        <%= render partial: "organizer/parts/organizer-event-nav" %>
-      </div>
+
       <div class="col-xs-12 col-md-10">
         <%= form_tag organizer_event_path(@event), multipart: true, 'data-parsley-validate': true, method: :put  do %>
           <input type="hidden" name="images_order" value="<%= @images_order.join(',') %>" />

@@ -1,6 +1,6 @@
 module Organizer
   class EventsController < Organizer::BaseController
-    before_action :event, only: [:edit, :update, :destroy, :delete_section, :delete_attachment, :orders, :checkin, :published, :unpublish, :order_attachment, :update_attachment]
+    before_action :event, only: [:edit, :update, :destroy, :delete_section, :delete_attachment, :orders, :checkin, :attendees, :published, :unpublish, :order_attachment, :update_attachment]
     before_action :all_categories, only: [:new, :edit]
     before_action :all_users, only: [:new, :edit]
     before_action :admin_only, only: [:unpublish, :published, :update_time_event]
@@ -108,6 +108,11 @@ module Organizer
     end
 
     def checkin
+      @orders = @event.orders.order(created_at: :desc)
+      @sections = @event.sections
+    end
+
+    def attendees
       @orders = @event.orders.order(created_at: :desc)
       @sections = @event.sections
     end

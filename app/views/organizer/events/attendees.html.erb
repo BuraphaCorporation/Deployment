@@ -7,14 +7,19 @@
       <div class="col-xs-12">
         <% @sections.each do |section| %>
         <div class="event-section-panel">
-          <div class="panel-header">
-						<div class="row panel-header">
-							<div class="col-xs-9 text-left">
-								Attendees: <%= section.tickets.available.count %>
-							</div>
-							<div class="col-xs-3 text-right">
-								<%= link_to 'EXPORT', attendees_organizer_event_path(format: :xlsx) %>
-							</div>
+					<div class="row panel-header">
+						<div class="col-xs-12 col-md-6">
+							Attendees: <%= section.tickets.available.count %>
+						</div>
+						<div class="col-xs-6 col-md-3 text-right">
+							<%= link_to 'EXPORT', attendees_organizer_event_path(format: :xlsx) %>
+						</div>
+						<div class="col-xs-6 col-md-3 text-right">
+              <select class="form-control">
+                <option selected disabled>เรียงตาม: Recent</option>
+                <option>1</option>
+                <option>2</option>
+              </select>
 						</div>
 					</div>
           <div class="table-responsive organizer-table">

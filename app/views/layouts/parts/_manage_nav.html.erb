@@ -13,7 +13,7 @@
 
     <ul class="nav nav-pills nav-daydash" id="<%= current_user.can_organizer? ? 'organizer-nav' : 'profile-nav' %>">
       <li class="organizer-event-nav-dashboard">
-        <a href="#"><i class="icon icon-xs icon-order"></i> Dashboard</a>
+        <a href="#" style="color: #ccc"><i class="icon icon-xs icon-order"></i> Dashboard</a>
       </li>
       <li class="organizer-event-nav-orders">
         <a href="<%= orders_organizer_event_path(@event) %>"><i class="icon icon-xs icon-order"></i> Orders</a>

@@ -10,11 +10,10 @@ module Organizer
         @events = current_user.events.order(uptime: :desc)
       else
         @events = Event.all
-        @event_publish = @events.where(status: :published).count
-        @event_unpublish = @events.where(status: :unpublished).count
-        @event_past = @events.past.count
+        @event_publish = @events.where(status: :published)
+        @event_unpublish = @events.where(status: :unpublish)
+        @event_past = @events.past
         @events = @events.order(uptime: :desc)
-
       end
     end
 

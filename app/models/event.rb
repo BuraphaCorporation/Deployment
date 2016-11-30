@@ -127,6 +127,16 @@ class Event < ApplicationRecord
     end
   end
 
+  def organizer_status
+    if self.uptime < Time.zone.now
+      "past"
+    elsif self.status == 'published'
+      'live'
+    else
+      'draft'
+    end
+  end
+
 private
   def set_slug
     if self.slug.blank?

@@ -9,13 +9,13 @@
           <div class="list-head" style="padding-top: 30px;">
             <div class="col-md-9">
               <div class="text-inline ml-10">
-                LIVE (<%= @event_publish %>)
+                <a href="javascript:;" class="event-filter" data-filter="event-live">LIVE (<%= @event_publish.count %>)</a>
               </div>
               <div class="text-inline ml-10">
-                DRAFT (<%= @event_unpublish %>)
+                <a href="javascript:;" class="event-filter" data-filter="event-draft">DRAFT (<%= @event_unpublish.count %>)</a>
               </div>
               <div class="text-inline ml-10">
-                PART (<%= @event_past %>)
+                <a href="javascript:;" class="event-filter" data-filter="event-past">PART (<%= @event_past.count %>)</a>
               </div>
             </div>
 
@@ -30,7 +30,7 @@
 
           <div class="list-body">
             <% @events.each do |event| %>
-            <div class="event card-side-cover event-for-organizer">
+            <div class="event card-side-cover event-for-organizer event-<%= event.organizer_status %>">
               <div style="display: table-cell; width: 100px; text-align: center padding-top: 30px;
     text-align: center;
     font-family: "Helvetica Neue", sans-serif;">

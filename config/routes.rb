@@ -214,8 +214,8 @@ Rails.application.routes.draw do
       resources :events do
         member do
           get 'orders',             to: 'events#orders', format: [:html, :xlsx]
+          get 'attendees',          to: 'events#attendees', format: [:html, :xlsx]
           get 'checkin',            to: 'events#checkin'
-          get 'attendees',          to: 'events#attendees'
           get 'unpublish',          to: 'events#unpublish'
           get 'published',          to: 'events#published'
           get 'update_time_event',  to: 'events#update_time_event'

@@ -104,7 +104,16 @@ module Organizer
       end
     end
 
-    def tickets
+    def attendees
+      @sections = @event.sections
+
+      respond_to do |format|
+        format.html
+        format.xlsx {
+          render xlsx: 'attendees', filename: "all_attendees.xlsx"
+          # response.headers['Content-Disposition'] = 'attachment; filename="all_orders.xlsx"'
+        }
+      end
     end
 
     def checkin
@@ -112,9 +121,7 @@ module Organizer
       @sections = @event.sections
     end
 
-    def attendees
-      @orders = @event.orders.order(created_at: :desc)
-      @sections = @event.sections
+    def tickets
     end
 
     def ticket_checking

@@ -1,0 +1,50 @@
+a{
+  color: #00CFD1;
+  &:hover, &:active, &:link, &:visited{
+    color: #19D4D6;}}
+h1{
+  font-weight: 300;}
+label{
+  font-weight: normal;}
+.bootstrap-datetimepicker-widget{
+  padding-left: 15px;
+  padding-right: 15px;
+  th, td{
+    cursor: pointer;
+    text-align: center;}
+  .day.active{
+    background-color: #00CFD1;
+    color: white;}
+  .btn{
+    color: #00CFD1;}
+  .btn-primary{
+    background: #00CFD1;
+    color: white;
+    border: 0px;}}
+.organizer-badge{
+  display: inline-block;
+  border-radius: 2px;
+  padding: 3px 15px;
+  background: linear-gradient(90deg, #433B8F, #2F9687);
+  color: white;}
+.organizer-nav{
+  padding: 0px !important;
+  margin: 18px 5px 0px;}
+.nav-badge{
+  font-size: 12px;}
+.mobile-only{
+  @media (min-width: 992px){
+    display: none !important;}}
+.mobile-hide{
+  @media (max-width: 991px){
+    display: none !important;}}
+.panel-daydash{
+  border-radius: 0px;
+  box-shadow: none;
+  padding: 30px;
+  border: 1px solid #eee;
+  background: white;
+  .panel-body:not(:last-child){
+    border-bottom: 1px solid #eee;}
+  @media (max-width: 991px){
+    padding: 15px;}}

@@ -1,15 +1,9 @@
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('body').attr('id', 'organizer-events-new').addClass('organizer-event-page');
-    $('#organizer-nav #menu-create-event').addClass('active');
-  });
-</script>
-
+<% content_for :body_id, 'organizer-events-new' %>
+<% content_for :body_class, 'organizer-event-page' %>
 <%#= render partial: "layouts/parts/nav" %>
 
 <div class="section">
   <div class="container">
-    <div class="section-header row"></div>
     <div class="section-body row">
       <div class="col-xs-12">
         <%= form_tag organizer_events_path(@event), multipart: true, 'data-parsley-validate': true do %>

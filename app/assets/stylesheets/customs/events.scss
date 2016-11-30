@@ -1,10 +1,3 @@
-$gray-color-3: #333;
-$gray-color-4: #444;
-$gray-color-8: #888;
-$gray-color-a: #aaa;
-$gray-color-c: #ccc;
-$gray-color-e: #eee;
-$green-color: #19D4D6;
 
 #error_explanation {
   font-size: 16px;
@@ -16,12 +9,13 @@ html,
 body{
   height: 100%;
   font-family: "Athiti", "Helvetica Neue", "sans-serif";
-  color: $gray-color-4;
+  color: #444;
   font-size: 16px;}
+
 #topbar {
   .navbar{
     margin-bottom: 0px;
-    border-bottom: 1px solid $gray-color-e;}
+    border-bottom: 1px solid #eee;}
   .navbar-brand{
     padding: 10px 15px;
     height: 60px;
@@ -30,7 +24,7 @@ body{
   .navbar-left {
     > li {
       > a {
-        color: $gray-color-4;
+        color: #444;
         text-transform: uppercase;
       }
     }
@@ -38,11 +32,11 @@ body{
   .navbar-right{
     > li{
       .btn-daydash-green-2{
-        background: $green-color;
+        background: #19D4D6;
         color: white;
         border: 0px;
         &:hover, &:active, &:visited, &:link{
-          background: $green-color;
+          background: #19D4D6;
           color: white;}}}}
   .user-profile-photo{
     width: 30px;
@@ -51,16 +45,16 @@ body{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: $gray-color-c;
+    background-color: #ccc;
     float: left;}
   .user-dropdown{
     .user-name{
       display: inline-block;
       padding: 5px;
       padding-left: 15px;
-      color: $gray-color-4;}
+      color: #444;}
     .fa{
-      color: $gray-color-4;}
+      color: #444;}
     .dropdown-toggle{
       padding: 15px;}
     .dropdown-menu{
@@ -70,19 +64,19 @@ body{
         padding: 15px 20px;
         font-size: 14px;
         font-weight: 200;
-        border-bottom: 1px solid $gray-color-e;}}}
+        border-bottom: 1px solid #eee;}}}
   @media (max-width: 767px){
     .navbar-header{
-      border-bottom: 1px solid $gray-color-e;}
+      border-bottom: 1px solid #eee;}
     .navbar-nav{
       margin: 0px -15px;
       li{
         a{
-          color: $gray-color-4;
+          color: #444;
           text-align: center;
-          border-bottom: 1px solid $gray-color-e;}}}
+          border-bottom: 1px solid #eee;}}}
     .navbar-right{
-      border-bottom: 1px solid $gray-color-e;}}
+      border-bottom: 1px solid #eee;}}
   @media (min-width: 768px){
     .navbar-right{
       > li{
@@ -146,27 +140,27 @@ body{
   left: 0px;
   right: 0px;
   height: 450px;
-  background-color: $gray-color-3;
-  color: $gray-color-a;
+  background-color: #333;
+  color: #aaa;
   padding-bottom: 100px;
   .col{
     margin-top: 80px;}
   a{
     text-decoration: none;
-    color: $gray-color-a;
+    color: #aaa;
     &:hover{
       color: white;}}
   .list-panel{
     .list-title{
       margin-bottom: 25px;
-      color: $gray-color-e;
+      color: #eee;
       font-size: 16px;}
     .list-body li a{
       display: inline-block;
       width: auto;
       padding: 0px;
       font-size: 14px;
-      color: $gray-color-a;
+      color: #aaa;
       margin-bottom: 5px;
       &:hover, &:active, &:focus, &.active{
         background: transparent;
@@ -194,7 +188,7 @@ body{
     img{
       height: 40px;}}
   .seperator{
-    border-top: 1px solid $gray-color-4;
+    border-top: 1px solid #444;
     margin-top: 25px;
     margin-bottom: 15px;
     .inner{
@@ -211,178 +205,13 @@ body{
 @media (max-width: 991px){
   #main{
     padding-bottom: 900px;}}
-a{
-  color: #00CFD1;
-  &:hover, &:active, &:link, &:visited{
-    color: #19D4D6;}}
-h1{
-  font-weight: 300;}
-label{
-  font-weight: normal;}
-.bootstrap-datetimepicker-widget{
-  padding-left: 15px;
-  padding-right: 15px;
-  th, td{
-    cursor: pointer;
-    text-align: center;}
-  .day.active{
-    background-color: #00CFD1;
-    color: white;}
-  .btn{
-    color: #00CFD1;}
-  .btn-primary{
-    background: #00CFD1;
-    color: white;
-    border: 0px;}}
-.organizer-badge{
-  display: inline-block;
-  border-radius: 2px;
-  padding: 3px 15px;
-  background: linear-gradient(90deg, #433B8F, #2F9687);
-  color: white;}
-.organizer-nav{
-  padding: 0px !important;
-  margin: 18px 5px 0px;}
-.nav-badge{
-  font-size: 12px;}
-.mobile-only{
-  @media (min-width: 992px){
-    display: none !important;}}
-.mobile-hide{
-  @media (max-width: 991px){
-    display: none !important;}}
-.panel-daydash{
-  border-radius: 0px;
-  box-shadow: none;
-  padding: 30px;
-  border: 1px solid $gray-color-e;
-  background: white;
-  .panel-body:not(:last-child){
-    border-bottom: 1px solid $gray-color-e;}
-  @media (max-width: 991px){
-    padding: 15px;}}
-.nav-daydash{
-  margin-bottom: 15px;
-  li{
-    a{
-      &, &:visited, &:link, &:active{
-        background: transparent;
-        padding-bottom: 8px;
-        color: $gray-color-4;}
-      &:hover, &:visited:hover, &:link:hover, &:active:hover{
-        color: $gray-color-4;}}
-    &.active a{
-      &, &:hover, &:active, &:link, &:visited{
-        border-radius: 0px;
-        background: transparent;
-        color: $gray-color-4;
-        border-bottom: 3px solid $gray-color-4;}}}}
-.nav-daydash-green{
-  li.active{
-    a{
-      &, &:hover, &:active, &:link, &:visited{
-        border-bottom: 2px solid #00CFD1;}}}}
-.nav-tabs-daydash{
-  margin-bottom: 15px;
-  &.nav-justified{
-    margin-bottom: 15px;}
-  li a{
-    background: transparent;
-    color: $gray-color-a;
-    border: 0px;
-    border-bottom: 3px solid $gray-color-e;
-    &:visited, &:link, &:active{
-      background: transparent;
-      color: $gray-color-a;
-      border: 0px;
-      border-bottom: 3px solid $gray-color-e;}}
-  &.nav-justified li a{
-    background: transparent;
-    color: $gray-color-a;
-    border: 0px;
-    border-bottom: 3px solid $gray-color-e;
-    &:visited, &:link, &:active{
-      background: transparent;
-      color: $gray-color-a;
-      border: 0px;
-      border-bottom: 3px solid $gray-color-e;}}
-  li:hover a, &.nav-justified li:hover a{
-    color: $gray-color-4;
-    &:hover{
-      color: $gray-color-4;}}
-  li.active{
-    a{
-      border-radius: 0px;
-      background: transparent;
-      color: $gray-color-4;
-      border: 0px;
-      border-bottom: 3px solid #00CFD1;
-      &:visited, &:link, &:active{
-        border-radius: 0px;
-        background: transparent;
-        color: $gray-color-4;
-        border: 0px;
-        border-bottom: 3px solid #00CFD1;}}
-    &:hover a{
-      border-radius: 0px;
-      background: transparent;
-      color: $gray-color-4;
-      border: 0px;
-      border-bottom: 3px solid #00CFD1;
-      &:visited, &:link, &:active{
-        border-radius: 0px;
-        background: transparent;
-        color: $gray-color-4;
-        border: 0px;
-        border-bottom: 3px solid #00CFD1;}}}
-  &.nav-justified li.active{
-    a{
-      border-radius: 0px;
-      background: transparent;
-      color: $gray-color-4;
-      border: 0px;
-      border-bottom: 3px solid #00CFD1;
-      &:visited, &:link, &:active{
-        border-radius: 0px;
-        background: transparent;
-        color: $gray-color-4;
-        border: 0px;
-        border-bottom: 3px solid #00CFD1;}}
-    &:hover a{
-      border-radius: 0px;
-      background: transparent;
-      color: $gray-color-4;
-      border: 0px;
-      border-bottom: 3px solid #00CFD1;
-      &:visited, &:link, &:active{
-        border-radius: 0px;
-        background: transparent;
-        color: $gray-color-4;
-        border: 0px;
-        border-bottom: 3px solid #00CFD1;}}}
-  &.nav-tabs-black li.active{
-    a{
-      border-bottom: 3px solid $gray-color-4;
-      &:visited, &:link, &:active{
-        border-bottom: 3px solid $gray-color-4;}}
-    &:hover a{
-      border-bottom: 3px solid $gray-color-4;
-      &:visited, &:link, &:active{
-        border-bottom: 3px solid $gray-color-4;}}}
-  &.nav-justified.nav-tabs-black li.active{
-    a{
-      border-bottom: 3px solid $gray-color-4;
-      &:visited, &:link, &:active{
-        border-bottom: 3px solid $gray-color-4;}}
-    &:hover a{
-      border-bottom: 3px solid $gray-color-4;
-      &:visited, &:link, &:active{
-        border-bottom: 3px solid $gray-color-4;}}}}
+
+
 .event.card, .ticket.card{
   display: block;
   margin-bottom: 30px;
   border-radius: 2px;
-  border: 1px solid $gray-color-e;
+  border: 1px solid #eee;
   overflow: hidden;
   text-decoration: none;
   background: #fff;
@@ -390,16 +219,16 @@ label{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: $gray-color-c;
+    background-color: #ccc;
     height: 250px;}
   .info{
     background-color: #fff;
-    color: $gray-color-4;
+    color: #444;
     padding: 15px;
     font-size: 16px;
     min-height: 180px;
     a {
-      color: $gray-color-4;}
+      color: #444;}
     .location{
       width: 100%;
       white-space: nowrap;
@@ -463,7 +292,7 @@ label{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: $gray-color-c;}
+    background-color: #ccc;}
   .info{
     padding: 15px;
     padding-bottom: 0px;
@@ -492,7 +321,7 @@ label{
   background-color: white;
   box-shadow: 0px 5px 10px rgba(0,0,0,0.05);
   a{
-    color: $gray-color-4;}
+    color: #444;}
   .event-date-lg{
     padding-top: 30px;
     text-align: center;
@@ -508,7 +337,7 @@ label{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: $gray-color-c;
+    background-color: #ccc;
     padding: 30px;}
   .info{
     .info-body{
@@ -522,10 +351,10 @@ label{
       .ticket-code{
         text-align: right;
         label{
-          color: $gray-color-a;}}}
+          color: #aaa;}}}
     .info-footer{
       padding-top: 15px;
-      border-top: 1px solid $gray-color-4;
+      border-top: 1px solid #444;
       .meta{
         margin-bottom: 5px;}
       .icon{
@@ -542,7 +371,7 @@ label{
   background-color: white;
   box-shadow: 0px 5px 10px rgba(0,0,0,0.05);
   a:not(.btn){
-    color: $gray-color-4;}
+    color: #444;}
   .order-header{
     padding-bottom: 15px;}
   .cover{
@@ -550,7 +379,7 @@ label{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: $gray-color-c;
+    background-color: #ccc;
     height: 170px;
     padding: 30px;}
   .title{
@@ -568,7 +397,7 @@ label{
   .info{
     .info-header, .info-body{
       padding-top: 15px;
-      border-top: 1px solid $gray-color-4;}
+      border-top: 1px solid #444;}
     .table{
       tr{
         td{
@@ -576,7 +405,7 @@ label{
       .total{
         td{
           padding-top: 15px;
-          border-top: 1px solid $gray-color-4;}}}
+          border-top: 1px solid #444;}}}
     .info-body{
       padding-top: 10px;
       .table{
@@ -597,7 +426,7 @@ label{
               margin-right: 0px;}}
           .btn-daydash-inverse{
             &:hover, &:active, &:link, &:visited{
-              background: $gray-color-4;}}}}}}
+              background: #444;}}}}}}
   @media (min-width: 992px){
     .order-header{
       .right{
@@ -622,7 +451,7 @@ label{
     margin-top: 15px;
     li{
       a{
-        color: $gray-color-4;}}}
+        color: #444;}}}
   .ticket-sold-panel{
     font-weight: 200;
     .ticket-sold-value{
@@ -650,7 +479,9 @@ label{
   padding-left: 15px;
   content: "|";
   display: inline-block;
-  padding-left: 15px;}
+  padding-left: 15px;
+}
+
 #index-page{
   #cover-section .slick{
     margin-bottom: 0px;
@@ -721,12 +552,16 @@ label{
         white-space: nowrap;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-        border-bottom: 1px solid $gray-color-e;
+        border-bottom: 1px solid #eee;
         li{
           float: none;
           display: inline-block;}}
       .event-list{
-        padding-top: 0px;}}}}
+        padding-top: 0px;
+      }
+    }
+  }
+}
 #event-page{
   #cover-section{
     position: relative;
@@ -827,13 +662,13 @@ label{
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        background-color: $gray-color-c;}}
+        background-color: #ccc;}}
     .btn-daydash-lg{
       margin-bottom: 15px;}
     .map-panel{
       margin-bottom: 15px;
       border-radius: 2px;
-      background: $gray-color-e;
+      background: #eee;
       #google-map{
         width: 100%;
         height: 400px;}}
@@ -841,7 +676,7 @@ label{
       padding-top: 15px;
       padding-bottom: 15px;
       border-radius: 2px;
-      border: 1px solid $gray-color-e;
+      border: 1px solid #eee;
       .btn-daydash{
         margin-bottom: 5px;}
       .social-list{
@@ -1049,7 +884,7 @@ label{
       font-weight: 200;
       .panel-heading{
         padding-bottom: 15px;
-        border-bottom: 1px solid $gray-color-e;
+        border-bottom: 1px solid #eee;
         .back-btn{
           .icon{
             width: 15px;
@@ -1137,7 +972,7 @@ label{
   padding-top: 40px;
   padding-bottom: 50px;
   background: #fcfcfc;
-  border-top: 1px solid $gray-color-e;
+  border-top: 1px solid #eee;
   .section-header{
     margin-bottom: 20px;
     text-align: center;

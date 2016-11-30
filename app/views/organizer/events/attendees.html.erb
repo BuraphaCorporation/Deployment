@@ -1,38 +1,40 @@
-<% content_for :body_id, 'organizer-event-checkin' %>
+<% content_for :body_id, 'organizer-event-attendees' %>
 <% content_for :body_class, 'organizer-event-page' %>
 <%= render partial: "layouts/parts/manage_nav" %>
-<div class="section" id="checkin-section">
+<div class="section" id="checkin-attendees">
   <div class="container">
     <div class="section-body row">
       <div class="col-xs-12">
         <% @sections.each do |section| %>
         <div class="event-section-panel">
-          <div class="row panel-header">
-            <div class="col-xs-12 col-md-6">
-              <div class="row">
-                <div class="text-inline ml-20">Attendees: <%= section.tickets.available.count %></div>
-                <div class="text-inline ml-20">Checked-in: <%= section.tickets.used.count %></div>
-                <div class="text-inline ml-20">Remaining: <%= section.tickets.paid.count - section.tickets.used.count %></div>
-              </div>
-            </div>
-            <div class="col-xs-12 col-md-6">
-              <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                <input type="text" class="form-control table-filter" name="table_filter" placeholder="Name, Email, Ticket ID">
-              </div>
-            </div>
-          </div>
+					<div class="row panel-header">
+						<div class="col-xs-12 col-md-6">
+							Attendees: <%= section.tickets.available.count %>
+						</div>
+						<div class="col-xs-6 col-md-3 text-right">
+							<%= link_to 'EXPORT', attendees_organizer_event_path(format: :xlsx) %>
+						</div>
+						<div class="col-xs-6 col-md-3 text-right">
+              <select class="form-control">
+                <option selected disabled>เรียงตาม: Recent</option>
+                <option>1</option>
+                <option>2</option>
+              </select>
+						</div>
+					</div>
           <div class="table-responsive organizer-table">
             <table class="table table-hover">
               <thead>
                 <tr>
                   <td class="mobile-only"></td>
                   <td>ATTENDEE NAME</td>
+									<td>GENDER</td>
+									<td>AGE</td>
                   <td>EMAIL</td>
                   <td>TEL</td>
-                  <td>TICKET TYPE</td>
+                  <td>ORDER ID</td>
+                  <td>ORDER DATE</td>
                   <td>TICKET ID</td>
-                  <td>STATUS</td>
                 </tr>
               </thead>
               <tbody>
@@ -45,15 +47,13 @@
                       <td class="mobile-only"><%= link_to "CHECK IN", organizer_event_ticket_checking_path(@event.id, ticket.id), method: :post %></td>
                     <% end %>
                     <td><%= ticket.user.first_name %> <%= ticket.user.last_name %></td>
+                    <td><%= ticket.user.gender %></td>
+                    <td><%= ticket.user.age %></td>
                     <td><%= ticket.user.email %></td>
                     <td><%= ticket.user.phone %></td>
-                    <td><%= ticket.section.title %></td>
+                    <td><%= ticket.order.code %></td>
+                    <td><%= ticket.order.created_at.strftime("%d %B %Y, %H:%M") %></td>
                     <td><%= ticket.code %></td>
-                    <% if ticket.status.used? %>
-                      <td>Checked</td>
-                    <% else %>
-                      <td><%= link_to "CHECK IN", organizer_event_ticket_checking_path(@event.id, ticket.id), method: :post %></td>
-                    <% end %>
                   </tr>
                 <% end %>
               </tbody>

@@ -203,6 +203,11 @@ class User < ApplicationRecord
     User.find_by_token(token)
   end
 
+  def age
+    now = Time.now.utc.to_date
+    now.year - birthday.year - (birthday.to_date.change(:year => now.year) > now ? 1 : 0)
+  end
+
 protected
   def confirmation_required?
     false

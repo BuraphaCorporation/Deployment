@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.css" media="screen" title="sweetalert2">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.js"></script>
   </head>
-  <body>
+  <body id="<%= yield(:body_id) %>" class="<%= yield(:body_class) %>">
     <div id="fb-root"></div>
     <div id="wrapper">
       <div id="topbar">
@@ -69,11 +69,6 @@
             <div id="navbar" class="navbar-collapse collapse">
               <% if current_user.present? %>
                 <ul class="nav navbar-nav navbar-right mobile-hide">
-                  <% if current_user.admin? %>
-                    <li>
-                      <%= link_to "<div class=\"role-badge organizer-badge nav-badge\">Admin</div>".html_safe, admin_manage_users_path, class: 'organizer-nav' %>
-                    </li>
-                  <% end %>
                   <% if current_user.can_organizer? %>
                     <li>
                       <%= link_to "<div class=\"role-badge organizer-badge nav-badge\">ORGANIZER</div>".html_safe, organizer_events_path, class: 'organizer-nav' %>
@@ -111,19 +106,39 @@
                 <% end %>
               </ul>
               <ul class="nav navbar-nav navbar-left">
-                <li>
-                  <%= link_to 'ALL', root_path %>
-                </li>
-
-                <% @global_categories.each do |category| %>
-                  <li>
-                    <% if is_index_with_categories? %>
-                      <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
-                    <% else %>
-                      <a href="/categories/<%= category.slug %>"><%= category.title %></a>
+                <% if current_user.present? %>
+                  <% if current_user.can_organizer? %>
+                    <% if current_user.admin? %>
+                      <style>
+                        #profile-nav-section #profile-nav, #profile-nav-section #organizer-nav {
+                          width: auto;
+                        }
+                      </style>
+                      <li id="menu-user-list">
+                        <%= link_to "ALL USER", admin_manage_users_path %>
+                      </li>
+                      <li id="menu-transaction-list">
+                        <%= link_to "ALL Transaction", admin_manage_transactions_path %>
+                      </li>
                     <% end %>
+                    <li id="menu-event-list">
+                      <%= link_to "Manage Event", organizer_events_path %>
+                    </li>
+                    <li id="menu-create-event">
+                      <%= link_to "Create New Event", new_organizer_event_path, "data-turbolinks" => false %>
+                    </li>
+                  <% else %>
+                    <li id="menu-my-tickets">
+                      <%= link_to "My Tickets", client_profile_tickets_path(current_user) %>
+                    </li>
+                    <li id="menu-my-orders">
+                      <%= link_to "My Orders", client_profile_orders_path(current_user) %>
+                    </li>
+                  <% end %>
+                  <li id="menu-settings">
+                    <%= link_to "My Account", client_profile_settings_path(current_user) %>
                   </li>
-                <% end unless @global_categories.nil? %>
+                <% end %>
               </ul>
             </div>
 
@@ -148,15 +163,6 @@
         </nav>
       </div>
       <div id="main">
-        <!-- <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <% flash.each do |key, value| %>
-                <div class="alert alert-<%= key %>"><%= value %></div>
-              <% end %>
-            </div>
-          </div>
-        </div> -->
         <%= yield %>
       </div>
       <div id="footer">

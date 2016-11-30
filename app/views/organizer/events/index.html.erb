@@ -1,24 +1,51 @@
-<script>$('body').attr('id', 'organizer-event-list').addClass('organizer-event-page');</script>
-
+<% content_for :body_id, 'organizer-event-list' %>
+<% content_for :body_class, 'organizer-event-page' %>
 <%#= render partial: "layouts/parts/nav" %>
-<script>$('#organizer-nav #menu-event-list').addClass('active');</script>
-
 <div class="section" id="event-list-section">
-
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
         <div class="event-list">
+          <div class="list-head" style="padding-top: 30px;">
+            <div class="col-md-9">
+              <div class="text-inline ml-10">
+                LIVE (<%= @event_publish %>)
+              </div>
+              <div class="text-inline ml-10">
+                DRAFT (<%= @event_unpublish %>)
+              </div>
+              <div class="text-inline ml-10">
+                PART (<%= @event_past %>)
+              </div>
+            </div>
+
+						<div class="col-md-3 text-right">
+              <select class="form-control">
+                <option selected disabled>เรียงตาม: Recent</option>
+                <option>1</option>
+                <option>2</option>
+              </select>
+						</div>
+          </div>
+
           <div class="list-body">
             <% @events.each do |event| %>
             <div class="event card-side-cover event-for-organizer">
-              <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
+              <div style="display: table-cell; width: 100px; text-align: center padding-top: 30px;
+    text-align: center;
+    font-family: "Helvetica Neue", sans-serif;">
+                <div style="font-size: 24px;
+    text-transform: uppercase;">
+                  <%= event.uptime.try(:strftime, "%b") %>
+                </div>
+                <div style="font-size: 50px;">
+                  <%= event.uptime.try(:strftime, "%d") %>
+                </div>
+              </div>
               <div class="info">
                 <div class="info-body">
-                  <h4 class="title"><%= event.title %></h4>
-                  <div class="meta date"><%= event.to_uptime %></div>
-                  <div class="meta location"><%= event.location_name %></div>
-                  <div class="meta">By <%= "#{event.user.company}" %></div>
+                  <h4 class="title"><%= event.title %> [<%= event.status == 'published' ? 'LIVE' : 'DRAFT' %>]</h4>
+                  <div class="meta date location"><%= event.to_uptime %> at <%= event.location_name %></div>
                 </div>
                 <div class="info-footer">
                   <div class="row">
@@ -44,26 +71,19 @@
 
                         <% if event.status.published? %>
                           <li>
-                            <a href="<%= orders_organizer_event_path(event) %>"><i class="icon icon-xs icon-order"></i> Orders</a>
-                          </li>
-                          <li>
-                            <a href="<%= checkin_organizer_event_path(event) %>"><i class="icon icon-xs icon-checkin"></i> Check in</a>
+                            <a href="<%= orders_organizer_event_path(event) %>"><i class="icon icon-xs icon-order"></i> Manage Event</a>
                           </li>
                         <% end %>
                         <li>
                           <a href="<%= edit_organizer_event_path(event) %>"><i class="icon icon-xs icon-edit"></i> Edit</a>
                         </li>
                         <% if event.status.published? %>
-                          <li>
-                            <% if event.sections.sum(:bought) == 0%>
-                              <a href="<%= unpublish_organizer_event_path(event) %>"><i class="icon icon-xs icon-unpublish"></i> Unpublish</a>
-                            <% else %>
-                              <a href="javascrip:;" style="color: #ccc;"><i class="icon icon-xs icon-unpublish"></i> Unpublish</a>
-                            <% end %>
+                          <li><%#= unpublish_organizer_event_path(event) %>
+                            <a href="<%= client_event_path(event) %>" target="_blank"><i class="icon icon-xs icon-unpublish"></i> View Event</a>
                           </li>
                         <% else %>
                           <li>
-                            <a href="<%= published_organizer_event_path(event) %>"><i class="icon icon-xs icon-publish"></i> Publish</a>
+                            <a href="<%= published_organizer_event_path(event) %>"><i class="icon icon-xs icon-publish"></i> Go Live</a>
                           </li>
                           <li>
                             <a><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i> Delete</a>

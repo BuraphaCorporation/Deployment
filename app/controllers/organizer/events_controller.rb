@@ -9,7 +9,12 @@ module Organizer
       if current_user.organizer?
         @events = current_user.events.order(uptime: :desc)
       else
-        @events = Event.order(uptime: :desc)
+        @events = Event.all
+        @event_publish = @events.where(status: :published).count
+        @event_unpublish = @events.where(status: :unpublished).count
+        @event_past = @events.past.count
+        @events = @events.order(uptime: :desc)
+
       end
     end
 

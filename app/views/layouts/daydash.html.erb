@@ -106,37 +106,39 @@
                 <% end %>
               </ul>
               <ul class="nav navbar-nav navbar-left">
-                <% if current_user.can_organizer? %>
-                  <% if current_user.admin? %>
-                    <style>
-                      #profile-nav-section #profile-nav, #profile-nav-section #organizer-nav {
-                        width: auto;
-                      }
-                    </style>
-                    <li id="menu-user-list">
-                      <%= link_to "ALL USER", admin_manage_users_path %>
+                <% if current_user.present? %>
+                  <% if current_user.can_organizer? %>
+                    <% if current_user.admin? %>
+                      <style>
+                        #profile-nav-section #profile-nav, #profile-nav-section #organizer-nav {
+                          width: auto;
+                        }
+                      </style>
+                      <li id="menu-user-list">
+                        <%= link_to "ALL USER", admin_manage_users_path %>
+                      </li>
+                      <li id="menu-transaction-list">
+                        <%= link_to "ALL Transaction", admin_manage_transactions_path %>
+                      </li>
+                    <% end %>
+                    <li id="menu-event-list">
+                      <%= link_to "Manage Event", organizer_events_path %>
                     </li>
-                    <li id="menu-transaction-list">
-                      <%= link_to "ALL Transaction", admin_manage_transactions_path %>
+                    <li id="menu-create-event">
+                      <%= link_to "Create New Event", new_organizer_event_path, "data-turbolinks" => false %>
+                    </li>
+                  <% else %>
+                    <li id="menu-my-tickets">
+                      <%= link_to "My Tickets", client_profile_tickets_path(current_user) %>
+                    </li>
+                    <li id="menu-my-orders">
+                      <%= link_to "My Orders", client_profile_orders_path(current_user) %>
                     </li>
                   <% end %>
-                  <li id="menu-event-list">
-                    <%= link_to "Manage Event", organizer_events_path %>
-                  </li>
-                  <li id="menu-create-event">
-                    <%= link_to "Create New Event", new_organizer_event_path, "data-turbolinks" => false %>
-                  </li>
-                <% else %>
-                  <li id="menu-my-tickets">
-                    <%= link_to "My Tickets", client_profile_tickets_path(current_user) %>
-                  </li>
-                  <li id="menu-my-orders">
-                    <%= link_to "My Orders", client_profile_orders_path(current_user) %>
+                  <li id="menu-settings">
+                    <%= link_to "My Account", client_profile_settings_path(current_user) %>
                   </li>
                 <% end %>
-                <li id="menu-settings">
-                  <%= link_to "My Account", client_profile_settings_path(current_user) %>
-                </li>
               </ul>
             </div>
 
@@ -161,15 +163,6 @@
         </nav>
       </div>
       <div id="main">
-        <!-- <div class="container">
-          <div class="row">
-            <div class="col-xs-12">
-              <% flash.each do |key, value| %>
-                <div class="alert alert-<%= key %>"><%= value %></div>
-              <% end %>
-            </div>
-          </div>
-        </div> -->
         <%= yield %>
       </div>
       <div id="footer">

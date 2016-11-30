@@ -1,11 +1,6 @@
-<script type="text/javascript">
-  $('body').attr('id', 'organizer-events-edit').addClass('organizer-event-page');
-  $('#organizer-nav #menu-event-list').addClass('active');
-  $('.organizer-event-nav .organizer-event-nav-edit').addClass('active');
-</script>
-
+<% content_for :body_id, 'organizer-events-edit' %>
+<% content_for :body_class, 'organizer-event-page' %>
 <%= render partial: "layouts/parts/manage_nav" %>
-
 <div class="section">
   <div class="container">
     <div class="section-body row">

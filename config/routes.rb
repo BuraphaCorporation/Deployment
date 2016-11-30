@@ -210,7 +210,7 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :organizer do
+    namespace :organizer, path: 'organizers' do
       resources :events do
         member do
           get 'orders',             to: 'events#orders', format: [:html, :xlsx]

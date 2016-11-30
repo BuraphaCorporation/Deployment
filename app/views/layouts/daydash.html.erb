@@ -48,7 +48,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.css" media="screen" title="sweetalert2">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.1.1/sweetalert2.js"></script>
   </head>
-  <body>
+  <body id="<%= yield(:body_id) %>" class="<%= yield(:body_class) %>">
     <div id="fb-root"></div>
     <div id="wrapper">
       <div id="topbar">

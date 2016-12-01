@@ -85,14 +85,15 @@
                       <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu">
-                      <% if current_user.can_organizer? %>
-                        <li><%= link_to "Manage Event", organizer_events_path %></li>
-                        <li><%= link_to "Create New Event", new_organizer_event_path %></li>
-                      <% else %>
-                        <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
-                        <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
-                      <% end %>
-                      <li><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
+                      <li>
+                        <%= link_to "My Tickets", client_profile_tickets_path(current_user) %>
+                      </li>
+                      <li>
+                        <%= link_to "My Orders", client_profile_orders_path(current_user) %>
+                      </li>
+                      <li>
+                        <%= link_to "My Account", client_profile_settings_path(current_user) %>
+                      </li>
                       <li>
                         <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
                       </li>
@@ -105,27 +106,14 @@
                 </ul>
                 <% end %>
               </ul>
-              <ul class="nav navbar-nav navbar-left">
+              <ul class="nav navbar-nav navbar-left" style="text-align: center; width: 400px; margin: 0 auto; float: none !important;">
                 <% if current_user.present? %>
                   <% if current_user.can_organizer? %>
-                    <% if current_user.admin? %>
-                      <style>
-                        #profile-nav-section #profile-nav, #profile-nav-section #organizer-nav {
-                          width: auto;
-                        }
-                      </style>
-                      <li id="menu-user-list">
-                        <%= link_to "ALL USER", admin_manage_users_path %>
-                      </li>
-                      <li id="menu-transaction-list">
-                        <%= link_to "ALL Transaction", admin_manage_transactions_path %>
-                      </li>
-                    <% end %>
                     <li id="menu-event-list">
-                      <%= link_to "Manage Event", organizer_events_path %>
+                      <%= link_to "Manage Events", organizer_events_path %>
                     </li>
                     <li id="menu-create-event">
-                      <%= link_to "Create New Event", new_organizer_event_path, "data-turbolinks" => false %>
+                      <%= link_to "+ Create Event", new_organizer_event_path, "data-turbolinks" => false %>
                     </li>
                   <% else %>
                     <li id="menu-my-tickets">
@@ -135,9 +123,9 @@
                       <%= link_to "My Orders", client_profile_orders_path(current_user) %>
                     </li>
                   <% end %>
-                  <li id="menu-settings">
-                    <%= link_to "My Account", client_profile_settings_path(current_user) %>
-                  </li>
+                  <%#<li id="menu-settings">%>
+                    <%#= link_to "Account", client_profile_settings_path(current_user) %>
+                  <%#</li>%>
                 <% end %>
               </ul>
             </div>
@@ -145,16 +133,17 @@
             <% if current_user.present? %>
               <div id="profile-navbar" class="navbar-collapsse collapse">
                 <ul class="nav navbar-nav mobile-only">
-                  <% if current_user.can_organizer? %>
-                    <li><%= link_to "Manage Event", organizer_events_path %></li>
-                    <li><%= link_to "Create New Event", new_organizer_event_path %></li>
-                  <% else %>
-                    <li><%= link_to "My Tickets", client_profile_tickets_path(current_user) %></li>
-                    <li><%= link_to "My Orders", client_profile_orders_path(current_user) %></li>
-                  <% end %>
-                  <li><%= link_to "My Account", client_profile_settings_path(current_user) %></li>
                   <li>
-                  <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+                    <%= link_to "My Tickets", client_profile_tickets_path(current_user) %>
+                  </li>
+                  <li>
+                    <%= link_to "My Orders", client_profile_orders_path(current_user) %>
+                  </li>
+                  <li>
+                    <%= link_to "My Account", client_profile_settings_path(current_user) %>
+                  </li>
+                  <li>
+                    <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
                   </li>
                 </ul>
               </div>

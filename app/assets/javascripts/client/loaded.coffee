@@ -21,7 +21,6 @@ $(document).on 'turbolinks:load', ->
 
   $('.event-filter').on 'click', ->
     event = $(this).attr('data-filter')
-    console.log '#organizer-event-list .event-for-organizer.' + event
     $('#organizer-event-list .event-for-organizer').not('.' + event).hide()
     $('#organizer-event-list .event-for-organizer.' + event).show()
 

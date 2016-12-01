@@ -1,34 +1,36 @@
 <% content_for :body_id, 'organizer-event-list' %>
 <% content_for :body_class, 'organizer-event-page' %>
-<%#= render partial: "layouts/parts/nav" %>
-<div class="section" id="event-list-section">
+
+<div class="section section-container">
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <div class="event-list">
-          <div class="list-head" style="padding-top: 30px;">
-            <div class="col-md-9">
-              <div class="text-inline ml-10">
-                <a href="javascript:;" class="event-filter" data-filter="event-live">LIVE (<%= @event_publish.count %>)</a>
-              </div>
-              <div class="text-inline ml-10">
-                <a href="javascript:;" class="event-filter" data-filter="event-draft">DRAFT (<%= @event_unpublish.count %>)</a>
-              </div>
-              <div class="text-inline ml-10">
-                <a href="javascript:;" class="event-filter" data-filter="event-past">PART (<%= @event_past.count %>)</a>
-              </div>
+        <div class="row">
+          <div class="col-xs-9">
+            <div class="text-inline ml-10">
+              <a href="<%= organizer_events_path %>">ALL (<%= @event.count %>)</a>
             </div>
-
-						<div class="col-md-3 text-right">
-              <select class="form-control">
-                <option selected disabled>เรียงตาม: Recent</option>
-                <option>1</option>
-                <option>2</option>
-              </select>
-						</div>
+            <div class="text-inline ml-10">
+              <a href="<%= organizer_events_path %>?filter=live">LIVE (<%= @live.count %>)</a>
+            </div>
+            <div class="text-inline ml-10">
+              <a href="<%= organizer_events_path %>?filter=draft">DRAFT (<%= @draft.count %>)</a>
+            </div>
+            <div class="text-inline ml-10">
+              <a href="<%= organizer_events_path %>?filter=past">PAST (<%= @past.count %>)</a>
+            </div>
           </div>
-
-          <div class="list-body">
+          <div class="col-xs-3 text-right">
+            <input type="hidden" class="current-url" value="<%= request.original_url %>">
+            <select class="sort form-control">
+              <option selected disabled>เรียงตาม: Recent</option>
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
             <% @events.each do |event| %>
             <div class="event card-side-cover event-for-organizer event-<%= event.organizer_status %>">
               <div style="display: table-cell; width: 100px; text-align: center padding-top: 30px;
@@ -68,7 +70,6 @@
                     </div>
                     <div class="col-xs-12 col-md-8">
                       <ul class="list-inline list-action-nav">
-
                         <% if event.status.published? %>
                           <li>
                             <a href="<%= orders_organizer_event_path(event) %>"><i class="icon icon-xs icon-order"></i> Manage Event</a>
@@ -102,3 +103,12 @@
     </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+  $('.sort').on('change', function(){
+    var sort = $(this).val();
+    var url = $('.current-url').val();
+    window.location = url + '&sort=' + sort
+  })
+</script>

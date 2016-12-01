@@ -7,14 +7,26 @@ module Organizer
 
     def index
       if current_user.organizer?
-        @events = current_user.events.order(uptime: :desc)
+        @events = current_user.events
       else
         @events = Event.all
-        @event_publish = @events.where(status: :published)
-        @event_unpublish = @events.where(status: :unpublish)
-        @event_past = @events.past
-        @events = @events.order(uptime: :desc)
       end
+
+      @event  = @events
+      @live   = @events.where(status: :published)
+      @draft  = @events.where(status: :unpublish)
+      @past   = @events.past
+
+      @events = case params[:filter]
+      when 'live'
+        @live
+      when 'draft'
+        @draft
+      when 'past'
+        @past
+      else
+        @events
+      end.order(uptime: params[:sort] || 'desc')
     end
 
     def new

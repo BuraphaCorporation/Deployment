@@ -73,7 +73,7 @@
       var rex = new RegExp($(this).val(), 'i');
       $('tbody tr', table).hide();
       $('tbody tr', table).filter(function () {
-          return rex.test($(this).text());
+        return rex.test($(this).text());
       }).show();
     })
   }

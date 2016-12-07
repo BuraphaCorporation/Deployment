@@ -2,7 +2,6 @@ class EasyWorker
   include Sidekiq::Worker
 
   def perform(name, count)
-    # do something
     (0..count).each do |i|
       p "#{name} #{i}"
     end

@@ -19,6 +19,11 @@ $(document).on 'turbolinks:load', ->
     set_category category_id
     false
 
+  $('.event-filter').on 'click', ->
+    event = $(this).attr('data-filter')
+    $('#organizer-event-list .event-for-organizer').not('.' + event).hide()
+    $('#organizer-event-list .event-for-organizer.' + event).show()
+
   set_category = (category_id) ->
     selected = undefined
     if category_id == undefined or category_id == '0'

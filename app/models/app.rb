@@ -13,6 +13,10 @@ class App < Struct.new(:region, :environment, :version)
     protocol + '//' + case subdomain
                       when 'api'
                         "#{api_host}.#{root_domain}#{port}"
+                      when 'admin'
+                        "admin.#{root_domain}#{port}"
+                      when 'organizer'
+                        "organizer.#{root_domain}#{port}"
                       else
                         if environment.development?
                           "#{root_domain}#{port}"

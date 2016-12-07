@@ -89,7 +89,7 @@
                         <div class="info-body">
                           <h4 class="title">
                             <%#= link_to client_profile_ticket_path(current_user.id, ticket.id) do %>
-                              <a href="<%= client_event_path(ticket.event.id) %>"><%= ticket.event.title %></a>
+                              <a href="<%= client_event_path(ticket.event.slug) %>"><%= ticket.event.title %></a>
                             <%# end %>
                           </h4>
 

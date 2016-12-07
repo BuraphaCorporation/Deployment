@@ -1,0 +1,138 @@
+
+
+#topbar {
+  .navbar {
+    margin-bottom: 0px;
+    border-bottom: 1px solid #eee;
+  }
+  .navbar-brand {
+    padding: 10px 15px;
+    height: 60px;
+    img{
+      height: 40px;
+    }
+  }
+  .navbar-left {
+    > li {
+      > a {
+        color: #444;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .navbar-right{
+    > li{
+      .btn-daydash-green-2 {
+        background: #19D4D6;
+        color: white;
+        border: 0px;
+        &:hover, &:active, &:visited, &:link {
+          background: #19D4D6;
+          color: white;
+        }
+      }
+    }
+  }
+  .user-profile-photo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ccc;
+    float: left;
+  }
+  .user-dropdown {
+    .user-name {
+      display: inline-block;
+      padding: 5px;
+      padding-left: 15px;
+      color: #444;
+    }
+    .fa {
+      color: #444;
+    }
+    .dropdown-toggle {
+      padding: 15px;
+    }
+    .dropdown-menu {
+      min-width: 200px;
+      padding: 0px;
+      li a {
+        padding: 15px 20px;
+        font-size: 14px;
+        font-weight: 200;
+        border-bottom: 1px solid #eee;
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    .navbar-header {
+      border-bottom: 1px solid #eee;
+    }
+    .navbar-nav {
+      margin: 0px -15px;
+      li{
+        a{
+          color: #444;
+          text-align: center;
+          border-bottom: 1px solid #eee;}}}
+    .navbar-right{
+      border-bottom: 1px solid #eee;}}
+
+  @media (min-width: 768px){
+    .navbar-right{
+      > li{
+        > a{
+          padding: 20px;
+          font-size: 18px;}}}}
+
+  @media (min-width: 768px) and (max-width: 991px){
+    .navbar-header{
+      float: none;
+    }
+    .navbar-toggle{
+      display: block;}
+    .navbar-collapse{
+      border-top: 1px solid transparent;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      &.collapse{
+        display: none !important;}}
+    .navbar-nav{
+      float: none !important;
+      margin: 7.5px -15px;
+      > li{
+        float: none;
+        > a{
+          padding-top: 10px;
+          padding-bottom: 10px;}}}}
+  @media (min-width: 992px) and (max-width: 1199px){
+    .navbar{
+      .navbar-left, .navbar-right{
+        li{
+          a{
+            padding: 20px 10px;
+            font-size: 14px;}}}
+      .navbar-right{
+        li.dropdown a{
+          padding: 15px;}
+        #menu-login{
+          padding: 20px;}}}}
+  @media (min-width: 1200px){
+    .navbar{
+      .navbar-left, .navbar-right{
+        li{
+          a{
+            padding: 20px 15px;
+            font-size: 16px;}}}
+      .navbar-right{
+        li.dropdown a{
+          padding: 15px;}
+        #menu-login{
+          padding: 20px;
+        }
+      }
+    }
+  }
+}

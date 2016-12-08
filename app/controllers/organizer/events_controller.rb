@@ -1,6 +1,6 @@
 module Organizer
   class EventsController < Organizer::BaseController
-    before_action :event, only: [:edit, :update, :destroy, :delete_section, :delete_attachment, :orders, :checkin, :attendees, :published, :unpublish, :order_attachment, :update_attachment]
+    before_action :event, only: [:edit, :update, :destroy, :delete_section, :delete_attachment, :dashboard, :orders, :checkin, :attendees, :published, :unpublish, :order_attachment, :update_attachment]
     before_action :all_categories, only: [:new, :edit]
     before_action :all_users, only: [:new, :edit]
     before_action :admin_only, only: [:unpublish, :published, :update_time_event]
@@ -106,6 +106,17 @@ module Organizer
       else
         section.delete
         render json: :success
+      end
+    end
+
+    def dashboard
+      @orders = @event.orders.where(status: :paid).order(created_at: :desc)
+      respond_to do |format|
+        format.html
+        format.xlsx {
+          render xlsx: 'orders', filename: "all_orders.xlsx"
+          # response.headers['Content-Disposition'] = 'attachment; filename="all_orders.xlsx"'
+        }
       end
     end
 

@@ -1,0 +1,62 @@
+<% content_for :body_id, 'organizer-event-dashboard' %>
+<% content_for :body_class, 'organizer-event-page' %>
+<%= render partial: "layouts/parts/manage_nav" %>
+<div class="section" id="order-list-section">
+  <div class="container">
+    <div class="section-body row">
+      <div class="col-xs-12">
+        <div class="event-section-panel">
+          <div class="row panel-header">
+            <div class="col-xs-6 text-left">
+              <%= convert_to_currency @event.get_total_sales %> total sales from <%= @event.orders.paid.count %> orders
+            </div>
+            <div class="col-xs-3 col-md-3 text-right">
+              <%= link_to 'EXPORT', orders_organizer_event_path(format: :xlsx) %>
+            </div>
+            <div class="col-xs-3 col-md-3 text-right">
+              <select class="form-control">
+                <option selected disabled>เรียงตาม: Recent</option>
+                <option>1</option>
+                <option>2</option>
+              </select>
+            </div>
+          </div>
+          <div class="table-responsive organizer-table">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <td>ORDER #</td>
+                  <td>ORDER DATE</td>
+                  <td>TICKET BUYER</td>
+                  <td>QUANTITY</td>
+                  <td>PRICE</td>
+                  <td>PAYMENT</td>
+                  <td>STATUS</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @orders.each do |order| %>
+                <tr>
+                  <td><%= order.code %></td>
+                  <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
+                  <td><%= order.user.first_name %> <%= order.user.last_name %></td>
+                  <td><%= order.tickets.count %></td>
+                  <td><%= convert_to_currency(order.to_price) %></td>
+                  <td>
+                    <% if !order.payment.nil? %>
+                      <%= order.payment.channel %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <span class="order-status <%= order.status %>"><%= order.status %></span>
+                  </td>
+                </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

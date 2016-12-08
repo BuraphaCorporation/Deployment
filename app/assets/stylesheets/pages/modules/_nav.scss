@@ -1,0 +1,14 @@
+.nav-organizer {
+  text-align: center;
+  width: 275px;
+  margin: 0 auto;
+  float: inherit !important;
+  // li a {
+  // }
+}
+
+#topbar .navbar .navbar-left li.active a {
+  padding-top: 19px;
+  padding-bottom: 18px;
+  border-bottom: 3px solid #444;
+}

@@ -3,5 +3,6 @@ class EventUpdateJob < ApplicationJob
 
   def perform
     # Event.update_uptime_present
+    Event.update_deal_event
   end
 end

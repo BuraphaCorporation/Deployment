@@ -111,13 +111,17 @@ module Organizer
 
     def dashboard
       @orders = @event.orders.where(status: :paid).order(created_at: :desc)
-      respond_to do |format|
-        format.html
-        format.xlsx {
-          render xlsx: 'orders', filename: "all_orders.xlsx"
-          # response.headers['Content-Disposition'] = 'attachment; filename="all_orders.xlsx"'
-        }
-      end
+      @total_sales = @orders.sum(&:price) / 100
+      @total = @event.sections.total
+      @paid = @event.tickets.paid.count
+      @percentage = @paid / @total.to_f * 100
+      # respond_to do |format|
+      #   format.html
+      #   format.xlsx {
+      #     render xlsx: 'orders', filename: "all_orders.xlsx"
+      #     # response.headers['Content-Disposition'] = 'attachment; filename="all_orders.xlsx"'
+      #   }
+      # end
     end
 
     def orders

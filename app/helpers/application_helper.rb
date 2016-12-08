@@ -50,7 +50,7 @@ module ApplicationHelper
     end
   end
 
-  def admin_nav_link(link_text, link_path, link_id)
+  def top_nav_link(link_text, link_path, link_id)
     class_name = current_page?(link_path) ? 'active' : ''
 
     content_tag(:li, class: class_name, id: link_id) do
@@ -58,7 +58,7 @@ module ApplicationHelper
     end
   end
 
-  def sub_admin_nav_link(link_text, link_path, link_id, link_icon)
+  def organizer_nav_link(link_text, link_path, link_id, link_icon)
    class_name = current_page?(link_path) ? "#{link_id} active" : link_id
 
    content_tag(:li, class: class_name) do

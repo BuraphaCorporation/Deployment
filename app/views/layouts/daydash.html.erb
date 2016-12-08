@@ -115,8 +115,8 @@
                     <li id="menu-create-event">
                       <%#= link_to "+ Create Event", new_organizer_event_path, "data-turbolinks" => false %>
                     </li> -->
-                    <%= admin_nav_link "Manage Event", organizer_events_path, 'menu-event-list' %>
-                    <%= admin_nav_link "+ Create New Event", new_organizer_event_path, 'menu-create-event' %>
+                    <%= top_nav_link "Manage Event", organizer_events_path, 'menu-event-list' %>
+                    <%= top_nav_link "+ Create New Event", new_organizer_event_path, 'menu-create-event' %>
                   <% else %>
                     <li id="menu-my-tickets">
                       <%= link_to "My Tickets", client_profile_tickets_path(current_user) %>

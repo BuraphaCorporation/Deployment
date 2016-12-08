@@ -2,7 +2,7 @@
   <div class="container">
     <div class="section-header row">
       <div class="col-md-9 col-lg-10">
-        <h2 class="event-title"><%= @event.title %> [<%= @event.status == 'published' ? 'Live' : 'Draft' %>]</h2>
+        <h3 class="event-title"><%= @event.title %> <div class="btn btn-daydash-status"><%= @event.status == 'published' ? 'Live' : 'Draft' %></div></h3>
         <p><%= @event.to_uptime %> at <%= @event.location_name %></p>
       </div>
       <div class="col-md-3 col-lg-2 text-right">
@@ -12,18 +12,10 @@
     </div>
 
     <ul class="nav nav-pills nav-daydash" id="<%= current_user.can_organizer? ? 'organizer-nav' : 'profile-nav' %>">
-      <li class="organizer-event-nav-dashboard">
-        <a href="<%= dashboard_organizer_event_path(@event) %>"><i class="icon icon-xs icon-order"></i> Dashboard</a>
-      </li>
-      <li class="organizer-event-nav-orders">
-        <a href="<%= orders_organizer_event_path(@event) %>"><i class="icon icon-xs icon-order"></i> Orders</a>
-      </li>
-      <li class="organizer-event-nav-attendees">
-        <a href="<%= attendees_organizer_event_path(@event) %>"><i class="icon icon-xs icon-edit"></i> Attendees</a>
-      </li>
-      <li class="organizer-event-nav-check-in">
-        <a href="<%= checkin_organizer_event_path(@event) %>"><i class="icon icon-xs icon-checkin"></i> Check in</a>
-      </li>
+      <%= organizer_nav_link "Dashboard", dashboard_organizer_event_path(@event), 'organizer-event-nav-dashboard', 'icon-order' %>
+      <%= organizer_nav_link "Orders", orders_organizer_event_path(@event), 'organizer-event-nav-orders', 'icon-order' %>
+      <%= organizer_nav_link "Attendees", attendees_organizer_event_path(@event), 'organizer-event-nav-attendees', 'icon-edit' %>
+      <%= organizer_nav_link "Check in", checkin_organizer_event_path(@event), 'organizer-event-nav-check-in', 'icon-checkin' %>
     </ul>
   </div>
 </div>

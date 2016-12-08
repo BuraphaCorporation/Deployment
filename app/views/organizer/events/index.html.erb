@@ -46,7 +46,7 @@
               </div>
               <div class="info">
                 <div class="info-body">
-                  <h4 class="title"><%= event.title %> [<%= event.status == 'published' ? 'LIVE' : 'DRAFT' %>]</h4>
+                  <h4 class="title"><%= event.title %> <%= event.status == 'published' ? '<div class="btn btn-daydash-status btn-daydash-live">Live</div>'.html_safe : '<div class="btn btn-daydash-status btn-daydash-draft">Draft</div>'.html_safe %></h4>
                   <div class="meta date location"><%= event.to_uptime %> at <%= event.location_name %></div>
                 </div>
                 <div class="info-footer">

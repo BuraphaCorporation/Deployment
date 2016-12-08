@@ -2,7 +2,7 @@
   <div class="container">
     <div class="section-header row">
       <div class="col-md-9">
-        <h3 class="event-title" style="margin-top: 0px;"><%= @event.title %> <div class="btn btn-daydash-status"><%= @event.status == 'published' ? 'Live' : 'Draft' %></div></h3>
+        <h3 class="event-title" style="margin-top: 0px;"><%= @event.title %> <%= @event.status == 'published' ? '<div class="btn btn-daydash-status btn-daydash-live">Live</div>'.html_safe : '<div class="btn btn-daydash-status btn-daydash-draft">Draft</div>'.html_safe %></h3>
         <p><%= @event.to_uptime %> at <%= @event.location_name %></p>
       </div>
       <div class="col-md-3 text-right">

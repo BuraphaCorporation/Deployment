@@ -106,15 +106,17 @@
                 </ul>
                 <% end %>
               </ul>
-              <ul class="nav navbar-nav navbar-left" style="text-align: center; width: 400px; margin: 0 auto; float: none !important;">
+              <ul class="nav navbar-nav navbar-left nav-organizer">
                 <% if current_user.present? %>
                   <% if current_user.can_organizer? %>
-                    <li id="menu-event-list">
-                      <%= link_to "Manage Events", organizer_events_path %>
+                    <!-- <li id="menu-event-list">
+                      <%#= link_to "Manage Events", organizer_events_path %>
                     </li>
                     <li id="menu-create-event">
-                      <%= link_to "+ Create Event", new_organizer_event_path, "data-turbolinks" => false %>
-                    </li>
+                      <%#= link_to "+ Create Event", new_organizer_event_path, "data-turbolinks" => false %>
+                    </li> -->
+                    <%= top_nav_link "Manage Event", organizer_events_path, 'menu-event-list' %>
+                    <%= top_nav_link "+ Create New Event", new_organizer_event_path, 'menu-create-event' %>
                   <% else %>
                     <li id="menu-my-tickets">
                       <%= link_to "My Tickets", client_profile_tickets_path(current_user) %>
@@ -123,9 +125,9 @@
                       <%= link_to "My Orders", client_profile_orders_path(current_user) %>
                     </li>
                   <% end %>
-                  <%#<li id="menu-settings">%>
+                  <!-- <li id="menu-settings">
                     <%#= link_to "Account", client_profile_settings_path(current_user) %>
-                  <%#</li>%>
+                  </li> -->
                 <% end %>
               </ul>
             </div>

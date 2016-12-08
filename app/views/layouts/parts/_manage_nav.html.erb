@@ -1,29 +1,21 @@
 <div class="section" id="organizer-header-section">
   <div class="container">
     <div class="section-header row">
-      <div class="col-md-9 col-lg-10">
-        <h2 class="event-title"><%= @event.title %> [<%= @event.status == 'published' ? 'Live' : 'Draft' %>]</h2>
+      <div class="col-md-9">
+        <h3 class="event-title" style="margin-top: 0px;"><%= @event.title %> <%= @event.status == 'published' ? '<div class="btn btn-daydash-status btn-daydash-live">Live</div>'.html_safe : '<div class="btn btn-daydash-status btn-daydash-draft">Draft</div>'.html_safe %></h3>
         <p><%= @event.to_uptime %> at <%= @event.location_name %></p>
       </div>
-      <div class="col-md-3 col-lg-2 text-right">
-        <a href="<%= edit_organizer_event_path(@event) %>" class="btn btn-default">Edit</a>
-        <a href="<%= client_event_path(@event) %>" target="_blank" class="btn btn-default">View Event</a>
+      <div class="col-md-3 text-right">
+        <a href="<%= edit_organizer_event_path(@event) %>" class="btn btn-daydash-grey-1">Edit</a>
+        <a href="<%= client_event_path(@event) %>" target="_blank" class="btn btn-daydash-grey-1">View Event</a>
       </div>
     </div>
 
     <ul class="nav nav-pills nav-daydash" id="<%= current_user.can_organizer? ? 'organizer-nav' : 'profile-nav' %>">
-      <li class="organizer-event-nav-dashboard">
-        <a href="#" style="color: #ccc"><i class="icon icon-xs icon-order"></i> Dashboard</a>
-      </li>
-      <li class="organizer-event-nav-orders">
-        <a href="<%= orders_organizer_event_path(@event) %>"><i class="icon icon-xs icon-order"></i> Orders</a>
-      </li>
-      <li class="organizer-event-nav-attendees">
-        <a href="<%= attendees_organizer_event_path(@event) %>"><i class="icon icon-xs icon-edit"></i> Attendees</a>
-      </li>
-      <li class="organizer-event-nav-check-in">
-        <a href="<%= checkin_organizer_event_path(@event) %>"><i class="icon icon-xs icon-checkin"></i> Check in</a>
-      </li>
+      <%= organizer_nav_link "Dashboard", dashboard_organizer_event_path(@event), 'organizer-event-nav-dashboard', 'icon-order' %>
+      <%= organizer_nav_link "Orders", orders_organizer_event_path(@event), 'organizer-event-nav-orders', 'icon-order' %>
+      <%= organizer_nav_link "Attendees", attendees_organizer_event_path(@event), 'organizer-event-nav-attendees', 'icon-edit' %>
+      <%= organizer_nav_link "Check in", checkin_organizer_event_path(@event), 'organizer-event-nav-check-in', 'icon-checkin' %>
     </ul>
   </div>
 </div>

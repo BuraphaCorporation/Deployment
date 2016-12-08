@@ -3,8 +3,12 @@
   width: 275px;
   margin: 0 auto;
   float: inherit !important;
-  // li a {
-  // }
+}
+
+@media (min-width: 768px) {
+  .nav-organizer {
+    width: 320px;
+  }
 }
 
 #topbar .navbar .navbar-left li.active a {

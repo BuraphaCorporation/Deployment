@@ -1,13 +1,13 @@
 <div class="section" id="organizer-header-section">
   <div class="container">
     <div class="section-header row">
-      <div class="col-md-9 col-lg-10">
-        <h3 class="event-title"><%= @event.title %> <div class="btn btn-daydash-status"><%= @event.status == 'published' ? 'Live' : 'Draft' %></div></h3>
+      <div class="col-md-9">
+        <h3 class="event-title" style="margin-top: 0px;"><%= @event.title %> <div class="btn btn-daydash-status"><%= @event.status == 'published' ? 'Live' : 'Draft' %></div></h3>
         <p><%= @event.to_uptime %> at <%= @event.location_name %></p>
       </div>
-      <div class="col-md-3 col-lg-2 text-right">
-        <a href="<%= edit_organizer_event_path(@event) %>" class="btn btn-default">Edit</a>
-        <a href="<%= client_event_path(@event) %>" target="_blank" class="btn btn-default">View Event</a>
+      <div class="col-md-3 text-right">
+        <a href="<%= edit_organizer_event_path(@event) %>" class="btn btn-daydash-grey-1">Edit</a>
+        <a href="<%= client_event_path(@event) %>" target="_blank" class="btn btn-daydash-grey-1">View Event</a>
       </div>
     </div>
 

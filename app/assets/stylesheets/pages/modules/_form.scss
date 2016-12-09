@@ -1,0 +1,19 @@
+form {
+  label {
+    margin-bottom: 0;
+  }
+
+  .form-control {
+    border-radius: 0;
+    background: white;
+    border: 1px solid #eee;
+    height: 50px;
+    box-shadow: none;
+    &[type=text] {
+      padding: 15px;
+    }
+  }
+  label.radio {
+    padding-top: 15px;
+  }
+}

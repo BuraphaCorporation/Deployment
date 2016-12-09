@@ -17,6 +17,8 @@ module Organizer
       @draft  = @events.where(status: :unpublish)
       @past   = @events.past
 
+      sort = [:asc, :desc].include?(params[:sort].try(:downcase)) ? params[:sort] : 'desc'
+
       @events = case params[:filter]
       when 'live'
         @live
@@ -26,7 +28,7 @@ module Organizer
         @past
       else
         @events
-      end.order(uptime: params[:sort] || 'desc')
+      end.order(uptime: sort)
     end
 
     def new
@@ -115,13 +117,10 @@ module Organizer
       @total = @event.sections.total
       @paid = @event.tickets.paid.count
       @percentage = @paid / @total.to_f * 100
-      # respond_to do |format|
-      #   format.html
-      #   format.xlsx {
-      #     render xlsx: 'orders', filename: "all_orders.xlsx"
-      #     # response.headers['Content-Disposition'] = 'attachment; filename="all_orders.xlsx"'
-      #   }
-      # end
+
+
+      @days_to_go = (@event.uptime.to_date - Time.zone.now.to_date).to_i
+      @live = @days_to_go > 0
     end
 
     def orders

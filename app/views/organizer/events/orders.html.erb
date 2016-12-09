@@ -10,8 +10,10 @@
             <div class="col-xs-6 text-left">
               <%= convert_to_currency @event.get_total_sales %> total sales from <%= @event.orders.paid.count %> orders
             </div>
-            <div class="col-xs-3 col-md-3 text-right">
-              <%= link_to 'EXPORT', orders_organizer_event_path(format: :xlsx) %>
+            <div class="col-xs-3 col-md-3 text-right export">
+              <%= link_to orders_organizer_event_path(format: :xlsx) do %>
+                <i class="nc-icon-outline arrows-4_launch-47"></i> EXPORT
+              <% end %>
             </div>
             <div class="col-xs-3 col-md-3 text-right">
               <select class="form-control">

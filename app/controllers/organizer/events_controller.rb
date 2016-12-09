@@ -17,6 +17,8 @@ module Organizer
       @draft  = @events.where(status: :unpublish)
       @past   = @events.past
 
+      sort = [:asc, :desc].include?(params[:sort].try(:downcase)) ? params[:sort] : 'desc'
+
       @events = case params[:filter]
       when 'live'
         @live
@@ -26,7 +28,7 @@ module Organizer
         @past
       else
         @events
-      end.order(uptime: params[:sort] || 'desc')
+      end.order(uptime: sort)
     end
 
     def new

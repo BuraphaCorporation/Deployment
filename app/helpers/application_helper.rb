@@ -63,7 +63,7 @@ module ApplicationHelper
 
    content_tag(:li, class: class_name) do
       link_to link_path do
-        "<i class=\"icon icon-xs #{link_icon}\"></i> #{link_text}".html_safe
+        "<i class=\"#{link_icon}\"></i> #{link_text}".html_safe
       end
     end
   end
@@ -93,10 +93,10 @@ module ApplicationHelper
   end
 
   def convert_to_currency(money)
-    if money.to_i == 0
-      "ฟรี"
-    else
-      number_to_currency(money, unit: '฿', precision: 0)
-    end
+    # if money.to_i == 0
+    #   "ฟรี"
+    # else
+    number_to_currency(money, unit: '฿', precision: 0)
+    # end
   end
 end

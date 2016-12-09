@@ -54,10 +54,20 @@
               <p style="font-size: 14pt; text-transform: uppercase;">Tickets sold</p>
             </div>
           </div>
+          <!-- .try(:strftime, "%d") -->
           <div class="col-xs-4">
             <div class="widget dashboard">
-              <p style="font-size: 30pt; text-transform: uppercase; color: #000;">10</p>
-              <p style="font-size: 14pt; text-transform: uppercase;">Day to go</p>
+              <% if @live %>
+                <p style="font-size: 30pt; text-transform: uppercase; color: #000;">
+                  <%= @days_to_go %>
+                </p>
+                <p style="font-size: 14pt; text-transform: uppercase;">Days to go</p>
+              <% else %>
+                <p style="font-size: 30pt; text-transform: uppercase; color: #17A41D;">
+                  <%= convert_to_currency(@total_sales) %>
+                </p>
+                <p style="font-size: 14pt; text-transform: uppercase;">Transferable in 7 Days</p>
+              <% end %>
             </div>
           </div>
         </div>
@@ -83,40 +93,54 @@
               <h2 style="margin-top: 0px;">RECENT ORDERS</h2>
             </div>
           </div>
-          <div class="table-responsive organizer-table">
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <td>ORDER #</td>
-                  <td>ORDER DATE</td>
-                  <td>TICKET BUYER</td>
-                  <td>QUANTITY</td>
-                  <td>PRICE</td>
-                  <td>PAYMENT</td>
-                  <td>STATUS</td>
-                </tr>
-              </thead>
-              <tbody>
-                <% @orders.each do |order| %>
-                <tr>
-                  <td><%= order.code %></td>
-                  <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
-                  <td><%= order.user.first_name %> <%= order.user.last_name %></td>
-                  <td><%= order.tickets.count %></td>
-                  <td><%= convert_to_currency(order.to_price) %></td>
-                  <td>
-                    <% if !order.payment.nil? %>
-                      <%= order.payment.channel %>
-                    <% end %>
-                  </td>
-                  <td>
-                    <span class="order-status <%= order.status %>"><%= order.status %></span>
-                  </td>
-                </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
+          <% if @orders.present? %>
+            <div class="table-responsive organizer-table">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <td>ORDER #</td>
+                    <td>ORDER DATE</td>
+                    <td>TICKET BUYER</td>
+                    <td>QUANTITY</td>
+                    <td>PRICE</td>
+                    <td>PAYMENT</td>
+                    <td>STATUS</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @orders.each do |order| %>
+                  <tr>
+                    <td><%= order.code %></td>
+                    <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
+                    <td><%= order.user.first_name %> <%= order.user.last_name %></td>
+                    <td><%= order.tickets.count %></td>
+                    <td><%= convert_to_currency(order.to_price) %></td>
+                    <td>
+                      <% if !order.payment.nil? %>
+                        <%= order.payment.channel %>
+                      <% end %>
+                    </td>
+                    <td>
+                      <span class="order-status <%= order.status %>"><%= order.status %></span>
+                    </td>
+                  </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <div class="row">
+              <div class="col-xs-12 text-center" style="background: #fff; color: #ccc">
+                <p>
+                  <i class="nc-icon-outline media-1_ticket-75" style="font-size: 100px;transform: rotate(-30deg);"></i>
+                </p>
+                <p>&nbsp;</p>
+                <p>
+                  Don't have any orders yet.
+                </p>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>

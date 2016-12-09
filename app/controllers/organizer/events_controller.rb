@@ -117,13 +117,10 @@ module Organizer
       @total = @event.sections.total
       @paid = @event.tickets.paid.count
       @percentage = @paid / @total.to_f * 100
-      # respond_to do |format|
-      #   format.html
-      #   format.xlsx {
-      #     render xlsx: 'orders', filename: "all_orders.xlsx"
-      #     # response.headers['Content-Disposition'] = 'attachment; filename="all_orders.xlsx"'
-      #   }
-      # end
+
+
+      @days_to_go = (@event.uptime.to_date - Time.zone.now.to_date).to_i
+      @live = @days_to_go > 0
     end
 
     def orders

@@ -18,7 +18,6 @@
 <div class="section" id="event-section">
   <div class="container">
     <div class="row event-list">
-      <center><h1>กิจกรรมสำหรับเสาร์อาทิตย์นี้</h1></center>
       <% @events.each do |event| %>
         <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
           <%= link_to client_event_path(event.to_url), class: "event card" do %>

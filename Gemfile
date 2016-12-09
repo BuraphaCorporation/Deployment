@@ -85,8 +85,10 @@ gem 'grape-swagger-rails'
 gem 'grape-active_model_serializers'
 
 # integration
+# gem 'mongoid', '~> 6.0.0'
 gem 'redis', '~>3.2'
 gem 'redis-namespace'
+# gem 'redis-objects'
 gem 'dalli', '~> 2.7.4'
 
 # gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client'

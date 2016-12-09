@@ -80,6 +80,8 @@ class Event < ApplicationRecord
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
 
   scope :past, -> { where('uptime < ?', Time.zone.now) }
+  scope :coming, -> { where('uptime > ?', Time.zone.now) }
+
   scope :list,      -> { where(status: :published).where('uptime > ?', Time.zone.now).order(:uptime) }
 
   after_create :set_slug

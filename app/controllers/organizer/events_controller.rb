@@ -13,8 +13,8 @@ module Organizer
       end
 
       @event  = @events
-      @live   = @events.where(status: :published)
-      @draft  = @events.where(status: :unpublish)
+      @live   = @events.coming.where(status: :published)
+      @draft  = @events.coming.where(status: :unpublish)
       @past   = @events.past
 
       sort = [:asc, :desc].include?(params[:sort].try(:downcase)) ? params[:sort] : 'desc'

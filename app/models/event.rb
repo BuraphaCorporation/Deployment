@@ -79,6 +79,7 @@ class Event < ApplicationRecord
   scope :tomorrow,  -> { joins(:sections).where('sections.event_time': Time.zone.tomorrow.beginning_of_day..Time.zone.tomorrow.end_of_day) }
   scope :upcoming,  -> { joins(:sections).where('DATE(sections.event_time) > ?', Time.zone.tomorrow) }
 
+  scope :past, -> { where('uptime < ?', Time.zone.now) }
   scope :list,      -> { where(status: :published).where('uptime > ?', Time.zone.now).order(:uptime) }
 
   after_create :set_slug
@@ -116,13 +117,29 @@ class Event < ApplicationRecord
   end
 
   def self.update_uptime_present
-    all.each do |event|
-      if event.ticket_type.general?
-        event_time = event.sections.available.min_by(&:event_time).try(:event_time)
-        event.update(uptime: event_time) unless event_time.nil?
-      else
-        event.update(uptime: Time.zone.now + [*7..10].sample.days)
-      end
+    # all.each do |event|
+    #   if event.ticket_type.general?
+    #     event_time = event.sections.available.min_by(&:event_time).try(:event_time)
+    #     event.update(uptime: event_time) unless event_time.nil?
+    #   else
+    #     event.update(uptime: Time.zone.now + [*7..10].sample.days)
+    #   end
+    # end
+  end
+
+  def self.update_deal_event
+    where(ticket_type: :deal).each do |event|
+      event.update(uptime: Time.zone.now + [*7..10].sample.days)
+    end
+  end
+
+  def organizer_status
+    if self.uptime < Time.zone.now
+      "past"
+    elsif self.status == 'published'
+      'live'
+    else
+      'draft'
     end
   end
 

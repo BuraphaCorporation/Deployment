@@ -1,16 +1,34 @@
 module Organizer
   class EventsController < Organizer::BaseController
-    before_action :event, only: [:edit, :update, :destroy, :delete_section, :delete_attachment, :orders, :checkin, :published, :unpublish, :order_attachment, :update_attachment]
+    before_action :event, only: [:edit, :update, :destroy, :delete_section, :delete_attachment, :dashboard, :orders, :checkin, :attendees, :published, :unpublish, :order_attachment, :update_attachment]
     before_action :all_categories, only: [:new, :edit]
     before_action :all_users, only: [:new, :edit]
     before_action :admin_only, only: [:unpublish, :published, :update_time_event]
 
     def index
       if current_user.organizer?
-        @events = current_user.events.order(uptime: :desc)
+        @events = current_user.events
       else
-        @events = Event.order(uptime: :desc)
+        @events = Event.all
       end
+
+      @event  = @events
+      @live   = @events.where(status: :published)
+      @draft  = @events.where(status: :unpublish)
+      @past   = @events.past
+
+      sort = [:asc, :desc].include?(params[:sort].try(:downcase)) ? params[:sort] : 'desc'
+
+      @events = case params[:filter]
+      when 'live'
+        @live
+      when 'draft'
+        @draft
+      when 'past'
+        @past
+      else
+        @events
+      end.order(uptime: sort)
     end
 
     def new
@@ -93,6 +111,18 @@ module Organizer
       end
     end
 
+    def dashboard
+      @orders = @event.orders.where(status: :paid).order(created_at: :desc)
+      @total_sales = @orders.sum(&:price) / 100
+      @total = @event.sections.total
+      @paid = @event.tickets.paid.count
+      @percentage = @paid / @total.to_f * 100
+
+
+      @days_to_go = (@event.uptime.to_date - Time.zone.now.to_date).to_i
+      @live = @days_to_go > 0
+    end
+
     def orders
       @orders = @event.orders.where(status: :paid).order(created_at: :desc)
       respond_to do |format|
@@ -104,12 +134,24 @@ module Organizer
       end
     end
 
-    def tickets
+    def attendees
+      @sections = @event.sections
+
+      respond_to do |format|
+        format.html
+        format.xlsx {
+          render xlsx: 'attendees', filename: "all_attendees.xlsx"
+          # response.headers['Content-Disposition'] = 'attachment; filename="all_orders.xlsx"'
+        }
+      end
     end
 
     def checkin
       @orders = @event.orders.order(created_at: :desc)
       @sections = @event.sections
+    end
+
+    def tickets
     end
 
     def ticket_checking

@@ -10,7 +10,7 @@
       <% end %>
     </div>
 
-    <ul class="nav nav-pills nav-daydash" id="<%= current_user.can_organizer? ? 'organizer-nav' : 'profile-nav' %>">
+    <ul class="nav nav-pills nav-daydash nav-daydash-lg" id="<%= current_user.can_organizer? ? 'organizer-nav' : 'profile-nav' %>">
       <% if current_user.can_organizer? %>
         <% if current_user.admin? %>
           <style>

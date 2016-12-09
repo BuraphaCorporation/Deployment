@@ -150,7 +150,7 @@
             </div>
             <% @sections.each do |section| %>
               <div class="row section-ticket">
-                <div class="col-xs-4 form-group">
+                <div class="col-xs-12 col-md-4 form-group">
                   <label for="tickets-name">Ticket name</label>
                   <input type="text"
                          name="tickets[<%= section.id %>][title]"
@@ -160,7 +160,7 @@
                          class="form-control"
                          required="true" />
                 </div>
-                <div class="col-xs-2 form-group">
+                <div class="col-xs-12 col-md-2 form-group">
                   <label for="tickets-quantity">Quantity available</label>
                   <input type="number"
                          name="tickets[<%= section.id %>][total]"
@@ -170,7 +170,7 @@
                          class="form-control"
                          required="true" />
                 </div>
-                <div class="col-xs-2 form-group">
+                <div class="col-xs-12 col-md-2 form-group">
                   <label for="tickets-price">Price</label>
                   <input type="number"
                          name="tickets[<%= section.id %>][price]"
@@ -180,7 +180,7 @@
                          class="form-control"
                          required="true" />
                 </div>
-                <div class="col-xs-2 form-group">
+                <div class="col-xs-12 col-md-2 form-group">
                   <label for="tickets-discount">Discount</label>
                   <input type="number"
                          name="tickets[<%= section.id %>][discount]"
@@ -189,17 +189,17 @@
                          placeholder="eg. 100, 200"
                          class="form-control" />
                 </div>
-                <div class="col-xs-2 form-group">
+                <div class="col-xs-12 col-md-2 form-group">
                   <label for="tickets-sales-end">Actions</label>
                   <p>
                     <!--<a class="btn btn-sm btn-default btn-ticket-add" href="javasctipt:;" onclick="return onTicketAdd(this);"><i class="fa fa-cog"></i></a>-->
-                    <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this, '<%= section.id %>');"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-sm btn-default btn-ticket-delete" href="javasctipt:;" onclick="return onTicketDelete(this, '<%= delete_section_organizer_event_path(@event) %>', '<%= section.id %>');"><i class="fa fa-trash"></i></a>
                   </p>
                 </div>
                 <div class="col-xs-6">
                   <label for="tickets-sales-start">Ticket sales start</label>
                   <div class="row">
-                    <div class="col-xs-8 form-group">
+                    <div class="col-xs-12 col-md-8 form-group">
                       <div class='input-group date'>
                         <input type="text"
                               name="tickets[<%= section.id %>][start_date]"
@@ -211,7 +211,7 @@
                         </span>
                       </div>
                     </div>
-                    <div class="col-xs-4 form-group">
+                    <div class="col-xs-12 col-md-4 form-group">
                       <div  class="input-group date">
                         <input type="text"
                               name="tickets[<%= section.id %>][start_time]"
@@ -228,7 +228,7 @@
                 <div class="col-xs-6">
                   <label for="tickets-sales-start">Ticket sales end</label>
                   <div class="row">
-                    <div class="col-xs-8 form-group">
+                    <div class="col-xs-12 col-md-8 form-group">
                       <div class='input-group date'>
                         <input type="text"
                               name="tickets[<%= section.id %>][end_date]"
@@ -240,7 +240,7 @@
                         </span>
                       </div>
                     </div>
-                    <div class="col-xs-4 form-group">
+                    <div class="col-xs-12 col-md-4 form-group">
                       <div  class="input-group date">
                         <input type="text"
                               name="tickets[<%= section.id %>][end_time]"

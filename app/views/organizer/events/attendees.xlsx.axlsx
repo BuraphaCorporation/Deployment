@@ -1,0 +1,28 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "All Attendees") do |sheet|
+  @sections.each do |section|
+		sheet.add_row [ 'Ticket Type', section.title ]
+		sheet.add_row [
+			'ATTENDEE NAME',
+			'GENDER',
+			'AGE',
+			'EMAIL',
+			'TEL',
+			'ORDER ID',
+			'ORDER DATE',
+			'TICKET ID'
+		]
+		section.tickets.each do |ticket|
+			sheet.add_row [
+				"#{ticket.user.first_name} #{ticket.user.last_name}",
+				ticket.user.gender,
+				ticket.user.age,
+				ticket.user.email,
+				ticket.user.phone,
+				ticket.order.code,
+				ticket.created_at.strftime("%d %B %Y, %H:%M"),
+				ticket.code
+			]
+		end
+	end
+end

@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def mobile_device?
+    !request.user_agent.downcase.match(/iphone|android/).nil?
+  end
+
   def render_field(field, locals = {})
     locals.merge!(field: field)
     render locals: locals, partial: field.to_partial_path
@@ -46,6 +50,24 @@ module ApplicationHelper
     end
   end
 
+  def top_nav_link(link_text, link_path, link_id)
+    class_name = current_page?(link_path) ? 'active' : ''
+
+    content_tag(:li, class: class_name, id: link_id) do
+      link_to link_text, link_path
+    end
+  end
+
+  def organizer_nav_link(link_text, link_path, link_id, link_icon)
+   class_name = current_page?(link_path) ? "#{link_id} active" : link_id
+
+   content_tag(:li, class: class_name) do
+      link_to link_path do
+        "<i class=\"#{link_icon}\"></i> #{link_text}".html_safe
+      end
+    end
+  end
+
   def is_index?
     current_page? root_path
   end
@@ -71,10 +93,10 @@ module ApplicationHelper
   end
 
   def convert_to_currency(money)
-    if money.to_i == 0
-      "ฟรี"
-    else
-      number_to_currency(money, unit: '฿', precision: 0)
-    end
+    # if money.to_i == 0
+    #   "ฟรี"
+    # else
+    number_to_currency(money, unit: '฿', precision: 0)
+    # end
   end
 end

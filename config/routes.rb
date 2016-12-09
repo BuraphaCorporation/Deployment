@@ -210,10 +210,12 @@ Rails.application.routes.draw do
       end
     end
 
-    namespace :organizer do
+    namespace :organizer, path: 'organizers' do
       resources :events do
         member do
+          get 'dashboard',          to: 'events#dashboard'
           get 'orders',             to: 'events#orders', format: [:html, :xlsx]
+          get 'attendees',          to: 'events#attendees', format: [:html, :xlsx]
           get 'checkin',            to: 'events#checkin'
           get 'unpublish',          to: 'events#unpublish'
           get 'published',          to: 'events#published'

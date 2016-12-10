@@ -12,7 +12,7 @@
 
     <%= csrf_meta_tags %>
 
-    <%= render partial: 'layouts/parts/tracking' %>
+    <%= render partial: 'partials/tracking' %>
 
     <% if App.environment.production? %>
       <!-- Start of Async Drift Code -->
@@ -57,19 +57,19 @@
     <div id="fb-root"></div>
 
     <div id="wrapper">
-      <%= render partial: 'layouts/parts/top_nav' %>
+      <%= render partial: 'partials/top_nav' %>
 
       <div id="main">
         <%= yield %>
       </div>
 
-      <%= render partial: 'layouts/parts/footer' %>
+      <%= render partial: 'partials/footer' %>
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
       <div class="modal-dialog modal-sm" role="document">
-        <%= render partial: "layouts/parts/login-form" %>
-        <%= render partial: "layouts/parts/register-form" %>
+        <%= render partial: "partials/login-form" %>
+        <%= render partial: "partials/register-form" %>
       </div>
     </div>
 

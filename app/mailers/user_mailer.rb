@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-  default :template_path => 'layouts_mailer/user'
+  default :template_path => 'mailers/user'
   add_template_helper ApplicationHelper
 
   # Subject can be set in your I18n file at config/locales/en.yml

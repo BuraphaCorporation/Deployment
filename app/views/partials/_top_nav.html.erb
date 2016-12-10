@@ -1,3 +1,26 @@
+<% content_for :category_nav do %>
+  <ul class="nav navbar-nav navbar-left mobile-hide">
+    <!-- <li>
+      <a href="#">Explore</a>
+    </li>
+    <li>
+      <a href="#">Daydash คืออะไร</a>
+    </li> -->
+    <li>
+      <%= link_to 'ALL', root_path %>
+    </li>
+    <% @global_categories.each do |category| %>
+      <li>
+        <% if is_index_with_categories? %>
+          <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
+        <% else %>
+          <a href="/categories/<%= category.slug %>"><%= category.title %></a>
+        <% end %>
+      </li>
+    <% end unless @global_categories.nil? %>
+  </ul>
+<% end %>
+
 <div id="topbar">
   <nav class="navbar navbar-static-top">
     <div class="container">
@@ -29,7 +52,17 @@
 
 
       <div id="navbar" class="navbar-collapse collapse">
+        <%= yield(:category_nav) %>
+
         <% if current_user.present? %>
+
+          <% if current_user.can_organizer? %>
+            <ul class="nav navbar-nav navbar-left mobile-hide nav-organizer">
+              <%= top_nav_link "Manage Event", organizer_events_path, 'menu-event-list' %>
+              <%= top_nav_link "+ Create New Event", new_organizer_event_path, 'menu-create-event' %>
+            </ul>
+          <% end %>
+
           <ul class="nav navbar-nav mobile-only">
             <% if current_user.can_organizer? %>
               <%= top_nav_link "Manage Event", organizer_events_path, 'menu-event-list' %>
@@ -51,7 +84,6 @@
           </ul>
 
           <ul class="nav navbar-nav navbar-right mobile-hide">
-
             <% if current_user.can_organizer? %>
               <li>
                 <%= link_to organizer_events_path, class: 'organizer-nav' do %>
@@ -59,7 +91,6 @@
                 <% end %>
               </li>
             <% end %>
-
             <li class="dropdown user-dropdown">
               <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button">
                 <div class="user-profile-photo"
@@ -86,60 +117,7 @@
               </ul>
             </li>
           </ul>
-
-          <% if current_user.can_organizer? %>
-            <ul class="nav navbar-nav navbar-left mobile-hide nav-organizer">
-              <%= top_nav_link "Manage Event", organizer_events_path, 'menu-event-list' %>
-              <%= top_nav_link "+ Create New Event", new_organizer_event_path, 'menu-create-event' %>
-            </ul>
-          <% else %>
-            <ul class="nav navbar-nav navbar-left mobile-hide">
-              <!-- <li>
-                <a href="#">Explore</a>
-              </li>
-              <li>
-                <a href="#">Daydash คืออะไร</a>
-              </li> -->
-
-              <li>
-                <%= link_to 'ALL', root_path %>
-              </li>
-
-              <% @global_categories.each do |category| %>
-                <li>
-                  <% if is_index_with_categories? %>
-                    <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
-                  <% else %>
-                    <a href="/categories/<%= category.slug %>"><%= category.title %></a>
-                  <% end %>
-                </li>
-              <% end unless @global_categories.nil? %>
-            </ul>
-          <% end %>
         <% else %>
-          <ul class="nav navbar-nav navbar-left mobile-hide">
-            <!-- <li>
-              <a href="#">Explore</a>
-            </li>
-            <li>
-              <a href="#">Daydash คืออะไร</a>
-            </li> -->
-
-            <li>
-              <%= link_to 'ALL', root_path %>
-            </li>
-
-            <% @global_categories.each do |category| %>
-              <li>
-                <% if is_index_with_categories? %>
-                  <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
-                <% else %>
-                  <a href="/categories/<%= category.slug %>"><%= category.title %></a>
-                <% end %>
-              </li>
-            <% end unless @global_categories.nil? %>
-          </ul>
-
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a id="menu-login"

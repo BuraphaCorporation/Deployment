@@ -46,7 +46,7 @@
 
 class Event < ApplicationRecord
   extend FriendlyId
-  friendly_id :title, use: :slugged
+  friendly_id :title, use: [:slugged, :finders]
 
   belongs_to :user
   belongs_to :category

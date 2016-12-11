@@ -136,6 +136,8 @@ class Event < ApplicationRecord
   end
 
   def organizer_status
+    return if self.uptime.nil?
+
     if self.uptime < Time.zone.now
       "past"
     elsif self.status == 'published'

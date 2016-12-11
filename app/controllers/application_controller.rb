@@ -96,4 +96,8 @@ protected
       }
     ]
   end
+
+  def set_current_page(page)
+    @set_page = page
+  end
 end

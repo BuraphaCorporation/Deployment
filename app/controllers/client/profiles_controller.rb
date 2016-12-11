@@ -51,7 +51,7 @@ module Client
     end
 
     def settings_update
-      p user_params
+      # p user_params
       if current_user.admin?
         User.find_by_email(params[:user][:email]).update(user_params)
       else

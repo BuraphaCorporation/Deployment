@@ -1,5 +1,5 @@
 class OrganizerMailer < ApplicationMailer
-  default template_path: 'layouts_mailer/organizer'
+  default template_path: 'mailers/organizer'
   add_template_helper ApplicationHelper
 
   # Subject can be set in your I18n file at config/locales/en.yml

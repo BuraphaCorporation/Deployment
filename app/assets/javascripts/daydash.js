@@ -3,4 +3,5 @@
 //= require jquery.validate
 //= require parsley
 //= require mustache.min
+//= require_tree ./libs/
 //= require_tree ./client/

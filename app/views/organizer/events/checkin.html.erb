@@ -1,18 +1,18 @@
 <% content_for :body_id, 'organizer-event-checkin' %>
 <% content_for :body_class, 'organizer-event-page' %>
 <%= render partial: "partials/manage_nav" %>
+
 <div class="section" id="checkin-section">
   <div class="container">
     <div class="section-body row">
       <div class="col-xs-12">
-        <% @sections.each do |section| %>
         <div class="event-section-panel">
           <div class="row panel-header">
             <div class="col-xs-12 col-md-6">
               <div class="row">
-                <div class="text-inline ml-20">Attendees: <%= section.tickets.paid.count %></div>
-                <div class="text-inline ml-20">Checked-in: <%= section.tickets.used.count %></div>
-                <div class="text-inline ml-20">Remaining: <%= section.tickets.paid.count - section.tickets.used.count %></div>
+                <div class="text-inline ml-20">Attendees: <%= @event.tickets.paid.count %></div>
+                <div class="text-inline ml-20">Checked-in: <%= @event.tickets.used.count %></div>
+                <div class="text-inline ml-20">Remaining: <%= @event.tickets.paid.count - @event.tickets.used.count %></div>
               </div>
             </div>
             <div class="col-xs-12 col-md-6">
@@ -36,7 +36,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% section.tickets.each do |ticket| %>
+                <% @event.tickets.each do |ticket| %>
                   <% next unless ticket.order.paid? %>
                   <tr>
                     <% if ticket.status.used? %>
@@ -48,7 +48,7 @@
                     <td><%= ticket.user.email %></td>
                     <td><%= ticket.user.phone %></td>
                     <td><%= ticket.section.title %></td>
-                    <td><%= ticket.code %></td>
+                    <td>#<%= ticket.code %></td>
                     <% if ticket.status.used? %>
                       <td>Checked</td>
                     <% else %>
@@ -60,12 +60,12 @@
             </table>
           </div>
         </div>
-        <% end %>
       </div>
     </div>
   </div>
 </div>
-<script>
+
+<script type="text/javascript">
   function init_table_filter() {
     $('.table-filter').keyup(function () {
       var element = this;

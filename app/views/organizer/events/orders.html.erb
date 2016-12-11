@@ -1,6 +1,7 @@
 <% content_for :body_id, 'organizer-event-orders' %>
 <% content_for :body_class, 'organizer-event-page' %>
 <%= render partial: "partials/manage_nav" %>
+
 <div class="section" id="order-list-section">
   <div class="container">
     <div class="section-body row">
@@ -16,10 +17,12 @@
               <% end %>
             </div>
             <div class="col-xs-3 col-md-3 text-right">
-              <select class="form-control">
-                <option selected disabled>เรียงตาม: Recent</option>
-                <option>1</option>
-                <option>2</option>
+              <select class="sort_by form-control">
+                <option selected disabled>จัดเรียงตาม: Sort by</option>
+                <option value="order_date">วันที่สั่งซื้อ</option>
+                <option value="ticket_buyer">ชื่อลูกค้า</option>
+                <option value="payment">ช่องทางการชำระเงิน</option>
+                <!-- <option value="status">สถานะ</option> -->
               </select>
             </div>
           </div>
@@ -39,7 +42,7 @@
               <tbody>
                 <% @orders.each do |order| %>
                 <tr>
-                  <td><%= order.code %></td>
+                  <td>#<%= order.code %></td>
                   <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
                   <td><%= order.user.first_name %> <%= order.user.last_name %></td>
                   <td><%= order.tickets.count %></td>
@@ -62,3 +65,11 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $('.sort_by').on('change', function(){
+    var sort = $(this).val();
+    var url = location.protocol + '//' + location.host + location.pathname;
+    window.location = url + '?sort_by=' + sort;
+  });
+</script>

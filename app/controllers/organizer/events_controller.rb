@@ -12,12 +12,12 @@ module Organizer
         @events = Event.all
       end
 
-      @event  = @events
+      @event  = @events.count
       @live   = @events.coming.where(status: :published)
       @draft  = @events.coming.where(status: :unpublish)
       @past   = @events.past
 
-      sort = [:asc, :desc].include?(params[:sort].try(:downcase)) ? params[:sort] : 'desc'
+      sort = ['asc', 'desc'].include?(params[:sort_by].try(:downcase)) ? params[:sort_by] : 'desc'
 
       @events = case params[:filter]
       when 'live'
@@ -124,7 +124,23 @@ module Organizer
     end
 
     def orders
-      @orders = @event.orders.where(status: :paid).order(created_at: :desc)
+      @orders = @event.orders.includes(:user, :payment).where(status: :paid)
+
+      @orders = case params[:sort_by]
+      when 'order_date'
+        # binding.pry
+        @orders.order(created_at: :asc)
+      when 'ticket_buyer'
+        @orders.order('users.first_name asc')
+      when 'payment'
+        # binding.pry
+        @orders.order('payments.methods asc')
+      # when 'status'
+      #   @orders.order(status: :asc)
+      else
+        @orders.order(created_at: :desc)
+      end
+
       respond_to do |format|
         format.html
         format.xlsx {
@@ -135,7 +151,7 @@ module Organizer
     end
 
     def attendees
-      @sections = @event.sections
+      # @sections = @event.orders
 
       respond_to do |format|
         format.html

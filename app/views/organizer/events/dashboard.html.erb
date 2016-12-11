@@ -73,9 +73,9 @@
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <div class="widget copy-link">
-              <div id="copy-link" class="btn btn-daydash-copy" data-clipboard-target="#copy-target"><i class="nc-icon-outline ui-2_link-72"></i> COPY URL</div>
-              <div id="copy-target" style="display: inline-block; padding-left: 20px;"><%= "#{App.domain}#{client_event_path(@event)}" %></div>
+            <div class="widget copy-link row">
+              <div id="copy-link" class="btn btn-daydash-copy col-xs-12 col-sm-3 col-md-2 col-lg-1" data-clipboard-target="#copy-target"><i class="nc-icon-outline ui-2_link-72"></i> COPY URL</div>
+              <div id="copy-target" class="col-xs-12 col-sm-9 col-md-10 col-lg-11" style="display: inline-block; padding-left: 20px;"><%= "#{App.domain}#{client_event_path(@event)}" %></div>
             </div>
           </div>
         </div>

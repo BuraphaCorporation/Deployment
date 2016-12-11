@@ -2,6 +2,9 @@ module Admin
   class BaseController < ApplicationController
     before_action :authenticate_organizer!
     before_action :global_categories
+    before_action do
+      set_current_page('admin')
+    end
 
     include OrganizerHelper
     include DaydashHelper

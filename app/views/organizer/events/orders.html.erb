@@ -1,5 +1,5 @@
 <% content_for :body_id, 'organizer-event-orders' %>
-<% content_for :body_class, 'organizer-event-page' %>
+<% content_for :body_class, 'organizer-event' %>
 <%= render partial: "partials/manage_nav" %>
 
 <div class="section" id="order-list-section">
@@ -11,7 +11,7 @@
             <div class="col-xs-6 text-left">
               <%= convert_to_currency @event.get_total_sales %> total sales from <%= @event.orders.paid.count %> orders
             </div>
-            <div class="col-xs-3 col-md-3 text-right export">
+            <div class="col-xs-3 text-right link">
               <%= link_to orders_organizer_event_path(format: :xlsx) do %>
                 <i class="nc-icon-outline arrows-4_launch-47"></i> EXPORT
               <% end %>
@@ -22,7 +22,6 @@
                 <option value="order_date">วันที่สั่งซื้อ</option>
                 <option value="ticket_buyer">ชื่อลูกค้า</option>
                 <option value="payment">ช่องทางการชำระเงิน</option>
-                <!-- <option value="status">สถานะ</option> -->
               </select>
             </div>
           </div>
@@ -42,7 +41,7 @@
               <tbody>
                 <% @orders.each do |order| %>
                 <tr>
-                  <td>#<%= order.code %></td>
+                  <td><%= link_to "##{order.code}", orders_detail_organizer_event_path(id: @event.slug, code: order.code) %></td>
                   <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
                   <td><%= order.user.first_name %> <%= order.user.last_name %></td>
                   <td><%= order.tickets.count %></td>

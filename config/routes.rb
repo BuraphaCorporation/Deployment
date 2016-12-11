@@ -213,23 +213,24 @@ Rails.application.routes.draw do
     namespace :organizer, path: 'organizers' do
       resources :events do
         member do
-          get 'dashboard',          to: 'events#dashboard'
-          get 'orders',             to: 'events#orders', format: [:html, :xlsx]
-          get 'attendees',          to: 'events#attendees', format: [:html, :xlsx]
-          get 'checkin',            to: 'events#checkin'
-          get 'unpublish',          to: 'events#unpublish'
-          get 'published',          to: 'events#published'
-          get 'update_time_event',  to: 'events#update_time_event'
+          get 'dashboard',            to: 'events#dashboard'
+          get 'orders',               to: 'events#orders', format: [:html, :xlsx]
+          get 'orders/:code/detail',  to: 'events#orders_detail', as: :orders_detail
+          get 'attendees',            to: 'events#attendees', format: [:html, :xlsx]
+          get 'checkin',              to: 'events#checkin'
 
+          get 'unpublish',            to: 'events#unpublish'
+          get 'published',            to: 'events#published'
+          get 'update_time_event',    to: 'events#update_time_event'
 
-          get 'order_attachment', to: 'events#order_attachment', format: :json
-          put 'update_attachment', to: 'events#update_attachment', format: :json
+          get 'order_attachment',     to: 'events#order_attachment', format: :json
+          put 'update_attachment',    to: 'events#update_attachment', format: :json
           delete 'delete_attachment', to: 'events#delete_attachment', format: :json
 
-          delete 'delete_section', to: 'events#delete_section'
+          delete 'delete_section',    to: 'events#delete_section'
         end
 
-        post 'checked/:ticket_id',  to: 'events#ticket_checking', as: :ticket_checking
+        post 'checked/:ticket_id',    to: 'events#ticket_checking', as: :ticket_checking
         # collection do
           # delete ':id/attachment/:media_id', to: 'events#delete_attachment', as: :delete_attachment
         # end

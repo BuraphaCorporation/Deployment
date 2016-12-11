@@ -1,7 +1,7 @@
 
-.organizer-event-page
-  .section > .container
-    max-width: 960px
+.organizer-event
+  // .section > .container
+  //   max-width: 960px
   .section-container
     padding-top: 30px
 
@@ -35,8 +35,17 @@
             color: white
             font-weight: 200
 
-  .export
-    padding: 6px 0px
+  .order-status
+    text-transform: uppercase
+  .paid
+    color: green
+  .pending, .unpaid
+    color: red
+  .section-header
+    margin-bottom: 30px
+
+  .link
+    // padding: 6px 0px
     a
       color: #000
 
@@ -141,14 +150,6 @@
   #main
     background: #fcfcfc
   #order-list-section
-    .order-status
-      text-transform: uppercase
-    .paid
-      color: green
-    .pending, .unpaid
-      color: red
-    .section-header
-      margin-bottom: 30px
     @media (max-width: 991px)
       padding-top: 15px
       .section-header

@@ -1,6 +1,7 @@
 <% content_for :body_id, 'organizer-event-dashboard' %>
-<% content_for :body_class, 'organizer-event-page' %>
+<% content_for :body_class, 'organizer-event' %>
 <%= render partial: "partials/manage_nav" %>
+
 <style media="screen">
   .dashboard {
     height: 120px;
@@ -110,7 +111,7 @@
                 <tbody>
                   <% @orders.each do |order| %>
                   <tr>
-                    <td><%= order.code %></td>
+                    <td><%= link_to "##{order.code}", orders_detail_organizer_event_path(id: @event.slug, code: order.code) %></td>
                     <td><%= order.created_at.strftime("%d %B %Y, %H:%M") %></td>
                     <td><%= order.user.first_name %> <%= order.user.last_name %></td>
                     <td><%= order.tickets.count %></td>

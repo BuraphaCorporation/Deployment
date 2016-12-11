@@ -128,12 +128,10 @@ module Organizer
 
       @orders = case params[:sort_by]
       when 'order_date'
-        # binding.pry
         @orders.order(created_at: :asc)
       when 'ticket_buyer'
         @orders.order('users.first_name asc')
       when 'payment'
-        # binding.pry
         @orders.order('payments.methods asc')
       # when 'status'
       #   @orders.order(status: :asc)
@@ -155,7 +153,16 @@ module Organizer
     end
 
     def attendees
-      # @sections = @event.orders
+      @tickets = @event.tickets.includes(:user)
+
+      @tickets = case params[:sort_by]
+      when 'order_date'
+        @tickets.order(created_at: :asc)
+      when 'attendee_name'
+        @tickets.order('users.first_name asc')
+      else
+        @tickets.order(created_at: :desc)
+      end
 
       respond_to do |format|
         format.html

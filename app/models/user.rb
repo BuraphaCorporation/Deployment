@@ -251,7 +251,7 @@ private
   end
 
   def set_username
-    self.update(slug: "#{self.first_name} #{self.last_name}".downcase)
+    self.update(slug: "#{self.first_name}-#{self.last_name}".downcase)
   end
 
   def send_welcome_email

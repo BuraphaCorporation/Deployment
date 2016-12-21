@@ -251,7 +251,13 @@ private
   end
 
   def set_username
-    self.update(slug: "#{self.first_name} #{self.last_name}".downcase)
+    username = "#{self.first_name}-#{self.last_name}".downcase
+
+    if self.exists?(username: username)
+      self.update(username: username)
+    else
+      self.update(username: "#{username}-#{self.id}")
+    end
   end
 
   def send_welcome_email

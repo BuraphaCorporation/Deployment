@@ -1,0 +1,80 @@
+
+body.home {
+  font-size: 12pt;
+  font-family: 'Sukhumvit Set', sans-serif;
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Kanit";
+  }
+
+  .underline-title {
+    border: 1px solid #19D4D6;
+    width: 80px;
+    margin: 0 auto;
+  }
+
+  .nc-icon-title {
+    font-size: 32pt
+  }
+
+  .mt-10 {
+    margin-top: 10px;
+  }
+
+  .mt-20 {
+    margin-top: 20px;
+  }
+
+  .mt-40 {
+    margin-top: 40px;
+  }
+
+  section.cover {
+    div.page-cover {
+      height: 300px;
+    }
+  }
+
+  section.title {
+    padding-top: 40px;
+    padding-bottom: 20px;
+  }
+
+  section.recommend,
+  section.this-week {
+    background: #FCFCFC;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding-top: 40px;
+    padding-bottom: 20px;
+  }
+
+  section.comment {
+    background: #D9FFFF;
+    padding-top: 40px;
+    padding-bottom: 20px;
+  }
+
+  section.subscribe {
+    padding-top: 40px;
+    padding-bottom: 20px;
+
+    input.subscribe {
+      border: 1px solid #ccc;
+      border-right: 0px;
+    }
+    div.subscribe {
+      border: 0px;
+      border-radius: 0px;
+      background-color: #30CDCE;
+      color: #fff;
+      padding: 15px 35px;
+      font-size: 12pt;
+    }
+
+    p.note {
+      color: #A4A4A4;
+      font-size: 10pt;
+    }
+  }
+}

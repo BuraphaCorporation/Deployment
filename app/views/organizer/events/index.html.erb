@@ -50,7 +50,7 @@
               <div class="info">
                 <div class="info-body">
                   <h4 class="title">
-                    <%= event.title %>
+                    <%= link_to event.title, client_event_path(event), style: 'color: #000', target: '_blank' %>
                     <% if event.uptime > Time.zone.now %>
                       <%#= @event.status == 'published' ? '<div class="btn btn-daydash-status btn-daydash-live">Live</div>'.html_safe : '<div class="btn btn-daydash-status btn-daydash-draft">Draft</div>'.html_safe %>
                       <%= event.status == 'published' ? '<div class="btn btn-daydash-status btn-daydash-live">Live</div>'.html_safe : '<div class="btn btn-daydash-status btn-daydash-draft">Draft</div>'.html_safe %>

@@ -10,9 +10,9 @@
           <div class="row panel-header">
             <div class="col-xs-12 col-md-6">
               <div class="row">
-                <div class="text-inline ml-20">Attendees: <%= @event.tickets.paid.count %></div>
-                <div class="text-inline ml-20">Checked-in: <%= @event.tickets.used.count %></div>
-                <div class="text-inline ml-20">Remaining: <%= @event.tickets.paid.count - @event.tickets.used.count %></div>
+                <div class="text-inline ml-20">Attendees: <%= @tickets.paid.count %></div>
+                <div class="text-inline ml-20">Checked-in: <%= @tickets.used.count %></div>
+                <div class="text-inline ml-20">Remaining: <%= @tickets.paid.count - @tickets.used.count %></div>
               </div>
             </div>
             <div class="col-xs-12 col-md-6">
@@ -36,7 +36,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% @event.tickets.each do |ticket| %>
+                <% @tickets.each do |ticket| %>
                   <% next unless ticket.order.paid? %>
                   <tr>
                     <% if ticket.status.used? %>
@@ -64,21 +64,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  function init_table_filter() {
-    $('.table-filter').keyup(function () {
-      var element = this;
-      var table = $(element).parents('.event-section-panel').find('.table');
-      var rex = new RegExp($(this).val(), 'i');
-      $('tbody tr', table).hide();
-      $('tbody tr', table).filter(function () {
-        return rex.test($(this).text());
-      }).show();
-    })
-  }
-
-  $(function() {
-    init_table_filter();
-  });
-</script>

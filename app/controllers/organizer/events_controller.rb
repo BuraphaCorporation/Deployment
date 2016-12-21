@@ -175,7 +175,7 @@ module Organizer
 
     def checkin
       @orders = @event.orders.order(created_at: :desc)
-      @sections = @event.sections
+      @tickets = @event.tickets
     end
 
     def tickets

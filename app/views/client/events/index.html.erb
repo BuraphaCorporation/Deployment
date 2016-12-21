@@ -1,6 +1,7 @@
+<% content_for :body_id, 'home' %>
+<% content_for :body_class, 'home' %>
 
-<script>$('body').attr('id', 'index-page');</script>
-<div class="section" id="cover-section">
+<!-- <div class="section" id="cover-section">
   <div class="slick" id="cover-slick">
     <% @covers.each do |cover| %>
       <div>
@@ -28,18 +29,158 @@
       <% end %>
     </ul>
     <div class="row event-list">
-      <% @events.each do |event| %>
-        <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
-          <%= link_to client_event_path(event.to_url), class: "event card" do %>
-            <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
-            <div class="info">
-              <h4 class="title text-left"><%= event.title %></h4>
-              <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
-              <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= event.location_name %></div>
-            </div>
-          <% end %>
-        </div>
-      <% end %>
+
     </div>
   </div>
-</div>
+</div> -->
+
+<section class="cover">
+  <div class="page-cover" style="background-image: url('<%= @covers[0][:image] %>')">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 text-center">
+          <div class="title">
+            ค้นพบกิจกรรม อีเวนท์สนุกๆ ได้ทุกวัน
+          </div>
+          <div class="sub-title">
+            ค้นพบกิจกรรม และอีเวนท์เจ๋งๆ พร้อมสัมผัสประสบการณ์ใหม่ๆ ได้ที่นี่
+          </div>
+          <div class="btn btn-daydash-cover">
+            เริ่มเลย!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="title">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <h2>สงสัยใช่มั้ยว่า Daydash คืออะไร?</h2>
+        <p class="underline-title"></p>
+      </div>
+    </div>
+    <div class="row mt-40">
+      <div class="col-xs-12 col-md-4 text-center">
+        <i class="nc-icon-title nc-icon-outline media-1_ticket-75"></i>
+        <p>เว็บสำหรับคนชอบทำกิจกรรม</p>
+        <p>Daydash คือเว็บรวบกิจกรรมและอีเว้นท์แนวไลฟ์สไตล์ให้คุณสามารถทำการจองและเข้าร่วมได้ทันทีในไม่กี่คลิก</p>
+      </div>
+      <div class="col-xs-12 col-md-4 text-center">
+        <i class="nc-icon-title nc-icon-outline travel_sea-mask"></i>
+        <p>หลากหลายกิจกรรมให้เลือกทำ</p>
+        <p>หลากหลายกิจกรรมบน Daydash ไม่ว่าจะเป็นงานดนตรี ดีเจ มันส์ๆ เวิร์คช็อปศิลปะ ไปจนถึงกิจกรรมเวิร์คเอาท์ออกกำลัง ฯลฯ</p>
+      </div>
+      <div class="col-xs-12 col-md-4 text-center">
+        <i class="nc-icon-title nc-icon-outline education_award-55"></i>
+        <p>เป็นตัวแทนถูกต้อง 100%</p>
+        <p>Daydash ได้รับการยอมรับให้เป็นตัวแทนจากผู้จัดโดยตรง ทุกกิจกรรม อีเว้นท์ ที่อยู่บน Daydash แปลว่าคุณสามารถทำการซื้อและเข้าร่วมได้แน่นอน</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="recommend">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <h2>กิจกรรมแนะนำ</h2>
+        <p class="underline-title"></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <% @events.each do |event| %>
+          <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
+            <%= link_to client_event_path(event.to_url), class: "event card" do %>
+              <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
+              <div class="info">
+                <h4 class="title text-left"><%= event.title %></h4>
+                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
+                <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= event.location_name %></div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="category">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-3">
+        <p>Workshop & Class</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="this-week">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <h2>กิจกรรมสำหรับเสาร์อาทิตย์นี้</h2>
+        <p class="underline-title"></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <% @events.each do |event| %>
+          <div class="col-sm-6 col-md-4 event-wrapper <% event.categories.each do |category| %> event-category-<%= category.id %><% end %>">
+            <%= link_to client_event_path(event.to_url), class: "event card" do %>
+              <div class="cover" style="background-image: url('<%= event.get_thumbnail %>');"></div>
+              <div class="info">
+                <h4 class="title text-left"><%= event.title %></h4>
+                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= event.to_uptime %></div>
+                <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= event.location_name %></div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="comment">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <p>“เป็นครั้งแรกที่ลองเข้าร่วมกิจกรรมเวิร์คช็อปแนวศิลปะ คุณครูใจดีมาก แม้ว่าจะไม่มีพื้นฐานมาก่อน ก็สามารถวาดตามได้ง่ายๆ เป็นกิจกรรมดีมากๆ จะเข้าร่วมอีกแน่ๆ ขอบคุณ Daydash ที่แนะนำกิจกรรมใหม่ๆ มาให้ลองครับ” </p>
+        <p>
+          คุณ Boy Pakorn
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="subscribe">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <h2>ไม่อยากพลาดกิจกรรมและอีเว้นท์สนุกๆ?</h2>
+        <p>ทุกสัปดาห์ เราจะส่งอีเมลอัพเดททุกเรื่องเกี่ยวกับกิจกรรม อีเว้นท์ไปให้คุณถึง inbox!</p>
+      </div>
+    </div>
+    <div class="row mt-10">
+      <div class="col-xs-12 text-center">
+        <form class="form-inline">
+          <div class="input-group col-xs-12 col-md-9 col-lg-6">
+            <input type="text" class="form-control subscribe" placeholder="อีเมลของคุณ">
+            <div class="input-group-addon subscribe">สมัครฟรี!</div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row mt-20">
+      <div class="col-xs-12 text-center">
+        <p class="note">* เราไม่มีนโยบายส่ง spam หรือนำรายชื่ออีเมลไปเปิดเผยเด็ดขาด</p>
+      </div>
+    </div>
+  </div>
+</section>

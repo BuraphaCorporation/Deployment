@@ -1,7 +1,7 @@
 
 body.home {
   font-size: 12pt;
-  font-family: 'Sukhumvit Set', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   h1, h2, h3, h4, h5, h6 {
     font-family: "Kanit";
@@ -29,15 +29,31 @@ body.home {
     margin-top: 40px;
   }
 
+  section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
   section.cover {
-    div.page-cover {
-      height: 300px;
+    padding-top: 120px;
+    height: 400px;
+    color: #fff;
+    div.title {
+      font-size: 32pt;
+      font-weight: bold;
+    }
+    div.sub-title {
+    }
+    div.btn-cover {
+      border: 2px solid #fff;
+      font-weight: bold;
+      padding: 10px 40px;
     }
   }
 
   section.title {
-    padding-top: 40px;
-    padding-bottom: 20px;
+    // padding-top: 40px;
+    // padding-bottom: 20px;
   }
 
   section.recommend,
@@ -45,19 +61,27 @@ body.home {
     background: #FCFCFC;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
-    padding-top: 40px;
+    // padding-top: 40px;
+    // padding-bottom: 20px;
+    h4 {
+      font-family: sans-serif;
+    }
+  }
+
+  section.category {
+    padding-top: 20px;
     padding-bottom: 20px;
   }
 
   section.comment {
     background: #D9FFFF;
-    padding-top: 40px;
-    padding-bottom: 20px;
+    // padding-top: 40px;
+    // padding-bottom: 20px;
   }
 
   section.subscribe {
-    padding-top: 40px;
-    padding-bottom: 20px;
+    // padding-top: 40px;
+    // padding-bottom: 20px;
 
     input.subscribe {
       border: 1px solid #ccc;

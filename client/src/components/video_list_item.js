@@ -1,9 +1,20 @@
-// import React, { Component } from 'react';
+import React, { Component } from 'react';
 //
 // class VideoListItem extends Component {
 //   render() {
-//     return <div></div>;
+//     return (
+//       <div></div>
+//     )
 //   }
 // }
 //
-// export default VideoListItem;
+
+const VideoListItem = () => {
+  // render() {
+    return (
+      <li>video</li>
+    )
+  // }
+}
+
+export default VideoListItem;

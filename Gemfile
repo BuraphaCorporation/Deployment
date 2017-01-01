@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.1'
+ruby '2.4.0'
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
@@ -44,9 +44,9 @@ gem 'annotate'
 gem 'has_scope'
 gem 'enumerize'
 gem 'friendly_id', '~> 5.1.0'
-gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', branch: 'rails5'
+gem 'paranoia', git: 'https://github.com/arnonhongklay/paranoia', branch: 'rails5'
 gem 'activemodel-serializers-xml'
-gem 'paperclip', git: 'https://github.com/thoughtbot/paperclip'
+gem 'paperclip', git: 'https://github.com/arnonhongklay/paperclip'
 # gem 'paperclip-ffmpeg'
 gem 'rqrcode_png'
 gem 'dragonfly', '~> 1.0.12'
@@ -73,6 +73,7 @@ gem 'sidekiq-cron'
 
 # make api
 gem 'jbuilder', '~> 2.5'
+gem 'json', git: 'https://github.com/arnonhongklay/json', branch: 'v1.8'
 gem 'jsonapi'
 gem 'jsonapi-parser', '~> 0.1.1.beta2'
 gem 'active_model_serializers'

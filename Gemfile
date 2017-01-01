@@ -183,3 +183,5 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'simplecov'
 end
+
+gem 'mini_racer', platforms: :ruby

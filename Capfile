@@ -38,7 +38,7 @@ Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
 
 require 'capistrano/rbenv'
 set :rbenv_type, :user # or :system, depends on your rbenv setup
-set :rbenv_ruby, '2.4.0'
+set :rbenv_ruby, '2.3.1'
 set :format, :airbrussh
 
 # invoke :staging

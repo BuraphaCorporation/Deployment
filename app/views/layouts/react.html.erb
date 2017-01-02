@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daydash.co</title>
+    <%= csrf_meta_tags %>
+
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <%= javascript_include_tag 'webpack-bundle' %>
+  </head>
+  <body>
+    <%= react_component("App", props: @hello_world_props, prerender: false) %>
+  </body>
+</html>

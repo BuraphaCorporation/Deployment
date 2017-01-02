@@ -10,5 +10,8 @@
     "postinstall": "cd client && npm install",
     "rails-server": "echo 'visit http://daydash.local:1337/beta' && foreman start -f Procfile.dev",
     "test": "rspec"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0"
   }
 }

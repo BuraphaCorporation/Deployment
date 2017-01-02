@@ -147,7 +147,6 @@
 #
 
 Rails.application.routes.draw do
-  get 'hello_world', to: 'hello_world#index'
   get 'errors/not_found'
   get 'errors/internal_server_error'
 
@@ -178,6 +177,8 @@ Rails.application.routes.draw do
     # end
 
     root 'client/events#index'
+
+    get 'beta', to: 'greetings#react'
     get '/landing',               to: 'greetings#landing'
     get '/rating',                to: 'greetings#rating'
 

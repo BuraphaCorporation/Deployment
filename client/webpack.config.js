@@ -13,8 +13,8 @@ const config = {
     'es5-shim/es5-shim',
     'es5-shim/es5-sham',
     'babel-polyfill',
-    // './src/index.js',
-    './app/bundles/HelloWorld/startup/registration',
+    './app/index.js',
+    // './app/bundles/HelloWorld/startup/registration',
   ],
 
   output: {

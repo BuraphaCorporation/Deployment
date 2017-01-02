@@ -4,11 +4,10 @@ import ReactDOM from 'react-dom'
 import ReactOnRails from 'react-on-rails'
 import YTSearch from 'youtube-api-search'
 
+// import HelloWorld from './components/hello_world'
 import SearchBar from './components/search_bar'
 import VideoList from './components/video_list'
 import VideoDetails from './components/video_details'
-
-import HelloWorld from './components/hello_world'
 
 const API_KEY = 'AIzaSyATDxbjB5GlP4IquJmInm_qp7dTIgm93Jo'
 

@@ -8,10 +8,9 @@ class ApplicationController < ActionController::Base
 
   http_basic_authenticate_with name: 'admin', password: 'x' if App.host == 'brick'
 
-
   def react
     @hello_world_props = { name: "Stranger" }
-    render template: 'client/react'
+    render template: 'layouts/react'
   end
 
 protected

@@ -10,8 +10,10 @@ machine:
 
 dependencies:
   pre:
-    - gem install bundler -v 1.13.6
+    - gem install bundler -v 1.13.7
+    # - npm install webpack
   override:
     - bundle install
+    - npm install
   post:
     - bundle exec rake assets:precompile

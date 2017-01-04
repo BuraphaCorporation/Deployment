@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 class HelloWorld extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-  };
+  }
 
   constructor(props, _railsContext) {
     super(props);
@@ -13,7 +13,7 @@ class HelloWorld extends React.Component {
 
   updateName = (name) => {
     this.setState({ name })
-  };
+  }
 
   render() {
     return (

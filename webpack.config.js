@@ -13,13 +13,13 @@ const config = {
     'es5-shim/es5-shim',
     'es5-shim/es5-sham',
     'babel-polyfill',
-    './app/index.js',
+    './client/index.js',
     // './app/bundles/HelloWorld/startup/registration',
   ],
 
   output: {
     filename: 'webpack-bundle.js',
-    path: '../app/assets/webpack',
+    path: './app/assets/webpack',
   },
 
   resolve: {

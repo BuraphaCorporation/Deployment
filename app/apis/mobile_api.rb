@@ -23,5 +23,4 @@ class MobileAPI < ApplicationAPI
                             include_base_url: true,
                             models: ::Entities.constants.select { | c | Class === ::Entities.const_get(c) }
                                                         .map { | c | "::Entities::#{c.to_s}".constantize }
-
 end

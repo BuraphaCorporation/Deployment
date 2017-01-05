@@ -2,7 +2,7 @@
   "name": "daydash",
   "version": "0.0.1",
   "author": "Arnon Hongklay",
-  "description": "assets of daydash",
+  "description": "Assets of daydash",
   "private": true,
   "engines": {
     "node": "5.10.0",

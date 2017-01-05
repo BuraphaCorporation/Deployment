@@ -253,7 +253,7 @@ private
   def set_username
     username = "#{self.first_name}-#{self.last_name}".downcase
 
-    if self.exists?(username: username)
+    if User.exists?(username: username)
       self.update(username: username)
     else
       self.update(username: "#{username}-#{self.id}")

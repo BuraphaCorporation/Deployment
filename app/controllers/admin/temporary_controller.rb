@@ -26,8 +26,8 @@ module Admin
 
     def send_email
       # @order.sendmail!
-      OrganizerOrderWorker.perform_async(@order.id)
-      UserOrderWorker.perform_async(@order.id)
+      Workers::OrganizerOrderWorker.perform_async(@order.id)
+      Workers::UserOrderWorker.perform_async(@order.id)
 
       redirect_back
     end

@@ -27,8 +27,6 @@ module Daydash
     config.active_record.time_zone_aware_types = [:datetime, :time]
     config.exceptions_app = self.routes
 
-    config.autoload_paths += %W(#{config.root}/workers)
-
     config.paperclip_defaults = {
       storage:              :s3,
       s3_host_name:         "s3-ap-southeast-1.amazonaws.com",

@@ -1,13 +1,18 @@
 
-body.home {
+.home {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12pt;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: "Kanit";
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Kanit';
   }
 
-  p.icon {
+  .p-icon {
     margin-bottom: 35px;
   }
 
@@ -16,10 +21,10 @@ body.home {
   }
 
   .box-center {
-    font-size: 14pt;
-    color: #414141;
-    font-weight: 100;
     font-family: 'Athiti';
+    font-size: 14pt;
+    font-weight: 100;
+    color: #414141;
     width: 40%;
     margin: auto;
   }
@@ -47,14 +52,14 @@ body.home {
   }
 
   section {
-    padding-top: 40px;
     padding-bottom: 40px;
+    padding-top: 40px;
   }
 
   section.cover {
-    padding-top: 120px;
     height: 400px;
     color: #fff;
+    padding-top: 120px;
     div.title {
       font-size: 32pt;
       font-weight: bold;

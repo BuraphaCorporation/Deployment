@@ -68,11 +68,11 @@ class Mobile::PaymentAPI < ApplicationAPI
 
           if @order.tickets.present?
             if @order.omise? || @order.free?
-              UserTicketWorker.perform_async(@order.id)
+              Workers::UserTicketWorker.perform_async(@order.id)
             else
-              UserOrderWorker.perform_async(@order.id)
+              Workers::UserOrderWorker.perform_async(@order.id)
             end
-            OrganizerOrderWorker.perform_async(@order.id)
+            Workers::OrganizerOrderWorker.perform_async(@order.id)
           end
 
           present :status, :success
@@ -119,11 +119,11 @@ class Mobile::PaymentAPI < ApplicationAPI
 
           if @order.tickets.present?
             if @order.omise? || @order.free?
-              UserTicketWorker.perform_async(@order.id)
+              Workers::UserTicketWorker.perform_async(@order.id)
             else
-              UserOrderWorker.perform_async(@order.id)
+              Workers::UserOrderWorker.perform_async(@order.id)
             end
-            OrganizerOrderWorker.perform_async(@order.id)
+            Workers::OrganizerOrderWorker.perform_async(@order.id)
           end
 
           present :status, :success

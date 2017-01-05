@@ -8,11 +8,6 @@ class ApplicationController < ActionController::Base
 
   http_basic_authenticate_with name: 'admin', password: 'x' if App.host == 'brick'
 
-  def react
-    @hello_world_props = { name: "Stranger" }
-    render template: 'layouts/react'
-  end
-
 protected
   def not_found
     raise ActionController::RoutingError.new('Not Found')

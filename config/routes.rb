@@ -177,8 +177,8 @@ Rails.application.routes.draw do
     # end
 
     root 'client/events#index'
+    get 'beta', to: 'client/react#index'
 
-    get 'beta', to: 'greetings#react'
     get '/landing',               to: 'greetings#landing'
     get '/rating',                to: 'greetings#rating'
 

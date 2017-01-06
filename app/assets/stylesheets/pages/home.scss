@@ -48,6 +48,17 @@
     margin-top: 40px;
   }
 
+  .slick-prev, .slick-next {
+    width: 30px;
+  }
+  .slick-prev:before, .slick-next:before {
+    font-family: "Nucleo Outline";
+    font-size: 30px;
+    color: #000;
+  }
+  .slick-prev:before { content: "\eaae"; }
+  .slick-next:before { content: "\eaaf"; }
+
   section {
     padding-bottom: 40px;
     padding-top: 40px;

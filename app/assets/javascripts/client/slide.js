@@ -1,6 +1,5 @@
 $(document).on('turbolinks:load', function() {
-  var initSlick;
-  initSlick = function() {
+  var initSlick = function() {
     return $('#cover-slick').not('.slick-initialized').slick({
       infinite: true,
       dots: false,
@@ -10,5 +9,6 @@ $(document).on('turbolinks:load', function() {
       autoplaySpeed: 4000
     });
   };
+
   return initSlick();
 });

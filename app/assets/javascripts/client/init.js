@@ -3,6 +3,7 @@ $(document).on('turbolinks:load', function() {
     $('.card-slides').slick({
       slidesToShow: 3,
       slidesToScroll: 1,
+      lazyLoad: 'ondemand',
       responsive: [
         {
           breakpoint: 1024,
@@ -10,7 +11,7 @@ $(document).on('turbolinks:load', function() {
             slidesToShow: 2,
             slidesToScroll: 1,
             arrows: false,
-            dots: true
+            dots: false
           }
         },
         {

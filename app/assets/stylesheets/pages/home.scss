@@ -48,6 +48,11 @@
     margin-top: 40px;
   }
 
+  .comment-slides,
+  .card-slides {
+    width: 100%
+  }
+
   .slick-prev, .slick-next {
     width: 30px;
   }
@@ -59,9 +64,23 @@
   .slick-prev:before { content: "\eaae"; }
   .slick-next:before { content: "\eaaf"; }
 
+  .slick-dots li button:before {
+    font-size: 14px;
+    color: #19D4D6;
+  }
+  .slick-dots li.slick-active button:before {
+    color: #19D4D6;
+  }
+
   section {
     padding-bottom: 40px;
     padding-top: 40px;
+  }
+
+  @media (max-width: 375px) {
+    h2 {
+      font-size: 20px;
+    }
   }
 
   section.cover {
@@ -78,6 +97,15 @@
       border: 2px solid #fff;
       font-weight: bold;
       padding: 10px 40px;
+    }
+
+    @media (max-width: 375px) {
+      div.title {
+        font-size: 17pt;
+      }
+      div.sub-title {
+        font-size: 13pt;
+      }
     }
   }
 
@@ -105,8 +133,8 @@
 
   section.comment {
     background: #D9FFFF;
-    // padding-top: 40px;
-    // padding-bottom: 20px;
+    padding-top: 60px;
+    padding-bottom: 60px;
 
     .comment-details {
       font-family: 'Athiti';

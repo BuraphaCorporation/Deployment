@@ -1,7 +1,7 @@
 $(document).on('turbolinks:load', function() {
-  var initGoogleMapEvent;
-  initGoogleMapEvent = function() {
+  var initGoogleMapEvent = function() {
     var centerLocation, eventLocation, icon_map, info, infowindow, lat, lng, location_address, location_name, map, marker;
+
     lat = $('#google-map').attr('data-lat');
     lng = $('#google-map').attr('data-lng');
     location_name = $('#location').attr('data-location-name');
@@ -45,5 +45,6 @@ $(document).on('turbolinks:load', function() {
     });
     return infowindow.open(map, marker);
   };
+
   return initGoogleMapEvent();
 });

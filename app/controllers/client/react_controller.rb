@@ -5,7 +5,7 @@ module Client
     layout 'client'
 
     def index
-      @event_props = Event.all
+      @app_props = Event.all
     end
   end
 end

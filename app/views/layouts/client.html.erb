@@ -12,6 +12,6 @@
     <%= javascript_include_tag '//maps.googleapis.com/maps/api/js' %>
   </head>
   <body>
-    <%= react_component("App", props: @event_props, prerender: false) %>
+    <%= yield %>
   </body>
 </html>

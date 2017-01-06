@@ -117,9 +117,14 @@
         <% end %>
         <div class="row gallery">
           <% @event.event_pictures.each do |image| %>
-          <div class="col col-xs-6 col-md-4">
-            <a class="image" style="background-image: url('<%= image.try(:media, :thumb) %>');" data-toggle="lightbox" href="<%= image.try(:media, :thumb) %>" data-parent=".gallery" data-gallery="multiimages"></a>
-          </div>
+            <div class="col col-xs-6 col-md-4">
+              <a class="image"
+                 style="background-image: url('<%= image.try(:media, :thumb) %>');"
+                 data-toggle="lightbox"
+                 href="<%= image.try(:media, :thumb) %>"
+                 data-parent=".gallery"
+                 data-gallery="multiimages"></a>
+            </div>
           <% end %>
         </div>
       </div>

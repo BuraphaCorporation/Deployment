@@ -20,13 +20,9 @@
     font-family: 'Athiti';
   }
 
-  .box-center {
-    font-family: 'Athiti';
-    font-size: 14pt;
-    font-weight: 100;
-    color: #414141;
-    width: 40%;
-    margin: auto;
+  .block-center {
+    float: none;
+    margin: 0 auto;
   }
 
   .underline-title {
@@ -100,6 +96,13 @@
     background: #D9FFFF;
     // padding-top: 40px;
     // padding-bottom: 20px;
+
+    .comment-details {
+      font-family: 'Athiti';
+      font-size: 14pt;
+      font-weight: 100;
+      color: #414141;
+    }
   }
 
   section.subscribe {

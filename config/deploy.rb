@@ -16,10 +16,11 @@ def current_git_branch
 end
 
 set :application, 'Daydash'
-set :repo_url, 'git@github.com:justfuckingdoit/daydash.git'
+set :repo_url, 'git@github.com:siambot/api.daydash.co.git'
 set :deploy_to, '/home/deploy/daydash'
 set :deploy_user, 'deploy'
 set :ssh_options, {:forward_agent => true}
+set :keep_releases, 10
 
 set :slackistrano, {
   channel: '#system',

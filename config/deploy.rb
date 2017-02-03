@@ -16,7 +16,7 @@ def current_git_branch
 end
 
 set :application, 'Daydash'
-set :repo_url, 'git@github.com:siambot/api.daydash.co.git'
+set :repo_url, 'git@github.com:letsdoitrocks/daydash.git'
 set :deploy_to, '/home/deploy/daydash'
 set :deploy_user, 'deploy'
 set :ssh_options, {:forward_agent => true}
@@ -74,9 +74,10 @@ namespace :deploy do
   end
 
   before 'deploy:assets:precompile', :npm_install
-  after :finishing, 'deploy:cleanup'
-  after :publishing, 'deploy:restart'
-  after :published, :restart_workers
+  # after :finishing, 'deploy:cleanup'
+  after :publishing,  'deploy:restart'
+  after :restart,     'deploy:cleanup'
+  after :published,   :restart_workers
 end
 
 namespace :setup do

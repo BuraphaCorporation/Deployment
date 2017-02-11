@@ -443,7 +443,7 @@ GEM
     has_scope (0.7.0)
       actionpack (>= 4.1, < 5.1)
       activesupport (>= 4.1, < 5.1)
-    hashie (3.5.2)
+    hashie (3.5.1)
     hashie-forbidden_attributes (0.1.1)
       hashie (>= 3.0)
     htmlentities (4.3.4)
@@ -848,6 +848,7 @@ DEPENDENCIES
   grape-swagger
   grape-swagger-rails
   has_scope
+  hashie (= 3.5.1)
   hashie-forbidden_attributes
   jbuilder (~> 2.5)
   json!

@@ -95,7 +95,18 @@
 
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  constraints(subdomain: App.host)  do
+
+  constraints(subdomain: App.host('api')) do
+    mount Sidekiq::Web => '/workers'
+    # mount ActionCable.server => "/cable"
+
+    mount ApplicationAPI, at: '/'
+    mount GrapeSwaggerRails::Engine, at: '/explorer'
+  end
+
+  constraints(subdomain: App.host('admin')) do
+    root 'organizer/events#index'
+
     devise_for :user,
       path: 'auth',
       controllers: {
@@ -107,44 +118,6 @@ Rails.application.routes.draw do
         unlocks:            'user/unlocks',
       }
 
-    root 'client/react#index'
-    get 'beta', to: 'client/react#index'
-
-    get '/landing',               to: 'greetings#landing'
-    get '/rating',                to: 'greetings#rating'
-
-    get '/about',                 to: 'greetings#about'
-    get '/contact',               to: 'greetings#contact'
-    get '/faq',                   to: 'greetings#faq'
-    get '/terms-and-conditions',  to: 'greetings#terms'
-    get '/privacy-policy',        to: 'greetings#policy'
-
-    get '/campaign/dash-your-day',        to: 'greetings#campaign'
-    get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
-
-    namespace :client, path: nil do
-      get 'categories/:category', to: 'events#index', as: :category
-
-      resources :events, only: [:index, :show]
-
-      resources :payments, path: 'events' do
-        get '/express',             to: 'payments#express'
-        post '/selection',          to: 'payments#selection'
-        post '/checkout',           to: 'payments#checkout'
-      end
-
-      resources :profiles, only: :index do
-        get '/tickets',             to: 'profiles#tickets'
-        get '/orders',              to: 'profiles#orders'
-        get '/orders/:ticket_id/',  to: 'profiles#order', as: :ticket
-        get '/settings',            to: 'profiles#settings'
-        put '/settings',            to: 'profiles#settings_update'
-        put '/change_password',     to: 'profiles#change_password'
-      end
-    end
-  end
-
-  constraints(subdomain: App.host('admin')) do
     namespace :organizer, path: 'organizers' do
       resources :events do
         member do
@@ -213,11 +186,53 @@ Rails.application.routes.draw do
     end
   end
 
-  constraints(subdomain: App.host('api')) do
-    mount Sidekiq::Web => '/workers'
-    # mount ActionCable.server => "/cable"
+  # constraints(subdomain: App.host)  do
+  #   devise_for :user,
+  #     path: 'auth',
+  #     controllers: {
+  #       confirmations:      'user/confirmations',
+  #       omniauth_callbacks: 'user/omniauth_callbacks',
+  #       passwords:          'user/passwords',
+  #       registrations:      'user/registrations',
+  #       sessions:           'user/sessions',
+  #       unlocks:            'user/unlocks',
+  #     }
+  #
+  #   root 'client/react#index'
+  #   get 'beta', to: 'client/react#index'
+  #
+  #   get '/landing',               to: 'greetings#landing'
+  #   get '/rating',                to: 'greetings#rating'
+  #
+  #   get '/about',                 to: 'greetings#about'
+  #   get '/contact',               to: 'greetings#contact'
+  #   get '/faq',                   to: 'greetings#faq'
+  #   get '/terms-and-conditions',  to: 'greetings#terms'
+  #   get '/privacy-policy',        to: 'greetings#policy'
+  #
+  #   get '/campaign/dash-your-day',        to: 'greetings#campaign'
+  #   get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
+  #
+  #   namespace :client, path: nil do
+  #     get 'categories/:category', to: 'events#index', as: :category
+  #
+  #     resources :events, only: [:index, :show]
+  #
+  #     resources :payments, path: 'events' do
+  #       get '/express',             to: 'payments#express'
+  #       post '/selection',          to: 'payments#selection'
+  #       post '/checkout',           to: 'payments#checkout'
+  #     end
+  #
+  #     resources :profiles, only: :index do
+  #       get '/tickets',             to: 'profiles#tickets'
+  #       get '/orders',              to: 'profiles#orders'
+  #       get '/orders/:ticket_id/',  to: 'profiles#order', as: :ticket
+  #       get '/settings',            to: 'profiles#settings'
+  #       put '/settings',            to: 'profiles#settings_update'
+  #       put '/change_password',     to: 'profiles#change_password'
+  #     end
+  #   end
+  # end
 
-    mount ApplicationAPI, at: '/'
-    mount GrapeSwaggerRails::Engine, at: '/explorer'
-  end
 end

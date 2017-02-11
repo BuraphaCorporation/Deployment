@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :default_seo
   before_action :default_cover
 
-  http_basic_authenticate_with name: 'admin', password: 'x' if App.host == 'alpha'
+  # http_basic_authenticate_with name: 'admin', password: 'x' if App.host == 'alpha'
 
 protected
   def not_found

@@ -77,6 +77,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'devise'
 gem 'omniauth-facebook'
+gem 'hashie', '3.5.1'
 gem 'koala'
 
 # worker

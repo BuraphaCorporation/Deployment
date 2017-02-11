@@ -1,5 +1,5 @@
-class Mobile::TagAPI < ApplicationAPI
-  include Defaults::Mobile
+class V1::TagAPI < ApplicationAPI
+  include Defaults::V1
 
   resources :tags do
     desc "Return all tags"

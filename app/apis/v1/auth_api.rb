@@ -1,5 +1,5 @@
-class Mobile::AuthAPI < ApplicationAPI
-  include Defaults::Mobile
+class V1::AuthAPI < ApplicationAPI
+  include Defaults::V1
 
   resources :auth do
     desc "Return a user token from signup successfully"

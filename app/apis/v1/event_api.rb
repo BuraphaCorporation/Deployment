@@ -1,5 +1,5 @@
-class Mobile::EventAPI < ApplicationAPI
-  include Defaults::Mobile
+class V1::EventAPI < ApplicationAPI
+  include Defaults::V1
 
   resources :event do
     desc "Return a event"

@@ -1,5 +1,5 @@
-class Mobile::PaymentAPI < ApplicationAPI
-  include Defaults::Mobile
+class V1::PaymentAPI < ApplicationAPI
+  include Defaults::V1
 
   resources :payment do
     desc "return channel payment"

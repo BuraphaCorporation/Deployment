@@ -168,8 +168,6 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'
-  gem 'guard'
-  gem 'guard-rspec'
   gem 'shoulda'
   gem 'shoulda-matchers'#, '~> 3.0'
   gem 'poltergeist'

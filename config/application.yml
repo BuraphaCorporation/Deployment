@@ -19,6 +19,11 @@ default: &default
   MAILGUN_USERNAME: 'postmaster@daydash.co'
   MAILGUN_PASSWORD: 'f6b0bf49107aedd15e63c574402fc595'
   MAILGUN_API_KEY: 'key-1eba6c459b82d4ef064a4ae1692fc333'
+  FACEBOOK_LINK: 'https://www.facebook.com/daydashapp'
+  INSTAGRAM_LINK: 'https://www.instagram.com/daydashapp/'
+  TWITTER_LINK: 'http://www.twitter.com/daydashapp'
+  LINE_LINK: 'http://line.me/ti/p/@daydashapp'
+  YOUTUBE_LINK:
 
 development:
   <<: *default
@@ -36,7 +41,7 @@ production:
   OMISE_SKEY: 'skey_55erbhawek7nmg6c2yz'
   INTERCOM_SKEY: 'fZfNfrU_5dNfi0SzRy5OgW-nGqgFWLaAEUUMiULu'
 
-# brick:
+# alpha:
 #   <<: *default
 #   HELLO: users
 #   S3_BUCKET_NAME: 'daydash'

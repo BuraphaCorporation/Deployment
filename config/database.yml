@@ -6,11 +6,11 @@ default: &default
 
 development:
   <<: *default
-  database: Daydash_development
+  database: daydash_development
 
 test:
   <<: *default
-  database: Daydash_test
+  database: daydash_test
 
 server: &server
   adapter: postgresql
@@ -21,7 +21,7 @@ server: &server
   host: localhost
   port: 5432
 
-brick:
+alpha:
   <<: *server
 production:
   <<: *server

@@ -10,20 +10,16 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def domain(subdomain = nil)
-    protocol + '//' + case subdomain
-                      when 'api'
-                        "#{api_host}.#{root_domain}#{port}"
-                      when 'admin'
-                        "admin.#{root_domain}#{port}"
-                      when 'organizer'
-                        "organizer.#{root_domain}#{port}"
-                      else
-                        if environment.development?
-                          "#{root_domain}#{port}"
-                        else
-                          "#{root_domain}"
-                        end
-                      end
+    domain = case subdomain
+    when 'api'
+      "#{host('api')}.#{root_domain}"
+    when 'admin'
+      "admin.#{root_domain}"
+    else
+      root_domain
+    end
+
+    protocol + '//' + domain
   end
 
   def root_domain
@@ -31,7 +27,7 @@ class App < Struct.new(:region, :environment, :version)
       'daydash.local'
     else
       'daydash.co'
-    end
+    end + port
   end
 
   def protocol
@@ -42,27 +38,14 @@ class App < Struct.new(:region, :environment, :version)
     ':1337' if environment.development?
   end
 
-  def host
+  def host(subdomain = nil)
     case environment
-    when 'staging', 'brick', 'alpha'
-      'brick'
+    when 'staging', 'alpha'
+      subdomain.nil? ? 'alpha' : "alpha-#{subdomain}"
     else
-      ''
+      "#{subdomain}"
     end
   end
-
-  def api_host
-    case environment
-    when 'staging', 'brick', 'alpha'
-      'brick-api'
-    else
-      'api'
-    end
-  end
-
-  # def is_admin?
-  #   $admin
-  # end
 
   def configure
     config = OpenStruct.new
@@ -76,7 +59,7 @@ class App < Struct.new(:region, :environment, :version)
       config.ga_tracking_code     = 'UA-82041608-1'
       config.hotjar_id            = 281788
       config.slack_webhook           = "https://hooks.slack.com/services/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"
-    when 'staging', 'brick', 'alpha'
+    when 'staging', 'alpha', 'alpha'
       config.firebase             = 'https://daydash-staging.firebaseio.com/'
       config.redis                = { host: 'redis-staging.daydash.co', port: 6379, timeout: 25 }
       config.facebook_app_id      = '259929777688738'
@@ -125,6 +108,7 @@ class App < Struct.new(:region, :environment, :version)
     else
       tmp = "public/QRCode/#{qr.class.name}-#{qr.code}.png"
     end
+
     RQRCode::QRCode.new(qr.code, size: 4, level: :h).to_img.resize(120, 120).save(tmp)
   end
 
@@ -133,19 +117,19 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def facebook_link
-    'https://www.facebook.com/daydashapp'
+    ENV['FACEBOOK_LINK']
   end
 
   def line_link
-    'http://line.me/ti/p/@kjy4951o'
+    ENV['LINE_LINK']
   end
 
   def instagram_link
-    'https://www.instagram.com/daydashapp/'
+    ENV['INSTAGRAM_LINK']
   end
 
   def twitter_link
-    'http://www.twitter.com/daydashapp'
+    ENV['TWITTER_LINK']
   end
 
   class << self

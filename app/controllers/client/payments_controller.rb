@@ -1,7 +1,7 @@
 module Client
   class PaymentsController < Client::BaseController
-    before_action :related_events, only: :checkout
     before_action :event
+    before_action :related_events, only: :checkout
     before_action :seo_events, except: :checkout
 
     def selection

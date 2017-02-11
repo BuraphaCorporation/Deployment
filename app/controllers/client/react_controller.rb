@@ -1,7 +1,5 @@
 module Client
   class ReactController < Client::BaseController
-    before_action :authenticate_user!
-
     layout 'client'
 
     def index

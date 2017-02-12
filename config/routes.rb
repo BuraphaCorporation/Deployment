@@ -104,9 +104,7 @@ Rails.application.routes.draw do
     mount GrapeSwaggerRails::Engine, at: '/explorer'
   end
 
-  constraints(subdomain: App.host('admin')) do
-    root 'organizer/events#index'
-
+  constraints(subdomain: App.host)  do
     devise_for :user,
       path: 'auth',
       controllers: {
@@ -117,6 +115,44 @@ Rails.application.routes.draw do
         sessions:           'user/sessions',
         unlocks:            'user/unlocks',
       }
+
+    root 'client/react#index'
+    # root 'organizer/events#index'
+
+    get 'beta', to: 'client/react#index'
+
+    get '/landing',               to: 'greetings#landing'
+    get '/rating',                to: 'greetings#rating'
+
+    get '/about',                 to: 'greetings#about'
+    get '/contact',               to: 'greetings#contact'
+    get '/faq',                   to: 'greetings#faq'
+    get '/terms-and-conditions',  to: 'greetings#terms'
+    get '/privacy-policy',        to: 'greetings#policy'
+
+    get '/campaign/dash-your-day',        to: 'greetings#campaign'
+    get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
+
+    # namespace :client, path: nil do
+    #   get 'categories/:category', to: 'events#index', as: :category
+    #
+    #   resources :events, only: [:index, :show]
+    #
+    #   resources :payments, path: 'events' do
+    #     get '/express',             to: 'payments#express'
+    #     post '/selection',          to: 'payments#selection'
+    #     post '/checkout',           to: 'payments#checkout'
+    #   end
+    #
+    #   resources :profiles, only: :index do
+    #     get '/tickets',             to: 'profiles#tickets'
+    #     get '/orders',              to: 'profiles#orders'
+    #     get '/orders/:ticket_id/',  to: 'profiles#order', as: :ticket
+    #     get '/settings',            to: 'profiles#settings'
+    #     put '/settings',            to: 'profiles#settings_update'
+    #     put '/change_password',     to: 'profiles#change_password'
+    #   end
+    # end
 
     namespace :organizer, path: 'organizers' do
       resources :events do
@@ -149,7 +185,7 @@ Rails.application.routes.draw do
       root to: "profiles#index"
     end
 
-    namespace :admin, path: nil do
+    namespace :admin, path: 'admin' do
       # root to: 'events#index'
       get '/',                      to: 'events#index'
       get '/users',                 to: 'users#index'
@@ -185,54 +221,4 @@ Rails.application.routes.draw do
       # root to: "users#index"
     end
   end
-
-  # constraints(subdomain: App.host)  do
-  #   devise_for :user,
-  #     path: 'auth',
-  #     controllers: {
-  #       confirmations:      'user/confirmations',
-  #       omniauth_callbacks: 'user/omniauth_callbacks',
-  #       passwords:          'user/passwords',
-  #       registrations:      'user/registrations',
-  #       sessions:           'user/sessions',
-  #       unlocks:            'user/unlocks',
-  #     }
-  #
-  #   root 'client/react#index'
-  #   get 'beta', to: 'client/react#index'
-  #
-  #   get '/landing',               to: 'greetings#landing'
-  #   get '/rating',                to: 'greetings#rating'
-  #
-  #   get '/about',                 to: 'greetings#about'
-  #   get '/contact',               to: 'greetings#contact'
-  #   get '/faq',                   to: 'greetings#faq'
-  #   get '/terms-and-conditions',  to: 'greetings#terms'
-  #   get '/privacy-policy',        to: 'greetings#policy'
-  #
-  #   get '/campaign/dash-your-day',        to: 'greetings#campaign'
-  #   get '/campaign/dash-your-day/terms',  to: 'greetings#campaign_terms'
-  #
-  #   namespace :client, path: nil do
-  #     get 'categories/:category', to: 'events#index', as: :category
-  #
-  #     resources :events, only: [:index, :show]
-  #
-  #     resources :payments, path: 'events' do
-  #       get '/express',             to: 'payments#express'
-  #       post '/selection',          to: 'payments#selection'
-  #       post '/checkout',           to: 'payments#checkout'
-  #     end
-  #
-  #     resources :profiles, only: :index do
-  #       get '/tickets',             to: 'profiles#tickets'
-  #       get '/orders',              to: 'profiles#orders'
-  #       get '/orders/:ticket_id/',  to: 'profiles#order', as: :ticket
-  #       get '/settings',            to: 'profiles#settings'
-  #       put '/settings',            to: 'profiles#settings_update'
-  #       put '/change_password',     to: 'profiles#change_password'
-  #     end
-  #   end
-  # end
-
 end

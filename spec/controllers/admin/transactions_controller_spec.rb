@@ -23,10 +23,10 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe Admin::EventsController, type: :controller do
+RSpec.describe Admin::TransactionsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Admin::Event. As you add validations to Admin::Event, be sure to
+  # Admin::Transaction. As you add validations to Admin::Transaction, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -38,12 +38,12 @@ RSpec.describe Admin::EventsController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # Admin::EventsController. Be sure to keep this updated too.
+  # Admin::TransactionsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
     it "returns a success response" do
-      event = Admin::Event.create! valid_attributes
+      transaction = Admin::Transaction.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_success
     end
@@ -51,8 +51,8 @@ RSpec.describe Admin::EventsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      event = Admin::Event.create! valid_attributes
-      get :show, params: {id: event.to_param}, session: valid_session
+      transaction = Admin::Transaction.create! valid_attributes
+      get :show, params: {id: transaction.to_param}, session: valid_session
       expect(response).to be_success
     end
   end
@@ -66,29 +66,29 @@ RSpec.describe Admin::EventsController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
-      event = Admin::Event.create! valid_attributes
-      get :edit, params: {id: event.to_param}, session: valid_session
+      transaction = Admin::Transaction.create! valid_attributes
+      get :edit, params: {id: transaction.to_param}, session: valid_session
       expect(response).to be_success
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Admin::Event" do
+      it "creates a new Admin::Transaction" do
         expect {
-          post :create, params: {admin_event: valid_attributes}, session: valid_session
-        }.to change(Admin::Event, :count).by(1)
+          post :create, params: {admin_transaction: valid_attributes}, session: valid_session
+        }.to change(Admin::Transaction, :count).by(1)
       end
 
-      it "redirects to the created admin_event" do
-        post :create, params: {admin_event: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Admin::Event.last)
+      it "redirects to the created admin_transaction" do
+        post :create, params: {admin_transaction: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(Admin::Transaction.last)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {admin_event: invalid_attributes}, session: valid_session
+        post :create, params: {admin_transaction: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
     end
@@ -100,41 +100,41 @@ RSpec.describe Admin::EventsController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested admin_event" do
-        event = Admin::Event.create! valid_attributes
-        put :update, params: {id: event.to_param, admin_event: new_attributes}, session: valid_session
-        event.reload
+      it "updates the requested admin_transaction" do
+        transaction = Admin::Transaction.create! valid_attributes
+        put :update, params: {id: transaction.to_param, admin_transaction: new_attributes}, session: valid_session
+        transaction.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the admin_event" do
-        event = Admin::Event.create! valid_attributes
-        put :update, params: {id: event.to_param, admin_event: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(event)
+      it "redirects to the admin_transaction" do
+        transaction = Admin::Transaction.create! valid_attributes
+        put :update, params: {id: transaction.to_param, admin_transaction: valid_attributes}, session: valid_session
+        expect(response).to redirect_to(transaction)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        event = Admin::Event.create! valid_attributes
-        put :update, params: {id: event.to_param, admin_event: invalid_attributes}, session: valid_session
+        transaction = Admin::Transaction.create! valid_attributes
+        put :update, params: {id: transaction.to_param, admin_transaction: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested admin_event" do
-      event = Admin::Event.create! valid_attributes
+    it "destroys the requested admin_transaction" do
+      transaction = Admin::Transaction.create! valid_attributes
       expect {
-        delete :destroy, params: {id: event.to_param}, session: valid_session
-      }.to change(Admin::Event, :count).by(-1)
+        delete :destroy, params: {id: transaction.to_param}, session: valid_session
+      }.to change(Admin::Transaction, :count).by(-1)
     end
 
-    it "redirects to the admin_events list" do
-      event = Admin::Event.create! valid_attributes
-      delete :destroy, params: {id: event.to_param}, session: valid_session
-      expect(response).to redirect_to(admin_events_url)
+    it "redirects to the admin_transactions list" do
+      transaction = Admin::Transaction.create! valid_attributes
+      delete :destroy, params: {id: transaction.to_param}, session: valid_session
+      expect(response).to redirect_to(admin_transactions_url)
     end
   end
 

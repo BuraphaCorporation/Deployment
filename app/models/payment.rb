@@ -30,7 +30,7 @@
 class Payment < ApplicationRecord
   belongs_to :order, inverse_of: :payment
 
-  has_attached_file :evidence, styles: { default: "600x700" }
+  has_attached_file :evidence, styles: { default: '600x700' }
   # has_attached_file :qr_code, styles: { medium: "300x300>" }, default_url: "/images/:style/missing.png"
   # validates_attachment_content_type :qr_code, content_type: /\Aimage\/.*\z/
 
@@ -39,7 +39,7 @@ class Payment < ApplicationRecord
   # after_create :send_email_payment
 
   enumerize :status, in: [:success, :failure, :cancel, :pending], default: :pending
-  scope :available, -> { all.reject{ |p| p.tickets.empty? } }
+  scope :available, -> { all.reject{ |payment| payment.tickets.empty? } }
 
   # def to_s
   #   "#PM-#{code}"
@@ -120,7 +120,7 @@ class Payment < ApplicationRecord
     def omise_customer_charge(order, omise_token)
       charge = Omise::Charge.create({
         amount:       order.price,
-        currency:     "thb",
+        currency:     'thb',
         description:  order.invoice_no,
         customer:     order.user.omise_customer_id,
         card:         omise_token
@@ -141,7 +141,7 @@ class Payment < ApplicationRecord
     def omise_token_charge(order, omise_token)
       charge = Omise::Charge.create({
         amount:       order.price,
-        currency:     "thb",
+        currency:     'thb',
         description:  order.invoice_no,
         card:         omise_token
       })

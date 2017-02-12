@@ -1,11 +1,6 @@
-@import 'bootstrap-sprockets';
-@import 'bootstrap';
-@import 'bootstrap-datetimepicker';
-@import 'font-awesome-sprockets';
-@import 'font-awesome';
-
-//= require slick
-//= require slick-theme
+//= require bootstrap
+//= require bootstrap-datepicker
+//= require fontawesome
 //= require ./pages/base
 
 .search-bar {

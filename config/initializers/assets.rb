@@ -15,7 +15,7 @@ Rails.application.config.assets.precompile << /(^[^_\/]|\/[^_])[^\/]*$/
 # Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
 Rails.application.config.assets.precompile += %w( *.svg *.eot *.woff *.ttf *.gif *.png *.ico )
 # Rails.application.config.assets.precompile += %w( *.js *.css *.scss *.less )
-Rails.application.config.assets.precompile += %w( daydash.css daydsah.js )
+Rails.application.config.assets.precompile += %w( daydash.css daydash.js )
 # Add client/assets/ folders to asset pipeline's search path.
 # If you do not want to move existing images and fonts from your Rails app
 # you could also consider creating symlinks there that point to the original

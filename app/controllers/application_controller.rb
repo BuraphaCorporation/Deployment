@@ -1,4 +1,9 @@
+require "application_responder"
+
 class ApplicationController < ActionController::Base
+  self.responder = ApplicationResponder
+  respond_to :html
+
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -6,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :default_seo
   before_action :default_cover
 
-  http_basic_authenticate_with name: 'admin', password: 'x' if App.host == 'brick'
+  # http_basic_authenticate_with name: 'admin', password: 'x' if App.host == 'alpha'
 
 protected
   def not_found

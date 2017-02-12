@@ -50,13 +50,13 @@
               <div class="info">
                 <div class="info-body">
                   <h4 class="title">
-                    <%= link_to event.title, client_event_path(event), style: 'color: #000', target: '_blank' %>
-                    <% if event.uptime > Time.zone.now %>
+                    <%#= link_to event.title, client_event_path(event), style: 'color: #000', target: '_blank' %>
+                    <%# if event.uptime > Time.zone.now %>
                       <%#= @event.status == 'published' ? '<div class="btn btn-daydash-status btn-daydash-live">Live</div>'.html_safe : '<div class="btn btn-daydash-status btn-daydash-draft">Draft</div>'.html_safe %>
-                      <%= event.status == 'published' ? '<div class="btn btn-daydash-status btn-daydash-live">Live</div>'.html_safe : '<div class="btn btn-daydash-status btn-daydash-draft">Draft</div>'.html_safe %>
-                    <% else %>
+                      <%#= event.status == 'published' ? '<div class="btn btn-daydash-status btn-daydash-live">Live</div>'.html_safe : '<div class="btn btn-daydash-status btn-daydash-draft">Draft</div>'.html_safe %>
+                    <%# else %>
                       <div class="btn btn-daydash-status btn-daydash-past">Past</div>
-                    <% end %>
+                    <%# end %>
                   </h4>
                   <div class="meta date location"><%= event.to_uptime %> at <%= event.location_name %></div>
                 </div>
@@ -91,7 +91,7 @@
                         </li>
                         <% if event.status.published? %>
                           <li><%#= unpublish_organizer_event_path(event) %>
-                            <a href="<%= client_event_path(event) %>" target="_blank"><i class="nc-icon-outline ui-1_eye-17"></i> View Event</a>
+                            <a href="<%#= client_event_path(event) %>" target="_blank"><i class="nc-icon-outline ui-1_eye-17"></i> View Event</a>
                           </li>
                         <% else %>
                           <li>

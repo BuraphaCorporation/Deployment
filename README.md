@@ -30,8 +30,8 @@ echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_pr
 source ~/.bash_profile
 
 # Install Ruby
-rbenv install 2.3.1
-rbenv global 2.3.1
+rbenv install 2.3.3
+rbenv global 2.3.3
 ruby -v
 
 # Install Bundle

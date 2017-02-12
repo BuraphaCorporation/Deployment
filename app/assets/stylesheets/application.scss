@@ -1,5 +1,3 @@
-@import 'bootstrap-sprockets';
-@import 'bootstrap';
-@import 'bootstrap-datetimepicker';
-@import 'font-awesome-sprockets';
-@import 'font-awesome';
+//= require bootstrap
+//= require bootstrap-datepicker
+//= require fontawesome

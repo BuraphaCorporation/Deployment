@@ -261,6 +261,6 @@ private
   end
 
   def send_welcome_email
-    # Workers::UserWelcomeWorker.perform_async(self.id)
+    UserWelcomeWorker.perform_async(self.id)
   end
 end

@@ -9,7 +9,7 @@ module Admin
     include OrganizerHelper
     include DaydashHelper
 
-    layout 'daydash'
+    layout 'admin'
 
   protected
     def authenticate_organizer!

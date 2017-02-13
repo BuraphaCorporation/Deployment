@@ -1,11 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe "admin/dashboards/show", type: :view do
-  before(:each) do
-    @admin_dashboard = assign(:admin_dashboard, Admin::Dashboard.create!())
-  end
-
-  it "renders attributes in <p>" do
-    render
-  end
+RSpec.describe "dashboards/show.html.erb", type: :view do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

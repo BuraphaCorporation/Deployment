@@ -6,17 +6,17 @@ default: &default
 
 development:
   <<: *default
-  database: daydash_development
+  database: thekanko_development
 
 test:
   <<: *default
-  database: daydash_test
+  database: thekanko_test
 
 server: &server
   adapter: postgresql
   encoding: unicode
-  database: daydash_production
-  username: daydash
+  database: thekanko_production
+  username: thekanko
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: localhost
   port: 5432

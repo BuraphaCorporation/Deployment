@@ -7,9 +7,13 @@ module Admin
     end
 
     include OrganizerHelper
-    include DaydashHelper
+    include TheKankoHelper
 
+<<<<<<< HEAD
     layout 'admin'
+=======
+    layout 'thekanko'
+>>>>>>> develop
 
   protected
     def authenticate_organizer!

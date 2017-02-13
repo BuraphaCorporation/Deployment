@@ -82,16 +82,16 @@
                             <ul class="nav nav-justified">
                             <% if order.transfer? %>
                               <% if order.status.pending? %>
-                                <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
-                                <li><a class="btn btn-daydash btn-daydash-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
+                                <li><a class="btn btn-thekanko btn-thekanko-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-info"></i> วิธีการชำระเงิน</a></li>
+                                <li><a class="btn btn-thekanko btn-thekanko-inverse open-payment" data-toggle="modal" data-time="<%= order.expires_on %>" data-price="<%= convert_to_currency order.to_price %>" href="#payment-modal"><i class="icon icon-xs icon-submit"></i> แจ้งชำระเงิน</a></li>
                               <% else %>
                                 <!-- <li> -->
                                   รายการการสั่งซื้อนี้ถูกยกเลิก เนื่องจากเลยกำหนดการชำระเงิน
-                                  หากคุณต้องความช่วยเหลือกรุณาติดต่อ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> หรือ 080-4569465
+                                  หากคุณต้องความช่วยเหลือกรุณาติดต่อ Line: <a href="https://line.me/ti/p/@thekanko" target="_blank">@thekanko</a> หรือ 080-4569465
                                 <!-- </li> -->
                               <% end %>
                             <% else %>
-                              <li><a class="btn btn-block btn-daydash btn-daydash-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></li>
+                              <li><a class="btn btn-block btn-thekanko btn-thekanko-green-1" href="<%= client_profile_tickets_path %>">ดูบัตรเข้าร่วมงาน</a></li>
                             <% end %>
                             </ul>
                           </div>
@@ -105,7 +105,7 @@
               <div class="empty">
                 <i class="icon icon-lg icon-shopping"></i>
                 <h4 class="description">ยังไม่มีรายการสั่งซื้อ</h4>
-                <a class="btn btn-daydash btn-daydash-md btn-daydash-green-1" href="/">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
+                <a class="btn btn-thekanko btn-thekanko-md btn-thekanko-green-1" href="/">ค้นหากิจกรรมและอีเว้นท์ที่น่าสนใจ</a>
               </div>
             <% end %>
           </div>
@@ -163,7 +163,7 @@
                 </div>
                 <p style="font-weight: 200; padding-bottom: 30px;">
                   2. แจ้งยืนยันการชำระเงินโดยส่งรูปถ่ายหลักฐานการโอนเงิน<br />
-                  พร้อมรหัสการโอนเงิน ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)
+                  พร้อมรหัสการโอนเงิน ผ่านทาง: Line <a href="https://line.me/ti/p/@thekanko" target="_blank">@thekanko</a> (มี @ ข้างหน้า)
                 </p>
                 <p style="font-weight: 200; padding-bottom: 30px;">
                   3. เราจะส่งบัตรให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 4 ชั่วโมง :)
@@ -182,7 +182,7 @@
                   <tr>
                     <td align="center" style="background: #DFFFFB; padding: 15px; font-size: 14px; font-weight: 200;">
                       หากคุณพบปัญหาหรือมีคำถาม ต้องการความช่วยเหลือ สามารถติดต่อเราได้ที่<br />
-                      Tel. 080-4569465 หรือ Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a>
+                      Tel. 080-4569465 หรือ Line: <a href="https://line.me/ti/p/@thekanko" target="_blank">@thekanko</a>
                     </td>
                   </tr>
                 </table>

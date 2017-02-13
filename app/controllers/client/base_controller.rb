@@ -5,7 +5,7 @@ module Client
       set_current_page('client')
     end
 
-    include DaydashHelper
-    layout "daydash"
+    include TheKankoHelper
+    layout "thekanko"
   end
 end

@@ -5,7 +5,7 @@
 
     <div class="row">
       <div class="col-xs-12 col-md-8">
-        <div class="panel panel-daydash main-panel">
+        <div class="panel panel-thekanko main-panel">
           <div class="panel-heading">
             <div class="back-btn">
               <a href="<%= client_event_path(@event) %>" target="_blank"><i class="icon icon-arrow-left"></i> <%= @event.title %></a>
@@ -23,16 +23,16 @@
               <li>
                 <i class="icon icon-xs icon-checked"></i>
 
-                <span>ได้รับคำสั่งซื้อ <span class="color-daydash-green">#<%= @order.code %></span> :</span>
+                <span>ได้รับคำสั่งซื้อ <span class="color-thekanko-green">#<%= @order.code %></span> :</span>
                 <% if @order.price == 0 %>
                   <span>ยอดรวม: <%= convert_to_currency @order.to_price %> ทำรายการสำเร็จเรียบร้อย</span>
                 <% else %>
                   <span>ยอดรวม: <%= convert_to_currency @order.to_price %></span>
 
                   <% if @order.transfer? %>
-                    <span class="color-daydash-red"><%= @order.payment.stages %></span>
+                    <span class="color-thekanko-red"><%= @order.payment.stages %></span>
                   <% else %>
-                    <span class="color-daydash-green-2"><%= @order.payment.stages %></span>
+                    <span class="color-thekanko-green-2"><%= @order.payment.stages %></span>
                   <% end %> โดย <%= @order.payment.channel %></li>
                 <% end %>
               </li>
@@ -45,7 +45,7 @@
               </li>
               <li>
                 <i class="icon icon-xs icon-waiting"></i>
-                <span class="color-daydash-red">
+                <span class="color-thekanko-red">
                   กรุณาทำการชำระเงินและแจ้งชำระเงินภายใน 4 ชั่วโมงค่ะ <br />
                   (ชำระภายใน วันที่ <%= @order.to_expires_on %>)
                 </span>
@@ -64,7 +64,7 @@
             <div class="panel-action">
               <% if @order.transfer? %>
               <!--
-              <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-pink btn-lg btn-daydash-round">รายละเอียดการชำระเงิน</a> -->
+              <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-thekanko btn-thekanko-pink btn-lg btn-thekanko-round">รายละเอียดการชำระเงิน</a> -->
 
                 <h3>วิธีการชำระเงิน</h3>
                 <p style="font-weight: 200;">
@@ -104,16 +104,16 @@
 
                 <p style="font-weight: 200; padding-bottom: 30px;">
                   2. แจ้งยืนยันการชำระเงินโดยส่งรูปถ่ายหลักฐานการโอนเงิน<br />
-                  พร้อมรหัสการโอนเงิน <strong style="color: #21A4A5; "><%= @order.code %></strong> ผ่านทาง: Line <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a> (มี @ ข้างหน้า)
+                  พร้อมรหัสการโอนเงิน <strong style="color: #21A4A5; "><%= @order.code %></strong> ผ่านทาง: Line <a href="https://line.me/ti/p/@thekanko" target="_blank">@thekanko</a> (มี @ ข้างหน้า)
                 </p>
                 <p style="font-weight: 200; padding-bottom: 30px;">
                   3. เราจะส่งบัตรให้คุณทางอีเมลเมื่อเราได้รับแจ้งยืนยันการชำระเงินแล้วภายใน 4 ชั่วโมง :)
                 </p>
               <% end %>
               <% if @order.omise? %>
-                <a href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูบัตรของคุณ</a>
+                <a href="<%= client_profile_tickets_path(current_user) %>" class="btn btn-thekanko btn-thekanko-green-2 btn-lg btn-thekanko-round">ดูบัตรของคุณ</a>
               <% else %>
-                <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-daydash btn-daydash-green-2 btn-lg btn-daydash-round">ดูรายละเอียดการสั่งซื้อ</a>
+                <a href="<%= client_profile_orders_path(current_user) %>" class="btn btn-thekanko btn-thekanko-green-2 btn-lg btn-thekanko-round">ดูรายละเอียดการสั่งซื้อ</a>
               <% end %>
             </div>
           </div> <!-- .panel-body -->
@@ -131,7 +131,7 @@
         </div> <!-- .panel -->
       </div>
       <div class="col-xs-12 col-md-4">
-        <div class="panel panel-daydash side-panel-1">
+        <div class="panel panel-thekanko side-panel-1">
           <div class="panel-body">
             <ul class="list-inline">
               <li><i class="icon icon-envelope"></i></li>
@@ -139,21 +139,21 @@
               <li><i class="icon icon-mobile"></i></li>
             </ul>
             <p>คุณไม่จำเป็นต้องพิมพ์บัตรใดๆ เพียงโชว์บัตรที่เราส่งให้คุณทางอีเมล หน้า My Tickets ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
-            <!-- <p>คุณไม่จำเป็นต้องพิมพ์บัตรใดๆ เพียงโชว์บัตรที่เราส่งให้คุณทางอีเมล หน้า My Tickets หรือบน Daydash iOS App ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
+            <!-- <p>คุณไม่จำเป็นต้องพิมพ์บัตรใดๆ เพียงโชว์บัตรที่เราส่งให้คุณทางอีเมล หน้า My Tickets หรือบน TheKanko iOS App ให้กับผู้จัดงาน คุณก็สามารถเข้าร่วมกิจกรรมได้ทันที!</p>
             <p><img src="/src/images/theme/appstore.png" height="50" /></p>
             <div>สะดวกกว่า ค้นหา ซื้อบัตร และเข้าร่วมงานได้ใน 2 นาที!</div> -->
           </div>
         </div>
-        <div class="panel panel-daydash side-panel-2">
+        <div class="panel panel-thekanko side-panel-2">
           <div class="panel-heading">
             <div class="panel-title">มีปัญหา คำถาม ติดต่อเราได้ทันทีค่ะ :)</div>
           </div>
           <div class="panel-body">
             <ul>
               <!-- <li><i class="icon icon-xs icon-comments"></i> สอบถามพูดคุยแบบ real time</li> -->
-              <li><i class="icon icon-xs icon-line-black"></i> <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a></li>
+              <li><i class="icon icon-xs icon-line-black"></i> <a href="https://line.me/ti/p/@thekanko" target="_blank">@thekanko</a></li>
               <li><i class="icon icon-xs icon-phone"></i> 080-4569465</li>
-              <li><i class="icon icon-xs icon-envelope"></i> <a href="mailto:hello@daydash.co">hello@daydash.co</a></li>
+              <li><i class="icon icon-xs icon-envelope"></i> <a href="mailto:hello@thekanko.com">hello@thekanko.com</a></li>
             </ul>
           </div>
         </div>

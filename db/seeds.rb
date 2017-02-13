@@ -16,7 +16,7 @@ end
 
 
 user = User.create do |user|
-  user.email                  = "hello@thekanko.co"
+  user.email                  = "hello@thekanko.com"
   user.first_name             = 'Bow'
   user.last_name              = 'Kai'
   user.password               = '1234567890'
@@ -28,7 +28,7 @@ end
 puts user
 
 user = User.create do |user|
-  user.email                  = "organizer@thekanko.co"
+  user.email                  = "organizer@thekanko.com"
   user.first_name             = 'Organizer'
   user.last_name              = 'TheKanko'
   user.password               = '1234567890'

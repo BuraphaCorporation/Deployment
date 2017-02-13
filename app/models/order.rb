@@ -66,13 +66,13 @@ class Order < ApplicationRecord
   def send_notify!
     # return unless self.tickets.present?
     if self.paid?
-      Workers::OrganizerOrderWorker.perform_async(self.id)
-      Workers::UserTicketWorker.perform_async(self.id)
+      OrganizerOrderWorker.perform_async(self.id)
+      UserTicketWorker.perform_async(self.id)
     else
-      Workers::UserOrderWorker.perform_async(self.id)
+      UserOrderWorker.perform_async(self.id)
     end
 
-    Workers::AdminOrderNotifier.perform_async(self.id)
+    AdminOrderNotifier.perform_async(self.id)
   end
 
   def paid?

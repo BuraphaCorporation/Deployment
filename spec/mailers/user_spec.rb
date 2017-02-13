@@ -7,7 +7,7 @@
 #     it "renders the headers" do
 #       expect(mail.subject).to eq("Welcome")
 #       expect(mail.to).to eq(["to@example.org"])
-#       expect(mail.from).to eq(["noreply@thekanko.co"])
+#       expect(mail.from).to eq(["noreply@thekanko.com"])
 #     end
 #
 #     it "renders the body" do

@@ -9,7 +9,11 @@ module Admin
     include OrganizerHelper
     include TheKankoHelper
 
+<<<<<<< HEAD
+    layout 'admin'
+=======
     layout 'thekanko'
+>>>>>>> develop
 
   protected
     def authenticate_organizer!

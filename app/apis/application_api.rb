@@ -42,8 +42,8 @@ class ApplicationAPI < Grape::API
     base_path: '/',
     api_version: '1.0.0',
     info: {
-    contact: 'hello@thekanko.co',
-    terms_of_service_url: 'https://thekanko.co/terms',
+    contact: 'hello@thekanko.com',
+    terms_of_service_url: 'https://thekanko.com/terms',
     title: 'TheKanko API'
     },
     markdown: false,

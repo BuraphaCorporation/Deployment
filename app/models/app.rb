@@ -26,7 +26,7 @@ class App < Struct.new(:region, :environment, :version)
     if environment.development?
       'thekanko.local'
     else
-      'thekanko.co'
+      'thekanko.com'
     end + port
   end
 
@@ -53,7 +53,7 @@ class App < Struct.new(:region, :environment, :version)
     case environment
     when 'production'
       config.firebase             = 'https://thekanko.firebaseio.com/'
-      config.redis                = { host: 'redis.thekanko.co', port: 6379, timeout: 25 }
+      config.redis                = { host: 'redis.thekanko.com', port: 6379, timeout: 25 }
       config.facebook_app_id      = '259929777688738'
       config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
       config.ga_tracking_code     = 'UA-82041608-1'
@@ -61,7 +61,7 @@ class App < Struct.new(:region, :environment, :version)
       config.slack_webhook           = "https://hooks.slack.com/services/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"
     when 'staging', 'alpha', 'alpha'
       config.firebase             = 'https://thekanko-staging.firebaseio.com/'
-      config.redis                = { host: 'redis-staging.thekanko.co', port: 6379, timeout: 25 }
+      config.redis                = { host: 'redis-staging.thekanko.com', port: 6379, timeout: 25 }
       config.facebook_app_id      = '259929777688738'
       config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
       config.ga_tracking_code     = 'UA-82041608-2'
@@ -93,7 +93,7 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def no_reply
-    'no-reply@thekanko.co'
+    'no-reply@thekanko.com'
   end
 
   def generate_code(digit = 5)

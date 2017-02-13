@@ -15,9 +15,9 @@ def current_git_branch
   git_branch branch
 end
 
-set :application, 'Daydash'
-set :repo_url, 'git@github.com:letsdoitrocks/daydash.git'
-set :deploy_to, '/home/deploy/daydash'
+set :application, 'TheKanko'
+set :repo_url, 'git@github.com:letsdoitrocks/thekanko.git'
+set :deploy_to, '/home/deploy/thekanko'
 set :deploy_user, 'deploy'
 set :ssh_options, {:forward_agent => true}
 set :keep_releases, 10
@@ -95,12 +95,12 @@ namespace :setup do
   task :generate_error_html do
     on roles(:web) do |host|
       public_500_html = File.join(release_path, "public/500.html")
-      execute :curl, "-k", "https://alpha.daydash.co/500", "> #{public_500_html}"
+      execute :curl, "-k", "https://alpha.thekanko.co/500", "> #{public_500_html}"
 
       public_404_html = File.join(release_path, "public/404.html")
-      execute :curl, "-k", "https://alpha.daydash.co/404", "> #{public_404_html}"
+      execute :curl, "-k", "https://alpha.thekanko.co/404", "> #{public_404_html}"
       public_402_html = File.join(release_path, "public/402.html")
-      execute :curl, "-k", "https://alpha.daydash.co/404", "> #{public_402_html}"
+      execute :curl, "-k", "https://alpha.thekanko.co/404", "> #{public_402_html}"
     end
   end
 end

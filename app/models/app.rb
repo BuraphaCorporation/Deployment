@@ -24,9 +24,9 @@ class App < Struct.new(:region, :environment, :version)
 
   def root_domain
     if environment.development?
-      'daydash.local'
+      'thekanko.local'
     else
-      'daydash.co'
+      'thekanko.co'
     end + port
   end
 
@@ -52,23 +52,23 @@ class App < Struct.new(:region, :environment, :version)
 
     case environment
     when 'production'
-      config.firebase             = 'https://daydash.firebaseio.com/'
-      config.redis                = { host: 'redis.daydash.co', port: 6379, timeout: 25 }
+      config.firebase             = 'https://thekanko.firebaseio.com/'
+      config.redis                = { host: 'redis.thekanko.co', port: 6379, timeout: 25 }
       config.facebook_app_id      = '259929777688738'
       config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
       config.ga_tracking_code     = 'UA-82041608-1'
       config.hotjar_id            = 281788
       config.slack_webhook           = "https://hooks.slack.com/services/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"
     when 'staging', 'alpha', 'alpha'
-      config.firebase             = 'https://daydash-staging.firebaseio.com/'
-      config.redis                = { host: 'redis-staging.daydash.co', port: 6379, timeout: 25 }
+      config.firebase             = 'https://thekanko-staging.firebaseio.com/'
+      config.redis                = { host: 'redis-staging.thekanko.co', port: 6379, timeout: 25 }
       config.facebook_app_id      = '259929777688738'
       config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
       config.ga_tracking_code     = 'UA-82041608-2'
       config.hotjar_id            = 281789
       config.slack_webhook        = "https://hooks.slack.com/services/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x"
     else
-      config.firebase             = 'https://daydash-development.firebaseio.com/'
+      config.firebase             = 'https://thekanko-development.firebaseio.com/'
       config.redis                = { host: '127.0.0.1', port: 6379, timeout: 25 }
       config.facebook_app_id      = '286214348393614'
       config.facebook_app_secret  = 'fe56812591fad8625997a9ceecc133bf'
@@ -93,7 +93,7 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def no_reply
-    'no-reply@daydash.co'
+    'no-reply@thekanko.co'
   end
 
   def generate_code(digit = 5)

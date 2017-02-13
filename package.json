@@ -1,8 +1,8 @@
 {
-  "name": "daydash",
+  "name": "thekanko",
   "version": "0.0.1",
   "author": "Arnon Hongklay",
-  "description": "Assets of daydash",
+  "description": "Assets of thekanko",
   "private": true,
   "engines": {
     "node": "5.10.0",

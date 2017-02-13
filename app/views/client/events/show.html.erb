@@ -12,7 +12,7 @@
               padding: 5px 10px;
               font-weight: 600;
               text-transform: uppercase;
-              letter-spacing: 0.04em;">Daydash Exclusive</span>
+              letter-spacing: 0.04em;">TheKanko Exclusive</span>
           <% end %>
           <h1 class="title"><%= @event.title %></h1>
         </div>
@@ -148,7 +148,7 @@
             </div>
           <%end %>
           <% if @section.sold_out? or @section.expired_time? %>
-            <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-buy disabled" class="background: #ccc">
+            <button type="button" class="btn btn-block btn-thekanko btn-thekanko-lg btn-buy disabled" class="background: #ccc">
               อีเว้นท์นี้ซื้อไม่ได้แล้ว
             </button>
             <% if @section.expired_time? %>
@@ -158,7 +158,7 @@
             <% end %>
             <p class="comment">ไม่อยากพลาดอีก? คุณสามารถ <a data-toggle="modal" data-target="#login-modal" href="#login-modal">ลงทะเบียนเอาไว้</a><br>แล้วเราจะส่งอีเมลไปบอกคุณเมื่อมีกิจกรรมอย่างนี้จัดขึ้นอีก :)</p>
           <% else %>
-            <button type="button" class="btn btn-block btn-daydash btn-daydash-lg btn-daydash-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
+            <button type="button" class="btn btn-block btn-thekanko btn-thekanko-lg btn-thekanko-green-1 btn-buy" data-toggle="modal" data-target="#ticket-list-modal">
               Buy Ticket
             </button>
             <p class="comment">* เลือกจำนวนและชนิดของบัตรในขั้นตอนต่อไป</p>
@@ -185,7 +185,7 @@
                     <%= image_tag "social/facebook.png", alt: "Facebook" %>
                   </a>
 
-                  <a href="https://twitter.com/share?url=<%= "#{App.domain}#{client_event_path(@event.to_url)}" %>&amp;text=Let's go! <%= @event.title %> @daydashapp" target="_blank">
+                  <a href="https://twitter.com/share?url=<%= "#{App.domain}#{client_event_path(@event.to_url)}" %>&amp;text=Let's go! <%= @event.title %> @thekankoapp" target="_blank">
                     <%= image_tag "social/twitter.png", alt: "Twitter" %>
                   </a>
 
@@ -270,7 +270,7 @@
             <span style="color: red;">กรุณาเลือกจำนวนบัตรอย่างน้อย 1 ใบค่ะ</span>
           </p>
           <span class="total-price-label">ราคารวม: </span><span class="total-price">฿0</span>
-          <a class="btn btn-daydash btn-daydash-green-2" onclick="nextToCheckout()">ขั้นตอนต่อไป: การชำระเงิน</a>
+          <a class="btn btn-thekanko btn-thekanko-green-2" onclick="nextToCheckout()">ขั้นตอนต่อไป: การชำระเงิน</a>
         </div>
       </div>
     <% end %>

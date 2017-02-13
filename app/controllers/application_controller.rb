@@ -52,13 +52,13 @@ protected
 
 
   def set_seo_title(title)
-    set_meta_tags title: "#{title} - Daydash"
+    set_meta_tags title: "#{title} - TheKanko"
   end
 
   def default_seo
-    site_name   = "daydash.co"
+    site_name   = "thekanko.co"
     url         = request.original_url
-    title       = "Daydash - Discover activities and events in Bangkok every day"
+    title       = "TheKanko - Discover activities and events in Bangkok every day"
     description = "ค้นพบกิจกรรมและอีเว้นท์สนุกๆ ในกรุงเทพฯ ที่พร้อมให้คุณมาทดลองและสัมผัสประสบการณ์ใหม่ได้ทุกวัน ไม่ว่าจะเป็น Live Music, DJ, Party, Craft & Art Workshop, Beer Tasting, Cool Exhbition ไปจนถึง Fitness, Sport, Outdoor activity etc."
     image       = "#{App.domain}/facebook-og.jpg"
 
@@ -97,7 +97,7 @@ protected
     @covers = [
       {
         image: '/src/images/content/cover-1.jpg',
-        caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">Daydash ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>'
+        caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">TheKanko ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>'
       }
     ]
   end

@@ -64,12 +64,12 @@ private
   def resolve_layout
     case action_name
     when 'index'
-      'daydash'
+      'thekanko'
     when 'about', 'faq', 'terms', 'policy', 'contact'
       if mobile_device?
         'greetings'
       else
-        'daydash'
+        'thekanko'
       end
     when 'landing'
       'landing'

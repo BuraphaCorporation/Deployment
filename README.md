@@ -1,5 +1,5 @@
 
-# Daydash
+# TheKanko
 
 ## Installing Homebrew
 

@@ -1,96 +1,35 @@
 source 'https://rubygems.org'
-ruby '2.3.3'
+ruby '2.4.0'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
-
-gem 'refile',             git: 'git@github.com:nonmadden/refile', require: 'refile/rails'
-gem 'refile-mini_magick', git: 'git@github.com:nonmadden/refile-mini_magick'
-gem 'sinatra',            git: 'git@github.com:nonmadden/sinatra', branch: 'master'
+gem 'rails', '~> 5.0.1'
 
 platform :ruby do
   gem 'pg', '~> 0.18'
   gem 'puma', '~> 3.0'
   gem 'unicorn'
   gem 'mini_racer'
+
+  # gem 'mongoid', '~> 6.0.0'
+  # gem 'mongoid-slug'
+  # gem 'mongoid_rails_migrations'
+  # gem 'mongoid-paperclip'
+  # gem 'bson_ext'
+  gem 'redis', '~> 3.0'
+  gem 'redis-rails'
 end
 
-# gem 'mongoid', '~> 6.0.0'
-# gem 'mongoid-slug'
-# gem 'mongoid_rails_migrations'
-# gem 'mongoid-paperclip'
-# gem 'bson_ext'
-gem 'redis', '~> 3.0'
-gem 'redis-rails'
-
-gem 'firebase'
-gem 'gcloud'
-gem 'aws-sdk', '~> 2'
-gem 'omise'
-gem 'mailgun'
-gem 'one_signal'
-gem 'slack-notifier'
-gem 'rollbar'
-
-gem 'jbuilder', '~> 2.5'
-gem 'json', git: 'https://github.com/nonmadden/json', branch: 'v1.8'
-gem 'jsonapi'
-gem 'jsonapi-parser', '~> 0.1.1.beta2'
-gem 'active_model_serializers'
-gem 'rack-cors'
-gem 'rack-attack'
-gem 'hashie-forbidden_attributes'
-gem 'open_uri_redirections'
-gem 'grape'
-gem 'grape-entity'
-gem 'grape-swagger'
-gem 'grape-swagger-rails'
-gem 'grape-active_model_serializers'
-
-gem 'knock', '~> 2.0'
-
-# ActiveRecord Helper
-gem 'figaro'
-gem 'annotate'
-gem 'has_scope'
-gem 'enumerize'
-gem 'friendly_id', '~> 5.1.0'
-gem 'paranoia', git: 'https://github.com/nonmadden/paranoia', branch: 'rails5'
-gem 'activemodel-serializers-xml'
-gem 'paperclip', git: 'https://github.com/nonmadden/paperclip'
-gem 'paperclip-ffmpeg'
-gem 'rqrcode_png'
-gem 'dragonfly', '~> 1.0.12'
-gem 'money'
-gem 'monetize'
-gem 'money-rails'
-
-gem 'rubyzip', '= 1.0.0'
-gem 'axlsx', '= 2.0.1'
-gem 'axlsx_rails'
-
-gem 'bcrypt', '~> 3.1.7'
-gem 'jwt'
-gem 'devise'
-gem 'omniauth-facebook'
-gem 'hashie', '3.5.1'
-gem 'koala'
-
-# worker
-gem 'devise-async'
-gem 'sidekiq'
-gem 'sidekiq-cron'
-
+# default
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
 gem 'sprockets', '~> 3.0'
 gem 'sprockets-es6'
 gem 'turbolinks', '~> 5'
 gem 'sass-rails', '~> 5.0'
+gem 'coffee-rails'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
@@ -104,22 +43,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-slick.js'
   gem 'rails-assets-parsleyjs'
 end
-
-gem 'react_on_rails', '~> 6'
-
-gem 'simple_form'
-gem 'show_for'
-gem 'cocoon'
-gem 'rails_autolink'
-gem 'rails-controller-testing'
-gem 'kaminari'
-
-# marketing
-gem 'meta-tags'
-gem 'google-api-client'
-gem 'mixpanel-ruby'
-gem 'vanity'
-gem 'split'
 
 group :production do
   gem 'rails_12factor'
@@ -180,3 +103,74 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+gem 'devise'
+gem 'omniauth-facebook'
+gem 'hashie', '3.5.1'
+gem 'koala'
+
+gem 'firebase'
+gem 'gcloud'
+gem 'aws-sdk', '~> 2'
+gem 'omise'
+gem 'mailgun'
+gem 'one_signal'
+gem 'slack-notifier'
+gem 'rollbar'
+
+gem 'jbuilder', '~> 2.5'
+gem 'json', git: 'https://github.com/nonmadden/json', branch: 'v1.8'
+gem 'jsonapi'
+gem 'jsonapi-parser', '~> 0.1.1.beta2'
+gem 'active_model_serializers'
+gem 'rack-cors'
+gem 'rack-attack'
+gem 'hashie-forbidden_attributes'
+gem 'open_uri_redirections'
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-active_model_serializers'
+
+gem 'knock', '~> 2.0'
+
+# ActiveRecord Helper
+gem 'figaro'
+gem 'annotate'
+gem 'has_scope'
+gem 'enumerize'
+gem 'friendly_id', '~> 5.1.0'
+gem 'paranoia', git: 'https://github.com/nonmadden/paranoia', branch: 'rails5'
+gem 'activemodel-serializers-xml'
+gem 'paperclip', git: 'https://github.com/nonmadden/paperclip'
+gem 'paperclip-ffmpeg'
+gem 'rqrcode_png'
+gem 'dragonfly', '~> 1.0.12'
+gem 'money-rails'
+
+# gem 'rubyzip', '= 1.0.0'
+# gem 'axlsx', '= 2.0.1'
+# gem 'axlsx_rails'
+
+# worker
+gem 'devise-async'
+gem 'sidekiq'
+gem 'sidekiq-cron'
+
+gem 'react_on_rails', '~> 6'
+
+gem 'simple_form'
+gem 'show_for'
+gem 'kaminari'
+# gem 'rails_autolink'
+# gem 'rails-controller-testing'
+
+# marketing
+gem 'meta-tags'
+# gem 'google-api-client'
+# gem 'mixpanel-ruby'
+# gem 'vanity'
+# gem 'split'

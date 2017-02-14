@@ -1,1 +1,0 @@
-json.array! @organizer_events, partial: 'organizer_events/organizer_event', as: :organizer_event

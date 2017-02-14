@@ -26,7 +26,7 @@ require 'rails_helper'
 RSpec.describe Admin::EventsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Admin::Event. As you add validations to Admin::Event, be sure to
+  # Event. As you add validations to Event, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -43,7 +43,7 @@ RSpec.describe Admin::EventsController, type: :controller do
 
   describe "GET #index" do
     it "returns a success response" do
-      event = Admin::Event.create! valid_attributes
+      event = Event.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_success
     end
@@ -51,7 +51,7 @@ RSpec.describe Admin::EventsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      event = Admin::Event.create! valid_attributes
+      event = Event.create! valid_attributes
       get :show, params: {id: event.to_param}, session: valid_session
       expect(response).to be_success
     end
@@ -66,7 +66,7 @@ RSpec.describe Admin::EventsController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
-      event = Admin::Event.create! valid_attributes
+      event = Event.create! valid_attributes
       get :edit, params: {id: event.to_param}, session: valid_session
       expect(response).to be_success
     end
@@ -74,15 +74,15 @@ RSpec.describe Admin::EventsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Admin::Event" do
+      it "creates a new Event" do
         expect {
           post :create, params: {admin_event: valid_attributes}, session: valid_session
-        }.to change(Admin::Event, :count).by(1)
+        }.to change(Event, :count).by(1)
       end
 
       it "redirects to the created admin_event" do
         post :create, params: {admin_event: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Admin::Event.last)
+        expect(response).to redirect_to(Event.last)
       end
     end
 
@@ -101,14 +101,14 @@ RSpec.describe Admin::EventsController, type: :controller do
       }
 
       it "updates the requested admin_event" do
-        event = Admin::Event.create! valid_attributes
+        event = Event.create! valid_attributes
         put :update, params: {id: event.to_param, admin_event: new_attributes}, session: valid_session
         event.reload
         skip("Add assertions for updated state")
       end
 
       it "redirects to the admin_event" do
-        event = Admin::Event.create! valid_attributes
+        event = Event.create! valid_attributes
         put :update, params: {id: event.to_param, admin_event: valid_attributes}, session: valid_session
         expect(response).to redirect_to(event)
       end
@@ -116,7 +116,7 @@ RSpec.describe Admin::EventsController, type: :controller do
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        event = Admin::Event.create! valid_attributes
+        event = Event.create! valid_attributes
         put :update, params: {id: event.to_param, admin_event: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
@@ -125,14 +125,14 @@ RSpec.describe Admin::EventsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested admin_event" do
-      event = Admin::Event.create! valid_attributes
+      event = Event.create! valid_attributes
       expect {
         delete :destroy, params: {id: event.to_param}, session: valid_session
-      }.to change(Admin::Event, :count).by(-1)
+      }.to change(Event, :count).by(-1)
     end
 
     it "redirects to the admin_events list" do
-      event = Admin::Event.create! valid_attributes
+      event = Event.create! valid_attributes
       delete :destroy, params: {id: event.to_param}, session: valid_session
       expect(response).to redirect_to(admin_events_url)
     end

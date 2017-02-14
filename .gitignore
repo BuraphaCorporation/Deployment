@@ -8,6 +8,9 @@ capybara-*.html
 /public/system
 /public/images
 /public/assets
+/public/css
+/public/fonts
+/public/js
 /public/QRCode/*.png
 /coverage/
 /spec/tmp

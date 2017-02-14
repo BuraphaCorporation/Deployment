@@ -6,17 +6,17 @@ default: &default
 
 development:
   <<: *default
-  database: thekanko_development
+  database: wadealike_development
 
 test:
   <<: *default
-  database: thekanko_test
+  database: wadealike_test
 
 server: &server
   adapter: postgresql
   encoding: unicode
-  database: thekanko_production
-  username: thekanko
+  database: wadealike_production
+  username: wadealike
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: localhost
   port: 5432

@@ -21,13 +21,13 @@ class OrganizerMailer < ApplicationMailer
     @link_to_order = "#{App.domain}/organizer/events/#{@event.slug}/orders"
 
     if @event.user.nil?
-      mail to: "hello@thekanko.com", subject: @title, bcc: "hello@thekanko.com, thekanko.app@gmail.com"
+      mail to: "hello@wadealike.com", subject: @title, bcc: "hello@wadealike.com, wadealike.app@gmail.com"
     else
-      mail to: @event.user.email, subject: @title, bcc: "hello@thekanko.com, thekanko.app@gmail.com"
+      mail to: @event.user.email, subject: @title, bcc: "hello@wadealike.com, wadealike.app@gmail.com"
     end
   end
 
   def test
-    mail to: "hello@thekanko.com", subject: "ทดสอบ"
+    mail to: "hello@wadealike.com", subject: "ทดสอบ"
   end
 end

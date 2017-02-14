@@ -167,6 +167,6 @@ private
   end
 
   def set_organizer
-    self.user ||= User.find_by_email('hello@thekanko.com')
+    self.user ||= User.find_by_email('hello@wadealike.com')
   end
 end

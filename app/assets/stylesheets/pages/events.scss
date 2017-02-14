@@ -308,7 +308,7 @@ body{
               float: left;
               margin-top: 5px;
               margin-right: 0px;}}
-          .btn-thekanko-inverse{
+          .btn-wadealike-inverse{
             &:hover, &:active, &:link, &:visited{
               background: #444;}}}}}}
   @media (min-width: 992px){
@@ -473,7 +473,7 @@ body{
         font-size: 40px;
         color: white;
         text-shadow: 1px 1px rgba(0, 0, 0, 0.3);}
-      .btn-thekanko{
+      .btn-wadealike{
         margin-top: 50px;
         width: 300px;}}
     .right{
@@ -547,7 +547,7 @@ body{
         background-position: center;
         background-repeat: no-repeat;
         background-color: #ccc;}}
-    .btn-thekanko-lg{
+    .btn-wadealike-lg{
       margin-bottom: 15px;}
     .map-panel{
       margin-bottom: 15px;
@@ -561,7 +561,7 @@ body{
       padding-bottom: 15px;
       border-radius: 2px;
       border: 1px solid #eee;
-      .btn-thekanko{
+      .btn-wadealike{
         margin-bottom: 5px;}
       .social-list{
         text-align: center;
@@ -646,14 +646,14 @@ body{
           width: 80px;
           float: right;}}}
     .modal-footer{
-      .btn-thekanko{
+      .btn-wadealike{
         margin-left: 15px;
         font-size: 20px;
         font-weight: 200;
         padding: 10px 20px;}}
     @media (max-width: 991px){
       .modal-footer{
-        .btn-thekanko{
+        .btn-wadealike{
           margin-top: 15px;
           margin-left: 0px;
           width: 100%;}}}}}

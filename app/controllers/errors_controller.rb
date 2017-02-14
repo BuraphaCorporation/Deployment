@@ -1,10 +1,10 @@
 class ErrorsController < ApplicationController
   before_action :global_categories
 
-  layout 'thekanko'
+  layout 'wadealike'
 
   def not_found
-    if request.host.eql?("www.thekanko.com")
+    if request.host.eql?("www.wadealike.com")
       redirect_to App.domain, :status => 301
     else
       render(:status => 404)

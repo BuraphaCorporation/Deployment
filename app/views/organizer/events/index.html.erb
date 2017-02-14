@@ -52,10 +52,10 @@
                   <h4 class="title">
                     <%#= link_to event.title, client_event_path(event), style: 'color: #000', target: '_blank' %>
                     <%# if event.uptime > Time.zone.now %>
-                      <%#= @event.status == 'published' ? '<div class="btn btn-thekanko-status btn-thekanko-live">Live</div>'.html_safe : '<div class="btn btn-thekanko-status btn-thekanko-draft">Draft</div>'.html_safe %>
-                      <%#= event.status == 'published' ? '<div class="btn btn-thekanko-status btn-thekanko-live">Live</div>'.html_safe : '<div class="btn btn-thekanko-status btn-thekanko-draft">Draft</div>'.html_safe %>
+                      <%#= @event.status == 'published' ? '<div class="btn btn-wadealike-status btn-wadealike-live">Live</div>'.html_safe : '<div class="btn btn-wadealike-status btn-wadealike-draft">Draft</div>'.html_safe %>
+                      <%#= event.status == 'published' ? '<div class="btn btn-wadealike-status btn-wadealike-live">Live</div>'.html_safe : '<div class="btn btn-wadealike-status btn-wadealike-draft">Draft</div>'.html_safe %>
                     <%# else %>
-                      <div class="btn btn-thekanko-status btn-thekanko-past">Past</div>
+                      <div class="btn btn-wadealike-status btn-wadealike-past">Past</div>
                     <%# end %>
                   </h4>
                   <div class="meta date location"><%= event.to_uptime %> at <%= event.location_name %></div>

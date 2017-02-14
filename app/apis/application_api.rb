@@ -42,9 +42,9 @@ class ApplicationAPI < Grape::API
     base_path: '/',
     api_version: '1.0.0',
     info: {
-    contact: 'hello@thekanko.com',
-    terms_of_service_url: 'https://thekanko.com/terms',
-    title: 'TheKanko API'
+    contact: 'hello@wadealike.com',
+    terms_of_service_url: 'https://wadealike.com/terms',
+    title: 'WadeAlike API'
     },
     markdown: false,
     hide_documentation_path: true,

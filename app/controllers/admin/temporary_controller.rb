@@ -3,7 +3,7 @@ module Admin
     before_action :authenticate_admin
     before_action :order, only: [:approving, :send_email]
     # http_basic_authenticate_with name: 'admin', password: 'x'
-    layout 'thekanko'
+    layout 'wadealike'
 
     def index
       @organizer = User.where(role: :organizer).order(created_at: :desc)

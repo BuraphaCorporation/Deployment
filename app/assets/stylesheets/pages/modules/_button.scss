@@ -1,5 +1,5 @@
 
-.btn-thekanko{
+.btn-wadealike{
   border-radius: 0px;
   color: #444;
   &:hover, &:active, &:visited, &:link{
@@ -7,21 +7,21 @@
   }
 }
 
-.btn-thekanko-md {
+.btn-wadealike-md {
   padding: 10px 15px;
   font-size: 18px;
 }
 
-.btn-thekanko-lg {
+.btn-wadealike-lg {
   padding: 10px;
   font-size: 24px;
 }
 
-.btn-thekanko-round {
+.btn-wadealike-round {
   border-radius: 2px;
 }
 
-.btn-thekanko-inverse {
+.btn-wadealike-inverse {
   &, &:active, &:visited, &:link {
     background: #444;
     color: white;
@@ -33,7 +33,7 @@
     color: white;
   }
 }
-.btn-thekanko-green-1 {
+.btn-wadealike-green-1 {
   &, &:hover, &:active, &:visited, &:link {
     background: linear-gradient(90deg, #00CFD1, #00E9CA);
     color: white;
@@ -41,7 +41,7 @@
   }
 }
 
-.btn-thekanko-green-2 {
+.btn-wadealike-green-2 {
   &, &:hover, &:active, &:visited, &:link {
     background: #19D4D6;
     color: white;
@@ -49,7 +49,7 @@
   }
 }
 
-.btn-thekanko-green-3 {
+.btn-wadealike-green-3 {
   &, &:hover, &:active, &:visited, &:link {
     background: linear-gradient(0deg, #1A9D1F, #21C128);
     color: white;
@@ -57,7 +57,7 @@
   }
 }
 
-.btn-thekanko-pink {
+.btn-wadealike-pink {
   &, &:hover, &:active, &:visited, &:link {
     background: linear-gradient(90deg, #DF1E68, #DD2993);
     color: white;
@@ -65,7 +65,7 @@
   }
 }
 
-.btn-thekanko-grey-1 {
+.btn-wadealike-grey-1 {
   &, &:hover, &:active, &:visited, &:link {
     background: #414141;
     color: white;
@@ -73,7 +73,7 @@
   }
 }
 
-.btn-thekanko-copy {
+.btn-wadealike-copy {
   &, &:hover, &:active, &:visited, &:link {
     background: #3B5998;
     color: white;
@@ -81,7 +81,7 @@
   }
 }
 
-.btn-thekanko-status {
+.btn-wadealike-status {
   &, &:hover, &:active, &:visited, &:link {
     background: #fff;
     color: #17A41D;
@@ -93,7 +93,7 @@
   }
 }
 
-.btn-thekanko-live {
+.btn-wadealike-live {
   &, &:hover, &:active, &:visited, &:link {
     background: #fff;
     color: #17A41D;
@@ -101,7 +101,7 @@
   }
 }
 
-.btn-thekanko-draft {
+.btn-wadealike-draft {
   &, &:hover, &:active, &:visited, &:link {
     background: #fff;
     color: #C6A61D;
@@ -109,7 +109,7 @@
   }
 }
 
-.btn-thekanko-past {
+.btn-wadealike-past {
   &, &:hover, &:active, &:visited, &:link {
     background: #fff;
     color: #777777;

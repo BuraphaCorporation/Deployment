@@ -16,24 +16,24 @@ end
 
 
 user = User.create do |user|
-  user.email                  = "hello@thekanko.com"
+  user.email                  = "hello@wadealike.com"
   user.first_name             = 'Bow'
   user.last_name              = 'Kai'
   user.password               = '1234567890'
   user.password_confirmation  = '1234567890'
-  user.company                = 'TheKanko'
+  user.company                = 'WadeAlike'
   user.confirmed_at           = Time.zone.now
   user.role                   = 'admin'
 end
 puts user
 
 user = User.create do |user|
-  user.email                  = "organizer@thekanko.com"
+  user.email                  = "organizer@wadealike.com"
   user.first_name             = 'Organizer'
-  user.last_name              = 'TheKanko'
+  user.last_name              = 'WadeAlike'
   user.password               = '1234567890'
   user.password_confirmation  = '1234567890'
-  user.company                = 'TheKanko'
+  user.company                = 'WadeAlike'
   user.confirmed_at           = Time.zone.now
   user.role                   = 'organizer'
 end
@@ -51,10 +51,10 @@ Event.create([
 
 เพราะเลเซอร์เกมส์สามารถรองรับผู้เข้าแข่งขันได้ถึง 32 คน ในพื้นที่ 630 ตารางเมตร
 
-เงื่อนไขการใช้บัตรจาก TheKanko
+เงื่อนไขการใช้บัตรจาก WadeAlike
 - บัตร 1 ใบสามารถใช้เล่น Lazgam ได้ 1 session (15 นาที)
 - กรุณาจอง session ล่วงหน้า ที่เว็บไซต์ของ Lazgam [BOOK] http://bookeo.com/lazgamlasergames
-- คุณสามารถใช้บัตร ที่ซื้อจาก TheKanko ได้ทุกวัน session ใดก็ได้ โดยสามารถใช้ได้ 1 ใบต่อวัน โดย session ต่อไปจะต้องชำระเงินกับ Lazgam ในราคาปกติ
+- คุณสามารถใช้บัตร ที่ซื้อจาก WadeAlike ได้ทุกวัน session ใดก็ได้ โดยสามารถใช้ได้ 1 ใบต่อวัน โดย session ต่อไปจะต้องชำระเงินกับ Lazgam ในราคาปกติ
 - บัตรมีอายุ 90 วัน นับจากวันที่ซื้อ",
     location_name: 'Holiday Inns, 5th Floor, Sukhumvit 22',
     latitude: '13.733237',

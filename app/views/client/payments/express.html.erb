@@ -61,7 +61,7 @@
           <% end %>
 
           <% if current_user.nil? %>
-            <div class="panel panel-thekanko panel-thekanko-2 panel-login">
+            <div class="panel panel-wadealike panel-wadealike-2 panel-login">
               <div class="panel-body">
                 <div class="form-section">
                   <div class="form-section-header">
@@ -72,7 +72,7 @@
                   </div>
                   <div class="form-section-body">
                     <div class="form-section-description">
-                      <a class="btn btn-facebook btn-thekanko btn-thekanko-round" href="/auth/facebook"><i class="icon icon-xs icon-facebook-white"></i> ลงทะเบียนด้วย Facebook</a>
+                      <a class="btn btn-facebook btn-wadealike btn-wadealike-round" href="/auth/facebook"><i class="icon icon-xs icon-facebook-white"></i> ลงทะเบียนด้วย Facebook</a>
                     </div>
                   </div>
                 </div>
@@ -83,9 +83,9 @@
                     <h3 class="form-sectiont-title">Checkout with E-mail</h3>
                     <div class="form-section-description">
                       หากคุณเป็นสมาชิกอยู่แล้ว กรุณา Login<br />
-                      คุณสามารถลงทะเบียนเป็นสมาชิก TheKanko ได้ฟรี!
+                      คุณสามารถลงทะเบียนเป็นสมาชิก WadeAlike ได้ฟรี!
                     </div>
-                    <div><a class="btn btn-login btn-thekanko btn-thekanko-round btn-thekanko-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #register-form').hide(); $('#login-modal #login-form').show(); return false;">สมัครสมาชิก / เข้าสู่ระบบ</a></div>
+                    <div><a class="btn btn-login btn-wadealike btn-wadealike-round btn-wadealike-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #register-form').hide(); $('#login-modal #login-form').show(); return false;">สมัครสมาชิก / เข้าสู่ระบบ</a></div>
                   </div>
                 </div>
               </div>
@@ -93,7 +93,7 @@
           <% end %>
 
           <% unless current_user.nil? %>
-            <div class="panel panel-thekanko panel-payment">
+            <div class="panel panel-wadealike panel-payment">
 
               <div class="form-section" id="general-info-section">
                 <div class="form-section-header">
@@ -168,7 +168,7 @@
                 <div class="form-section" id="payment-method-section">
                   <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
                     <div class="form-section-footer">
-                      <button class="btn btn-submit btn-block btn-lg btn-thekanko btn-thekanko-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="bank_transfer" >
+                      <button class="btn btn-submit btn-block btn-lg btn-wadealike btn-wadealike-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="bank_transfer" >
                         <i class="icon icon-lock"></i>
                         ยืนยันการสั่งซื้อ
                       </button>
@@ -180,7 +180,7 @@
                 <div class="form-section" id="payment-method-section">
                   <div class="form-section-header">
                     <h3 class="form-section-title">การชำระเงิน</h3>
-                    <ul class="nav nav-tabs nav-justified nav-tabs-black nav-tabs-thekanko" role="tablist">
+                    <ul class="nav nav-tabs nav-justified nav-tabs-black nav-tabs-wadealike" role="tablist">
                       <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('credit_card');">ชำระโดยบัตรเครดิต</a></li>
                       <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('bank_transfer');">ชำระโดยการโอนเงิน</a></li>
                     </ul>
@@ -223,7 +223,7 @@
                               BY PROCESSING THIS ORDER, YOU AGREE TO OUR <a target="_blank" href="<%= terms_and_conditions_path %>">PAYMENT POLICY</a>
                             </label>
                           </div>
-                          <button class="btn btn-submit btn-block btn-lg btn-thekanko btn-thekanko-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="credit_card">
+                          <button class="btn btn-submit btn-block btn-lg btn-wadealike btn-wadealike-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="credit_card">
                             <i class="icon icon-lock"></i>
                             ยืนยันการชำระเงิน - <%= convert_to_currency(@tickets["total"] / 100) %>
                           </button>
@@ -247,7 +247,7 @@
                               BY PROCESSING THIS ORDER, YOU AGREE TO OUR <a target="_blank" href="<%= terms_and_conditions_path %>">PAYMENT POLICY</a>
                             </label>
                           </div>
-                          <button class="btn btn-submit btn-block btn-lg btn-thekanko btn-thekanko-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="bank_transfer" >
+                          <button class="btn btn-submit btn-block btn-lg btn-wadealike btn-wadealike-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="bank_transfer" >
                             <i class="icon icon-lock"></i>
                             ยืนยันการสั่งซื้อ
                           </button>

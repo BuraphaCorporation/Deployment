@@ -1,5 +1,5 @@
 
-# TheKanko
+# WadeAlike
 
 ## Installing Homebrew
 

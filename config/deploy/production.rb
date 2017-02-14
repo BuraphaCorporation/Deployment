@@ -1,4 +1,4 @@
-server 'thekanko.com', user: 'deploy', roles: %w{web app db}
+server 'wadealike.com', user: 'deploy', roles: %w{web app db}
 set :stage, :production
 set :rails_env, :production
 

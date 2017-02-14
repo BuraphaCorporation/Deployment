@@ -12,28 +12,28 @@
 
 default: &default
   HELLO: developers
-  S3_BUCKET_NAME: 'thekanko-development'
+  S3_BUCKET_NAME: 'wadealike-development'
   AWS_ACCESS_KEY_ID: 'AKIAJ3CURNBFIHWRY2WQ'
   AWS_SECRET_ACCESS_KEY: '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'
   AWS_REGION: 'ap-southeast-1'
-  MAILGUN_USERNAME: 'postmaster@thekanko.com'
+  MAILGUN_USERNAME: 'postmaster@wadealike.com'
   MAILGUN_PASSWORD: 'f6b0bf49107aedd15e63c574402fc595'
   MAILGUN_API_KEY: 'key-1eba6c459b82d4ef064a4ae1692fc333'
-  FACEBOOK_LINK: 'https://www.facebook.com/thekankoapp'
-  INSTAGRAM_LINK: 'https://www.instagram.com/thekankoapp/'
-  TWITTER_LINK: 'http://www.twitter.com/thekankoapp'
-  LINE_LINK: 'http://line.me/ti/p/@thekankoapp'
+  FACEBOOK_LINK: 'https://www.facebook.com/wadealikeapp'
+  INSTAGRAM_LINK: 'https://www.instagram.com/wadealikeapp/'
+  TWITTER_LINK: 'http://www.twitter.com/wadealikeapp'
+  LINE_LINK: 'http://line.me/ti/p/@wadealikeapp'
   YOUTUBE_LINK:
 
 development:
   <<: *default
   HELLO: developers
-  S3_BUCKET_NAME: 'thekanko-development'
+  S3_BUCKET_NAME: 'wadealike-development'
 
 production:
   <<: *default
   HELLO: users
-  S3_BUCKET_NAME: 'thekanko'
+  S3_BUCKET_NAME: 'wadealike'
 
   SECRET_KEY_BASE: '630e224e6202ec1d1756ef4318dd216cc1fe1f700f06ffd1fd1168d926d909167e40f1e3c25b97e8aadff8f54910d830ecbb8946b8382792f23450b4298064d3'
   DATABASE_PASSWORD:
@@ -44,7 +44,7 @@ production:
 # alpha:
 #   <<: *default
 #   HELLO: users
-#   S3_BUCKET_NAME: 'thekanko'
+#   S3_BUCKET_NAME: 'wadealike'
 #
 #   SECRET_KEY_BASE: '630e224e6202ec1d1756ef4318dd216cc1fe1f700f06ffd1fd1168d926d909167e40f1e3c25b97e8aadff8f54910d830ecbb8946b8382792f23450b4298064d3'
 #   DATABASE_PASSWORD:
@@ -54,4 +54,4 @@ production:
 test:
   <<: *default
   HELLO: rspec
-  S3_BUCKET_NAME: 'thekanko-test'
+  S3_BUCKET_NAME: 'wadealike-test'

@@ -5,7 +5,7 @@ module Client
       set_current_page('client')
     end
 
-    include TheKankoHelper
-    layout "thekanko"
+    include WadeAlikeHelper
+    layout "wadealike"
   end
 end

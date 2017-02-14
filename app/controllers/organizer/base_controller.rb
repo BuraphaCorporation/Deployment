@@ -7,9 +7,9 @@ module Organizer
     end
 
     include OrganizerHelper
-    include TheKankoHelper
+    include WadeAlikeHelper
 
-    layout 'thekanko'
+    layout 'wadealike'
 
   protected
     def authenticate_organizer!

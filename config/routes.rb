@@ -22,7 +22,7 @@ Rails.application.routes.draw do
         unlocks:            'user/unlocks',
       }
 
-    root 'client/react#index'
+    root 'client/frontend#index'
 
     namespace :admin do
       get '/',                      to: 'dashboard#index'

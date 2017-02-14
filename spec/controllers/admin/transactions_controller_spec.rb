@@ -26,7 +26,7 @@ require 'rails_helper'
 RSpec.describe Admin::TransactionsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # Admin::Transaction. As you add validations to Admin::Transaction, be sure to
+  # Payment. As you add validations to Transaction, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -43,7 +43,7 @@ RSpec.describe Admin::TransactionsController, type: :controller do
 
   describe "GET #index" do
     it "returns a success response" do
-      transaction = Admin::Transaction.create! valid_attributes
+      transaction = Payment.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_success
     end
@@ -51,8 +51,8 @@ RSpec.describe Admin::TransactionsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      transaction = Admin::Transaction.create! valid_attributes
-      get :show, params: {id: transaction.to_param}, session: valid_session
+      transaction = Payment.create! valid_attributes
+      get :show, params: {id: Payment.to_param}, session: valid_session
       expect(response).to be_success
     end
   end
@@ -66,23 +66,23 @@ RSpec.describe Admin::TransactionsController, type: :controller do
 
   describe "GET #edit" do
     it "returns a success response" do
-      transaction = Admin::Transaction.create! valid_attributes
-      get :edit, params: {id: transaction.to_param}, session: valid_session
+      transaction = Payment.create! valid_attributes
+      get :edit, params: {id: Payment.to_param}, session: valid_session
       expect(response).to be_success
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new Admin::Transaction" do
+      it "creates a new Payment" do
         expect {
           post :create, params: {admin_transaction: valid_attributes}, session: valid_session
-        }.to change(Admin::Transaction, :count).by(1)
+        }.to change(Payment, :count).by(1)
       end
 
       it "redirects to the created admin_transaction" do
         post :create, params: {admin_transaction: valid_attributes}, session: valid_session
-        expect(response).to redirect_to(Admin::Transaction.last)
+        expect(response).to redirect_to(Payment.last)
       end
     end
 
@@ -101,23 +101,23 @@ RSpec.describe Admin::TransactionsController, type: :controller do
       }
 
       it "updates the requested admin_transaction" do
-        transaction = Admin::Transaction.create! valid_attributes
-        put :update, params: {id: transaction.to_param, admin_transaction: new_attributes}, session: valid_session
-        transaction.reload
+        transaction = Payment.create! valid_attributes
+        put :update, params: {id: Payment.to_param, admin_transaction: new_attributes}, session: valid_session
+        Payment.reload
         skip("Add assertions for updated state")
       end
 
       it "redirects to the admin_transaction" do
-        transaction = Admin::Transaction.create! valid_attributes
-        put :update, params: {id: transaction.to_param, admin_transaction: valid_attributes}, session: valid_session
+        transaction = Payment.create! valid_attributes
+        put :update, params: {id: Payment.to_param, admin_transaction: valid_attributes}, session: valid_session
         expect(response).to redirect_to(transaction)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
-        transaction = Admin::Transaction.create! valid_attributes
-        put :update, params: {id: transaction.to_param, admin_transaction: invalid_attributes}, session: valid_session
+        transaction = Payment.create! valid_attributes
+        put :update, params: {id: Payment.to_param, admin_transaction: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
     end
@@ -125,15 +125,15 @@ RSpec.describe Admin::TransactionsController, type: :controller do
 
   describe "DELETE #destroy" do
     it "destroys the requested admin_transaction" do
-      transaction = Admin::Transaction.create! valid_attributes
+      transaction = Payment.create! valid_attributes
       expect {
-        delete :destroy, params: {id: transaction.to_param}, session: valid_session
-      }.to change(Admin::Transaction, :count).by(-1)
+        delete :destroy, params: {id: Payment.to_param}, session: valid_session
+      }.to change(Transaction, :count).by(-1)
     end
 
     it "redirects to the admin_transactions list" do
-      transaction = Admin::Transaction.create! valid_attributes
-      delete :destroy, params: {id: transaction.to_param}, session: valid_session
+      transaction = Payment.create! valid_attributes
+      delete :destroy, params: {id: Payment.to_param}, session: valid_session
       expect(response).to redirect_to(admin_transactions_url)
     end
   end

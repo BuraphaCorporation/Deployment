@@ -1,11 +1,11 @@
 module Admin
-  class TransactionsController < Admin::BaseController
+  class TransactionsController < ApplicationController
     before_action :set_admin_transaction, only: [:show, :edit, :update, :destroy]
 
     # GET /admin/transactions
     # GET /admin/transactions.json
     def index
-      @admin_transactions = Transaction.all
+      @admin_transactions = Payment.all
     end
 
     # GET /admin/transactions/1
@@ -15,7 +15,7 @@ module Admin
 
     # GET /admin/transactions/new
     def new
-      @admin_transaction = Transaction.new
+      @admin_transaction = Payment.new
     end
 
     # GET /admin/transactions/1/edit
@@ -25,7 +25,7 @@ module Admin
     # POST /admin/transactions
     # POST /admin/transactions.json
     def create
-      @admin_transaction = Transaction.new(admin_transaction_params)
+      @admin_transaction = Payment.new(admin_transaction_params)
 
       respond_to do |format|
         if @admin_transaction.save
@@ -65,7 +65,7 @@ module Admin
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_admin_transaction
-        @admin_transaction = Transaction.find(params[:id])
+        @admin_transaction = Payment.find(params[:id])
       end
 
       # Never trust parameters from the scary internet, only allow the white list through.

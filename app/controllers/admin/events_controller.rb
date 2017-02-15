@@ -1,5 +1,5 @@
 module Admin
-  class EventsController < ApplicationController
+  class EventsController < Admin::BaseController
     before_action :set_admin_event, only: [:show, :edit, :update, :destroy]
 
     # GET /admin/events

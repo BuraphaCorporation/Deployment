@@ -1,5 +1,5 @@
 module Admin
-  class TransactionsController < ApplicationController
+  class TransactionsController < Admin::BaseController
     before_action :set_admin_transaction, only: [:show, :edit, :update, :destroy]
 
     # GET /admin/transactions

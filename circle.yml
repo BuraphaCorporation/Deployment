@@ -3,7 +3,7 @@ machine:
     Asia/Bangkok
   ruby:
     version:
-      2.3.3
+      2.4.0
   node:
     version:
       7.3.0

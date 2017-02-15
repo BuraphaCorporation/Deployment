@@ -1,5 +1,15 @@
 class V1::PaymentAPI < ApplicationAPI
-  include Defaults::V1
+  # use Rack::JSONP
+
+  helpers do
+    params :token do
+      optional :token, type: String, default: nil
+    end
+
+    params :attributes do
+      optional :attributes, type: Hash, default: {}
+    end
+  end
 
   resources :payment do
     desc "return channel payment"

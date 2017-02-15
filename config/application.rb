@@ -25,6 +25,12 @@ module WadeAlike
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    # Auto-load API and its subdirectories
+    # config.paths.add 'app/apis', glob: '**/*.rb'
+    # config.autoload_paths += Dir["#{Rails.root}/app/apis/*"]
+    config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
+
     config.time_zone = 'Bangkok'
     config.active_record.default_timezone = :local
     config.active_record.time_zone_aware_types = [:datetime, :time]

@@ -1,5 +1,15 @@
 class V1::EventAPI < ApplicationAPI
-  include Defaults::V1
+  # use Rack::JSONP
+
+  helpers do
+    params :token do
+      optional :token, type: String, default: nil
+    end
+
+    params :attributes do
+      optional :attributes, type: Hash, default: {}
+    end
+  end
 
   resources :event do
     desc "Return a event"

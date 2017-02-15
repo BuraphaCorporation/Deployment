@@ -1,5 +1,5 @@
 class DeviseMailer < Devise::Mailer
-  default from: 'WadeAlike <hello@wadealike.com>'
+  default from: 'WadeAlike <wadealike@gmail.com>'
   # default template_path: 'users/mailer'
 
   layout 'mailer'

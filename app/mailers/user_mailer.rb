@@ -11,7 +11,7 @@ class UserMailer < ApplicationMailer
   def welcome(user_id)
     @user    = User.find(user_id)
     @subject = "Welcome to wadealike.com"
-    mail to: @user.email, subject: @subject, bcc: "hello@wadealike.com, wadealike.app@gmail.com"
+    mail to: @user.email, subject: @subject, bcc: "wadealike@gmail.com, wadealike.app@gmail.com"
   end
 
   def order(order_id)
@@ -26,7 +26,7 @@ class UserMailer < ApplicationMailer
 
     @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
 
-    mail to: @user.email, subject: "WadeAlike.com - Payment #{@order.status}: #{@event.title}", bcc: "hello@wadealike.com, wadealike.app@gmail.com"
+    mail to: @user.email, subject: "WadeAlike.com - Payment #{@order.status}: #{@event.title}", bcc: "wadealike@gmail.com, wadealike.app@gmail.com"
   end
 
   def ticket(order_id)
@@ -41,7 +41,7 @@ class UserMailer < ApplicationMailer
 
     @link_to_order = "#{App.domain}/profile/#{@user.id}/orders"
 
-    mail to: @user.email, subject: "WadeAlike.com - Your Tickets: #{@event.title}", bcc: "hello@wadealike.com, wadealike.app@gmail.com"
+    mail to: @user.email, subject: "WadeAlike.com - Your Tickets: #{@event.title}", bcc: "wadealike@gmail.com, wadealike.app@gmail.com"
   end
 
   def reminder(order_id)

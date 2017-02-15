@@ -1,12 +1,31 @@
 class ApplicationAPI < Grape::API
+  # Follow: http://dreamingechoes.github.io/api/ruby/rails/create-a-super-fancy-api-with-grape/
+  version 'v1', using: :path
+  default_format :json
+  format :json
+  formatter :json, Grape::Formatter::ActiveModelSerializers
 
-  mount V1::AuthAPI
-  mount V1::TagAPI
-  mount V1::UserAPI
-  mount V1::EventAPI
-  mount V1::PaymentAPI
+  before do
+    header['Access-Control-Allow-Origin'] = '*'
+    header['Access-Control-Request-Method'] = '*'
+  end
 
   helpers do
+    def api_response response
+      case response
+      when Integer
+        status response
+      when String
+        response
+      when Hash
+        response
+      when Net::HTTPResponse
+        "#{response.code}: #{response.message}"
+      else
+        status 400 # Bad request
+      end
+    end
+
     def permitted_params
       @permitted_params ||= declared(params, include_missing: false)
     end
@@ -18,6 +37,10 @@ class ApplicationAPI < Grape::API
     # https://mikecoutermarsh.com/rails-grape-api-key-authentication/
     def authenticate!
       error!('Unauthorized. Invalid or expired token.', 401) unless current_user
+    end
+
+    def clean_params(params)
+      ActionController::Parameters.new(params)
     end
 
     def current_user
@@ -38,19 +61,32 @@ class ApplicationAPI < Grape::API
     error_response(message: e.message, status: 422)
   end
 
-  add_swagger_documentation mount_path: '/v1',
-    base_path: '/',
+  mount V1::AuthAPI
+  mount V1::TagAPI
+  mount V1::UserAPI
+  mount V1::EventAPI
+  mount V1::PaymentAPI
+
+  add_swagger_documentation \
     api_version: '1.0.0',
-    info: {
-    contact: 'hello@wadealike.com',
-    terms_of_service_url: 'https://wadealike.com/terms',
-    title: 'WadeAlike API'
-    },
-    markdown: false,
     hide_documentation_path: true,
     hide_format: true,
+    markdown: false,
+    info: {
+      contact: 'wadealike@gmail.com',
+      terms_of_service_url: 'https://wadealike.com/terms',
+      title: 'WadeAlike API'
+    },
     include_base_url: true,
-    models: ::Entities.constants.select { | c | Class === ::Entities.const_get(c) }
-                            .map { | c | "::Entities::#{c.to_s}".constantize }
-
+    mount_path: '/v1',
+    base_path: '/',
+    security_definitions: {
+      api_key: {
+        type: "apiKey",
+        name: "api_key",
+        in: "header"
+      }
+    }
+    # models: ::Entities.constants.select { | c | Class === ::Entities.const_get(c) }
+    #                         .map { | c | "::Entities::#{c.to_s}".constantize }
 end

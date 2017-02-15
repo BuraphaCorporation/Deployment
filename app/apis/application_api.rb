@@ -56,11 +56,11 @@ class ApplicationAPI < Grape::API
     error_response(message: e.message, status: 422)
   end
 
-  mount V1::AuthAPI
-  mount V1::TagAPI
-  mount V1::UserAPI
-  mount V1::EventAPI
-  mount V1::PaymentAPI
+  mount V1::AuthsAPI
+  mount V1::TagsAPI
+  mount V1::UsersAPI
+  mount V1::EventsAPI
+  mount V1::PaymentsAPI
 
   add_swagger_documentation \
     api_version: '1.0.0',

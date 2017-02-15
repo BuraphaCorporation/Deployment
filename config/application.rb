@@ -26,8 +26,6 @@ module WadeAlike
     # -- all .rb files in that directory are automatically loaded.
 
     # Auto-load API and its subdirectories
-    # config.paths.add 'app/apis', glob: '**/*.rb'
-    # config.autoload_paths += Dir["#{Rails.root}/app/apis/*"]
     config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
 

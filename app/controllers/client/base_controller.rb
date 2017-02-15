@@ -5,7 +5,7 @@ module Client
       set_current_page('client')
     end
 
-    include WadeAlikeHelper
+    # include WadeAlikeHelper
     layout "wadealike"
   end
 end

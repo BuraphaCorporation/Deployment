@@ -16,7 +16,7 @@ end
 
 
 user = User.create do |user|
-  user.email                  = "hello@wadealike.com"
+  user.email                  = "wadealike@gmail.com"
   user.first_name             = 'Bow'
   user.last_name              = 'Kai'
   user.password               = '1234567890'

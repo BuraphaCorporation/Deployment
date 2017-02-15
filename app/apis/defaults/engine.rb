@@ -1,5 +1,5 @@
 module Defaults
-  module V1
+  module Engine
     extend ActiveSupport::Concern
 
     included do

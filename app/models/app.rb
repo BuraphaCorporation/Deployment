@@ -35,7 +35,7 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def port
-    ':1337' if environment.development?
+    ':5000' if environment.development?
   end
 
   def host(subdomain = nil)

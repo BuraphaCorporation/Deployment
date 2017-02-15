@@ -1,5 +1,6 @@
 module V1
-  class AuthAPI < ApplicationAPI
+  class AuthsAPI < ApplicationAPI
+    extend Defaults::Engine
     # use Rack::JSONP
 
     helpers do

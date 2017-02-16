@@ -1,0 +1,416 @@
+<script>$('body').attr('id', 'payment-page');</script>
+
+<div class="section" id="payment-section">
+  <div class="container">
+    <div class="row">
+      <!-- Left side -->
+      <div class="col-xs-12 col-md-4">
+        <div class="event card payment-card">
+          <div class="card-header row">
+            <div class="col col-xs-4 col-md-12">
+              <%= link_to client_event_path(@event.to_url) do %>
+                <div class="cover" style="background-image: url('<%= @event.get_thumbnail %>');"></div>
+              <% end %>
+            </div>
+            <div class="col col-xs-8 col-md-12">
+              <div class="info row">
+                <h4 class="title text-left">
+                  <%= link_to @event.title, client_event_path(@event.to_url) %>
+                </h4>
+                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= @event.to_uptime %></div>
+                <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= @event.location_name %></div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="ticket-list">
+                <div class="list-body">
+                  <% @event.sections.each do |section| %>
+                    <% next if @tickets["#{section.id}"].nil? %>
+                    <div class="ticket row">
+                      <div class="col-xs-8 ticket-title">
+                        <%= section.title %> <%= @tickets["#{section.id}"]["quantity"] %> x <%= convert_to_currency section.sale_price %>
+                      </div>
+                      <div class="col-xs-4 ticket-price">
+                      <%= convert_to_currency(section.sale_price * @tickets["#{section.id}"]["quantity"]) %>
+                      </div>
+                    </div>
+                  <% end unless @is_free %>
+                </div>
+                <div class="row list-footer">
+                  <div class="col-xs-12">
+                    Total: <%= @is_free ? "ฟรี" : convert_to_currency(@tickets["total"].to_i / 100) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side -->
+      <div class="col-xs-12 col-md-8">
+        <%= form_tag client_payment_checkout_path(@event.to_url), id: :checkout do  %>
+          <input type="hidden" name="event_id" value="<%= @event.id %>" />
+          <input type="hidden" name="omise_token">
+          <% if @is_free %>
+            <input type="hidden" name="payment_method" value="free">
+          <% else %>
+            <input type="hidden" name="payment_method" value="credit_card">
+          <% end %>
+
+          <% if current_user.nil? %>
+            <div class="panel panel-daydash panel-daydash-2 panel-login">
+              <div class="panel-body">
+                <div class="form-section">
+                  <div class="form-section-header">
+                    <h3 class="form-section-title">Quick Checkout</h3>
+                    <div class="form-section-description">
+                      ซื้อบัตรโดยใช้ Facebook ในคลิกเดียว
+                    </div>
+                  </div>
+                  <div class="form-section-body">
+                    <div class="form-section-description">
+                      <a class="btn btn-facebook btn-daydash btn-daydash-round" href="/auth/facebook"><i class="icon icon-xs icon-facebook-white"></i> ลงทะเบียนด้วย Facebook</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="form-section">
+                  <div class="form-section-header">
+                    <h3 class="form-sectiont-title">Checkout with E-mail</h3>
+                    <div class="form-section-description">
+                      หากคุณเป็นสมาชิกอยู่แล้ว กรุณา Login<br />
+                      คุณสามารถลงทะเบียนเป็นสมาชิก Daydash ได้ฟรี!
+                    </div>
+                    <div><a class="btn btn-login btn-daydash btn-daydash-round btn-daydash-green-2" data-toggle="modal" data-target="#login-modal" href="#login-modal" onclick="$('#login-modal #register-form').hide(); $('#login-modal #login-form').show(); return false;">สมัครสมาชิก / เข้าสู่ระบบ</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <% unless current_user.nil? %>
+            <div class="panel panel-daydash panel-payment">
+
+              <div class="form-section" id="general-info-section">
+                <div class="form-section-header">
+                  <h3 class="form-section-title">ข้อมูลผู้ซื้อ</h3>
+                </div>
+                <div class="form-section-body">
+                  <div class="row">
+                    <div class="form-group col-xs-12 col-md-6">
+                      <label>ชื่อ</label>
+                      <input class="form-control" type="text" name="firstname" value="<%= current_user.first_name %>" required />
+                    </div>
+                    <div class="form-group col-xs-12 col-md-6">
+                      <label>นามสกุล</label>
+                      <input class="form-control" type="text" name="lastname" value="<%= current_user.last_name %>" required />
+                    </div>
+                    <div class="form-group dob-form-group col-xs-12 col-md-6">
+                      <label>วันเกิด (วัน เดือน ปี)</label>
+                      <ul class="list-inline">
+                        <li>
+                          <select class="form-control" name="dob_date" required >
+                            <option value="">Date</option>
+                            <% (1..31).each do |date| %>
+                              <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
+                            <% end %>
+                          </select>
+                        </li>
+                        <li>
+                          <select class="form-control" name="dob_month" required >
+                            <option value="">Month</option>
+                            <% (1..12).each do |month| %>
+                              <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= Date::MONTHNAMES[month] %></option>
+                            <% end %>
+                          </select>
+                        </li>
+                        <li>
+                          <select class="form-control" name="dob_year" required >
+                            <option value="">Year</option>
+                            <% (0..99).each do |year| %>
+                              <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
+                            <% end %>
+                          </select>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="form-group gender-form-group col-xs-12 col-md-6">
+                      <label>เพศ</label>
+                      <div class="form-inline">
+                        <label class="radio">
+                          <input type="radio" name="gender" value="male" <%= "checked" if current_user.gender == "male" %> required />
+                          ชาย
+                        </label>
+                        <label class="radio">
+                          <input type="radio" name="gender" value="female" <%= "checked" if current_user.gender == "female" %> required />
+                          หญิง
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group col-xs-12 col-md-6" style="clear: left;">
+                      <label>อีเมล</label>
+                      <input class="form-control" type="email" name="email" value="<%= current_user.email %>" required />
+                    </div>
+                    <div class="form-group col-xs-12 col-md-6">
+                      <label>เบอร์โทร</label>
+                      <input class="form-control" type="text" name="phone" value="<%= current_user.phone %>" required />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <% if @is_free %>
+
+                <div class="form-section" id="payment-method-section">
+                  <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
+                    <div class="form-section-footer">
+                      <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="bank_transfer" >
+                        <i class="icon icon-lock"></i>
+                        ยืนยันการสั่งซื้อ
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              <% else %>
+                <div class="form-section" id="payment-method-section">
+                  <div class="form-section-header">
+                    <h3 class="form-section-title">การชำระเงิน</h3>
+                    <ul class="nav nav-tabs nav-justified nav-tabs-black nav-tabs-daydash" role="tablist">
+                      <li class="active"><a href="#payment-method-credit-card-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('credit_card');">ชำระโดยบัตรเครดิต</a></li>
+                      <li ><a href="#payment-method-bank-panel" role="tab" data-toggle="tab" onclick="return on_change_payment_method('bank_transfer');">ชำระโดยการโอนเงิน</a></li>
+                    </ul>
+                  </div>
+                  <div class="form-section-body">
+                    <div class="tab-content">
+                      <div role="tabpanel" class="tab-pane active" id="payment-method-credit-card-panel">
+                        <div class="form-section-body row">
+                          <div>
+                            <div class="card-wrapper"></div>
+                          </div>
+                          <div class="form-group col-xs-12">
+                            <label>Card Number</label>
+                            <input class="form-control" type="text" name="card_number" value="" placeholder="•••• •••• •••• ••••" data-omise="number" />
+                          </div>
+                          <div class="form-group col-xs-12">
+                            <label>Card's Holder Name</label>
+                            <input class="form-control" type="text" name="card_name" value="" placeholder="FULL NAME" data-omise="holder_name">
+                          </div>
+                          <div class="form-group col-xs-6">
+                            <label>Expire Date</label>
+                            <input class="form-control" type="text" name="card_expiry" value="" placeholder="••/••" data-omise="expiry" autocomplete="off" />
+                          </div>
+                          <div class="form-group col-xs-6">
+                            <label>CVC</label>
+                            <input class="form-control" type="password" name="card_cvc" maxlength="3" value="" placeholder="•••" data-omise="security_code" autocomplete="off" />
+                          </div>
+                          <div class="col-xs-12">
+                            <div id="token_errors" class="alert alert-danger" style="display: none;"></div>
+                            <%= content_tag :div, flash[:credit_card_error], class: "alert alert-danger" if flash[:credit_card_error].present? %>
+                          </div>
+                        </div>
+                        <div class="form-section-footer">
+                          <div>
+                            <%= image_tag "icons/icon-visa.png", class:"credit-icon" %>
+                            <%= image_tag "icons/icon-mastercard.png", class:"credit-icon"  %>
+                          </div>
+                          <div>
+                            <label>
+                              BY PROCESSING THIS ORDER, YOU AGREE TO OUR <a target="_blank" href="<%= terms_and_conditions_path %>">PAYMENT POLICY</a>
+                            </label>
+                          </div>
+                          <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="credit_card">
+                            <i class="icon icon-lock"></i>
+                            ยืนยันการชำระเงิน - <%= convert_to_currency(@tickets["total"] / 100) %>
+                          </button>
+                          <div style="margin-top: 15px">
+                            Your statement will be shown Omise*DAYDASH
+                          </div>
+                        </div>
+                      </div>
+                      <div role="tabpanel" class="tab-pane" id="payment-method-bank-panel">
+                        <ul>
+                          <li>เราจะทำการแจ้งรายละเอียดการชำระเงินหลังจากคุณคลิกปุ่ม “ยืนยันการสั่งซื้อ”</li>
+                          <li>คุณจะต้องทำการโอนและแจ้งโอนภายใน 4 ชั่วโมง นับจากเวลาที่สั่งซื้อ หากพ้นช่วงเวลาดังกล่าว รายการของคุณจะถูกยกเลิก และคุณจะต้องทำการสั่งซื้อใหม่อีกครั้ง</li>
+                        </ul>
+                        <div class="form-section-footer">
+                          <div>
+                            <%= image_tag "icons/icon-kbank.png", class:"bank-icon" %>
+                            <%= image_tag "icons/icon-scb.png", class:"bank-icon"  %>
+                          </div>
+                          <div>
+                            <label>
+                              BY PROCESSING THIS ORDER, YOU AGREE TO OUR <a target="_blank" href="<%= terms_and_conditions_path %>">PAYMENT POLICY</a>
+                            </label>
+                          </div>
+                          <button class="btn btn-submit btn-block btn-lg btn-daydash btn-daydash-green-3" data-loading-text="กำลังดำเนินการ กรุณาอย่าปิดหน้านี้" data-btn="payment-method" value="bank_transfer" >
+                            <i class="icon icon-lock"></i>
+                            ยืนยันการสั่งซื้อ
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.omise.co/omise.js"></script>
+<%= javascript_include_tag 'card/card', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'card/jquery.card', 'data-turbolinks-track' => true %>
+
+<script type="text/javascript"> //Init Function
+
+$(document).ready(function() {
+  init_form_validate();
+  init_card_validate();
+});
+
+function init_card_validate() {
+  //Init Card Form
+  $('form').card({
+    // a selector or DOM element for the container
+    // where you want the card to appear
+    container: '.card-wrapper', // *required*
+
+    formSelectors: {
+      numberInput: 'input[name=card_number]',
+      expiryInput: 'input[name=card_expiry]',
+      cvcInput: 'input[name=card_cvc]',
+      nameInput: 'input[name=card_name]'
+    },
+  });
+
+}
+
+function init_form_validate() {
+  //Payment Method
+
+  $('#checkout').validate({
+    highlight: function(element) {
+      $(element).closest('.form-group').addClass('has-error');
+    },
+    unhighlight: function(element) {
+      $(element).closest('.form-group').removeClass('has-error');
+    },
+    submitHandler: function() {
+
+      var form = $('#checkout');
+
+      $('.btn-submit').button('loading');
+      $('#token_errors').hide();
+
+      if(form.find("[name=payment_method]").val() == 'credit_card') {
+        omise_submit(form);
+        return false;
+      }
+      else if(form.find("[name=payment_method]").val() == 'bank_transfer') {
+        transfer_submit(form);
+        return true;
+      }
+      else {
+        free(form);
+        return true;
+      }
+    }
+  });
+}
+
+function transfer_submit(form) {
+  try {
+    form.get(0).submit();
+  } catch(e) {
+    $('.btn-submit').button('reset');
+  }
+}
+
+function free(form) {
+  try {
+    form.get(0).submit();
+  } catch(e) {
+    $('.btn-submit').button('reset');
+  }
+}
+
+function omise_submit(form) {
+
+  try {
+    Omise.setPublicKey("<%= Rails.application.secrets.omise_pkey %>");
+
+    var expiry = $("[name=card_expiry]").val();
+    var dataExpiry = expiry.replace(/\s/g, "");
+    var match = null;
+
+    if(match = dataExpiry.match(/^([0-9]+)\/([0-9]+)$/)) {
+      var expiration_month = match[1];
+      var expiration_year = match[2];
+    }
+    else {
+      var expiration_month = '';
+      var expiration_year = '';
+    }
+
+    var card = {
+      "name": form.find("[data-omise=holder_name]").val(),
+      "number": form.find("[data-omise=number]").val(),
+      // "expiration_month": form.find("[data-omise=expiration_month]").val(),
+      // "expiration_year": form.find("[data-omise=expiration_year]").val(),
+      "expiration_month": expiration_month,
+      "expiration_year": expiration_year,
+      "security_code": form.find("[data-omise=security_code]").val()
+    };
+
+    Omise.createToken("card", card, function (statusCode, response) {
+      try {
+        if (response.object == "error") {
+
+          if(response.code == 'invalid_card') throw 'Your credit card information does not correct.';
+          else throw response.message;
+
+        } else {
+          form.find("[name=omise_token]").val(response.id);
+          form.find("[name=payment_method]").val(form.find("[data-btn=payment-method]").val());
+
+          form.find("[data-omise=number]").val("");
+          form.find("[data-omise=security_code]").val("");
+
+          form.get(0).submit();
+        };
+      }
+      catch(e) {
+          $("#token_errors").html(e).show('fast');
+          $('.btn-submit').button('reset');
+      }
+    });
+  }
+  catch(e) {
+    $('#token_errors').html('Your credit card information does not correct.').show('fast');
+    $('.btn-submit').button('reset');
+  }
+}
+</script>
+
+<script> //View Function
+  function on_change_payment_method(method) {
+
+    <% unless current_user.try(:admin?) %>
+      ga('send', 'event', {
+        eventCategory: 'Switch Options',
+        eventAction: 'Clicked',
+        eventLabel: method
+      });
+    <% end %>
+
+    $('[name=payment_method]').val(method);
+  }
+</script>

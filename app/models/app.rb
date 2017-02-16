@@ -10,24 +10,28 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def domain(subdomain = nil)
-    domain = case subdomain
-    when 'api'
-      "#{host('api')}.#{root_domain}"
-    when 'admin'
-      "admin.#{root_domain}"
-    else
-      root_domain
-    end
-
-    protocol + '//' + domain
+    protocol + '//' + case subdomain
+                      when 'api'
+                        "#{api_host}.#{root_domain}#{port}"
+                      when 'admin'
+                        "admin.#{root_domain}#{port}"
+                      when 'organizer'
+                        "organizer.#{root_domain}#{port}"
+                      else
+                        if environment.development?
+                          "#{root_domain}#{port}"
+                        else
+                          "#{root_domain}"
+                        end
+                      end
   end
 
   def root_domain
     if environment.development?
-      'wadealike.local'
+      'daydash.local'
     else
-      'wadealike.com'
-    end + port
+      'daydash.co'
+    end
   end
 
   def protocol
@@ -35,40 +39,53 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def port
-    ':5000' if environment.development?
+    ':1337' if environment.development?
   end
 
-  def host(subdomain = nil)
+  def host
     case environment
-    when 'staging', 'alpha'
-      subdomain.nil? ? 'alpha' : "alpha-#{subdomain}"
+    when 'staging', 'brick', 'alpha'
+      'brick'
     else
-      "#{subdomain}"
+      ''
     end
   end
+
+  def api_host
+    case environment
+    when 'staging', 'brick', 'alpha'
+      'brick-api'
+    else
+      'api'
+    end
+  end
+
+  # def is_admin?
+  #   $admin
+  # end
 
   def configure
     config = OpenStruct.new
 
     case environment
     when 'production'
-      config.firebase             = 'https://wadealike.firebaseio.com/'
-      config.redis                = { host: 'redis.wadealike.com', port: 6379, timeout: 25 }
+      config.firebase             = 'https://daydash.firebaseio.com/'
+      config.redis                = { host: 'redis.daydash.co', port: 6379, timeout: 25 }
       config.facebook_app_id      = '259929777688738'
       config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
       config.ga_tracking_code     = 'UA-82041608-1'
       config.hotjar_id            = 281788
       config.slack_webhook           = "https://hooks.slack.com/services/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"
-    when 'staging', 'alpha', 'alpha'
-      config.firebase             = 'https://wadealike-staging.firebaseio.com/'
-      config.redis                = { host: 'redis-staging.wadealike.com', port: 6379, timeout: 25 }
+    when 'staging', 'brick', 'alpha'
+      config.firebase             = 'https://daydash-staging.firebaseio.com/'
+      config.redis                = { host: 'redis-staging.daydash.co', port: 6379, timeout: 25 }
       config.facebook_app_id      = '259929777688738'
       config.facebook_app_secret  = 'bdaef0f0beb25366bef19febf2366312'
       config.ga_tracking_code     = 'UA-82041608-2'
       config.hotjar_id            = 281789
       config.slack_webhook        = "https://hooks.slack.com/services/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x"
     else
-      config.firebase             = 'https://wadealike-development.firebaseio.com/'
+      config.firebase             = 'https://daydash-development.firebaseio.com/'
       config.redis                = { host: '127.0.0.1', port: 6379, timeout: 25 }
       config.facebook_app_id      = '286214348393614'
       config.facebook_app_secret  = 'fe56812591fad8625997a9ceecc133bf'
@@ -93,7 +110,7 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def no_reply
-    'no-reply@wadealike.com'
+    'no-reply@daydash.co'
   end
 
   def generate_code(digit = 5)
@@ -108,7 +125,6 @@ class App < Struct.new(:region, :environment, :version)
     else
       tmp = "public/QRCode/#{qr.class.name}-#{qr.code}.png"
     end
-
     RQRCode::QRCode.new(qr.code, size: 4, level: :h).to_img.resize(120, 120).save(tmp)
   end
 
@@ -117,19 +133,19 @@ class App < Struct.new(:region, :environment, :version)
   end
 
   def facebook_link
-    ENV['FACEBOOK_LINK']
+    'https://www.facebook.com/daydashapp'
   end
 
   def line_link
-    ENV['LINE_LINK']
+    'http://line.me/ti/p/@kjy4951o'
   end
 
   def instagram_link
-    ENV['INSTAGRAM_LINK']
+    'https://www.instagram.com/daydashapp/'
   end
 
   def twitter_link
-    ENV['TWITTER_LINK']
+    'http://www.twitter.com/daydashapp'
   end
 
   class << self

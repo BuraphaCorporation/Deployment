@@ -1,0 +1,171 @@
+<script>$('body').attr('id', 'profile-settings-page');</script>
+<script>$('body').addClass('profile-page');</script>
+
+<%#= render partial: "partials/nav" %>
+<script>
+  $('#organizer-nav #menu-settings').addClass('active');
+  $('#profile-nav #menu-settings').addClass('active');
+</script>
+
+<div class="section" id="profile-settings-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <%= form_for(@user, as: @user, url: client_profile_settings_path(@user), html: { method: :put }) do |f| %>
+          <%= f.hidden_field :role, value: @user.role %>
+          <div class="form-header">
+            <h1 class="form-title">Account Settings</h1>
+          </div>
+          <div class="form-body row">
+            <div class="form-group col-xs-12 col-md-6">
+              <label>Firstname</label>
+              <%= f.text_field :first_name, value: @user.first_name, class: 'form-control' %>
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+              <label>Lastname</label>
+              <%= f.text_field :last_name, value: @user.last_name, class: 'form-control' %>
+            </div>
+            <% unless @user.can_organizer? %>
+              <div class="form-group dob-form-group col-xs-12 col-md-6">
+                <label>Date of Birth</label>
+                <div class="form-inline">
+                  <select class="form-control" name="dob_date" required >
+                    <option value="">Date</option>
+                    <% (1..31).each do |date| %>
+                      <option <%= "selected" if current_user.birthday.try(:day) == date %> value="<%= date %>"><%= date %></option>
+                    <% end %>
+                  </select>
+                  <select class="form-control" name="dob_month" required >
+                    <option value="">Month</option>
+                    <% (1..12).each do |month| %>
+                      <option <%= "selected" if current_user.birthday.try(:month) == month %> value="<%= month %>"><%= Date::MONTHNAMES[month] %></option>
+                    <% end %>
+                  </select>
+                  <select class="form-control" name="dob_year" required >
+                    <option value="">Year</option>
+                    <% (0..99).each do |year| %>
+                      <option <%= "selected" if current_user.birthday.try(:year) == (Time.zone.now.year - year) %> value="<%= (Time.zone.now.year - year) %>"><%= (Time.zone.now.year - year) %></option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Gender</label>
+                <div class="form-inline">
+                  <label>
+                    <%= f.radio_button :gender, 'male' %>
+                    Male
+                  </label>
+                  <label>
+                    <%= f.radio_button :gender, 'female' %>
+                    Female
+                  </label>
+                  <!-- <label class="radio">
+                    <input type="radio" name="gender" value="not_specific" />
+                    <%#= f.radio_button :gender %>
+                    Not specific
+                  </label> -->
+                </div>
+              </div>
+            <% end %>
+
+            <div class="form-group col-xs-12 col-md-6">
+              <label>E-mail</label>
+              <%= f.email_field :email, value: @user.email, class: 'form-control' %>
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+              <label>Phone Number</label>
+              <%= f.telephone_field :phone, value: @user.phone, class: 'form-control' %>
+            </div>
+
+            <% if @user.can_organizer? %>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Business Name</label>
+                <%= f.text_field :company, value: @user.company, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Website URL</label>
+                <%= f.text_field :url, value: @user.url, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Facebook URL</label>
+                <%= f.text_field :facebook, value: @user.facebook, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Twitter URL</label>
+                <%= f.text_field :twitter, value: @user.twitter, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Instagram URL</label>
+                <%= f.text_field :instagram, value: @user.instagram, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Youtube URL</label>
+                <%= f.text_field :youtube, value: @user.youtube, class: 'form-control' %>
+              </div>
+              <div class="form-group col-xs-12 col-md-6">
+                <label>Short Description</label>
+                <%= f.text_area :short_description, size: '50x10', class: 'form-control' do %>
+                  <%= @user.short_description %>
+                <% end %>
+              </div>
+            <% end %>
+            <div class="form-group col-xs-12">
+              <label>Picture</label>
+              <%= f.file_field :picture, class: 'form-control' %>
+              <img src="<%= @user.try(:picture, :medium) %>" alt="" width="300">
+            </div>
+
+            <% if @user.can_organizer? %>
+              <div class="form-group col-xs-12">
+                <label>Cover</label>
+                <%= f.file_field :cover, class: 'form-control' %>
+                <img src="<%= @user.try(:cover, :full) %>" alt="" width="100%">
+              </div>
+
+              <div class="form-group col-xs-12 col-md-12">
+                <label>Location on Map</label>
+                <div class="form-inline">
+                  <%= f.text_field :latitude, value: @user.latitude, class: 'form-control', id: 'event_latitude', placeholder: 'Latitude' %>
+                  <%= f.text_field :longitude, value: @user.longitude, class: 'form-control', id: 'event_longitude', placeholder: 'Longitude' %>
+                </div>
+                <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+                <div id="organizer-map" style="margin-top: 15px; height: 300px;"></div>
+              </div>
+            <% end %>
+
+            <div class="col-xs-12">
+              <button class="btn btn-daydash btn-daydash-green-1">Update</button>
+            </div>
+          </div>
+        <% end %>
+
+
+        <%= form_for(@user, as: @user, url: client_profile_change_password_path(@user), html: { method: :put }) do |f| %>
+          <div class="form-header">
+            <h1 class="form-title">Change Password</h1>
+          </div>
+          <div class="form-body row">
+            <div class="form-group col-xs-12 col-md-6">
+              <label>Current Password</label>
+              <%= f.password_field :current_password, class: 'form-control' %>
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+              <label>New Password</label>
+              <%= f.password_field :new_password, class: 'form-control' %>
+            </div>
+            <div class="form-group col-xs-12 col-md-6">
+              <label>Confirm New Password</label>
+              <%= f.password_field :new_password_confirm, class: 'form-control' %>
+            </div>
+            <div class="col-xs-12">
+              <button class="btn btn-daydash btn-daydash-green-1">Change Password</button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

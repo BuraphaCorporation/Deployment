@@ -1,0 +1,159 @@
+  <%= stylesheet_link_tag 'greetings/dash-your-day', media: 'all', 'data-turbolinks-track' => true %>
+
+  <section id="campaign-page">
+    <div id="fb-root"></div>
+    <div id="wrapper">
+      <div id="main" style="background-image: url(/src/images/content/campaign/bg.png);">
+        <div class="section" id="intro-section">
+          <div class="container container-sm">
+            <div class="row">
+              <div class="col-xs-12">
+                <a href="/campaign/dash-your-day"><img src="/src/images/theme/logo.png" height="60" /></a>
+
+                <h1 class="section-title">
+                  Get a chance to win 1 of <br />these activities, FREE!
+                </h1>
+
+                <p class="section-description">
+                  เพราะเราเชื่อว่า การได้ทดลองทำกิจกรรมใหม่ๆ เป็นการเปิดโลกของเราให้กว้างขึ้น Daydash จึงเลือก 3 กิจกรรมเด็ด มาให้คุณได้ทดลองกันฟรีๆ ด้วย 3 ขั้นตอนง่ายๆ เพียงเลือกกิจกรรมที่อยากทำ กรอกข้อมูล และแชร์ให้เพื่อน เท่านี้คุณก็มีสิทธิ์ลุ้นเป็นผู้โชคดี ได้ทดลองทำกิจกรรมสนุกๆ กับ Daydash ฟรี! วันนี้ - 7 กันยายน นี้!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="section" id="event-section">
+          <div class="container">
+            <div class="row section-body">
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="event">
+                  <div class="cover" style="background-image: url(/src/images/content/campaign/olive.jpg);"></div>
+                  <div class="info">
+                    <h4>เวิร์คช็อปทำลูกชุบกับ Olive</h4>
+                    <div>1 รางวัล (วันที่ 24 กันยา 2PM-4PM)</div>
+                    <% if @selected_campaign == 'olive' %>
+                    <a class="btn btn-block btn-daydash btn-green vrlps-trigger" href="#">I want this!</a>
+                    <% else %>
+                    <a class="btn btn-block btn-daydash btn-green" href="/campaign/dash-your-day?campaign=olive">I want this!</a>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="event">
+                  <div class="cover" style="background-image: url(/src/images/content/campaign/rock-domain.jpg);"></div>
+                  <div class="info">
+                    <h4>Rock Climbing 1 Day Pass</h4>
+                    <div>2 รางวัล รางวัลละ 2 ท่าน</div>
+                    <% if @selected_campaign == 'rock-domain' %>
+                    <a class="btn btn-block btn-daydash btn-green vrlps-trigger" href="#">I want this!</a>
+                    <% else %>
+                    <a class="btn btn-block btn-daydash btn-green" href="/campaign/dash-your-day?campaign=rock-domain">I want this!</a>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4">
+                <div class="event">
+                  <div class="cover" style="background-image: url(/src/images/content/campaign/lazgam.jpg);"></div>
+                  <div class="info">
+                    <h4>Lazgam Laser Games</h4>
+                    <div>10 รางวัล รางวัลละ 2 ท่าน (1 game)</div>
+                    <% if @selected_campaign == 'lazgam' %>
+                    <a class="btn btn-block btn-daydash btn-green vrlps-trigger" href="#">I want this!</a>
+                    <% else %>
+                    <a class="btn btn-block btn-daydash btn-green" href="/campaign/dash-your-day?campaign=lazgam">I want this!</a>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row section-footer">
+              <div class="col-xs-12">
+                <div><a href="/campaign/dash-your-day/terms" target="_blank">*** กติกาและเงื่อนไขการร่วมสนุก และรายละเอียดของรางวัล ***</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section" id="footer-section">
+          <div class="container">
+            <h4 class="section-title">Incredible Activities By</h4>
+            <ul class="list-inline sponser-list">
+              <li><a target="_blank" href="http://www.rockdomaingym.com/"><img src="/src/images/content/campaign/sponsor-rd.png" /></a></li>
+              <li><a target="_blank" href="http://www.lazgam.com/"><img src="/src/images/content/campaign/sponsor-lazgam.png" /></a></li>
+              <li><a target="_blank" href="https://www.facebook.com/olivecreativelab/"><img src="/src/images/content/campaign/sponsor-olive.png" /></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <ul class="list-inline" id="social-list">
+          <li><a target="_blank" href="https://www.facebook.com/daydashapp/"><i class="icon icon-facebook"></i></a></li>
+          <li><a target="_blank" href="https://www.instagram.com/daydashapp"><i class="icon icon-instagram"></i></a></li>
+          <li><a target="_blank" href="http://line.me/ti/p/%40daydash"><i class="icon icon-line"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Facebook API -->
+    <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=259929777688738";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <% if @selected_campaign == 'lazgam' %>
+      <script>
+        (function(d, s, id, ucid) {
+          var js, hd = d.getElementsByTagName("head")[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s);
+          js.id = id;
+          js.setAttribute("data-vrlps-ucid", ucid);
+          js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
+          hd.appendChild(js);
+        }(document, "script", "vrlps-js", "xXx5R50mptUkMKKJ75wqzuQAn6I"));
+      </script>
+
+    <% elsif @selected_campaign == 'rock-domain' %>
+      <script>
+        (function(d, s, id, ucid) {
+          var js, hd = d.getElementsByTagName("head")[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s);
+          js.id = id;
+          js.setAttribute("data-vrlps-ucid", ucid);
+          js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
+          hd.appendChild(js);
+        }(document, "script", "vrlps-js", "BAYBdxcQ9j8fBd7tDJM3l2FGlgo"));
+      </script>
+
+
+    <% elsif @selected_campaign == 'olive' %>
+      <script>
+        (function(d, s, id, ucid) {
+          var js, hd = d.getElementsByTagName("head")[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s);
+          js.id = id;
+          js.setAttribute("data-vrlps-ucid", ucid);
+          js.src = "https://app.viral-loops.com/popup_assets/js/vl_load.min.js";
+          hd.appendChild(js);
+        }(document, "script", "vrlps-js", "qoSau3hvJnZB2UqmvfhyOHhLa1U"));
+      </script>
+    <% end %>
+
+    <% if @selected_campaign != '' %>
+      <div id="loading">
+        <img src="/src/images/content/campaign/loading.gif" width="100" />
+      </div>
+
+      <script>
+        window.addEventListener('vl_ready', function(e) {
+          $('#loading').hide('fast');
+          VL.openModal();
+        }, false)
+      </script>
+    <% end %>
+  </section>

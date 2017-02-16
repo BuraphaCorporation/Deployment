@@ -1,5 +1,5 @@
 class User::PasswordsController < Devise::PasswordsController
-  layout 'wadealike'
+  layout 'daydash'
 
   # GET /resource/password/new
   # def new

@@ -1,9 +1,4 @@
-require "application_responder"
-
 class ApplicationController < ActionController::Base
-  self.responder = ApplicationResponder
-  respond_to :html
-
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -11,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :default_seo
   before_action :default_cover
 
-  # http_basic_authenticate_with name: 'admin', password: 'x' if App.host == 'alpha'
+  http_basic_authenticate_with name: 'admin', password: 'x' if App.host == 'brick'
 
 protected
   def not_found
@@ -52,13 +47,13 @@ protected
 
 
   def set_seo_title(title)
-    set_meta_tags title: "#{title} - WadeAlike"
+    set_meta_tags title: "#{title} - Daydash"
   end
 
   def default_seo
-    site_name   = "wadealike.com"
+    site_name   = "daydash.co"
     url         = request.original_url
-    title       = "WadeAlike - Discover activities and events in Bangkok every day"
+    title       = "Daydash - Discover activities and events in Bangkok every day"
     description = "ค้นพบกิจกรรมและอีเว้นท์สนุกๆ ในกรุงเทพฯ ที่พร้อมให้คุณมาทดลองและสัมผัสประสบการณ์ใหม่ได้ทุกวัน ไม่ว่าจะเป็น Live Music, DJ, Party, Craft & Art Workshop, Beer Tasting, Cool Exhbition ไปจนถึง Fitness, Sport, Outdoor activity etc."
     image       = "#{App.domain}/facebook-og.jpg"
 
@@ -97,7 +92,7 @@ protected
     @covers = [
       {
         image: '/src/images/content/cover-1.jpg',
-        caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">WadeAlike ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>'
+        caption: '<h1 class="title">ประสบการณ์ใหม่ๆ มีอยู่รอบตัว</h1><div class="subtitle">Daydash ค้นพบกิจกรรมสนุกๆ อีเว้นท์เจ๋งๆ ที่พร้อมให้คุณออกไปสัมผัสได้ทุกวัน</div>'
       }
     ]
   end

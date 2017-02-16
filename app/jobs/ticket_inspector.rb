@@ -4,6 +4,5 @@ class TicketInspectorJob < ApplicationJob
   def perform
     # tickets = Ticket.where("event_date < ?", Time.zone.yesterday)
     # tickets.update_all(stages: :passed)
-    p "TicketInspectorJob"
   end
 end

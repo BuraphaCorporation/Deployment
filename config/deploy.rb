@@ -15,12 +15,11 @@ def current_git_branch
   git_branch branch
 end
 
-set :application, 'WadeAlike'
-set :repo_url, 'git@github.com:letsdoitrocks/wadealike.git'
-set :deploy_to, '/home/deploy/wadealike'
+set :application, 'Daydash'
+set :repo_url, 'git@github.com:LetsdoitRocks/Daydash.git'
+set :deploy_to, '/home/deploy/daydash'
 set :deploy_user, 'deploy'
 set :ssh_options, {:forward_agent => true}
-set :keep_releases, 10
 
 set :slackistrano, {
   channel: '#system',
@@ -31,8 +30,8 @@ set :slackistrano, {
 # set :log_level, :debug
 set :pty, true
 
-set :linked_files, %w{config/database.yml config/application.yml config/instance.yml}
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads node_modules}
+set :linked_files, %w{config/database.yml config/application.yml config/instance.yml config/secrets.yml}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
 
 set :keep_releases, 50
 
@@ -64,20 +63,19 @@ namespace :deploy do
     end
   end
 
-  desc 'NPM Install'
-  task :npm_install do
-    on roles(:app), in: :sequence, wait: 5 do
-      within release_path do
-        execute 'npm install'
-      end
-    end
-  end
+  # desc 'NPM Install'
+  # task :npm_install do
+  #   on roles(:app), in: :sequence, wait: 5 do
+  #     within release_path do
+  #       execute "cd #{release_path}/client && npm install"
+  #     end
+  #   end
+  # end
 
-  before 'deploy:assets:precompile', :npm_install
-  # after :finishing, 'deploy:cleanup'
-  after :publishing,  'deploy:restart'
-  after :restart,     'deploy:cleanup'
-  after :published,   :restart_workers
+  # before 'deploy:assets:precompile', :npm_install
+  after :finishing, 'deploy:cleanup'
+  after :publishing, 'deploy:restart'
+  after :published, :restart_workers
 end
 
 namespace :setup do
@@ -95,12 +93,12 @@ namespace :setup do
   task :generate_error_html do
     on roles(:web) do |host|
       public_500_html = File.join(release_path, "public/500.html")
-      execute :curl, "-k", "https://alpha.wadealike.com/500", "> #{public_500_html}"
+      execute :curl, "-k", "https://brick.daydash.co/500", "> #{public_500_html}"
 
       public_404_html = File.join(release_path, "public/404.html")
-      execute :curl, "-k", "https://alpha.wadealike.com/404", "> #{public_404_html}"
+      execute :curl, "-k", "https://brick.daydash.co/404", "> #{public_404_html}"
       public_402_html = File.join(release_path, "public/402.html")
-      execute :curl, "-k", "https://alpha.wadealike.com/404", "> #{public_402_html}"
+      execute :curl, "-k", "https://brick.daydash.co/404", "> #{public_402_html}"
     end
   end
 end

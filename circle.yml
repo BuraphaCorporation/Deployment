@@ -3,17 +3,12 @@ machine:
     Asia/Bangkok
   ruby:
     version:
-      2.4.0
-  node:
-    version:
-      7.3.0
+      2.3.1
 
 dependencies:
   pre:
-    - gem install bundler -v 1.13.7
-    # - npm install webpack
+    - gem install bundler -v 1.13.6
   override:
     - bundle install
-    - npm install
   post:
     - bundle exec rake assets:precompile

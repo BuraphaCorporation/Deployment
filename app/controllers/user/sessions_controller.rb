@@ -2,7 +2,7 @@ class User::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
   prepend_before_action :verify_user, only: [:destroy]
 
-  layout 'wadealike'
+  layout 'daydash'
 
   # GET /resource/sign_in
   def new

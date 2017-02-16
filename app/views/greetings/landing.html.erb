@@ -1,0 +1,122 @@
+  <%= stylesheet_link_tag 'greetings/landing-v1', media: 'all', 'data-turbolinks-track' => true %>
+
+  <body id="landing-v1">
+    <div class="wrapper">
+      <div class="main">
+      <div class="container-fluid">
+          <div class="row">
+
+              <div class="col-xs-12 col-md-6 left">
+                <div class="slick">
+                  <div>
+                    <div class="cover-photo" style="background-image: url('img/dash-screen-2.jpg');"></div>
+                  </div>
+                  <!-- <div>
+                    <div class="cover-photo" style="background-image: url('img/dash-screen-1.jpg');"></div>
+                  </div> -->
+                </div>
+              </div>
+
+              <div class="col-xs-12 col-md-6 right">
+                <div class="cover-profile">
+                  <div class="masthead-brand">
+                        <img src="img/daydash-logo-dark.png" alt="Daydash">
+                      </div>
+              <h1>เพราะเราเชื่อว่า ชีวิตไม่ได้มีแค่ด้านเดียว</h1>
+              <h2>
+            เตรียมพบกับ Daydash แอพฯ ที่ช่วยให้คุณค้นพบกิจกรรม และอีเว้นท์เจ๋งๆ ที่ตรงกับไลฟ์สไตล์ของคุณ ร่วมค้นหาประสบการณ์ใหม่ๆ กับเราได้ก่อนใคร เพียงกรอกอีเมลด้านล่าง
+              </h2>
+
+              <div class="signup signuptop">
+                <!-- Begin MailChimp Signup Form -->
+                <div id="mc_embed_signup">
+                <form action="//daydash.us13.list-manage.com/subscribe/post?u=17a658be2948b8e8af797778c&amp;id=28a8c4f0fb" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <div id="mc_embed_signup_scroll">
+
+                <div class="mc-field-group">
+                  <input type="text" value="" placeholder="Your Name" name="FNAME" class="" id="mce-FNAME">
+                  <input type="email" value="" placeholder="Your Email" name="EMAIL" class="required email" id="mce-EMAIL">
+                  <input type="submit" value="Let's Go!" name="subscribe" id="mc-embedded-subscribe" class="button">
+                </div>
+                  <div id="mce-responses" class="clear">
+                    <div class="response" id="mce-error-response" style="display:none"></div>
+                    <div class="response" id="mce-success-response" style="display:none"></div>
+                  </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_17a658be2948b8e8af797778c_28a8c4f0fb" tabindex="-1" value=""></div>
+                    <input type="hidden" name="form-location" value="1">
+
+                    </div>
+                </form>
+                </div>
+                <!--End mc_embed_signup-->
+              </div>
+
+              <!-- fb like box -->
+              <!-- <div class="fb-like" data-href="https://facebook.com/daydashapp" data-width="400" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div> -->
+              <!-- end fb like box -->
+
+              <!-- footer: blog & social -->
+              <div class="footer">
+
+                <div class="blog">
+                  <strong>อ่าน Blog → </strong><a href="https://daydash.co/blog/weekend-activities-for-couple-in-bangkok/" title="5 กิจกรรมสนุกๆ สำหรับคู่รัก แล้ววันเดทจะไม่น่าเบื่ออีกต่อไป">5 กิจกรรมสนุกๆ สำหรับคู่รัก แล้ววันเดทจะไม่น่าเบื่ออีกต่อไป</a>
+                </div>
+
+                <div class="social">
+                  Follow us:
+                  <a href="https://www.facebook.com/daydashapp/" target="_blank"><img src="img/icon-fb.png" width="30"></a>
+                  <a href="https://www.instagram.com/daydashapp/" target="_blank"><img src="img/icon-ig.png" width="30"></a>
+                </div>
+
+              </div>
+
+              <!-- end footer: blog & social -->
+
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    $('.slick').slick({
+      autoplay: true,
+        autoplaySpeed: 3000,
+        infinite: true,
+      dots: true,
+      infinite: true,
+      speed: 400,
+      fade: true,
+      cssEase: 'linear',
+       responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              infinite: true,
+              dots: true
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          }
+          // You can unslick at a given breakpoint now by adding:
+          // settings: "unslick"
+          // instead of a settings object
+        ]
+    });
+
+  </script>

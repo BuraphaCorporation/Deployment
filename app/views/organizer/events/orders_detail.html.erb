@@ -1,0 +1,86 @@
+<% content_for :body_id, 'organizer-event-orders' %>
+<% content_for :body_class, 'organizer-event' %>
+<%= render partial: "partials/manage_nav" %>
+
+<div class="section" id="order-list-section">
+  <div class="container">
+    <div class="section-body row">
+      <div class="col-xs-12">
+        <div class="event-section-panel">
+          <div class="row panel-header">
+            <div class="col-md-8 col-xs-12 col-sm-6 text-left">
+              <h4>ORDER #<%= @order.code %> - <%= convert_to_currency(@order.to_price) %> <span class="order-status <%= @order.status %>"><%= @order.status %></span></h4>
+              <p>Ordered by <%= "#{@order.user.first_name} #{@order.user.last_name}" %> on <%= @order.created_at %> by <%= @order.payment.channel %></p>
+            </div>
+            <div class="col-md-4 col-xs-12 col-sm-6 text-right">
+              <div class="row">
+                <div class="col-xs-6 link">
+                  <%= link_to 'javascript:;' do %>
+                    <i class="nc-icon-outline arrows-4_launch-47"></i> RESEND EMAIL
+                  <% end %>
+                </div>
+                <div class="col-xs-6 link">
+                  <%= link_to orders_organizer_event_path(format: :xlsx) do %>
+                    <i class="nc-icon-outline arrows-4_launch-47"></i> EXPORT
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive organizer-table">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <td>TICKET</td>
+                  <td>PRICE</td>
+                  <td>QUANTITY</td>
+                  <td>TOAL</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @order.tickets.each do |ticket| %>
+                  <tr>
+                    <td><%= ticket.section.title %></td>
+                    <td><%= convert_to_currency ticket.section.price %></td>
+                    <td>1</td>
+                    <td><%= convert_to_currency ticket.section.price %></td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <td colspan="2">&nbsp;</td>
+                  <td>Total</td>
+                  <td><%= convert_to_currency(@order.to_price) %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- <div class="row">
+            <div class="col-xs-12">
+              <p>
+                <b>Payment</b>
+              </p>
+              <div class="row">
+                <div class="col-xs-2">
+                  <strong>Revenue</strong><br>
+                  <strong>Fee (8%)</strong>
+                </div>
+                <div class="col-xs-2">
+                  <strong><%#= convert_to_currency(@order.to_price) %></strong><br>
+                  <strong><%#= convert_to_currency(@order.to_price * 0.08) %></strong>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.sort_by').on('change', function(){
+    var sort = $(this).val();
+    var url = location.protocol + '//' + location.host + location.pathname;
+    window.location = url + '?sort_by=' + sort;
+  });
+</script>

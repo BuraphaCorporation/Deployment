@@ -8,9 +8,6 @@ capybara-*.html
 /public/system
 /public/images
 /public/assets
-/public/css
-/public/fonts
-/public/js
 /public/QRCode/*.png
 /coverage/
 /spec/tmp
@@ -19,8 +16,8 @@ rerun.txt
 pickle-email-*.html
 
 # TODO Comment out these rules if you are OK with secrets being uploaded to the repo
-# config/initializers/secret_token.rb
-# config/secrets.yml
+config/initializers/secret_token.rb
+config/secrets.yml
 
 # dotenv
 # TODO Comment out this rule if environment variables can be committed
@@ -51,8 +48,7 @@ bower.json
 **/.DS_Store
 
 # Ignore application configuration
-# /config/application.yml
-
+/config/application.yml
 # React on Rails
 npm-debug.log*
 node_modules

@@ -1,0 +1,89 @@
+
+<script>$('body').attr('id', 'index-page');</script>
+<div class="section" id="cover-section">
+  <div class="slick" id="cover-slick">
+    <% @covers.each do |cover| %>
+      <div>
+        <div class="page-cover" style="background-image: url('<%= cover[:image] %>')">
+          <div class="info">
+            <div class="container">
+              <div class="caption"><%= raw(cover[:caption]) %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="section" id="about-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12 content">
+        <h3>Daydash คืออะไร?</h3>
+        <p>
+          Daydash (อ่านว่า เดย์แดช) คือเว็บไซต์และแอปพลิเคชั่นที่คัดเลือกกิจกรรมและอีเว้นท์ดีๆ สนุกๆ ที่ตรงกับไลฟ์สไตล์ของคนเมือง โดยสามารถซื้อบัตรและชำระเงินเพื่อเข้าร่วมอีเว้นท์หรือกิจกรรมได้โดยตรงผ่านทางแอพพลิเคชั่นและเว็บไซต์ได้ง่ายๆ ไม่ต้องวางแผนล่วงหน้านานๆ
+        </p>
+        <p>
+          เราสร้าง Daydash ขึ้นมาเพราะเราเชื่อว่าชีวิตยังมีเรื่องราวหรือประสบการณ์อีกมากมายให้คุณได้ลองเข้าไปสัมผัส เป้าหมายของเราจึงเป็นการสนับสนุนให้ทุกคนได้ได้รับประสบการณ์ใหม่ๆ ที่นอกเหนือจากการใช้ชีวิตประจำวัน ผ่านการทำกิจกรรม การเข้าร่วมอีเว้นท์ที่แปลกใหม่ หรือแม้กระทั่งท่องเที่ยวไปในที่ที่ไม่เคยไป
+        </p>
+
+        <h3>Daydash มีกิจกรรมอะไรบ้าง?</h3>
+        <p>
+          เราทุกคนล้วนมีความชอบและความสนใจที่หลากหลาย ตอนเช้าเราอาจจะออกกำลังกาย ตกบ่ายอยากจะหาร้านนั่งชิว พอหัวค่ำก็อยากจะหาดนตรีฟัง กิจกรรมและอีเว้นท์ที่เราคัดมาจึงมีหลายหมวดหมู่แต่มีจุดเชื่อมโยงคือต้องสนุก แปลกใหม่ เพื่อสร้างประสบการณ์ที่ดีที่สุดให้กับชีวิตทุกครั้งที่ได้ทำ
+        </p>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <img src="about-daydash-entertainment.jpg" width="100%">
+            <h4 style="text-align: center;">Entertainment</h4>
+            <p>Live music, party, movie & theater, performance, culture, food & drink</p>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <img src="about-daydash-art.jpg" width="100%">
+            <h4 style="text-align: center;">Art & Culture</h4>
+            <p>coffee brewing, painting, cooking, craft, bartender, dancing, photographing, cooking class, etc.</p>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+            <img src="about-daydash-sport.jpg" width="100%">
+            <h4 style="text-align: center;">Fitness & Sport</h4>
+            <p>Fitness Training Class, Outdoor Activity, Yoga Class, Extreme Sport, Sport Competition etc.</p>
+          </div>
+        </div>
+
+        <h3>ติดต่อเรา</h3>
+        <p>
+          หากคุณมีคำถาม ข้อสงสัย เสมอแนะ สามารถติดต่อเราได้ที่อีเมล์ <a href="mailto:hello@daydash.co" target="_blank">hello@daydash.co</a> หรือทาง Line: <a href="https://line.me/ti/p/@daydash" target="_blank">@daydash</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css">
+  #about-section {
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 30px;
+    border: 1px solid #eee;
+    background: white;
+    /*margin-top: -110px*/
+  }
+
+  #about-section .content {
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 30px;
+    border: 1px solid #eee;
+    background: white;
+  }
+
+ .about {
+    margin-top: -120px;
+    width: 800px;
+    z-index: 20px;
+    position: relative;
+ }
+ p {
+    line-height: 25px;
+ }
+</style>

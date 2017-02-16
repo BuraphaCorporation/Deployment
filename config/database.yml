@@ -6,22 +6,22 @@ default: &default
 
 development:
   <<: *default
-  database: wadealike_development
+  database: Daydash_development
 
 test:
   <<: *default
-  database: wadealike_test
+  database: Daydash_test
 
 server: &server
   adapter: postgresql
   encoding: unicode
-  database: wadealike_production
-  username: wadealike
+  database: daydash_production
+  username: daydash
   password: <%= ENV['DATABASE_PASSWORD'] %>
   host: localhost
   port: 5432
 
-alpha:
+brick:
   <<: *server
 production:
   <<: *server

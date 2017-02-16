@@ -16,23 +16,18 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module WadeAlike
+module Daydash
   class Application < Rails::Application
-    # Use the responders controller from the responders gem
-    config.app_generators.scaffold_controller :responders_controller
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-
-    # Auto-load API and its subdirectories
-    config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
 
     config.time_zone = 'Bangkok'
     config.active_record.default_timezone = :local
     config.active_record.time_zone_aware_types = [:datetime, :time]
     config.exceptions_app = self.routes
+
+    config.autoload_paths += %W(#{config.root}/workers)
 
     config.paperclip_defaults = {
       storage:              :s3,

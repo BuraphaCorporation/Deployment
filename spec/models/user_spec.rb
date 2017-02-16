@@ -51,10 +51,6 @@
 #  twitter                :string
 #  instagram              :string
 #  youtube                :string
-#  cover_file_name        :string
-#  cover_content_type     :string
-#  cover_file_size        :integer
-#  cover_updated_at       :datetime
 #
 # Indexes
 #

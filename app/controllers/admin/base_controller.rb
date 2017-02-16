@@ -1,14 +1,15 @@
 module Admin
   class BaseController < ApplicationController
-    # before_action :authenticate_organizer!
+    before_action :authenticate_organizer!
     before_action :global_categories
     before_action do
       set_current_page('admin')
     end
 
-    # include WadeAlikeHelper
+    include OrganizerHelper
+    include DaydashHelper
 
-    layout 'admin'
+    layout 'daydash'
 
   protected
     def authenticate_organizer!

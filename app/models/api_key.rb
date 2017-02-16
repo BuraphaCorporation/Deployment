@@ -34,7 +34,6 @@ class ApiKey < ApplicationRecord
     end
 
     def set_expiration
-      # Change the expiration range if we want
-      self.expires_at = DateTime.now + 9999
+      self.expires_at = DateTime.now+30
     end
 end

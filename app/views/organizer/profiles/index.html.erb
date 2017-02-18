@@ -24,8 +24,8 @@
               <div class="cover" style="background-image: url('<%= organizer.picture(:medium) %>');"></div>
               <div class="info" style="min-height: auto;">
                 <h4 class="title text-left" style="height: auto;"><%= organizer.company %></h4>
-                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= organizer.company %></div>
-                <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= organizer.email %></div>
+                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= organizer.email %></div>
+                <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= organizer.short_description %></div>
               </div>
             <% end %>
           </div>

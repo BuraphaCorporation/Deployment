@@ -1,0 +1,77 @@
+<script>$('body').attr('id', 'index-page');</script>
+
+<div class="section" id="cover-section">
+  <div class="slick" id="cover-slick">
+    <% @covers.each do |cover| %>
+      <div>
+        <div class="page-cover" style="background-image: url('<%= cover[:image] %>')">
+          <div class="info">
+            <div class="container">
+              <div class="caption"><%= raw(cover[:caption]) %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="section" style="background: #FCFBFC">
+  <div class="container">
+    <div class="row event-list" style="padding-top: 30px;">
+      <% @organizers.each do |organizer| %>
+          <div class="col-sm-6 col-md-4 event-wrapper">
+            <%= link_to organizer_path(organizer), class: "event card" do %>
+                <div style="color: #fff;
+                      font-weight: 600;
+                      position: absolute;
+                      top: 110px;
+                      text-align: center;
+                      left: 0;
+                      right: 0;
+                      font-size: 22px;
+                      z-index: 1000;">
+                  PAST EVENT
+                </div>
+                  <div class="cover" style="background-image: url('<%= organizer.picture(:medium) %>'); filter: brightness(.5);">
+                </div>
+              <div class="info" style="min-height: auto;">
+                <h4 class="title text-left" style="height: auto;"><%= organizer.company %></h4>
+                <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= organizer.company %></div>
+                <div class="meta location"><i class="icon icon-xs icon-location"></i> <%= organizer.email %></div>
+              </div>
+            <% end %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<style type="text/css">
+  #about-section {
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 30px;
+    border: 1px solid #eee;
+    background: white;
+    /*margin-top: -110px*/
+  }
+
+  #about-section .content {
+    border-radius: 0px;
+    box-shadow: none;
+    padding: 30px;
+    border: 1px solid #eee;
+    background: white;
+  }
+
+ .about {
+    margin-top: -120px;
+    width: 800px;
+    z-index: 20px;
+    position: relative;
+ }
+ p {
+    line-height: 25px;
+ }
+</style>

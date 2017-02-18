@@ -238,7 +238,7 @@ Rails.application.routes.draw do
       # resources :users, except: :show
 
       get '/:organizer', to: 'profiles#show'
-      root to: "profiles#index"
+      root to: "profiles#index", as: :index
     end
 
     namespace :admin do

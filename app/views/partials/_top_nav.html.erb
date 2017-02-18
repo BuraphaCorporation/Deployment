@@ -93,30 +93,22 @@
           <% else %>
             <!-- current_site == 'organizer' -->
             <ul class="nav navbar-nav navbar-left mobile-hide">
-              <%#<li>
-                <a href="#">Explore</a>
+              <li>
+                <%= link_to "Explore", root_path %>
               </li>
               <li>
-                <a href="#">Daydash คืออะไร</a>
-              </li>%>
-              <li>
-                <%= link_to 'ALL', root_path %>
+                <%= link_to 'Organizers', organizer_index_path %>
               </li>
-              <% @global_categories.each do |category| %>
-                <li>
-                  <% if is_index_with_categories? %>
-                    <%= link_to category.title, 'javascript:;', class: 'category-filter', 'data-filter': category.id %>
-                  <% else %>
-                    <a href="/categories/<%= category.slug %>"><%= category.title %></a>
-                  <% end %>
-                </li>
-              <% end unless @global_categories.nil? %>
+              <li><a href="/about">Daydash คืออะไร</a></li>
             </ul>
           <% end %>
         <% else %>
           <ul class="nav navbar-nav navbar-left mobile-hide">
             <li>
               <%= link_to "Explore", root_path %>
+            </li>
+            <li>
+              <%= link_to 'Organizers', organizer_index_path %>
             </li>
             <li><a href="/about">Daydash คืออะไร</a></li>
           </ul>

@@ -3,6 +3,12 @@ module Organizer
     before_action :authenticate_organizer!, except: :show
     before_action :organizer, only: :show
 
+    def index
+      set_current_page('client')
+      @organizer = User.organizer.first
+      @organizers = User.organizer
+    end
+
     def show
       @events = @organizer.events.order(uptime: :desc)
 

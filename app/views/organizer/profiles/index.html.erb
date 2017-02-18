@@ -21,19 +21,7 @@
       <% @organizers.each do |organizer| %>
           <div class="col-sm-6 col-md-4 event-wrapper">
             <%= link_to organizer_path(organizer), class: "event card" do %>
-                <div style="color: #fff;
-                      font-weight: 600;
-                      position: absolute;
-                      top: 110px;
-                      text-align: center;
-                      left: 0;
-                      right: 0;
-                      font-size: 22px;
-                      z-index: 1000;">
-                  PAST EVENT
-                </div>
-                  <div class="cover" style="background-image: url('<%= organizer.picture(:medium) %>'); filter: brightness(.5);">
-                </div>
+              <div class="cover" style="background-image: url('<%= organizer.picture(:medium) %>');">
               <div class="info" style="min-height: auto;">
                 <h4 class="title text-left" style="height: auto;"><%= organizer.company %></h4>
                 <div class="meta date"><i class="icon icon-xs icon-calendar"></i> <%= organizer.company %></div>

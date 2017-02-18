@@ -10,6 +10,8 @@ module Organizer
     end
 
     def show
+      set_current_page('client')
+
       @events = @organizer.events.order(uptime: :desc)
 
       @covers = [

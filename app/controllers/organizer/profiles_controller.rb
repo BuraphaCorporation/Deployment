@@ -1,6 +1,6 @@
 module Organizer
   class ProfilesController < Organizer::BaseController
-    before_action :authenticate_organizer!, except: :show
+    before_action :authenticate_organizer!, except: [:index, :show]
     before_action :organizer, only: :show
 
     def index

@@ -48,8 +48,8 @@ class Ticket < ApplicationRecord
   after_create :set_event_date
   # after_commit :send_email_to_buyer, on: [:create, :update]
 
-  enumerize :stages, in: [:active, :passed], default: :active
-  enumerize :status, in: [:available, :unusable, :used], default: :unusable
+  enum stages: [:active, :passed], _suffix: :stage #, default: :active
+  enum status: [:available, :unusable, :used], _suffix: :status #, default: :unusable
 
   scope :current_tickets, -> { joins(:section).select{ |s| s.section.event_time >= Date.today } }
   scope :active, -> { includes(:section).where(stages: :active).order("sections.event_time asc") }

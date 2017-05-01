@@ -38,7 +38,7 @@ class Section < ApplicationRecord
   scope :available, -> { where("event_time < ? and end_time > ?", Time.zone.now, Time.zone.now).order(:price, :discount) }
   scope :total, -> { sum(:total) }
 
-  enumerize :status, in: [:on, :off, :draft], default: :draft
+  enum status: [:on, :off, :draft], _suffix: true #, default: :draft
 
   def sale_price
     self.price - self.discount

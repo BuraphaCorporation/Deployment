@@ -1,4 +1,4 @@
-ruby '2.3.4'
+ruby '2.4.1'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -8,122 +8,47 @@ end
 
 gem 'rails', '~> 5.0.2'
 
-# core lib for views
+platform :ruby do
+  gem 'pg', '~> 0.18'
+  gem 'puma', '~> 3.7'
+  gem 'unicorn'
+  gem 'mini_racer'
+
+  # gem 'mongoid', '~> 6.0.0'
+  # gem "mongoid-enum", git: 'https://github.com/monster-media/mongoid-enum'
+  # gem 'mongoid-slug'
+  # gem 'mongoid-paperclip'
+  # gem 'mongoid-locker'
+  # gem 'mongoid-history'
+  # gem 'mongoid_rails_migrations'
+
+  # gem 'bson_ext'
+  gem 'redis', '~> 3.2'
+  gem 'redis-namespace'
+  gem 'redis-rails'
+end
+
+# default
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
 gem 'sprockets', '~> 3.0'
 gem 'sprockets-es6'
 gem 'turbolinks', '~> 5'
 gem 'sass-rails', '~> 5.0'
-
-# helper views
-gem 'bootstrap-sass'
-gem 'font-awesome-sass', '~> 4.6.2'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
-# gem 'bulma-rails', '~> 0.2.3'
-
-# gem 'react_on_rails', '~> 6'
+gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'jquery-turbolinks'
-gem 'jquery-slick-rails'
-gem 'jquery-validation-rails'
-gem 'parsley-rails'
-gem 'momentjs-rails'
-# gem 'vuejs-rails'
-
-gem 'simple_form'
-gem 'show_for'
-gem 'cocoon'
-gem 'rails_autolink'
-gem 'rails-controller-testing'
-gem 'kaminari' #, git: 'https://github.com/amatsuda/kaminari', branch: 'master'
-
-# ActiveRecord Helper
-gem 'figaro'
-gem 'annotate'
-gem 'has_scope'
-gem 'enumerize'
-gem 'friendly_id', '~> 5.1.0'
-gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', branch: 'rails5'
-gem 'activemodel-serializers-xml'
-gem 'paperclip', git: 'https://github.com/thoughtbot/paperclip'
-# gem 'paperclip-ffmpeg'
-gem 'rqrcode_png'
-gem 'dragonfly', '~> 1.0.12'
-gem 'money'
-gem 'monetize'
-gem 'money-rails'
-
-gem 'rubyzip', '= 1.0.0'
-gem 'axlsx', '= 2.0.1'
-gem 'axlsx_rails'
-
-gem 'bcrypt', '~> 3.1.7'
-gem 'jwt'
-gem 'devise'
-gem 'omniauth-facebook'
-gem 'koala'
-gem 'open_uri_redirections'
-
-# worker
-gem 'devise-async'
-gem 'sidekiq'
-gem 'sidekiq-cron'
-# gem 'sidekiq-scheduler', '~> 2.0'
-
-# make api
-gem 'jbuilder', '~> 2.5'
-gem 'jsonapi'
-gem 'jsonapi-parser', '~> 0.1.1.beta2'
-gem 'active_model_serializers'
-gem 'rack-cors'
-gem 'rack-attack'
-gem 'grape'
-gem 'grape-entity'
-gem 'grape-swagger'
-gem 'grape-swagger-rails'
-gem 'grape-active_model_serializers'
-
-# integration
-# gem 'mongoid', '~> 6.0.0'
-gem 'redis', '~>3.2'
-gem 'redis-namespace'
-# gem 'redis-objects'
-gem 'dalli', '~> 2.7.4'
-
-# gem 'parse-ruby-client', git: 'https://github.com/adelevie/parse-ruby-client'
-# gem 'firebase'
-# gem 'gcloud'
-gem 'aws-sdk', '~> 2'
-gem 'omise'
-gem 'mailgun'
-gem 'one_signal'
-
-gem 'slack-notifier'
-
-# error handler
-gem 'rollbar'
-
-# marketing
-gem 'meta-tags'
-gem 'google-api-client'
-gem 'mixpanel-ruby'
-gem 'vanity'
-# gem 'split'
 
 # source 'https://rails-assets.org' do
-#   gem 'rails-assets-pluralize'
-#   gem 'rails-assets-es6-promise'
-#   gem 'rails-assets-fetch'
+#   gem 'rails-assets-bootstrap'
+#   gem 'rails-assets-bootstrap-datepicker'
+#   gem 'rails-assets-bootstrap-datetimepicker'
+#   gem 'rails-assets-jquery'
+#   gem 'rails-assets-jquery-ujs'
+#   gem 'rails-assets-jquery-ui'
+#   gem 'rails-assets-fontawesome'
+#   gem 'rails-assets-moment'
+#   gem 'rails-assets-slick.js'
+#   gem 'rails-assets-parsleyjs'
 # end
-
-platform :ruby do
-  gem 'pg', '~> 0.18'
-  gem 'puma', '~> 3.0'
-  gem 'unicorn'
-  gem 'mini_racer'
-end
 
 group :production do
   gem 'rails_12factor'
@@ -152,9 +77,6 @@ group :development do
   gem 'slackistrano', '3.1.0.beta'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
 group :development, :test do
   gem 'byebug'
   gem 'pry'
@@ -163,7 +85,10 @@ group :development, :test do
   gem 'pry-stack_explorer'
   gem 'pry-theme'
 
-  gem 'rspec-rails', '~> 3.0'
+  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+    gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
+  end
+
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'ffaker'
@@ -173,8 +98,6 @@ group :test do
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'database_cleaner'
-  gem 'guard'
-  gem 'guard-rspec'
   gem 'shoulda'
   gem 'shoulda-matchers'#, '~> 3.0'
   gem 'poltergeist'
@@ -183,3 +106,97 @@ group :test do
   gem 'rspec-collection_matchers'
   gem 'simplecov'
 end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'bcrypt', '~> 3.1.7'
+gem 'jwt'
+# gem 'knock', '~> 2.0'
+gem 'hashie', '3.5.1'
+gem 'devise', github: 'plataformatec/devise'
+gem 'erubis'
+gem 'omniauth-facebook'
+gem 'koala'
+
+gem 'jbuilder', '~> 2.5'
+gem 'rack-cors'
+gem 'rack-attack'
+
+
+# ------------------------------------------
+
+gem 'bootstrap-sass'
+gem 'font-awesome-sass', '~> 4.6.2'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.42'
+
+gem 'jquery-ui-rails'
+gem 'jquery-turbolinks'
+gem 'jquery-slick-rails'
+gem 'jquery-validation-rails'
+gem 'parsley-rails'
+gem 'momentjs-rails'
+
+# ------------------------------------------
+
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'grape-swagger-entity'
+gem 'grape-swagger-representable'
+gem 'grape-active_model_serializers'
+gem 'active_model_serializers'
+gem 'activemodel-serializers-xml'
+gem 'hashie-forbidden_attributes'
+gem 'open_uri_redirections'
+gem 'jsonapi'
+gem 'jsonapi-parser', '~> 0.1.1.beta2'
+
+# ActiveRecord Helper
+gem 'figaro'
+gem 'annotate'
+gem 'has_scope'
+gem 'friendly_id'
+gem 'paranoia', git: 'https://github.com/rubysherpas/paranoia', branch: 'rails5'
+gem 'paperclip', git: 'https://github.com/thoughtbot/paperclip'
+gem 'paperclip-ffmpeg'
+gem 'rqrcode_png'
+gem 'dragonfly', '~> 1.0.12'
+gem 'money-rails'
+gem 'monetize'
+
+gem 'rubyzip', '= 1.0.0'
+gem 'axlsx', '= 2.0.1'
+gem 'axlsx_rails'
+
+# worker
+gem 'devise-async'
+gem 'sidekiq'
+gem 'sidekiq-cron'
+
+gem 'react_on_rails', '~> 6'
+
+gem 'simple_form'
+gem 'country_select'
+gem 'show_for'
+gem 'cocoon'
+gem 'kaminari'
+gem 'rails_autolink'
+gem 'rails-controller-testing'
+
+gem 'firebase'
+# gem 'gcloud'
+gem 'aws-sdk', '~> 2'
+gem 'omise'
+gem 'mailgun'
+gem 'one_signal'
+gem 'slack-notifier'
+gem 'rollbar'
+
+# marketing
+gem 'meta-tags'
+gem 'google-api-client'
+gem 'mixpanel-ruby'
+gem 'vanity'
+# gem 'split'

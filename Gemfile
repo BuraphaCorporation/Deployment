@@ -1,15 +1,12 @@
 ruby '2.3.4'
 source 'https://rubygems.org'
 
-# git_source(:github) do |repo_name|
-#   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-#   "https://github.com/#{repo_name}.git"
-# end
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
 
 gem 'rails', '~> 5.0.2'
-gem 'refile',             git: 'https://github.com/refile/refile', require: 'refile/rails'
-gem 'refile-mini_magick', git: 'https://github.com/refile/refile-mini_magick'
-gem 'sinatra',            git: 'https://github.com/sinatra/sinatra', branch: 'master'
 
 # core lib for views
 gem 'uglifier', '>= 1.3.0'
@@ -113,7 +110,7 @@ gem 'meta-tags'
 gem 'google-api-client'
 gem 'mixpanel-ruby'
 gem 'vanity'
-gem 'split'
+# gem 'split'
 
 # source 'https://rails-assets.org' do
 #   gem 'rails-assets-pluralize'

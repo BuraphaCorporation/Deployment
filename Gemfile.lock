@@ -7,43 +7,12 @@ GIT
       sshkit (~> 1.3)
 
 GIT
-  remote: https://github.com/refile/refile
-  revision: d7a42dcd7cf631ba94b01231f535bda061f6af92
-  specs:
-    refile (0.6.2)
-      mime-types
-      rest-client (~> 1.8)
-      sinatra (>= 1.4.5)
-
-GIT
-  remote: https://github.com/refile/refile-mini_magick
-  revision: 27b6c6c7affcc302a59068b8b3f458cb147c2fa6
-  specs:
-    refile-mini_magick (0.2.0)
-      image_processing (>= 0.4.1, < 1.0)
-      mini_magick (>= 4.3.5)
-      refile (~> 0.5)
-
-GIT
   remote: https://github.com/rubysherpas/paranoia
   revision: 70f6e37b7b32cf4f70c5b852a38597699f476c62
   branch: rails5
   specs:
     paranoia (2.2.0.pre)
       activerecord (>= 4.0, < 5.1)
-
-GIT
-  remote: https://github.com/sinatra/sinatra
-  revision: 8fdd35c731ec6915bae393c6383b2357450665f0
-  branch: master
-  specs:
-    rack-protection (2.0.0.rc2)
-      rack
-    sinatra (2.0.0.rc2)
-      mustermann (~> 1.0)
-      rack (~> 2.0)
-      rack-protection (= 2.0.0.rc2)
-      tilt (~> 2.0)
 
 GIT
   remote: https://github.com/thoughtbot/paperclip
@@ -306,7 +275,6 @@ GEM
     hurley (0.2)
     i18n (0.7.0)
     ice_nine (0.11.2)
-    image_processing (0.4.1)
     jbuilder (2.6.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -362,7 +330,6 @@ GEM
     method_source (0.8.2)
     mime-types (2.99.3)
     mimemagic (0.3.2)
-    mini_magick (4.7.0)
     mini_portile2 (2.1.0)
     mini_racer (0.1.7)
       libv8 (~> 5.3)
@@ -383,7 +350,6 @@ GEM
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
-    mustermann (1.0.0)
     mustermann19 (0.4.4)
       enumerable-lazy
     nenv (0.3.0)
@@ -449,6 +415,8 @@ GEM
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
     rack-cors (0.4.0)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.2)
@@ -566,7 +534,6 @@ GEM
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
-    simple-random (1.0.3)
     simple_form (3.3.1)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
@@ -580,10 +547,6 @@ GEM
     slackistrano (3.1.0.beta)
       capistrano (>= 3.5.0)
     slop (3.6.0)
-    split (2.2.0)
-      redis (>= 2.1)
-      simple-random (>= 0.9.3)
-      sinatra (>= 1.2.6)
     spring (2.0.0)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -732,8 +695,6 @@ DEPENDENCIES
   rails_autolink
   redis (~> 3.2)
   redis-namespace
-  refile!
-  refile-mini_magick!
   rollbar
   rqrcode_png
   rspec-collection_matchers
@@ -747,10 +708,8 @@ DEPENDENCIES
   sidekiq-cron
   simple_form
   simplecov
-  sinatra!
   slack-notifier
   slackistrano (= 3.1.0.beta)
-  split
   spring
   spring-watcher-listen (~> 2.0.0)
   sprockets (~> 3.0)

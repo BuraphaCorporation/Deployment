@@ -1,5 +1,5 @@
 {
-  "name": "PaymentPlatform",
+  "name": "Antify_Platform",
   "private": true,
   "dependencies": {
     "@rails/actioncable": "^6.0.0",

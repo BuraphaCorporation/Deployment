@@ -8,9 +8,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@trustwallet/rn-sdk": "^0.2.3",
+    "@trustwallet/wallet-core": "^2.6.10",
     "expo": "~41.0.1",
-    "expo-updates": "~0.5.4",
     "expo-splash-screen": "~0.10.2",
+    "expo-updates": "~0.5.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",

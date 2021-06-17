@@ -7,7 +7,7 @@ defmodule AntifyWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_antify_key",
-    signing_salt: "diDyI1hb"
+    signing_salt: "ETf8VIm3"
   ]
 
   socket "/socket", AntifyWeb.UserSocket,

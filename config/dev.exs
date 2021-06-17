@@ -2,7 +2,7 @@ use Mix.Config
 
 # Configure your database
 config :antify, Antify.Repo,
-  username: "postgres",
+  username: "non",
   password: "postgres",
   database: "antify_dev",
   hostname: "localhost",

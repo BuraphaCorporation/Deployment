@@ -13,10 +13,10 @@ config :antify,
 # Configures the endpoint
 config :antify, AntifyWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "HGV7qlfE9TZoYukPK8nWs5rOl7numJBT4soN/tXzxJgdX4HqgSTc87gjqoqGI3In",
+  secret_key_base: "1LW78CrAYP0eEptfCws7VOyOWD4zLEFQ7mXwc39rOcoUrSNukWl49zvRnwmnjomE",
   render_errors: [view: AntifyWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Antify.PubSub,
-  live_view: [signing_salt: "pJpkK38c"]
+  live_view: [signing_salt: "IJpcAXU7"]
 
 # Configures Elixir's Logger
 config :logger, :console,

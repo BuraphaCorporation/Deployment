@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  poa:
+    container_name: validator
+    image: ethereum/client-go:v1.10.12
+    restart: always
+    working_dir: /poa
+    hostname: validator
+    volumes:
+      - ${PWD}:/poa
+    ports:
+      - 30333:30333
+    command: |
+      --networkid 11
+      --syncmode "full"
+      --mine
+      --miner.gasprice 10000000000
+      --miner.gastarget 20000000
+      --miner.gaslimit 20000000
+      --nat extip:${ip}
+      --datadir "node"
+      --nousb
+      --password password.txt
+      --unlock ${wallet_address}
+      --port 30333
+      --bootnodes ${enode}

@@ -1,12 +1,12 @@
 # Deploy Blockchain POA (Validator)
-> networkid 39
+> networkid 11111991
 
 # รายละเอียด System Requirements
 |VM Spec  | Descriptions     |
 |---------|------------------|
 |OS       | Ubuntu 20.04 LTS |
-|CPU      |vCPU 8 Cores      |
-|RAM      |16 GB             |
+|CPU      | vCPU 8 Cores     |
+|RAM      | 16 GB            |
 |DISK SSD | 200 GB           |
 
 # รายละเอียด Software Requirements
